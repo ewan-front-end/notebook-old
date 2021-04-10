@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const exec = require('child_process').exec
+// 命令输出调整 https://www.webhek.com/post/execute-a-command-line-binary-with-node-js.html
 
 const {config, dependencies, aliasCommand} = require('./config')
 const root = path.resolve(__dirname, '../../')
