@@ -3,11 +3,11 @@
 
 ## 部署
 1. demo/docs/README.md
-    ```
+    ```md
     # Hello VuePress
     ```
 2. demo/package.json
-    ```
+    ```json
     "scripts": {
       "docs:dev": "vuepress dev docs",
       "docs:build": "vuepress build docs"
@@ -27,43 +27,14 @@
 
  
 配置 **.vuepress/config.js**
-```
+```js
 module.exports = {
   title: '标题文本',
   description: '说明文本',
-
-  ////////// Webpack相关
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@alias': 'path/to/some/dir'
-      }
-    }
-  },
-
-  ////////// 被注入页面HTML<head>额外的标签
-  head: [
-    ['link', { rel: 'icon', href: '/logo.ico' }]
-  ],
-
-  ////////// 导航
-  themeConfig: {
-    nav: [
-      { text: '指南', link: '/' },
-    ],
-    sidebarDepth: 1,
-    sidebar: [
-      ['/', '简介'],
-      {
-        title: "工具",
-        collapsable: false,
-        children:[
-          ['../tools/doc/', '文档'],
-          ['../tools/webpack/', 'Webpack']
-        ]
-      }
-    ]
-  },
+  
+  configureWebpack: {},                                 // 详细:Webpack配置
+  head: [['link', { rel: 'icon', href: '/logo.ico' }]], // 详细:注入head标签
+  themeConfig: {},                                      // 详细:导航
 
   base: '/bar/',          // 当站点被部署到一个非根路径
   port: '8080',           // 指定用于dev服务器的端口
@@ -71,7 +42,7 @@ module.exports = {
 }
 ```
 应用 **.vuepress/enhanceApp.js**
-```
+```js
 export default ({
   Vue,      // VuePress 正在使用的 Vue 构造函数
   options,  // 附加到根实例的一些选项
@@ -87,4 +58,54 @@ export default ({
 ## 开发
 
 
+## 详细
+.vuepress/config.js
+#### Webpack配置
+```js
+configureWebpack: {
+  resolve: {
+    alias: {
+      '@alias': 'path/to/some/dir'
+    }
+  }
+}
+```
+
+#### 注入head标签
+```js
+head: [
+  ['link', { rel: 'icon', href: '/logo.ico' }]
+]
+```
+
+#### 导航
+```js
+themeConfig: {
+  nav: [
+    { text: '指南', link: '/' },
+  ],
+  sidebarDepth: 1,
+  sidebar: [
+    ['/', '简介'],
+    {
+      title: "工具",
+      collapsable: false,
+      children:[
+        ['../tools/doc/', '文档'],
+        ['../tools/webpack/', 'Webpack']
+      ]
+    }
+  ]
+}
+```
+
+# 二次开发
+├─ docs
+│  └─ .vuepress-ewan
+│     ├─ config.js
+│     ├─ siteMap.js
+│     └─ app.js 
+
+【demo】npm init -y<br>
+【demo】npm install -D vuepress
 
