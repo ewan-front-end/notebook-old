@@ -1,4 +1,5 @@
 [文档](./doc/)
 [Webpack](./webpack/)
 [Markdown](./markdown/)
-[Git&NPM](./git-npm/)
+[Git&NPM](./git-npm.md)
+[批處理文件](./bat.md)

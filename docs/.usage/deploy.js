@@ -60,6 +60,8 @@ function writeScripts(){
     const packageStr = fs.readFileSync(pathPackage)
     const package = JSON.parse(packageStr)
     // 写入scripts命令
+    package.name = 'vuepress-demo'
+    package.description = 'vuepress@1.8.2最佳实践'
     package.scripts = package.scripts || {}
     for (key in aliasCommand) { package.scripts[key] = aliasCommand[key] }
     fs.writeFile(pathPackage, JSON.stringify(package, null, 4), { encoding: 'utf8' }, err => {installVuepress()})
