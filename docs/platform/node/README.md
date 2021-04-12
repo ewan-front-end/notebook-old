@@ -1,3 +1,82 @@
+[GIT项目管理](/tools/git-npm)  
+[NPM部署与发布](/tools/git-npm)
+
+#### 功能
+- 判断模块是否安装 const isInstalled = packageName => { try {require.resolve(packageName); return true} catch (err) {return false} }
+
+#### 交互
+- 执行命令
+    ```
+    npm WARN webpack-cli@4.6.0 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    npm WARN @webpack-cli/configtest@1.0.2 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    ```
+    ```js    
+    const runCommand = (command, args) => {
+        const cp = require("child_process") 
+        return new Promise((resolve, reject) => {
+            const executedCommand = cp.spawn(command, args, {stdio: "inherit", shell: true});
+            executedCommand.on("error", error => { reject(error) });
+            executedCommand.on("exit", code => { code === 0 ? resolve() : reject() });
+        });
+    }
+    process.exitCode = 0
+    runCommand('npm', ["install", "-D", "webpack-cli"]).then(() => { /*完成*/ }).catch(error => { console.error(error); process.exitCode = 1 });
+    ```
+
+
+- 提问获取选项 readline
+    ```
+    Do you want to install 'webpack-cli' (yes/no): y
+    Installing 'webpack-cli' (running 'npm install -D webpack-cli')...
+    npm WARN webpack-cli@4.6.0 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    npm WARN @webpack-cli/configtest@1.0.2 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    ```
+    ```js
+    const readLine = require("readline")
+    const questionInterface = readLine.createInterface({input: process.stdin, output: process.stderr}) // 创建Readline实例 传入标准输入输出作为数据的输入输出流
+    process.exitCode = 1 // 使用标准输出码 函盖从[提问]到[命令执行]整个生命周期
+    questionInterface.question(`Do you want to install 'webpack-cli' (yes/no): `, answer => {
+		questionInterface.close(); 
+		const normalizedAnswer = answer.toLowerCase().startsWith("y");
+		if (!normalizedAnswer) return; 
+		process.exitCode = 0; 
+		console.log(`Installing 'webpack-cli' (running 'npm install -D webpack-cli')...`);
+		// runCommand参考 执行命令
+	});
+    ```
+    
+
+
+
+
+
+require.resolve('webpack-cli')                                         // D:\Ewan\Hello\aa\node_modules\webpack-cli\lib\index.js
+require.resolve('webpack-cli/package.json')                            // D:\Ewan\Hello\aa\node_modules\webpack-cli\package.json 
+path.dirname('D:\Ewan\Hello\aa\node_modules\webpack-cli\package.json') // D:\Ewan\Hello\aa\node_modules\webpack-cli
+
+#### 读取文件
+```js
+// 方法一 
+const packagePath = path.join(__dirname, 'package.json')
+const packageStr = fs.readFileSync(packagePath)
+const package = JSON.parse(filePackage)
+// 方法二 通常用于处理node_module里的模块
+const packagePath = require.resolve('webpack-cli/package.json')
+const package = require(packagePath)
+```
+
+
+标准输入输出
+process.stdin
+process.stderr
+
+
+process.exit()        强制进程退出
+process.exitCode = 1  协商定义
+process.exitCode = 0  协商定义
+
+
+
 ## Node.js v14.16.0 文档
 http://nodejs.cn/api/
 

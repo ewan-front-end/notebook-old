@@ -1,3 +1,17 @@
+# 最佳实践
+https://github.com/ewan-front-end/notebook.git
+
+1. 创建 demo/docs 目录
+2. 复制 notebook/docs/.usage 到 demo/docs/
+
+demo➤ node docs/.usage/deploy.js    基础部署
+demo➤ node docs/.usage/create.js    地图创建
+demo➤ npm run docs:dev              开发
+demo➤ npm run docs:build            打包
+
+
+
+
 【demo】npm init -y<br>
 【demo】npm install -D vuepress
 
