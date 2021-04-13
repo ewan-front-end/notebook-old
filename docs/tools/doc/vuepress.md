@@ -113,6 +113,17 @@ themeConfig: {
 }
 ```
 
+## 开发主题
+#### 一个组件的简单主题
+1. .vuepress/theme
+2. .vuepress/theme/Layout.vue
+3. 
+
+
+
+
+
+
 # 二次开发
 ├─ docs
 │  └─ .vuepress-ewan

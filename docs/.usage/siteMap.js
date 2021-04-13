@@ -1,3 +1,3 @@
-export default {
-    index: 'README.md'
-}
+module.exports = [
+    {index: 'README.md'}
+]
