@@ -113,6 +113,9 @@ themeConfig: {
 }
 ```
 
+## 默认主题
+
+
 ## 开发主题
 #### 一个组件的简单主题
 1. .vuepress/theme
@@ -133,4 +136,9 @@ themeConfig: {
 
 【demo】npm init -y<br>
 【demo】npm install -D vuepress
+
+
+
+
+
 
