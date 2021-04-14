@@ -1,3 +1,5 @@
+[默认主题](./default-theme)  [开发一个主题](./new-theme)  [拓展](./tuozhan)
+
 # 最佳实践
 https://github.com/ewan-front-end/notebook.git
 
@@ -19,12 +21,13 @@ demo➤ npm run docs:build            打包<br>
 1. demo/docs/README.md
     ```md
     # Hello VuePress
+
     ```
 2. demo/package.json
-    ```json
+    ```json 
     "scripts": {
       "docs:dev": "vuepress dev docs",
-      "docs:build": "vuepress build docs"
+      "docs:build": "vuepress build docs" 
     }
     ```
 3. npm run docs:dev
@@ -45,14 +48,32 @@ demo➤ npm run docs:build            打包<br>
 module.exports = {
   title: '标题文本',
   description: '说明文本',
-  
-  configureWebpack: {},                                 // 详细:Webpack配置
-  head: [['link', { rel: 'icon', href: '/logo.ico' }]], // 详细:注入head标签
-  themeConfig: {},                                      // 详细:导航
+
+  // Webpack配置
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@alias': 'path/to/some/dir'
+      }
+    }
+  }, 
+
+  // 注入head标签                     
+  head: [['link', { rel: 'icon', href: '/logo.ico' }]], 
+
+  // link默认主题
+  themeConfig: {},                                  
 
   base: '/bar/',          // 当站点被部署到一个非根路径
   port: '8080',           // 指定用于dev服务器的端口
   dest: '.vuepress/dist', // 指定vuepress build的输出目录
+
+  /**
+   * 使用新主题
+   * links: 默认主题 开发一个主题
+   */
+  //theme: 'vuepress-theme-xx'
+  //theme: '@org/vuepress-theme-xxx', // 或者一个官方主题: '@vuepress/theme-xxx'
 }
 ```
 应用 **.vuepress/enhanceApp.js**
@@ -68,59 +89,6 @@ export default ({
 }
 ```
 
-
-## 开发
-
-
-## 详细
-.vuepress/config.js
-#### Webpack配置
-```js
-configureWebpack: {
-  resolve: {
-    alias: {
-      '@alias': 'path/to/some/dir'
-    }
-  }
-}
-```
-
-#### 注入head标签
-```js
-head: [
-  ['link', { rel: 'icon', href: '/logo.ico' }]
-]
-```
-
-#### 导航
-```js
-themeConfig: {
-  nav: [
-    { text: '指南', link: '/' },
-  ],
-  sidebarDepth: 1,
-  sidebar: [
-    ['/', '简介'],
-    {
-      title: "工具",
-      collapsable: false,
-      children:[
-        ['../tools/doc/', '文档'],
-        ['../tools/webpack/', 'Webpack']
-      ]
-    }
-  ]
-}
-```
-
-## 默认主题
-
-
-## 开发主题
-#### 一个组件的简单主题
-1. .vuepress/theme
-2. .vuepress/theme/Layout.vue
-3. 
 
 
 
