@@ -59,6 +59,13 @@ const installVuepress = () => {
 function writeScripts(){
     const packageStr = fs.readFileSync(pathPackage)
     const package = JSON.parse(packageStr)
+    // 资源
+    const logoPath = path.resolve(rootDocsUsage, 'resources/logo.png')
+    const targetPath = path.resolve(rootDocsPress, 'public/logo.png')
+    fs.copyFile(logoPath, targetPath, (err) => {
+        if (err) throw err;
+        console.log('Resources: logo.png');
+    })
     // 写入scripts命令
     package.name = 'vuepress-demo'
     package.description = 'vuepress@1.8.2最佳实践'
