@@ -49,19 +49,19 @@ if(fs.existsSync(rootDocsPressConfig)) {
 }
 
 
-if(fs.existsSync(rootDocsIndex)) {
-    console.log('4. 创建 docs/README.md   已存在')
-} else {
-    fs.writeFile(rootDocsIndex, `
-# 项目添加文档功能
+// if(fs.existsSync(rootDocsIndex)) {
+//     console.log('4. 创建 docs/README.md   已存在')
+// } else {
+//     fs.writeFile(rootDocsIndex, `
+// # 项目添加文档功能
 
-1. 项目根目录下创建 docs 目录
-2. 复制 .usage 到 docs/
-3. 基础部署 项目根目录> node docs/.usage/deploy.js 
-4. 地图创建 项目根目录> node docs/.usage/create.js 
-5. 项目根目录> npm run docs:dev`, { encoding: 'utf8' }, err => {})
-    console.log('4. 创建 docs/README.md   已创建')
-}
+// 1. 项目根目录下创建 docs 目录
+// 2. 复制 .usage 到 docs/
+// 3. 基础部署 项目根目录> node docs/.usage/deploy.js 
+// 4. 地图创建 项目根目录> node docs/.usage/create.js 
+// 5. 项目根目录> npm run docs:dev`, { encoding: 'utf8' }, err => {})
+//     console.log('4. 创建 docs/README.md   已创建')
+// }
 
 
 runCommand('copy', [path.resolve(rootDocsUsage, 'resources/logo.png'), path.resolve(rootDocsPress, 'public/logo.png')])

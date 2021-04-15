@@ -71,8 +71,11 @@ function handleItem(key, item, parent){
         createFile(item)
     }
 }
+let indexLinks = ``
 for (key in siteMap) {
-    handleItem(key, siteMap[key], rootHomePage)
+    let item = siteMap[key]
+    handleItem(key, item, rootHomePage)
+    indexLinks += `[${item.name}](${item.path}) | `
 }
 
 /**
@@ -135,7 +138,8 @@ menu:
   Home: /
   tags: /tags
 footer: MIT Licensed | Copyright © 2018-present Evan You
----        
+---
+${indexLinks}        
         `, { encoding: 'utf8' }, err => {
             console.log('created ' + rootDocsIndex)
         })
