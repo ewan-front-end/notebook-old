@@ -1,4 +1,7 @@
-[默认主题](./default-theme)  [开发一个主题](./new-theme)  [拓展](./tuozhan)
+
+
+- 链接
+[默认主题](./default-theme)  [开发一个主题](./new-theme) [Front-matter](./front-matter)  [拓展](./tuozhan) 
 
 # 最佳实践
 https://github.com/ewan-front-end/notebook.git
