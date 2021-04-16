@@ -5,26 +5,15 @@ heroText: Hero 标题
 tagline: Hero 副标题
 actionText: 快速上手 →
 actionLink: /zh/guide/
-features:
-- title: 简洁至上
-  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-- title: Vue驱动
-  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
-- title: 高性能
-  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
-menu:
-  Project:
-    path: /categories/Projects
-    card: project-card
-  Stuffs:
-    path: /tags/Stuffs
-    card: article-card
-  Home: /
-  tags: /tags
 footer: MIT Licensed | Copyright © 2018-present Evan You
 ---
 
-## tools
-- [tools](/tools/) [文档](/tools/doc/) | [Webpack](/tools/webpack/) | [Markdown](/tools/markdown/) | [Git&NPM](/tools/git-npm) | [批處理文件](/tools/bat)
-## 平台
-- [平台](/platform/) 
+<div class="class-demo">
+    <a href="/tools/">tools</a>
+    <a href="/tools/doc/">文档</a>
+    <a href="/tools/webpack/">Webpack</a> 
+    <a href="/tools/markdown/">Markdown</a>
+    <a href="/tools/git-npm">Git&NPM</a>
+    <a href="/tools/bat">批處理文件</a>
+    <a href="/platform/">平台</a>
+</div>

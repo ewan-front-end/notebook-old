@@ -43,7 +43,7 @@ module.exports = {
          */
         sidebarDepth: 1,
         sidebar: false,
-        sidebar: auto    
+        sidebar: 'auto',    
         sidebar: [
             '/',                             
             ['/b', 'Explicit link text'],
@@ -55,7 +55,7 @@ module.exports = {
                     ['../tools/webpack/', 'Webpack']
                 ]
             }
-        ]
+        ],
         sidebar: [
             {
                 title: 'Group 1',   // 必要的
@@ -69,7 +69,7 @@ module.exports = {
                 children: [ /* ... */ ],
                 initialOpenGroupIndex: -1 // 可选的, 默认值是 0
             }
-        ]
+        ],
         sidebar: {
             '/foo/': ['', 'one', 'two'],
             '/bar/': ['', 'three', 'four']

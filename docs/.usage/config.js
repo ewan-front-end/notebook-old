@@ -8,18 +8,8 @@ module.exports.config = {
         nav: [
             { text: '指南', link: '/' },
         ],
-        sidebarDepth: 3,
-        sidebar: [
-            {
-                title: "工具",
-                collapsable: false,
-                children:[
-                    ['/tools/doc/', '文档'],
-                    ['/tools/webpack/', 'Webpack'],
-                    ['/tools/markdown/', 'Markdown']
-                ]
-            }
-        ]
+        sidebarDepth: 2,
+        sidebar: 'auto'
     },
 }
 

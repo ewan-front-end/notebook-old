@@ -3,8 +3,7 @@
 - 链接
 [默认主题](./default-theme)  [开发一个主题](./new-theme) [Front-matter](./front-matter)  [拓展](./tuozhan) 
 
-# 最佳实践
-https://github.com/ewan-front-end/notebook.git
+# 使用攻略(.usage)
 
 1. 创建 demo/docs 目录
 2. 复制 notebook/docs/.usage 到 demo/docs/
@@ -91,22 +90,22 @@ export default ({
   // 做一些其他的应用级别的优化
 }
 ```
+## 样式
+```js
+export default ({
+  Vue,      // VuePress 正在使用的 Vue 构造函数
+  options,  // 附加到根实例的一些选项
+  router,   // 当前应用的路由实例
+  siteData, // 站点元数据
+  isServer  // 当前应用配置是处于 服务端渲染 或 客户端
+}) => {
+  // 做一些其他的应用级别的优化
+}
+```
 
 
 
 
-
-
-
-# 二次开发
-├─ docs
-│  └─ .vuepress-ewan
-│     ├─ config.js
-│     ├─ siteMap.js
-│     └─ app.js 
-
-【demo】npm init -y<br>
-【demo】npm install -D vuepress
 
 
 
