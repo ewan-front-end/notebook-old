@@ -13,3 +13,6 @@ loader
 不推荐全局安装
 npm i --save-dev webpack         安装最新版本 v5.31.0(2021.4.8)
 npm i --save-dev webpack@4.15.1  安装特定版本
+
+npm uninstall webpack
+npm install webpack@^4.0.0 --save-dev

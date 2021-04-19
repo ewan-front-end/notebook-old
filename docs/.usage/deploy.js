@@ -13,7 +13,7 @@ const installVuepress = () => {
 const {config, dependencies, aliasCommand} = require('./config')
 const configStr = 'module.exports = ' + JSON.stringify(config, null, 4), packageScripts = {}
 for (key in aliasCommand) { packageScripts[key] = aliasCommand[key] }
-const packageStr = `{
+let packageStr = `{
     "name": "vuepress-demo",
     "version": "1.0.0",
     "description": "vuepress@1.8.2最佳实践",
