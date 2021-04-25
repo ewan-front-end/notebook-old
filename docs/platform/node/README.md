@@ -25,7 +25,10 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
-获取元素选择器 https://www.cnblogs.com/yfacesclub/p/9245068.html
+点击
+填写表单
+读取数据
+https://www.cnblogs.com/yfacesclub/p/9245068.html
 
 #### 功能
 - 判断模块是否安装 const isInstalled = packageName => { try {require.resolve(packageName); return true} catch (err) {return false} }
