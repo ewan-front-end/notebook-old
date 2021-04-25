@@ -1,6 +1,32 @@
 [GIT项目管理](/tools/git-npm)  
 [NPM部署与发布](/tools/git-npm)
 
+## 爬虫
+demo> npm init -y
+demo> npm install puppeteer --save
+```js
+const puppeteer = require('puppeteer');
+(async () => {
+    const browser = await puppeteer.launch({ headless: true })
+    const page = await browser.newPage()
+    await page.goto('http://www.baidu.com')
+    await page.screenshot({
+        path: 'c:/data/baidu.png'
+    })
+})()
+
+const puppeteer = require('puppeteer');
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.emulate(puppeteer.devices['iPhone 6']);
+  await page.goto('https://www.baidu.cn');
+  await page.screenshot({ path: 'full.png', fullPage: true });
+  await browser.close();
+})();
+```
+获取元素选择器 https://www.cnblogs.com/yfacesclub/p/9245068.html
+
 #### 功能
 - 判断模块是否安装 const isInstalled = packageName => { try {require.resolve(packageName); return true} catch (err) {return false} }
 
