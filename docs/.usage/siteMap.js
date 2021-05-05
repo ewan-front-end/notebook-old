@@ -12,5 +12,10 @@ module.exports = {
         children: {
             node: {children: {}}
         }
+    },
+    jiagou: {
+        children: {
+            qiankun: {fileName: 'qiankun.md'}
+        }
     }
 }

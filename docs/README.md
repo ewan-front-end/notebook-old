@@ -16,4 +16,5 @@ footer: MIT Licensed | Copyright © 2018-present Evan You
     <a href="/tools/git-npm">Git&NPM</a>
     <a href="/tools/bat">批處理文件</a>
     <a href="/platform/">平台</a>
+    <a href="/jiagou/">架构</a>
 </div>
