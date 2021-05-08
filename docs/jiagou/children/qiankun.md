@@ -135,7 +135,7 @@ demo> npm i qiankun -S
 
 + 以Angular为基座
 
-###### 以VUE为基座(Webpack)
+###### 以VUE为基座(vue-cli 3+生成的vue 2.x项目)
 1. vue create qiankundemo
 2. qiankundemo> npm i qiankun -S 或 yarn add qiankun
 3. 部署
@@ -143,6 +143,7 @@ demo> npm i qiankun -S
     ```js
     if (window.__POWERED_BY_QIANKUN__) { __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ }
     ```
+
     - qiankundemo/src/main.js 1.在入口文件最顶部引入public-path.js 2.修改并导出三个生命周期函数
     ```js
     import './public-path';
@@ -156,6 +157,26 @@ demo> npm i qiankun -S
         router = null;
     }
     ```
+
+    - 打包配置修改
+    ```js
+    const { name } = require('./package');
+    module.exports = {
+      devServer: {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+      configureWebpack: {
+        output: {
+          library: `${name}-[name]`,
+          libraryTarget: 'umd', // 把微应用打包成 umd 库格式
+          jsonpFunction: `webpackJsonp_${name}`,
+        },
+      },
+    };
+    ```
+
     qiankundemo/src/App.vue 修改主程序注册子应用容器
     ```
 
@@ -163,7 +184,7 @@ demo> npm i qiankun -S
 
 9. qiankundemo> npm run serve
 
-https://qiankun.umijs.org/zh/guide/tutorial
+
 
 
 微应用建议使用 history 模式的路由，需要设置路由 base，值和它的 activeRule 是一样的。
