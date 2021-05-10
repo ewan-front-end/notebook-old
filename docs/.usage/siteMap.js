@@ -1,21 +1,25 @@
 module.exports = {
+    ecma: {children: {}},
+    jiagou: {children: {
+        qiankun: {fileName: 'qiankun.md'}
+    }},
+    platform: {
+        children: {
+            node: {children: {}},
+            windows: {children:{
+                bat:{children:{}}
+            }}
+        }
+    },
     tools: {
         children: {
             doc: {children: {}},
+            git: {children: {}},
             markdown: {children: {}},
-            webpack: {children: {}},
-            bat: {fileName: 'bat.md'},
-            git_npm: {fileName: 'git-npm.md', name: 'Git&NPM', title: 'Git&NPM最佳实践'}
+            webpack: {children: {}}
         }
     },
-    platform: {
-        children: {
-            node: {children: {}}
-        }
-    },
-    jiagou: {
-        children: {
-            qiankun: {fileName: 'qiankun.md'}
-        }
-    }
+    yunwei: {children: {
+        nginx: {children: {}}
+    }},
 }
