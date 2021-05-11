@@ -9,6 +9,10 @@ _/**
  * desc           简要说明
  * detail         详情
  */
+ 
+ 
+ 
+ 
 module.exports = {
     platform: {
         children: {
@@ -32,8 +36,8 @@ module.exports = {
     }},
     ecma: {children: {}},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
-        yewucheng: { title: '业务层', desc: '重点关注服务的全面性和可复用性', children: {
-            jianquanxitong: {title: '业务辅助-鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'frontend-yewucheng-yewuxitong-gonggongku-gongnengku-denglu'},{name:'支付', href:'frontend-yewucheng-yewuxitong-gonggongku-gongnengku-zhifu'}], children: {}},
+        layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', children: {
+            jianquanxitong: {title: '业务辅助-鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'frontend-layerBusiness-yewuxitong-gonggongku-gongnengku-denglu'},{name:'支付', href:'frontend-layerBusiness-yewuxitong-gonggongku-gongnengku-zhifu'}], children: {}},
             peizhixitong: {title: '业务辅助-配置系统', desc: '集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。', children: {}},
             xiaoxixitong: {title: '业务辅助-消息系统', desc: '通知发布 信息推送 客服等即时通讯场景', children: {}},
             yewuxitong: {title: '业务系统', desc: '核心系统，其它系统是对它的支持或者控制', children: {
@@ -45,7 +49,7 @@ module.exports = {
                     yangshiku: {title: '公共样式库', desc: '利于各业务线之间保持用户体验的一致性', children: {}},
                     gongnengku: {children: {
                         denglu: {title: '登陆', children: {}},
-                        zhifu: {title: '支付', links:[{name:'鉴权', href:'frontend-yewucheng-jianquanxitong'}], children: {}},
+                        zhifu: {title: '支付', links:[{name:'鉴权', href:'frontend-layerBusiness-jianquanxitong'}], children: {}},
                         tongji: {title: '数据统计', children: {}}
                     }}
                 }},
@@ -57,7 +61,7 @@ module.exports = {
                 }}
             }}
         }},
-        baozhangcheng: {title: '保障层', desc: '重点关注质量与可用性', children: {
+        layerSecurity: {title: '保障层', desc: '重点关注质量与可用性', children: {
             jiankongxitong: {title:'监控系统', desc:'从用户的角度判断系统的可用性，关注的是实时数据，提高团队的故障响应能力', children: {}},
             tongjixitong: {title:'统计系统', desc:'关注的是全量数据，为产品与业务分析提供基础', children: {
                 xingneng: {title:'性能统计', children: {}},
@@ -71,7 +75,7 @@ module.exports = {
                 ci:{title: '持续集成', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入', children: {}},
             }}
         }},
-        jichusheshicheng: {title: '基础设施层', desc: '重点关注系统稳定性', children: {
+        layerInfrastructure: {title: '基础设施层', desc: '重点关注系统稳定性', children: {
             zhiyuanguanlixitong: {title:'资源管理系统',children: {
                 cdn: {title: 'CDN', children: {}},
                 cdn: {title: '图片管理', children: {}},
@@ -81,7 +85,7 @@ module.exports = {
             shujuchijiuhuaxitong: {title:'数据持久化系统', desc:'存储上层系统的非核心业务数据，比如错误数据或者用户行为数据',children: {}},
             yunweixitong: {title:'运维系统', desc:'版本控制 发布脚本',children: {}}
         }},
-        xianxiacheng: {title: '线下层', desc: '重点关注项目开发效率', children: {
+        layerOffline: {title: '线下层', desc: '重点关注项目开发效率', children: {
             gongjuji: {title:'工具集',children: {
                 cdn: {title: '代码管理', links:[{name:'Git Stash'}], children: {}},
                 cdn: {title: '包管理', links:[{name:'NPM Bower Yarn'}], children: {}},
