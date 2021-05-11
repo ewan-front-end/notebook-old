@@ -1,4 +1,4 @@
-/**
+_/**
  * children 子类 
  * links          相关链接 1.'tools/qiankun' 2.{name:'乾坤', href:'tools/qiankun'} 3.'http...'
  * contentFile    内容文件 统一扁平存放于file-lib 编译命名：platform-windows-bat.md 
@@ -10,10 +10,30 @@
  * detail         详情
  */
 module.exports = {
+    platform: {
+        children: {
+            node: {children: {}},
+            windows: {children:{
+                bat:{children:{}}
+            }}
+        }
+    },
+    tools: {
+        children: {
+            doc: {children: {}},
+            git: {children: {}},
+            markdown: {children: {}},
+            webpack: {children: {}},
+            qiankun: {fileName: 'qiankun.md', linkName: '乾坤微服务'}
+        }
+    },
+    yunwei: {children: {
+        nginx: {children: {}}
+    }},
     ecma: {children: {}},
-    jiagou: {children: {
+    frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
         yewucheng: { title: '业务层', desc: '重点关注服务的全面性和可复用性', children: {
-            jianquanxitong: {title: '业务辅助-鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'jiagou-yewucheng-yewuxitong-gonggongku-gongnengku-denglu'},{name:'支付', href:'jiagou-yewucheng-yewuxitong-gonggongku-gongnengku-zhifu'}], children: {}},
+            jianquanxitong: {title: '业务辅助-鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'frontend-yewucheng-yewuxitong-gonggongku-gongnengku-denglu'},{name:'支付', href:'frontend-yewucheng-yewuxitong-gonggongku-gongnengku-zhifu'}], children: {}},
             peizhixitong: {title: '业务辅助-配置系统', desc: '集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。', children: {}},
             xiaoxixitong: {title: '业务辅助-消息系统', desc: '通知发布 信息推送 客服等即时通讯场景', children: {}},
             yewuxitong: {title: '业务系统', desc: '核心系统，其它系统是对它的支持或者控制', children: {
@@ -25,7 +45,7 @@ module.exports = {
                     yangshiku: {title: '公共样式库', desc: '利于各业务线之间保持用户体验的一致性', children: {}},
                     gongnengku: {children: {
                         denglu: {title: '登陆', children: {}},
-                        zhifu: {title: '支付', links:[{name:'鉴权', href:'jiagou-yewucheng-jianquanxitong'}], children: {}},
+                        zhifu: {title: '支付', links:[{name:'鉴权', href:'frontend-yewucheng-jianquanxitong'}], children: {}},
                         tongji: {title: '数据统计', children: {}}
                     }}
                 }},
@@ -69,27 +89,7 @@ module.exports = {
                 cdn: {title: '任务管理工具', links:[{name:'Gulp Grunt'}], children: {}},
                 cdn: {title: '脚手架', links:[{name:'Yeoman'}], children: {}}
             }},
-            zhujianxitong: {children: {}}
+            zhujianxitong: {title:'组件系统',desc:'作用在于集中管理可复用的开发资源,各业务线优先从系统中选取可复用的部分，同时向系统中沉淀组件',children: {}}
         }}
-    }, links:['tools-qiankun']},
-    platform: {
-        children: {
-            node: {children: {}},
-            windows: {children:{
-                bat:{children:{}}
-            }}
-        }
-    },
-    tools: {
-        children: {
-            doc: {children: {}},
-            git: {children: {}},
-            markdown: {children: {}},
-            webpack: {children: {}},
-            qiankun: {fileName: 'qiankun.md', linkName: '乾坤微服务'}
-        }
-    },
-    yunwei: {children: {
-        nginx: {children: {}}
-    }},
+    }, links:['tools-qiankun']}
 }
