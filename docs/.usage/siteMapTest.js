@@ -42,7 +42,7 @@ for (id in flatDataMap) {
         /* 相关链接  */
         if(target.links) {
             let linksStr = ``
-            let dirRoot = target
+            let parentNode = target.parent
             
             target.links.forEach(item => {
                 let linkName, linkHref
@@ -53,23 +53,22 @@ for (id in flatDataMap) {
                     linkHref = item.href || '#'
                 }
                 
-                let back = linkHref.match(/..\//g) || [], backNum = back.length
-                console.log('=====', linkHref, back)
+                let back = linkHref.match(/\.\.\//g) || [], backNum = back.length
                 if (backNum) {
                     
-                    linkHref = linkHref.replace(/..\//g, '')
-                    for (let i = 1; i < backNum; i++){
-                        dirRoot = dirRoot.parent
-                        //console.log('-----', dirRoot.key)
-                        linkHref = dirRoot.key + '/' + linkHref
+                    linkHref = linkHref.replace(/\.\.\//g, '')
+                    while(parentNode.key !== 'ROOT_HOME'){
+                        linkHref = parentNode.key + '/' + linkHref
+                        parentNode = parentNode.parent
                     }
+                    linkHref = '/' + linkHref
                 }
                 if (!linkName) {
                     let linkTarget = flatDataMap[linkHref] || {}
                     linkName = linkName || linkTarget.linkName || '未知'
                 }
                 
-                //console.log(linkHref,linkName, ' - ', linkHref)
+                console.log(linkName, ' - ', linkHref)
                 linksStr += `[${linkName}](${linkHref}) `
             })            
             
