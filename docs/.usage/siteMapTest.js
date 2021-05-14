@@ -2,10 +2,8 @@ const fs = require('fs')
 const _path = require('path')
 const siteMap = require('./siteMap')
 const R_D__ = _path.resolve(__dirname, '../')
-const R_D_I = _path.resolve(R_D__, 'README.md')
 
-let flatDataMap = {}, // 扁平化数据
-indexLinks = ``       // 首页链接拼接：[key||name](path)
+let flatDataMap = {}
 
 const createFile = (item) => {
     const {parent, path} = item
@@ -34,39 +32,18 @@ for (key in siteMap) {
 
     handleItem(key, item, {key:'ROOT_HOME', path: '', title: '首页标题'})
     // 首页一级导航
-    indexLinks += `[${item.linkName}](${item.path}) | `
+    //indexLinks += `[${item.linkName}](${item.path}) | `
 }
 
-/** 
- * 构建开始 
- * flatDataMap{{
- *     type: 'DIRE', 
- *     target: {data}, 
- *     path: 'D:\\Ewan\\Hello\\aa\\docs\\tools'
- * }, {
- *     type: 'FILE', 
- *     target: {data}, 
- *     path: 'D:\\Ewan\\Hello\\aa\\docs\\tools\\README'
- * }}
- */ 
 for (id in flatDataMap) {
     let {type, path, target} = flatDataMap[id]
-    if (type === 'DIRE') {fs.mkdirSync(path); console.log('created ' + path)} 
+    if (type === 'DIRE') {console.log('created ' + path)} 
     if (type === 'FILE') {
-        let content = `[上一级](../)\n\n`                     // 添加上一级按钮 
-            
-        /* title   */
-        /* desc    */
-        /* detail  */        
-        target.title  && (content += `# ${target.title}\n`)  
-        target.desc   && (content += `> ${target.desc}\n`)
-        target.detail && (content += `${target.detail}\n`) 
-
         /* 相关链接  */
         if(target.links) {
             let linksStr = ``
             let dirRoot = target
-            content += `## 相关链接\n`
+            
             target.links.forEach(item => {
                 let linkName, linkHref
                 if(typeof item === 'string'){
@@ -75,11 +52,15 @@ for (id in flatDataMap) {
                     linkName = item.name || ''
                     linkHref = item.href || '#'
                 }
-                let back = linkHref.match(/..\//g), backNum = back.length
+                
+                let back = linkHref.match(/..\//g) || [], backNum = back.length
+                console.log('=====', linkHref, back)
                 if (backNum) {
+                    
                     linkHref = linkHref.replace(/..\//g, '')
                     for (let i = 1; i < backNum; i++){
                         dirRoot = dirRoot.parent
+                        //console.log('-----', dirRoot.key)
                         linkHref = dirRoot.key + '/' + linkHref
                     }
                 }
@@ -88,27 +69,24 @@ for (id in flatDataMap) {
                     linkName = linkName || linkTarget.linkName || '未知'
                 }
                 
-                console.log(linkHref,linkName, ' - ', linkHref)
+                //console.log(linkHref,linkName, ' - ', linkHref)
                 linksStr += `[${linkName}](${linkHref}) `
             })            
-            content += linksStr + `\n\n`
+            
         } 
 
-        /* 子类链接  */  
-        if(target.CHILDREN) {
-            content += `## 子类链接\n`
-            for (i in target.CHILDREN){
-                let {linkName, path} = target.CHILDREN[i]
-                content += `[${linkName}](${path}) `
-            } 
-        }                
-                    
-        if (fs.existsSync(path)) {} else {fs.writeFile(path + '.md', content, { encoding: 'utf8' }, err => { console.log('created ' + path) })}
+        
     }
 }
-// 首页模板
-const homePageStr = `---
-home: true\nheroImage: /hero.png\nheroText: Hero 标题\ntagline: Hero 副标题\nactionText: 快速上手 →\nactionLink: /zh/guide/\nfeatures:\n- title: 简洁至上\n  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-- title: Vue驱动\n  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。\n- title: 高性能\n  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
-footer: MIT Licensed | Copyright © 2018-present Evan You\n---\n${indexLinks}`
-if (fs.existsSync(R_D_I)) { } else {fs.writeFile(R_D_I, homePageStr, { encoding: 'utf8' }, err => { console.log('created ' + R_D_I) })}
+
+// for (path in flatDataMap) {
+//     let item = flatDataMap[path]  
+//     if (item.target.path === path) {
+//         console.log(item.type, path, '  ', item.target.path === path) 
+//     } else {
+//         console.log(item.type, path, '  ', item.target.path) 
+//     }
+      
+// }
+
+
