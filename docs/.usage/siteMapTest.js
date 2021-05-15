@@ -37,15 +37,17 @@ for (key in siteMap) {
 
 for (id in flatDataMap) {
     let {type, path, target} = flatDataMap[id]
-    if (type === 'DIRE') {console.log('created ' + path)} 
+    if (type === 'DIRE') {
+        //console.log('created ' + path)
+    } 
     if (type === 'FILE') {
         /* 相关链接  */
         if(target.links) {
-            let linksStr = ``
-            let parentNode = target.parent
+            let linksStr = ``            
             
             target.links.forEach(item => {
                 let linkName, linkHref
+                let tracingObj = target
                 if(typeof item === 'string'){
                     linkHref = item
                 } else {
@@ -53,28 +55,38 @@ for (id in flatDataMap) {
                     linkHref = item.href || '#'
                 }
                 
-                let back = linkHref.match(/\.\.\//g) || [], backNum = back.length
-                if (backNum) {
-                    
-                    linkHref = linkHref.replace(/\.\.\//g, '')
-                    while(parentNode.key !== 'ROOT_HOME'){
-                        linkHref = parentNode.key + '/' + linkHref
-                        parentNode = parentNode.parent
-                    }
+                // 相对路径转绝对路径
+                let twoPoint = linkHref.match(/\.\.\//g)                
+                if (twoPoint) {                                        
+                    linkHref = linkHref.replace(/\.\.\//g, '')                                                                                                                     // 去除相对结构                    
+                    let count = twoPoint.length; while(count > 0){ tracingObj = tracingObj.parent; tracingObj.key === 'ROOT_HOME' && console.log(item, '相对目录越界！'); count-- } // 跳过目录层级                    
+                    while(tracingObj.key !== 'ROOT_HOME'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }                                            // 补充父级路径                    
+                    linkHref = '/' + linkHref                                                                                                                                      // 加上根目录标识
+                }
+                let singlePoint = linkHref.match(/\.\//g)
+                if (singlePoint) {
+                    tracingObj = target.parent
+                    linkHref = linkHref.replace(/\.\//g, '')
+                    while(tracingObj.key !== 'ROOT_HOME'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }
                     linkHref = '/' + linkHref
                 }
+
+                
                 if (!linkName) {
                     let linkTarget = flatDataMap[linkHref] || {}
                     linkName = linkName || linkTarget.linkName || '未知'
                 }
                 
-                console.log(linkName, ' - ', linkHref)
+                //console.log(linkName, ' - ', linkHref)
                 linksStr += `[${linkName}](${linkHref}) `
             })            
             
         } 
-
-        
+        /* 外部资源  */
+        if (target.SRC) {
+            const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
+            console.log(file, JSON.stringify(file, null, 4))
+        }
     }
 }
 

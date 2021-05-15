@@ -1,7 +1,7 @@
 /**
  * == 结构属性 ===========================================================================
  * CHILDREN       目录节点子类 
- * LIBNAME        文件节点 指向扁平库 
+ * SRC            文件节点 资源引用 
  * 
  * == 内容属性 ===========================================================================
  * links          相关链接 1.'tools/qiankun' 2.{name:'乾坤', href:'tools/qiankun'} 3.'http...'   绝对路径:/tools/ 相对路径：./tools/ 或 tools/
@@ -47,7 +47,7 @@ module.exports = {
     ecma: {linkName: 'ECMAScript'},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', CHILDREN: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', CHILDREN: {
-            systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'./systemBusiness/libraryPublic/function/payment'}], LIBNAME:'0001'},
+            systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], SRC:'0001'},
             systemConfiguration: {title: '配置系统', desc: '集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。', linkName: ''},
             systemMessage: {title: '消息系统', desc: '通知发布 信息推送 客服等即时通讯场景', linkName: '消息系统'},
             systemBusiness: {title: '业务系统', desc: '核心系统，其它系统是对它的支持或者控制', CHILDREN: {
@@ -59,7 +59,7 @@ module.exports = {
                     style: {title: '样式库', desc: '利于各业务线之间保持用户体验的一致性', linkName: '样式库'},
                     function: {title:'功能库', CHILDREN: {
                         login: {title: '登陆', },
-                        payment: {title: '支付', links:[{name:'鉴权', href:'../../../systemAuthentication'}, {name:'支付场景', href:'/scene/payment'}]},
+                        payment: {title: '支付', links:[{name:'鉴权', href:'../../../../systemAuthentication'}, {name:'支付场景', href:'/scene/payment'}]},
                         statistics: {title: '数据统计'}
                     }}
                 }},
@@ -67,7 +67,7 @@ module.exports = {
                     frameworkStyle: {title:'样式框架', links:[{name:'Bootstrap'}, {name:'Material'}, {name:'design'}], linkName: '公共样式框架'},
                     frameworkUI: {title:'UI框架', links:[{name:'React'}, {name:'Vue'}], linkName: '公共UI框架'},
                     function: {title:'功能库', links:[{name:'Fetch'}, {name:'Modernizr'}, {name:'Sentry'}, {name: 'Google Analytics'}], linkName: '公共功能库'},
-                    basic: {title:'基础库', links:[{linkNmae:'jQuery'}, {linkNmae:'Zetpo'}, {linkNmae:'Underscore'}, {linkNmae:'Lodash'}], linkName: '公共基础库'}
+                    basic: {title:'基础库', links:[{nmae:'jQuery'}, {nmae:'Zetpo'}, {nmae:'Underscore'}, {nmae:'Lodash'}], linkName: '公共基础库'}
                 }}
             }}
         }},
