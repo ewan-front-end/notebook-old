@@ -54,6 +54,15 @@ for (id in flatDataMap) {
     if (type === 'DIRE') {fs.mkdirSync(path); console.log('created ' + path)} 
     if (type === 'FILE') {
         let content = `[上一级](../)\n\n`                     // 添加上一级按钮 
+
+        /* 子类链接  */  
+        if(target.CHILDREN) {
+            content += `## 子类链接\n`
+            for (i in target.CHILDREN){
+                let {linkName, path} = target.CHILDREN[i]
+                content += `[${linkName}](${path}) `
+            } 
+        }
             
         /* title   */
         /* desc    */
@@ -101,20 +110,11 @@ for (id in flatDataMap) {
             })            
             content += linksStr + `\n\n`
         } 
-
-        /* 子类链接  */  
-        if(target.CHILDREN) {
-            content += `## 子类链接\n`
-            for (i in target.CHILDREN){
-                let {linkName, path} = target.CHILDREN[i]
-                content += `[${linkName}](${path}) `
-            } 
-        }
         
         /* 外部资源  */
         if (target.SRC) {
             const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
-            content += file
+            content += `\n${file}\n`
         }
                     
         if (fs.existsSync(path)) {} else {fs.writeFile(path + '.md', content, { encoding: 'utf8' }, err => { console.log('created ' + path) })}
