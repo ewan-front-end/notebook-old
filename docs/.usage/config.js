@@ -11,6 +11,14 @@ module.exports.config = {
         sidebarDepth: 2,
         sidebar: 'auto'
     },
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@res': 'resources',
+                '@res_md': 'resources/md'
+            }
+        }
+    }
 }
 
 // 依赖列表 vuepress会自动安装无需罗列

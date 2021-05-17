@@ -1,19 +1,11 @@
-let count = 4
-while(count > 0){
-    console.log('----', count)
-    count--
-}
+import {firstName, lastName, year} from './test2';
+
+console.log(firstName, lastName)
+
+// const path = require('path')
 
 
+// var src1 = path.resolve(__dirname, 'docs/.usage/resources/images')
+// var src2 = path.resolve(__dirname, 'docs/.usage/resources/images2')
+// fs.creatDir(src2)
 
-
-var str = '../../../systemAuthentication'
-var arr = str.match(/\.\.\//g)
-
-if(arr){
-    console.log('-------------------------------------', arr)
-}
-arr.forEach((e,i) => {
-    str = str.replace(/..\//g, '')
-    console.log(str)
-})

@@ -22,8 +22,7 @@
  
 module.exports = {
     platform: {
-        CHILDREN: {
-            node: {linkName: 'Node'},
+        CHILDREN: {            
             windows: {CHILDREN:{
                 bat:{title: '批处理文件', linkName: '批处理'}
             }}
@@ -35,7 +34,9 @@ module.exports = {
             git: {linkName: 'Git'},
             markdown: {linkName: 'Markdown'},
             webpack: {linkName: 'Webpack'},
-            qiankun: {linkName: '乾坤微服务'}
+            qiankun: {linkName: '乾坤微服务'},
+            charts: {linkName: '需求图表', SRC:'0002'},
+            vscode:{linkName:'VSCode', SRC:'vscode'}
         }
     },
     yunwei: {CHILDREN: {
@@ -44,7 +45,16 @@ module.exports = {
     scene: {title:'场景', CHILDREN:{
         payment:{title:'支付'}
     }},
-    ecma: {linkName: 'ECMAScript'},
+    ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
+    node: {linkName: 'Node', CHILDREN:{
+        fs:{linkName: 'fs模块', SRC:'node-fs'}
+    }},
+    programmingLanguage:{linkName:'编程语言', CHILDREN:{
+        javascript:{CHILDREN:{
+            es6:{SRC:'es6'}
+        }},
+        matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'}
+    }},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', CHILDREN: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', CHILDREN: {
             systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], SRC:'0001'},
