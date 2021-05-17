@@ -42,9 +42,17 @@ module.exports = {
     yunwei: {CHILDREN: {
         nginx: {linkName: 'Nginx'}
     }},
-    scene: {title:'场景', CHILDREN:{
-        payment:{title:'支付'}
-    }},
+    typescript:{linkName:'Typescript', SRC:'typescript'},
+    react:{linkName:'React', SRC:'react'},
+    style:{linkName:'样式', SRC:'style'},
+    designPattern:{linkName:'设计模式', SRC:'design-pattern'},
+    webpack:{linkName:'Webpack', SRC:'webpack'},
+    nginx:{linkName:'Nginx', SRC:'nginx'},
+    resources:{linkName:'资源', SRC:'resources'},
+    mysql:{linkName:'MySQL', SRC:'mysql'},
+    usage:{linkName:'使用手册', SRC:'usage'},
+    algorithm:{linkName:'算法', SRC:'algorithm'},
+    scene: {title:'场景', linkName:'场景', SRC:'scene'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
     node: {linkName: 'Node', CHILDREN:{
         fs:{linkName: 'fs模块', SRC:'node-fs'}

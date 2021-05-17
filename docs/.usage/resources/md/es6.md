@@ -3,7 +3,7 @@
 ```js
 export var firstName = 'Michael'
 export var lastName = 'Jackson'
-import {firstName, lastName} from './profile';
+import {firstName, lastName} from './profile'
 
 var firstName = 'Michael'
 var lastName = 'Jackson'

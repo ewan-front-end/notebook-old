@@ -1,13 +1,13 @@
-```
-[h4|禁止运行脚本]
+
+## 禁止运行脚本
 以管理员身份打开VScode，
 执行 Set-ExecutionPolicy RemoteSigned
 
-```
 
-### settings
 
-```O
+## settings
+
+```js
 {  
   "editor.tabSize": 4,                   // 设置缩进不生效时关闭editor.detectIndentation 插件设置优先,再不行应如下插件设置
     // "editor.detectIndentation": false,     默认启用了根据文件类型自动设置tabSize
@@ -53,7 +53,7 @@
 ```
 
 项目实例
-```
+```js
 {
     "editor.formatOnSave": true,
     "vetur.format.defaultFormatter.html": "prettier",
@@ -114,7 +114,7 @@ code runner
 
 ### 用户片段
 
-```O popover
+```
 ---------------------
 文件 > 首选项 > 用户片段
 {
