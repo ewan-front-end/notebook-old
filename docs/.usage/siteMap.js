@@ -28,20 +28,38 @@ module.exports = {
             }}
         }
     },
+    docs:{title:'文档', CHILDREN:{
+        vuepress:{linkName:'Vuepress', SRC:'docs-vuepress'}
+    }},
     tools: {
-        CHILDREN: {
-            doc: {linkName: '文档'},
-            git: {linkName: 'Git'},
-            markdown: {linkName: 'Markdown'},
+        links:[{name:'文档', href:'/docs/'}],
+        CHILDREN: {            
+            git: {linkName: 'Git', SRC:'git'},
+            markdown: {linkName: 'Markdown', SRC:'markdown'},
             webpack: {linkName: 'Webpack'},
             qiankun: {linkName: '乾坤微服务'},
             charts: {linkName: '需求图表', SRC:'0002'},
-            vscode:{linkName:'VSCode', SRC:'vscode'}
+            vscode:{linkName:'VSCode', SRC:'vscode'},
+            chromeTools:{SRC:'chrome-tools'},
+            plantuml:{SRC:'plantuml'},
+            regularExpression:{linkName:'正则表达式', SRC:'regular-expression'}
         }
     },
     yunwei: {CHILDREN: {
         nginx: {linkName: 'Nginx'}
     }},
+    system:{title:'操作系统', SRC:'system', CHILDREN:{
+        mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', SRC:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', SRC:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', SRC:'ios'},
+        android:{title:'Android',linkName:'Android', SRC:'android'}
+    }},
+    server:{title:'服务器',SRC:'server',CHILDREN:{
+        koa:{SRC:'server-koa'},
+        express:{SRC:'server-express'}
+    }},    
+    html5:{linkName:'HTML5', SRC:'html5'},
     typescript:{linkName:'Typescript', SRC:'typescript'},
     react:{linkName:'React', SRC:'react'},
     style:{linkName:'样式', SRC:'style'},
@@ -54,14 +72,15 @@ module.exports = {
     algorithm:{linkName:'算法', SRC:'algorithm'},
     scene: {title:'场景', linkName:'场景', SRC:'scene'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
-    node: {linkName: 'Node', CHILDREN:{
+    node: {linkName: 'Node', SRC:'node', CHILDREN:{
         fs:{linkName: 'fs模块', SRC:'node-fs'}
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{
             es6:{SRC:'es6'}
         }},
-        matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'}
+        matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'},
+        ruby:{SRC:'ruby'}        
     }},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', CHILDREN: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', CHILDREN: {

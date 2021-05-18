@@ -73,6 +73,7 @@ for (id in flatDataMap) {
 
         /* 相关链接  */
         if(target.links) {
+            if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
             let linksStr = ``
             content += `## 相关链接\n`
             target.links.forEach(item => {
