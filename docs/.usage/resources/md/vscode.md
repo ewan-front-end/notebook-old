@@ -1,7 +1,39 @@
 
+## 配置Node启动配置
+，在这里可以设置环境变量
+全局调试启动配置。应当作为跨工作区共享的 \"launch.json\" 的替代方法
+launch.json
+{
+ "version": "0.2.0",
+ "configurations": [
+  {
+   ...
+   "request": "launch", //请求类型为启动
+ 
+  },
+  {
+  ...
+   "request": "attach"， //请求类型为附加
+ 
+  }
+ ]
+}
+
+
+
+
 ## 禁止运行脚本
 以管理员身份打开VScode，
 执行 Set-ExecutionPolicy RemoteSigned
+# 配置/更换终端
+[git-bash安装](../git/)
+1. 搜索：shell:windows 找到：Terminal › Integrated › Shell: Windows
+2. "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+# 错误报告
+[资源监视器](../platform/)
+终端进程启动失败：A native exception occurred during launch(EBUSY:resource busy or locked, open '\\,\pipe\winpty-conin-26644-1-1d743cfd0ba5d9b-9479694af04942223c5524ab1b8a4d36')
+
+C:\Users\new\AppData\Local\Programs\Microsoft VS Code\resources\app\node_modules.asar.unpacked\node-pty\build\Release\winpty-agent.exe
 
 
 

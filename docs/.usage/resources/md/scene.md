@@ -1,3 +1,8 @@
+- NPM内网源搭建
+- 搭建websocket服务
+- 搭建聊天室
+- Node测试方案
+
 
 ### 为项目添加文档功能
 [Vuepress最佳实践](/docs/vuepress.html#最佳完整实践)

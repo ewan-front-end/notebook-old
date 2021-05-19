@@ -37,7 +37,7 @@ module.exports = {
             git: {linkName: 'Git', SRC:'git'},
             markdown: {linkName: 'Markdown', SRC:'markdown'},
             webpack: {linkName: 'Webpack'},
-            qiankun: {linkName: '乾坤微服务'},
+            qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
             charts: {linkName: '需求图表', SRC:'0002'},
             vscode:{linkName:'VSCode', SRC:'vscode'},
             chromeTools:{SRC:'chrome-tools'},
@@ -48,6 +48,7 @@ module.exports = {
     yunwei: {CHILDREN: {
         nginx: {linkName: 'Nginx'}
     }},
+    solution:{linkName:'解决方案', links:[{name:'Node测试方案', href:'/scene/'}]},
     system:{title:'操作系统', SRC:'system', CHILDREN:{
         mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
         linux:{title:'Linux',linkName:'Linux', SRC:'system-linux'},

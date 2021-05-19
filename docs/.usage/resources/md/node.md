@@ -1,18 +1,86 @@
-```table
-__dirname      当前 执行文件 所在目录的完整目录名
-__filename     当前 执行文件 的带有完整绝对路径的文件名
-process.cwd()  当前 node命令 所定位的文件夹目录名 
-./             文件所在目录
+[Node文档](http://nodejs.cn/api/globals.html#globals_process)
+
+似全局变量却不是(仅存在于模块的作用域中)
+```
+__dirname      //当前 执行文件 的相对路径
+__filename     //当前 执行文件 的绝对路径
+exports
+module
+require()
+```
+
+global（全局变量）
+```
+process                                //提供了有关当前Node.js进程的信息并对其进行控制
+  env                                  //process.env    返回一个包含用户环境信息的对象
+  cwd                                  //process.cwd()  当前 用户环境 node命令运行的文件夹目录名
+Buffer 类      //用于处理二进制数据
+clearImmediate(immediateObject)
+clearInterval(intervalObject)
+clearTimeout(timeoutObject)
+console
+global
+
+queueMicrotask(callback)
+setImmediate(callback[, ...args])
+setInterval(callback, delay[, ...args])
+setTimeout(callback, delay[, ...args])
+TextDecoder
+TextEncoder
+URL
+URLSearchParams
+WebAssembly
+```
+```js
+// 触发 当Node.js清空其事件循环并且没有其他工作要调度时
+// 不发 显式终止如调用 process.exit() 或未捕获的异常
+process.on('beforeExit', (code) => {// code退出码: 0/其它 可通过process.exitCode获取
+  console.log(code, '通常，当没有工作被调度时，则 Node.js 进程会退出，但是在 beforeExit 事件上注册的监听器可以进行异步的调用，从而使 Node.js 进程继续');
+});
+
+// 触发 当Node.js清空其事件循环并且没有其他工作要调度时
+// 触发 显式终止如调用 process.exit()
+process.on('exit', (code) => {
+  console.log(code, '除非打算调度额外的工作，否则不应该使用 beforeExit 代替 exit 事件');
+  setTimeout(() => {
+    console.log('仍在事件循环中排队的工作都被放弃此处不会运行 监听器函数必须只执行同步的操作 在调用 exit 事件监听器之后 Node.js进程会立即退出');
+  }, 0);
+});
 
 
-[h4|package.json]
 
+cluster.on('disconnect', function(worker) {
+  console.log('工作进程 #' + worker.id + ' 断开了连接');
+});
+```
+## 使用 IPC 通道衍生 Node.js 进程
+
+
+
+## 命令交互
+- node test.js 带参
+  ```js
+  demo> a=1 node test.js   传参a值1<br>
+  console.log(**global.process.env.a**)
+
+  demo> node test.js a=3 b=4<br>
+  console.log(**process.argv**) // ['C:\\...\\nodejs\\node.exe', 'D:\\demo\\test.js', 'a=3', 'b=4' ]
+  console.log(**process.argv.slice(2)**) // [ 'a=3', 'b=4' ]
+  ```
+
+- 复杂参数
+
+
+/package.json
+```js
 {
   "name": "[b ci|ewan]",                   // 项目名称
-  // 命令入口[(c0)HELP/package03]
+
+  // 命令入口 [本地库命令](#创建一个CLI)
   "bin": {
     "ewan": "./bin/ewan.js"
   },
+
   // 模板入口[(c0)HELP/package02]
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -21,9 +89,13 @@ process.cwd()  当前 node命令 所定位的文件夹目录名
   // 软件包作为依赖项被安装时要包括的条目[(c0)HELP/package01]
   "files": [ "dist", "es", "lib" ],
 }
+```
 
-▉package03▉
-命令对应的可执行文件，通常放在bin目录下
+## 创建一个CLI
+
+```
+
+
 
 ▉
 ▉package02▉
@@ -167,3 +239,154 @@ url-loader
 webpack
 webpack-stream
 is-stream
+
+
+
+
+[GIT项目管理](/tools/git-npm)  
+[NPM部署与发布](/tools/git-npm)
+
+## 爬虫
+demo> npm init -y
+demo> npm install puppeteer --save
+```js
+const puppeteer = require('puppeteer');
+(async () => {
+    const browser = await puppeteer.launch({ headless: true })
+    const page = await browser.newPage()
+    await page.goto('http://www.baidu.com')
+    await page.screenshot({
+        path: 'c:/data/baidu.png'
+    })
+})()
+
+const puppeteer = require('puppeteer');
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.emulate(puppeteer.devices['iPhone 6']);
+  await page.goto('https://www.baidu.cn');
+  await page.screenshot({ path: 'full.png', fullPage: true });
+  await browser.close();
+})();
+```
+点击
+填写表单
+读取数据
+https://www.cnblogs.com/yfacesclub/p/9245068.html
+
+#### 功能
+- 判断模块是否安装 const isInstalled = packageName => { try {require.resolve(packageName); return true} catch (err) {return false} }
+
+#### 交互
+- 执行命令
+    ```
+    npm WARN webpack-cli@4.6.0 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    npm WARN @webpack-cli/configtest@1.0.2 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    ```
+    ```js    
+    const runCommand = (command, args) => {
+        const cp = require("child_process") 
+        return new Promise((resolve, reject) => {
+            const executedCommand = cp.spawn(command, args, {stdio: "inherit", shell: true});
+            executedCommand.on("error", error => { reject(error) });
+            executedCommand.on("exit", code => { code === 0 ? resolve() : reject() });
+        });
+    }
+    process.exitCode = 0
+    runCommand('npm', ["install", "-D", "webpack-cli"]).then(() => { /*完成*/ }).catch(error => { console.error(error); process.exitCode = 1 });
+    ```
+
+
+- 提问获取选项 readline
+    ```
+    Do you want to install 'webpack-cli' (yes/no): y
+    Installing 'webpack-cli' (running 'npm install -D webpack-cli')...
+    npm WARN webpack-cli@4.6.0 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    npm WARN @webpack-cli/configtest@1.0.2 requires a peer of webpack@4.x.x || 5.x.x but none is installed. You must install peer dependencies yourself.
+    ```
+    ```js
+    const readLine = require("readline")
+    const questionInterface = readLine.createInterface({input: process.stdin, output: process.stderr}) // 创建Readline实例 传入标准输入输出作为数据的输入输出流
+    process.exitCode = 1 // 使用标准输出码 函盖从[提问]到[命令执行]整个生命周期
+    questionInterface.question(`Do you want to install 'webpack-cli' (yes/no): `, answer => {
+		questionInterface.close(); 
+		const normalizedAnswer = answer.toLowerCase().startsWith("y");
+		if (!normalizedAnswer) return; 
+		process.exitCode = 0; 
+		console.log(`Installing 'webpack-cli' (running 'npm install -D webpack-cli')...`);
+		// runCommand参考 执行命令
+	});
+    ```
+    
+
+
+
+
+
+require.resolve('webpack-cli')                                         // D:\Ewan\Hello\aa\node_modules\webpack-cli\lib\index.js
+require.resolve('webpack-cli/package.json')                            // D:\Ewan\Hello\aa\node_modules\webpack-cli\package.json 
+path.dirname('D:\Ewan\Hello\aa\node_modules\webpack-cli\package.json') // D:\Ewan\Hello\aa\node_modules\webpack-cli
+
+#### 读取文件
+```js
+// 方法一 
+const packagePath = path.join(__dirname, 'package.json')
+const packageStr = fs.readFileSync(packagePath)
+const package = JSON.parse(filePackage)
+// 方法二 通常用于处理node_module里的模块
+const packagePath = require.resolve('webpack-cli/package.json')
+const package = require(packagePath)
+```
+
+
+标准输入输出
+process.stdin
+process.stderr
+
+
+process.exit()        强制进程退出
+process.exitCode = 1  协商定义
+process.exitCode = 0  协商定义
+
+
+
+## Node.js v14.16.0 文档
+http://nodejs.cn/api/
+
+#### child_process
+child_process.exec 一次性返回执行结果 默认buffer大小为200kb
+```
+const exec = require('child_process').exec
+exec('npm install -D vuepress', function(error, stdout, stderr) {
+    console.log('installed vuepress')
+})
+```
+
+
+```js
+
+const fs = require('fs');
+console.log('启动API自动生成命令成功...');
+fs.watch('./router/', {
+    recursive: true
+}, ((event, filename) => {
+    console.warn(new Date(),' 检测到文件变化，正在执行编译命令...');
+    const exec = require('child_process').exec;
+    const cmdStr = 'npm run apidoc';
+    exec(cmdStr, (err, stdout, stderr) => {
+        if (err){
+            console.log(err);
+            console.warn(new Date(),' API文档编译命令执行失败');
+        } else {
+            console.log(stdout);
+            console.warn(new Date(),' API文档编译命令执行成功');
+        }
+    });
+
+
+
+
+Node.js 任务状态监控
+https://www.jianshu.com/p/2f8ab7253523
+```
