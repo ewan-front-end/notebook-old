@@ -1,3 +1,140 @@
+# 原理
+webpack4.0
+demo> yarn init -y
+demo> yarn add webpack webpack-cli -D
+
+
+
+
+
+
+
+
+
+/*推荐安装 零配置
+npm i webpack webpack-cli --save-dev
+npx webpack // 打包输出(不区分开发生产)
+npx webpack --mode development
+
+*/
+
+CMD(CommonJS)规范
+let fs = require('fs')
+function req (moduleName) {
+    let content = fs.readFileSync(moduleName, 'utf8')
+
+    /** 构建一个函数:最后一个参数为函数的内容体(content + '\n return module.exports')
+     * function(exports, module, require, __dirname, __filename){
+     *     module.exports = '简单Webpack实现'
+     *     return module.exports
+     * }*/
+    let fn = new Function('exports', 'module', 'require', '__dirname', '__filename', content + '\n return module.exports')
+
+    /**执行这个函数并返回结果
+     * 先要构建一个module对象
+     * 传参运行
+     */
+    let module = { exports: {} }
+    return fn(module.exports, module, req, __dirname, __filename)
+}
+
+let a = req('./a.js')  // let a = require('./a.js')
+console.log(a)
+
+AMD
+let factories = {}
+function define (moduleName, dependencies, factory) {
+    factory.dependencies = dependencies
+    factories[moduleName] = factory
+}
+function require2 (mods, callback) {
+    let result = mods.map(function (mod) {
+        let factory = factories[mod]
+        let exports
+        let dependencies = factory.dependencies
+        require2(dependencies, function () {
+            exports = factory.apply(null, arguments)
+        })
+        return exports
+    })
+    callback.apply(null, result)
+}
+
+// 并行加载
+define('name', [], function () {
+    return 'Webpack-AMD规范'
+})
+define('age', [], function () {
+    return 5
+})
+require2(['name', 'age'], function (name, age) {
+    console.log(name, age)
+})
+// 依赖
+define('name', [], function () {
+    return 'Webpack-AMD规范'
+})
+define('age', [name], function (name) {
+    return name + 18
+})
+require2(['age'], function (age) {
+    console.log(age)
+})
+
+
+Loader转换文件
+
+Plugin注入勾子
+
+
+创建一个ewanpack命令
+mkdir ewanpack
+bin
+ewanpack.js
+
+ewanpack > npm init -y
+package.json
+{
+"bin": {
+"ewanpack": "bin/ewanpack.js"
+}
+}
+
+npm link // 就可以使用ewanpack命令了
+
+ewanpack/bin/ewanpack.js
+#! /usr/bin/env node
+
+let entry = './src/index.js';
+let output = './dist/main.js';
+
+let fs = require('fs')
+let script = fs.readFileSync(entry, 'utf8')
+// npm i ejs  ejs.render('<a><%=name%><%-name%></a>', {name})
+let ejs = require('ejs')
+
+let template = `
+(function (modules) {
+    function require (moduleId) {
+        var module = { exports: {} };
+        modules[moduleId].call(module.exports, module, module.exports, require);
+        return module.exports;
+    }
+    return require("<%-entry%>");
+})
+
+    // 参数modules
+    ({
+        "<%-entry%>": (function (module, exports) {
+            eval(\`<%-script%>\`);
+        })
+    })
+`
+
+let result = ejs.render(template, { entry, script })
+fs.writeFileSync(output, result)
+
+
 # 4.0
 "webpack": "^4.44.1",
 "webpack-cli": "^3.3.12"

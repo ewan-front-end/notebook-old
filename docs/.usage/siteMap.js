@@ -35,6 +35,7 @@ module.exports = {
         links:[{name:'文档', href:'/docs/'}],
         CHILDREN: {            
             git: {linkName: 'Git', SRC:'git'},
+            npm: {linkName: 'NPM', SRC:'npm'},
             markdown: {linkName: 'Markdown', SRC:'markdown'},
             webpack: {linkName: 'Webpack'},
             qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
@@ -42,7 +43,8 @@ module.exports = {
             vscode:{linkName:'VSCode', SRC:'vscode'},
             chromeTools:{SRC:'chrome-tools'},
             plantuml:{SRC:'plantuml'},
-            regularExpression:{linkName:'正则表达式', SRC:'regular-expression'}
+            regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
+            eslint: {linkName: 'ESLint', SRC:'eslint'}
         }
     },
     yunwei: {CHILDREN: {
@@ -56,10 +58,7 @@ module.exports = {
         ios:{title:'IOS',linkName:'IOS', SRC:'ios'},
         android:{title:'Android',linkName:'Android', SRC:'android'}
     }},
-    server:{title:'服务器',SRC:'server',CHILDREN:{
-        koa:{SRC:'server-koa'},
-        express:{SRC:'server-express'}
-    }},    
+    server:{title:'服务器',SRC:'server', links:['/node/koa', '/node/express']},    
     html5:{linkName:'HTML5', SRC:'html5'},
     typescript:{linkName:'Typescript', SRC:'typescript'},
     react:{linkName:'React', SRC:'react'},
@@ -73,15 +72,20 @@ module.exports = {
     algorithm:{linkName:'算法', SRC:'algorithm'},
     scene: {title:'场景', linkName:'场景', SRC:'scene'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
+    socket: {linkName:'Socket', SRC:'socket'},
     node: {linkName: 'Node', SRC:'node', CHILDREN:{
-        fs:{linkName: 'fs模块', SRC:'node-fs'}
+        fs:{linkName: 'fs模块', SRC:'node-fs'}, 
+        koa:{linkName: 'Koa服务', SRC:'node-koa'},
+        express:{linkName: 'Express服务', SRC:'node-express'}       
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{
             es6:{SRC:'es6'}
         }},
         matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'},
-        ruby:{SRC:'ruby'}        
+        ruby:{SRC:'ruby'},
+        wechat:{linkName:'微信小程序', SRC:'wechat'},
+        electron: {linkName:'Electron', SRC:'electron'}      
     }},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', CHILDREN: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', CHILDREN: {
@@ -110,14 +114,14 @@ module.exports = {
             }}
         }},
         layerSecurity: {title: '保障层', desc: '重点关注质量与可用性', CHILDREN: {
-            systemMonitor: {title:'监控系统', desc:'从用户的角度判断系统的可用性，关注的是实时数据，提高团队的故障响应能力'},
+            systemMonitor: {title:'监控系统', desc:'从用户的角度判断系统的可用性，关注的是实时数据，提高团队的故障响应能力', SRC:'system-monitor'},
             systemStatistical: {title:'统计系统', desc:'关注的是全量数据，为产品与业务分析提供基础', CHILDREN: {
                 performance: {title:'性能统计'},
                 pv: {title:'访问量统计'},
                 behavior: {title:'用户行为统计'}
             }},
             systemTest: {title:'测试系统', desc:'自动化测试是是一个锥形体系', CHILDREN: {
-                static:{title: '静态检查', links:[{name:'Eslint'},{name:'JSCS'}]},
+                static:{title: '静态检查', links:[{name:'Eslint', href:'tools/eslint'},{name:'JSCS'}]},
                 unit:{title: '单元测试', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}]},
                 e2e:{title: '端到端测试', desc:'从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景', links:[{name:'Protractor'},{name:'Nightwatch'},{name:'Selenium'}]},
                 ci:{title: '持续集成', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入'},

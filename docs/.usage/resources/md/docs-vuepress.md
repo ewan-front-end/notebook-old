@@ -66,6 +66,7 @@ export default ({
 3. 基础部署 node docs/.usage/deploy.js
 4. 地图创建 node docs/.usage/create.js
 5. npm run docs:dev
+附 创建指定文件：node docs/.usage/create.js /scene /tools/npm
 附 数据格式测试：node docs/.usage/siteMapTest.js 
 附 具体文件编译：node docs/.usage/createFile.js
 

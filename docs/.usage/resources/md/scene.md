@@ -1,7 +1,14 @@
 - NPM内网源搭建
-- 搭建websocket服务
-- 搭建聊天室
+- 搭建websocket服务(/node/socket)
+- 搭建聊天室(/socket/)
 - Node测试方案
+- node插件开发(/node/plugin)
+- 打造一个Node命令行工具 https://www.imooc.com/article/3156
+- html模块化开发
+- 移动端web的调试
+
+
+
 
 
 ### 为项目添加文档功能
