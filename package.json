@@ -1,17 +1,20 @@
 {
-  "name": "vuepress-demo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "test": "a=3 node test.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "vuepress": "^1.8.2"
-  }
+    "name": "vuepress-demo",
+    "version": "1.0.0",
+    "description": "vuepress@1.8.2最佳实践",
+    "main": "test.js",
+    "directories": {
+        "doc": "docs"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "vuepress": "^1.8.2"
+    },
+    "scripts": {
+        "docs:dev": "vuepress dev docs",
+        "docs:build": "vuepress build docs"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }

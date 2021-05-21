@@ -46,4 +46,4 @@ if(fs.existsSync(R_D_P_S_I)) { console.log('已存在 ' + R_D_P_S_I) } else { fs
 if(fs.existsSync(R_P______)) { const package = require(R_P______); Object.assign(package.scripts, packageScripts); packageStr = JSON.stringify(package, null, 4) } 
 fs.writeFile(R_P______, packageStr, { encoding: 'utf8' }, err => {console.log('写　入 ' + R_P______ + ' scripts'); installVuepress()})
 
-fs.copyFileSync(path.resolve(R_D_U____, 'resources/logo.png'), path.resolve(R_D_P____, 'public/logo.png')); console.log('资　源 ' + R_D_P____ + '\\public\\logo.png')
+fs.copyFileSync(path.resolve(R_D_U____, 'resources/images/logo.png'), path.resolve(R_D_P____, 'public/logo.png')); console.log('资　源 ' + R_D_P____ + '\\public\\logo.png')

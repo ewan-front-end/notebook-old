@@ -1,3 +1,37 @@
+const _DATA = {key:'ROOT_HOME', path: '', title: '首页标题', CHILDREN: {}}
+    
+    const argArr = process.argv.slice(2)
+    if (argArr.length > 0) {
+    
+}
+    argArr.forEach(path => {
+        // let item = flatDataMap[path]
+        let root = DATA_ROOT, _root = _DATA
+        path = path.replace(/^\/|\/$/g, '')
+        path.split('/').forEach(key => {
+            let item = JSON.parse(JSON.stringify(root.CHILDREN[key]))
+            delete item.CHILDREN
+            if(!_root.CHILDREN) _root.CHILDREN = {}
+            _root.CHILDREN[key] = item
+            _root = item
+            root = root.CHILDREN[key]
+        })
+        
+        // if (item) {
+        //     let matchArr = path.match(/^\/(\w|\/)+\//)
+        //     if (matchArr) {
+        //         if (fs.existsSync(matchArr[0])) {}
+        //     } else {
+
+        //     }
+        // } else {
+        //     console.error('命令参数有误，路径不存在于siteMap中：', path)
+        // }
+    })
+    console.log(_DATA)
+
+
+
 ## 入门部署
 demo> npm init -y<br>
 demo> npm install -D vuepress

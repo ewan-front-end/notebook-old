@@ -1,11 +1,12 @@
 const fs = require('fs')
 const _path = require('path')
 const siteMap = require('./siteMap')
-const DATA_ROOT = {key:'ROOT', path: '', title: '首页标题', CHILDREN: siteMap}
 const R_D__ = _path.resolve(__dirname, '../')
 const R_D_I = _path.resolve(R_D__, 'README.md')
 
-const argArr = process.argv.slice(2)
+let flatDataMap = {}, // 扁平化数据
+indexLinks = ``       // 首页链接拼接：[key||name](path)
+
 const createFile = (item) => {
     const {parent, path} = item
     flatDataMap[path] = {type: 'FILE', path: _path.resolve(R_D__, '.' + item.path), target: item}     // /tools ? ./tools
@@ -23,22 +24,20 @@ const handleItem = (key, item, parent) => {
     Object.assign(item, {
         parent,                          // 拼接path和id
         linkName: item.linkName || key,  // 被外部链接时 作链接名称 
-        path: parent.path +'/'+ key,     // 被外部链接时 1.链接[name||linkName](path) 2.用于从flatDataMap中查询数据
+        path: parent.path +'/'+ key,                     // 被外部链接时 1.链接[name||linkName](path) 2.用于从flatDataMap中查询数据
         key                              // 暂时无作用
     }) 
     CHILDREN ? createDir(item, CHILDREN) : createFile(item) 
 }
+const DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap}
+const _DATA_ROOT = {key:'DATA_ROOT', path: '', title: '首页标题'}
 
-let flatDataMap = {}, // 扁平化数据
-    indexLinks = ``       // 首页链接拼接：[key||name](path)
-     
-
-
+const argArr = process.argv.slice(2)
 if (argArr.length > 0) {
-    const _DATA = {key:'ROOT_HOME', path: '', title: '首页标题', CHILDREN: {}}
+    let root, _root
     argArr.forEach(path => {
-        // let item = flatDataMap[path]
-        let root = DATA_ROOT, _root = _DATA
+        root = DATA_ROOT
+        _root = _DATA_ROOT
         path = path.replace(/^\/|\/$/g, '')
         path.split('/').forEach(key => {
             let item = JSON.parse(JSON.stringify(root.CHILDREN[key]))
@@ -48,26 +47,20 @@ if (argArr.length > 0) {
             _root = item
             root = root.CHILDREN[key]
         })
-        
-        // if (item) {
-        //     let matchArr = path.match(/^\/(\w|\/)+\//)
-        //     if (matchArr) {
-        //         if (fs.existsSync(matchArr[0])) {}
-        //     } else {
-
-        //     }
-        // } else {
-        //     console.error('命令参数有误，路径不存在于siteMap中：', path)
-        // }
     })
-    console.log(_DATA)
-} else {   
+    
+    for (key in _DATA_ROOT.CHILDREN) {
+        let item = _DATA_ROOT.CHILDREN[key] 
+        handleItem(key, item, _DATA_ROOT)
+    }
+} else {
     for (key in siteMap) {
-        let item = siteMap[key] 
-        handleItem(key, item, {key:'ROOT_HOME', path: '', title: '首页标题'})
+        let item = siteMap[key]  
+    
+        handleItem(key, item, DATA_ROOT)
         // 首页一级导航
         indexLinks += `[${item.linkName}](${item.path}) | `
-    } 
+    }
     // 首页模板
     const homePageStr = `---
     home: true\nheroImage: /hero.png\nheroText: Hero 标题\ntagline: Hero 副标题\nactionText: 快速上手 →\nactionLink: /zh/guide/\nfeatures:\n- title: 简洁至上\n  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
@@ -75,89 +68,95 @@ if (argArr.length > 0) {
     footer: MIT Licensed | Copyright © 2018-present Evan You\n---\n${indexLinks}`
     if (fs.existsSync(R_D_I)) { } else {fs.writeFile(R_D_I, homePageStr, { encoding: 'utf8' }, err => { console.log('created ' + R_D_I) })}
 
-    /** 
-     * 构建开始 
-     * flatDataMap{{
-     *     type: 'DIRE', 
-     *     target: {data}, 
-     *     path: 'D:\\Ewan\\Hello\\aa\\docs\\tools'
-     * }, {
-     *     type: 'FILE', 
-     *     target: {data}, 
-     *     path: 'D:\\Ewan\\Hello\\aa\\docs\\tools\\README'
-     * }}
+    /**
+     * 使用摘要生成
+     * 依赖数据{tag:'usage', linkName:'使用手册', SRC:'usage'}
      */ 
-    for (id in flatDataMap) {
-        let {type, path, target} = flatDataMap[id]
-        if (type === 'DIRE') {fs.mkdirSync(path); console.log('created ' + path)} 
-        if (type === 'FILE') {
-            let content = `[上一级](../)\n\n`                     // 添加上一级按钮 
+    
+}
 
-            /* 子类链接  */  
-            if(target.CHILDREN) {
-                content += `## 子类链接\n`
-                for (i in target.CHILDREN){
-                    let {linkName, path} = target.CHILDREN[i]
-                    content += `[${linkName}](${path}) `
-                } 
-            }
-                
-            /* title   */
-            /* desc    */
-            /* detail  */        
-            target.title  && (content += `# ${target.title}\n`)  
-            target.desc   && (content += `> ${target.desc}\n`)
-            target.detail && (content += `${target.detail}\n`) 
+/** 
+ * 构建开始 
+ * flatDataMap{{
+ *     type: 'DIRE', 
+ *     target: {data}, 
+ *     path: 'D:\\Ewan\\Hello\\aa\\docs\\tools'
+ * }, {
+ *     type: 'FILE', 
+ *     target: {data}, 
+ *     path: 'D:\\Ewan\\Hello\\aa\\docs\\tools\\README'
+ * }}
+ */ 
+for (id in flatDataMap) {
+    let {type, path, target} = flatDataMap[id]
+    if (type === 'DIRE') {fs.mkdirSync(path); console.log('created ' + path)} 
+    if (type === 'FILE') {
+        let content = `[上一级](../)\n\n`                     // 添加上一级按钮 
 
-            /* 相关链接  */
-            if(target.links) {
-                if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
-                let linksStr = ``
-                content += `## 相关链接\n`
-                target.links.forEach(item => {
-                    let linkName, linkHref
-                    let tracingObj = target
-                    if(typeof item === 'string'){
-                        linkHref = item
-                    } else {
-                        linkName = item.name || ''
-                        linkHref = item.href || '#'
-                    }
-                    // 相对路径转绝对路径
-                    let twoPoint = linkHref.match(/\.\.\//g)                
-                    if (twoPoint) {                                        
-                        linkHref = linkHref.replace(/\.\.\//g, '')                                                                                                                     // 去除相对结构                    
-                        let count = twoPoint.length; while(count > 0){ tracingObj = tracingObj.parent; tracingObj.key === 'ROOT_HOME' && console.log(item, '相对目录越界！'); count-- } // 跳过目录层级                    
-                        while(tracingObj.key !== 'ROOT_HOME'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }                                            // 补充父级路径                    
-                        linkHref = '/' + linkHref                                                                                                                                      // 加上根目录标识
-                    }
-                    let singlePoint = linkHref.match(/\.\//g)
-                    if (singlePoint) {
-                        tracingObj = target.parent
-                        linkHref = linkHref.replace(/\.\//g, '')
-                        while(tracingObj.key !== 'ROOT_HOME'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }
-                        linkHref = '/' + linkHref
-                    }
-
-                    if (!linkName) {
-                        let linkTarget = flatDataMap[linkHref] || {}
-                        linkName = linkName || linkTarget.linkName || '未知'
-                    }
-                    
-                    console.log(linkHref,linkName, ' - ', linkHref)
-                    linksStr += `[${linkName}](${linkHref}) `
-                })            
-                content += linksStr + `\n\n`
+        /* 子类链接  */  
+        if(target.CHILDREN) {
+            content += `## 子类链接\n`
+            for (i in target.CHILDREN){
+                let {linkName, path} = target.CHILDREN[i]
+                content += `[${linkName}](${path}) `
             } 
-            
-            /* 外部资源  */
-            if (target.SRC) {
-                const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
-                content += `\n${file}\n`
-            }
-                        
-            if (fs.existsSync(path)) {} else {fs.writeFile(path + '.md', content, { encoding: 'utf8' }, err => { console.log('created ' + path) })}
         }
+            
+        /* title   */
+        /* desc    */
+        /* detail  */        
+        target.title  && (content += `# ${target.title}\n`)  
+        target.desc   && (content += `> ${target.desc}\n`)
+        target.detail && (content += `${target.detail}\n`) 
+
+        /* 相关链接  */
+        if(target.links) {
+            if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
+            let linksStr = ``
+            content += `## 相关链接\n`
+            target.links.forEach(item => {
+                let linkName, linkHref
+                let tracingObj = target
+                if(typeof item === 'string'){
+                    linkHref = item
+                } else {
+                    linkName = item.name || ''
+                    linkHref = item.href || '#'
+                }
+                // 相对路径转绝对路径
+                let twoPoint = linkHref.match(/\.\.\//g)                
+                if (twoPoint) {                                        
+                    linkHref = linkHref.replace(/\.\.\//g, '')                                                                                                                     // 去除相对结构                    
+                    let count = twoPoint.length; while(count > 0){ tracingObj = tracingObj.parent; tracingObj.key === 'DATA_ROOT' && console.log(item, '相对目录越界！'); count-- } // 跳过目录层级                    
+                    while(tracingObj.key !== 'DATA_ROOT'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }                                            // 补充父级路径                    
+                    linkHref = '/' + linkHref                                                                                                                                      // 加上根目录标识
+                }
+                let singlePoint = linkHref.match(/\.\//g)
+                if (singlePoint) {
+                    tracingObj = target.parent
+                    linkHref = linkHref.replace(/\.\//g, '')
+                    while(tracingObj.key !== 'DATA_ROOT'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }
+                    linkHref = '/' + linkHref
+                }
+
+                if (!linkName) {
+                    let linkTarget = flatDataMap[linkHref] || {}
+                    linkName = linkName || linkTarget.linkName || '未知'
+                }
+                
+                console.log(linkHref,linkName, ' - ', linkHref)
+                linksStr += `[${linkName}](${linkHref}) `
+            })            
+            content += linksStr + `\n\n`
+        } 
+        
+        /* 外部资源  */
+        if (target.SRC) {
+            const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
+            content += `\n${file}\n`
+        }
+                    
+        if (fs.existsSync(path)) {} else {fs.writeFile(path + '.md', content, { encoding: 'utf8' }, err => { console.log('created ' + path) })}
     }
 }
 

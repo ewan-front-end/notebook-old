@@ -15,10 +15,9 @@
  * --------------------------------------------------------------------------------------Create.js处理生成：name/path
  * name:''        Create会处理成 name: key
  * outPath:''     覆盖Create生成的path
+ * --------------------------------------------------------------------------------------摘要生成
+ * usage:{}
  */
- 
- 
- 
  
 module.exports = {
     platform: {
@@ -68,7 +67,6 @@ module.exports = {
     nginx:{linkName:'Nginx', SRC:'nginx'},
     resources:{linkName:'资源', SRC:'resources'},
     mysql:{linkName:'MySQL', SRC:'mysql'},
-    usage:{linkName:'使用手册', SRC:'usage'},
     algorithm:{linkName:'算法', SRC:'algorithm'},
     scene: {title:'场景', linkName:'场景', SRC:'scene'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
@@ -147,5 +145,6 @@ module.exports = {
             }},
             systemComponent: {title:'组件系统',desc:'作用在于集中管理可复用的开发资源,各业务线优先从系统中选取可复用的部分，同时向系统中沉淀组件'}
         }}
-    }, links:['/tools/qiankun']}
+    }, links:['/tools/qiankun']},
+    other: {linkName:'其它', SRC:'other'}
 }
