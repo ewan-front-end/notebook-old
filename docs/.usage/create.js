@@ -1,11 +1,15 @@
 const fs = require('fs')
 const _path = require('path')
 const siteMap = require('./siteMap')
+const argArr = process.argv.slice(2)
 const R_D__ = _path.resolve(__dirname, '../')
 const R_D_I = _path.resolve(R_D__, 'README.md')
 
 let flatDataMap = {}, // 扁平化数据
-indexLinks = ``       // 首页链接拼接：[key||name](path)
+    indexLinks = ``       // 首页链接拼接：[key||name](path)
+let DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap},
+    _DATA_ROOT = {key:'DATA_ROOT', path: '', title: '首页标题'},
+    usageArr = []
 
 const createFile = (item) => {
     const {parent, path} = item
@@ -27,12 +31,19 @@ const handleItem = (key, item, parent) => {
         path: parent.path +'/'+ key,                     // 被外部链接时 1.链接[name||linkName](path) 2.用于从flatDataMap中查询数据
         key                              // 暂时无作用
     }) 
+    // 收集 使用摘要
+    if (item.usage){
+        usageArr.push({
+            title: item.title || item.linkName || '未命名',
+            usage: item.usage
+        })
+    }
+    // 创建
     CHILDREN ? createDir(item, CHILDREN) : createFile(item) 
 }
-const DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap}
-const _DATA_ROOT = {key:'DATA_ROOT', path: '', title: '首页标题'}
 
-const argArr = process.argv.slice(2)
+
+
 if (argArr.length > 0) {
     let root, _root
     argArr.forEach(path => {
@@ -55,8 +66,8 @@ if (argArr.length > 0) {
     }
 } else {
     for (key in siteMap) {
-        let item = siteMap[key]  
-    
+        let item = siteMap[key]          
+        // 数据规范化&扁平化
         handleItem(key, item, DATA_ROOT)
         // 首页一级导航
         indexLinks += `[${item.linkName}](${item.path}) | `
@@ -70,7 +81,7 @@ if (argArr.length > 0) {
 
     /**
      * 使用摘要生成
-     * 依赖数据{tag:'usage', linkName:'使用手册', SRC:'usage'}
+     * 依赖数据{title:'', linkName:'', usage:{}}
      */ 
     
 }

@@ -1,3 +1,6 @@
+[上一级](../)
+
+
 const _DATA = {key:'ROOT_HOME', path: '', title: '首页标题', CHILDREN: {}}
     
     const argArr = process.argv.slice(2)
@@ -498,6 +501,7 @@ layout: SpecialLayout
 
 
 ```
+
 
 
 

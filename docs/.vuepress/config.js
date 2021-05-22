@@ -7,6 +7,10 @@ module.exports = {
             {
                 "text": "指南",
                 "link": "/"
+            },
+            {
+                "text": "聚合",
+                "link": "/aggregation"
             }
         ],
         "sidebarDepth": 2,

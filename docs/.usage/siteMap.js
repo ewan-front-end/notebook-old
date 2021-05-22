@@ -16,7 +16,12 @@
  * name:''        Create会处理成 name: key
  * outPath:''     覆盖Create生成的path
  * --------------------------------------------------------------------------------------摘要生成
- * usage:{}
+ * usage:{} || [] 
+ *     title:'windows'       可选 子类标题 
+ *     desc:'' || {} || []   必选  字符时为[文本描述] 对象时为[标题：描术]结构  数组时为分类嵌套[文本描述]或[标题：描术] 步骤描述或分点描述
+ *         '简单内容'
+ *         {title:'', text:'', notes:[['title','path']]}          此描述的必要说明点
+ *     notes:[['title','path']]    
  */
  
 module.exports = {
@@ -28,7 +33,8 @@ module.exports = {
         }
     },
     docs:{title:'文档', CHILDREN:{
-        vuepress:{linkName:'Vuepress', SRC:'docs-vuepress'}
+        vuepress:{linkName:'Vuepress', SRC:'docs-vuepress'},
+        docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }},
     tools: {
         links:[{name:'文档', href:'/docs/'}],
@@ -45,10 +51,7 @@ module.exports = {
             regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
             eslint: {linkName: 'ESLint', SRC:'eslint'}
         }
-    },
-    yunwei: {CHILDREN: {
-        nginx: {linkName: 'Nginx'}
-    }},
+    },    
     solution:{linkName:'解决方案', links:[{name:'Node测试方案', href:'/scene/'}]},
     system:{title:'操作系统', SRC:'system', CHILDREN:{
         mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
@@ -64,7 +67,21 @@ module.exports = {
     style:{linkName:'样式', SRC:'style'},
     designPattern:{linkName:'设计模式', SRC:'design-pattern'},
     webpack:{linkName:'Webpack', SRC:'webpack'},
-    nginx:{linkName:'Nginx', SRC:'nginx'},
+    nginx:{linkName:'Nginx', usage:[
+        {title:'windows', desc:[
+            {title:'安装', text:'http://nginx.org/en/download.html'},
+            {title:'配置', text:'c:\\nginx\\conf\\nginx.conf'},
+            {title:'启动', text:'c:\\server\\nginx-1.0.2 > start nginx 或 c:\\server\\nginx-1.0.2 > nginx.exe'},
+            {title:'重启', text:'c:\\server\\nginx-1.0.2 > nginx.exe -s reload  '},
+            {title:'停止', text:'c:\\server\\nginx-1.0.2 > nginx.exe -s stop 或 c:\\server\\nginx-1.0.2 > nginx.exe -s quit'}
+        ]},
+        {title:'mac', desc:[
+            {title:'依赖ruby', text:'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"', notes:[['卡住','']]},
+            {title:'安装', text:'brew install nginx'},
+            {title:'配置', text:'/usr/local/etc/nginx/nginx.conf'},
+            {title:'启动', text:'nginx  重启: nginx -s reload  停止: nginx -s stop'}
+        ]}        
+    ], SRC:'nginx'},
     resources:{linkName:'资源', SRC:'resources'},
     mysql:{linkName:'MySQL', SRC:'mysql'},
     algorithm:{linkName:'算法', SRC:'algorithm'},

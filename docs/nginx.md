@@ -1,3 +1,6 @@
+[上一级](../)
+
+
 
 
 # nginx.conf
@@ -11,23 +14,6 @@
         <span class="hljs-attribute">return</span> <span class="hljs-number">204</span>;
     }
 } </code></pre>
-
-
-`http {
-            server {
-                listen 8080;
-                server_name localhost;
-                # 把默认location注释掉
-                # 反向代理
-                location / {
-                    proxy_pass http://localhost:8001;
-                }
-                location /api/ {
-                    proxy_pass http://localhost:8000;
-                    proxy_set_header Host $host;
-                }
-            }
-        }`
 
 ```O
 http {
