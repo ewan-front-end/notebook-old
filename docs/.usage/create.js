@@ -8,8 +8,7 @@ const R_D_I = _path.resolve(R_D__, 'README.md')
 let flatDataMap = {}, // 扁平化数据
     indexLinks = ``       // 首页链接拼接：[key||name](path)
 let DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap},
-    _DATA_ROOT = {key:'DATA_ROOT', path: '', title: '首页标题'},
-    usageArr = []
+    _DATA_ROOT = {key:'DATA_ROOT', path: '', title: '首页标题'}
 
 const createFile = (item) => {
     const {parent, path} = item
@@ -30,14 +29,7 @@ const handleItem = (key, item, parent) => {
         linkName: item.linkName || key,  // 被外部链接时 作链接名称 
         path: parent.path +'/'+ key,                     // 被外部链接时 1.链接[name||linkName](path) 2.用于从flatDataMap中查询数据
         key                              // 暂时无作用
-    }) 
-    // 收集 使用摘要
-    if (item.usage){
-        usageArr.push({
-            title: item.title || item.linkName || '未命名',
-            usage: item.usage
-        })
-    }
+    })     
     // 创建
     CHILDREN ? createDir(item, CHILDREN) : createFile(item) 
 }

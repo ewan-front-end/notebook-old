@@ -103,7 +103,8 @@ export default ({
 附 创建指定文件：node docs/.usage/create.js /scene /tools/npm
 附 数据格式测试：node docs/.usage/siteMapTest.js 
 附 具体文件编译：node docs/.usage/createFile.js
-附 收集使用摘要：node docs/.usage/updateUsage.js
+附 收集更新攻略：node docs/.usage/updateUsage.js
+附 收集更新场景：node docs/.usage/updateScene.js
 
 
 ## 公共资源库

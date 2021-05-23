@@ -5,15 +5,11 @@ module.exports = {
         "logo": "/logo.png",
         "nav": [
             {
-                "text": "指南",
+                "text": "首页",
                 "link": "/"
-            },
-            {
-                "text": "聚合",
-                "link": "/aggregation"
             }
         ],
-        "sidebarDepth": 2,
+        "sidebarDepth": 1,
         "sidebar": "auto"
     },
     "configureWebpack": {
