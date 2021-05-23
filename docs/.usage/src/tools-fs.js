@@ -7,7 +7,6 @@ module.exports = {
     editWritCommonFile: (path, editHandler) => {
         const fileObj = require(path)
         const next = editHandler(fileObj)
-        console.log(this)
-        next && this.writeFile(path, `module.exports = ${JSON.stringify(fileObj, null, 4)}`)
+        next && module.exports.writeFile(path, `module.exports = ${JSON.stringify(fileObj, null, 4)}`)
     }
 }

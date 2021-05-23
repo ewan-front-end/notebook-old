@@ -16,7 +16,9 @@ editWritCommonFile(path.resolve(__dirname, '../.vuepress/config'), fileObj => {
     let nav = fileObj.themeConfig.nav
     let navCreated = false
     nav.forEach(e => { e.link === '/aggregation' && (navCreated = true) })
-    if (!navCreated) return true
+    if (navCreated) return true
+    nav.push({text:'聚合', link:'/aggregation'})
+    return true
 })
 
 

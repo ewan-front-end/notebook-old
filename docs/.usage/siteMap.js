@@ -22,6 +22,9 @@
  *         '简单内容'
  *         {title:'', text:'', notes:[['title','path']]}          此描述的必要说明点
  *     notes:[['title','path']]    
+ * --------------------------------------------------------------------------------------场景生成
+ * scene:{} || [] 
+ *     title:'NPM内网源搭建'       
  */
  
 module.exports = {
@@ -40,7 +43,7 @@ module.exports = {
         links:[{name:'文档', href:'/docs/'}],
         CHILDREN: {            
             git: {linkName: 'Git', SRC:'git'},
-            npm: {linkName: 'NPM', SRC:'npm'},
+            npm: {linkName: 'NPM', SRC:'npm', scene:{title:'NPM内网源搭建'}},
             markdown: {linkName: 'Markdown', SRC:'markdown'},
             webpack: {linkName: 'Webpack'},
             qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
@@ -52,7 +55,7 @@ module.exports = {
             eslint: {linkName: 'ESLint', SRC:'eslint'}
         }
     },    
-    solution:{linkName:'解决方案', links:[{name:'Node测试方案', href:'/scene/'}]},
+    //solution:{linkName:'解决方案', links:[{name:'Node测试方案', href:'/scene/'}]},
     system:{title:'操作系统', SRC:'system', CHILDREN:{
         mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
         linux:{title:'Linux',linkName:'Linux', SRC:'system-linux'},
@@ -85,7 +88,6 @@ module.exports = {
     resources:{linkName:'资源', SRC:'resources'},
     mysql:{linkName:'MySQL', SRC:'mysql'},
     algorithm:{linkName:'算法', SRC:'algorithm'},
-    scene: {title:'场景', linkName:'场景', SRC:'scene'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
     socket: {linkName:'Socket', SRC:'socket'},
     node: {linkName: 'Node', SRC:'node', CHILDREN:{
