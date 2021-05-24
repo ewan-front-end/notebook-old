@@ -1,1 +1,3 @@
-- NPM内网源搭建
+- [插入图片](/docs/vuepress.html#公共资源库)
+- [NPM内网源搭建](/tools/npm#NPM内网源搭建)
+- [简化特定通用代码](/tools/vscode.html#自定义用户片段)

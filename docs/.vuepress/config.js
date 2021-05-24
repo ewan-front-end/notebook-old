@@ -7,6 +7,14 @@ module.exports = {
             {
                 "text": "首页",
                 "link": "/"
+            },
+            {
+                "text": "场景",
+                "link": "/scene"
+            },
+            {
+                "text": "聚合",
+                "link": "/aggregation"
             }
         ],
         "sidebarDepth": 1,

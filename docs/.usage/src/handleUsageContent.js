@@ -15,9 +15,9 @@ module.exports = function (usageArr) {
                 const eType = Object.prototype.toString.call(e)
                 if(eType === '[object Object]'){
                     content += `> ${e.title}: ${e.text}`
-                    if (e.notes) {
-                        e.notes.forEach(note => {
-                            content += ` 【${note[0]}】`
+                    if (e.links) {
+                        e.links.forEach(link => {
+                            content += ` 【${link[0]}】`
                         })
                     }
                     content += `<br>\n`

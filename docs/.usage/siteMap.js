@@ -18,43 +18,44 @@
  * --------------------------------------------------------------------------------------摘要生成
  * usage:{} || [] 
  *     title:'windows'       可选 子类标题 
+ *     href:'/tools/vscode'  链接地址
+ *     id:'自定义用户片段'    锚链接ID
  *     desc:'' || {} || []   必选  字符时为[文本描述] 对象时为[标题：描术]结构  数组时为分类嵌套[文本描述]或[标题：描术] 步骤描述或分点描述
  *         '简单内容'
- *         {title:'', text:'', notes:[['title','path']]}          此描述的必要说明点
- *     notes:[['title','path']]    
+ *         {title:'', text:'', links:[['title','path']]}          此描述的必要说明点
+ *     links:[['title','path']]    
  * --------------------------------------------------------------------------------------场景生成
- * scene:{} || [] 
- *     title:'NPM内网源搭建'       
+ * scene:{} || []  
+ *     title:'简化特定通用代码', 
+ *     href:'/tools/vscode'  链接地址 
+ *     id:'自定义用户片段'    锚链接ID     
  */
  
 module.exports = {
-    platform: {
-        CHILDREN: {            
-            windows: {CHILDREN:{
-                bat:{title: '批处理文件', linkName: '批处理'}
-            }}
-        }
-    },
     docs:{title:'文档', CHILDREN:{
-        vuepress:{linkName:'Vuepress', SRC:'docs-vuepress'},
+        vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/docs/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/docs/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/docs/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, SRC:'docs-vuepress'},
         docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }},
     tools: {
         links:[{name:'文档', href:'/docs/'}],
         CHILDREN: {            
             git: {linkName: 'Git', SRC:'git'},
-            npm: {linkName: 'NPM', SRC:'npm', scene:{title:'NPM内网源搭建'}},
+            npm: {linkName: 'NPM', SRC:'npm', scene:{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'}},
             markdown: {linkName: 'Markdown', SRC:'markdown'},
             webpack: {linkName: 'Webpack'},
             qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
             charts: {linkName: '需求图表', SRC:'0002'},
-            vscode:{linkName:'VSCode', SRC:'vscode'},
+            vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], SRC:'vscode'},
             chromeTools:{SRC:'chrome-tools'},
             plantuml:{SRC:'plantuml'},
             regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
             eslint: {linkName: 'ESLint', SRC:'eslint'}
         }
-    },    
+    }, 
+    css:{title:'CSS', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
+        style:{title:'样式', SRC:'css-style'},
+        preset:{title:'预处理', SRC:'css-preset'}
+    }},   
     //solution:{linkName:'解决方案', links:[{name:'Node测试方案', href:'/scene/'}]},
     system:{title:'操作系统', SRC:'system', CHILDREN:{
         mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
@@ -66,8 +67,7 @@ module.exports = {
     server:{title:'服务器',SRC:'server', links:['/node/koa', '/node/express']},    
     html5:{linkName:'HTML5', SRC:'html5'},
     typescript:{linkName:'Typescript', SRC:'typescript'},
-    react:{linkName:'React', SRC:'react'},
-    style:{linkName:'样式', SRC:'style'},
+    react:{linkName:'React', SRC:'react'},    
     designPattern:{linkName:'设计模式', SRC:'design-pattern'},
     webpack:{linkName:'Webpack', SRC:'webpack'},
     nginx:{linkName:'Nginx', usage:[
@@ -79,7 +79,7 @@ module.exports = {
             {title:'停止', text:'c:\\server\\nginx-1.0.2 > nginx.exe -s stop 或 c:\\server\\nginx-1.0.2 > nginx.exe -s quit'}
         ]},
         {title:'mac', desc:[
-            {title:'依赖ruby', text:'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"', notes:[['卡住','']]},
+            {title:'依赖ruby', text:'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"', links:[['卡住','']]},
             {title:'安装', text:'brew install nginx'},
             {title:'配置', text:'/usr/local/etc/nginx/nginx.conf'},
             {title:'启动', text:'nginx  重启: nginx -s reload  停止: nginx -s stop'}

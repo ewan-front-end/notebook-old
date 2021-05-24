@@ -123,14 +123,31 @@ C:\Users\new\AppData\Local\Programs\Microsoft VS Code\resources\app\node_modules
 
 ```
 
-### 功能
+包网工作区
+```json
+{
+    "editor.formatOnSave": true,
+    "vetur.format.defaultFormatter.html": "prettier",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
+```
+
+## 功能
 
 对比<br>
 <img :src="$withBase('images/compare.jpg')">
 注释：<br>
    选中文本： shift+alt+a<br>
 
-### 插件
+## 插件
 
 ```O table link
 [h2 reverse|JSON Tools]
@@ -144,22 +161,27 @@ ctrl + Alt + t     在鼠标位置插入相应的注释 [fileheader.cursorMode](
 code runner
 ```
 
-### 用户片段
-
-```
----------------------
-文件 > 首选项 > 用户片段
+## 自定义用户片段
+> 文件 > 首选项 > 用户片段 > 新建全局代码片段文件 
+在输入栏输入命名如：log, 会生成一个log.json的方件
+```js
 {
-  "[0 Print to console]": {
-    "(prefix)(触发快捷提示的字符串前缀)": "[cg b|log]",
-    "(body)(代码片段主体)": [
-      "console.log('$1');",
+  // Print to console 表示一个代码片段名称
+	// scope            范围 表示此片段 用于什么语言 若为空 则表示所有语言
+	// prefix           前缀 当你实际编写代码时 输入什么关键字 会触发此代码片段 如 con
+	// body             主体 存放代码片段的实际内容
+	// description      描述 如果没有description，默认提示信息是类似上图中Print to console一样的信息
+  "Print to console" : {        
+    "scope": "javascript,typescript",
+    "prefix": "con",
+    "body": [
+      "console.log('$1')",
       "$2"
     ],
-    "description": "打印到控制台"
+    "description": "Log output to console"
   },
-  "[0 Add format comment]": {
-    "prefix": "[cg b|comment]",
+  "Add format comment": {
+    "prefix": "comment",
     "body": [
       "/**",
       " * ",
@@ -170,6 +192,7 @@ code runner
   }
 }
 ```
+
 
 ```table
 [h2|变量] 调用: $变量名

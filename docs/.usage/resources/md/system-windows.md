@@ -14,4 +14,6 @@ C:\WINDOWS\system32\drivers\etc\hosts
 2. CPU选项卡 > 关联的句柄 > 右则可输入关键词过滤
 3. 运行相关程序 可得到监测结果
 
+
 # 批处理(bat)语法大全
+

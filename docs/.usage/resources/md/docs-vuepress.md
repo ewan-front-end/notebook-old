@@ -1,35 +1,99 @@
-const _DATA = {key:'ROOT_HOME', path: '', title: '首页标题', CHILDREN: {}}
-    
-    const argArr = process.argv.slice(2)
-    if (argArr.length > 0) {
-    
+[自定义主题-使用其它布局](#使用其它布局)
+[自定义主题-使用全局布局组件](#使用全局布局组件)
+[自定义主题-主题应用插件](#主题应用插件)
+
+## 改造默认主题
+```
+_.vuepress
+    |_theme
+      |_components
+        |_Navbar.vue
+      |_layouts
+        |_Layout.vue
+      |_index.js
+```
+
+## 自定义主题 https://juejin.cn/post/6869565504756023310
+精简版：
+- 创建目录：.vuepress/theme
+- 创建文件：.vuepress/themeLayout.vue
+
+项目版：
+```
+.vuepress/theme
+  ├── global-components           自动注册为全局组件
+  │   └── xxx.vue
+  ├── components                  普通Vue组件
+  │   └── xxx.vue
+  ├── layouts                     布局组件
+  │   ├── Layout.vue              所有的页面会将此组件作为默认布局
+  │   ├── AnotherLayout.vue       ----如有其它布局的需求         #使用其它布局
+  │   ├── GlobalLayout.vue        ----如想设置全局的UI如<header> #使用全局布局组件
+  │   └── 404.vue                 ----匹配不到的路由
+  ├── styles                      全局的样式和调色板
+  │   ├── index.styl
+  │   └── palette.styl
+  ├── templates                   修改默认的模板文件
+  │   ├── dev.html
+  │   └── ssr.html
+  ├── index.js                    主题文件的入口文件 如缺失 需要将package.json中的"main"字段设置为layouts/Layout.vue
+  ├── enhanceApp.js               主题水平的客户端增强文件
+  └── package.json
+```
+
+#### 使用其它布局
+在.md文件顶部标识为：
+```frontmatter
+---
+layout: AnotherLayout
+---
+```
+
+#### 使用全局布局组件
+.vuepress/theme/index.js
+```js
+module.exports = { globalLayout: './layouts/GlobalLayout.vue' }
+```
+当想为当前主题设置全局的header和footer时: .vuepress/theme/layouts/GlobalLayout.vue
+```vue
+<template>
+  <div id="global-layout">
+    <header><h1>Header</h1></header>
+    <component :is="layout"/>
+    <footer><h1>Footer</h1></footer>
+  </div>
+</template>
+<script>
+export default {
+  computed: {
+    layout () {
+      if (this.$page.path) {
+        if (this.$frontmatter.layout) {
+          // 你也可以像默认的 globalLayout 一样首先检测 layout 是否存在:https://github.com/vuejs/vuepress/blob/master/packages/%40vuepress/core/lib/client/components/GlobalLayout.vue
+          return this.$frontmatter.layout
+        }
+        return 'Layout'
+      }
+      return 'NotFound'
+    }
+  }
 }
-    argArr.forEach(path => {
-        // let item = flatDataMap[path]
-        let root = DATA_ROOT, _root = _DATA
-        path = path.replace(/^\/|\/$/g, '')
-        path.split('/').forEach(key => {
-            let item = JSON.parse(JSON.stringify(root.CHILDREN[key]))
-            delete item.CHILDREN
-            if(!_root.CHILDREN) _root.CHILDREN = {}
-            _root.CHILDREN[key] = item
-            _root = item
-            root = root.CHILDREN[key]
-        })
-        
-        // if (item) {
-        //     let matchArr = path.match(/^\/(\w|\/)+\//)
-        //     if (matchArr) {
-        //         if (fs.existsSync(matchArr[0])) {}
-        //     } else {
+</script>
+```
 
-        //     }
-        // } else {
-        //     console.error('命令参数有误，路径不存在于siteMap中：', path)
-        // }
-    })
-    console.log(_DATA)
-
+#### 主题应用插件
+.vuepress/theme/index.js
+```js
+module.exports = {
+  plugins: [
+    '@vuepress/pwa',
+    {
+      serviceWorker: true,
+      updatePopup: true
+    }
+  ]
+}
+```
 
 
 ## 入门部署
@@ -90,7 +154,7 @@ export default ({
 ```
 ```
 
-## 最佳完整实践
+## 使用指南
 
 
 项目根目录/
@@ -108,9 +172,12 @@ export default ({
 
 
 ## 公共资源库
-统一放在 .vuepress/public      (系统规范)
-图片资源 .vuepress/public/images (自定义规范)
-<img :src="$withBase('images/logo.png')">
+统一放在 .vuepress/public      (系统规范)<br>
+图片资源 .vuepress/public/images (自定义规范)<br>
+`<img :src="$withBase('images/logo.png')">`
+
+## 部署到一个非根路径
+你将需要在 .vuepress/config.js 中设置 base，举例来说，如果你打算将你的网站部署到 https://foo.github.io/bar/，那么 base 的值就应该被设置为 "/bar/" (应当总是以斜杠开始，并以斜杠结束)
 
 ## 默认主题
 docs/.vuepress/config.js

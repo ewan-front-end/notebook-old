@@ -12,7 +12,7 @@ const scenePath = path.resolve(__dirname, '../scene.md')
 writeFile(scenePath, sceneContent)
 
 // 导航菜单写入链接
-editWritCommonFile(path.resolve(__dirname, '../.vuepress/config'), fileObj => {
+editWritCommonFile(path.resolve(__dirname, '../.vuepress/config.js'), fileObj => {
     let nav = fileObj.themeConfig.nav
     let navCreated = false
     nav.forEach(e => { e.link === '/scene' && (navCreated = true) })

@@ -1,28 +1,132 @@
+[上一级](../)
 
-v-integer
+# 样式
 
-Vue.directive('integer', {
-  inserted(el, binding, vnode) {
-    el.oninput = function (e) {
-      let value = e.target.value
-      if (value.indexOf('.') > -1) {
-        value = value.replace('.', '')
-        vnode.context.num = e.target.value = value
-        return
-      }
-      if (isNaN(value)) {
-        value = value.slice(0,value.length-1)
-        vnode.context.num = e.target.value = value
-        return
-      }
-    }
-  }
-})
+- 应用
+[引入字体](#引入字体)
+[CSS变量](#CSS变量)
+[选择器](#选择器)
+
+- 外观
+[loading](#Loading)
+[三角箭头三角形](#三角箭头三角形)
+
+- 功能
+[文本溢出(单行/多行)](#文本溢出)
+[文本不可选](#文本不可选)
+[图片置灰](#图片置灰)
+[清除浮动](#清除浮动)
+[IOS下可输入文本框](#IOS下可输入文本框)
+[去除超链接背景](#去除超链接背景)
+[字符间距离](#字符间距离)
+[首行自动空两格](#首行自动空两格)
+[向左缩进隐藏文本](#向左缩进隐藏文本)
+[去除图片底部空隙](#去除图片底部空隙)
+[去除触摸高亮](#去除触摸高亮)
+[去掉button点击蓝框按钮阴影蓝边](#去掉button点击蓝框按钮阴影蓝边)
+[清除input阴影](#清除input阴影)
 
 
+## Loading 
+<img :src="$withBase('/images/loading.jpg')">
 
-### Loading [detail3](code/001?id=loading)
-![loading](../../assets/images/loading.jpg "loading")<br>
+```css
+@keyframes loading{ 
+    from {transform: rotate(0deg);} 
+    to {transform: rotate(360deg);} 
+}
+```
+```css
+.ring { 
+    --size: 40px; --border: 6px; --color: 0,180,220; vertical-align: middle;
+    border-color:transparent rgba(var(--color), 0.2) rgba(var(--color), 0.6) rgba(var(--color), 1);
+    display: inline-block; position: relative; 
+    /* animation: loading2 1s linear infinite; */
+}
+.ring, .ring::before, .ring::after{
+    width: var(--size); height: var(--size); border-width: var(--border); border-style: solid; border-radius: 100%; z-index: 1;
+}
+.ring::before, .ring::after { 
+    content: '';
+    position: absolute; top: calc(var(--border) * -1); left: calc(var(--border) * -1);
+    border-color:transparent rgba(var(--color), 0.05) rgba(var(--color), 0.4) rgba(var(--color), 0.8);
+} 
+.ring::before {transform: rotate(-30deg);}    
+.ring::after  {transform: rotate(-60deg);}
+```
+```css
+.mum{
+    --size: 60px; 
+    --width: 15px; --height: 4px; --color: #333; --radius: 5px;
+    width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center; vertical-align: middle;
+    /* animation: loading2 1.5s linear infinite; */
+}   
+.mum i{
+    display: inline-block; position: relative; z-index: 1; transform: rotate(30deg); 
+    width: var(--size); height: var(--height); line-height: 0; font-size: 0;
+}
+.mum i::before, .mum i:after{
+    content: ''; position: absolute; top: 0;
+    width: var(--width); height: var(--height);
+    background-color:var(--color); border-radius: var(--radius);
+}
+.mum:before, .mum i::before{ left: 0;}
+.mum:after, .mum i::after{ right: 0;}
+.mum.jb > i:before{opacity: 0;}
+.mum.jb > i > i:before{opacity: 0.05;}
+.mum.jb > i > i > i:before{opacity: 0.19;}
+.mum.jb > i > i > i > i:before{opacity: 0.32;}
+.mum.jb > i > i > i > i > i:before{opacity: 0.44;}
+.mum.jb > i > i > i > i > i > i:before{opacity: 0.55;}
+.mum.jb > i:after{opacity: 0.65;}
+.mum.jb > i > i:after{opacity: 0.74;}
+.mum.jb > i > i > i:after{opacity: 0.82;}
+.mum.jb > i > i > i > i:after{opacity: 0.89;}
+.mum.jb > i > i > i > i > i:after{opacity: 0.95;}
+```
+```css
+.dian{
+    --size: 50px;
+    --dian: 8px; --color: #333; 
+    width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center;
+    animation: loading 2s linear infinite;
+}        
+.dian i{
+    display: inline-block;
+    width: var(--size); height: var(--dian); transform: rotate(45deg);
+    position: relative; z-index: 1;
+}
+.dian i::before, .dian i:after{
+    content: ''; position: absolute; top: 0;
+    width: var(--dian); height: var(--dian);
+    background-color:var(--color); border-radius: 100%;
+}
+.dian i::before{ left: 0;}
+.dian i::after{ right: 0;}
+.dian.jb > i > i:before{opacity: 0.05;}
+.dian.jb > i > i > i:before{opacity: 0.10;}
+.dian.jb > i > i > i > i:before{opacity: 0.25;}
+.dian.jb > i:after{opacity: 0.40;}
+.dian.jb > i > i:after{opacity: 0.55;}
+.dian.jb > i > i > i:after{opacity: 0.70;}
+.dian.jb > i > i > i > i:after{opacity: 0.85;}
+```
+```html
+<span class="ring"></span>
+<span class="mum jb"><i><i><i><i><i><i></i></i></i></i></i></i></span>
+<span class="dian jb"><i><i><i><i></i></i></i></i></span>
+```
+
+## 三角箭头三角形
+```
+/*下拉箭头*/
+.select:after{ 
+  content: ''; display: block; width: 0; height: 0; 
+  border-width:7px 5px 0px 5px;
+  border-style: solid solid solid solid;
+  border-color: #000 transparent transparent transparent;
+}
+```
 
 
 
@@ -41,9 +145,7 @@ Vue.directive('integer', {
 #id{font-family:datefont}
 ```
 
-### SVG字体方案
-```
-```
+
 
 # CSS变量
 **var()函数声明**
@@ -106,20 +208,19 @@ document.addEventListener('mousemove', (e) => {
 `--foo: if(x > 5) this.width = 10;`
 
 
-# 功能
 
-**文本溢出：单行**
+
+## 文本溢出
 ```css
+/* 单行 */
 .text{ 
   width: 40px; 
   white-space:nowrap;      /* 不换行 */ 
   overflow: hidden;        /* 必须设置 */ 
   text-overflow: ellipsis; /* 文本溢出时处理方式：修剪文本clip/省略号替被剪文本ellipsis/给定字符替被剪文本string */
 }
-```
 
-**文本溢出：多行省略**
-```css
+/* 多行 */
 .text {
   width: 40px; 
   overflow: hidden; 
@@ -130,7 +231,7 @@ document.addEventListener('mousemove', (e) => {
 }
 ```
 
-**文本不可选**
+## 文本不可选
 ```
 unselectable="on"  标签属性
 user-select: none   样式属性 -webkit- -moz- -ms-
@@ -141,17 +242,8 @@ user-select: none   样式属性 -webkit- -moz- -ms-
 - element——文本可选，但仅限元素的边界内(只有IE和FF支持)
 - all——在编辑器内，如果双击或上下文点击发生在子元素上，该值的最高级祖先元素将被选中
 
-**三角箭头三角形**
-```
-/*下拉箭头*/
-.select:after{ 
-  content: ''; display: block; width: 0; height: 0; 
-  border-width:7px 5px 0px 5px;
-  border-style: solid solid solid solid;
-  border-color: #000 transparent transparent transparent;
-}
-```
-**图片置灰**
+
+## 图片置灰
 ```
 img {
 -webkit-filter: grayscale(100%);
@@ -163,7 +255,7 @@ filter: gray;
 }
 ```
 
-**清除浮动**
+## 清除浮动
 ```
 选择符:after{
             content:".";
@@ -175,11 +267,9 @@ filter: gray;
               }
 ```
 
-**IOS下可输入文本框**
+## IOS下可输入文本框
 `<div contenteditable="true" style="-webkit-user-select:text">`
-
-/*滚动条样式*/
-```
+```css
     .tabs-content::-webkit-scrollbar {/*滚动条整体样式*/
       width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
       height: 4px;
@@ -198,7 +288,6 @@ filter: gray;
 
 
 # 排版
-
 <div class="color-group color-card inline collapse c-atv-0">
   <i>font-weight</i> 字体粗细    
   <i>font-size</i> 字号大小  
@@ -213,40 +302,39 @@ filter: gray;
   <i>Arial, Helvetica, sans-serif</i>;
 </div>
 
-**去除超链接背景** `-webkit-tap-highlight-color:rgba(0,0,0,0);`
+## 去除超链接背景  
+`-webkit-tap-highlight-color:rgba(0,0,0,0);`
 
-**字与字间距_字符间距离** `letter-spacing: 10px;`
+## 字符间距离
+`letter-spacing: 10px;`
 
-**首行自动空两格** `text-indent: 2em;`
+## 首行自动空两格
+`text-indent: 2em;`
 
-**向左缩进,隐藏文本** `text-indent: -9999px;`
-
-DEMO: 
+## 向左缩进隐藏文本
 ```css
-p{ 
-  text-indent: 2em; 
-  padding:0px; 
-  margin:0px; 
-}
+text-indent: -9999px;
+p{text-indent: 2em; padding:0px; margin:0px}
 ```
 
-**去除图片底部空隙**
+## 去除图片底部空隙
 ```css
 div{ font-size:0px }
 div img{ margin:0;padding:0;}
 ```
 
-**去除触摸高亮** `-webkit-tap-highlight-color:rgba(0,0,0,0);`
+## 去除触摸高亮
+`-webkit-tap-highlight-color:rgba(0,0,0,0);`
 
-**去掉 button 点击 蓝框 去掉按钮阴影 蓝边** `outline:none;`
+## 去掉button点击蓝框按钮阴影蓝边
+`outline:none;`
 
-
-**清除 input 阴影** `-webkit-appearance: none;`
-
+## 清除input阴影
+`-webkit-appearance: none;`
 
 **table** `border-collapse:collapse;`
 
-#### 选择器
+## 选择器
 <div class="color-group color-card inline collapse c-atv-0">
   <i>elem</i> 表示任意元素    
   <i>attr</i> 任意属性名称  
@@ -272,6 +360,7 @@ div img{ margin:0;padding:0;}
   <i>attr</i>*=
   <i>value</i>]　匹配附带attr属性的elem元素，并且该属性值包含value字符
 </div>
+
 ```
 .color-group i:nth-child(1){color: #318ed8;}   序号优先 第1个元素 匹配<i>
 .color-group i:nth-of-type(1){color: #318ed8;} 类型优先 元素<i> 匹配第1个
@@ -285,13 +374,13 @@ div img{ margin:0;padding:0;}
 - 空：br、meta、hr、link、input、img
 
 ##### 盒子模型(Box Model) 
-![Box Model](../../assets/images/box-model.jpg "Box Model")<br>
+<img :src="$withBase('/images/box-model.jpg')"><br>
 - 边界重叠:上div的margin-bottom和下div的margin-top不会叠加，而是取值其一大者
 - 边界塌陷:父级div无border，padding，inline content，则子div的margin会一直向上找参考元素
 
 
 ## 轴线一维布局(弹性盒子)
-![flex](../../assets/images/flex.jpg "flex")<br>
+<img :src="$withBase('/images/flex.jpg')"><br>
 ```css
 .flex{
 　display: flex;　
