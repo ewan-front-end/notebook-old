@@ -23,3 +23,10 @@
 > 配置: /usr/local/etc/nginx/nginx.conf<br>
 > 启动: nginx  重启: nginx -s reload  停止: nginx -s stop<br>
 
+## Node攻略
+- rvm
+> nvm list 显示已安装的列表<br>
+> nvm list available 显示可安装的所有版本<br>
+> nvm install 12.18.2 安装特定版本<br>
+> nvm use 12.18.2 使用指定版本<br>
+

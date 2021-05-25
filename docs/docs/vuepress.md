@@ -1,11 +1,22 @@
 [上一级](../)
 
 
-[主题开发-使用其它布局](#使用其它布局)
-[主题开发-使用全局布局组件](#使用全局布局组件)
-[主题开发-主题应用插件](#主题应用插件)
+[自定义主题-使用其它布局](#使用其它布局)
+[自定义主题-使用全局布局组件](#使用全局布局组件)
+[自定义主题-主题应用插件](#主题应用插件)
 
-## 主题开发
+## 改造默认主题
+```
+_.vuepress
+    |_theme
+      |_components
+        |_Navbar.vue
+      |_layouts
+        |_Layout.vue
+      |_index.js
+```
+
+## 自定义主题 https://juejin.cn/post/6869565504756023310
 精简版：
 - 创建目录：.vuepress/theme
 - 创建文件：.vuepress/themeLayout.vue
@@ -44,7 +55,7 @@ layout: AnotherLayout
 #### 使用全局布局组件
 .vuepress/theme/index.js
 ```js
-module.exports = { globalLayout: '/path/to/your/global/vue/sfc' }
+module.exports = { globalLayout: './layouts/GlobalLayout.vue' }
 ```
 当想为当前主题设置全局的header和footer时: .vuepress/theme/layouts/GlobalLayout.vue
 ```vue
@@ -74,7 +85,18 @@ export default {
 ```
 
 #### 主题应用插件
-
+.vuepress/theme/index.js
+```js
+module.exports = {
+  plugins: [
+    '@vuepress/pwa',
+    {
+      serviceWorker: true,
+      updatePopup: true
+    }
+  ]
+}
+```
 
 
 ## 入门部署

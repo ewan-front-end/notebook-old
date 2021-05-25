@@ -1,4 +1,12 @@
 
+
+
+- nrm
+$ sudo npm i nrm -g
+$ nrm ls 代理源列表
+$ nrm use taobao 使用taobao源
+
+
 ## NPM内网源搭建
 http://127.0.0.1:7001/ 源
 http://127.0.0.1:7002/ web

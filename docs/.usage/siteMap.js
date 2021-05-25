@@ -36,11 +36,17 @@ module.exports = {
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/docs/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/docs/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/docs/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, SRC:'docs-vuepress'},
         docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }},
+    timeline:{title:'时间线', SRC:'timeline'},
+    database:{title:'数据库', CHILDREN:{
+        mysql:{title:'MySQL', SRC:'data-mysql'},
+        mongodb:{title:'MongoDB', SRC:'data-mongodb'}
+    }},
+    solution:{title:'解决方案', scene:[{title:'登录登出', href:'/solution'}], links:[{title:'数据库',href:'/database'}, {title:'cookie',href:''}, {title:'session',href:''}], SRC:'solution'},
     tools: {
         links:[{name:'文档', href:'/docs/'}],
         CHILDREN: {            
             git: {linkName: 'Git', SRC:'git'},
-            npm: {linkName: 'NPM', SRC:'npm', scene:{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'}},
+            npm: {linkName: 'NPM', SRC:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
             markdown: {linkName: 'Markdown', SRC:'markdown'},
             webpack: {linkName: 'Webpack'},
             qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
@@ -56,7 +62,6 @@ module.exports = {
         style:{title:'样式', SRC:'css-style'},
         preset:{title:'预处理', SRC:'css-preset'}
     }},   
-    //solution:{linkName:'解决方案', links:[{name:'Node测试方案', href:'/scene/'}]},
     system:{title:'操作系统', SRC:'system', CHILDREN:{
         mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
         linux:{title:'Linux',linkName:'Linux', SRC:'system-linux'},
@@ -86,18 +91,17 @@ module.exports = {
         ]}        
     ], SRC:'nginx'},
     resources:{linkName:'资源', SRC:'resources'},
-    mysql:{linkName:'MySQL', SRC:'mysql'},
     algorithm:{linkName:'算法', SRC:'algorithm'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
     socket: {linkName:'Socket', SRC:'socket'},
-    node: {linkName: 'Node', SRC:'node', CHILDREN:{
+    node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], SRC:'node', CHILDREN:{
         fs:{linkName: 'fs模块', SRC:'node-fs'}, 
         koa:{linkName: 'Koa服务', SRC:'node-koa'},
-        express:{linkName: 'Express服务', SRC:'node-express'}       
+        express:{linkName: 'Express服务', SRC:'node-express'}  
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{
-            es6:{SRC:'es6'}
+            es6:{SRC:'js-es6'}
         }},
         matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'},
         ruby:{SRC:'ruby'},
@@ -106,7 +110,7 @@ module.exports = {
     }},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', CHILDREN: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', CHILDREN: {
-            systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'SDK', href:''},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], SRC:'0001'},
+            systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'账号体系', href:'/solution'},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], SRC:'0001'},
             systemConfiguration: {title: '配置系统', desc: '集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。', linkName: ''},
             systemMessage: {title: '消息系统', desc: '通知发布 信息推送 客服等即时通讯场景', linkName: '消息系统'},
             systemBusiness: {title: '业务系统', desc: '核心系统，其它系统是对它的支持或者控制', CHILDREN: {
@@ -117,7 +121,7 @@ module.exports = {
                 libraryPublic: {title:'公共库', CHILDREN: {
                     style: {title: '样式库', desc: '利于各业务线之间保持用户体验的一致性', linkName: '样式库'},
                     function: {title:'功能库', CHILDREN: {
-                        login: {title: '登陆', },
+                        login: {title: '登陆', links:[{name:'账号体系', href:'/solution'}]},
                         payment: {title: '支付', links:[{name:'鉴权', href:'../../../../systemAuthentication'}, {name:'支付场景', href:'/scene/payment'}]},
                         statistics: {title: '数据统计'}
                     }}

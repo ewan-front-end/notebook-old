@@ -5,6 +5,33 @@
 
 [Node文档](http://nodejs.cn/api/globals.html#globals_process)
 
+版本管理
+- nvm 
+nodejs的版本管理工具, 可以安装和切换不同版本的nodejs
+下载安装：nvm-setup.zip (https://github.com/coreybutler/nvm-windows/releases)
+$ nvm
+  ```cmd
+  nvm list              显示已安装的列表
+  nvm list available    显示可安装的所有版本
+
+  nvm install 12.18.2   安装特定版本                 nvm install <version> [arch]
+  nvm install latest    安装最新稳定版本
+
+  nvm use 12.18.2       使用指定版本                 nvm use [version] [arch]
+
+  nvm uninstall 12.18.2 卸载指定版本
+
+  nvm arch ：显示node是运行在32位还是64位。
+  nvm on ：开启node.js版本管理。
+  nvm off ：关闭node.js版本管理。
+  nvm proxy [url] ：设置下载代理。不加可选参数url，显示当前代理。将url设置为none则移除代理。
+  nvm node_mirror [url] ：设置node镜像。默认是https://nodejs.org/dist/。如果不写url，则使用默认url。设置后可至安装目录settings.txt文件查看，也可直接在该文件操作。
+  nvm npm_mirror [url] ：设置npm镜像。https://github.com/npm/cli/archive/。如果不写url，则使用默认url。设置后可至安装目录settings.txt文件查看，也可直接在该文件操作。
+  nvm root [path] ：设置存储不同版本node的目录。如果未设置，默认使用当前目录。
+  nvm version ：显示nvm版本。version可简化为v。
+  ```
+
+
 似全局变量却不是(仅存在于模块的作用域中)
 ```
 __dirname      //当前 执行文件 的相对路径
