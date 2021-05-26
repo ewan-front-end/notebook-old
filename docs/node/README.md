@@ -4,11 +4,13 @@
 [fs模块](/node/fs) [Koa服务](/node/koa) [Express服务](/node/express) 
 
 [Node文档](http://nodejs.cn/api/globals.html#globals_process)
+[版本管理](#版本管理)
+
 
 版本管理
-- nvm 
-nodejs的版本管理工具, 可以安装和切换不同版本的nodejs
-下载安装：nvm-setup.zip (https://github.com/coreybutler/nvm-windows/releases)
+- nvm<br>
+nodejs的版本管理工具, 可以安装和切换不同版本的nodejs, 当版本改变会带来npm的匹配版本改变<br>
+下载安装：nvm-setup.zip (https://github.com/coreybutler/nvm-windows/releases)<br>
 $ nvm
   ```cmd
   nvm list              显示已安装的列表

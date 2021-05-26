@@ -9,6 +9,7 @@ let flatDataMap = {}, // 扁平化数据
     indexLinks = ``       // 首页链接拼接：[key||name](path)
 let DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap},
     _DATA_ROOT = {key:'DATA_ROOT', path: '', title: '首页标题'}
+let searchStr = ``
 
 const createFile = (item) => {
     const {parent, path} = item

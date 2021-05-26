@@ -276,7 +276,7 @@ https://github.com/fzankl/docsify-plugin-flexible-alerts
 图片alt就是显示在图片下面的文字，相当于对图片内容的解释。
 图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加
 
-![blockchain](../../assets/images/timg.jpg "图片名称")
+<img :src="$withBase('/images/timg.jpg')">
 
 
 [超链接名](超链接地址 "超链接title")<br>
@@ -369,7 +369,7 @@ console.log(age)
 
 <p align="center">
   <a href="https://docsify.js.org">
-    <img alt="docsify" src="./assets/images/icon.svg">
+    <img :src="$withBase('/images/icon.svg')">
   </a>
 </p>
 
@@ -450,26 +450,26 @@ npm run bootstrap && npm run dev
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/docsify#backers)]
 
-<a href="https://opencollective.com/docsify#backers" target="_blank"><img src="./assets/images/backers.svg?width=890"></a>
+<a href="https://opencollective.com/docsify#backers" target="_blank"><img :src="$withBase('/images/backers.svg')" width="890"></a>
 
 ## Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/docsify#silver-sponsors)]
 
-<a href="https://opencollective.com/docsify/silver-sponsors/0/website" target="_blank"><img src="./assets/images/avatar1.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/1/website" target="_blank"><img src="./assets/images/avatar2.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/2/website" target="_blank"><img src="./assets/images/avatar3.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/3/website" target="_blank"><img src="./assets/images/avatar4.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/4/website" target="_blank"><img src="./assets/images/avatar5.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/5/website" target="_blank"><img src="./assets/images/avatar6.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/6/website" target="_blank"><img src="./assets/images/avatar7.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/7/website" target="_blank"><img src="./assets/images/avatar8.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/8/website" target="_blank"><img src="./assets/images/avatar9.svg"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/0/website" target="_blank"><img :src="$withBase('/images/avatar1.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/1/website" target="_blank"><img :src="$withBase('/images/avatar2.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/2/website" target="_blank"><img :src="$withBase('/images/avatar3.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/3/website" target="_blank"><img :src="$withBase('/images/avatar4.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/4/website" target="_blank"><img :src="$withBase('/images/avatar5.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/5/website" target="_blank"><img :src="$withBase('/images/avatar6.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/6/website" target="_blank"><img :src="$withBase('/images/avatar7.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/7/website" target="_blank"><img :src="$withBase('/images/avatar8.svg')"></a>
+<a href="https://opencollective.com/docsify/silver-sponsors/8/website" target="_blank"><img :src="$withBase('/images/avatar9.svg')"></a>
 
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/docsifyjs/docsify/graphs/contributors"><img src="./assets/images/contributors.svg?width=890" /></a>
+<a href="https://github.com/docsifyjs/docsify/graphs/contributors"><img :src="$withBase('/images/contributors.svg')"></a>
 
 ## License
 

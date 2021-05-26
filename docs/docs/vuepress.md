@@ -1,7 +1,7 @@
 [上一级](../)
 
 
-[自定义主题-使用其它布局](#使用其它布局)
+[自定义主题-使用其它布局](#自定义主题)
 [自定义主题-使用全局布局组件](#使用全局布局组件)
 [自定义主题-主题应用插件](#主题应用插件)
 
@@ -16,7 +16,7 @@ _.vuepress
       |_index.js
 ```
 
-## 自定义主题 https://juejin.cn/post/6869565504756023310
+## 自定义主题 
 精简版：
 - 创建目录：.vuepress/theme
 - 创建文件：.vuepress/themeLayout.vue
@@ -29,8 +29,8 @@ _.vuepress
   ├── components                  普通Vue组件
   │   └── xxx.vue
   ├── layouts                     布局组件
-  │   ├── Layout.vue              所有的页面会将此组件作为默认布局
-  │   ├── AnotherLayout.vue       ----如有其它布局的需求         #使用其它布局
+  │   ├── Layout.vue              所有的页面会将此组件作为默认布局 #开发Layout.vue
+  │   ├── AnotherLayout.vue       ----如有其它布局的需求: 1.创建此文件  2.在有此需求的.md文件顶部标识为 ---回车layout: AnotherLayout回车---
   │   ├── GlobalLayout.vue        ----如想设置全局的UI如<header> #使用全局布局组件
   │   └── 404.vue                 ----匹配不到的路由
   ├── styles                      全局的样式和调色板
@@ -44,45 +44,6 @@ _.vuepress
   └── package.json
 ```
 
-#### 使用其它布局
-在.md文件顶部标识为：
-```frontmatter
----
-layout: AnotherLayout
----
-```
-
-#### 使用全局布局组件
-.vuepress/theme/index.js
-```js
-module.exports = { globalLayout: './layouts/GlobalLayout.vue' }
-```
-当想为当前主题设置全局的header和footer时: .vuepress/theme/layouts/GlobalLayout.vue
-```vue
-<template>
-  <div id="global-layout">
-    <header><h1>Header</h1></header>
-    <component :is="layout"/>
-    <footer><h1>Footer</h1></footer>
-  </div>
-</template>
-<script>
-export default {
-  computed: {
-    layout () {
-      if (this.$page.path) {
-        if (this.$frontmatter.layout) {
-          // 你也可以像默认的 globalLayout 一样首先检测 layout 是否存在:https://github.com/vuejs/vuepress/blob/master/packages/%40vuepress/core/lib/client/components/GlobalLayout.vue
-          return this.$frontmatter.layout
-        }
-        return 'Layout'
-      }
-      return 'NotFound'
-    }
-  }
-}
-</script>
-```
 
 #### 主题应用插件
 .vuepress/theme/index.js
@@ -97,6 +58,68 @@ module.exports = {
   ]
 }
 ```
+
+#### 开发Layout.vue
+  - .vuepress/theme/index.js
+  ```js
+    module.exports = {
+      // Layout.vue不需要显式暴露
+    }
+  ```
+  - .vuepress/theme/layouts/Layout.vue
+    需要用到的组件都写到 .vuepress/theme/components 下
+    ```vue
+    <template>
+      <div>
+        <Header />
+        <Content />
+      </div>
+    </template>
+
+    <script>
+    import Header from "../components/Header"
+    export default { components: { Header } }
+    </script>
+    ```
+  - demo> npm run docs:dev
+
+#### 使用全局布局组件
+  - .vuepress/theme/index.js 
+  ```js
+    module.exports = {
+      globalLayout: './layouts/GlobalLayout.vue'
+    }
+  ```
+  - .vuepress/theme/layouts/GlobalLayout.vue
+  ```vue
+  <template>
+    <div id="global-layout">
+      <header><h1>Header</h1></header>
+      <component :is="layout"/>
+      <footer><h1>Footer</h1></footer>
+    </div>
+  </template>
+  <script>
+  export default {
+    computed: {
+      layout () {
+        if (this.$page.path) {
+          if (this.$frontmatter.layout) {
+            // 你也可以像默认的 globalLayout 一样首先检测 layout 是否存在:https://github.com/vuejs/vuepress/blob/master/packages/%40vuepress/core/lib/client/components/GlobalLayout.vue
+            return this.$frontmatter.layout
+          }
+          return 'Layout'
+        }
+        return 'NotFound'
+      }
+    }
+  }
+  </script>
+  ```
+  - demo> npm run docs:dev
+
+## 集成第三方到主题
+  - .vuepress/theme> npm i element-ui -S
 
 
 ## 入门部署
@@ -177,7 +200,7 @@ export default ({
 ## 公共资源库
 统一放在 .vuepress/public      (系统规范)<br>
 图片资源 .vuepress/public/images (自定义规范)<br>
-`<img :src="$withBase('images/logo.png')">`
+`<img :src="$withBase('/images/logo.png')">`
 
 ## 部署到一个非根路径
 你将需要在 .vuepress/config.js 中设置 base，举例来说，如果你打算将你的网站部署到 https://foo.github.io/bar/，那么 base 的值就应该被设置为 "/bar/" (应当总是以斜杠开始，并以斜杠结束)

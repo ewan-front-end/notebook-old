@@ -10,6 +10,9 @@
 > demo> docsify init ./docs<br>
 > demo> docsify serve docs<br>
 
+## NPM攻略
+- rvm
+> 源于node版本改变的匹配
 ## Nginx攻略
 - windows
 > 安装: http://nginx.org/en/download.html<br>

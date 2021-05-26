@@ -42,22 +42,19 @@ module.exports = {
         mongodb:{title:'MongoDB', SRC:'data-mongodb'}
     }},
     solution:{title:'解决方案', scene:[{title:'登录登出', href:'/solution'}], links:[{title:'数据库',href:'/database'}, {title:'cookie',href:''}, {title:'session',href:''}], SRC:'solution'},
-    tools: {
-        links:[{name:'文档', href:'/docs/'}],
-        CHILDREN: {            
-            git: {linkName: 'Git', SRC:'git'},
-            npm: {linkName: 'NPM', SRC:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
-            markdown: {linkName: 'Markdown', SRC:'markdown'},
-            webpack: {linkName: 'Webpack'},
-            qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
-            charts: {linkName: '需求图表', SRC:'0002'},
-            vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], SRC:'vscode'},
-            chromeTools:{SRC:'chrome-tools'},
-            plantuml:{SRC:'plantuml'},
-            regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
-            eslint: {linkName: 'ESLint', SRC:'eslint'}
-        }
-    }, 
+    tools: {title:'工具',links:[{name:'文档', href:'/docs/'}], CHILDREN: {            
+        git: {linkName: 'Git', SRC:'git'},
+        npm: {linkName: 'NPM', SRC:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
+        markdown: {linkName: 'Markdown', SRC:'markdown'},
+        webpack: {linkName: 'Webpack'},
+        qiankun: {linkName: '乾坤微服务', SRC:'qiankun'},
+        charts: {linkName: '需求图表', SRC:'0002'},
+        vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], SRC:'vscode'},
+        chromeTools:{SRC:'chrome-tools'},
+        plantuml:{SRC:'plantuml'},
+        regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
+        eslint: {linkName: 'ESLint', SRC:'eslint'}
+    }}, 
     css:{title:'CSS', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
         style:{title:'样式', SRC:'css-style'},
         preset:{title:'预处理', SRC:'css-preset'}
