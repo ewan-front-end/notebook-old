@@ -31,6 +31,11 @@
   ```
 
 - styles/code.styl                                                          代码块
+  ```css
+  {$contentClass}
+  pre, pre[class*="language-"]
+    padding 1.25rem 1.5rem                            padding 0.2rem 1.5rem 0.4rem 1.5rem
+  ```
 
 
 

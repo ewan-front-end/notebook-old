@@ -133,19 +133,66 @@ es6-passport> hb dev
 ```
 
 ## 开发
+- src/js/common/config.js
+```js
+export default {
+    loginFormId: 'form',
+    loginSubmitId: 'submit',
+    loginInputAccountId: 'input',
+    loginInputPasswordId: 'password'
+}
 ```
+- src/js/common/formCheck.js
+```js
+export default (form) => {
+    return () => {
+        alert(form.id)
+        return []
+    }
+}
+```
+- src/js/login/init.js
+```js
+import render from './render'
+import event from './event'
+import config from '../common/config'
+import formCheck from '../common/formCheck'
 
+window.login = (options) => {
+    const container = options.container
+    render(container)
+    event()
+}
+```
+- src/js/login/render.js
+```js
+import { container } from 'webpack'
+import {loginFormId, loginInputAccountId, loginInputPasswordId, loginSubmitId} from '../common/config'
+export default (container) => {
+    const tpl = `<form id="${loginFormId}">
+        <input name="account" type="text" id="${loginInputAccountId}">
+        <input name="password" type="password" id="${loginInputPasswordId}">
+        <input value="登录" type="submit" id="${loginSubmitId}">
+    </form>`
+    container.innerHTML = tpl
+}
+```
+- src/js/login/event.js
+```js
+import {loginFormId, loginSubmitId, loginInputAccountId} from '../common/config'
+import formCheck from '../common/formCheck'
+export default () => {
+    const btn = document.getElementById(loginSubmitId)
+    const input = document.getElementById(loginInputAccountId)
+    const check = formCheck(document.getElementById(loginFormId))
 
-
-
-
-
-
-
-
-
-
-
+    btn.onclick = () => {
+        check()
+    }
+    input.oninput = () => {
+        check()
+    }
+}
 ```
 
 

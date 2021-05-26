@@ -11,8 +11,9 @@
 - nvm<br>
 nodejs的版本管理工具, 可以安装和切换不同版本的nodejs, 当版本改变会带来npm的匹配版本改变<br>
 下载安装：nvm-setup.zip (https://github.com/coreybutler/nvm-windows/releases)<br>
-$ nvm
+
   ```cmd
+  nvm                   帮助
   nvm list              显示已安装的列表
   nvm list available    显示可安装的所有版本
 

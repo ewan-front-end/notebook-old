@@ -6,15 +6,41 @@
 [自定义主题-主题应用插件](#主题应用插件)
 
 ## 改造默认主题
-```
-_.vuepress
-    |_theme
-      |_components
-        |_Navbar.vue
-      |_layouts
-        |_Layout.vue
-      |_index.js
-```
+- 克隆默认主题代码 `vuepress-demo/docs> vuepress eject`  
+  1. 使用vuepress命令,需全局安装VUEPRESS：**npm i vuepress -g**
+  2. 代码会克隆到 vuepress-demo/docs/.vuepress/theme/ 下
+
+- styles/index.styl 
+  ```css
+  body
+    font-size 16px                                    font-size 14px        字号基础值
+
+  blockquote                                                                引用块 
+    font-size 1rem                                    font-size 0.85rem   
+    margin 1rem 0                                     margin 0.5rem 0
+    padding .25rem 0 .25rem 1rem                      padding 0 0 0 1rem
+
+  ul, ol
+                                                      margin: 0.5rem 0
+
+  p, ul, ol
+    line-height 1.7                                   line-height 1.2
+  ```
+
+- styles/wrapper.styl
+  ```css
+  $wrapper                                          
+    max-width $contentWidth                           max-width none        页面内容宽
+  ```
+
+- styles/code.styl                                                          代码块
+  ```css
+  {$contentClass}
+  pre, pre[class*="language-"]
+    padding 1.25rem 1.5rem                            padding 0.2rem 1.5rem 0.4rem 1.5rem
+  ```
+
+
 
 ## 自定义主题 
 精简版：
@@ -119,7 +145,33 @@ module.exports = {
   - demo> npm run docs:dev
 
 ## 集成第三方到主题
-  - .vuepress/theme> npm i element-ui -S
+  - npm init -y
+  - .vuepress/theme> npm i element-ui --save
+  - 如果要按需引入 则
+    .vuepress/theme> npm i babel-plugin-component --save-dev<br>
+    .vuepress/theme/.babelrc `{"presets": [["es2015", { "modules": false }]], "plugins": [["component", {"libraryName": "element-ui", "styleLibraryName": "theme-chalk"}]]}`
+  - .vuepress/theme/enhanceApp.js
+    ```js
+    import {Menu, Submenu, MenuItem, MenuItemGroup} from 'element-ui'; // 按需引入
+    import 'element-ui/lib/theme-chalk/index.css';
+    export default ({
+      Vue,     // VuePress 正在使用的 Vue 构造函数
+      options, // 附加到根实例的一些选项
+      router,  // 当前应用的路由实例
+      siteData // 站点元数据
+    }) => {
+      Vue.use(Menu)
+      Vue.use(Submenu)
+      Vue.use(MenuItem)
+      Vue.use(MenuItemGroup)
+    }
+    ```
+
+## 手动引入Markdown样式
+
+
+
+
 
 
 ## 入门部署
