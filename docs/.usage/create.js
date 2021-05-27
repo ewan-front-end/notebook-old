@@ -1,4 +1,5 @@
 const fs = require('fs')
+const {mkdirSync} = require('./src/tools-fs')
 const _path = require('path')
 const siteMap = require('./siteMap')
 const argArr = process.argv.slice(2)
@@ -36,7 +37,7 @@ const handleItem = (key, item, parent) => {
 }
 
 
-
+// 带参
 if (argArr.length > 0) {
     let root, _root
     argArr.forEach(path => {
@@ -90,7 +91,7 @@ if (argArr.length > 0) {
  */ 
 for (id in flatDataMap) {
     let {type, path, target} = flatDataMap[id]
-    if (type === 'DIRE') {fs.mkdirSync(path); console.log('created ' + path)} 
+    if (type === 'DIRE') {mkdirSync(path)} 
     if (type === 'FILE') {
         let content = `[上一级](../)\n\n`                     // 添加上一级按钮 
 
@@ -155,6 +156,15 @@ for (id in flatDataMap) {
         /* 外部资源  */
         if (target.SRC) {
             const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
+
+            const titleArr = file.match(/\#{1,6}\s.{1,100}\n/g) || []
+            const titleStr = ``
+            titleArr.forEach((title, i) => {
+                titleStr += '----' + title
+            });
+            console.log('titleStr', typeof file);
+            content += `\n${titleStr}\n`
+            
             content += `\n${file}\n`
         }
                     

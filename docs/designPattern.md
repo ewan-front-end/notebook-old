@@ -1,6 +1,8 @@
 [上一级](../)
 
 
+
+
 [设计模式](pages/concept/design-pattern/index.md?id=设计模式)
 
 ###### 设计模式的六大原则

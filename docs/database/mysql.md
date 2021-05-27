@@ -4,6 +4,8 @@
 
 
 
+
+
 ```sql
 CREATE SCHEMA `node-blog`;
 

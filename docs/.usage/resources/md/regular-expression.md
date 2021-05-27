@@ -1,8 +1,20 @@
+匹配任意字符（包括换行符）的方法
+
+　　可以用 （[\s\S]*） ，也可以用 “（[\d\D]*）”、“（[\w\W]*）” 来匹配，就可以匹配包括换行符在内的任意字符
+
 
 ```js
 /^\/(\w|\/)+\//.test('/tools/npm')  // true
 '/tools/npm'.match(/^\/(\w|\/)+\//) // ["/tools/", "s"]
 '/scene'.match(/^\/(\w|\/)+\//)     // null
+
+const spaceArr = trStr.match(/\s{2,}/) || [];
+    spaceArr.forEach((space, j) => {
+      trStr = trStr.replace(
+        space,
+        `</span>${space}<span class="row${i} col${j + 1}">`
+      );
+    });
 ```
 
 

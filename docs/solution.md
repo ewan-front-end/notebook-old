@@ -5,6 +5,8 @@
 [数据库](/database) [cookie](#) [session](#) 
 
 
+
+
 es6+
 
 
@@ -79,8 +81,8 @@ node版本太高
         (1) 对外暴露函数：单一功能，且无内部状态<br>
         (2) 对外暴露对象：无关联的功能集合<br>
         (3) 对外暴露class(构造函数):互相关联的功能集合或存有内部状态的功能<br>
-2. 模块的划分与关联
-<img :src="$withBase('/images/solution-01.png')">
+2. 模块的划分与关联<br>
+<img :src="$withBase('/images/solution-01.png')"><br>
     如何编写一个业务模块
     - init: 初始化，用于接受参数和设置初始值
     - render: 渲染，
