@@ -1,7 +1,0 @@
-- [部署到一个非根路径](/docs/vuepress.html#部署到一个非根路径)
-- [插入图片](/docs/vuepress.html#公共资源库)
-- [登录登出](/solution)
-- [NPM内网源搭建](/tools/npm.html#NPM内网源搭建)
-- [NPM版本管理](/node.html#版本管理)
-- [简化特定通用代码](/tools/vscode.html#自定义用户片段)
-- [Node版本管理](/node.html#版本管理)

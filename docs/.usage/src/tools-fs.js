@@ -15,7 +15,7 @@ function checkDirSync(dirname) {
 }
 
 module.exports = {
-    writeFile: (path, content, callback) => {
+    writeFile: (path, content) => {
         fs.writeFile(path, content, { encoding: 'utf8' }, err => { console.log('written: ' + path) })
     },
     editWritCommonFile: (path, editHandler) => {
