@@ -166,7 +166,6 @@ window.login = (options) => {
 ```
 - src/js/login/render.js
 ```js
-import { container } from 'webpack'
 import {loginFormId, loginInputAccountId, loginInputPasswordId, loginSubmitId} from '../common/config'
 export default (container) => {
     const tpl = `<form id="${loginFormId}">
@@ -195,6 +194,8 @@ export default () => {
 }
 ```
 
+
+为什么要模块化
 
 
 
