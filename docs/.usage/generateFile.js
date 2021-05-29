@@ -1,4 +1,5 @@
 const fs = require('fs')
+const {writeFile} = require('./src/tools-fs')
 const _path = require('path')
 
 module.exports = (path, target) => {
@@ -55,7 +56,7 @@ module.exports = (path, target) => {
                 linkName = linkName || linkTarget.linkName || '未知'
             }
             
-            console.log(linkHref,linkName, ' - ', linkHref)
+            
             linksStr += `[${linkName}](${linkHref}) `
         })            
         content += linksStr + `\n\n`
@@ -76,5 +77,5 @@ module.exports = (path, target) => {
         content += `\n${file}\n`
     }
                 
-    fs.writeFile(path + '.md', content, { encoding: 'utf8' }, err => { console.log('created ' + path) })
+    writeFile(_path.resolve(__dirname, '..' + path + '.md'), content)
 }
