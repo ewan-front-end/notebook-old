@@ -51,22 +51,22 @@ module.exports = (path, target) => {
                 linkHref = '/' + linkHref
             }
 
-            if (!linkName) {
-                let linkTarget = flatDataMap[linkHref] || {}
-                linkName = linkName || linkTarget.linkName || '未知'
-            }
+            // if (!linkName) {
+            //     let linkTarget = flatDataMap[linkHref] || {}
+            //     linkName = linkName || linkTarget.linkName || '未知'
+            // }
             
             
-            linksStr += `[${linkName}](${linkHref}) `
+            // linksStr += `[${linkName}](${linkHref}) `
         })            
-        content += linksStr + `\n\n`
+        content += linksStr + `\n\n` 
     } 
     
     /* 外部资源  */
     if (target.SRC) {
         const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
 
-        let titleArr = file.match(/(?:^|\n)#{1,6}\s.+/g) || []  
+        let titleArr = file.match(/(?:^|\n)#{1,6}\s.+/g) || []   
         let titleStr = ``
         titleArr.forEach((title, i) => {
             title = title.replace(/(?:^|\n)#{1,6}\s/, '')

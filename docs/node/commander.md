@@ -1,0 +1,150 @@
+[上一级](../)
+
+# 命令行编程工具
+
+[响应版本号](#响应版本号) - [ssss](#ssss) - 
+
+
+## 响应版本号
+- demo> npm install commander --save
+- demo/bin/demo.js
+```js
+#!/usr/bin/env node
+var program = require('commander')
+program
+  .version('0.0.1', '-v, --version')
+program.parse(process.argv)
+```
+- demo> node bin/demo.js -v
+
+## ssss
+
+
+
+
+
+必须参数<> 可选参数[]
+
+hb create --help
+
+
+```js
+var program = require('commander')
+
+program
+  .version('0.0.1', '-v, --version') //<版本值>,[响应标识默认-V,--version] 长标识必需
+
+program
+  .command('rm <dir>')
+  .option('-r, --recursive', 'Remove recursively')
+  .action(function (dir, cmd) {
+    console.log('remove ' + dir + (cmd.recursive ? ' recursively' : ''))
+  })
+
+// 自定义命令 create
+commander.command('create [project]')  
+    .description('create a empty project')  // 如--help 罗列Commands时：create [options] [project]  create a empty project
+    .option('-w --webpack')
+    .action(function(project, webpack) {
+        fs.copySync(DEFAULT_STRUCTURE, path.join(currentPath, project));
+        fs.copySync(DEFAULT_CONFIG, path.join(currentPath, project, './html-bundler.config.js'));
+        logger.notice('项目' + project + '创建成功');
+        if (webpack.webpack) {
+            fs.copySync(DEFAULT_WEBPACK_CONFIG, path.join(currentPath, project, './webpack.config.js'));
+            fs.copySync(DEFAULT_DLL_CONFIG, path.join(currentPath, project, './webpack.dll.js'));
+            logger.info('webpack配置文件创建成功, 请根据项目情况进行修改并安装依赖');
+        }
+    })
+
+demo> hb create --help
+    Usage: create [options] [project]
+    create a empty project
+    Options:
+        -h, --help    output usage information
+        -w --webpack
+
+
+
+
+Usage: html-bundler [options] [command]
+
+
+Commands:
+
+init [options]              if your project rootpath has not `html-bundler.config.js` & `webpack.config.js`, this command will create these files
+create [options] [project]  create a empty project
+dev [options]               dev
+dest                        dest
+qa                          qa
+rd                          rd
+
+Options:
+
+
+
+
+
+
+#!/usr/bin/env node
+
+var inquirer = require('inquirer');
+var program = require('commander');//一个帮助快速开发Nodejs命令行工具的package
+var Promise = require("bluebird");
+var fs = Promise.promisifyAll(require('fs-extra'));
+var chalk = require('chalk');//终端输出时颜色样式输出工具
+var figlet = require('figlet');
+var ora = require('ora');
+var exec = require('promise-exec');
+var shell =require('shelljs');//用于执行shell脚本的包
+console.log(
+    chalk.green(
+        figlet.textSync("NODE CLI")
+    )
+);
+program
+  .version(require('../package').version)
+  .usage('<command> [options] 快速启动项目') //-h 打印的用户提示
+
+program
+  .option('-n, --yourname [yourname]', 'Your name')
+  .option('-g, --glad', 'Tell us you are happy')
+
+/** 自定义命令revert 
+ * 
+ */
+program
+  .command('revert <name>')
+  .description('我是一段描述')                      //描述
+  .option('--rules', 'list all module rule names') //选项
+  .option('--plugins', 'list all plugin names')
+  .alias('rv')//命令别名
+  .action((name,cmd) => {
+    //如果传了选项，这样可以取到
+    var rules = cmd.rules ? true : false;
+    //name取到命令后面的参数
+        console.log(`回复啦${name}`)
+  })
+
+
+// 添加一些有用的信息到help选项
+program.on('--help', () => {
+  console.log()
+  console.log(`  Run ${chalk.cyan(`vue <command> --help`)} for detailed usage of given command.`)
+  console.log()
+})
+
+//解析参数这一行要放到定义的命令最后面
+program.parse(process.argv);
+
+if (program.yourname) {
+  console.log(`Hello, ${program.yourname}! ${program.glad ? 'I am very happy to see you!' : ''}`);
+}
+
+  ```
+
+USAGE:
+
+
+
+
+  bin> node app.js --help

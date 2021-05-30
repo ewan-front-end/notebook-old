@@ -53,7 +53,8 @@ module.exports = {
         chromeTools:{SRC:'chrome-tools'},
         plantuml:{SRC:'plantuml'},
         regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
-        eslint: {linkName: 'ESLint', SRC:'eslint'}
+        eslint: {linkName: 'ESLint', SRC:'eslint'},
+        htmlBundler: {title:'html-bundler', SRC:'html-bundler'}
     }}, 
     css:{title:'CSS', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
         style:{title:'样式', SRC:'css-style'},
@@ -94,7 +95,8 @@ module.exports = {
     node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], SRC:'node', CHILDREN:{
         fs:{linkName: 'fs模块', SRC:'node-fs'}, 
         koa:{linkName: 'Koa服务', SRC:'node-koa'},
-        express:{linkName: 'Express服务', SRC:'node-express'}  
+        express:{linkName: 'Express服务', SRC:'node-express'},
+        commander: {title:'命令行编程工具', SRC:'node-commander'}
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{

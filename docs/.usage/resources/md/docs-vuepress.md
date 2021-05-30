@@ -1,14 +1,16 @@
 
 
 ## 入门部署
+::: details
 demo> npm init -y<br>
 demo> npm install -D vuepress
 1. demo/docs/README.md  `# Hello VuePress `
 2. demo/package.json    `"scripts": { "docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs" }`
 3. npm run docs:dev
-
+:::
 
 ## 最佳实践
+::: details
 项目根目录/
 1. 创建 docs 目录
 2. 复制 .usage 到 docs/
@@ -24,9 +26,10 @@ demo> npm install -D vuepress
 - 部署到一个非根路径: .vuepress/config.js  `module.exports = {base: '/bar/'}`
 - 公共资源库: .vuepress/public/
 - 图片资源: .vuepress/public/images/  `<img :src="$withBase('/images/logo.png')">`
-
+:::
 
 ## 基础配置
+::: details
 ```js
 module.exports = {
   title: 'Hello VuePress',
@@ -48,10 +51,11 @@ module.exports = {
   dest: '.vuepress/dist', // 指定vuepress build的输出目录
 }
 ```
+:::
 
-
-## 默认主题配置
+## 基础配置-默认主题
 - docs/.vuepress/config.js
+::: details
 ```js
 module.exports = {
   themeConfig: {
@@ -128,6 +132,7 @@ module.exports = {
   }
 }
 ```
+:::
 - 页面级配置
 ```front matter
 ---
@@ -165,7 +170,7 @@ pageClass: custom-page-class  便针对该页添加一些专门的CSS 参考##�
   1. 使用vuepress命令,需全局安装VUEPRESS：**npm i vuepress -g**
   2. 代码会克隆到 vuepress-demo/docs/.vuepress/theme/ 下
 
-
+::: details
 ```styl
 --------------------------------styles/index.styl
 html, body
@@ -194,7 +199,7 @@ pre, pre[class*="language-"]
   padding 1.25rem 1.5rem                            padding 0.2rem 1.5rem 0.4rem 1.5rem
   margin 0.85rem 0                                   margin 0.5rem 0
 ```
-
+:::
 
 
 ## 自定义主题 
@@ -307,18 +312,17 @@ module.exports = {
     .vuepress/theme/.babelrc `{"presets": [["es2015", { "modules": false }]], "plugins": [["component", {"libraryName": "element-ui", "styleLibraryName": "theme-chalk"}]]}`
   - .vuepress/theme/enhanceApp.js
     ```js
-    import {Menu, Submenu, MenuItem, MenuItemGroup} from 'element-ui'; // 按需引入
+    import ElementUI from 'element-ui' /* {Menu, Submenu, MenuItem, MenuItemGroup} */
     import 'element-ui/lib/theme-chalk/index.css';
+
     export default ({
       Vue,     // VuePress 正在使用的 Vue 构造函数
       options, // 附加到根实例的一些选项
       router,  // 当前应用的路由实例
       siteData // 站点元数据
     }) => {
-      Vue.use(Menu)
-      Vue.use(Submenu)
-      Vue.use(MenuItem)
-      Vue.use(MenuItemGroup)
+      Vue.use(ElementUI);
+      /* Vue.use(Menu); Vue.use(Submenu); Vue.use(MenuItem); Vue.use(MenuItemGroup) */
     }
     ```
 

@@ -1,5 +1,5 @@
 
-
+开发时临时命令：
 
 - nrm
 $ sudo npm i nrm -g

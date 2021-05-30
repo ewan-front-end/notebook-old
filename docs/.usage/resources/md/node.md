@@ -1,8 +1,47 @@
-[Node文档](http://nodejs.cn/api/globals.html#globals_process)
-[版本管理](#版本管理)
+## 插件开发
+- 账户 
+  u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com
+- 组织：seahan、angg
+- 规范
+  ├── bin                           #可执行二进制文件
+  ├── lib                           #主代码目录
+  ├── doc                           #主代码目录
+  ├── example                       #示例目录
+  ├── test                          #测试目录，提供单元测试
+  ├── .travis.yml               #集成自动测试配置
+  ├── .npmignore             #npm发布时忽略的文件
+  ├── CHANGELOG.md   #版本更新说明
+  ├── LICENSE                 #许可证书
+  ├── README.md           #README
+  ├── package.json          #npm配置    
+  
+  package.json  包描述
+  {
+    "name": "@angg/express"
+    "repository": { "type": "git", "url": "https://github.com/wmgcuan/express.git" },
+    "homepage": "https://github.com/wmgcuan/express",
+    "bugs": { "url": "https://github.com/wmgcuan/express/issues" }
+  }
+
+- 开发
+
+- 发布 
+  https://segmentfault.com/a/1190000009315989
+  1. $ npm adduser // 命令向导分别要求填入username/password/email,可通过 npm whoami 查看当前用户
+  2. $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
+
+- 多人发布
+  ```
+  npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
+  npm owner rm <user> [<@scope>/]<pkg>  # 从包的所有这列表中删除用户
+  npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
+  ```
 
 
-版本管理
+
+
+
+## 版本管理
 - nvm<br>
 nodejs的版本管理工具, 可以安装和切换不同版本的nodejs, 当版本改变会带来npm的匹配版本改变<br>
 下载安装：nvm-setup.zip (https://github.com/coreybutler/nvm-windows/releases)<br>
