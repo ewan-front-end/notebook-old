@@ -32,6 +32,7 @@
  */
  
 module.exports = {
+    vue:{title:'Vue', SRC:'vue'},
     docs:{title:'文档', CHILDREN:{
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/docs/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/docs/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/docs/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, SRC:'docs-vuepress'},
         docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
