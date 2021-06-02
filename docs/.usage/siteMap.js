@@ -101,7 +101,8 @@ module.exports = {
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{
-            es6:{SRC:'js-es6'}
+            es6:{SRC:'js-es6'},
+            dataType:{title:'数据类型', SRC:'js-datatype'}
         }},
         matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'},
         ruby:{SRC:'ruby'},

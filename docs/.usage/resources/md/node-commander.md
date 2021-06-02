@@ -1,3 +1,10 @@
+command      自定义执行的命令
+option       可选参数
+alias        用于 执行命令的别名
+description  命令描述
+action       执行命令后所执行的方法
+usage        用户使用提示
+parse        解析命令行参数，注意这个方法一定要放到最后调用
 
 ## 响应版本号
 - demo> npm install commander --save
@@ -8,8 +15,7 @@ var program = require('commander')
 program                                     
   .version("0.0.2")                         
   .option('-v --version', 'version info')   
-  .parse(process.argv) // program.parse(process.argv)
-
+program.parse(process.argv)
 ```
 - demo> node bin/demo.js -v
 
