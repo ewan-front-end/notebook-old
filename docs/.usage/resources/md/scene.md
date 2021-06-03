@@ -1,4 +1,5 @@
 
+- 前端性能优化-通用的缓存SDK
 - NPM内网源搭建
 - 搭建websocket服务(/node/socket)
 - 搭建聊天室(/socket/)
