@@ -202,6 +202,26 @@ export default () => {
 
 
 
+npm i fetch-mock --save-dev
+common/mock.js
+```
+import FetchMock from 'fetch-mock'
+
+// FetchMock.mock('/login', {code:200, message:'success'})
+
+FetchMock.mock('/login', (url, opts) => {
+    const params = opts.params
+    if (params.account === '123456789') {
+        if (params.password === '123456') {
+            return {code:200, message:'success'}
+        } else {
+            return {code:401, message: 'password error!'}
+        }
+    } else {
+        return {code:400, message: 'account error!'}
+    }
+})
+```
 
 
 
