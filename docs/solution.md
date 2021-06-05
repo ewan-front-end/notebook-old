@@ -7,6 +7,9 @@
 
 [需求分析](#需求分析) - [产品要求](#产品要求) - [技术应对](#技术应对) - [前端技术指标](#前端技术指标) - [架构设计](#架构设计) - [网站账号体系SDK](#网站账号体系SDK) - [环境准备](#环境准备) - [开发](#开发) - 
 
+行为树的原理及实现
+
+
 es6+
 
 
@@ -175,7 +178,6 @@ window.login = (options) => {
 ```
 - src/js/login/render.js
 ```js
-import { container } from 'webpack'
 import {loginFormId, loginInputAccountId, loginInputPasswordId, loginSubmitId} from '../common/config'
 export default (container) => {
     const tpl = `<form id="${loginFormId}">
@@ -204,6 +206,8 @@ export default () => {
 }
 ```
 
+
+为什么要模块化
 
 
 

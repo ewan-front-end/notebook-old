@@ -4,6 +4,7 @@ module.exports.config = {
     
     // 默认主题配置
     themeConfig: {
+        port: '9000',
         logo: '/logo.png', // 公共资源库：docs/.vuepress/public/
         nav: [
             { text: '指南', link: '/' },

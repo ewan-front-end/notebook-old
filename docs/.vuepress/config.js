@@ -1,4 +1,5 @@
 module.exports = {
+    "port": "9000",
     "title": "标题文本",
     "description": "说明文本",
     "themeConfig": {

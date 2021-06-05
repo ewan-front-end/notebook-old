@@ -52,7 +52,7 @@ module.exports = {
         charts: {linkName: '需求图表', SRC:'0002'},
         vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], SRC:'vscode'},
         chromeTools:{SRC:'chrome-tools'},
-        plantuml:{SRC:'plantuml'},
+        uml:{SRC:'uml'},
         regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
         eslint: {linkName: 'ESLint', SRC:'eslint'},
         htmlBundler: {title:'html-bundler', SRC:'html-bundler'}
@@ -72,7 +72,7 @@ module.exports = {
     html5:{linkName:'HTML5', SRC:'html5'},
     typescript:{linkName:'Typescript', SRC:'typescript'},
     react:{linkName:'React', SRC:'react'},    
-    designPattern:{linkName:'设计模式', SRC:'design-pattern'},
+    designPattern:{title:'设计模式', SRC:'design-pattern'},
     webpack:{linkName:'Webpack', SRC:'webpack'},
     nginx:{linkName:'Nginx', usage:[
         {title:'windows', desc:[

@@ -4,7 +4,7 @@
 [NPM内网源搭建](#NPM内网源搭建) - [NPM包](#NPM包) - 
 
 
-
+开发时临时命令：
 
 - nrm
 $ sudo npm i nrm -g

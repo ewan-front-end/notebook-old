@@ -1,4 +1,4 @@
-const {writeFile, editWritCommonFile} = require('./src/tools-fs')
+const {readFile, writeFile, editWritCommonFile} = require('./src/tools-fs')
 const path = require('path')
 const siteMapCollect = require('./src/siteMapCollect')
 const handleSceneContent = require('./src/handleSceneContent')
@@ -7,8 +7,9 @@ const handleSceneContent = require('./src/handleSceneContent')
 const sceneArr = siteMapCollect('scene')
 
 // 处理聚合内容&写入文件
-const sceneContent = handleSceneContent(sceneArr)
+let sceneContent = handleSceneContent(sceneArr)
 const scenePath = path.resolve(__dirname, '../scene.md')
+sceneContent += '\n' + readFile(path.resolve(__dirname, './resources/md/scene.md'))
 writeFile(scenePath, sceneContent)
 
 // 导航菜单写入链接

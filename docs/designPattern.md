@@ -1,7 +1,8 @@
 [上一级](../)
 
+# 设计模式
 
-[设计模式的六大原则](#设计模式的六大原则) - [设计模式](#设计模式) - 
+[设计模式的六大原则](#设计模式的六大原则) - [策略模式](#策略模式) - [状态模式](#状态模式) - [策略模式&状态模式混合](#策略模式&状态模式混合) - [观察者模式(Observer Pattern)](#观察者模式(Observer Pattern)) - 
 
 [设计模式](pages/concept/design-pattern/index.md?id=设计模式)
 
@@ -26,9 +27,10 @@
   [开放-封闭原则](OCP)
   告诉我们要对扩展开放，对修改关闭，你可以继承扩展我所有的能力，到你手里你想咋改咋改，但是，别 动我 本人 好吗？好的
 
-##### 设计模式
 
-▇▇策略模式▇▇
+
+## 策略模式
+```js
 class StrategyPattern{
   #strategy
   #name
@@ -39,7 +41,10 @@ class StrategyPattern{
   get(){return this.#strategy[this.#name]}
   run(){return this.#strategy[this.#name].apply(null, arguments)}
 }
-▇▇状态模式▇▇
+```
+
+## 状态模式
+```js
 class StatePattern{
   #state      
   setStateObj(obj){this.#state = obj}
@@ -48,7 +53,11 @@ class StatePattern{
   get(name){return this.#state[name]}
   run(name){return this.#state[name].apply(null, arguments)}
 }
-▇▇策略模式&状态模式混合▇▇
+```
+
+## 策略模式&状态模式混合
+> 通常策略模式和状态模式混合使用，策略模式用于默认设置，状态模式用于用户设置
+```js
 class StateAndStrategy{
   #DATA_LIST
   #DEFAULT
@@ -60,10 +69,11 @@ class StateAndStrategy{
   runDefault(){ return this.#DATA_LIST[this.#DEFAULT].apply(null, arguments) }
   runState(key){ return this.#DATA_LIST[key].apply(null, Array.prototype.slice.call(arguments, 1)) }
 }
+```
 
-
-
-▇▇观察者模式▇▇
+## 观察者模式(Observer Pattern)
+> 又叫发布-订阅( Publish/Subscribe )模式
+<img :src="$withBase('/images/dp-observer.png')">
 class StatePattern{}
 // 发布订阅模式 //
 class StatePattern{}

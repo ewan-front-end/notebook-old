@@ -2,6 +2,9 @@
 
 # html-bundler
 
-[html-bundler](#html-bundler) - 
+[USAGE](#USAGE) - 
 
-## html-bundler
+
+## USAGE
+- 全局安装 $ npm i html-bundler -g
+

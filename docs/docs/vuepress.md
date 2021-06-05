@@ -171,11 +171,9 @@ pageClass: custom-page-class  便针对该页添加一些专门的CSS 参考##�
 
 
 ## 默认主题改造
-::: info
 - 克隆默认主题代码 `vuepress-demo/docs> vuepress eject`  
   1. 使用vuepress命令,需全局安装VUEPRESS：**npm i vuepress -g**
   2. 代码会克隆到 vuepress-demo/docs/.vuepress/theme/ 下
-:::
 
 ::: details
 ```styl
