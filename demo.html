@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+// https://blog.csdn.net/chunqiuwei/article/details/79030816
+
+//电视机对象：提供了播放不同频道的方法
+class Television {    
+    playCctv1() { console.log("--CCTV1--") }
+    playCctv2() { console.log("--CCTV2--") }
+    playCctv3() { console.log("--CCTV3--") }
+    playCctv4() { console.log("--CCTV4--") }
+    playCctv5() { console.log("--CCTV5--") }
+    playCctv6() { console.log("--CCTV6--") }
+}
+
+// 抽象命令类
+class PatternCommand {
+    //受保护的命令接收者
+    //television 
+    constructor (television) {
+        this.television = television
+    }
+    //命令执行
+    execute(){}
+}        
+//播放cctv1的命令
+class CCTV1Command extends PatternCommand { execute() { this.television.playCctv1() } }
+class CCTV2Command extends PatternCommand { execute() { this.television.playCctv2() } }
+class CCTV3Command extends PatternCommand { execute() { this.television.playCctv3() } }
+class CCTV4Command extends PatternCommand { execute() { this.television.playCctv4() } }
+class CCTV5Command extends PatternCommand { execute() { this.television.playCctv5() } }
+class CCTV6Command extends PatternCommand { execute() { this.television.playCctv6() } }
+
+//=======================================================================
+class TeleController {
+    constructor (){
+        //播放记录
+        this.historyCommand = []
+    }    
+    //切换卫视
+    switchCommand(command) {
+        this.historyCommand.push(command)
+        command.execute()
+    }
+    //遥控器返回命令
+    back() {
+        if (this.historyCommand.length === 0) return
+        const size = this.historyCommand.length
+        const preIndex = size-2 <= 0 ? 0 : size - 2
+        console.log('preIndex', size, preIndex);
+        //获取上一个播放某卫视的命令
+        const preCommand = this.historyCommand.slice(preIndex)
+        preCommand.execute()
+    }
+
+}
+
+
+//创建一个电视机
+const tv = new Television()
+//创建一个遥控器
+const teleController = new TeleController()
+
+teleController.switchCommand(new CCTV1Command(tv));
+teleController.switchCommand(new CCTV2Command(tv));
+teleController.switchCommand(new CCTV4Command(tv));
+teleController.switchCommand(new CCTV3Command(tv));
+teleController.switchCommand(new CCTV5Command(tv));
+teleController.switchCommand(new CCTV1Command(tv));
+teleController.switchCommand(new CCTV6Command(tv));
+console.log("------返回上一个卫视--------");
+//模拟遥控器返回键
+teleController.back();
+teleController.back();
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
