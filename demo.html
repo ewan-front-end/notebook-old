@@ -50,6 +50,7 @@ class TeleController {
         this.historyCommand.push(command)
         command.execute()
     }
+    // 撤销、重做、记录
     //遥控器返回命令
     back() {
         if (this.historyCommand.length === 0) return
