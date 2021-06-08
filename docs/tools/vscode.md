@@ -171,20 +171,21 @@ code runner
 在输入栏输入命名如：log, 会生成一个log.json的方件
 ```js
 {
+  
   // Print to console 表示一个代码片段名称
 	// scope            范围 表示此片段 用于什么语言 若为空 则表示所有语言
 	// prefix           前缀 当你实际编写代码时 输入什么关键字 会触发此代码片段 如 con
 	// body             主体 存放代码片段的实际内容
 	// description      描述 如果没有description，默认提示信息是类似上图中Print to console一样的信息
-  "Print to console" : {        
+  "[0 Print to console]": {
     "scope": "javascript,typescript",
     "prefix": "con",
     "body": [
-      "console.log('$1')",
+      "console.log('$1');",
       "$2"
     ],
-    "description": "Log output to console"
-  },
+    "description": "打印到控制台"
+  }
   "Add format comment": {
     "prefix": "comment",
     "body": [
