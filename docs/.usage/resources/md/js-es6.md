@@ -1,3 +1,23 @@
+
+
+## 类
+```js
+class Slider {
+    constructor(opts) { this.opts = opts}
+    // 实现私有方法
+    [render](opts) {}
+    test() {
+        console.log(Object.keys(this)) // ["opts", "test"] 
+        console.log(Object.keys(this.__proto__)) // []
+        console.log(Object.getOwnPropertyNames(this.__proto_)) // ["constructor", "test"] 
+        console.log(Object.getOwnPropertySymbols(this.__proto__)) // [Symbol(render)]
+    }
+}
+const slider = new Slider()
+slider[Object.getOwnPropertySymbols(slider.__proto__)[0]]()
+slider[Object.getOwnPropertySymbols(slider.__proto__)[0]] = function(){} // 还是可以重写，不是绝对安全的私有方法
+```
+
 #### 开发
 ```es6-demo/src/Element.js
 export class Element{  
