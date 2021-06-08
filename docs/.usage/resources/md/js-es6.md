@@ -2,20 +2,26 @@
 
 ## 类
 ```js
-class Slider {
-    constructor(opts) { this.opts = opts}
+class Demo {
+    constructor(opts) { 
+        this.opts = opts
+        this.test = this.test.bind(this) // 当test方法赋值给外部变量时(如在类外部var a = demo.test)，this会丢失
+    }    
     // 实现私有方法
     [render](opts) {}
+    // 实例方法 demo.test()
     test() {
         console.log(Object.keys(this)) // ["opts", "test"] 
         console.log(Object.keys(this.__proto__)) // []
         console.log(Object.getOwnPropertyNames(this.__proto_)) // ["constructor", "test"] 
         console.log(Object.getOwnPropertySymbols(this.__proto__)) // [Symbol(render)]
     }
+    // 静态方法 Demo.test2()
+    static test2() {}
 }
-const slider = new Slider()
-slider[Object.getOwnPropertySymbols(slider.__proto__)[0]]()
-slider[Object.getOwnPropertySymbols(slider.__proto__)[0]] = function(){} // 还是可以重写，不是绝对安全的私有方法
+const demo = new Demo()
+demo[Object.getOwnPropertySymbols(demo.__proto__)[0]]()
+demo[Object.getOwnPropertySymbols(demo.__proto__)[0]] = function(){} // 还是可以重写，不是绝对安全的私有方法
 ```
 
 #### 开发
