@@ -3,7 +3,6 @@ const path= require("path")
 
 // 递归创建目录 同步方法
 function checkDirSync(dirname) {
-  console.log('======', dirname);
     if (fs.existsSync(dirname)) {
       return true
     } else {

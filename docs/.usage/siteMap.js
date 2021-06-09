@@ -43,7 +43,7 @@ module.exports = {
         mongodb:{title:'MongoDB', SRC:'data-mongodb'}
     }},
     solution:{title:'解决方案', scene:[{title:'登录登出', href:'/solution'}], links:[{name:'数据库',href:'/database'}, {name:'cookie',href:''}, {name:'session',href:''}], SRC:'solution'},
-    tools: {title:'工具',links:[{name:'文档', href:'/docs/'}], CHILDREN: {            
+    tools: {title:'工具', SRC: 'tools', links:[{name:'文档', href:'/docs/'}], CHILDREN: {            
         git: {linkName: 'Git', SRC:'git'},
         npm: {linkName: 'NPM', SRC:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
         markdown: {linkName: 'Markdown', SRC:'markdown'},

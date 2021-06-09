@@ -10,9 +10,10 @@
 
 
 ```js
-/^\/(\w|\/)+\//.test('/tools/npm')  // true
-'/tools/npm'.match(/^\/(\w|\/)+\//) // ["/tools/", "s"]
-'/scene'.match(/^\/(\w|\/)+\//)     // null
+const REG = /^\/(\w|\/)+\//
+         REG.test('/tools/npm')  // true
+'/tools/npm'.match(REG)          // ["/tools/", "s"]
+    '/scene'.match(REG)          // null
 
 const spaceArr = trStr.match(/\s{2,}/) || [];
     spaceArr.forEach((space, j) => {

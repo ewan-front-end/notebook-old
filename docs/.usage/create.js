@@ -2,9 +2,7 @@ const {mkdirSync, writeFile} = require('./src/tools-fs')
 const path = require('path')
 const siteMap = require('./siteMap')
 const generateFile = require('./generateFile')
-
-let readmeDataMap = {}, indexLinks = ``
-
+const argArr = process.argv.slice(2)
 const handleItemChildren = (item, children) => {
     mkdirSync(path.resolve(__dirname, '..'+item.path))
     readmeDataMap[item.path + '/README'] = {path: item.path + '/README', target: item}
@@ -15,17 +13,44 @@ const handleItem = (key, item, parent) => {
     Object.assign(item, {parent, linkName: item.linkName || item.title || key, path: parent.path +'/'+ key, key}) 
     item.CHILDREN ? handleItemChildren(item, item.CHILDREN) : generateFile(item.path, item)
 }
-for (key in siteMap) {
-    let item = siteMap[key]  
-    handleItem(key, item, {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap})
-    indexLinks += `[${item.linkName}](${item.path}) | `
-}
 
-// 写首页文件
-const homePageStr = `---\nhome: true\nheroImage: /hero.png\nheroText: Hero 标题\ntagline: Hero 副标题\nactionText: 快速上手 →\nactionLink: /zh/guide/\nfeatures:\n- title: 简洁至上\n  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。\n- title: Vue驱动\n  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。\n- title: 高性能\n  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。\nfooter: MIT Licensed | Copyright © 2018-present Evan You\n---\n${indexLinks}`
-writeFile(path.resolve(__dirname, '../README.md'), homePageStr)
-for (id in readmeDataMap) {
-    let {path, target} = readmeDataMap[id]
-    generateFile(path, target)
-}
+if (argArr.length > 0) {
+    let root, _root
+    let DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap},
+        DATA_ROOT_ = {key:'DATA_ROOT', path: '', title: '首页标题'}
+    argArr.forEach(_path => {
+        root = DATA_ROOT
+        _root = DATA_ROOT_
+        _path = _path.replace(/^\/|\/$/g, '')
+        _path.split('/').forEach(key => {
+            let item = JSON.parse(JSON.stringify(root.CHILDREN[key]))
+            if(item.CHILDREN) item.CHILDREN = {}
+            _root.CHILDREN = {} // 父类CHILDREN
+            _root.CHILDREN[key] = item
+            _root = item
+            root = root.CHILDREN[key]
+        })
+    })
+    console.log( DATA_ROOT_);
+    
+    for (key in DATA_ROOT_.CHILDREN) {
+        let item = DATA_ROOT_.CHILDREN[key] 
+        handleItem(key, item, DATA_ROOT_)
+    }
+} else {
+    let readmeDataMap = {}, indexLinks = ``
+    
+    for (key in siteMap) {
+        let item = siteMap[key]  
+        handleItem(key, item, {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap})
+        indexLinks += `[${item.linkName}](${item.path}) | `
+    }
 
+    // 写首页文件
+    const homePageStr = `---\nhome: true\nheroImage: /hero.png\nheroText: Hero 标题\ntagline: Hero 副标题\nactionText: 快速上手 →\nactionLink: /zh/guide/\nfeatures:\n- title: 简洁至上\n  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。\n- title: Vue驱动\n  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。\n- title: 高性能\n  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。\nfooter: MIT Licensed | Copyright © 2018-present Evan You\n---\n${indexLinks}`
+    writeFile(path.resolve(__dirname, '../README.md'), homePageStr)
+    for (id in readmeDataMap) {
+        let {path, target} = readmeDataMap[id]
+        generateFile(path, target)
+    }
+}
