@@ -59,7 +59,8 @@ module.exports = {
     }}, 
     css:{title:'CSS', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
         style:{title:'样式', SRC:'css-style'},
-        preset:{title:'预处理', SRC:'css-preset'}
+        preset:{title:'预处理', SRC:'css-preset'},
+        variable:{title:'CSS变量', SRC:'css-variable'}
     }},   
     system:{title:'操作系统', SRC:'system', CHILDREN:{
         mac:{title:'MacBook',linkName:'MacBook', SRC:'system-mac'},
