@@ -1,3 +1,31 @@
+[上一级](../)
+
+# 插件
+
+[node插件开发](#node插件开发) - [chalk](#chalk) - [uglify-js](#uglify-js) - [commander](#commander) - [响应版本号](#响应版本号) - [自定义命令deploy](#自定义命令deploy) - [发布为运行命令](#发布为运行命令) - 
+
+## node插件开发
+.
+├── bin                          #运行目录
+├── lib                           #主代码目录
+├── example                 #示例目录
+├── test                         #测试目录，提供单元测试
+├── .travis.yml               #集成自动测试配置
+├── .npmignore             #npm发布时忽略的文件
+├── CHANGELOG.md   #版本更新说明
+├── LICENSE                 #许可证书
+├── package.json          #npm配置
+├── README.md           #README
+
+
+## chalk
+> 颜色的插件
+
+## uglify-js
+> `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
+
+## commander
+> 命令行编程工具
 command      自定义执行的命令
 option       可选参数
 alias        用于 执行命令的别名

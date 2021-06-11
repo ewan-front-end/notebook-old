@@ -1,3 +1,9 @@
+[上一级](../)
+
+# 插件
+
+[KOA](#KOA) - [Node原生](#Node原生) - [简易服务](#简易服务) - [Node框架](#Node框架) - 
+
 - demo> npm install express --save
 
 - demo/server.js
@@ -35,3 +41,35 @@ http://localhost:3000/static/css/style.css
 http://localhost:3000/static/js/app.js
 http://localhost:3000/static/images/bg.png
 http://localhost:3000/static/hello.html
+
+
+# KOA
+# Node原生
+```
+var http = require("http");
+
+var app = http.createServer(function(req, res) {
+res.writeHead(200, {"Content-Type": "text/plain"});
+res.end("Hello world!");
+});
+
+app.listen(3000, "localhost");
+//注01 文件操作
+```
+
+# 简易服务
+**http-server**
+  ```
+  anywhere> npm install http-server -g  
+  // 全写server-demo> http-server 默人端口8080 指定端口-p 8887
+  server-demo> hs
+  ```
+**lite-server**
+
+
+
+# Node框架
+[Express](pages/server/express/index.md)
+[Koa](pages/server/koa/index.md)
+
+

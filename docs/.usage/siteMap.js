@@ -33,10 +33,7 @@
  
 module.exports = {
     vue:{title:'Vue', SRC:'vue'},
-    docs:{title:'文档', CHILDREN:{
-        vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/docs/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/docs/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/docs/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, SRC:'docs-vuepress'},
-        docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
-    }},
+    docs:{title:'文档', links:[{name:'vuepress',href:'/framework/vuepress'}, {name:'docsify',href:'/framework/docsify'}]},
     timeline:{title:'时间线', SRC:'timeline'},
     database:{title:'数据库', CHILDREN:{
         mysql:{title:'MySQL', SRC:'data-mysql'},
@@ -56,7 +53,7 @@ module.exports = {
         regularExpression:{linkName:'正则表达式', SRC:'regular-expression'},
         eslint: {linkName: 'ESLint', SRC:'eslint'},
         htmlBundler: {title:'html-bundler', SRC:'html-bundler'}
-    }}, 
+    }},     
     css:{title:'CSS', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
         style:{title:'样式', SRC:'css-style'},
         preset:{title:'预处理', SRC:'css-preset'},
@@ -90,15 +87,12 @@ module.exports = {
             {title:'启动', text:'nginx  重启: nginx -s reload  停止: nginx -s stop'}
         ]}        
     ], SRC:'nginx'},
-    resources:{linkName:'资源', SRC:'resources'},
     algorithm:{linkName:'算法', SRC:'algorithm'},
     ecma: {linkName: 'ECMAScript', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
     socket: {linkName:'Socket', SRC:'socket'},
     node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], SRC:'node', CHILDREN:{
-        fs:{linkName: 'fs模块', SRC:'node-fs'}, 
-        koa:{linkName: 'Koa服务', SRC:'node-koa'},
-        express:{linkName: 'Express服务', SRC:'node-express'},
-        commander: {title:'命令行编程工具', SRC:'node-commander'}
+        plugin:{title:'插件', SRC:'node-plugin'},
+        framework:{title:'框架', SRC:'node-framework'}
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{
@@ -109,6 +103,10 @@ module.exports = {
         ruby:{SRC:'ruby'},
         wechat:{linkName:'微信小程序', SRC:'wechat'},
         electron: {linkName:'Electron', SRC:'electron'}      
+    }},
+    framework: {title:'技术框架', CHILDREN:{
+        vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/framework/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/framework/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/framework/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, SRC:'fw-vuepress'},
+        docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }},
     frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', CHILDREN: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', CHILDREN: {
@@ -171,5 +169,6 @@ module.exports = {
             systemComponent: {title:'组件系统',desc:'作用在于集中管理可复用的开发资源,各业务线优先从系统中选取可复用的部分，同时向系统中沉淀组件'}
         }}
     }, links:['/tools/qiankun']},
+    projects:{title:'项目', SRC:'projects'},
     other: {linkName:'其它', SRC:'other'}
 }

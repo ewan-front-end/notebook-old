@@ -14,4 +14,4 @@ features:
   details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
 footer: MIT Licensed | Copyright © 2018-present Evan You
 ---
-[Vue](/vue) | [文档](/docs) | [时间线](/timeline) | [数据库](/database) | [解决方案](/solution) | [工具](/tools) | [CSS](/css) | [操作系统](/system) | [服务器](/server) | [HTML5](/html5) | [Typescript](/typescript) | [React](/react) | [设计模式](/designPattern) | [Webpack](/webpack) | [Nginx](/nginx) | [资源](/resources) | [算法](/algorithm) | [ECMAScript](/ecma) | [Socket](/socket) | [Node](/node) | [编程语言](/programmingLanguage) | [前端体系](/frontend) | [其它](/other) | 
+[Vue](/vue) | [文档](/docs) | [时间线](/timeline) | [数据库](/database) | [解决方案](/solution) | [工具](/tools) | [CSS](/css) | [操作系统](/system) | [服务器](/server) | [HTML5](/html5) | [Typescript](/typescript) | [React](/react) | [设计模式](/designPattern) | [Webpack](/webpack) | [Nginx](/nginx) | [算法](/algorithm) | [ECMAScript](/ecma) | [Socket](/socket) | [Node](/node) | [编程语言](/programmingLanguage) | [技术框架](/framework) | [前端体系](/frontend) | [项目](/projects) | [其它](/other) | 

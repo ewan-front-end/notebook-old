@@ -1,3 +1,9 @@
+[NPM](/tools/npm)
+
+## fs
+- 递归创建目录
+- 拷贝目录
+
 ## 插件开发
 - 账户 
   u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com
@@ -37,7 +43,11 @@
   npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
   ```
 
-
+## 插件
+- [uglify-js](/node/plugin.html#uglify-js)
+    `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
+- [chalk](/node/plugin.html#chalk) 颜色的插件
+- [commander](/node/plugin.html#commander) 命令行编程工具
 
 
 

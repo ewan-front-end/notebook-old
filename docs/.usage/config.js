@@ -7,7 +7,9 @@ module.exports.config = {
         port: '9000',
         logo: '/logo.png', // 公共资源库：docs/.vuepress/public/
         nav: [
-            { text: '指南', link: '/' },
+            { text: '首页', link: '/' },
+            { text: '工具', link: '/tools/' },
+            { text: '项目', link: '/projects/' },
         ],
         sidebarDepth: 2,
         sidebar: 'auto'

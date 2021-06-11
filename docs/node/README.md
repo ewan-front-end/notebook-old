@@ -1,9 +1,15 @@
 [上一级](../)
 
 ## 子类链接
-[fs模块](/node/fs) [Koa服务](/node/koa) [Express服务](/node/express) [命令行编程工具](/node/commander) 
+[插件](/node/plugin) [插件](/node/framework) 
 
-[插件开发](#插件开发) - [版本管理](#版本管理) - [使用 IPC 通道衍生 Node.js 进程](#使用 IPC 通道衍生 Node.js 进程) - [命令交互](#命令交互) - [创建一个CLI](#创建一个CLI) - [child_process](#child_process) - [爬虫](#爬虫) - [功能](#功能) - [交互](#交互) - [读取文件](#读取文件) - [Node.js v14.16.0 文档](#Node.js v14.16.0 文档) - [child_process](#child_process) - 
+[fs](#fs) - [插件开发](#插件开发) - [插件](#插件) - [版本管理](#版本管理) - [使用 IPC 通道衍生 Node.js 进程](#使用 IPC 通道衍生 Node.js 进程) - [命令交互](#命令交互) - [创建一个CLI](#创建一个CLI) - [child_process](#child_process) - [爬虫](#爬虫) - [功能](#功能) - [交互](#交互) - [读取文件](#读取文件) - [Node.js v14.16.0 文档](#Node.js v14.16.0 文档) - [child_process](#child_process) - 
+
+[NPM](/tools/npm)
+
+## fs
+- 递归创建目录
+- 拷贝目录
 
 ## 插件开发
 - 账户 
@@ -44,7 +50,11 @@
   npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
   ```
 
-
+## 插件
+- [uglify-js](/node/plugin#uglify-js)
+    `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
+- [chalk](/node/plugin#chalk) 颜色的插件
+- [commander](/node/plugin#commander) 命令行编程工具
 
 
 

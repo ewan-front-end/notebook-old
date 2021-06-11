@@ -32,7 +32,6 @@ if (argArr.length > 0) {
             root = root.CHILDREN[key]
         })
     })
-    console.log( DATA_ROOT_);
     
     for (key in DATA_ROOT_.CHILDREN) {
         let item = DATA_ROOT_.CHILDREN[key] 

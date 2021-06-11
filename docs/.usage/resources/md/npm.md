@@ -1,11 +1,16 @@
 
-开发时临时命令：
 
-- nrm
+## 代理源cnpm
+cnpm安装：npm install -g cnpm --registry=https://registry.npm.taobao.org
+npm config set registry http://registry.cnpmjs.org  也可以只重设仓库
+
+## 工具
+- 代理源管理
 $ sudo npm i nrm -g
 $ nrm ls 代理源列表
 $ nrm use taobao 使用taobao源
-
+- 版本管理
+通过nodejs的版本管理, 匹配npm版本改变 [nvm](/node/#版本管理)
 
 ## NPM内网源搭建
 http://127.0.0.1:7001/ 源

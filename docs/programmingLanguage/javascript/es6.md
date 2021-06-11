@@ -1,7 +1,33 @@
 [上一级](../)
 
 
-[开发](#开发) - [应用  ](#应用  ) - [搭建应用服务](#搭建应用服务) - [浏览应用](#浏览应用) - [开发&应用(服务根目录/static/Element.js还不存在)](#开发&应用(服务根目录/static/Element.js还不存在)) - [总结](#总结) - [模块化](#模块化) - [模块指定输出](#模块指定输出) - [Promise/then](#Promise/then) - [async/await](#async/await) - [generator/yield/next](#generator/yield/next) - 
+[类](#类) - [开发](#开发) - [应用  ](#应用  ) - [搭建应用服务](#搭建应用服务) - [浏览应用](#浏览应用) - [开发&应用(服务根目录/static/Element.js还不存在)](#开发&应用(服务根目录/static/Element.js还不存在)) - [总结](#总结) - [模块化](#模块化) - [模块指定输出](#模块指定输出) - [Promise/then](#Promise/then) - [async/await](#async/await) - [generator/yield/next](#generator/yield/next) - 
+
+
+
+## 类
+```js
+class Demo {
+    constructor(opts) { 
+        this.opts = opts
+        this.test = this.test.bind(this) // 当test方法赋值给外部变量时(如在类外部var a = demo.test)，this会丢失
+    }    
+    // 实现私有方法
+    [render](opts) {}
+    // 实例方法 demo.test()
+    test() {
+        console.log(Object.keys(this)) // ["opts", "test"] 
+        console.log(Object.keys(this.__proto__)) // []
+        console.log(Object.getOwnPropertyNames(this.__proto_)) // ["constructor", "test"] 
+        console.log(Object.getOwnPropertySymbols(this.__proto__)) // [Symbol(render)]
+    }
+    // 静态方法 Demo.test2()
+    static test2() {}
+}
+const demo = new Demo()
+demo[Object.getOwnPropertySymbols(demo.__proto__)[0]]()
+demo[Object.getOwnPropertySymbols(demo.__proto__)[0]] = function(){} // 还是可以重写，不是绝对安全的私有方法
+```
 
 #### 开发
 ```es6-demo/src/Element.js

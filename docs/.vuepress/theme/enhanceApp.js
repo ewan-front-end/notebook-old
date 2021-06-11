@@ -5,6 +5,7 @@ export default ({
     siteData // 站点元数据
   }) => {
     console.log('-----------------------------------------------')
-    console.log(siteData)
+    console.log('siteData',siteData)
     console.log('-----------------------------------------------')
+    console.log(router);
   }
