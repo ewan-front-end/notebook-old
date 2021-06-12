@@ -3,11 +3,11 @@
 ## 子类链接
 [Git](/tools/git) [NPM](/tools/npm) [Markdown](/tools/markdown) [Webpack](/tools/webpack) [乾坤微服务](/tools/qiankun) [需求图表](/tools/charts) [VSCode](/tools/vscode) [chromeTools](/tools/chromeTools) [uml](/tools/uml) [正则表达式](/tools/regularExpression) [ESLint](/tools/eslint) [html-bundler](/tools/htmlBundler) 
 # 工具
-## 相关链接
+::: page-links 相关链接
 
+:::
 
-
-[特殊字符](#特殊字符) - [资源](#资源) - [常用工具](#常用工具) - [平台](#平台) - [文档](#文档) - [代码在线编辑/运行](#代码在线编辑/运行) - [知识储备相关](#知识储备相关) - [移动Web相关](#移动Web相关) - [切页面相关](#切页面相关) - [前端库/框架/插件相关](#前端库/框架/插件相关) - [部署流程相关](#部署流程相关) - [帖子相关](#帖子相关) - [H5案例相关](#H5案例相关) - [Node.js相关](#Node.js相关) - [Ionic相关](#Ionic相关) - [Ionic 2相关](#Ionic 2相关) - [React Native相关](#React Native相关) - [TypeScript相关](#TypeScript相关) - [GitHub相关](#GitHub相关) - [React.js相关](#React.js相关) - [Vue.js相关](#Vue.js相关) - [Weex相关](#Weex相关) - [代码组织相关](#代码组织相关) - [JavaScript相关](#JavaScript相关) - [CSS相关](#CSS相关) - [HTML5相关](#HTML5相关) - [工具相关](#工具相关) - [组件开发相关](#组件开发相关) - [在线学习相关](#在线学习相关) - [知名博主相关](#知名博主相关) - [活动相关](#活动相关) - [前端面试相关](#前端面试相关) - [PWA相关](#PWA相关) - [前端会议相关](#前端会议相关) - [Nuxt.js相关](#Nuxt.js相关) - [微信小程序相关](#微信小程序相关) - [微信公众号编辑工具相关](#微信公众号编辑工具相关) - [源码解析相关](#源码解析相关) - [服务器相关](#服务器相关) - [Egg.js相关](#Egg.js相关) - [Koa2相关](#Koa2相关) - [人工智能相关](#人工智能相关) - [新技术相关](#新技术相关) - 
+[特殊字符](#特殊字符) - [知识储备相关](#知识储备相关) - [移动Web相关](#移动Web相关) - [切页面相关](#切页面相关) - [前端库/框架/插件相关](#前端库/框架/插件相关) - [部署流程相关](#部署流程相关) - [帖子相关](#帖子相关) - [H5案例相关](#H5案例相关) - [Node.js相关](#Node.js相关) - [Ionic相关](#Ionic相关) - [Ionic 2相关](#Ionic 2相关) - [React Native相关](#React Native相关) - [TypeScript相关](#TypeScript相关) - [GitHub相关](#GitHub相关) - [React.js相关](#React.js相关) - [Vue.js相关](#Vue.js相关) - [Weex相关](#Weex相关) - [代码组织相关](#代码组织相关) - [JavaScript相关](#JavaScript相关) - [CSS相关](#CSS相关) - [HTML5相关](#HTML5相关) - [工具相关](#工具相关) - [组件开发相关](#组件开发相关) - [在线学习相关](#在线学习相关) - [知名博主相关](#知名博主相关) - [活动相关](#活动相关) - [前端面试相关](#前端面试相关) - [PWA相关](#PWA相关) - [前端会议相关](#前端会议相关) - [Nuxt.js相关](#Nuxt.js相关) - [微信小程序相关](#微信小程序相关) - [微信公众号编辑工具相关](#微信公众号编辑工具相关) - [源码解析相关](#源码解析相关) - [服务器相关](#服务器相关) - [Egg.js相关](#Egg.js相关) - [Koa2相关](#Koa2相关) - [人工智能相关](#人工智能相关) - [新技术相关](#新技术相关) - 
 
 
 ## 特殊字符
@@ -56,6 +56,7 @@
     </div>
 </div>
 :::
+
 ::: details 形状&纹理
 <div style="font-size:22px; text-align:right">    
     <button onclick="this.parentNode.style.fontSize = parseInt(this.parentNode.style.fontSize) - 2 + 'px'">-</button> 
@@ -73,6 +74,7 @@
     </div>
 </div>
 :::
+
 ::: details 描述&语义
 <div style="font-size:20px; text-align:right">    
     <button onclick="this.parentNode.style.fontSize = parseInt(this.parentNode.style.fontSize) - 2 + 'px'">-</button> 
@@ -99,8 +101,7 @@
 </div>
 :::
 
-
-## 资源
+::: col-4 资源
 - [icomoon](http://icomoon.io/app)
 - [UI](http://www.biaonimeia.com/project)
 - [图标库](ant.design/components/icon-cn)
@@ -118,9 +119,9 @@
     谷歌插件：    Allow-Control-Allow-Origin(跨域)
 - [自助建站国际](https://www.wix.com)
 - [自助建站国内](https://www.strikingly.com/)
+:::
 
-## 常用工具
-::: flex6
+::: col-4 常用工具
 - [模拟短信验证](https://www.yinsiduanxin.com/)
 - [API模拟](http://myjson.com/)
 - [图片压缩](https://tinypng.com/)
@@ -130,14 +131,40 @@
 - [正则表达式工具](http://www.regexlab.com/zh/mtracer/)
 - [正则测试](http://tool.chinaz.com/regex))
 - [草料二维码生成器](http://cli.im/)
-:::
-::: flex6
-- [在线工具平台](https://tool.lu/)
-- [有道云笔记](http://note.youdao.com/signIn/index.html)
-- [36镇-最好用的共享收藏夹](http://www.36zhen.com/)
 - [浏览器同步测试工具](http://www.browsersync.cn/)
+- [Git常用命令速查表](https://dn-coding-net-production-pp.qbox.me/e8dd7837-b39d-413e-9beb-ed51984719e0.png)<br>
+代码在线编辑/运行<br>
+- [CodeSandBox](https://codesandbox.io/s/xv36w4695o?file=/index.html)  
+- [JSRun](https://jsrun.net/new)
+- [下载YouTube视频](http://en.savefrom.net/)
+- [下载YouTube字幕](http://keepvid.com/)
+:::
+
+::: col-4 平台&文档
+- [GitHub](https://github.com/)
+- [码云](http://git.oschina.net/)
+- [Coding](https://coding.net/)
+- [vuepress](https://vuepress.vuejs.org/zh/)
+- [在线工具平台](https://tool.lu/)
 - [StackOverFlow](http://stackoverflow.com/)
-- [图片压缩](https://tinypng.com/)
+- [前端开发仓库](http://code.ciaoca.com/)
+- [在线工具](http://tool.oschina.net/)
+- [淘宝NPM镜像](https://npm.taobao.org/)
+- [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools)  
+- [MDN web docs](https://developer.mozilla.org/zh-CN/)  
+- [Elemnt](http://element-cn.eleme.io/)
+- [npm模块管理器](http://javascript.ruanyifeng.com/nodejs/npm.html)
+- [代码规范](https://standardjs.com/rules-zhcn.html)
+:::
+
+
+
+
+
+
+
+
+
 - [代码对比/归并](http://tool.oschina.net/diff)
 - [json在线编辑器](http://www.qqe2.com/)
 - [px转rem工具](http://520ued.com/tools/rem)
@@ -146,21 +173,12 @@
 - [CSS 3.0 Animation](http://www.css3maker.com/index.html)
 - [在线二维码解码器](http://jiema.wwei.cn/)
 - [PDF转换器](http://www.pdfdo.com/pdf-to-image.aspx)
-:::
-- [有道网页翻译](http://fanyi.youdao.com/)
-- [前端开发仓库](http://code.ciaoca.com/)
-- [百度静态资源公共库](http://cdn.code.baidu.com/?qq-pf-to=pcqq.c2c)
-- [在线工具](http://tool.oschina.net/)
-- [淘宝NPM镜像](https://npm.taobao.org/)
 - [Animate.css 一款强大的预设css3动画库](http://www.jq22.com/jquery-info819)
 - [在线制作logo](http://www.logomaker.com.cn/logo-maker.jsp)
 - [Cheat Sheet](http://docs.emmet.io/cheat-sheet/)
 - [浏览器HACKS](http://www.css88.com/tool/hack/)
 - [Support tables for HTML5, CSS3, etc](http://caniuse.com/)
 - [The best FOSS CDN for web](https://cdnjs.com/)
-- [下载YouTube视频](http://en.savefrom.net/)
-- [下载YouTube字幕](http://keepvid.com/)
-- [Git常用命令速查表](https://dn-coding-net-production-pp.qbox.me/e8dd7837-b39d-413e-9beb-ed51984719e0.png)
 - [CSS选择器演示](http://www.haorooms.com/tools/css_selecter/)
 - [Markdown在线编辑器](http://c.runoob.com/front-end/712)
 - [Mozilla开发者网络](https://developer.mozilla.org/zh-CN/#)
@@ -176,7 +194,6 @@
 - [手册网](http://www.shouce.ren/)
 - [docute](https://docute.js.org/#/zh-Hans/)
 - [在线Word转HTML](http://www.docpe.com/word/word-to-html.aspx)
-- [代码规范](https://standardjs.com/rules-zhcn.html)
 - [像素大厨](http://www.fancynode.com.cn/)
 - [抠抠视频秀](http://www.28video.com/)
 - [美图秀秀网页版](http://xiuxiu.web.meitu.com/)
@@ -193,27 +210,6 @@
 - [图片上传](https://thyrsi.com/)
 - [IT教程网](http://www.itjiaocheng.com/index.html)
 - [正则表达式测试工具](https://regexper.com/)
-
-## 平台
-- [GitHub](https://github.com/)
-- [码云](http://git.oschina.net/)
-- [Coding](https://coding.net/)
-
-## 文档
-- [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools)  
-- [MDN web docs](https://developer.mozilla.org/zh-CN/)  
-- [Elemnt](http://element-cn.eleme.io/)
-- [npm模块管理器](http://javascript.ruanyifeng.com/nodejs/npm.html)
-
-## 代码在线编辑/运行
-- [CodeSandBox](https://codesandbox.io/s/xv36w4695o?file=/index.html)  
-- [JSRun](https://jsrun.net/new)
-
-
-
-
-
-
 
  
 

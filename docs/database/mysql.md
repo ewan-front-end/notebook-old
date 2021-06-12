@@ -157,7 +157,7 @@ xss攻击：预防 对< > & " ' /进行转义
         const SECRET_KEY = 'eeeaEF98#'
         // MD5加密
         function md5(content){
-            let md5 = crypto.createHash('md5')
+            let md5 = crypto.createHash('md5)
             return md5.update(content).digest('hex')
         }
         // 加密函数

@@ -204,7 +204,12 @@ document.addEventListener('mousemove', (e) => {
 `--foo: if(x > 5) this.width = 10;`
 
 
-
+## 空白折叠现象
+> 两个div不能并列，代码换行、tab（制表符）、空格等会被算作一个空格显示，解决：给父元素设置font-size:0
+```html
+<div style="display:inline-block; width:50%"></div>
+<div style="display:inline-block; width:50%"></div>
+```
 
 ## 文本溢出
 ```css

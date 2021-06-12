@@ -25,7 +25,7 @@ module.exports = (path, target) => {
     if(target.links) {
         if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
         let linksStr = ``
-        content += `## 相关链接\n`
+        content += `::: page-links 相关链接\n`
         target.links.forEach(item => {
             let linkName, linkHref
             let tracingObj = target
@@ -59,7 +59,8 @@ module.exports = (path, target) => {
             
             // linksStr += `[${linkName}](${linkHref}) `
         })            
-        content += linksStr + `\n\n` 
+        content += linksStr + `\n` 
+        content += `:::\n`
     } 
     
     /* 外部资源  */

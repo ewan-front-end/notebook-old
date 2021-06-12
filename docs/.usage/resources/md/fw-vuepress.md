@@ -173,7 +173,7 @@ pageClass: custom-page-class  便针对该页添加一些专门的CSS 参考##�
   1. 使用vuepress命令,需全局安装VUEPRESS：**npm i vuepress -g**
   2. 代码会克隆到 vuepress-demo/docs/.vuepress/theme/ 下
 
-::: details
+::: details 样式调整
 ```styl
 --------------------------------styles/index.styl
 html, body
@@ -201,6 +201,24 @@ pre, pre[class*="language-"]
   line-height 1.0                                   line-height 1.2
   padding 1.25rem 1.5rem                            padding 0.2rem 1.5rem 0.4rem 1.5rem
   margin 0.85rem 0                                   margin 0.5rem 0
+
+--------------------------------styles/custom-blocks.styl                 自定义代码块
+参考：自定义容器
+```
+:::
+
+::: details 自定义容器
+1. docs/.vuepress/theme/index.js
+```js
+plugins: [
+    ['container', {type: 'customname', before: info => `<div class="custom-block customclass">${info ? `<summary>${info}</summary>` : ''}\n`, after: () => '</div>\n'}]
+]
+```
+2. docs/.vuepress/theme/styles/custom-blocks.styl
+```css
+.custom-block
+  .customclass
+    color #f00
 ```
 :::
 
