@@ -2,8 +2,9 @@
 
 # 鉴权系统
 > 集中处理登陆、支付等需要风险控制较高的公共业务
-::: page-links 相关链接
 
+::: page-links 相关链接
+[账号体系](/solution) [登陆](/frontend/layerBusiness/systemBusiness/libraryPublic/function/login) [支付](/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment) 
 :::
 
 [内容标题](#内容标题) - 

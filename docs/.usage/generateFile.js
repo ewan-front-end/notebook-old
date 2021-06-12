@@ -25,7 +25,7 @@ module.exports = (path, target) => {
     if(target.links) {
         if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
         let linksStr = ``
-        content += `::: page-links 相关链接\n`
+        content += `\n::: page-links 相关链接\n`
         target.links.forEach(item => {
             let linkName, linkHref
             let tracingObj = target
@@ -49,15 +49,8 @@ module.exports = (path, target) => {
                 linkHref = linkHref.replace(/\.\//g, '')
                 while(tracingObj.key !== 'DATA_ROOT'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }
                 linkHref = '/' + linkHref
-            }
-
-            // if (!linkName) {
-            //     let linkTarget = flatDataMap[linkHref] || {}
-            //     linkName = linkName || linkTarget.linkName || '未知'
-            // }
-            
-            
-            // linksStr += `[${linkName}](${linkHref}) `
+            }             
+            linksStr += `- [${linkName}](${linkHref})\n `
         })            
         content += linksStr + `\n` 
         content += `:::\n`

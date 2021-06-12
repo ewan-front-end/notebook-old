@@ -1,6 +1,7 @@
 [上一级](../)
 
 # 功能库
-::: page-links 相关链接
 
+::: page-links 相关链接
+[Fetch](#) [Modernizr](#) [Sentry](#) [Google Analytics](#) 
 :::

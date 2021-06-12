@@ -66,10 +66,10 @@ module.exports = {
         ios:{title:'IOS',linkName:'IOS', SRC:'ios'},
         android:{title:'Android',linkName:'Android', SRC:'android'}
     }},
-    server:{title:'服务器',SRC:'server', links:['/node/koa', '/node/express']},    
+    server:{title:'服务器',SRC:'server', links:[{name:'koa',href:'/node/koa'}, {name:'express',href:'/node/express'}]},    
     html5:{linkName:'HTML5', SRC:'html5'},
     typescript:{linkName:'Typescript', SRC:'typescript'},
-    react:{linkName:'React', SRC:'react'},    
+    //react:{linkName:'React', SRC:'react'},    
     designPattern:{title:'设计模式', SRC:'design-pattern'},
     webpack:{linkName:'Webpack', SRC:'webpack'},
     nginx:{linkName:'Nginx', usage:[
@@ -81,7 +81,7 @@ module.exports = {
             {title:'停止', text:'c:\\server\\nginx-1.0.2 > nginx.exe -s stop 或 c:\\server\\nginx-1.0.2 > nginx.exe -s quit'}
         ]},
         {title:'mac', desc:[
-            {title:'依赖ruby', text:'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"', links:[['卡住','']]},
+            {title:'依赖ruby', text:'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'},
             {title:'安装', text:'brew install nginx'},
             {title:'配置', text:'/usr/local/etc/nginx/nginx.conf'},
             {title:'启动', text:'nginx  重启: nginx -s reload  停止: nginx -s stop'}
@@ -168,7 +168,7 @@ module.exports = {
             }},
             systemComponent: {title:'组件系统',desc:'作用在于集中管理可复用的开发资源,各业务线优先从系统中选取可复用的部分，同时向系统中沉淀组件'}
         }}
-    }, links:['/tools/qiankun']},
+    }, links:[{name:'qiankun',href:'/tools/qiankun'}]},
     projects:{title:'项目', SRC:'projects'},
     other: {linkName:'其它', SRC:'other'}
 }
