@@ -1,8 +1,19 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
-# Android
 
-[Android开发环境搭建](#Android开发环境搭建) - [第一个应用](#第一个应用) - [谷歌api的安装包](#谷歌api的安装包) - [Android开发环境包](#Android开发环境包) - 
+</div>
+</div>
+<div class="content-header">
+<h1>Android</h1>
+</div>
+
 
 # Android开发环境搭建
 

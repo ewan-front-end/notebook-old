@@ -9,8 +9,14 @@ module.exports = {
                 "text": "首页",
                 "link": "/"
             },
-            { "text": "工具", "link": "/tools/" },
-            { "text": "项目", "link": "/projects/" },
+            {
+                "text": "工具",
+                "link": "/tools/"
+            },
+            {
+                "text": "项目",
+                "link": "/projects/"
+            },
             {
                 "text": "场景",
                 "link": "/scene"

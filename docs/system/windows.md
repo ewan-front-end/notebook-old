@@ -1,8 +1,19 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
-# Windows
 
-[批处理(bat)语法大全](#批处理(bat)语法大全) - 
+</div>
+</div>
+<div class="content-header">
+<h1>Windows</h1>
+</div>
+
 
 ```
 NPM默认安装位置 C:\Users\new\AppData\Roaming

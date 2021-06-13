@@ -1,8 +1,19 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
-# 设计模式
 
-[结构型模式](#结构型模式) - [行为模式](#行为模式) - [设计模式的六大原则(SOLID L)](#设计模式的六大原则(SOLID L)) - [策略模式](#策略模式) - [状态模式](#状态模式) - [策略模式&状态模式混合](#策略模式&状态模式混合) - [观察者模式(Observer Pattern)](#观察者模式(Observer Pattern)) - 
+</div>
+</div>
+<div class="content-header">
+<h1>设计模式</h1>
+</div>
+
 
 
 https://blog.csdn.net/qq_20901397/article/details/82219055

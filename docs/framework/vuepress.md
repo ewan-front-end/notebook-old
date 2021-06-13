@@ -1,7 +1,17 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
 
-[入门部署](#入门部署) - [最佳实践](#最佳实践) - [基础配置](#基础配置) - [基础配置-默认主题](#基础配置-默认主题) - [默认主题改造](#默认主题改造) - [自定义主题 ](#自定义主题 ) - [主题应用插件](#主题应用插件) - [开发Layout.vue](#开发Layout.vue) - [使用全局布局组件](#使用全局布局组件) - [集成第三方到主题](#集成第三方到主题) - [样式组件](#样式组件) - [主页](#主页) - [自定义CLASS](#自定义CLASS) - [自定义布局](#自定义布局) - 
+</div>
+</div>
+
+
 
 
 [官网](https://vuepress.vuejs.org/zh/guide/)

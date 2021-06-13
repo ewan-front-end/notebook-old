@@ -54,8 +54,7 @@ module.exports = {
         eslint: {linkName: 'ESLint', SRC:'eslint'},
         htmlBundler: {title:'html-bundler', SRC:'html-bundler'}
     }},     
-    css:{title:'CSS', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
-        style:{title:'样式', SRC:'css-style'},
+    css:{title:'CSS', SRC:'css', desc:'层叠样式表(Cascading Style Sheets)', CHILDREN:{
         preset:{title:'预处理', SRC:'css-preset'},
         variable:{title:'CSS变量', SRC:'css-variable'}
     }},   

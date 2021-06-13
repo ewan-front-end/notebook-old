@@ -53,7 +53,7 @@ module.exports = (options, ctx) => {
         before: info => `<details class="custom-block details">${info ? `<summary>${info}</summary>` : ''}\n`,
         after: () => '</details>\n'
       }],
-      ['container', {type: 'page-links', before: info => `<div class="custom-block page-links">`, after: () => '</div>\n'}],
+      ['container', {type: 'content-children', before: info => `<div class="custom-block children">`, after: () => '</div>\n'}],
       ['container', {type: 'col-1', before: info => `<div class="custom-block col-1">${info ? `<summary>${info}</summary>` : ''}\n`, after: () => '</div>\n'}],
       ['container', {type: 'col-2', before: info => `<div class="custom-block col-2">${info ? `<summary>${info}</summary>` : ''}\n`, after: () => '</div>\n'}],
       ['container', {type: 'col-3', before: info => `<div class="custom-block col-3">${info ? `<summary>${info}</summary>` : ''}\n`, after: () => '</div>\n'}],

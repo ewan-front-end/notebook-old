@@ -1,5 +1,24 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
+<div class="custom-block children">
+<ul>
+<li><a href="/frontend/layerOffline/tools/codeManagement">代码管理</a></li>
+<li><a href="/frontend/layerOffline/tools/packageManagement">包管理</a></li>
+<li><a href="/frontend/layerOffline/tools/buildTools">构建工具</a></li>
+<li><a href="/frontend/layerOffline/tools/taskManagement">任务管理工具</a></li>
+<li><a href="/frontend/layerOffline/tools/scaffolding">脚手架</a></li>
+</ul>
+</div>
 
-## 子类链接
-[代码管理](/frontend/layerOffline/tools/codeManagement) [包管理](/frontend/layerOffline/tools/packageManagement) [构建工具](/frontend/layerOffline/tools/buildTools) [任务管理工具](/frontend/layerOffline/tools/taskManagement) [脚手架](/frontend/layerOffline/tools/scaffolding) 
-# 工具集
+</div>
+</div>
+<div class="content-header">
+<h1>工具集</h1>
+</div>
+

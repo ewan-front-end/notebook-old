@@ -1,7 +1,17 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
 
-[自定义快捷键](#自定义快捷键) - [配置Node启动配置](#配置Node启动配置) - [禁止运行脚本](#禁止运行脚本) - [配置/更换终端](#配置/更换终端) - [错误报告](#错误报告) - [settings](#settings) - [功能](#功能) - [插件](#插件) - [自定义用户片段](#自定义用户片段) - 
+</div>
+</div>
+
+
 
 
 

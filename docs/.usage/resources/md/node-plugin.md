@@ -28,6 +28,12 @@ action       执行命令后所执行的方法
 usage        用户使用提示
 parse        解析命令行参数，注意这个方法一定要放到最后调用
 
+## nodemon
+> 监测开发文件变化，自动重启node
+1. npm install -g nodemon 或 demo> npm install --save-dev nodemon
+2. demo> nodemon main.js                 // 相当于demo> node main.js
+   demo> nodemon main.js localhost 8080  // 如果没有在应用中指定端口，可以在命令中指定
+
 ## 响应版本号
 - demo> npm install commander --save
 - demo/bin/demo.js

@@ -1,7 +1,17 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
 
-[安装](#安装) - [tsc命令参数：](#tsc命令参数：) - [tsconfig.json](#tsconfig.json) - [开发](#开发) - [单元测试](#单元测试) - 
+</div>
+</div>
+
+
 
 
 基础类型 变量声明 接口 类 函数 泛型 类型推新 高级类型

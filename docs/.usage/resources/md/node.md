@@ -48,6 +48,7 @@
     `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
 - [chalk](/node/plugin.html#chalk) 颜色的插件
 - [commander](/node/plugin.html#commander) 命令行编程工具
+- [nodemon](/node/plugin.html#nodemon)   监测开发文件变化，自动重启node
 
 
 

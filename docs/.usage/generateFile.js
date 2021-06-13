@@ -3,73 +3,56 @@ const {writeFile} = require('./src/tools-fs')
 const _path = require('path')
 
 module.exports = (path, target) => {
-    let content = `[上一级](../)\n\n`                     // 添加上一级按钮 
-    /* 子类链接  */  
+    let content
+    let childrenContent = '' // 子类链接
+    let linksContent = ''    // 相关链接
+    let topicContent = ''
+    let contentHeader = ''
+    let staticContent = ''      // 静态资源
     if(target.CHILDREN) {
-        content += `## 子类链接\n`
+        let listStr = ''
         for (i in target.CHILDREN){
             let {linkName, path} = target.CHILDREN[i]
-            content += `[${linkName}](${path}) `
+            listStr += `<li><a href="${path}">${linkName}</a></li>\n`
         } 
-        content += `\n`
+        childrenContent += `<div class="custom-block children">\n<ul>\n${listStr}</ul>\n</div>`
     }
-        
-    /* title   */
-    /* desc    */
-    /* detail  */        
-    target.title  && (content += `# ${target.title}\n`)  
-    target.desc   && (content += `> ${target.desc}\n`)
-    target.detail && (content += `${target.detail}\n`) 
-
-    /* 相关链接  */
-    if(target.links) {
+    if(target.links) {        
         if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
-        let linksStr = ``
-        content += `\n::: page-links 相关链接\n`
-        target.links.forEach(item => {
-            let linkName, linkHref
-            let tracingObj = target
-            if(typeof item === 'string'){
-                linkHref = item
-            } else {
-                linkName = item.name || ''
-                linkHref = item.href || '#'
-            }
-            // 相对路径转绝对路径
-            let twoPoint = linkHref.match(/\.\.\//g)                
-            if (twoPoint) {                                        
-                linkHref = linkHref.replace(/\.\.\//g, '')                                                                                                                     // 去除相对结构                    
-                let count = twoPoint.length; while(count > 0){ tracingObj = tracingObj.parent; tracingObj.key === 'DATA_ROOT' && console.log(item, '相对目录越界！'); count-- } // 跳过目录层级                    
-                while(tracingObj.key !== 'DATA_ROOT'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }                                            // 补充父级路径                    
-                linkHref = '/' + linkHref                                                                                                                                      // 加上根目录标识
-            }
-            let singlePoint = linkHref.match(/\.\//g)
-            if (singlePoint) {
-                tracingObj = target.parent
-                linkHref = linkHref.replace(/\.\//g, '')
-                while(tracingObj.key !== 'DATA_ROOT'){ linkHref = tracingObj.key + '/' + linkHref; tracingObj = tracingObj.parent }
-                linkHref = '/' + linkHref
-            }             
-            linksStr += `- [${linkName}](${linkHref})\n `
-        })            
-        content += linksStr + `\n` 
-        content += `:::\n`
-    } 
-    
-    /* 外部资源  */
+        let listStr = ''
+        target.links.forEach(({name, href}) => {
+            listStr += `<li><a href="${href}">${name}</a></li>\n`
+        })  
+        linksContent += `<div class="custom-block links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
+    }
+    if (target.title || target.desc || target.detail) {
+        const titleStr = target.title ? `<h1>${target.title}</h1>\n` : ''
+        const descStr = target.desc ? `<summary class="desc">${target.desc}</summary>\n` : ''
+        const detailStr = target.detail ? `<detail>${target.detail}</detail>\n` : ''
+        contentHeader += `<div class="content-header">\n${titleStr}${descStr}${detailStr}</div>`
+    }
+    // target.title  && (content += `# ${target.title}\n`)  
+    // target.desc   && (content += `> ${target.desc}\n`)
+    // target.detail && (content += `${target.detail}\n`) 
     if (target.SRC) {
         const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
-
-        let titleArr = file.match(/(?:^|\n)#{1,6}\s.+/g) || []   
-        let titleStr = ``
-        titleArr.forEach((title, i) => {
-            title = title.replace(/(?:^|\n)#{1,6}\s/, '')
-            titleStr += `[${title}](#${title}) - `
-        })
-        content += `\n${titleStr}\n`
-        
-        content += `\n${file}\n`
+        staticContent += `\n${file}\n`
     }
+
+    content = `<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
+${childrenContent}
+${linksContent}
+${topicContent}</div>\n</div>
+${contentHeader}
+
+${staticContent}`
                 
     writeFile(_path.resolve(__dirname, '..' + path + '.md'), content)
 }

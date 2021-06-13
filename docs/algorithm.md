@@ -1,7 +1,17 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
 
-[Depth-First-Search](#Depth-First-Search) - [缓动算法](#缓动算法) - [矩阵](#矩阵) - 
+</div>
+</div>
+
+
 
 ## Depth-First-Search
 

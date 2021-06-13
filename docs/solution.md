@@ -1,14 +1,25 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
+<div class="custom-block links">
+<ul class="desc">
+<li><a href="/database">数据库</a></li>
+<li><a href="">cookie</a></li>
+<li><a href="">session</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="content-header">
+<h1>解决方案</h1>
+</div>
 
-
-::: page-links 相关链接
-[数据库](/database) 
-[cookie](#) 
-[session](#) 
-:::
-
-[需求分析](#需求分析) - [产品要求](#产品要求) - [技术应对](#技术应对) - [前端技术指标](#前端技术指标) - [架构设计](#架构设计) - [网站账号体系SDK](#网站账号体系SDK) - [环境准备](#环境准备) - [开发](#开发) - [register注册](#register注册) - 
 
 行为树的原理及实现
 

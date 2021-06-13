@@ -1,7 +1,18 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
-# CSS变量
 
+</div>
+</div>
+<div class="content-header">
+<h1>CSS变量</h1>
+</div>
 
 
 js操作变量

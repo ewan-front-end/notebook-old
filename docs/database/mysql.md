@@ -1,8 +1,19 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
-# MySQL
 
-[创建数据库](#创建数据库) - [建表](#建表) - [增删改查](#增删改查) - 
+</div>
+</div>
+<div class="content-header">
+<h1>MySQL</h1>
+</div>
+
 
 
 

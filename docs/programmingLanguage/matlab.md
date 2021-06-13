@@ -1,3 +1,16 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
 
-> 算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境
+
+</div>
+</div>
+<div class="content-header">
+<summary class="desc">算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境</summary>
+</div>
+

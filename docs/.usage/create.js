@@ -14,7 +14,7 @@ const handleItem = (key, item, parent) => {
     Object.assign(item, {parent, linkName: item.linkName || item.title || key, path: parent.path +'/'+ key, key}) 
     item.CHILDREN ? handleItemChildren(item, item.CHILDREN) : generateFile(item.path, item)
 }
-
+console.log('============================================================================================')
 if (argArr.length > 0) {
     let root, _root
     let DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap},

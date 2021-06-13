@@ -1,6 +1,23 @@
-[上一级](../)
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
+<div class="custom-block children">
+<ul>
+<li><a href="/frontend/layerInfrastructure/systemResourceManagement">资源管理系统</a></li>
+<li><a href="/frontend/layerInfrastructure/systemDataPersistence">数据持久化系统</a></li>
+<li><a href="/frontend/layerInfrastructure/systemOperationMaintenance">运维系统</a></li>
+</ul>
+</div>
 
-## 子类链接
-[资源管理系统](/frontend/layerInfrastructure/systemResourceManagement) [数据持久化系统](/frontend/layerInfrastructure/systemDataPersistence) [运维系统](/frontend/layerInfrastructure/systemOperationMaintenance) 
-# 基础设施层
-> 重点关注系统稳定性
+</div>
+</div>
+<div class="content-header">
+<h1>基础设施层</h1>
+<summary class="desc">重点关注系统稳定性</summary>
+</div>
+
