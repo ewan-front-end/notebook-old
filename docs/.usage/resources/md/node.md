@@ -46,9 +46,11 @@
 ## 插件
 - [uglify-js](/node/plugin.html#uglify-js)
     `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
-- [chalk](/node/plugin.html#chalk) 颜色的插件
+- [chalk](/node/plugin.html#chalk)         颜色的插件
 - [commander](/node/plugin.html#commander) 命令行编程工具
-- [nodemon](/node/plugin.html#nodemon)   监测开发文件变化，自动重启node
+- [nodemon](/node/plugin.html#nodemon)     监测开发文件变化，自动重启node
+- [gulp](/node/plugin.html#gulp)           开发任务流
+- [chokidar](/node/plugin.html#chokidar)   监听文件的改变
 
 
 

@@ -297,6 +297,6 @@ package.json  包描述
 
 多人发布
 npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
-npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户
+npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户 npm rm --global gulp
 npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 ```

@@ -11,6 +11,77 @@
 ├── package.json          #npm配置
 ├── README.md           #README
 
+## gulp
+[gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
+1. demo> npm install --save-dev gulp
+2. demo/gulpfile.js
+> 在运行 gulp 命令时会被自动加载
+```js
+// 默认任务
+function defaultTask(cb) {
+  // place code for your default task here
+  cb();
+}
+// 老版本gulp是用task()注册任务的，现仍然可以用
+exports.default = defaultTask // 任何导出(export)的函数都将注册到gulp的任务(task)系统中
+// 注册更多的任务
+```
+3. demo> gulp                     // 默认任务（task）将执行, 如果是本地安装,则"dev":"gulp",demo> npm run dev<br>
+   demo> gulp <task> <othertask>  // 运行多任务
+
+- API
+```js
+// gulp API
+const { src, dest, series, parallel } = require('gulp')
+src()   // 用于处理计算机上存放的文件 接受(匹配文件系统文件)参数，将所有匹配的文件读取到内存中并通过流(stream)进行处理,应当从任务(task)中返回
+dest()  // 用于处理计算机上存放的文件
+series() 或 parallel()
+// stream API
+.pipe() // 用于连接转换流(Transform streams)或可写流(Writable streams)
+```
+- 任务分割
+- 公有&私有任务
+```js
+// `clean` 函数并未被导出（export），因此被认为是私有任务（private task）。
+// 它仍然可以被用在 `series()` 组合中。
+function clean(cb) {
+  // body omitted
+  cb();
+}
+
+// `build` 函数被导出（export）了，因此它是一个公开任务（public task），并且可以被 `gulp` 命令直接调用:demo> gulp build
+// 它也仍然可以被用在 `series()` 组合中。
+function build(cb) {
+  // body omitted
+  cb();
+}
+exports.build = build;
+exports.default = series(clean, build);
+```
+- 组合任务
+```js
+const { series, parallel } = require('gulp')
+function transpile1(cb) {/* body omitted */ cb()}
+function bundle2(cb) {/* body omitted */ cb()}
+function javascript(cb) {/* body omitted */ cb()}
+function css(cb) {/* body omitted */ cb()}
+exports.build = series(transpile1, bundle2) // series()   如果需要让任务按顺序执行
+exports.build2 = parallel(javascript, css)  // parallel() 希望以最大并发来运行的任务
+/* series() 和 parallel() 可以被嵌套到任意深度
+exports.build = series(
+  clean,
+  parallel(
+    cssTranspile,
+    series(jsTranspile, jsBundle)
+  ),
+  parallel(cssMinify, jsMinify),
+  publish
+);
+*/
+```
+- 文件监控
+
+## chokidar
 
 ## chalk
 > 颜色的插件
@@ -29,10 +100,24 @@ usage        用户使用提示
 parse        解析命令行参数，注意这个方法一定要放到最后调用
 
 ## nodemon
-> 监测开发文件变化，自动重启node
+> 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
 1. npm install -g nodemon 或 demo> npm install --save-dev nodemon
 2. demo> nodemon main.js                 // 相当于demo> node main.js
    demo> nodemon main.js localhost 8080  // 如果没有在应用中指定端口，可以在命令中指定
+
+demo/src/01.js
+```js
+module.exports = 'test text' // 启动nodemon后可响应文件的更改
+```
+demo/main.js
+```js
+var str = require('./src/01')
+console.log(str);
+```
+demo> nodemon ./main.js  // 如果是本地安装的nodemon,则"dev":"nodemon ./main.js"
+
+## pm2
+> 生产环境使用
 
 ## 响应版本号
 - demo> npm install commander --save
