@@ -8,18 +8,6 @@
 <div class="content">
 <div class="custom-block children">
 <ul>
-<li><a href="/tools/git">Git</a></li>
-<li><a href="/tools/npm">NPM</a></li>
-<li><a href="/tools/markdown">Markdown</a></li>
-<li><a href="/tools/webpack">Webpack</a></li>
-<li><a href="/tools/qiankun">乾坤微服务</a></li>
-<li><a href="/tools/charts">需求图表</a></li>
-<li><a href="/tools/vscode">VSCode</a></li>
-<li><a href="/tools/chromeTools">chromeTools</a></li>
-<li><a href="/tools/uml">uml</a></li>
-<li><a href="/tools/regularExpression">正则表达式</a></li>
-<li><a href="/tools/eslint">ESLint</a></li>
-<li><a href="/tools/htmlBundler">html-bundler</a></li>
 </ul>
 </div>
 <div class="custom-block links">
@@ -126,7 +114,7 @@
 </div>
 :::
 
-::: col-4 资源
+::: col-4 资源2345678
 - [icomoon](http://icomoon.io/app)
 - [UI](http://www.biaonimeia.com/project)
 - [图标库](ant.design/components/icon-cn)
@@ -180,6 +168,7 @@
 - [Elemnt](http://element-cn.eleme.io/)
 - [npm模块管理器](http://javascript.ruanyifeng.com/nodejs/npm.html)
 - [代码规范](https://standardjs.com/rules-zhcn.html)
+- [gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 :::
 
 

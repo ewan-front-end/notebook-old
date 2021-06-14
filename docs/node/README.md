@@ -10,6 +10,7 @@
 <ul>
 <li><a href="/node/plugin">插件</a></li>
 <li><a href="/node/framework">框架</a></li>
+<li><a href="/node/package">描述文件</a></li>
 </ul>
 </div>
 
@@ -66,8 +67,12 @@
 ## 插件
 - [uglify-js](/node/plugin.html#uglify-js)
     `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
-- [chalk](/node/plugin.html#chalk) 颜色的插件
+- [chalk](/node/plugin.html#chalk)         颜色的插件
 - [commander](/node/plugin.html#commander) 命令行编程工具
+- [nodemon](/node/plugin.html#nodemon)     监测开发文件变化，自动重启node
+- [gulp](/node/plugin.html#gulp)           开发任务流
+- [chokidar](/node/plugin.html#chokidar)   比标准库fs.watch()、fs.watchFile更完善的用于监控文件/文件夹变化的工具
+- [concurrently](/node/package#scripts)    多命令运行 
 
 
 

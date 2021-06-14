@@ -1,0 +1,50 @@
+<div class="extend-header">
+<div class="info">
+<a class="back" href="./">上一级</a>
+<div class="mini">
+<span>2021.01.02</span>
+</div>
+</div>
+<div class="content">
+
+
+</div>
+</div>
+<div class="content-header">
+<h1>描述文件</h1>
+</div>
+
+
+:::2021.06.14:::
+
+```json
+{
+  "name": "watcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chokidar": "^3.5.1"
+  }
+}
+```
+
+## scripts
+
+<pre>
+命令关系444444：
+    &  并列运行  
+    && 顺序执行 如果前一个命令报错或挂载执行 则后命令不会执行
+        vuepress dev docs && node docs/.usage/createWatch.js
+    要想同时运行多条挂载命令 使用[concurrently
+        1. npm i concurrently -g
+        2. "scripts": { "start": "concurrently \"npm run clientServer\" \"npm run server\"" }
+
+         
+</pre>

@@ -50,7 +50,8 @@
 - [commander](/node/plugin.html#commander) 命令行编程工具
 - [nodemon](/node/plugin.html#nodemon)     监测开发文件变化，自动重启node
 - [gulp](/node/plugin.html#gulp)           开发任务流
-- [chokidar](/node/plugin.html#chokidar)   监听文件的改变
+- [chokidar](/node/plugin.html#chokidar)   比标准库fs.watch()、fs.watchFile更完善的用于监控文件/文件夹变化的工具
+- [concurrently](/node/package#scripts)    多命令运行 
 
 
 

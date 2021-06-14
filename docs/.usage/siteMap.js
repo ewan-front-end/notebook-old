@@ -91,7 +91,8 @@ module.exports = {
     socket: {linkName:'Socket', SRC:'socket'},
     node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], SRC:'node', CHILDREN:{
         plugin:{title:'插件', SRC:'node-plugin'},
-        framework:{title:'框架', SRC:'node-framework'}
+        framework:{title:'框架', SRC:'node-framework'},
+        package:{title:'描述文件', SRC:'node/package'}
     }},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{

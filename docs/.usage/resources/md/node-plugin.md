@@ -27,7 +27,7 @@ exports.default = defaultTask // 任何导出(export)的函数都将注册到gul
 // 注册更多的任务
 ```
 3. demo> gulp                     // 默认任务（task）将执行, 如果是本地安装,则"dev":"gulp",demo> npm run dev<br>
-   demo> gulp <task> <othertask>  // 运行多任务
+   `demo> gulp <task> <othertask>`  // 运行多任务
 
 - API
 ```js
@@ -80,8 +80,56 @@ exports.build = series(
 */
 ```
 - 文件监控
+参考chokidar
 
 ## chokidar
+> 可以用于监控文件、文件夹变化，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
+1. demo> npm init -y 
+2. demo> npm i chokidar --save-dev
+3. 实例
+```js
+const chokidar = require('chokidar');
+const log = console.log
+// chokidar.watch("E:\\work\\demo\\") 可以监控文件、文件夹, 参数类型file/dir/glob/array
+// chokidar.watch('.') 监控当前目录
+// chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});
+chokidar.watch('./src')
+  .on('raw', (event, path, details) => log('RAW:', event, path, details))
+  .on('ready', () => console.log('初始扫描完成，准备好监听改变'))
+  .on('add',       path => log('ADD:',       path))
+  .on('change',    path => log('CHANGE:',    path))
+  .on('unlink',    path => log('UNLINK:',    path))
+  .on('addDir',    path => log('ADDDIR:',    path))
+  .on('unlinkDir', path => log('UNLINKDIR:', path))
+  .on('all', (event, path) => log('ALL:', event, path)) // 可以在这做事件分支而忽略前面的具体事件    
+  .on('error', error => log(`监听错误: ${error}`))
+```
+路径：
+<pre>
+demo> node src/watcher.js
+demo/src/watcher.js
+    chokidar.watch('./src/js') 而非 chokidar.watch('./js')
+</pre>
+场景：
+<pre>
+新建src/b.js
+    RAW: rename b.js { watchedPath: 'src' }
+    ADD: src\b.js
+    ALL: add src\b.js
+删除src/b.js
+    RAW: rename b.js { watchedPath: 'src' }
+    RAW: rename b.js { watchedPath: 'src\\b.js' }
+    UNLINK: src\b.js
+    ALL: unlink src\b.js
+编辑src/a.js
+    RAW: change a.js { watchedPath: 'src' }
+    RAW: change a.js { watchedPath: 'src\\a.js' }
+    RAW: change a.js { watchedPath: 'src' }
+    RAW: change a.js { watchedPath: 'src\\a.js' }
+    CHANGE: src\a.js
+    ALL: change src\a.js
+</pre>
+
 
 ## chalk
 > 颜色的插件
@@ -118,6 +166,9 @@ demo> nodemon ./main.js  // 如果是本地安装的nodemon,则"dev":"nodemon ./
 
 ## pm2
 > 生产环境使用
+
+## concurrently
+[concurrently](/node/package#scripts)
 
 ## 响应版本号
 - demo> npm install commander --save

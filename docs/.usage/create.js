@@ -14,7 +14,7 @@ const handleItem = (key, item, parent) => {
     Object.assign(item, {parent, linkName: item.linkName || item.title || key, path: parent.path +'/'+ key, key}) 
     item.CHILDREN ? handleItemChildren(item, item.CHILDREN) : generateFile(item.path, item)
 }
-console.log('============================================================================================')
+console.log('============================================================================================', argArr)
 if (argArr.length > 0) {
     let root, _root
     let DATA_ROOT  = {key:'DATA_ROOT', path: '', title: '首页标题', CHILDREN: siteMap},
@@ -23,6 +23,7 @@ if (argArr.length > 0) {
         root = DATA_ROOT
         _root = DATA_ROOT_
         _path = _path.replace(/^\/|\/$/g, '')
+        console.log('_path',_path)
         _path.split('/').forEach(key => {
             let item = JSON.parse(JSON.stringify(root.CHILDREN[key]))
             if(item.CHILDREN) item.CHILDREN = {}
@@ -32,7 +33,7 @@ if (argArr.length > 0) {
             root = root.CHILDREN[key]
         })
     })
-    
+    console.log(DATA_ROOT_.CHILDREN)
     for (key in DATA_ROOT_.CHILDREN) {
         let item = DATA_ROOT_.CHILDREN[key] 
         handleItem(key, item, DATA_ROOT_)

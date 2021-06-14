@@ -10,11 +10,12 @@
         "element-ui": "^2.15.1"
     },
     "devDependencies": {
+        "chokidar": "^3.5.1",
         "nodemon": "^2.0.7",
         "vuepress": "^1.8.2"
     },
     "scripts": {
-        "docs:dev": "vuepress dev docs & nodemon docs/.usage/create.js",
+        "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/createWatch.js\"",
         "docs:build": "vuepress build docs"
     },
     "keywords": [],
