@@ -1,3 +1,19 @@
+
+
+## 缓存
+- 本地存储
+    [H5 localStorage](/html5#缓存) 永久存储，手动删除
+    [H5 sessionStorage](/html5#缓存) 浏览器重新打开后消失
+- sessionStorage
+    [application cache](#)
+- indexedDB和webSQL
+    [indexedDB](#) 浏览器提供的本地数据库
+    [webSQL](#) 谷歌支持ie和火狐不支持
+
+## Node实现缓存
+- [node-cache](/node/plugin#node-cache)
+
+
 行为树的原理及实现
 
 

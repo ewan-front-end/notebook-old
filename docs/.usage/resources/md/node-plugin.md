@@ -170,6 +170,30 @@ demo> nodemon ./main.js  // 如果是本地安装的nodemon,则"dev":"nodemon ./
 ## concurrently
 [concurrently](/node/package#scripts)
 
+## node-cache
+> 缓存数据
+npm install node-cache --save-dev
+```js
+const NodeCache = require( "node-cache" )
+const myCache = new NodeCache()
+
+//设置 key, val, [ ttl ], [callback]
+myCache.set( "myKey", {name:"Jim"}, function( err, success ){ if( !err && success ){} })
+
+// 获取 key [callback]
+myCache.get( "myKey", function( err, value ){ if( !err ){} });
+```
+<pre>
+构建参数new NodeCache( { stdTTL: 100, checkperiod: 120 } )
+    stdTTL         (默认值:0)每个生成的缓存元素的标准ttl，单位是秒。0 =无限
+    checkperiod    (默认为600)自动删除检查周期，单位为秒。0 =没有定期检查。如果试图获取一个丢失的或过期的值，
+    errorOnMissing (默认值:false) en/disable抛出或传递一个错误给回调。
+    useClones      (默认值:true) en/disable变量克隆。如果为true，您将获得缓存变量的副本。如果为false，则保存并获得参考。注意:建议使用true，因为它的行为类似于基于服务器的缓存。
+                    如果你想保存可变对象或其他涉及到可变性的复杂类型，你应该设置false。下面是一个简单的代码示例，显示了不同的行为
+    deleteOnExpire (默认值:true)变量过期时是否自动删除。如果为true，该变量将被删除。如果为false，该变量将保持不变。建议您在事件过期时自行处理该变量。
+</pre>
+
+
 ## 响应版本号
 - demo> npm install commander --save
 - demo/bin/demo.js

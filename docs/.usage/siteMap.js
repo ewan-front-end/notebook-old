@@ -65,8 +65,7 @@ module.exports = {
         ios:{title:'IOS',linkName:'IOS', SRC:'ios'},
         android:{title:'Android',linkName:'Android', SRC:'android'}
     }},
-    server:{title:'服务器',SRC:'server', links:[{name:'koa',href:'/node/koa'}, {name:'express',href:'/node/express'}]},    
-    html5:{linkName:'HTML5', SRC:'html5'},
+    server:{title:'服务器',SRC:'server', links:[{name:'koa',href:'/node/koa'}, {name:'express',href:'/node/express'}]}, 
     typescript:{linkName:'Typescript', SRC:'typescript'},
     //react:{linkName:'React', SRC:'react'},    
     designPattern:{title:'设计模式', SRC:'design-pattern'},
@@ -94,6 +93,7 @@ module.exports = {
         framework:{title:'框架', SRC:'node-framework'},
         package:{title:'描述文件', SRC:'node/package'}
     }},
+    html5: {title:'HTML5', SRC:'html5'},
     programmingLanguage:{linkName:'编程语言', CHILDREN:{
         javascript:{CHILDREN:{
             es6:{SRC:'js-es6'},
