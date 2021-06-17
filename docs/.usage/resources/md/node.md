@@ -1,4 +1,4 @@
-[NPM](/tools/npm)
+:::2021.06.17:::[NPM](/tools/npm)
 
 ## fs
 - 递归创建目录
@@ -42,17 +42,29 @@
   npm owner rm <user> [<@scope>/]<pkg>  # 从包的所有这列表中删除用户
   npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
   ```
+## 
+
 
 ## 插件
 - [uglify-js](/node/plugin.html#uglify-js)
     `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
-- [chalk](/node/plugin.html#chalk)         颜色的插件
-- [commander](/node/plugin.html#commander) 命令行编程工具
-- [nodemon](/node/plugin.html#nodemon)     监测开发文件变化，自动重启node
-- [gulp](/node/plugin.html#gulp)           开发任务流
-- [chokidar](/node/plugin.html#chokidar)   比标准库fs.watch()、fs.watchFile更完善的用于监控文件/文件夹变化的工具
-- [concurrently](/node/package#scripts)    多命令运行 
+- [chalk](/node/plugin.html#chalk)          颜色的插件
+- [commander](/node/plugin.html#commander)  命令行编程工具
+- [child_process](#标准库)                   执行系编译命令  
+- [nodemon](/node/plugin.html#nodemon)      监测开发文件变化，自动重启node
+- [gulp](/node/plugin.html#gulp)            开发任务流
+- [chokidar](/node/plugin.html#chokidar)    比标准库fs.watch()、fs.watchFile更完善的用于监控文件/文件夹变化的工具
+- [concurrently](/node/package#scripts)     多命令运行 
 
+## 标准库
+- child_process 
+```js
+const child = require('child_process')
+child.exec('prince -v builds/pdf/book.html -o builds/pdf/book.pdf', function(error, stdout, stderr) { /*获取命令执行的输出*/ });
+
+child.execFile('notepad', function(error, stdout, stderr) { })                 // 打开外部程序 打开一个空白的记事本
+child.execFile('notepad', ['./test.txt'], function(error, stdout, stderr) { }) // 打开外部程序 用记事本打开指定文件
+```
 
 
 ## 版本管理

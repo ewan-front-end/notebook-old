@@ -54,5 +54,5 @@ ${contentHeader}
 
 ${staticContent}`
                 
-    writeFile(_path.resolve(__dirname, '..' + path + '.md'), content)
+    writeFile(path, content)
 }

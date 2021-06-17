@@ -1,4 +1,4 @@
-## node插件开发
+:::2021.06.17:::## node插件开发
 .
 ├── bin                          #运行目录
 ├── lib                           #主代码目录
@@ -137,8 +137,11 @@ demo/src/watcher.js
 ## uglify-js
 > `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
 
+## child_process
+> 命令执行控制 执行系统命令
+
 ## commander
-> 命令行编程工具
+> 命令行编程工具 命令创建与处理
 command      自定义执行的命令
 option       可选参数
 alias        用于 执行命令的别名

@@ -65,7 +65,7 @@ module.exports = {
         ios:{title:'IOS',linkName:'IOS', SRC:'ios'},
         android:{title:'Android',linkName:'Android', SRC:'android'}
     }},
-    server:{title:'服务器',SRC:'server', links:[{name:'koa',href:'/node/koa'}, {name:'express',href:'/node/express'}]}, 
+    server:{title:'服务器',SRC:'server', links:[{name:'koa',href:'/node/koa'}, {name:'express',href:'/node/express'}]},  
     typescript:{linkName:'Typescript', SRC:'typescript'},
     //react:{linkName:'React', SRC:'react'},    
     designPattern:{title:'设计模式', SRC:'design-pattern'},

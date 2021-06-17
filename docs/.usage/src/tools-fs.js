@@ -19,7 +19,7 @@ module.exports = {
         return fs.readFileSync(path, 'utf8')
     },
     writeFile: (path, content) => {      
-        fs.writeFile(path, content, { encoding: 'utf8' }, err => { console.log('written: ' + path) })
+        fs.writeFile(path, content, { encoding: 'utf8' }, err => { if(err){ console.log(err) } else {console.log('written: ' + path)} })
     },
     editWritCommonFile: (path, editHandler) => {
         const fileObj = require(path)

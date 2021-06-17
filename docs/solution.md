@@ -35,6 +35,7 @@
 
 ## Node实现缓存
 - [node-cache](/node/plugin#node-cache)
+- 写&读JSON文件
 
 
 行为树的原理及实现
