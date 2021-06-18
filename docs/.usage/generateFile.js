@@ -2,7 +2,7 @@ const fs = require('fs')
 const {writeFile} = require('./src/tools-fs')
 const _path = require('path')
 
-module.exports = (path, target) => {
+module.exports = (ABSOLUTE_PATH, target) => {
     let content
     let childrenContent = '' // 子类链接
     let linksContent = ''    // 相关链接
@@ -54,5 +54,5 @@ ${contentHeader}
 
 ${staticContent}`
                 
-    writeFile(path, content)
+    writeFile(ABSOLUTE_PATH + '.md', content)
 }

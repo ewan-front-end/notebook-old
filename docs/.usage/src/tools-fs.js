@@ -8,7 +8,7 @@ function checkDirSync(dirname) {
     } else {
       if (checkDirSync(path.dirname(dirname))) {
         fs.mkdirSync(dirname);
-        console.log('Created dir' + dirname)
+        console.log('Created: ' + dirname)
         return true;
       }
     }
@@ -19,7 +19,13 @@ module.exports = {
         return fs.readFileSync(path, 'utf8')
     },
     writeFile: (path, content) => {      
-        fs.writeFile(path, content, { encoding: 'utf8' }, err => { if(err){ console.log(err) } else {console.log('written: ' + path)} })
+        fs.writeFile(path, content, { encoding: 'utf8' }, err => { 
+            if(err){ 
+                console.log(err) 
+            } else {
+                console.log('written: ' + path)
+            } 
+        })
     },
     editWritCommonFile: (path, editHandler) => {
         const fileObj = require(path)

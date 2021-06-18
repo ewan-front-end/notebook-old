@@ -6,13 +6,7 @@
 </div>
 </div>
 <div class="content">
-<div class="custom-block children">
-<ul>
-<li><a href="/frontend/layerSecurity/systemStatistical/performance">性能统计</a></li>
-<li><a href="/frontend/layerSecurity/systemStatistical/pv">访问量统计</a></li>
-<li><a href="/frontend/layerSecurity/systemStatistical/behavior">用户行为统计</a></li>
-</ul>
-</div>
+
 
 </div>
 </div>

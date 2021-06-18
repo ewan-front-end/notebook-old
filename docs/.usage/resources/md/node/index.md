@@ -1,4 +1,4 @@
-:::2021.06.17:::[NPM](/tools/npm)
+:::2021.06.18:::[NPM](/tools/npm)
 
 ## fs
 - 递归创建目录
@@ -57,14 +57,32 @@
 - [concurrently](/node/package#scripts)     多命令运行 
 
 ## 标准库
-- child_process 
+- child_process  
 ```js
 const child = require('child_process')
-child.exec('prince -v builds/pdf/book.html -o builds/pdf/book.pdf', function(error, stdout, stderr) { /*获取命令执行的输出*/ });
+child.exec('node ./test.js', function(error, stdout, stderr) { /*获取命令执行的输出*/ });
 
 child.execFile('notepad', function(error, stdout, stderr) { })                 // 打开外部程序 打开一个空白的记事本
 child.execFile('notepad', ['./test.txt'], function(error, stdout, stderr) { }) // 打开外部程序 用记事本打开指定文件
 ```
+- TextDecoder 对通信、网络和存储内容进行编码和解码的程序 支持base64、二进制、URL编码在内的各种解码方式
+
+## 模块化
+module.exports = {a:1}  const data = require('./src/data.js') // 值的拷贝 运行时同步加载 模块内部的变化不再影响这个值
+[ES6模块化](/programmingLanguage/javascript/es6#模块化) // 值的引用 编译时异步输出 模块内部的变化不再影响这个值
+
+## ES6模块化应用
+1. demo> npm i babel-register babel-env --save-dev
+2. 包装入口文件：
+```js
+// a.js
+import data from './src/data.js'
+console.log(data);
+// aa.js
+require('babel-register') ({ presets: [ 'env' ] })
+module.exports = require('./a.js')
+```
+3. demo> node aa.js // 原来是：node a.js
 
 
 ## 版本管理

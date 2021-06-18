@@ -1,4 +1,9 @@
+:::2021.06.18:::
+
 免费社工库机器人  @FreeSGKbot
+
+## Node中使用ES6模块化规范
+[Node模块化ES6规范](/node#ES6模块化应用)
 
 ## 表单验证
 ::: details

@@ -6,13 +6,7 @@
 </div>
 </div>
 <div class="content">
-<div class="custom-block children">
-<ul>
-<li><a href="/frontend/layerInfrastructure/systemResourceManagement">资源管理系统</a></li>
-<li><a href="/frontend/layerInfrastructure/systemDataPersistence">数据持久化系统</a></li>
-<li><a href="/frontend/layerInfrastructure/systemOperationMaintenance">运维系统</a></li>
-</ul>
-</div>
+
 
 </div>
 </div>

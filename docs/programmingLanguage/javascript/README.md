@@ -6,14 +6,11 @@
 </div>
 </div>
 <div class="content">
-<div class="custom-block children">
-<ul>
-<li><a href="/programmingLanguage/javascript/es6">es6</a></li>
-<li><a href="/programmingLanguage/javascript/dataType">数据类型</a></li>
-</ul>
-</div>
+
 
 </div>
 </div>
-
+<div class="content-header">
+<h1>javascript</h1>
+</div>
 

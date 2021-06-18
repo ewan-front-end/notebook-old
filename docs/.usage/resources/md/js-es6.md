@@ -1,3 +1,45 @@
+:::2021.06.18:::
+
+## 模块化
+export default fs
+export const fs
+export function readFile
+export {readFile, read}
+export * from 'fs'
+
+import fs from 'fs'
+import {default as fs} from 'fs'
+import * as fs from 'fs'
+import {readFile} from 'fs'
+import {readFile as read} from 'fs'
+import fs, {readFile} from 'fs'
+
+与module.exports/require的区别：
+值的拷贝 运行时同步加载 模块内部的变化不再影响这个值
+```js
+// lib.js
+var counter = 3;
+function incCounter() { counter++ }
+module.exports = { counter: counter, incCounter: incCounter }
+
+// main.js
+var mod = require('./lib');
+console.log(mod.counter);  // 3
+mod.incCounter();
+console.log(mod.counter); // 3 没有反应
+```
+值的引用 编译时异步输出 模块内部的变化不再影响这个值
+```js
+// lib.js
+export let counter = 3;
+export function incCounter() { counter++ }
+
+// main.js
+import { counter, incCounter } from './lib';
+console.log(counter); // 3
+incCounter();
+console.log(counter); // 4 已经改变
+```
 
 
 ## 类

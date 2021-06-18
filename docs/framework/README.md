@@ -6,12 +6,7 @@
 </div>
 </div>
 <div class="content">
-<div class="custom-block children">
-<ul>
-<li><a href="/framework/vuepress">Vuepress</a></li>
-<li><a href="/framework/docsify">Docsify</a></li>
-</ul>
-</div>
+
 
 </div>
 </div>

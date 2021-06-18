@@ -6,12 +6,7 @@
 </div>
 </div>
 <div class="content">
-<div class="custom-block children">
-<ul>
-<li><a href="/database/mysql">MySQL</a></li>
-<li><a href="/database/mongodb">MongoDB</a></li>
-</ul>
-</div>
+
 
 </div>
 </div>
