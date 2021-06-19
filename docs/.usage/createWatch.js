@@ -17,8 +17,9 @@ chokidar.watch('./docs/.usage/resources/md')
         // const dateMark = _file.match(/:::\d{4}\.\d{2}\.\d{2}:::/)       
         // _file = dateMark ? _file.replace(dateMark[0], `:::${now}:::`) : `:::${now}:::` + _file        
         // writeFile(_path, _file)
-
-        if (resMapPathFile) {
+        if (resPath === 'scene') {
+            exec('node docs/.usage/updateScene.js ', function(error, stdout, stderr) {});
+        } else if (resMapPathFile) {
             const target = resMapPathFile[resPath]
             if (target) {
                 exec('node docs/.usage/create.js ' + target, function(error, stdout, stderr) {});

@@ -1,3 +1,6 @@
+- [登录登出](/solution)
+- [Node版本管理](/node.html#版本管理)
+
 :::2021.06.18:::
 
 为项目添加文档功能 [Vuepress最佳实践](/framework/vuepress.html#最佳完整实践) [Docsify](/framework/docsify)
