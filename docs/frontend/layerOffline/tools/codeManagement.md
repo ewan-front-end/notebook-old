@@ -1,20 +1,19 @@
 <div class="extend-header">
-<div class="info">
-<a class="back" href="./">上一级</a>
-<div class="mini">
-<span>2021.01.02</span>
-</div>
-</div>
-<div class="content">
-
-<div class="custom-block links">
+    <div class="info">
+        <div class="record">
+            <a class="back" href="./">上一级</a>
+            <a class="back" href="./">返回</a>
+        </div>        
+        <div class="mini">
+            <span>2021.01.02</span>
+        </div>
+    </div>
+    <div class="content"><div class="custom-block links">
 <ul class="desc">
 <li><a href="undefined">Git Stash</a></li>
 </ul>
-</div>
-</div>
+</div></div>
 </div>
 <div class="content-header">
 <h1>代码管理</h1>
 </div>
-

@@ -5,7 +5,7 @@
 
 - 外观
 [loading](#Loading)
-[三角箭头三角形](#三角箭头三角形)
+
 
 - 功能
 [文本溢出(单行/多行)](#文本溢出)
@@ -22,6 +22,124 @@
 [去掉button点击蓝框按钮阴影蓝边](#去掉button点击蓝框按钮阴影蓝边)
 [清除input阴影](#清除input阴影)
 
+
+::: details 备忘
+```css
+/* 下拉箭头 */
+.select:after{ 
+    content: ''; display: block; width: 0; height: 0; 
+    border-width:7px 5px 0px 5px;
+    border-style: solid solid solid solid;
+    border-color: #000 transparent transparent transparent;
+}
+
+/* 空白折叠现象  */
+/* 两个div不能并列，代码换行、tab（制表符）、空格等会被算作一个空格显示，解决：给父元素设置font-size:0 */
+&lt;div style="display:inline-block; width:50%"&gt;&lt;/div&gt;
+&lt;div style="display:inline-block; width:50%"&gt;&lt;/div&gt;
+
+/* 文本溢出 单行 */
+.text{ 
+    width: 40px; 
+    white-space:nowrap;      /* 不换行 */ 
+    overflow: hidden;        /* 必须设置 */ 
+    text-overflow: ellipsis; /* 文本溢出时处理方式：修剪文本clip/省略号替被剪文本ellipsis/给定字符替被剪文本string */
+}
+
+/* 文本溢出 多行 */
+.text {
+    width: 40px; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    display: -webkit-box;    /*必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 */
+    -webkit-line-clamp: 2;   /*用来限制在一个块元素显示的文本的行数。*/
+    -webkit-box-orient: vertical; /*必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。*/
+}
+
+/* 文本不可选 */
+unselectable="on"  标签属性
+user-select: none   样式属性 -webkit- -moz- -ms-
+- none——不可选择
+- auto——默认值，用户可以选中元素中的内容
+- text——用户可以选择元素中的文本
+- element——文本可选，但仅限元素的边界内(只有IE和FF支持)
+- all——在编辑器内，如果双击或上下文点击发生在子元素上，该值的最高级祖先元素将被选中
+
+/* 图片置灰 */
+img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+
+
+/* 清除浮动 */
+选择符:after{
+    content:".";
+    clear:both;
+    display:block;
+    height:0;
+    overflow:hidden;
+    visibility:hidden;
+}
+
+
+/* IOS下可输入文本框 */
+<div contenteditable="true" style="-webkit-user-select:text">
+
+.tabs-content::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+}
+.tabs-content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(90,90,90,1);
+}
+.tabs-content::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+/* 排版 */
+font-weight  /* 字体粗细 */    
+font-size    /* 字号大小  */ 
+line-height  /* 行高 */  
+font-family  /* 字体 */ 
+font: bold 12px 18px Arial, Helvetica, sans-serif; /* 简写 */
+
+/* 去除超链接背景   */
+-webkit-tap-highlight-color:rgba(0,0,0,0);
+
+/* 字符间距离 */
+letter-spacing: 10px;
+
+/* 首行自动空两格 */
+text-indent: 2em;
+
+/* 向左缩进隐藏文本 */
+text-indent: -9999px;
+p{text-indent: 2em; padding:0px; margin:0px}
+
+/* 去除图片底部空隙 */
+div{ font-size:0px }
+div img{ margin:0;padding:0;}
+
+/* 去除触摸高亮 */
+-webkit-tap-highlight-color:rgba(0,0,0,0);
+
+/* 去掉button点击蓝框按钮阴影蓝边 */
+outline:none;
+
+/* 清除input阴影 */
+-webkit-appearance: none;
+table border-collapse:collapse;
+```
+:::
 
 ## Loading 
 <img :src="$withBase('/images/loading.jpg')">
@@ -113,16 +231,7 @@
 <span class="dian jb"><i><i><i><i></i></i></i></i></span>
 ```
 
-## 三角箭头三角形
-```
-/*下拉箭头*/
-.select:after{ 
-  content: ''; display: block; width: 0; height: 0; 
-  border-width:7px 5px 0px 5px;
-  border-style: solid solid solid solid;
-  border-color: #000 transparent transparent transparent;
-}
-```
+
 
 
 
@@ -204,136 +313,10 @@ document.addEventListener('mousemove', (e) => {
 `--foo: if(x > 5) this.width = 10;`
 
 
-## 空白折叠现象
-> 两个div不能并列，代码换行、tab（制表符）、空格等会被算作一个空格显示，解决：给父元素设置font-size:0
-```html
-<div style="display:inline-block; width:50%"></div>
-<div style="display:inline-block; width:50%"></div>
-```
-
-## 文本溢出
-```css
-/* 单行 */
-.text{ 
-  width: 40px; 
-  white-space:nowrap;      /* 不换行 */ 
-  overflow: hidden;        /* 必须设置 */ 
-  text-overflow: ellipsis; /* 文本溢出时处理方式：修剪文本clip/省略号替被剪文本ellipsis/给定字符替被剪文本string */
-}
-
-/* 多行 */
-.text {
-  width: 40px; 
-  overflow: hidden; 
-  text-overflow: ellipsis;
-  display: -webkit-box;    /*必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 */
-  -webkit-line-clamp: 2;   /*用来限制在一个块元素显示的文本的行数。*/
-  -webkit-box-orient: vertical; /*必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。*/
-}
-```
-
-## 文本不可选
-```
-unselectable="on"  标签属性
-user-select: none   样式属性 -webkit- -moz- -ms-
-```
-- none——不可选择
-- auto——默认值，用户可以选中元素中的内容
-- text——用户可以选择元素中的文本
-- element——文本可选，但仅限元素的边界内(只有IE和FF支持)
-- all——在编辑器内，如果双击或上下文点击发生在子元素上，该值的最高级祖先元素将被选中
 
 
-## 图片置灰
-```
-img {
--webkit-filter: grayscale(100%);
--moz-filter: grayscale(100%);
--ms-filter: grayscale(100%);
--o-filter: grayscale(100%);
-filter: grayscale(100%);
-filter: gray;
-}
-```
-
-## 清除浮动
-```
-选择符:after{
-            content:".";
-            clear:both;
-            display:block;
-            height:0;
-            overflow:hidden;
-            visibility:hidden;
-              }
-```
-
-## IOS下可输入文本框
-`<div contenteditable="true" style="-webkit-user-select:text">`
-```css
-    .tabs-content::-webkit-scrollbar {/*滚动条整体样式*/
-      width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
-      height: 4px;
-    }
-    .tabs-content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-      border-radius: 5px;
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      background: rgba(90,90,90,1);
-    }
-    .tabs-content::-webkit-scrollbar-track {/*滚动条里面轨道*/
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      border-radius: 0;
-      background: rgba(0,0,0,0.5);
-    }
-```
 
 
-# 排版
-<div class="color-group color-card inline collapse c-atv-0">
-  <i>font-weight</i> 字体粗细    
-  <i>font-size</i> 字号大小  
-  <i>line-height</i> 行高  
-  <i>font-family</i> 字体 
-</div><br><br>
-<div class="color-group sz22 quote-arrow card">
-  font:
-  <i>bold</i> 
-  <i>12px</i>/ 
-  <i>18px</i>
-  <i>Arial, Helvetica, sans-serif</i>;
-</div>
-
-## 去除超链接背景  
-`-webkit-tap-highlight-color:rgba(0,0,0,0);`
-
-## 字符间距离
-`letter-spacing: 10px;`
-
-## 首行自动空两格
-`text-indent: 2em;`
-
-## 向左缩进隐藏文本
-```css
-text-indent: -9999px;
-p{text-indent: 2em; padding:0px; margin:0px}
-```
-
-## 去除图片底部空隙
-```css
-div{ font-size:0px }
-div img{ margin:0;padding:0;}
-```
-
-## 去除触摸高亮
-`-webkit-tap-highlight-color:rgba(0,0,0,0);`
-
-## 去掉button点击蓝框按钮阴影蓝边
-`outline:none;`
-
-## 清除input阴影
-`-webkit-appearance: none;`
-
-**table** `border-collapse:collapse;`
 
 ## 选择器
 <div class="color-group color-card inline collapse c-atv-0">
@@ -889,16 +872,16 @@ only screen and (max-width:735px) and (min-resolution: 144dpi){ }
 </div>
 
 
-```
-text-shadow: 0 1px  0  #eee ;  /*文本阴影[x, y, radius, color] */
--webkit-text-stroke: 6px #ff0000;  /*文本描边*/
+```css
+text-shadow: 0 1px  0  #eee ;         /*文本阴影[x, y, radius, color] */
+-webkit-text-stroke: 6px #ff0000;     /*文本描边*/
 
 box-shadow: 0 0 5px rgba(0,0,0,1);    /*Box阴影*/
 box-shadow: 0 2px 1px rgba(100,100,100,.1), inset 0 1px 0 rgba(255,255,255,.75);
 ```
 
 #### 有序列表序列号  计数器
-```
+```css
 div{
   counter-reset: span;    /* 创建一个计数器 */
   span{
@@ -910,43 +893,35 @@ div{
 }
 ```
 
-
-
 #### 验证 
-```
+```css
 <input class="phone" placeholder="请输入您广金所绑定的手机号" pattern="^1[3-9]\d{9}$" required>
 <style>
-/*===包含required的表单===*/
-    /* 无效 */
-input:required:invalid{ color: #f60 }
-/* 有效 */
-input:required:valid{ color: #03a81e }
+/*===包含required的表单===*/    
+input:required:invalid{ color: #f60 }  /* 无效 */
+input:required:valid{ color: #03a81e } /* 有效 */
 </style>
 ```
 
 
 
 #### reset
-```
-＊ {
-      -webkit-touch-callout: none;    // 阻止长按图片之后呼出菜单提示复制的行为
-      -webkit-text-size-adjust: none;   //禁用Webkit内核浏览器的文字大小调整功能
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  //避免点击a标签或者注册了click事件的元素时产生高亮    
-      -webkit-user-select: none;  //禁止用户进行复制.选择
-      }
-
--webkit-overflow-scrolling:touch    //实现弹性滚动
+```css
+＊{
+    -webkit-touch-callout: none;                   /* 阻止长按图片之后呼出菜单提示复制的行为 */
+    -webkit-text-size-adjust: none;                /* 禁用Webkit内核浏览器的文字大小调整功能 */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 避免点击a标签或者注册了click事件的元素时产生高亮 */   
+    -webkit-user-select: none;                     /* 禁止用户进行复制.选择 */
+}
+-webkit-overflow-scrolling:touch;                  /* 实现弹性滚动 */
 ```
 
 
 
 
 #### 弹出层
-```
-<div class="pop-up">
-    <div class="pu-bg"></div>
-    <div class="pu-content"></div>
-</div>
+```css
+<div class="pop-up"> <div class="pu-bg"></div> <div class="pu-content"></div> </div>
 .pop-up{ width: 100%; height: 100% }
 .pop-up, .pop-up .pu-bg, .pop-up .pu-content{position: absolute; top: 0; left: 0; right: 0; bottom: 0}
 .pop-up .pu-bg{ background: #000; opacity: 0.35; width: 100%; height: 100%; z-index: 101}
@@ -954,21 +929,14 @@ input:required:valid{ color: #03a81e }
 ```
 
 #### 透明
-```
-/* older safari/Chrome browsers */  
--webkit-opacity: 0.5;  
-/* Netscape and Older than Firefox 0.9 */  
--moz-opacity: 0.5;  
-/* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
--khtml-opacity: 0.5;  
-/* IE9 + etc...modern browsers */  
-opacity: .5;  
-/* IE 4-9 */  
-filter:alpha(opacity=50);  
-/*This works in IE 8 & 9 too*/  
--ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";  
-/*IE4-IE9*/  
-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50); 
+```css
+-webkit-opacity: 0.5;                                             /* older safari/Chrome browsers */   
+-moz-opacity: 0.5;                                                /* Netscape and Older than Firefox 0.9 */  
+-khtml-opacity: 0.5;                                              /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
+opacity: 0.5;                                                     /* IE9 + etc...modern browsers */  
+filter:alpha(opacity=50);                                         /* IE 4-9 */  
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /*This works in IE 8 & 9 too*/  
+filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);       /*IE4-IE9*/ 
 ```
 
 
@@ -978,48 +946,44 @@ filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
 
 
 #### 背景过渡
-```
+```css
 .linear{ 
-width:100%; 
-height:600px; 
-FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=##15A216,endColorStr=#fafafa); /*IE*/ 
-background:-moz-linear-gradient(top,#15A216,#fafafa);/*火狐*/ 
-background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#15A216), to(#fafafa));/*谷歌*/ 
-background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #15A216),color-stop(1, #fafafa));/* Safari & Chrome*/ 
-filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa'); /*IE6 & IE7*/ 
--ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa')"; /* IE8 */ 
+    width:100%; 
+    height:600px; 
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=##15A216,endColorStr=#fafafa); /*IE*/ 
+    background:-moz-linear-gradient(top,#15A216,#fafafa);/*火狐*/ 
+    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#15A216), to(#fafafa));/*谷歌*/ 
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #15A216),color-stop(1, #fafafa));/* Safari & Chrome*/ 
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa'); /*IE6 & IE7*/ 
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa')"; /* IE8 */ 
 } 
 
 参考：http://www.runoob.com/css3/css3-gradients.html
 
 background-image:linear-gradient(left, red 100px, yellow 200px);
-
-
 background-image:linear-gradient(left top, red 100px, yellow 200px);
-
-
 background-image:linear-gradient(-45deg, red 100px, yellow 200px)
 
 多点
 #grad {
   background: -webkit-linear-gradient(red, green, blue); /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(red, green, blue); /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(red, green, blue); /* Firefox 3.6 - 15 */
-  background: linear-gradient(red, green, blue); /* 标准的语法 */
+  background: -o-linear-gradient(red, green, blue);      /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(red, green, blue);    /* Firefox 3.6 - 15 */
+  background: linear-gradient(red, green, blue);         /* 标准的语法 */
 }
 径向
 #grad {
   background: -webkit-radial-gradient(red, green, blue); /* Safari 5.1 - 6.0 */
-  background: -o-radial-gradient(red, green, blue); /* Opera 11.6 - 12.0 */
-  background: -moz-radial-gradient(red, green, blue); /* Firefox 3.6 - 15 */
-  background: radial-gradient(red, green, blue); /* 标准的语法 */
+  background: -o-radial-gradient(red, green, blue);      /* Opera 11.6 - 12.0 */
+  background: -moz-radial-gradient(red, green, blue);    /* Firefox 3.6 - 15 */
+  background: radial-gradient(red, green, blue);         /* 标准的语法 */
 }
 ```
 
 #### 初始化样式 init.css
 
 淘宝
-```
+```css
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
 body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; } 
 h1, h2, h3, h4, h5, h6{ font-size:100%; } 
@@ -1038,7 +1002,7 @@ table { border-collapse:collapse; border-spacing:0; }
 ```
 
 新浪官网
-```
+```css
 body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;} 
 body{background:#fff;color:#333;font-size:12px; margin-top:5px;font-family:"SimSun","宋体","Arial Narrow";} 
  
@@ -1052,7 +1016,7 @@ a:hover,a:active,a:focus{color:#c00;text-decoration:underline;}
 ```
 
 网易官网
-```
+```css
 html {overflow-y:scroll;} 
 body {margin:0; padding:29px00; font:12px"\5B8B\4F53",sans-serif;background:#ffffff;} 
 div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p{padding:0; margin:0;} 
@@ -1065,7 +1029,7 @@ address,cite,code,em,th {font-weight:normal; font-style:normal;}
 ```
 
 腾讯QQ官网
-```
+```css
 body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0} 
 body{font:12px"宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;} 
 a{color:#2d374b;text-decoration:none} 
@@ -1078,7 +1042,7 @@ p{word-wrap:break-word}
 ```
 
 样式初始化代码总结
-```
+```css
 html, body, div, span, object, iframe,h1, h2, 
 h3, h4, h5, h6, p, blockquote, pre,abbr, address, cite, code,del, dfn, 
 em, img, ins,kbd, q, samp,small, strong, sub, sup, var,b, i,dl, dt, dd, 
@@ -1144,15 +1108,15 @@ input, select {
 
 common.css
 
-```
-.bd, .jc { font-weight: bold }                            /* 加粗 */
+```css
+.bd, .jc { font-weight: bold }                      /* 加粗 */
 .ob, .xt { font-style:oblique; font-style:italic }  /* 斜体 */
-.uline   { text-decoration: overline }                /* 上划线 */
-.mline  { text-decoration: line-through }         /* 中划线 删除线 */
-.bline   { text-decoration: underline }             /* 下划线 */ 取消 text-decoration:none
-.ucase { text-transform:uppercase }              /* 全部大写字母 */
+.uline   { text-decoration: overline }              /* 上划线 */
+.mline  { text-decoration: line-through }           /* 中划线 删除线 */
+.bline   { text-decoration: underline }             /* 下划线 取消 text-decoration:none */ 
+.ucase { text-transform:uppercase }                 /* 全部大写字母 */
 .hcase { text-transform:capitalize }                /* 每个单词以大写字母开头 */
-.lcase  { text-transform:lowercase }               /* 全部小写字母 */
+.lcase  { text-transform:lowercase }                /* 全部小写字母 */
 
 /**
  * 阶值类命名
@@ -1193,22 +1157,22 @@ common.css
  * 的垂直对齐
  */
 .vait,.vaih,.vabl,.vatop,.vamid,.vabom,.vatbom,.vattop,.vasub,.vasup { display: inline-block }
-.vait { vertical-align: initial }      /*全局 设置属性的初始值——浏览器的默认定义值*/
-.vaih { vertical-align: inherit }      /*     规定应该从父元素继承 vertical-align 属性的值*/
+.vait { vertical-align: initial }      /* 全局 设置属性的初始值——浏览器的默认定义值 */
+.vaih { vertical-align: inherit }      /* 规定应该从父元素继承 vertical-align 属性的值 */
 
-.vabl { vertical-align: baseline }     /* 默认 元素放置在父元素的基线上*/
+.vabl { vertical-align: baseline }     /* 默认 元素放置在父元素的基线上 */
 
-.vatop   { vertical-align: top }             /* 把元素的顶端与行中最高元素的顶端对齐*/
-.vamid { vertical-align: middle }       /* 把此元素放置在父元素的中部*/
-.vabom  { vertical-align: bottom }       /* 把元素的顶端与行中最低的元素的顶端对齐*/
+.vatop   { vertical-align: top }       /* 把元素的顶端与行中最高元素的顶端对齐 */
+.vamid { vertical-align: middle }      /* 把此元素放置在父元素的中部 */
+.vabom  { vertical-align: bottom }     /* 把元素的顶端与行中最低的元素的顶端对齐 */
 
-.vatt{ vertical-align: text-top }        /* 把元素的顶端与父元素字体的顶端对齐*/
-.vatb{ vertical-align: text-bottom } /* 把元素的底端与父元素字体的底端对齐*/
+.vatt{ vertical-align: text-top }      /* 把元素的顶端与父元素字体的顶端对齐 */
+.vatb{ vertical-align: text-bottom }   /* 把元素的底端与父元素字体的底端对齐 */
 
-.vasub { vertical-align: sub }          /* 垂直对齐文本的下标*/
-.vasup { vertical-align: super }       /* 垂直对齐文本的上标*/
+.vasub { vertical-align: sub }         /* 垂直对齐文本的下标 */
+.vasup { vertical-align: super }       /* 垂直对齐文本的上标 */
 
-/*使用数值表示元素底部与父元素基线（baseline）的距离*/
+/* 使用数值表示元素底部与父元素基线（baseline）的距离 */
 .va0  { vertical-align: 0px   } .va2  { vertical-align: 2px   } .va4  { vertical-align: 4px   } .va6  { vertical-align: 6px   } .va8  { vertical-align: 8px   }
 .va10{ vertical-align: 10px } .va12{ vertical-align: 12px } .va14{ vertical-align: 14px } .va16{ vertical-align: 16px } .va18{ vertical-align: 18px }
 .va20{ vertical-align: 20px } .va22{ vertical-align: 22px } .va24{ vertical-align: 24px } .va26{ vertical-align: 26px } .va28{ vertical-align: 28px }
@@ -1225,7 +1189,7 @@ common.css
 .va9{ vertical-align: 9px } .va19{ vertical-align: 19px }  
 
 
-/*使用百分数表示元素底部相对于父元素基线（baseline）移动相对于父元素高（height）的百分比*/
+/* 使用百分数表示元素底部相对于父元素基线（baseline）移动相对于父元素高（height）的百分比 */
 .vap10{ vertical-align: 10% } .vap20{ vertical-align: 20% } .vap30{ vertical-align: 30% } .vap40{ vertical-align: 40% }
 .vap50{ vertical-align: 50% } .vap60{ vertical-align: 60% } .vap70{ vertical-align: 70% } .vap80{ vertical-align: 80% }
 ```

@@ -1,16 +1,15 @@
 <div class="extend-header">
-<div class="info">
-<a class="back" href="./">上一级</a>
-<div class="mini">
-<span>2021.01.02</span>
-</div>
-</div>
-<div class="content">
-
-
-</div>
+    <div class="info">
+        <div class="record">
+            <a class="back" href="./">上一级</a>
+            <a class="back" href="./">返回</a>
+        </div>        
+        <div class="mini">
+            <span>2021.01.02</span>
+        </div>
+    </div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/programmingLanguage/javascript">javascript</a></li><li><a href="/programmingLanguage/matlab">matlab</a></li><li><a href="/programmingLanguage/ruby">ruby</a></li><li><a href="/programmingLanguage/wechat">微信小程序</a></li><li><a href="/programmingLanguage/electron">Electron</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>编程语言</h1>
 </div>
-

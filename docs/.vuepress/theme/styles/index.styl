@@ -228,13 +228,13 @@ th, td
   display flex
   .info
     flex 0 0 150px
-    a.back
+    .record
       width 120px
       line-height 25px
       display block
       text-align right
       box-sizing border-box
-      padding-right 14px
+      padding-right 5px
       color #ccc
       position relative
       &:after
@@ -247,6 +247,9 @@ th, td
         position absolute
         right 0
         bottom 0
+      a
+        display inline-block
+        padding 0 5px
     .mini
       color #ccc
       padding-top 5px
@@ -262,7 +265,7 @@ th, td
         list-style none
         li
           display inline-block
-          padding 1px 0
+          padding 1px 2px
           a
             background-color #ccc
             display block
@@ -306,5 +309,36 @@ th, td
   detail
     color #333
     line-height 16px
-
-          
+.block-main
+  ul,li
+    list-style none 
+    padding 0
+    margin 0
+  ul 
+    padding 8px 0 0 8px 
+  li 
+    display inline-block
+    a
+      display block
+      font-size 14px
+      font-weight blod
+      width 140px 
+      height 60px  
+      padding 10px 10px
+      margin-right 5px 
+      margin-bottom 5px
+      text-align left 
+      background-color #F9F9F9
+      position relative
+      &:after
+        content ''
+        display block
+        border-style solid
+        border-color #f0f0f0 #fff #ff #f0f0f0
+        border-width 7px 
+        position absolute
+        right 0
+        bottom 0
+      &:hover
+        background-color #f6f6f6
+        text-decoration none !important

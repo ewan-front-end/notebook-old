@@ -2,20 +2,21 @@ const fs = require('fs')
 const {writeFile} = require('./src/tools-fs')
 const _path = require('path')
 
-module.exports = (ABSOLUTE_PATH, target) => {
+module.exports = (ABSOLUTE_PATH, target) => {console.log(target);
     let content
     let childrenContent = '' // 子类链接
     let linksContent = ''    // 相关链接
     let topicContent = ''
     let contentHeader = ''
     let staticContent = ''      // 静态资源
-    if(target.CHILDREN) {
+    
+    if(target.children) {
         let listStr = ''
-        for (i in target.CHILDREN){
-            let {linkName, path} = target.CHILDREN[i]
-            listStr += `<li><a href="${path}">${linkName}</a></li>\n`
+        for (i in target.children){
+            let {linkName, path} = target.children[i]
+            listStr += `<li><a href="${path}">${linkName}</a></li>`
         } 
-        childrenContent += `<div class="custom-block children">\n<ul>\n${listStr}</ul>\n</div>`
+        childrenContent += `<div class="custom-block children"><ul>${listStr}</ul></div>`
     }
     if(target.links) {        
         if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
@@ -34,25 +35,27 @@ module.exports = (ABSOLUTE_PATH, target) => {
     // target.title  && (content += `# ${target.title}\n`)  
     // target.desc   && (content += `> ${target.desc}\n`)
     // target.detail && (content += `${target.detail}\n`) 
-    if (target.SRC) {
-        const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.SRC+'.md'), 'utf8')
-        staticContent += `\n${file}\n`
+    if (target.src) {
+        const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.src+'.md'), 'utf8')
+        staticContent += `${file}\n`
     }
-
+    
     content = `<div class="extend-header">
-<div class="info">
-<a class="back" href="./">上一级</a>
-<div class="mini">
-<span>2021.01.02</span>
+    <div class="info">
+        <div class="record">
+            <a class="back" href="./">上一级</a>
+            <a class="back" href="./">返回</a>
+        </div>        
+        <div class="mini">
+            <span>2021.01.02</span>
+        </div>
+    </div>
+    <div class="content">${childrenContent}${linksContent}${topicContent}</div>
 </div>
-</div>
-<div class="content">
-${childrenContent}
-${linksContent}
-${topicContent}</div>\n</div>
 ${contentHeader}
-
-${staticContent}`
+${staticContent}`          
+   
+    
                 
     writeFile(ABSOLUTE_PATH + '.md', content)
 }

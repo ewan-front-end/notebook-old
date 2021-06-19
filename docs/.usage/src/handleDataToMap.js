@@ -17,8 +17,8 @@ const RES_MAP_PATH = {
     // "node/package": "/node/package"
 }
 /*源数据第一层目录：首页展示子目录时*/
-const INDEX_CHILDREN = '' // `[操作系统](/system) | [服务器](/server)`
-const ROOT_PATH = '..'
+let INDEX_CHILDREN_STR = '' // `[操作系统](/system) | [服务器](/server)`
+const ROOT_PATH = ''
 
   
 const handleItemFile = (item) => {    
@@ -42,13 +42,15 @@ const handleItem = (key, item, parent) => {
 }
 
 module.exports = (siteMap) => { 
-    const DATA_ROOT = {key:'ROOT', title: '首页标题', path: ROOT_PATH, children: siteMap, src:'index'}   
+    const DATA_ROOT = {key:'ROOT', title: '文档开发', path: ROOT_PATH, children: siteMap, src:'index'}   
     for (key in siteMap) {
         let item = siteMap[key]  
         handleItem(key, item, DATA_ROOT)
+        INDEX_CHILDREN_STR += `- [︳${item.linkName}](${item.path})\n`
     }
-    PATH_MAP_CREATOR[DATA_ROOT.path] = {type: 'FILE', path: DATA_ROOT.path, target: DATA_ROOT}
+    INDEX_CHILDREN_STR = `<div class="root-children block-main">\n\n${INDEX_CHILDREN_STR}\n</div>` 
+    RES_MAP_PATH['index'] = '/README'   
 
-    return {ROOT_PATH, PATH_MAP_CREATOR, INDEX_CHILDREN, RES_MAP_PATH}
+    return {PATH_MAP_CREATOR, INDEX_CHILDREN_STR, RES_MAP_PATH}
 }
 

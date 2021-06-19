@@ -1,21 +1,47 @@
 <div class="extend-header">
-<div class="info">
-<a class="back" href="./">上一级</a>
-<div class="mini">
-<span>2021.01.02</span>
-</div>
-</div>
-<div class="content">
-
-<div class="custom-block links">
+    <div class="info">
+        <div class="record">
+            <a class="back" href="./">上一级</a>
+            <a class="back" href="./">返回</a>
+        </div>        
+        <div class="mini">
+            <span>2021.01.02</span>
+        </div>
+    </div>
+    <div class="content"><div class="custom-block links">
 <ul class="desc">
 <li><a href="/node/koa">koa</a></li>
 <li><a href="/node/express">express</a></li>
 </ul>
-</div>
-</div>
+</div></div>
 </div>
 <div class="content-header">
 <h1>服务器</h1>
 </div>
+# Node原生
+```
+var http = require("http");
 
+var app = http.createServer(function(req, res) {
+res.writeHead(200, {"Content-Type": "text/plain"});
+res.end("Hello world!");
+});
+
+app.listen(3000, "localhost");
+//注01 文件操作
+```
+
+# 简易服务
+**http-server**
+  ```
+  anywhere> npm install http-server -g  
+  // 全写server-demo> http-server 默人端口8080 指定端口-p 8887
+  server-demo> hs
+  ```
+**lite-server**
+
+
+
+# Node框架
+[Express](pages/server/express/index.md)
+[Koa](pages/server/koa/index.md)
