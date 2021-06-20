@@ -1,4 +1,20 @@
+## 浏览器静默与激活
+```js
+var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null; // 不同浏览器 hidden 名称
+var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange'); // 不同浏览器的事件名
+var onVisibilityChange = function(){ 
+    if (!document[hiddenProperty]) { 
+        console.log('页面非激活') 
+    }else{ 
+        console.log('页面激活') 
+    } 
+}
+document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+```
 
+## 中文获取拼音首字母及排序
+http://blog.haoji.me/pinyinjs.html  key: JS版汉字与拼音互转终极方案，附简单的JS拼音输入法
+['猫','狗',"鸡"].sort((a, b)=>a.localeCompare(b)) ['猫','狗',"鸡"] > ["狗", "鸡", "猫"]
 
 ## 缓存
 - 本地存储
@@ -105,11 +121,23 @@ node版本太高
 
 App
 
+特性：纯js 无依赖
+要求：通用性 兼容性 可靠性 封装性
+架构：
+    搭建es6+工程环境：webpack babel  
+    模块：common 登录 注册 账号设置 密码找回
+
+[s14 b ci|场景]
+MPA
+SPA
+Portal
+### 身份验证
+chrome 身份验证器 插件
+身份验证器用以在浏览器中生成二步认证代码
 
 
 
-
-## 网站账号体系SDK
+## 站点账号体系SDK
 ```
 npm i html-bundler -g
 hb create es6-passport -w

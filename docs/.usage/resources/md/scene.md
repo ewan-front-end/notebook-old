@@ -1,13 +1,17 @@
 :::2021.06.18:::
 
-为项目添加文档功能 [Vuepress最佳实践](/framework/vuepress.html#最佳完整实践) [Docsify](/framework/docsify)
+## 理论与架构
+- [设计模式(Design pattern)](/designPattern)
 
-免费社工库机器人  @FreeSGKbot
+## 解决方案
+- [用户账户体系](/solution#站点账号体系SDK)
+- [微前端架构](/solution#微前端架构)
+- [浏览器静默与激活](/solution#浏览器静默与激活)
 
-## Node中使用ES6模块化规范
-[Node模块化ES6规范](/node#ES6模块化应用)
 
+## 项目
 
+## 工具
 ::: details 表单验证
 - /demo.html
 ```html
@@ -65,7 +69,6 @@ document.getElementById('submitid').onclick = () => {
 }
 ```
 :::
-
 
 ::: details 验证滑块
 ```html
@@ -169,38 +172,84 @@ const slider = new Slider({
 ```
 :::
 
+::: details NPM内网源搭建
+```js
+// 源 : http://127.0.0.1:7001/  
+// WEB: http://127.0.0.1:7002/  
+
+1. CNPMJS
+    下载：git clone git://github.com/cnpm/cnpmjs.org.git 或 https://github.com/cnpm/cnpmjs.org/ 下载zip
+    安装：cd cnpmjs.org && npm install 或 npm install --registry=http://registry.npm.taobao.org
+    配置：cnpmjs.org/config/index.js 参考/* #CNPMCONFIG</strong> */
+
+2. MySQL
+    创建数据库:cnpmjs_test
+    创建表:将cnpmjs.org/doc/db.sql中的内容复制出来在mysql中执行一遍即可
+    $ cd /Users/wanyuaning/Project/cnpmjs.org
+    $ node dispatch.js // 启动成功后，即可看到内网源的web页面了，后台自动开始同步官方模块
+
+3. 内网源的使用
+    1 安装cnpm客户端: npm i cnpm -g
+    2 设置cnpm源为内网源: cnpm config set registry="http://127.0.0.1:7001"
+    3 cnpm install 模块名称 // 支持所有npm命令
+
+4. 模块发布
+    1 创建用户:cnpm adduser
+    2 登录:cnpm login
+    3 cd 模块目录 // 注意模块名称必须带前缀，如@xxx/name，与config中的scopes配置对应
+    4 cnpm publish
+
+/* #CNPMCONFIG</strong> */
+var config = {
+  bindingHost: '127.0.0.1',                     // #1设置指定外网IP,默认是127.0.0.1  
+                                                // #2注意，添加用户时，请添加该处配置的用户，不然不能发布模块的
+  admins: {     
+    fengmk2: 'fengmk2@gmail.com',
+    admin: 'wanyuaning@163.com',                // #3
+    dead_horse: 'dead_horse@qq.com',
+  },  
+  database: {      
+    dialect: 'mysql',                           // #4数据库类型,目前支持: 'mysql', 'sqlite', 'postgres', 'mariadb'
+  },
+  enablePrivate: true,                          // #5私库开关
+  scopes: ['@cnpm', '@cnpmtest', '@cnpm-test'], // #6指定私有包的前缀，避免与官方模块冲突  
+  syncModel: 'exist',                           // #7
+}
+```
+:::
+
+::: details 开发一个NPM插件
+```js
+账户 u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com  组织：seahan、angg
+
+规范
+bin   可执行二进制文件
+lib   javascript代码
+doc   文档
+test  单元测试用例
+package.json  包描述
+    {
+        "name": "@angg/express"
+        "repository": { "type": "git", "url": "https://github.com/wmgcuan/express.git" },
+        "homepage": "https://github.com/wmgcuan/express",
+        "bugs": { "url": "https://github.com/wmgcuan/express/issues" }
+    }
+
+开发
+
+发布 https://segmentfault.com/a/1190000009315989
+1 $ npm adduser // 命令向导分别要求填入username/password/email,可通过 npm whoami 查看当前用户
+2 $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
+
+多人发布
+npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
+npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户
+npm owner ls [<@scope>/]<pkg> # 列出包的所有者
+```
+:::
 
 
-
-地区限制方案：
-
-
-
-
-
-
-
-
-
-
-
-
-[UML(Unified Modeling Language)](/tools/uml) / [设计模式(Design pattern)](/designPattern)
-
-
-
-
-流程图 跨职域流程图 数据结构表 顺序图 状态转换图 类图
-重新梳理设计，而且手把手教他们画图，起码让他们把程序内部构造和逻辑搞清楚,形成设计文档
-- 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
-- OOA（面向对象分析） OOD（面向对象设计）
-
-
-
-
-
-算法工程师和架构师都不是一般程序员去考虑的方向
-
+## 描述
 - 前端性能优化-通用的缓存SDK
 - NPM内网源搭建
 - 搭建websocket服务(/node/socket)
@@ -210,19 +259,14 @@ const slider = new Slider({
 - 打造一个Node命令行工具 https://www.imooc.com/article/3156
 - html模块化开发
 - 移动端web的调试
+- 为项目添加文档功能 [Vuepress最佳实践](/framework/vuepress.html#最佳完整实践) [Docsify](/framework/docsify)
+- 免费社工库机器人  @FreeSGKbot
+- Node中使用ES6模块化规范 [Node模块化ES6规范](/node/#es6模块化应用)
+- 地区限制 [地区限制方案](/solution#地区限制方案)
+- 流程图 跨职域流程图 数据结构表 顺序图 状态转换图 类图 [UML(Unified Modeling Language)](/tools/uml)
+- 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
+- OOA（面向对象分析） OOD（面向对象设计）
 
-
-
-
-
-
-
-
-### 浏览器静默与激活
-var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null; // 不同浏览器 hidden 名称
-var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange'); // 不同浏览器的事件名
-var onVisibilityChange = function(){ if (!document[hiddenProperty]) { console.log('页面非激活') }else{ console.log('页面激活') } }
-document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 
 
 ### 分页
@@ -238,69 +282,10 @@ function handleKeydown(e){ console.log(e.keyCode) }
 ```
 
 
-### 用户账户体系
-```
-特性：纯js 无依赖
-要求：通用性 兼容性 可靠性 封装性
-架构：
-    搭建es6+工程环境：webpack babel  
-    模块：common 登录 注册 账号设置 密码找回
-
-[s14 b ci|场景]
-MPA
-SPA
-Portal
-### 身份验证
-chrome 身份验证器 插件
-身份验证器用以在浏览器中生成二步认证代码
-```
 
 
-### 微前端架构
-```
-mkdir qiankun-platform & cd qiankun-platform
-yarn add qiankun (无需如npm init)
-mkdir main & cd main
-touch index.html
-  [cc|<!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
-  </head>
-  <body>
-      [b cg|<div id="view-01">loading...</div>]
-  </body>
-  </html>]
-touch index.js
-  [cc|import { [b ci|loadMicroApp] } from 'qiankun'
-  // 加载微应用
-  [b ci|loadMicroApp]({
-    name: '应用一',
-    entry: '//localhost:7100',
-    container: '[b cg|#view-01]',
-    props: {
-      slogan: 'Hello View01'
-    }
-  })]
-
-微前端架构旨在解决单体应用在一个相对长的时间跨度下，由于参与的人员、团队的增多、变迁，从一个普通应用演变成一个巨石应用(Frontend Monolith)后，随之而来的应用不可维护的问题
-##### 使用场景
-- 项目很多，规模很大，都是每个项目独立使用git此类仓库维护的、技术栈为vue/react/angular的这类应用
-- 需要整合到统一平台上，你正在寻找可能比iframe更合适的替代方案
-- 项目A有功能A1、A2、A3,项目B有功能B1、B2、B3，产品经理要你把A2、B1、B3组合成一个包含这些功能的新项目
-[single-spa](https://zh-hans.single-spa.js.org/docs/getting-started-overview)
-[qiankun乾坤](https://github.com/umijs/qiankun)
-[文档](https://qiankun.umijs.org/zh)
 
 
-$ vue create qiankun-demo   # 新建项目
-$ cd qiankun-demo
-$ npm run serve    # 项目启动
-$ npm run build    # 打包
-
-$ yarn add qiankun # 或者 npm i qiankun -S
 
 
 
@@ -364,24 +349,53 @@ CONF_THEME = {
 ```
 
 
-### 开发一个NPM插件
-```
-1111111111111111111111111
-```
+
 
 
 ### 前端工程搭建
 ```
-|Global> npm install -g [b cg|babel-cli] & babel --version
-|es6-project> npm init -y 
-|es6-project> npm install --save-dev [b cg|babel-preset-es2015 babel-cli]
+npm install -g babel-cli
+babel --version
+demo> npm init -y 
+demo> npm install --save-dev babel-preset-es2015 babel-cli
 
-[index.html, src[index.js], dist[], .babelrc]
-/index.html   [DETAIL/es6-project-02]
-/src/index.js [DETAIL/es6-project-03]
-/.babelrc     [DETAIL/es6-project-04]
+index.html    src         dist    .babelrc
+              index.js
 
-|es6-project> babel src/index.js -o dist/index.js  或  npm run build [HELP/es6-project-01]
+/index.html   
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6项目搭建</title>
+    <script src="dist/index.js"></script>
+</head>
+<body>
+    Hello ECMA Script2016
+</body>
+</html>
+```
+/src/index.js
+```js
+let a = 1
+console.log(a)
+
+const b = '测试ES6'
+console.log(b)
+```
+/.babelrc     
+```json
+{"presets":["es2015"], "plugins":[]}
+```
+/package.json
+```json
+{"scripts": {"build": "babel src/index.js -o dist/index.js"}}
+```
+demo> babel src/index.js -o dist/index.js  
+或  
+demo> npm run build
 浏览 /index.html
 ```
 
@@ -526,41 +540,9 @@ const fn = function () {
   -V, --version                               输出版本号.
   -h, --help                                  输出使用信息.
 ▉
-▉es6-project-01▉
-/package.json
-{
-  "scripts": {
-    "build": "babel src/index.js -o dist/index.js"
-  }
-}
-▉
-▉es6-project-02▉
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ES6项目搭建</title>
-    <script src="dist/index.js"></script>
-</head>
-<body>
-    Hello ECMA Script2016
-</body>
-</html>
-▉
-▉es6-project-03▉
-let a = 1
-console.log(a)
 
-const b = '测试ES6'
-console.log(b)
-▉
-▉es6-project-04▉
-{
-  "presets":["es2015"],
-  "plugins":[]
-}
-▉
+
+
 
 
 
@@ -586,5 +568,6 @@ else (异同)
 endif
 @enduml
 ```
+
 
 

@@ -13,26 +13,31 @@
 <div class="content-header">
 <h1>正则表达式</h1>
 </div>
+
+
+## 正则匹配方法
+```js
+/^\/(\w|\/)+\//.test('/tools/npm')  // true
+```
+
+## 字符串匹配方法
+```js
+'/tools/npm'.match(/^\/(\w|\/)+\//)  // ["/tools/", "s"]
+'/scene'.match(/^\/(\w|\/)+\//)      // null
+'HelloHello'.match(/gg/)             // null
+'HelloHello'.match(/ll/)             // {0:"ll", index:2, input:"HelloHello", groups:undefined}
+'HelloHello'.match(/ll/g)            // ["ll", "ll"]
+'Hello1Hello2H'.match(/H(\w+)H/)     // {0:"Hello1Hello2H", 1:"ello1Hello2", index:0, input:"Hello1Hello2H", groups:undefined} 默认贪婪模式
+'Hello1Hello2H'.match(/H(\w+?)H/)    // {0:"Hello1H", 1:"ello1", index:0, input:"Hello1Hello2H", groups:undefined]
+```
+
 匹配每一行的开头: (?:^|\n)#{1,6}.+     ## 基础配置
 
 匹配任意字符（包括换行符）的方法
 　　可以用 （[\s\S]*） ，也可以用 “（[\d\D]*）”、“（[\w\W]*）” 来匹配，就可以匹配包括换行符在内的任意字符
 
 
-```js
-const REG = /^\/(\w|\/)+\//
-         REG.test('/tools/npm')  // true
-'/tools/npm'.match(REG)          // ["/tools/", "s"]
-    '/scene'.match(REG)          // null
 
-const spaceArr = trStr.match(/\s{2,}/) || [];
-    spaceArr.forEach((space, j) => {
-      trStr = trStr.replace(
-        space,
-        `</span>${space}<span class="row${i} col${j + 1}">`
-      );
-    });
-```
 
 
 

@@ -21,7 +21,8 @@ module.exports.config = {
                 '@res_md': 'resources/md'
             }
         }
-    }
+    },
+    debug: true
 }
 
 // 依赖列表 vuepress会自动安装无需罗列
