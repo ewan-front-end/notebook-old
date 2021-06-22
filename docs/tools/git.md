@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,6 +13,7 @@
 <div class="content-header">
 <h1>Git</h1>
 </div>
+
 # 用户
 git config --global user.name "wanyuaning" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
 git config --global user.email wanyuaning@163.com

@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,6 +13,7 @@
 <div class="content-header">
 <h1>设计模式</h1>
 </div>
+
 
 https://blog.csdn.net/qq_20901397/article/details/82219055
 http://c.biancheng.net/view/1380.html

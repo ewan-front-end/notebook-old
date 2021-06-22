@@ -2,13 +2,14 @@ const fs = require('fs')
 const {writeFile} = require('./src/tools-fs')
 const _path = require('path')
 
-module.exports = (ABSOLUTE_PATH, target) => {console.log(target);
+module.exports = (ABSOLUTE_PATH, target) => {
     let content
     let childrenContent = '' // 子类链接
     let linksContent = ''    // 相关链接
     let topicContent = ''
     let contentHeader = ''
     let staticContent = ''      // 静态资源
+    let modifyData = '0000.00.00'
     
     if(target.children) {
         let listStr = ''
@@ -36,7 +37,14 @@ module.exports = (ABSOLUTE_PATH, target) => {console.log(target);
     // target.desc   && (content += `> ${target.desc}\n`)
     // target.detail && (content += `${target.detail}\n`) 
     if (target.src) {
-        const file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.src+'.md'), 'utf8')
+        let file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.src+'.md'), 'utf8')
+        let date = file.match(/:::(\d{4}\.\d{2}\.\d{2}):::/) 
+        if (date) {
+            modifyData = date[1]
+            file = file.replace(date[0]+'\n\n', '')
+            file = file.replace(date[0]+'\n', '')
+            file = file.replace(date[0], '')
+        }
         staticContent += `${file}\n`
     }
     
@@ -47,12 +55,13 @@ module.exports = (ABSOLUTE_PATH, target) => {console.log(target);
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>M ${modifyData}</span>
         </div>
     </div>
     <div class="content">${childrenContent}${linksContent}${topicContent}</div>
 </div>
 ${contentHeader}
+
 ${staticContent}`          
    
     

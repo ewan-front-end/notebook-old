@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>M 2021.06.22</span>
         </div>
     </div>
     <div class="content"><div class="custom-block links">
@@ -19,6 +19,9 @@
 <div class="content-header">
 <h1>解决方案</h1>
 </div>
+
+
+
 ## 浏览器静默与激活
 ```js
 var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null; // 不同浏览器 hidden 名称
@@ -55,6 +58,7 @@ http://blog.haoji.me/pinyinjs.html  key: JS版汉字与拼音互转终极方案�
 行为树的原理及实现
 
 
+## 用户帐户体系SDK
 es6+
 
 
@@ -296,6 +300,7 @@ FetchMock.mock('/login', (url, opts) => {
 
 
 ## register注册
+```
 填写手机号 ───────────────────────────────────────────────────────────────────────────────┐
 活人验证 失败 ┌───────────────────────────────────────────────────────────────┐           │
         成功：激活验证按钮(下一步)  点击提交                              VerifyToken  ┌─ phone    phone
@@ -305,5 +310,20 @@ FetchMock.mock('/login', (url, opts) => {
                                                                                        注册请求 失败
                                                                                                 成功：
 
+登录
+    登录    
+注册
+    手机验证
+    手机验证
+    绑定支付方式
+    注册成功
 
+帐户中心
+    profile.html           个人资料设置
+    delivery-address.html  收货地址管理
+    security.html          安全设置
+公共
+    忘记密码
+    操作成功
 
+```

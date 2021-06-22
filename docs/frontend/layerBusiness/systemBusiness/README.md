@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerBusiness/systemBusiness/componentBusiness">业务组件</a></li><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic">公共库</a></li><li><a href="/frontend/layerBusiness/systemBusiness/libraryThird">第三方库</a></li></ul></div></div>
@@ -14,3 +14,4 @@
 <h1>业务系统</h1>
 <summary class="desc">核心系统，其它系统是对它的支持或者控制</summary>
 </div>
+

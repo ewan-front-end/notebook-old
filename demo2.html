@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,53 +7,30 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="formid" onsubmit="return false">
-        <div id="loginNoAutocomplete"><input type="text"><input type="password"></div>
-        <label>
-            <input id="emai" name="email" type="text" autocomplete="true" valid="present,email">
-        </label>
-        <input id="submitid" value="Login" type="submit" >
-    </form>
+    <div id="date"></div>
 </body>
 </html>
 <script>
-const rules = {
-    mobile: v => {},
-    email: v => {},
-    present: v => {
-        if (!v.trim()){return {type: 'present', message: '必填'}}
-    }
-}
-const formCheck = (form) => {
-    if (!(form && form.elements)) return
-    const elements = form.elements
-    let checkResult = []
+function getNow() {
+    var date = new Date(),
+        yy = date.getFullYear(),
+        mm = date.getMonth() + 1,
+        dd = date.getDate(),
+        h  = date.getHours(),
+        m  = date.getMinutes(),
+        s  = date.getSeconds(),
+        w  = date.getDay()
+    console.log(date.getTime());
+    mm < 10 && (month = "0" + month)
+    dd < 10 && (day ="0" + day)
+    h < 10 && (hour = "0" + hour)
+    m < 10 && (minute = "0" + minute)
+    s < 10 && (second = "0" + second)   
 
-    Array.from(elements).filter(item => item.getAttribute('valid')).map(item => {
-        const valids = item.getAttribute('valid').split(',')
-        const value = item.value
-        let errorArr = []
-        valids.forEach(valid => {
-            if (rules[valid]) {
-                let result = rules[valid](value)
-                result && errorArr.push(result)
-            }
-        })
-        if (errorArr.length) {
-            checkResult.push({
-                dom: item,
-                errorArr,
-                name: item.name,
-                message: errorArr[0].message,
-                type: errorArr[0].type
-            })
-        }
-    })
-    return checkResult
+    return {year:yy, month:mm, day:dd, hour:h, minute:m, second:s, week:w, yy, mm, dd, h, m, s, w}
 }
 
-document.getElementById('submitid').onclick = () => {
-    const checkResult = formCheck(document.getElementById('formid'))
-    console.log('checkResult', checkResult)
-}
+var {year, month, day, hour, minute, second, week} = getNow()
+console.log(year, month, day, hour, minute, second, week);
+
 </script>

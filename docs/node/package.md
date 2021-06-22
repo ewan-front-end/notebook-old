@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>2021.06.14</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,7 +13,8 @@
 <div class="content-header">
 <h1>描述文件</h1>
 </div>
-:::2021.06.14:::
+
+
 
 ```json
 {

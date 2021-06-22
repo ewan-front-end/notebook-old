@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>M 2021.06.22</span>
         </div>
     </div>
     <div class="content"></div>
@@ -14,9 +14,16 @@
 <h1>Vuepress</h1>
 </div>
 
+
 [官网](https://vuepress.vuejs.org/zh/guide/)
 
-锚链接失效：
+::: details Q&A
+```
+锚链接失效
+    [用户帐户体系](/solution#用户帐户体系sdk) 改为 [用户帐户体系](/solution.html#用户帐户体系sdk)
+
+```
+:::
 
 ## 入门部署
 ::: details

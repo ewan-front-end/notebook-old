@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,6 +13,7 @@
 <div class="content-header">
 <h1>微信小程序</h1>
 </div>
+
 ```js
 小程序企业账号申请
 地址：https://mp.weixin.qq.com/wxopen/wacontractorpage?action=step3&lang=zh_CN&token=1549060622

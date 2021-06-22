@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -14,3 +14,4 @@
 <h1>样式库</h1>
 <summary class="desc">利于各业务线之间保持用户体验的一致性</summary>
 </div>
+

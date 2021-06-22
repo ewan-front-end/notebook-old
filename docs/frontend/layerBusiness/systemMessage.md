@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -14,3 +14,4 @@
 <h1>消息系统</h1>
 <summary class="desc">通知发布 信息推送 客服等即时通讯场景</summary>
 </div>
+

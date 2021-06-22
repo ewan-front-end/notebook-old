@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>2021.06.17</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,7 +13,8 @@
 <div class="content-header">
 <h1>插件</h1>
 </div>
-:::2021.06.17:::## node插件开发
+
+## node插件开发
 .
 ├── bin                          #运行目录
 ├── lib                           #主代码目录

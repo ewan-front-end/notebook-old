@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block links">
@@ -20,3 +20,4 @@
 <h1>端到端测试</h1>
 <summary class="desc">从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景</summary>
 </div>
+

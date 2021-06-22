@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,6 +13,7 @@
 <div class="content-header">
 <h1>Typescript</h1>
 </div>
+
 
 基础类型 变量声明 接口 类 函数 泛型 类型推新 高级类型
 

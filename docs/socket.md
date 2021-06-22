@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.01.02</span>
+            <span>0000.00.00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,6 +13,7 @@
 <div class="content-header">
 <h1>Socket</h1>
 </div>
+
 1 nodejs交互壳外安装，即，运行cmd后直接安装 npm install socket.io
 
 

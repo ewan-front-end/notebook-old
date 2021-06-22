@@ -1,13 +1,32 @@
 - [登录登出](/solution)
 - [Node版本管理](/node.html#版本管理)
 
-:::2021.06.18:::
+:::2021.06.22:::
+
+## 描述
+- 获取北京时间
+- 前端性能优化-通用的缓存SDK
+- NPM内网源搭建
+- 搭建websocket服务(/node/socket)
+- 搭建聊天室(/socket/)
+- Node测试方案
+- node插件开发(/node/plugin)
+- 打造一个Node命令行工具 https://www.imooc.com/article/3156
+- html模块化开发
+- 移动端web的调试
+- 为项目添加文档功能 [Vuepress最佳实践](/framework/vuepress.html#最佳完整实践) [Docsify](/framework/docsify)
+- 免费社工库机器人  @FreeSGKbot
+- Node中使用ES6模块化规范 [Node模块化ES6规范](/node/#es6模块化应用)
+- 地区限制 [地区限制方案](/solution#地区限制方案)
+- 流程图 跨职域流程图 数据结构表 顺序图 状态转换图 类图 [UML(Unified Modeling Language)](/tools/uml)
+- 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
+- OOA（面向对象分析） OOD（面向对象设计）
 
 ## 理论与架构
 - [设计模式(Design pattern)](/designPattern)
 
 ## 解决方案
-- [用户账户体系](/solution#站点账号体系SDK)
+- [用户帐户体系](/solution.html#用户帐户体系sdk)
 - [微前端架构](/solution#微前端架构)
 - [浏览器静默与激活](/solution#浏览器静默与激活)
 
@@ -252,23 +271,7 @@ npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 :::
 
 
-## 描述
-- 前端性能优化-通用的缓存SDK
-- NPM内网源搭建
-- 搭建websocket服务(/node/socket)
-- 搭建聊天室(/socket/)
-- Node测试方案
-- node插件开发(/node/plugin)
-- 打造一个Node命令行工具 https://www.imooc.com/article/3156
-- html模块化开发
-- 移动端web的调试
-- 为项目添加文档功能 [Vuepress最佳实践](/framework/vuepress.html#最佳完整实践) [Docsify](/framework/docsify)
-- 免费社工库机器人  @FreeSGKbot
-- Node中使用ES6模块化规范 [Node模块化ES6规范](/node/#es6模块化应用)
-- 地区限制 [地区限制方案](/solution#地区限制方案)
-- 流程图 跨职域流程图 数据结构表 顺序图 状态转换图 类图 [UML(Unified Modeling Language)](/tools/uml)
-- 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
-- OOA（面向对象分析） OOD（面向对象设计）
+
 
 
 
