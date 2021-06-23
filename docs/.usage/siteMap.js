@@ -33,13 +33,12 @@
  
 module.exports = {
     vue:{title:'Vue', src:'vue'},
-    docs:{title:'文档', links:[{name:'vuepress',href:'/framework/vuepress'}, {name:'docsify',href:'/framework/docsify'}]},
+    docs:{title:'文档', src:'docs', links:[{name:'vuepress',href:'/framework/vuepress'}, {name:'docsify',href:'/framework/docsify'}]},
     timeline:{title:'时间线', src:'timeline'},
     database:{title:'数据库', children:{
         mysql:{title:'MySQL', src:'data-mysql'},
         mongodb:{title:'MongoDB', src:'data-mongodb'}
     }},
-    solution:{title:'解决方案', scene:[{title:'登录登出', href:'/solution'}], links:[{name:'数据库',href:'/database'}, {name:'cookie',href:''}, {name:'session',href:''}], src:'solution'},
     tools: {title:'工具', src: 'tools', links:[{name:'文档', href:'/docs/'}], children: {            
         git: {linkName: 'Git', src:'git'},
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},

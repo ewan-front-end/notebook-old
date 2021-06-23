@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>0000.00.00</span>
+            <span>M 0000.00.00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/database/mysql">MySQL</a></li><li><a href="/database/mongodb">MongoDB</a></li></ul></div></div>

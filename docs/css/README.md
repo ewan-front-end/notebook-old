@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>0000.00.00</span>
+            <span>M 0000.00.00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>

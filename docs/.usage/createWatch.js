@@ -30,7 +30,7 @@ chokidar.watch('./docs/.usage/resources/md')
                 debugText += `... node docs/.usage/create.js ${target}`
                 exec('node docs/.usage/create.js ' + target, function(error, stdout, stderr) {});
             } else {
-                debugText += `"${resPath}"键不存在.`
+                debugText += `"${resPath}"键不存在. 请重新生成映射表：node docs/.usage/create.js 再重启监控：node docs/.usage/createWatch.js`
                 if (config.debug) {
                     console.log(resMapPathFile);
                 } else {
@@ -38,11 +38,8 @@ chokidar.watch('./docs/.usage/resources/md')
                 }
             }
         } else {
-            if (config.debug) {
-                debugText += ` [资源-数据]表不存在.`
-            } else {
-                console.log('资源映射数据文件 .RES_MAP_PATH.json 不存在, 请先生成数据：node docs/.usage/create.js');
-            }            
+            debugText += ` 资源映射表.RES_MAP_PATH.json 不存在, 请重新生成映射表：node docs/.usage/create.js 再重启监控：node docs/.usage/createWatch.js`
+            if (!config.debug) console.log(debugText)
         }
         config.debug && setTimeout(() => {
             console.log(debugText);

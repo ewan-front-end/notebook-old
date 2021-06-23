@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>0000.00.00</span>
+            <span>M 0000.00.00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerOffline/tools">工具集</a></li><li><a href="/frontend/layerOffline/systemComponent">组件系统</a></li></ul></div></div>

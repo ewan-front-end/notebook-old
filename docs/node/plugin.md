@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.06.17</span>
+            <span>M 2021.06.17</span>
         </div>
     </div>
     <div class="content"></div>

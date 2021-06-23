@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>0000.00.00</span>
+            <span>M 0000.00.00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerSecurity/systemTest/static">静态检查</a></li><li><a href="/frontend/layerSecurity/systemTest/unit">单元测试</a></li><li><a href="/frontend/layerSecurity/systemTest/e2e">端到端测试</a></li><li><a href="/frontend/layerSecurity/systemTest/ci">持续集成</a></li></ul></div></div>

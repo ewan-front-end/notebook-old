@@ -5,7 +5,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.06.18</span>
+            <span>M 2021.06.18</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件</a></li></ul></div></div>

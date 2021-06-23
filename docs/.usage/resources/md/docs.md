@@ -1,30 +1,7 @@
-<div class="extend-header">
-    <div class="info">
-        <div class="record">
-            <a class="back" href="./">上一级</a>
-            <a class="back" href="./">返回</a>
-        </div>        
-        <div class="mini">
-            <span>M 2021.06.23</span>
-        </div>
-    </div>
-    <div class="content"><div class="custom-block links">
-<ul class="desc">
-<li><a href="/framework/vuepress">vuepress</a></li>
-<li><a href="/framework/docsify">docsify</a></li>
-</ul>
-</div></div>
-</div>
-<div class="content-header">
-<h1>文档</h1>
-</div>
-
-
+:::2021.06.23:::
 
 ## vuepress docs
-
 <img :src="$withBase('/images/wdygjsy.jpg')">
-
 <pre>
 <strong>开发构建</strong>
     demo> node docs/.usage/deploy.js                               最佳实践部署vurpress

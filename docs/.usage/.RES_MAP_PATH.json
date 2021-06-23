@@ -1,5 +1,6 @@
 {
     "vue": "/vue",
+    "docs": "/docs",
     "timeline": "/timeline",
     "data-mysql": "/database/mysql",
     "data-mongodb": "/database/mongodb",
