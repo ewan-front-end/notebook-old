@@ -4,7 +4,6 @@
     "timeline": "/timeline",
     "data-mysql": "/database/mysql",
     "data-mongodb": "/database/mongodb",
-    "solution": "/solution",
     "tools": "/tools",
     "git": "/tools/git",
     "npm": "/tools/npm",

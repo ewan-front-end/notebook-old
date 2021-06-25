@@ -1,3 +1,6 @@
+---
+pageClass: theme-item
+---
 <div class="extend-header">
     <div class="info">
         <div class="record">
@@ -5,7 +8,7 @@
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.22</span>
+            <span>M 2021.06.25</span>
         </div>
     </div>
     <div class="content"></div>
@@ -13,6 +16,8 @@
 <div class="content-header">
 <h1>Vuepress</h1>
 </div>
+
+
 
 
 [官网](https://vuepress.vuejs.org/zh/guide/)
@@ -51,6 +56,7 @@ demo> npm install -D vuepress
 - 部署到一个非根路径: .vuepress/config.js  `module.exports = {base: '/bar/'}`
 - 公共资源库: .vuepress/public/
 - 图片资源: .vuepress/public/images/  `<img :src="$withBase('/images/logo.png')">`
+- 背景图片：background-image url($withBase('/images/content-bg.png')) 10px 50px no-repeat
 :::
 
 ## 基础配置

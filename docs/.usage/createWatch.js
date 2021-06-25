@@ -4,6 +4,14 @@ const exec = require('child_process').exec
 const chokidar = require('chokidar')
 const {config} = require('./config')
 const log = console.log
+const changeEditTime = (path) => {
+    const _path = Path.resolve(process.cwd(), path)
+    const now = new Date().toJSON().slice(0, 10).replace(/-/g, '.')
+    let _file = readFile(_path)    
+    const dateMark = _file.match(/:::\d{4}\.\d{2}\.\d{2}:::/)       
+    _file = dateMark ? _file.replace(dateMark[0], `:::${now}:::`) : `:::${now}:::\n\n` + _file        
+    writeFile(_path, _file)
+}
 
 chokidar.watch('./docs/.usage/resources/md')
     .on('error', error => log(`监听错误: ${error}`)) 
@@ -12,19 +20,17 @@ chokidar.watch('./docs/.usage/resources/md')
         const resMapPathFile = require('./.RES_MAP_PATH.json') 
         let debugText = `${resPath}.md文件被编辑`      
 
-        const _path = Path.resolve(process.cwd(), path)
-        const now = new Date().toJSON().slice(0, 10).replace(/-/g, '.')
-        let _file = readFile(_path)    
-        const dateMark = _file.match(/:::\d{4}\.\d{2}\.\d{2}:::/)       
-        _file = dateMark ? _file.replace(dateMark[0], `:::${now}:::`) : `:::${now}:::\n\n` + _file        
-        writeFile(_path, _file)
+        
 
-        if (resPath === 'scene') {
+        if (resPath === 'index') {
+
+        } else if (resPath === 'scene') {
             debugText += ` 重新聚合场景数据.`
             exec('node docs/.usage/updateScene.js ', function(error, stdout, stderr) {});
         } else if (resMapPathFile) {
             debugText += ` [资源-数据]表`
             const target = resMapPathFile[resPath]
+            changeEditTime(path)
             if (target) {
                 debugText += `"${resPath}"键对应的数据路径为"${target}".\n`
                 debugText += `... node docs/.usage/create.js ${target}`

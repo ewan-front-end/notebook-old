@@ -1,11 +1,13 @@
-## 首层大类
+---
+sidebar: false
+---
+
 <div class="root-children block-main">
 
 - [︳Vue](/vue)
 - [︳文档](/docs)
 - [︳时间线](/timeline)
 - [︳数据库](/database)
-- [︳解决方案](/solution)
 - [︳工具](/tools)
 - [︳CSS](/css)
 - [︳操作系统](/system)

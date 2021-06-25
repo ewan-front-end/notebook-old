@@ -48,7 +48,7 @@ module.exports = (ABSOLUTE_PATH, target) => {
         staticContent += `${file}\n`
     }
     
-    content = `<div class="extend-header">
+    content = `---\npageClass: theme-item\n---\n<div class="extend-header">
     <div class="info">
         <div class="record">
             <a class="back" href="./">上一级</a>

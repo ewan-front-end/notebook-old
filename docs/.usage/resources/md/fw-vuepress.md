@@ -1,4 +1,4 @@
-:::2021.06.22:::
+:::2021.06.25:::
 
 
 [官网](https://vuepress.vuejs.org/zh/guide/)
@@ -37,6 +37,7 @@ demo> npm install -D vuepress
 - 部署到一个非根路径: .vuepress/config.js  `module.exports = {base: '/bar/'}`
 - 公共资源库: .vuepress/public/
 - 图片资源: .vuepress/public/images/  `<img :src="$withBase('/images/logo.png')">`
+- 背景图片：background-image url($withBase('/images/content-bg.png')) 10px 50px no-repeat
 :::
 
 ## 基础配置

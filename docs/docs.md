@@ -1,3 +1,6 @@
+---
+pageClass: theme-item
+---
 <div class="extend-header">
     <div class="info">
         <div class="record">
@@ -22,9 +25,7 @@
 
 
 ## vuepress docs
-
 <img :src="$withBase('/images/wdygjsy.jpg')">
-
 <pre>
 <strong>开发构建</strong>
     demo> node docs/.usage/deploy.js                               最佳实践部署vurpress

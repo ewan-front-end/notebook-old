@@ -13,7 +13,7 @@ const handleCreator = ({type, path, target}) => {
 }
 const createIndexFile = () => {
     let content = readFile(Path.resolve(__dirname, './resources/md/index.md'))
-    content += `## 首层大类\n${INDEX_CHILDREN_STR}\n\n## 文档地图\n`
+    content += `---\nsidebar: false\n---\n\n${INDEX_CHILDREN_STR}\n\n## 文档地图\n`
     writeFile(Path.resolve(__dirname, '../README.md'), content)
 }
 

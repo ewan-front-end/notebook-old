@@ -1,3 +1,6 @@
+---
+pageClass: theme-item
+---
 <div class="extend-header">
     <div class="info">
         <div class="record">

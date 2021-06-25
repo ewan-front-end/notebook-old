@@ -202,6 +202,9 @@ th, td
 
 @require 'mobile.styl'
 
+.theme-item .theme-default-content
+    background url('/images/content-bg.png') 0px 43px no-repeat
+
 .theme-default-content
   padding 10px 20px
   position relative
@@ -301,6 +304,7 @@ th, td
     padding 0
     margin 0
     line-height 36px
+    color #ccc
   summary
     color #666
     line-height 16px
@@ -328,8 +332,8 @@ th, td
       margin-right 5px 
       margin-bottom 5px
       text-align left 
-      background-color #F9F9F9
       position relative
+      background #F9F9F9 url('/images/test.jpg') no-repeat
       &:after
         content ''
         display block
