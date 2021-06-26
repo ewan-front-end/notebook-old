@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.22</span>
+            <span>M 2021.06.26</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -220,3 +220,9 @@ var {year, month, day, hour, minute, second, week} = getNow()
 ```
 :::
 
+::: details Math
+Math.pow(2, 2)   4   X的Y次幂
+Math.sqrt(9)     3   平方根
+Math.pow(9, 2)   3   N次根
+Math.pow(8, 3)   2   X的Y次根
+:::

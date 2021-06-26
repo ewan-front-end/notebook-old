@@ -1,4 +1,4 @@
-:::2021.06.22:::
+:::2021.06.26:::
 
 ## 数据类型
 ::: details Array
@@ -199,4 +199,11 @@ function getNow() {
 var {year, month, day, hour, minute, second, week} = getNow()
 
 ```
+:::
+
+::: details Math
+Math.pow(2, 2)   4   X的Y次幂
+Math.sqrt(9)     3   平方根
+Math.pow(9, 2)   3   N次根
+Math.pow(8, 3)   2   X的Y次根
 :::
