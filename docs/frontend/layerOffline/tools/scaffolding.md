@@ -18,6 +18,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>脚手架</h1>
+<h1>脚手架</h1><strong>脚手架</strong>
 </div>
 

@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>发布工具</h1>
+<h1>发布工具</h1><strong>发布工具</strong>
 </div>
 

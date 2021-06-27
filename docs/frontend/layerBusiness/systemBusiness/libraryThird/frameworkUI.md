@@ -19,6 +19,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>UI框架</h1>
+<h1>UI框架</h1><strong>UI框架</strong>
 </div>
 

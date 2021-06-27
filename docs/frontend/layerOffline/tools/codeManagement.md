@@ -18,6 +18,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>代码管理</h1>
+<h1>代码管理</h1><strong>代码管理</strong>
 </div>
 

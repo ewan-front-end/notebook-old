@@ -8,13 +8,13 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>Windows</h1>
+<h1>Windows</h1><strong>Windows</strong>
 </div>
 
 ```

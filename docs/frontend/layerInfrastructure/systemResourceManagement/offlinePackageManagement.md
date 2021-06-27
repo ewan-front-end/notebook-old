@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>离线包管理</h1>
+<h1>离线包管理</h1><strong>离线包管理</strong>
 </div>
 

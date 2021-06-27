@@ -20,7 +20,7 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>端到端测试</h1>
+<h1>端到端测试</h1><strong>端到端测试</strong>
 <summary class="desc">从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景</summary>
 </div>
 

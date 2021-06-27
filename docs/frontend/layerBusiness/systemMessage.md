@@ -14,7 +14,7 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>消息系统</h1>
+<h1>消息系统</h1><strong>消息系统</strong>
 <summary class="desc">通知发布 信息推送 客服等即时通讯场景</summary>
 </div>
 

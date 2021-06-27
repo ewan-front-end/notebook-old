@@ -8,7 +8,7 @@ sidebar: false
 - [︳文档](/docs)
 - [︳时间线](/timeline)
 - [︳数据库](/database)
-- [︳工具](/tools)
+- [︳工具&资源](/tools)
 - [︳CSS](/css)
 - [︳操作系统](/system)
 - [︳服务器](/server)

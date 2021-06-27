@@ -14,7 +14,7 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>持续集成</h1>
+<h1>持续集成</h1><strong>持续集成</strong>
 <summary class="desc">一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入</summary>
 </div>
 

@@ -8,13 +8,13 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>Android</h1>
+<h1>Android</h1><strong>Android</strong>
 </div>
 
 # Android开发环境搭建

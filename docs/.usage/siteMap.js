@@ -39,7 +39,7 @@ module.exports = {
         mysql:{title:'MySQL', src:'data-mysql'},
         mongodb:{title:'MongoDB', src:'data-mongodb'}
     }},
-    tools: {title:'工具', src: 'tools', links:[{name:'文档', href:'/docs/'}], children: {            
+    tools: {title:'工具&资源', src: 'tools', links:[{name:'文档', href:'/docs/'}], children: {            
         git: {linkName: 'Git', src:'git'},
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
         markdown: {linkName: 'Markdown', src:'markdown'},

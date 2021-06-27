@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>Docsify</h1>
+<h1>Docsify</h1><strong>Docsify</strong>
 </div>
 

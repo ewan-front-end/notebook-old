@@ -14,7 +14,7 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>数据持久化系统</h1>
+<h1>数据持久化系统</h1><strong>数据持久化系统</strong>
 <summary class="desc">存储上层系统的非核心业务数据，比如错误数据或者用户行为数据</summary>
 </div>
 

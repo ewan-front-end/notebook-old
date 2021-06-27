@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>样式组件</h1>
+<h1>样式组件</h1><strong>样式组件</strong>
 </div>
 

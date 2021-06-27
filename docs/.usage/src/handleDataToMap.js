@@ -1,4 +1,5 @@
-
+const {writeFile} = require('./tools-fs')
+const Path = require('path')
 /*创建目录或文件时数据依据*/
 const PATH_MAP_CREATOR = {
     // "/system/linux": {        
@@ -10,12 +11,13 @@ const PATH_MAP_CREATOR = {
     // }
 }
 /*响应资源文件更改时*/
-const RES_MAP_PATH = {
+const RES_MAP_PATH = require('../.RES_MAP_PATH.json')
+//{
     // "system": "/system",
     // "system-linux": "/system/linux",
     // "node/index": "/node",
     // "node/package": "/node/package"
-}
+//}
 /*源数据第一层目录：首页展示子目录时*/
 let INDEX_CHILDREN_STR = '' // `[操作系统](/system) | [服务器](/server)`
 const ROOT_PATH = ''
@@ -37,7 +39,13 @@ const handleItem = (key, item, parent) => {
         linkName: item.linkName || item.title || key, 
         path: parent.path +'/'+ key
     }) 
-    if (item.src) RES_MAP_PATH[item.src] = item.path
+    if (item.src) {
+        if (RES_MAP_PATH[item.src]) {
+            RES_MAP_PATH[item.src].path = item.path
+        } else {
+            RES_MAP_PATH[item.src] = {path: item.path, updateTime: '0000:00:00'}
+        } 
+    }
     item.children ? handleItemChildren(item, item.children) : handleItemFile(item)
 }
 
@@ -49,8 +57,9 @@ module.exports = (siteMap) => {
         INDEX_CHILDREN_STR += `- [︳${item.linkName}](${item.path})\n`
     }
     INDEX_CHILDREN_STR = `<div class="root-children block-main">\n\n${INDEX_CHILDREN_STR}\n</div>` 
-    RES_MAP_PATH['index'] = '/README'   
+    RES_MAP_PATH['index'] = {path:'/README', updateTime:'0000:00:00'}  
+    writeFile(Path.resolve(__dirname, '../.RES_MAP_PATH.json'), JSON.stringify(RES_MAP_PATH, null, 4)) 
 
-    return {PATH_MAP_CREATOR, INDEX_CHILDREN_STR, RES_MAP_PATH}
+    return {PATH_MAP_CREATOR, INDEX_CHILDREN_STR}
 }
 

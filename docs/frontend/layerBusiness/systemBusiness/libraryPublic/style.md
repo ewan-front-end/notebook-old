@@ -14,7 +14,7 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>样式库</h1>
+<h1>样式库</h1><strong>样式库</strong>
 <summary class="desc">利于各业务线之间保持用户体验的一致性</summary>
 </div>
 

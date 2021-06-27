@@ -1,10 +1,10 @@
 const {mkdirSync, writeFile, readFile} = require('./src/tools-fs')
 const Path = require('path')
-const generateFile = require('./generateFile')
 const argArr = process.argv.slice(2)
 const siteMap = require('./siteMap')
 const dataToMap = require('./src/handleDataToMap.js')
-const {PATH_MAP_CREATOR, INDEX_CHILDREN_STR, RES_MAP_PATH} = dataToMap(siteMap)
+const {PATH_MAP_CREATOR, INDEX_CHILDREN_STR} = dataToMap(siteMap)
+const generateFile = require('./generateFile')
 
 const handleCreator = ({type, path, target}) => {
     const ABSOLUTE_PATH = Path.resolve(__dirname, '..' + path)
@@ -32,7 +32,6 @@ if (argArr.length > 0) {
     for (key in PATH_MAP_CREATOR) { 
         handleCreator(PATH_MAP_CREATOR[key]) 
     } 
-    createIndexFile()    
-    writeFile(Path.resolve(__dirname, './.RES_MAP_PATH.json'), JSON.stringify(RES_MAP_PATH, null, 4))
+    createIndexFile()
 }
 

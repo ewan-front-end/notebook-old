@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>功能模块</h1>
+<h1>功能模块</h1><strong>功能模块</strong>
 </div>
 

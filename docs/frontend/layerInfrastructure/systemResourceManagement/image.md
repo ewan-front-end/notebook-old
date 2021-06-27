@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>图片管理</h1>
+<h1>图片管理</h1><strong>图片管理</strong>
 </div>
 

@@ -19,6 +19,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>静态检查</h1>
+<h1>静态检查</h1><strong>静态检查</strong>
 </div>
 

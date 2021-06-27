@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block links">
@@ -20,7 +20,7 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>鉴权系统</h1>
+<h1>鉴权系统</h1><strong>鉴权系统</strong>
 <summary class="desc">集中处理登陆、支付等需要风险控制较高的公共业务</summary>
 </div>
 

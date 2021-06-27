@@ -18,6 +18,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>构建工具</h1>
+<h1>构建工具</h1><strong>构建工具</strong>
 </div>
 

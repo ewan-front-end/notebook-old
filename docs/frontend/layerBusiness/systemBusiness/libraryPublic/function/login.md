@@ -18,6 +18,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>登陆</h1>
+<h1>登陆</h1><strong>登陆</strong>
 </div>
 

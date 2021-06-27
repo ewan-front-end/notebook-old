@@ -21,7 +21,7 @@
 ## scripts
 
 <pre>
-命令关系444444：
+命令关系：
     &  并列运行  
     && 顺序执行 如果前一个命令报错或挂载执行 则后命令不会执行
         vuepress dev docs && node docs/.usage/createWatch.js

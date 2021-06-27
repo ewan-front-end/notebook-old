@@ -1,6 +1,7 @@
 const fs = require('fs')
 const {writeFile} = require('./src/tools-fs')
 const _path = require('path')
+const RES_MAP_PATH = require('./.RES_MAP_PATH.json')
 
 module.exports = (ABSOLUTE_PATH, target) => {
     let content
@@ -28,7 +29,7 @@ module.exports = (ABSOLUTE_PATH, target) => {
         linksContent += `<div class="custom-block links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
     }
     if (target.title || target.desc || target.detail) {
-        const titleStr = target.title ? `<h1>${target.title}</h1>\n` : ''
+        const titleStr = target.title ? `<h1>${target.title}</h1><strong>${target.title}</strong>\n` : ''
         const descStr = target.desc ? `<summary class="desc">${target.desc}</summary>\n` : ''
         const detailStr = target.detail ? `<detail>${target.detail}</detail>\n` : ''
         contentHeader += `<div class="content-header">\n${titleStr}${descStr}${detailStr}</div>`
@@ -38,13 +39,7 @@ module.exports = (ABSOLUTE_PATH, target) => {
     // target.detail && (content += `${target.detail}\n`) 
     if (target.src) {
         let file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.src+'.md'), 'utf8')
-        let date = file.match(/:::(\d{4}\.\d{2}\.\d{2}):::/) 
-        if (date) {
-            modifyData = date[1]
-            file = file.replace(date[0]+'\n\n', '')
-            file = file.replace(date[0]+'\n', '')
-            file = file.replace(date[0], '')
-        }
+        if (RES_MAP_PATH[target.src]) modifyData = RES_MAP_PATH[target.src].updateTime
 
         // 自定义格式
         let matchFLEX

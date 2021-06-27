@@ -20,6 +20,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>样式框架</h1>
+<h1>样式框架</h1><strong>样式框架</strong>
 </div>
 

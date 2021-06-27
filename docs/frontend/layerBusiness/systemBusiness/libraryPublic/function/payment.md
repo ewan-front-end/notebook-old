@@ -19,6 +19,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>支付</h1>
+<h1>支付</h1><strong>支付</strong>
 </div>
 

@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>Webpack</h1>
+<h1>Webpack</h1><strong>Webpack</strong>
 </div>
 

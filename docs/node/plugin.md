@@ -8,16 +8,16 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.17</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>插件</h1>
+<h1>插件</h1><strong>插件</strong>
 </div>
 
-## node插件开发
+:::2021.06.17:::## node插件开发
 .
 ├── bin                          #运行目录
 ├── lib                           #主代码目录

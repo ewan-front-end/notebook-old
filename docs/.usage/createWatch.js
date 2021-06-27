@@ -4,23 +4,13 @@ const exec = require('child_process').exec
 const chokidar = require('chokidar')
 const {config} = require('./config')
 const log = console.log
-const changeEditTime = (path) => {
-    const _path = Path.resolve(process.cwd(), path)
-    const now = new Date().toJSON().slice(0, 10).replace(/-/g, '.')
-    let _file = readFile(_path)    
-    const dateMark = _file.match(/:::\d{4}\.\d{2}\.\d{2}:::/)       
-    _file = dateMark ? _file.replace(dateMark[0], `:::${now}:::`) : `:::${now}:::\n\n` + _file        
-    writeFile(_path, _file)
-}
 
 chokidar.watch('./docs/.usage/resources/md')
     .on('error', error => log(`监听错误: ${error}`)) 
     .on('change', path => {
         const resPath = path.split(/resources[\\\/]md[\\\/]/)[1].replace('.md', '').replace(/\\/g, '/')
         const resMapPathFile = require('./.RES_MAP_PATH.json') 
-        let debugText = `${resPath}.md文件被编辑`      
-
-        
+        let debugText = `${resPath}.md文件被编辑` 
 
         if (resPath === 'index') {
 
@@ -29,16 +19,19 @@ chokidar.watch('./docs/.usage/resources/md')
             exec('node docs/.usage/updateScene.js ', function(error, stdout, stderr) {});
         } else if (resMapPathFile) {
             debugText += ` [资源-数据]表`
-            const target = resMapPathFile[resPath]
-            changeEditTime(path)
-            if (target) {
+            const target = resMapPathFile[resPath]            
+            if (target) {                
                 debugText += `"${resPath}"键对应的数据路径为"${target}".\n`
                 debugText += `... node docs/.usage/create.js ${target}`
-                exec('node docs/.usage/create.js ' + target, function(error, stdout, stderr) {});
+                target.updateTime = new Date().toJSON().slice(0, 10).replace(/-/g, '.')
+                console.log('------',resMapPathFile[resPath], target.updateTime,new Date().toJSON());
+                
+                writeFile(Path.resolve(__dirname, './.RES_MAP_PATH.json'), JSON.stringify(resMapPathFile, null, 4))
+                exec('node docs/.usage/create.js ' + target.path, function(error, stdout, stderr) {});
             } else {
                 debugText += `"${resPath}"键不存在. 请重新生成映射表：node docs/.usage/create.js 再重启监控：node docs/.usage/createWatch.js`
                 if (config.debug) {
-                    console.log(resMapPathFile);
+                    console.log(resMapPathFile)
                 } else {
                     console.log('当前编辑资源未与siteMap数据关联');
                 }

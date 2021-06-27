@@ -21,6 +21,6 @@ pageClass: theme-item
 </div></div>
 </div>
 <div class="content-header">
-<h1>基础库</h1>
+<h1>基础库</h1><strong>基础库</strong>
 </div>
 

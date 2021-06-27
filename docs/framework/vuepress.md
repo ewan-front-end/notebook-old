@@ -8,16 +8,16 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.27</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>Vuepress</h1>
+<h1>Vuepress</h1><strong>Vuepress</strong>
 </div>
 
-
+:::2021.06.27:::
 
 
 [官网](https://vuepress.vuejs.org/zh/guide/)

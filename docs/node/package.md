@@ -8,16 +8,16 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.14</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>描述文件</h1>
+<h1>描述文件</h1><strong>描述文件</strong>
 </div>
 
-
+:::2021.06.14:::
 
 ```json
 {
@@ -40,7 +40,7 @@ pageClass: theme-item
 ## scripts
 
 <pre>
-命令关系444444：
+命令关系：
     &  并列运行  
     && 顺序执行 如果前一个命令报错或挂载执行 则后命令不会执行
         vuepress dev docs && node docs/.usage/createWatch.js

@@ -14,6 +14,6 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>性能统计</h1>
+<h1>性能统计</h1><strong>性能统计</strong>
 </div>
 
