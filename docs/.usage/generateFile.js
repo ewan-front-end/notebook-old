@@ -45,6 +45,18 @@ module.exports = (ABSOLUTE_PATH, target) => {
             file = file.replace(date[0]+'\n', '')
             file = file.replace(date[0], '')
         }
+
+        // 自定义格式
+        let matchFLEX
+        while ((matchFLEX = /\:\:\:FLEX([\s\S]+?)FLEX\:\:\:/.exec(file)) !== null) {  
+            console.log('+++++++')
+            let content = matchFLEX[1], matchItem
+            while ((matchItem = /\+\+\+ (\d{1,2})([\s\S]*?)\+\+\+/.exec(content)) !== null) {
+                content = content.replace(matchItem[0], `<div class="box-flex-item flex-${matchItem[1]}">\n${matchItem[2]}\n</div>`)
+            }
+            file = file.replace(matchFLEX[0], `<div class="box-flex">${content}</div>`)            
+        }
+
         staticContent += `${file}\n`
     }
     

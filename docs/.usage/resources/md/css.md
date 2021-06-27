@@ -1,3 +1,5 @@
+:::2021.06.27:::
+
 - 应用
 [引入字体](#引入字体)
 [CSS变量](#CSS变量)
@@ -21,6 +23,51 @@
 [去除触摸高亮](#去除触摸高亮)
 [去掉button点击蓝框按钮阴影蓝边](#去掉button点击蓝框按钮阴影蓝边)
 [清除input阴影](#清除input阴影)
+
+::: details background
+```css
+background-color
+background-position
+background-size
+background-repeat
+background-origin
+background-clip
+background-attachment
+background-image
+```
+- 简：background: [background-color] [background-image] [background-repeat] [background-attachment] [background-position] / [ background-size] [background-origin] [background-clip];
+- 如：background: #f00  url(img.png)  no-repeat  scroll  center center / 50%  content-box content-box;
+<img :src="$withBase('/images/background.jpg')">
+:::
+
+::: details nth-child & nth-of-type
+```css
+x:nth-child(n)                                 获取x元素的父元素中，第n个元素。无类型限制
+el:nth-child(2n)    选择父元素列表中的第 2n 个标签，也就是偶数个元素
+el:nth-child(n+n)   选择父元素列表中的第 n 个标签后的标签
+el:nth-child(-n+n)  选择父元素列表中的第 n 个标签之前的标签
+el:nth-child(odd)   选择父元素列表中的是奇数的标签
+el:nth-child(even)  选择父元素列表中的是偶数的标签
+el:nth-child(n+3)   未知
+el:nth-child(n-3)   未知
+
+.color-group i:nth-child(1){color: #318ed8;}   序号优先 第1层元素 匹配 
+.color-group i:nth-of-type(1){color: #318ed8;} 类型优先 元素 匹配第1个 ```
+
+x:nth-of-type(n)                               获取x元素父元素中，第n个x元素。限制了类型
+
+ 
+:::
+
+::: details 选择器
+```css
+elem 表示任意元素 attr 任意属性名称 value 值
+elem[ attr~= value]　匹配附带attr属性的elem元素，其中attr属性的值是以空格隔开的值列表，value是值列表中的一个独立值
+elem[ attr^= value]　匹配附带attr属性的elem元素，并且该属性值是以value作为开始的
+elem[ attr$= value]　匹配附带attr属性的elem元素，并且该属性值是以value作为结束的
+elem[ attr*= value]　匹配附带attr属性的elem元素，并且该属性值包含value字符
+```
+:::
 
 
 ::: details 备忘
@@ -318,39 +365,6 @@ document.addEventListener('mousemove', (e) => {
 
 
 
-## 选择器
-<div class="color-group color-card inline collapse c-atv-0">
-  <i>elem</i> 表示任意元素    
-  <i>attr</i> 任意属性名称  
-  <i>value</i> 值 
-</div><br>
-<div class="color-group">
-  <i>elem</i>[ 
-  <i>attr</i>~=
-  <i>value</i>]　匹配附带attr属性的elem元素，其中attr属性的值是以空格隔开的值列表，value是值列表中的一个独立值
-</div>
-<div class="color-group">
-  <i>elem</i>[ 
-  <i>attr</i>^=
-  <i>value</i>]　匹配附带attr属性的elem元素，并且该属性值是以value作为开始的
-</div>
-<div class="color-group">
-  <i>elem</i>[ 
-  <i>attr</i>$=
-  <i>value</i>]　匹配附带attr属性的elem元素，并且该属性值是以value作为结束的
-</div>
-<div class="color-group">
-  <i>elem</i>[ 
-  <i>attr</i>*=
-  <i>value</i>]　匹配附带attr属性的elem元素，并且该属性值包含value字符
-</div>
-
-```
-.color-group i:nth-child(1){color: #318ed8;}   序号优先 第1个元素 匹配<i>
-.color-group i:nth-of-type(1){color: #318ed8;} 类型优先 元素<i> 匹配第1个
-```
-
-
 #### 元素 
 
 - 行内：a、b、span、img、input、strong、select、label、em、button、textarea
@@ -365,6 +379,7 @@ document.addEventListener('mousemove', (e) => {
 
 ## 轴线一维布局(弹性盒子)
 <img :src="$withBase('/images/flex.jpg')"><br>
+宽度分布不均匀：
 ```css
 .flex{
 　display: flex;　

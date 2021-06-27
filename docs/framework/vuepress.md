@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.25</span>
+            <span>M 2021.06.27</span>
         </div>
     </div>
     <div class="content"></div>
@@ -461,6 +461,19 @@ layout: SpecialLayout
 
 
 ```
+
+## 自定义格式
+:::FLEX
++++ 资源
+- [icomoon](http://icomoon.io/app)
++++
++++ 常用工具
+- [JSRun](https://jsrun.net/new)
++++
++++ 平台&文档
+- [GitHub](https://github.com/)
++++
+:::FLEX
 
 
 

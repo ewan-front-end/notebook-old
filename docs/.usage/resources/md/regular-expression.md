@@ -1,8 +1,20 @@
+:::2021.06.27:::
+
 
 
 ## 正则匹配方法
 ```js
 /^\/(\w|\/)+\//.test('/tools/npm')  // true
+.exec                               // 与字符串匹配方法match类似
+
+let data = '', matchStrong
+while ((matchStrong = /█(.+)?█/.exec(data)) !== null) {
+    data = data.replace(
+        matchStrong[0],
+        `<span class="c3 b">${matchStrong[1]}</span>`
+    );
+    // 确保匹配到的字符串被有效替换，避免无限循环
+}
 ```
 
 ## 字符串匹配方法
@@ -14,6 +26,12 @@
 'HelloHello'.match(/ll/g)            // ["ll", "ll"]
 'Hello1Hello2H'.match(/H(\w+)H/)     // {0:"Hello1Hello2H", 1:"ello1Hello2", index:0, input:"Hello1Hello2H", groups:undefined} 默认贪婪模式
 'Hello1Hello2H'.match(/H(\w+?)H/)    // {0:"Hello1H", 1:"ello1", index:0, input:"Hello1Hello2H", groups:undefined]
+
+const reg = /\(.+?\)\(.+?\)/g
+const arr = data.match(reg) || []
+arr.forEach((e) => {
+    // 处理匹配字符串
+})
 ```
 
 匹配每一行的开头: (?:^|\n)#{1,6}.+     ## 基础配置

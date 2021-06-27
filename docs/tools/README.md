@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.18</span>
+            <span>M 2021.06.27</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/webpack">Webpack</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">需求图表</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li></ul></div><div class="custom-block links">
@@ -23,7 +23,8 @@ pageClass: theme-item
 
 
 
-## 特殊字符123
+
+## 特殊字符
 
 
 ::: details 分类
@@ -114,7 +115,10 @@ pageClass: theme-item
 </div>
 :::
 
-::: col-4 资源2345678
+<div class="box-flex">
+<div class="box-flex-item flex-1">
+
+资源
 - [icomoon](http://icomoon.io/app)
 - [UI](http://www.biaonimeia.com/project)
 - [图标库](ant.design/components/icon-cn)
@@ -132,9 +136,11 @@ pageClass: theme-item
     谷歌插件：    Allow-Control-Allow-Origin(跨域)
 - [自助建站国际](https://www.wix.com)
 - [自助建站国内](https://www.strikingly.com/)
-:::
 
-::: col-4 常用工具
+</div>
+<div class="box-flex-item flex-1">
+
+常用工具
 - [模拟短信验证](https://www.yinsiduanxin.com/)
 - [API模拟](http://myjson.com/)
 - [图片压缩](https://tinypng.com/)
@@ -151,9 +157,11 @@ pageClass: theme-item
 - [JSRun](https://jsrun.net/new)
 - [下载YouTube视频](http://en.savefrom.net/)
 - [下载YouTube字幕](http://keepvid.com/)
-:::
 
-::: col-4 平台&文档
+</div>
+<div class="box-flex-item flex-1">
+
+平台&文档
 - [GitHub](https://github.com/)
 - [码云](http://git.oschina.net/)
 - [Coding](https://coding.net/)
@@ -169,7 +177,10 @@ pageClass: theme-item
 - [npm模块管理器](http://javascript.ruanyifeng.com/nodejs/npm.html)
 - [代码规范](https://standardjs.com/rules-zhcn.html)
 - [gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
-:::
+
+</div>
+</div>
+
 
 
 
