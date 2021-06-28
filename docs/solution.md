@@ -1,26 +1,4 @@
-<div class="extend-header">
-    <div class="info">
-        <div class="record">
-            <a class="back" href="./">上一级</a>
-            <a class="back" href="./">返回</a>
-        </div>        
-        <div class="mini">
-            <span>M 2021.06.23</span>
-        </div>
-    </div>
-    <div class="content"><div class="custom-block links">
-<ul class="desc">
-<li><a href="/database">数据库</a></li>
-<li><a href="">cookie</a></li>
-<li><a href="">session</a></li>
-</ul>
-</div></div>
-</div>
-<div class="content-header">
-<h1>解决方案</h1>
-</div>
-
-
+:::2021.06.23:::
 
 ## 浏览器静默与激活
 ```js
@@ -310,20 +288,51 @@ FetchMock.mock('/login', (url, opts) => {
                                                                                        注册请求 失败
                                                                                                 成功：
 
-登录
-    登录    
-注册
-    手机验证
-    手机验证
-    绑定支付方式
-    注册成功
 
-帐户中心
-    profile.html           个人资料设置
-    delivery-address.html  收货地址管理
-    security.html          安全设置
-公共
-    忘记密码
-    操作成功
 
+登录 login/init.js
+
+忘记密码 forget/init.js
+
+注册 设用户名 register/mobile/init.js
+注册 账号信息 register/info/init.js
+注册 支付方式 register/payment/init.js
+注册 注册成功 无
+
+个人资料 register/info/init.js
+收货地址 delivery-address/init.js
+安全设置 security/init.js
+
+```
+
+#### 流程图
+```plantuml
+@startuml
+start
+:"步骤1处理";
+:"步骤2处理";
+if ("条件1判断") then (true)
+    :条件1成立时执行的动作;
+    if ("分支条件2判断") then (no)
+        :"条件2不成立时执行的动作";
+    else
+        if ("条件3判断") then (yes)
+            :"条件3成立时的动作";
+        else (no)
+            :"条件3不成立时的动作";
+        endif
+    endif
+    :"顺序步骤3处理";
+endif
+if ("条件4判断") then (yes)
+:"条件4成立的动作";
+else
+    if ("条件5判断") then (yes)
+        :"条件5成立时的动作";
+    else (no)
+        :"条件5不成立时的动作";
+    endif
+endif
+stop
+@enduml
 ```

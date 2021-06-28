@@ -24,6 +24,10 @@ module.exports = {
             {
                 "text": "聚合",
                 "link": "/aggregation"
+            },
+            {
+                "text": "方案",
+                "link": "/solution"
             }
         ],
         "sidebarDepth": 1,

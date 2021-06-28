@@ -55,6 +55,7 @@
 - [gulp](/node/plugin.html#gulp)            开发任务流
 - [chokidar](/node/plugin.html#chokidar)    比标准库fs.watch()、fs.watchFile更完善的用于监控文件/文件夹变化的工具
 - [concurrently](/node/package#scripts)     多命令运行 
+- [markdown-it-plantuml-ex]                 画图
 
 ## 标准库
 - child_process  

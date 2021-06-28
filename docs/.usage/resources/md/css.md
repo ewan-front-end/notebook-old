@@ -1,4 +1,3 @@
-:::2021.06.27:::
 
 - 应用
 [引入字体](#引入字体)
@@ -23,6 +22,90 @@
 [去除触摸高亮](#去除触摸高亮)
 [去掉button点击蓝框按钮阴影蓝边](#去掉button点击蓝框按钮阴影蓝边)
 [清除input阴影](#清除input阴影)
+
+
+::: details flex
+## 轴线一维布局(弹性盒子)
+<img :src="$withBase('/images/flex.jpg')"><br>
+[SCENE:flex]flex/item宽度不均匀不等分[/SCENE]
+`<div class="flex"><div class="item">测试内容</div><div class="item"></div></div>`
+解决：在item里加上width:1% 
+
+```css
+.flex{
+　display: flex;　
+　flex-flow: row nowrap; 　
+　justify-content: flex-start; 
+　align-content: stretch; 
+　align-items: stretch; 
+}
+.flex .item{
+　flex: 0 1 auto;
+　align-self: auto;
+　order: 0;
+}
+```
+:::
+
+::: details grid
+## 网格二维布局
+概念：容器(container) 项目(item)  行(row)   列(column)  单元格(cell)  网格线(grid line) 片段(fraction) 区域(area)
+http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
+
+```css
+.grid {
+  display: grid;                                  // inline-grid
+  
+  grid-template-columns: 100px 100px 100px;       // 每一列的列宽 重复值写法:repeat(3, 33.33%) 重复模式写法:repeat(2, 100px 20px 80px) 容纳尽可能多未知数量单元格：repeat(auto-fill, 100px) 比例关系：150px 1fr 2fr; 范围：1fr 1fr minmax(100px, 1fr); 其余：100px auto 100px 指定网格线的名字方便引用：[c1] 100px [c2] 100px [c3] auto [c4]
+  grid-template-rows: 100px 100px 100px;          // 每一行的行高 同上
+  grid-template-areas: "a b c"                    // 定义区域 网格线自动命名为 区域名-start 区域名-end
+                       "d e f"
+                       "g h i";
+  grid-template-areas: "header header header"     // 合并区域
+                       "main main sidebar"
+                       "footer footer footer";
+  grid-template-areas: "a . c"                    // 某些区域不需要利用
+                       "d . f"
+                       "g . i";
+
+  grid-auto-columns   // 浏览器自动创建的多余网格的列宽和行高
+  grid-auto-rows 属性
+  grid-auto-flow: column;                         // cell流动方向: row/column 某些项目指定位置以后剩下的项目怎么自动放置: row dense/column dense
+  
+  grid-template: <grid-template-columns><grid-template-rows><grid-template-areas>
+  grid:          <grid-template-columns><grid-template-rows><grid-template-areas><grid-auto-columns><grid-auto-rows><grid-auto-flow>
+
+
+  row-gap: 20px;                                  // 行间距
+  column-gap: 20px;                               // 列间距
+  gap: 20px 20px;                                 // 行列简写 省略了第二个值，第二个值等于第一个值  
+
+  align-items:   start | end | center | stretch;  // 单元格的内容上下对齐
+  justify-items: start | end | center | stretch;  // 单元格的内容左右对齐
+  place-items: <align-items> <justify-items>;
+  
+  align-content:   start | end | center | stretch | space-around | space-between | space-evenly;      // 行行之间的布局方式
+  justify-content: start | end | center | stretch | space-around | space-between | space-evenly;      // 列列之间的布局方式
+  place-content: <align-content> <justify-content>
+}
+.grid .item{
+  grid-column-start: 1; 左边框所在的垂直网格线序号 网格线名字：header-start 跨越网格数：span 2
+  grid-column-end: 2;   右边框所在的垂直网格线序号 
+  grid-row-start: 3;    上边框所在的水平网格线序号
+  grid-row-end: 4;      下边框所在的水平网格线序号
+
+  grid-column: <grid-column-start> / <grid-column-end>
+  grid-row: <grid-row-start> / <grid-row-end>
+  grid-area: <grid-column-start> / <grid-column-end> / <grid-row-start> / <grid-row-end>   可直接指定区域名：grid-area: e;
+
+  z-index: 1;           项目的重叠顺序
+  
+  align-self: start | end | center | stretch;    单元格内容的水平位置 跟align-items  类似
+  justify-self: start | end | center | stretch;  单元格内容的水平位置 跟justify-items类似
+  place-self: <align-self> <justify-self>
+}
+```
+:::
 
 ::: details background
 ```css
@@ -377,79 +460,7 @@ document.addEventListener('mousemove', (e) => {
 - 边界塌陷:父级div无border，padding，inline content，则子div的margin会一直向上找参考元素
 
 
-## 轴线一维布局(弹性盒子)
-<img :src="$withBase('/images/flex.jpg')"><br>
-宽度分布不均匀：
-```css
-.flex{
-　display: flex;　
-　flex-flow: row nowrap; 　
-　justify-content: flex-start; 
-　align-content: stretch; 
-　align-items: stretch; 
-}
-.flex .item{
-　flex: 0 1 auto;
-　align-self: auto;
-　order: 0;
-}
-```
-## 网格二维布局
-概念：容器(container) 项目(item)  行(row)   列(column)  单元格(cell)  网格线(grid line) 片段(fraction) 区域(area)
-http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
-```
-.grid {
-  display: grid;                                  // inline-grid
-  
-  grid-template-columns: 100px 100px 100px;       // 每一列的列宽 重复值写法:repeat(3, 33.33%) 重复模式写法:repeat(2, 100px 20px 80px) 容纳尽可能多未知数量单元格：repeat(auto-fill, 100px) 比例关系：150px 1fr 2fr; 范围：1fr 1fr minmax(100px, 1fr); 其余：100px auto 100px 指定网格线的名字方便引用：[c1] 100px [c2] 100px [c3] auto [c4]
-  grid-template-rows: 100px 100px 100px;          // 每一行的行高 同上
-  grid-template-areas: "a b c"                    // 定义区域 网格线自动命名为 区域名-start 区域名-end
-                       "d e f"
-                       "g h i";
-  grid-template-areas: "header header header"     // 合并区域
-                       "main main sidebar"
-                       "footer footer footer";
-  grid-template-areas: "a . c"                    // 某些区域不需要利用
-                       "d . f"
-                       "g . i";
 
-  grid-auto-columns   // 浏览器自动创建的多余网格的列宽和行高
-  grid-auto-rows 属性
-  grid-auto-flow: column;                         // cell流动方向: row/column 某些项目指定位置以后剩下的项目怎么自动放置: row dense/column dense
-  
-  grid-template: <grid-template-columns><grid-template-rows><grid-template-areas>
-  grid:          <grid-template-columns><grid-template-rows><grid-template-areas><grid-auto-columns><grid-auto-rows><grid-auto-flow>
-
-
-  row-gap: 20px;                                  // 行间距
-  column-gap: 20px;                               // 列间距
-  gap: 20px 20px;                                 // 行列简写 省略了第二个值，第二个值等于第一个值  
-
-  align-items:   start | end | center | stretch;  // 单元格的内容上下对齐
-  justify-items: start | end | center | stretch;  // 单元格的内容左右对齐
-  place-items: <align-items> <justify-items>;
-  
-  align-content:   start | end | center | stretch | space-around | space-between | space-evenly;      // 行行之间的布局方式
-  justify-content: start | end | center | stretch | space-around | space-between | space-evenly;      // 列列之间的布局方式
-  place-content: <align-content> <justify-content>
-}
-.grid .item{
-  grid-column-start: 1; 左边框所在的垂直网格线序号 网格线名字：header-start 跨越网格数：span 2
-  grid-column-end: 2;   右边框所在的垂直网格线序号 
-  grid-row-start: 3;    上边框所在的水平网格线序号
-  grid-row-end: 4;      下边框所在的水平网格线序号
-
-  grid-column: <grid-column-start> / <grid-column-end>
-  grid-row: <grid-row-start> / <grid-row-end>
-  grid-area: <grid-column-start> / <grid-column-end> / <grid-row-start> / <grid-row-end>   可直接指定区域名：grid-area: e;
-
-  z-index: 1;           项目的重叠顺序
-  
-  align-self: start | end | center | stretch;    单元格内容的水平位置 跟align-items  类似
-  justify-self: start | end | center | stretch;  单元格内容的水平位置 跟justify-items类似
-  place-self: <align-self> <justify-self>
-}
-```
 
 ## 变换
 ```

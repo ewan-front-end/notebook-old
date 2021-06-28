@@ -10,7 +10,7 @@ module.exports = (ABSOLUTE_PATH, target) => {
     let topicContent = ''
     let contentHeader = ''
     let staticContent = ''      // 静态资源
-    let modifyData = '0000.00.00'
+    let modifyData = '0000.00.00 00:00'
     
     if(target.children) {
         let listStr = ''
@@ -68,8 +68,9 @@ module.exports = (ABSOLUTE_PATH, target) => {
     <div class="content">${childrenContent}${linksContent}${topicContent}</div>
 </div>
 ${contentHeader}
-
-${staticContent}`          
+<div class="static-content">
+${staticContent}
+</div>`          
    
     
                 

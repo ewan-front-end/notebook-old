@@ -204,7 +204,7 @@ th, td
 
 .theme-item .theme-default-content
     background url('/images/content-bg.png') 0px 43px no-repeat
-    min-height 450px
+    min-height 450px    
 
 .theme-default-content
   padding 10px 20px
@@ -247,7 +247,7 @@ th, td
         width 100%
         height 10px
         border-right #eee 0px solid
-        border-bottom #fff 1px solid
+        border-bottom #ddd 1px solid
         position absolute
         right 0
         bottom 0
@@ -256,7 +256,7 @@ th, td
         padding 0 5px
     .mini
       color #ccc
-      padding-top 5px
+      padding-top 2px
       width 118px
       text-align right
   .content
@@ -300,34 +300,39 @@ th, td
               color #46bd87
               text-decoration none
 .content-header
-  padding 80px 0 50px 150px
+  padding 72px 0 50px 150px
   position relative  
   h1
     padding 0
     margin 0
     line-height 36px
-    color #ccc
+    color #3eaf7c
+    font-size 36px
+    line-height 36px
   strong
     padding 0
     margin 0
-    color #000
+    color #3eaf7c
     font-size 120px
     line-height 120px
     position absolute
-    top 0
-    left 0
-    opacity 0.03
-    border-bottom #000 1px solid
+    top 30px
+    left 80px
+    opacity 0.06
+    border-bottom #3eaf7c 1px solid
     overflow hidden
     height 80px
   summary
     color #666
     line-height 16px
-    padding-left 12px  
-    border-color #999  
+    padding-left 12px 
+    margin-top 5px 
+    border-color #4bba88 
   detail
     color #333
     line-height 16px
+.static-content
+  padding-left 50px
 .block-main
   ul,li
     list-style none 
@@ -368,12 +373,12 @@ th, td
         text-decoration none !important
 .box-flex 
   display flex
-  justify-content space-between
   .box-flex-item 
-    flex-grow 1
     flex-shrink 0
-    flex-basis auto
-    border #0f0 1px solid
+    flex-basis 1%
   .flex-1
-    border #00f 1px solid  
-
+    flex-grow 1  
+  .flex-2
+    flex-grow 2  
+  .flex-3
+    flex-grow 3

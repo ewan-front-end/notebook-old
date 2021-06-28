@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00</span>
+            <span>M 2021.06.28</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,7 +17,6 @@ pageClass: theme-item
 <h1>乾坤微服务</h1><strong>乾坤微服务</strong>
 </div>
 
-:::2021.06.27:::
 
 # 场景
 统筹巨石应用

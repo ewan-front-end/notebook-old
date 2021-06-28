@@ -463,18 +463,22 @@ layout: SpecialLayout
 ```
 
 ## 自定义格式
+<pre>
 :::FLEX
-+++ 资源
++++ 1
+<strong>■ 资源</strong>
 - [icomoon](http://icomoon.io/app)
 +++
-+++ 常用工具
-- [JSRun](https://jsrun.net/new)
++++ 1
+<strong>■ 常用工具</strong>
+- [API模拟](http://myjson.com/)
 +++
-+++ 平台&文档
++++ 1
+<strong>■ 平台&文档</strong>
 - [GitHub](https://github.com/)
 +++
-:::FLEX
-
+FLEX:::
+</pre>
 
 
 
