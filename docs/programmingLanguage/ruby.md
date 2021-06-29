@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>ruby</h1><strong>ruby</strong>
 </div>
-
+<div class="static-content">
 # ruby
 ```
 [h3|安装brew]
@@ -30,3 +30,5 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 
 ```
+
+</div>

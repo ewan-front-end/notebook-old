@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.06.28 11:33:32</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Javascript</h1><strong>Javascript</strong>
 </div>
-
+<div class="static-content">
 
 ## 数据类型
 ::: details Array
@@ -225,3 +225,5 @@ Math.sqrt(9)     3   平方根
 Math.pow(9, 2)   3   N次根
 Math.pow(8, 3)   2   X的Y次根
 :::
+
+</div>

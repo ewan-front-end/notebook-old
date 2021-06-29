@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>es6</h1><strong>es6</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.18:::
 
 ## 模块化
@@ -323,3 +323,5 @@ m.[green b|next]()            // {value: 3, done: true }
 
 ```
  
+
+</div>

@@ -16,8 +16,10 @@ pageClass: theme-item
 <div class="content-header">
 <h1>html-bundler</h1><strong>html-bundler</strong>
 </div>
-
+<div class="static-content">
 
 ## USAGE
 - 全局安装 $ npm i html-bundler -g
 
+
+</div>

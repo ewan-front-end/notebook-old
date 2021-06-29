@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>其它</h1><strong>其它</strong>
 </div>
-
+<div class="static-content">
 1. 底部十字
 2. 四脚归位
 	勾上回下
@@ -42,3 +42,5 @@ pageClass: theme-item
 
 	完整面朝前    后面缺左 左手上勾下回  右手上勾下回  左手勾上回下  右手勾上回下
 	完整面朝前    后面缺右 右手上勾下回  左手上勾下回  右手勾上回下  左手勾上回下
+
+</div>

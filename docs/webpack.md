@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Webpack</h1><strong>Webpack</strong>
 </div>
-
+<div class="static-content">
 # 原理
 webpack4.0
 demo> yarn init -y
@@ -887,3 +887,5 @@ const i18n = new VueI18n({
 
 
 
+
+</div>

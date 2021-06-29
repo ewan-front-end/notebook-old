@@ -16,5 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>MongoDB</h1><strong>MongoDB</strong>
 </div>
+<div class="static-content">
 
 
+</div>

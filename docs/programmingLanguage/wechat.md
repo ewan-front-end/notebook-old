@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>微信小程序</h1><strong>微信小程序</strong>
 </div>
-
+<div class="static-content">
 ```js
 小程序企业账号申请
 地址：https://mp.weixin.qq.com/wxopen/wacontractorpage?action=step3&lang=zh_CN&token=1549060622
@@ -337,3 +337,5 @@ Excel文件下载
 
 cloud://cyj-qxjbm.6379-cyj-qxjbm-1302036063/test.xlsx
 ```
+
+</div>

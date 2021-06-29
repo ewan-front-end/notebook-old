@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.28 17:50</span>
+            <span>M 2021.06.29 19:25</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/webpack">Webpack</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">需求图表</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li></ul></div><div class="custom-block links">
@@ -42,6 +42,7 @@ pageClass: theme-item
     谷歌插件：    Allow-Control-Allow-Origin(跨域)
 - [自助建站国际](https://www.wix.com)
 - [自助建站国内](https://www.strikingly.com/)
+- [plantuml](https://plantuml.com/zh/)
 
 </div>
 <div class="box-flex-item flex-1">
@@ -142,7 +143,7 @@ pageClass: theme-item
 <div class="box-flex-item flex-1">
 
 <strong>■ 知识储备相关</strong>
-- [前端开发相关的优秀网站、博客、以及活跃开发者](https://github.com/jikeytang/front-end-collect)
+- [前端相关网站、博客、以及活跃开发者](https://github.com/jikeytang/front-end-collect)
 - [前端网址导航](http://www.whycss.com/)
 - [各类移动端页面参考](http://k.swao.cn/js/web/mobileRefer.html)
 - [JS前端开发](http://www.kancloud.cn/jikeytang/qq/87646)
@@ -165,7 +166,7 @@ pageClass: theme-item
 - [TodoMVC](http://todomvc.com/)
 - [MUI-DCloud](http://www.dcloud.io/mui.html)
 - [开源中国](http://www.oschina.net/)
-- [InfoQ - 促进软件开发领域知识与创新的传播](http://www.infoq.com/cn/)
+- [InfoQ-软件开发领域知识与创新](http://www.infoq.com/cn/)
 - [CSDN.NET - 全球最大中文IT社区](http://www.csdn.net/)
 - [腾讯ISUX](https://isux.tencent.com/)
 - [WEB前端开发](http://www.css88.com/)
@@ -204,7 +205,7 @@ pageClass: theme-item
 <strong>■ 前端库/框架/插件相关</strong>
 - [Swiper中文APi](http://www.swiper.com.cn/)
 - [fullPage.js](http://www.jq22.com/jquery-info1124)
-- [多种动态效果的CSS3文字动画插件：textillate.js](http://www.holdcode.com/web/details/97)
+- [CSS3文字动画插件：textillate.js](http://www.holdcode.com/web/details/97)
 - [TweenMax动画库](http://greensock.com/timelinemax)
 - [翻书特效](http://www.turnjs.com/)
 - [css33D](https://github.com/shrekshrek)
@@ -231,7 +232,7 @@ pageClass: theme-item
 - [Gulp 中文网](http://www.gulpjs.com.cn/)
 - [Yeoman](http://yeoman.io/)
 - [browsersync官网](https://browsersync.io/)
-- [Gulp和webpack的区别，是一种工具吗？](http://blog.csdn.net/xllily_11/article/details/51782005)
+- [Gulp和webpack的区别](http://blog.csdn.net/xllily_11/article/details/51782005)
 - [从零开始搭建脚手架](https://juejin.im/post/5af6f9bd6fb9a07ac90d49eb) 
 
 <strong>■ 帖子相关</strong>
@@ -249,7 +250,7 @@ pageClass: theme-item
 - [浅析jQuery整体框架与实现（上）](https://segmentfault.com/a/1190000000754325)
 - [JavaScript继承方式详解](https://segmentfault.com/a/1190000002440502)
 - [关于原生js的一些研究](https://segmentfault.com/a/1190000002911253)
-- [从输入 URL 到浏览器接收的过程中发生了什么事情？](https://segmentfault.com/a/1190000000697254)
+- [从输入URL到浏览器接收的完整过程](https://segmentfault.com/a/1190000000697254)
 - [详解JavaScript模块化开发](https://segmentfault.com/a/1190000000733959)
 - [JavaScript 经典实例收集整理](https://segmentfault.com/a/1190000002559158)
 - [Web安全知多少](http://wetest.qq.com/lab/view/136.html)
@@ -287,15 +288,15 @@ pageClass: theme-item
 - [@i5ting 的个人主页 - CNode技术社区](https://cnodejs.org/user/i5ting)
 - [狼叔：如何正确的学习Node.js](https://github.com/i5ting/How-to-learn-node-correctly)
 - [七天学会NodeJS](http://nqdeng.github.io/7-days-nodejs/#1)
-- [基于vue2.0 +vuex+ element-ui后台管理系统](https://github.com/wdlhao/vue2-element-touzi-admin)
-- [基于 node.js + Mongodb 构建的后台系统](https://github.com/bailicangdu/node-elm)
-- [基于 vue2 + vuex 构建一个具有 45 个页面的大型单页面应用](https://github.com/bailicangdu/vue2-elm)
+- [vue2.0+vuex+element-ui后台管理系统](https://github.com/wdlhao/vue2-element-touzi-admin)
+- [node.js+Mongodb构建的后台系统](https://github.com/bailicangdu/node-elm)
+- [vue2+vuex构建一个45页的大型单页面应用](https://github.com/bailicangdu/vue2-elm)
 
 <strong>■ Ionic相关</strong>
 - [Ionic官网](http://ionicframework.com/)
 - [Ionic中文网](http://www.ionic.wang/)
 - [Cordova官网](http://cordova.apache.org/)
-- [Ionichina：全球最大的 Ionic Framework 中文社区](http://ionichina.com/)
+- [Ionichina：中文社区](http://ionichina.com/)
 - [Ionic中文站](http://cnionic.com/web/)
 - [Ionic仿照微信项目源码-边开发边学](http://www.phonegap100.com/themesinfo_47.html)
 - [Ionic Lab](http://lab.ionic.io/)
@@ -314,13 +315,13 @@ pageClass: theme-item
 - [搭建Hexo](http://www.zipperary.com/categories/hexo/)
 
 <strong>■ React.js相关</strong>
-- [React 技术栈系列教程 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2016/09/react-technology-stack.html)
+- [React 技术栈系列教程 - 阮一峰](http://www.ruanyifeng.com/blog/2016/09/react-technology-stack.html)
 - [React.js官网](https://facebook.github.io/react/index.html)
 - [React.js中文网](http://reactjs.cn/react/index.html)
 - [Why React? | React](https://facebook.github.io/react/docs/why-react.html)
 - [React中文网](http://react-china.org/)
 - [React入门视频教程 - Page 1 - 霹雳渔](http://piliyu.com/tag/react-getting-started-video-tutorial/)
-- [React 入门实例教程 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2015/03/react.html)
+- [React 入门实例教程 - 阮一峰](http://www.ruanyifeng.com/blog/2015/03/react.html)
 - [来自中国电信云计算的React入门视频](http://leanote.com/blog/post/57858d9cab644133ed009dfb)
 - [React JSFiddle](https://jsfiddle.net/reactjs/69z2wepo/)
 - [React JSFiddle without JSX](https://jsfiddle.net/reactjs/5vjqabv3/)
@@ -344,7 +345,7 @@ pageClass: theme-item
 - [Vue 和 React 的使用场景和深度有何不同？](https://www.zhihu.com/question/31585377)
 - [AngularJs与ReactJS优缺点&适用场景]( http://blog.csdn.net/u012125579/article/details/52744093)
 - [AngularJS对比React](http://www.oschina.net/translate/angularjs-vs-react)
-- [请问React和Angular各有什么优缺点，各自又适合什么开发场景？](https://www.zhihu.com/question/23444167)
+- [React和Angular优缺点及适合场景](https://www.zhihu.com/question/23444167)
 
 </div>
 </div>
@@ -367,8 +368,8 @@ pageClass: theme-item
 - [Vue 开源项目库汇总](https://github.com/opendigg/awesome-github-vue)
 - [使用Vue.js和Vuex实现购物车场景](https://segmentfault.com/a/1190000005780326)
 - [用VUE.JS学习ES](https://ke.qq.com/course/173710)
-- [vue项目实践（vuex+vue-router+vue-resource）](https://segmentfault.com/a/1190000006747096)
-- [vonic（一个基于vue.js和ionic样式的UI框架）](https://wangdahoo.github.io/vonic-documents/#/)
+- [项目实践vuex+vue-router+vue-resource](https://segmentfault.com/a/1190000006747096)
+- [vonic（基于vue.js和ionic的UI框架）](https://wangdahoo.github.io/vonic-documents/#/)
 - [Vue.js开发](http://www.cnblogs.com/keepfool/category/845804.html)
 - [Vue.js资源汇总](https://github.com/vuejs/awesome-vue)
 - [老马最新力作：最经典的Vue入门系列](http://aicoder.com/vue/preview/all.html)
@@ -403,12 +404,12 @@ pageClass: theme-item
 - [JavaScript面向对象](http://www.cnblogs.com/dolphinX/p/4385862.html)
 - [ECMAScript5 Object的新属性方法](http://www.cnblogs.com/dolphinX/p/3348467.html)
 - [ES6新特性概览](http://www.cnblogs.com/Wayou/p/es6_new_features.html)
-- [浅析JavaScript设计模式——发布-订阅/观察者模式](http://blog.csdn.net/q1056843325/article/details/53353850)
+- [浅析——发布-订阅/观察者模式](http://blog.csdn.net/q1056843325/article/details/53353850)
 - [深入浅出ES6](http://www.infoq.com/cn/es6-in-depth/)
 - [es6在线转es5](https://babeljs.io/repl/)
 
 <strong>■ CSS相关</strong>
-- [css的div垂直居中的方法，百分比div垂直居中](http://www.haorooms.com/post/css_div_juzhong)
+- [div垂直居中的方法](http://www.haorooms.com/post/css_div_juzhong)
 - [css常用效果总结](http://www.haorooms.com/post/css_common)
 - [CSS参考手册](http://css.doyoe.com/)
 - [css伪类和伪元素](http://tympanus.net/codrops/css_reference)
@@ -416,7 +417,7 @@ pageClass: theme-item
 - [CSS3Flexbox演示](http://www.css88.com/demo/flexbox-playground/)
 
 <strong>■ HTML5相关</strong>
-- [html5自带表单验证体验优化及提示气泡修改](http://www.haorooms.com/post/html5_formvalid)
+- [h5自带表单验证体验优化及提示气泡修改](http://www.haorooms.com/post/html5_formvalid)
 
 <strong>■ 工具相关</strong>
 - [百度地图](http://developer.baidu.com/map/jsdemo.htm#a1_2)
@@ -481,7 +482,7 @@ pageClass: theme-item
 <strong>■ Nuxt.js相关</strong>
 - [Nuxt.js-Vue.js通用应用框架](https://zh.nuxtjs.org/)
 - [Vue.js 服务器端渲染指南](https://ssr.vuejs.org/zh/)
-- [vue+nuxt+scss+node+express+MongoDB 实现的文章发布系统](https://www.itcnz.top/20180320/mynuxt.html)
+- [文章发布系统vue+nuxt+scss+node+express+MongoDB](https://www.itcnz.top/20180320/mynuxt.html)
 - [阿里云部署nuxt.js项目](https://www.itcnz.top/20180425/%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3.html)
 - [Nuxt.js采坑指南](http://docs.brianlee.cn/nuxt/)
 - [nuxt-blog](https://github.com/Hzy0913/my-blog)
@@ -491,7 +492,7 @@ pageClass: theme-item
 - [基于Nuxt的Vue.js服务端渲染实践](https://juejin.im/post/59ee97a66fb9a044fc43e910)
 - [王者荣耀故事站小程序（nuxt+小程序）](https://juejin.im/post/59f19d52f265da432002782c)
 - [nuxt框架中路由鉴权——Koa和Session](https://juejin.im/post/5aefc886f265da0b7e0c2e48)
-- [深入 NUXT，看看一条命令行的背后到底发生了什么](https://segmentfault.com/a/1190000008114613)
+- [NUXT 一条命令行的背后到底发生了什么](https://segmentfault.com/a/1190000008114613)
 - [基于nuxt和iview搭建后台管理系统实践(1)](https://juejin.im/post/5b439265f265da0f9e5881f5)
 
 </div>

@@ -16,6 +16,8 @@ pageClass: theme-item
 <div class="content-header">
 <h1>需求图表</h1><strong>需求图表</strong>
 </div>
+<div class="static-content">
 
 
 
+</div>

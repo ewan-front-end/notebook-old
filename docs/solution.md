@@ -1,5 +1,3 @@
-:::2021.06.23:::
-
 ## 浏览器静默与激活
 ```js
 var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null; // 不同浏览器 hidden 名称

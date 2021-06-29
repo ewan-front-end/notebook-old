@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>NPM</h1><strong>NPM</strong>
 </div>
-
+<div class="static-content">
 
 
 ## 代理源cnpm
@@ -319,3 +319,5 @@ npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,
 npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户 npm rm --global gulp
 npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 ```
+
+</div>

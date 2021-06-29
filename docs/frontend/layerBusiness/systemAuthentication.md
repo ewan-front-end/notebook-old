@@ -23,9 +23,11 @@ pageClass: theme-item
 <h1>鉴权系统</h1><strong>鉴权系统</strong>
 <summary class="desc">集中处理登陆、支付等需要风险控制较高的公共业务</summary>
 </div>
-
+<div class="static-content">
 
 # 内容标题
 aaaaaaaaaaaaabbbbbbbbbbbbbbbcccccccccccccc
 
 <img :src="$withBase('images/logo.png')">
+
+</div>

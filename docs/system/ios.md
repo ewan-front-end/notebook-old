@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>IOS</h1><strong>IOS</strong>
 </div>
-
+<div class="static-content">
 创建AppID(应用ID非AStoreID)
 
 开发者账号
@@ -24,3 +24,5 @@ pageClass: theme-item
 
 
 https://developer.apple.com/  导航 Account 进入，登录自己的开发者帐号
+
+</div>

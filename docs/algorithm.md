@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>算法</h1><strong>算法</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.26:::
 
 公式：
@@ -138,3 +138,5 @@ z = z'
 t = (v/c²)x' + t' / Math.sqrt(1 - v² / c²) 
 
 </pre>
+
+</div>

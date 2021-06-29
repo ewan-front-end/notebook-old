@@ -1,54 +1,44 @@
-const fs = require('fs')
-const {writeFile} = require('./src/tools-fs')
+const {writeFile, readFile} = require('./src/tools-fs')
 const _path = require('path')
-const RES_MAP_PATH = require('./.RES_MAP_PATH.json')
+const {RES_MAP_PATH} = require('./data/resMapPath.js')
 
 module.exports = (ABSOLUTE_PATH, target) => {
     let content
-    let childrenContent = '' // 子类链接
-    let linksContent = ''    // 相关链接
-    let topicContent = ''
-    let contentHeader = ''
-    let staticContent = ''      // 静态资源
+    let childrenContent = '' // 主题子类
+    let linksContent = ''    // 主题链接
+    let contentHeader = ''   // 主题标题、说明、详情
+    let staticContent = ''   // 资源静态内容
     let modifyData = '0000.00.00 00:00'
-    
+
+    // 主题子类
     if(target.children) {
         let listStr = ''
-        for (i in target.children){
-            let {linkName, path} = target.children[i]
-            listStr += `<li><a href="${path}">${linkName}</a></li>`
-        } 
+        for (i in target.children){ let {linkName, path} = target.children[i]; listStr += `<li><a href="${path}">${linkName}</a></li>` } 
         childrenContent += `<div class="custom-block children"><ul>${listStr}</ul></div>`
     }
-    if(target.links) {        
-        if (Object.prototype.toString.call(target.links) !== "[object Array]") console.error(target.links, '非数组类型')
+    // 主题链接
+    if(target.links) {  
         let listStr = ''
-        target.links.forEach(({name, href}) => {
-            listStr += `<li><a href="${href}">${name}</a></li>\n`
-        })  
+        target.links.forEach(({name, href}) => { listStr += `<li><a href="${href}">${name}</a></li>\n` })  
         linksContent += `<div class="custom-block links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
     }
+    // 主题标题、说明、详情
     if (target.title || target.desc || target.detail) {
         const titleStr = target.title ? `<h1>${target.title}</h1><strong>${target.title}</strong>\n` : ''
         const descStr = target.desc ? `<summary class="desc">${target.desc}</summary>\n` : ''
         const detailStr = target.detail ? `<detail>${target.detail}</detail>\n` : ''
         contentHeader += `<div class="content-header">\n${titleStr}${descStr}${detailStr}</div>`
     }
-    // target.title  && (content += `# ${target.title}\n`)  
-    // target.desc   && (content += `> ${target.desc}\n`)
-    // target.detail && (content += `${target.detail}\n`) 
+    // 资源静态内容
     if (target.src) {
-        let file = fs.readFileSync(_path.resolve(__dirname, './resources/md/'+target.src+'.md'), 'utf8')
+        let file = readFile(_path.resolve(__dirname, './resources/md/'+target.src+'.md'))
         if (RES_MAP_PATH[target.src]) modifyData = RES_MAP_PATH[target.src].updateTime
 
-        // 自定义格式
+        // 自定义格式 :::FLEX +++ 1 +++ FLEX:::
         let matchFLEX
         while ((matchFLEX = /\:\:\:FLEX([\s\S]+?)FLEX\:\:\:/.exec(file)) !== null) {  
-            console.log('+++++++')
             let content = matchFLEX[1], matchItem
-            while ((matchItem = /\+\+\+ (\d{1,2})([\s\S]*?)\+\+\+/.exec(content)) !== null) {
-                content = content.replace(matchItem[0], `<div class="box-flex-item flex-${matchItem[1]}">\n${matchItem[2]}\n</div>`)
-            }
+            while ((matchItem = /\+\+\+ (\d{1,2})([\s\S]*?)\+\+\+/.exec(content)) !== null) { content = content.replace(matchItem[0], `<div class="box-flex-item flex-${matchItem[1]}">\n${matchItem[2]}\n</div>`) }
             file = file.replace(matchFLEX[0], `<div class="box-flex">${content}</div>`)            
         }
 
@@ -65,14 +55,11 @@ module.exports = (ABSOLUTE_PATH, target) => {
             <span>M ${modifyData}</span>
         </div>
     </div>
-    <div class="content">${childrenContent}${linksContent}${topicContent}</div>
+    <div class="content">${childrenContent}${linksContent}</div>
 </div>
 ${contentHeader}
 <div class="static-content">
 ${staticContent}
-</div>`          
-   
-    
-                
+</div>`                 
     writeFile(ABSOLUTE_PATH + '.md', content)
 }

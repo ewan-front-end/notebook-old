@@ -16,9 +16,11 @@ pageClass: theme-item
 <div class="content-header">
 <h1>ECMAScript</h1><strong>ECMAScript</strong>
 </div>
-
+<div class="static-content">
 
 
 ECMAScript
 
 
+
+</div>

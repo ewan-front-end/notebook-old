@@ -21,7 +21,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>服务器</h1><strong>服务器</strong>
 </div>
-
+<div class="static-content">
 # Node原生
 ```
 var http = require("http");
@@ -49,3 +49,5 @@ app.listen(3000, "localhost");
 # Node框架
 [Express](pages/server/express/index.md)
 [Koa](pages/server/koa/index.md)
+
+</div>

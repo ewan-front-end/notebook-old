@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00</span>
+            <span>M 2021.06.29 20:19</span>
         </div>
     </div>
     <div class="content"></div>
@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>插件</h1><strong>插件</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.17:::## node插件开发
 .
 ├── bin                          #运行目录
@@ -98,6 +98,12 @@ exports.build = series(
 );
 */
 ```
+
+
+## node-plantuml
+> 画图
+- npm install node-plantuml -g
+
 - 文件监控
 参考chokidar
 
@@ -407,3 +413,5 @@ USAGE:
 
 
   bin> node app.js --help
+
+</div>

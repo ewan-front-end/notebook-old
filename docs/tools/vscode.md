@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>VSCode</h1><strong>VSCode</strong>
 </div>
-
+<div class="static-content">
 
 
 
@@ -240,3 +240,5 @@ TM_DIRECTORY              当前文件所属目录的绝对路径
 TM_FILEPATH               当前文件的绝对路径
 ```
 
+
+</div>

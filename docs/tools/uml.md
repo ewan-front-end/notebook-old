@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>uml</h1><strong>uml</strong>
 </div>
-
+<div class="static-content">
 
 ## 用例图 
 - 定义<br>
@@ -392,3 +392,5 @@ state Configuring {
 
 @enduml
 ```
+
+</div>

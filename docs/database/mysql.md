@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>MySQL</h1><strong>MySQL</strong>
 </div>
-
+<div class="static-content">
 
 
 ```sql
@@ -214,3 +214,5 @@ con.query(sql, (err, result) => {
 con.end()
 
 ```
+
+</div>

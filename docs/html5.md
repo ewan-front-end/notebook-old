@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>HTML5</h1><strong>HTML5</strong>
 </div>
-
+<div class="static-content">
 
 
 
@@ -121,3 +121,5 @@ var radialGradient = context.createRadialGradient(x0, y0, r0, x1, y1, r1) // 放
     context.fillStyle = radialGradient                                    // 使用模型
     context.fillRect(20, 20, 150, 100)
 ```
+
+</div>

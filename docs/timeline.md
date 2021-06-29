@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>时间线</h1><strong>时间线</strong>
 </div>
-
+<div class="static-content">
 [html+js开发] -> [模块化开发] 
 
 demo/
@@ -43,3 +43,5 @@ module.exports = {
 }
 ```
 demo2> webpack
+
+</div>

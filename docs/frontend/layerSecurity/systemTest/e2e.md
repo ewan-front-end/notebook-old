@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block links">
@@ -23,4 +23,6 @@ pageClass: theme-item
 <h1>端到端测试</h1><strong>端到端测试</strong>
 <summary class="desc">从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景</summary>
 </div>
+<div class="static-content">
 
+</div>

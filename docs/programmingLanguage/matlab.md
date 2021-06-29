@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,4 +17,6 @@ pageClass: theme-item
 <h1>matlab</h1><strong>matlab</strong>
 <summary class="desc">算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境</summary>
 </div>
+<div class="static-content">
 
+</div>

@@ -16,6 +16,8 @@ pageClass: theme-item
 <div class="content-header">
 <h1>MacBook</h1><strong>MacBook</strong>
 </div>
-
+<div class="static-content">
 显示／隐藏文件：command + shift + .
 拷贝文件路径：option + command + c
+
+</div>

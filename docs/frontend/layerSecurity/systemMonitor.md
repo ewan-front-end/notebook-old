@@ -17,7 +17,7 @@ pageClass: theme-item
 <h1>监控系统</h1><strong>监控系统</strong>
 <summary class="desc">从用户的角度判断系统的可用性，关注的是实时数据，提高团队的故障响应能力</summary>
 </div>
-
+<div class="static-content">
 ProjectRoot
 ┬website
 │├client
@@ -178,3 +178,5 @@ perf.init()
 兼容性https://caniuse.com/
 
 
+
+</div>

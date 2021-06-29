@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Vuepress</h1><strong>Vuepress</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.27:::
 
 
@@ -463,22 +463,20 @@ layout: SpecialLayout
 ```
 
 ## 自定义格式
-<pre>
 :::FLEX
-+++ 1
-<strong>■ 资源</strong>
++++ 资源
 - [icomoon](http://icomoon.io/app)
 +++
-+++ 1
-<strong>■ 常用工具</strong>
-- [API模拟](http://myjson.com/)
++++ 常用工具
+- [JSRun](https://jsrun.net/new)
 +++
-+++ 1
-<strong>■ 平台&文档</strong>
++++ 平台&文档
 - [GitHub](https://github.com/)
 +++
-FLEX:::
-</pre>
+:::FLEX
 
 
 
+
+
+</div>

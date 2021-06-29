@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>设计模式</h1><strong>设计模式</strong>
 </div>
-
+<div class="static-content">
 
 https://blog.csdn.net/qq_20901397/article/details/82219055
 http://c.biancheng.net/view/1380.html
@@ -250,3 +250,5 @@ class StatePattern{}
 
 
 
+
+</div>

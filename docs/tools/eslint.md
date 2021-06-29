@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>ESLint</h1><strong>ESLint</strong>
 </div>
-
+<div class="static-content">
 
 安装
 ```
@@ -76,3 +76,5 @@ https://cloud.tencent.com/developer/section/1135580
   "space-before-function-paren": 1
 }
 ```
+
+</div>

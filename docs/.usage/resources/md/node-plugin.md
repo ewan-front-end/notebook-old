@@ -79,6 +79,12 @@ exports.build = series(
 );
 */
 ```
+
+
+## node-plantuml
+> 画图
+- npm install node-plantuml -g
+
 - 文件监控
 参考chokidar
 

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,4 +17,6 @@ pageClass: theme-item
 <h1>数据持久化系统</h1><strong>数据持久化系统</strong>
 <summary class="desc">存储上层系统的非核心业务数据，比如错误数据或者用户行为数据</summary>
 </div>
+<div class="static-content">
 
+</div>

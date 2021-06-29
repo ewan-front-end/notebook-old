@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Typescript</h1><strong>Typescript</strong>
 </div>
-
+<div class="static-content">
 
 基础类型 变量声明 接口 类 函数 泛型 类型推新 高级类型
 
@@ -325,3 +325,5 @@ examples/server.js
 
 ##### 单元测试
 
+
+</div>

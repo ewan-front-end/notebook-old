@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Markdown</h1><strong>Markdown</strong>
 </div>
-
+<div class="static-content">
 [detail1](pages/system/index)
 
 ### ewan-layout
@@ -499,3 +499,5 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 
 
+
+</div>

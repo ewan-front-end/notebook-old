@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.28 20:58</span>
+            <span>M 2021.06.29 20:38</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件</a></li></ul></div></div>
@@ -17,9 +17,9 @@ pageClass: theme-item
 <h1>Node</h1><strong>Node</strong>
 </div>
 <div class="static-content">
-:::2021.06.18:::[NPM](/tools/npm)
+[NPM](/tools/npm)
 
-## fs333
+## fs
 - 递归创建目录
 - 拷贝目录
 
@@ -74,7 +74,7 @@ pageClass: theme-item
 - [gulp](/node/plugin.html#gulp)            开发任务流
 - [chokidar](/node/plugin.html#chokidar)    比标准库fs.watch()、fs.watchFile更完善的用于监控文件/文件夹变化的工具
 - [concurrently](/node/package#scripts)     多命令运行 
-- [markdown-it-plantuml-ex]                 画图
+- [node-plantuml](/node/package#node-plantuml)                 画图
 
 ## 标准库
 - child_process  

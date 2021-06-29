@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>预处理</h1><strong>预处理</strong>
 </div>
-
+<div class="static-content">
 
 
 ## Stylus
@@ -34,3 +34,5 @@ a.button
   -moz-border-radius: 5px
   border-radius: 5px
 ```
+
+</div>

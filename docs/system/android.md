@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Android</h1><strong>Android</strong>
 </div>
-
+<div class="static-content">
 # Android开发环境搭建
 
 JDK安装包 | Android SDK
@@ -115,3 +115,5 @@ Google USB Driver package, revision 4	              https://dl-ssl.google.com/an
 # Android开发环境包
 https://pan.baidu.com/s/1eQGJqi2 
 https://pan.baidu.com/s/1eQGJqi2
+
+</div>

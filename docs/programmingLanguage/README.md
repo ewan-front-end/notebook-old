@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/programmingLanguage/matlab">matlab</a></li><li><a href="/programmingLanguage/ruby">ruby</a></li><li><a href="/programmingLanguage/wechat">微信小程序</a></li><li><a href="/programmingLanguage/electron">Electron</a></li></ul></div><div class="custom-block links">
@@ -20,4 +20,6 @@ pageClass: theme-item
 <div class="content-header">
 <h1>编程语言</h1><strong>编程语言</strong>
 </div>
+<div class="static-content">
 
+</div>

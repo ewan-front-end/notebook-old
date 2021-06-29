@@ -16,5 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>操作系统</h1><strong>操作系统</strong>
 </div>
-
+<div class="static-content">
 操作系统
+
+</div>

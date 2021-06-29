@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>CSS变量</h1><strong>CSS变量</strong>
 </div>
-
+<div class="static-content">
 js操作变量
 ```html
 <style>
@@ -29,3 +29,5 @@ js操作变量
 <button onclick="document.documentElement.style.setProperty('--blue', '#f00')">字体颜色</button>
 <button onclick="document.documentElement.style.setProperty('--blue', '#f00')">增加字号</button>
 ```
+
+</div>

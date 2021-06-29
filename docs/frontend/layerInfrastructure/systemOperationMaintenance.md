@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,4 +17,6 @@ pageClass: theme-item
 <h1>运维系统</h1><strong>运维系统</strong>
 <summary class="desc">版本控制 发布脚本</summary>
 </div>
+<div class="static-content">
 
+</div>

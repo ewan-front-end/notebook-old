@@ -1,15 +1,13 @@
 const {mkdirSync, writeFile, readFile} = require('./src/tools-fs')
 const Path = require('path')
-const argArr = process.argv.slice(2)
-const siteMap = require('./siteMap')
-const dataToMap = require('./src/handleDataToMap.js')
-const {PATH_MAP_CREATOR, INDEX_CHILDREN_STR} = dataToMap(siteMap)
+const argArr = process.argv.slice(2)            // 命令参数
+const {SITE_MAP} = require('./data/siteMap.js') // 站点数据
+const {PATH_MAP_CREATOR, INDEX_CHILDREN_STR} = require('./src/handleDataToMap.js')(SITE_MAP)
 const generateFile = require('./generateFile')
 
 const handleCreator = ({type, path, target}) => {
     const ABSOLUTE_PATH = Path.resolve(__dirname, '..' + path)
-    type === 'DIR'  && mkdirSync(ABSOLUTE_PATH)
-    type === 'FILE' && generateFile(ABSOLUTE_PATH, target)
+    type === 'DIR' ? mkdirSync(ABSOLUTE_PATH) : generateFile(ABSOLUTE_PATH, target)
 }
 const createIndexFile = () => {
     let content = readFile(Path.resolve(__dirname, './resources/md/index.md'))
@@ -29,9 +27,7 @@ if (argArr.length > 0) {
         }
     }
 } else {
-    for (key in PATH_MAP_CREATOR) { 
-        handleCreator(PATH_MAP_CREATOR[key]) 
-    } 
+    for (key in PATH_MAP_CREATOR) { handleCreator(PATH_MAP_CREATOR[key]) } 
     createIndexFile()
 }
 

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/database/mysql">MySQL</a></li><li><a href="/database/mongodb">MongoDB</a></li></ul></div></div>
@@ -16,4 +16,6 @@ pageClass: theme-item
 <div class="content-header">
 <h1>数据库</h1><strong>数据库</strong>
 </div>
+<div class="static-content">
 
+</div>

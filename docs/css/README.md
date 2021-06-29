@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>2021.06.28 13:45:06</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
@@ -17,7 +17,7 @@ pageClass: theme-item
 <h1>CSS</h1><strong>CSS</strong>
 <summary class="desc">层叠样式表(Cascading Style Sheets)</summary>
 </div>
-
+<div class="static-content">
 
 - 应用
 [引入字体](#引入字体)
@@ -1239,3 +1239,5 @@ common.css
 .vap10{ vertical-align: 10% } .vap20{ vertical-align: 20% } .vap30{ vertical-align: 30% } .vap40{ vertical-align: 40% }
 .vap50{ vertical-align: 50% } .vap60{ vertical-align: 60% } .vap70{ vertical-align: 70% } .vap80{ vertical-align: 80% }
 ```
+
+</div>

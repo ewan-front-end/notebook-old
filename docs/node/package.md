@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>描述文件</h1><strong>描述文件</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.28:::
 
 ```json
@@ -50,3 +50,5 @@ pageClass: theme-item
 
          
 </pre>
+
+</div>

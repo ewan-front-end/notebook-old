@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Nginx</h1><strong>Nginx</strong>
 </div>
-
+<div class="static-content">
 
 
 # nginx.conf
@@ -157,3 +157,5 @@ location / {
             root   html; # 可以指定任意目录，如：d:/web/ios
             index  index.html index.htm;
         }
+
+</div>

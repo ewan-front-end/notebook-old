@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>框架</h1><strong>框架</strong>
 </div>
-
+<div class="static-content">
 - demo> npm install express --save
 
 - demo/server.js
@@ -86,3 +86,5 @@ app.listen(3000, "localhost");
 [Koa](pages/server/koa/index.md)
 
 
+
+</div>

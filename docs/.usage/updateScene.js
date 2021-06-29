@@ -1,6 +1,6 @@
 const {readFile, writeFile, editWritCommonFile} = require('./src/tools-fs')
 const path = require('path')
-const siteMapCollect = require('./src/siteMapCollect')
+const siteMapCollect = require('./data/siteMapCollect')
 const handleSceneContent = require('./src/handleSceneContent')
 
 // 从siteMap中收集内容

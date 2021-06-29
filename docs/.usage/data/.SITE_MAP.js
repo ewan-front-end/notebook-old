@@ -101,7 +101,8 @@ module.exports = {
         matlab:{desc:'算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境', keyword:'软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信'},
         ruby:{src:'ruby'},
         wechat:{linkName:'微信小程序', src:'wechat'},
-        electron: {linkName:'Electron', src:'electron'}      
+        electron: {linkName:'Electron', src:'electron'},
+        java:{title:'Java', src:'java'}      
     }},
     framework: {title:'技术框架', children:{
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/framework/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/framework/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/framework/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, src:'fw-vuepress'},
@@ -142,7 +143,7 @@ module.exports = {
             }},
             systemTest: {title:'测试系统', desc:'自动化测试是是一个锥形体系', children: {
                 static:{title: '静态检查', links:[{name:'Eslint', href:'tools/eslint'},{name:'JSCS'}]},
-                unit:{title: '单元测试', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}]},
+                unit:{title: '单元测试', src:'unit', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}]},
                 e2e:{title: '端到端测试', desc:'从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景', links:[{name:'Protractor'},{name:'Nightwatch'},{name:'Selenium'}]},
                 ci:{title: '持续集成', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入'},
             }}

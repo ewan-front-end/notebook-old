@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.06.28 14:10</span>
+            <span>M 0000:00:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block links">
@@ -21,7 +21,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>文档</h1><strong>文档</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.23:::
 
 ## vuepress docs
@@ -100,3 +100,5 @@ node docs/.usage/updateUsage.js                          聚合使用方法
     > nvm install 12.18.2 安装特定版本
     > nvm use 12.18.2 使用指定版本    
 </pre>
+
+</div>

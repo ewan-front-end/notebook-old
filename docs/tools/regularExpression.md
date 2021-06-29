@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>正则表达式</h1><strong>正则表达式</strong>
 </div>
-
+<div class="static-content">
 :::2021.06.27:::
 
 
@@ -309,3 +309,5 @@ if (pattern.test(text)){
     alert(RegExp.$2);           // t
 }
  
+
+</div>

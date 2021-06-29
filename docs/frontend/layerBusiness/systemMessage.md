@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00</span>
+            <span>M 0000.00.00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,4 +17,6 @@ pageClass: theme-item
 <h1>消息系统</h1><strong>消息系统</strong>
 <summary class="desc">通知发布 信息推送 客服等即时通讯场景</summary>
 </div>
+<div class="static-content">
 
+</div>

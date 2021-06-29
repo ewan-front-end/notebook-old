@@ -16,7 +16,7 @@ pageClass: theme-item
 <div class="content-header">
 <h1>Electron</h1><strong>Electron</strong>
 </div>
-
+<div class="static-content">
 ```
 Electron
 安装
@@ -46,3 +46,5 @@ componentDidUndate:组件更新结束之后执行，在初始化render时不执�
 
 
 ```
+
+</div>
