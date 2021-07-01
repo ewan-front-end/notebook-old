@@ -8,16 +8,15 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00</span>
+            <span>M 0000:00:00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>描述文件</h1><strong>描述文件</strong>
+<h1>描述文件package.json</h1><strong>描述文件package.json</strong>
 </div>
 <div class="static-content">
-:::2021.06.28:::
 
 ```json
 {

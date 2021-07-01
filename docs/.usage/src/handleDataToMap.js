@@ -56,7 +56,7 @@ module.exports = (siteMap) => {
     }
     INDEX_CHILDREN_STR = `<div class="root-children block-main">\n\n${INDEX_CHILDREN_STR}\n</div>` 
     RES_MAP_PATH['index'] = {path:'/README', updateTime:'0000:00:00'}  
-    RES_MAP_PATH_SET(RES_MAP_PATH)
+    RES_MAP_PATH && RES_MAP_PATH_SET(RES_MAP_PATH)
 
     return {PATH_MAP_CREATOR, INDEX_CHILDREN_STR}
 }

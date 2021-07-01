@@ -13,6 +13,7 @@ chokidar.watch('./docs/.usage/resources/md')
         } else if (resPath === 'scene') {
             exec('node docs/.usage/updateScene.js ', function(error, stdout, stderr) {})
         } else if (resPath === 'solution') {
+            console.log('updateSolution');
             exec('node docs/.usage/updateSolution.js ', function(error, stdout, stderr) {})
         } else if (RES_MAP_PATH) {
             const target = RES_MAP_PATH[resPath]            

@@ -32,7 +32,33 @@ module.exports = {
         const next = editHandler(fileObj)
         next && module.exports.writeFile(path, `module.exports = ${JSON.stringify(fileObj, null, 4)}`)
     },
-    mkdirSync: checkDirSync
+    mkdirSync: checkDirSync,
+    saveFile(filePath, fileData) {
+        return new Promise((resolve, reject) => {
+            /*fs.createWriteStream(path,[options])
+            options <String> | <Object>
+            {
+                flags: 'w',
+                defaultEncoding: 'utf8',
+                fd: null,
+                mode: 0o666,
+                autoClose: true
+            }
+            */
+            const wstream = fs.createWriteStream(filePath)
+            wstream.on('open', () => {
+                const blockSize = 128
+                const nbBlocks = Math.ceil(fileData.length / (blockSize))
+                for (let i = 0; i < nbBlocks; i += 1) {
+                    const currentBlock = fileData.slice(blockSize * i, Math.min(blockSize * (i + 1), fileData.length),)
+                    wstream.write(currentBlock)
+                }
+                wstream.end()
+            })
+            wstream.on('error', (err) => { reject(err) })
+            wstream.on('finish', () => { resolve(true) })
+        })
+    }
 }
 
 

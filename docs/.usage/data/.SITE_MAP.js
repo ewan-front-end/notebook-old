@@ -90,7 +90,7 @@ module.exports = {
     node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], src:'node/index', children:{
         plugin:{title:'插件', src:'node-plugin'},
         framework:{title:'框架', src:'node-framework'},
-        package:{title:'描述文件', src:'node/package'}
+        package:{title:'描述文件package.json', src:'node/package'}
     }},
     html5: {title:'HTML5', src:'html5'},
     javascript:{title: 'Javascript', src:'javascript', children:{
@@ -102,7 +102,9 @@ module.exports = {
         ruby:{src:'ruby'},
         wechat:{linkName:'微信小程序', src:'wechat'},
         electron: {linkName:'Electron', src:'electron'},
-        java:{title:'Java', src:'java'}      
+        java:{title:'Java', src:'java'},
+        plantuml:{title:'PlantUML',src:'plantuml'},
+        python:{title:'Python', src:'python'}   
     }},
     framework: {title:'技术框架', children:{
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/framework/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/framework/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/framework/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, src:'fw-vuepress'},

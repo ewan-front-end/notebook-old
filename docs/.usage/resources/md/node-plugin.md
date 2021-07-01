@@ -82,10 +82,44 @@ exports.build = series(
 
 
 ## node-plantuml
-> 画图
-- npm install node-plantuml -g
+> 画图 [PlantUML](/programmingLanguage/plantuml)
+- [java环境配置](/programmingLanguage/java)
+- npm install node-plantuml -g   // Cannot find module 'node-plantuml' 本地安装npm install node-plantuml --save-dev
+- $ puml -h
+- /test.js
+    ```js
+    var plantuml = require('node-plantuml');
+    var fs = require('fs');
+    
+    var umlStr = `
+    :Alarms;
+    while (Unselect/select ?) is (unselect)
+    :Unselect alarm;
+    endwhile (select)
+    if (Select alarm) then (accept);
+    :Accept alarm;
+    :Reset alarm;
+    else(commit)
+    :Commit alarm;
+    :Audit alarm;
+    endif
+    :Alarm logs;
+    `
+    var gen = plantuml.generate(umlStr);
+    gen.out.pipe(fs.createWriteStream("output-file.png"))
+    ``
+<pre>
+设置图形尺寸：(在umlStr前面)scale 1000 width
+plantuml.generate(input, options, callback)
+    options:{
+        format: 'png' // 输出格式ascii/unicode/svg/eps/png
+        config: ''  // classic/classic
+        dot:
+        charset: 'UTF-8'
+    }
+</pre>
 
-- 文件监控
+## 文件监控
 参考chokidar
 
 ## chokidar

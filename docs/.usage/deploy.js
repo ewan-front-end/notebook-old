@@ -30,20 +30,23 @@ const R________ = path.resolve(__dirname, '../../')
 const R_P______ = path.resolve(R________, 'package.json')
 const R_D______ = path.resolve(R________, 'docs')
 const R_D_U____ = path.resolve(__dirname)
-const R_D_U_S_I = path.resolve(R_D_U____, 'styles/index.styl')
+//const R_D_U_S_I = path.resolve(R_D_U____, 'styles/index.styl')
 const R_D_P____ = path.resolve(R_D______, '.vuepress')
 const R_D_P_P__ = path.resolve(R_D_P____, 'public')
 const R_D_P_C__ = path.resolve(R_D_P____, 'config.js')
 const R_D_P_S__ = path.resolve(R_D_P____, 'styles')
-const R_D_P_S_I = path.resolve(R_D_P_S__, 'index.styl')
+//const R_D_P_S_I = path.resolve(R_D_P_S__, 'index.styl')
 
 console.log('文档部署中...');
 if(fs.existsSync(R_D_P____)) { console.log('已存在 ' + R_D_P____) } else { fs.mkdirSync(R_D_P____); console.log('已创建 ' + R_D_P____) }
 if(fs.existsSync(R_D_P_P__)) { console.log('已存在 ' + R_D_P_P__) } else { fs.mkdirSync(R_D_P_P__); console.log('已创建 ' + R_D_P_P__) }
 if(fs.existsSync(R_D_P_C__)) { console.log('已存在 ' + R_D_P_C__) } else { fs.writeFileSync(R_D_P_C__, configStr, { encoding: 'utf8' }); console.log('已创建 ' + R_D_P_C__) }
 if(fs.existsSync(R_D_P_S__)) { console.log('已存在 ' + R_D_P_S__) } else { fs.mkdirSync(R_D_P_S__); console.log('已创建 ' + R_D_P_S__) }
-if(fs.existsSync(R_D_P_S_I)) { console.log('已存在 ' + R_D_P_S_I) } else { fs.copyFileSync(R_D_U_S_I, R_D_P_S_I); console.log('已创建 ' + R_D_P_S_I) }
+//if(fs.existsSync(R_D_P_S_I)) { console.log('已存在 ' + R_D_P_S_I) } else { fs.copyFileSync(R_D_U_S_I, R_D_P_S_I); console.log('已创建 ' + R_D_P_S_I) }
 if(fs.existsSync(R_P______)) { const package = require(R_P______); Object.assign(package.scripts, packageScripts); packageStr = JSON.stringify(package, null, 4) } 
-fs.writeFile(R_P______, packageStr, { encoding: 'utf8' }, err => {console.log('写　入 ' + R_P______ + ' scripts'); installVuepress()})
+fs.writeFile(R_P______, packageStr, { encoding: 'utf8' }, err => {
+    console.log('写　入 ' + R_P______ + ' scripts'); 
+    //installVuepress()
+})
 
 fs.copyFileSync(path.resolve(R_D_U____, 'resources/images/logo.png'), path.resolve(R_D_P____, 'public/logo.png')); console.log('资　源 ' + R_D_P____ + '\\public\\logo.png')

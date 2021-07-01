@@ -1,8 +1,8 @@
 module.exports = {
-    "port": "9000",
     "title": "标题文本",
     "description": "说明文本",
     "themeConfig": {
+        "port": "9000",
         "logo": "/logo.png",
         "nav": [
             {
@@ -18,19 +18,11 @@ module.exports = {
                 "link": "/projects/"
             },
             {
-                "text": "场景",
-                "link": "/scene"
-            },
-            {
-                "text": "聚合",
-                "link": "/aggregation"
-            },
-            {
                 "text": "方案",
                 "link": "/solution"
             }
         ],
-        "sidebarDepth": 1,
+        "sidebarDepth": 2,
         "sidebar": "auto"
     },
     "configureWebpack": {
@@ -40,5 +32,6 @@ module.exports = {
                 "@res_md": "resources/md"
             }
         }
-    }
+    },
+    "debug": true
 }

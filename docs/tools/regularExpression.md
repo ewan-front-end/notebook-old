@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00</span>
+            <span>M 0000:00:00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -53,14 +53,17 @@ arr.forEach((e) => {
 })
 ```
 
+<pre>
 匹配每一行的开头: (?:^|\n)#{1,6}.+     ## 基础配置
-
+<br>
 匹配任意字符（包括换行符）的方法
 　　可以用 （[\s\S]*） ，也可以用 “（[\d\D]*）”、“（[\w\W]*）” 来匹配，就可以匹配包括换行符在内的任意字符
+<br>
+匹配中文
+[0-9a-zA-Z\u4e00-\u9fa5_-]
 
 
-
-
+</pre>
 
 
 

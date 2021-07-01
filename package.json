@@ -13,11 +13,12 @@
         "chokidar": "^3.5.1",
         "gitbook-plugin-plantuml": "0.0.15",
         "node-cache": "^5.1.2",
+        "node-plantuml": "^0.9.0",
         "nodemon": "^2.0.7",
         "vuepress": "^1.8.2"
     },
     "scripts": {
-        "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/createWatch.js\"",
+        "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs"
     },
     "keywords": [],
