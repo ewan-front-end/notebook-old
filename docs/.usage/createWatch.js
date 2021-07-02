@@ -7,7 +7,7 @@ chokidar.watch('./docs/.usage/resources/md')
     .on('change', path => {
         const resPath = path.split(/resources[\\\/]md[\\\/]/)[1].replace('.md', '').replace(/\\/g, '/')
         const {RES_MAP_PATH, RES_MAP_PATH_SET} = require('./data/resMapPath.js') 
-        
+        console.log('resPath', resPath);
         if (resPath === 'index') {
 
         } else if (resPath === 'scene') {

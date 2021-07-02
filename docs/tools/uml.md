@@ -11,7 +11,11 @@ pageClass: theme-item
             <span>M 0000:00:00 00:00</span>
         </div>
     </div>
-    <div class="content"></div>
+    <div class="content"><div class="custom-block links">
+<ul class="desc">
+<li><a href="/programmingLanguage/plantuml">PlantUML语言</a></li>
+</ul>
+</div></div>
 </div>
 <div class="content-header">
 <h1>uml</h1><strong>uml</strong>
@@ -51,23 +55,23 @@ window.$docsify = {
 ### 3. 使用
 
 #### Salt (wireframe)
-<img :src="$withBase('/uml/未知.png')">
-<img :src="$withBase('/uml/未知.png')">
-<img :src="$withBase('/uml/未知.png')">
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
+<img :src="$withBase('/uml/未命名.png')">
+<img :src="$withBase('/uml/未命名.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
-<img :src="$withBase('/uml/未知.png')">
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
 #### 数学
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
 #### 工作分解结构
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
 #### 思维导图
-<img :src="$withBase('/uml/未知.png')">
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
+<img :src="$withBase('/uml/未命名.png')">
 ```
 @startmindmap
 * Debian
@@ -86,7 +90,7 @@ window.$docsify = {
 ```
 
 #### 甘特图
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 ```
 @startgantt
 [Prototype design] lasts 14 days
@@ -99,7 +103,7 @@ window.$docsify = {
 ```
 
 #### 流程图
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 ```
 @startuml
 start
@@ -133,14 +137,14 @@ stop
 
 
 #### 时序图
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 #### 用例图
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
 #### 组件图
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
 #### 状态图
-<img :src="$withBase('/uml/未知.png')">
+<img :src="$withBase('/uml/未命名.png')">
 
 </div>

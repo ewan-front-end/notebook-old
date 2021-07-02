@@ -277,16 +277,6 @@ FetchMock.mock('/login', (url, opts) => {
 
 ## register注册
 ```
-填写手机号 ───────────────────────────────────────────────────────────────────────────────┐
-活人验证 失败 ┌───────────────────────────────────────────────────────────────┐           │
-        成功：激活验证按钮(下一步)  点击提交                              VerifyToken  ┌─ phone    phone
-                                          表单验证      ┌─────────────────────┼──────────┤         │
-                                                  获取验证码 失败  ┌───────────└──────────┼────────┘ 
-                                                             成功：填写验证码[] 注册提交   │
-                                                                                       注册请求 失败
-                                                                                                成功：
-
-
 
 登录 login/init.js
 
@@ -301,12 +291,124 @@ FetchMock.mock('/login', (url, opts) => {
 收货地址 delivery-address/init.js
 安全设置 security/init.js
 
+填写手机号 ───────────────────────────────────────────────────────────────────────────────┐
+活人验证 失败 ┌───────────────────────────────────────────────────────────────┐           │
+        成功：激活验证按钮(下一步)  点击提交                              VerifyToken  ┌─ phone    phone
+                                          表单验证      ┌─────────────────────┼──────────┤         │
+                                                  获取验证码 失败  ┌───────────└──────────┼────────┘ 
+                                                             成功：填写验证码[] 注册提交   │
+                                                                                       注册请求 失败
+                                                                                                成功：
+
 ```
 
 #### 流程图
+[PlantUML](/programmingLanguage/plantuml)
 ```plantuml
 @startuml:登录流程
 start
+    :初始化;
+    :创建看门狗线程;
+    fork
+        #00FF00:while(1);
+        note right
+        看门狗线程
+        end note
+        repeat
+        if(>2min没喂狗) then (Y)
+            #8EE5EE:取消点;
+        endif
+        :sleep(5);
+        repeat while(1)   
+    fork again
+        #HotPink:while(1);
+        note left
+        a线程
+        end note
+        repeat
+            if (注册标志==1) then (Y)
+                :喂狗;
+            else (N)
+            endif
+            :db;
+            if(检测成功?) then (Y)
+                #A020F0:获取;
+                note left
+                根据
+                end note
+                if(有d? && 未?) then (Y)
+                    :clear;
+                    note left
+                    clear共干了4件事
+                    ====
+                     * 1.kill
+                     * 2.set !!!
+                     * 3.set global  
+                     * 4.stop
+                     end note
+                    if(c_m成功?) then (Y)
+                        :调m脚本;
+                        note left
+                        脚本在这里调用的
+                        end note
+                        if(调用成功?) then (Y)
+                            #A020F0:修改DONE_SUCCESS;
+                        else (N)
+                            #A020F0:修改DONE_FAIL;
+                        endif
+                    else (N)
+                        #HotPink:goto while(1);
+                        detach
+                    endif
+                else (N)
+                endif
+                if(注册标志==0 && >60) then(Y)
+                    #8EE5EE:注册;
+                    :标志=1;
+                else (N)
+                endif
+                :10min更新一次;
+                note left
+                1.保存master机器
+                否则……
+                2.实例的，
+                所以去除……
+                end note
+                :10min运行一次;
+            else (N)
+                #A020F0:获取d;
+                if(有d?) then (Y)
+                    if(未?) then (Y)
+                        :"clear";
+                        if(clear成功) then (Y)
+                        else (N)
+                            #HotPink:goto while(1);
+                            detach
+                        endif
+                    else (N)
+                    endif
+                    :重新;
+                    if("检测成功?") then (N)
+                    else (Y)
+                        #HotPink:goto while(1);
+                        detach
+                    endif
+                else (N)
+                endif
+                if("可忽略err?") then (N)
+                    #8EE5EE:取消al;
+                    :标志=0;
+                    #0000FF:exit(0);
+                    stop
+                else (Y)
+                endif
+            endif
+            :sleep(1);
+            #HotPink:goto while(1);
+@enduml
+```
+
+
 :"步骤1处理";
 :"步骤2处理";
 if ("条件1判断") then (true)
@@ -331,6 +433,3 @@ else
         :"条件5不成立时的动作";
     endif
 endif
-stop
-@enduml
-```

@@ -8,21 +8,23 @@
 ```js
 
 'use strict'  // 使用严格模式  ECMAScript5  （后端Node.js不需要考虑兼容性问题） 
-const fs = require("fs")
- 
+const fs = require("fs") 
 const rs = fs.createReadStream('c:/11.mp4')   // 文件读取流
 const ws = fs.createWriteStream('c:/cc.mp4')  // 文件写入流
-// rs.pipe(ws);                               // 管道
- 
+// rs.pipe(ws);                               // 管道 
 rs.on('data',function(chunk) {
     console.log(chunk.length);  // 65536  chunk就是一个Buffer(存放16进制数据的"数组",长度以B字节计算(两个16进制为一个元素))
     ws.write(chunk);            // Node中的Buffer不占用垃圾回收机制中的内存。  Buffer是由C/C++模块维护。  'data'+chunk会在内部自动调用toString()函数。 建议直接返回buffer节省处理字符串的性能开销。
-});
- 
+}); 
 rs.on('end',function() {
     console.log('结束啦！');
     ws.end();
 })
+
+const rs = plantuml.generate(DATA_UML[key], {charset: 'UTF-8'}).out
+const ws = fs.createWriteStream('./docs/.vuepress/public/uml/' + key + '.png')
+rs.pipe(ws)
+rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ```
 
 ## 插件开发

@@ -5,32 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            background-color: #ccc;
+        }
+        .test{
+            width: 0;
+            height: 400px;
+            border-style: solid;
+            border-width: 0 200px 0 200px;
+            border-color: transparent #000 transparent #fff;
+            background-color: #000;            
+            border-radius: 200px;
+            text-align: center;
+            position: relative;
+        }
+        .test:before{
+            content: '';
+            display: block;
+            width: 50px;
+            height: 50px;
+            border:#fff 75px solid;
+            background-color: #000;
+            border-radius: 100px;
+            position: absolute;
+            top: 0;
+            left: -100px;
+        }
+        .test:after{
+            content: '';
+            display: block;
+            width: 50px;
+            height: 50px;
+            border:#000 75px solid;
+            background-color: #fff;
+            border-radius: 100px;
+            position: absolute;
+            bottom: 0;
+            left: -100px;
+        }
+
+        h1:before{
+            content:'我爱'
+        }
+        h1:after{
+            content:'的山水'
+        }
+    </style>
 </head>
 <body>
-    <div id="date"></div>
+    <div class="test"></div>
+
+
+    <h1>广东</h1>
+
 </body>
 </html>
-<script>
-function getNow() {
-    var date = new Date(),
-        yy = date.getFullYear(),
-        mm = date.getMonth() + 1,
-        dd = date.getDate(),
-        h  = date.getHours(),
-        m  = date.getMinutes(),
-        s  = date.getSeconds(),
-        w  = date.getDay()
-    console.log(date.getTime());
-    mm < 10 && (month = "0" + month)
-    dd < 10 && (day ="0" + day)
-    h < 10 && (hour = "0" + hour)
-    m < 10 && (minute = "0" + minute)
-    s < 10 && (second = "0" + second)   
-
-    return {year:yy, month:mm, day:dd, hour:h, minute:m, second:s, week:w, yy, mm, dd, h, m, s, w}
-}
-
-var {year, month, day, hour, minute, second, week} = getNow()
-console.log(year, month, day, hour, minute, second, week);
-
-</script>

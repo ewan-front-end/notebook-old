@@ -134,7 +134,7 @@ plantuml.generate(input, options, callback)
         format: 'png' // 输出格式ascii/unicode/svg/eps/png
         config: ''  // classic/classic
         dot:
-        charset:
+        charset: 'UTF-8'
     }
 </pre>
 

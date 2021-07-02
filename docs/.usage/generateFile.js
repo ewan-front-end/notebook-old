@@ -1,6 +1,7 @@
 const {writeFile, readFile} = require('./src/tools-fs')
 const _path = require('path')
 const {RES_MAP_PATH} = require('./data/resMapPath.js')
+const handleUML = require('./src/handleUML')
 
 module.exports = (ABSOLUTE_PATH, target) => {
     let content
@@ -40,6 +41,13 @@ module.exports = (ABSOLUTE_PATH, target) => {
             let content = matchFLEX[1], matchItem
             while ((matchItem = /\+\+\+ (\d{1,2})([\s\S]*?)\+\+\+/.exec(content)) !== null) { content = content.replace(matchItem[0], `<div class="box-flex-item flex-${matchItem[1]}">\n${matchItem[2]}\n</div>`) }
             file = file.replace(matchFLEX[0], `<div class="box-flex">${content}</div>`)            
+        }        
+
+        // PlantUML图形
+        let matchUML        
+        while ((matchUML = /```plantuml[\w\W]+?```/.exec(file)) !== null) {     
+            const {name} = handleUML(matchUML[0])
+            file = file.replace(matchUML[0], `<img :src="$withBase('/uml/${name}.png')">`)         
         }
 
         staticContent += `${file}\n`

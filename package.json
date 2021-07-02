@@ -18,7 +18,7 @@
         "vuepress": "^1.8.2"
     },
     "scripts": {
-        "docs:dev": "vuepress dev docs",
+        "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/createWatch.js\"",
         "docs:build": "vuepress build docs"
     },
     "keywords": [],

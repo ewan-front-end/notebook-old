@@ -1,7 +1,15 @@
 const {writeFile, editWritCommonFile, readFile} = require('./src/tools-fs')
 const Path = require('path')
 const {LIST_SOLUTION} = require('./data/listSolution')
-const STATIC_SOLUTION = readFile(Path.resolve(__dirname, './resources/md/solution.md'))
+let STATIC_SOLUTION = readFile(Path.resolve(__dirname, './resources/md/solution.md'))
+const handleUML = require('./src/handleUML')
+
+// PlantUML图形
+let matchUML        
+while ((matchUML = /```plantuml[\w\W]+?```/.exec(STATIC_SOLUTION)) !== null) {     
+    const {name} = handleUML(matchUML[0])
+    STATIC_SOLUTION = STATIC_SOLUTION.replace(matchUML[0], `<img :src="$withBase('/uml/${name}.png')">`)         
+}
 
 // 处理聚合内容&写入文件
 writeFile(Path.resolve(__dirname, '../solution.md'), STATIC_SOLUTION)

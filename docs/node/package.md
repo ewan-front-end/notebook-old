@@ -37,7 +37,6 @@ pageClass: theme-item
 ```
 
 ## scripts
-
 <pre>
 命令关系：
     &  并列运行  
@@ -49,5 +48,6 @@ pageClass: theme-item
 
          
 </pre>
+
 
 </div>
