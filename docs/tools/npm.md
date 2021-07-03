@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.03 20:22</span>
         </div>
     </div>
     <div class="content"></div>
@@ -43,7 +43,7 @@ http://127.0.0.1:7002/ web
 2MySQL
 创建数据库:cnpmjs_test
 创建表:将cnpmjs.org/doc/db.sql中的内容复制出来在mysql中执行一遍即可
-3$ cd /Users/wanyuaning/Project/cnpmjs.org
+3$ cd /Users/xxxxxxxxxx/Project/cnpmjs.org
 $ node dispatch.js // 启动成功后，即可看到内网源的web页面了，后台自动开始同步官方模块
 
 4内网源的使用
@@ -92,7 +92,7 @@ var config = {
   // name: email
   admins: {     
     fengmk2: 'fengmk2@gmail.com',
-    admin: 'wanyuaning@163.com', // #3
+    admin: 'xxxxxxxxxx@163.com', // #3
     dead_horse: 'dead_horse@qq.com',
   },
   /**
@@ -101,7 +101,7 @@ var config = {
   database: {
     db: 'cnpmjs_test', // 数据库名
     username: 'root', // 用户名
-    password: 'wanyuaning', // 密码    
+    password: 'xxxxxxxxxx', // 密码    
     dialect: 'mysql', // #4数据库类型,目前支持: 'mysql', 'sqlite', 'postgres', 'mariadb'
     host: '127.0.0.1', // 自定义主机和端口，默认: 127.0.0.1:3306
     port: 3306,
@@ -293,7 +293,7 @@ config.loadConfig = function(customConfig) {
 ## NPM包
 ```js
 账户 
-u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com
+u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com
 组织：seahan、angg
 规范
 bin  可执行二进制文件
@@ -315,7 +315,7 @@ package.json  包描述
 2 $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
 
 多人发布
-npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
+npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
 npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户 npm rm --global gulp
 npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 ```

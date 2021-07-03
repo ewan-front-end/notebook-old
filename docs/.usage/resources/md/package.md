@@ -178,7 +178,7 @@ npm run 来运行scripts里的任何条目
 "description": "说明文本",
 "main": "lib/index.js",
 "module": "es6/index.js",
-"author": "wanyuaning",
+"author": "xxxxxxxxxx",
 "license": "ISC",
 "private": true,
 

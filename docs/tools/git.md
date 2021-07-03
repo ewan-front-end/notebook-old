@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.03 20:26</span>
         </div>
     </div>
     <div class="content"></div>
@@ -18,14 +18,20 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 # 用户
-git config --global user.name "wanyuaning" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
-git config --global user.email wanyuaning@163.com
+<pre>
+git config --global user.name "xxxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
+git config --global user.email xxxxxxxxxx@163.com
 git config --list .  // 查看
+</pre>
 # 工作
+<pre>
 git config user.name "ewanq"
-git config user.email ewanoo@163.com
-
-
+git config user.email ewanoo@163.com<br>
+对刚克隆下来的新项目：.git/config 内容最后添加
+[user]
+	name = xxxxxxxxxx
+	email = xxxxxxxxxx@163.com
+</pre>
 
 
 ```
@@ -55,8 +61,8 @@ git rebase --continue
 
 
 ❶ git init 
-❷ curl -u 'wanyuaning' https://api.github.com/user/repos -d '{"name":"demo"}'    Wanyuaning... ...   user/repos  orgs/wmgcuan/repos
-❸ git remote add github https://github.com/wanyuaning/demo.git   wanyuaning/demo.git   wmgcuan/demo.git
+❷ curl -u 'xxxxxxxxxx' https://api.github.com/user/repos -d '{"name":"demo"}'    Xxxxxxxxxx... ...   user/repos  orgs/wmgcuan/repos
+❸ git remote add github https://github.com/xxxxxxxxxx/demo.git   xxxxxxxxxx/demo.git   wmgcuan/demo.git
 ❹ git push github master:master
 ------------------------------------------------------------------------
 
@@ -92,8 +98,8 @@ git merge demo                         合并demo分支到本地当前的master�
 
  关联远程仓库 
 关联一个远程仓库: 远程必须存在同名仓库，本地推送才能成功(如不存在，可考虑GitAPI[创建远程仓库])
-git remote add github https://github.com/wanyuaning/gitdemo.git  // github为可自定义的简短名,默认origin
-git remote add gitee https://gitee.com/wanyuaning/gitdemo.git
+git remote add github https://github.com/xxxxxxxxxx/gitdemo.git  // github为可自定义的简短名,默认origin
+git remote add gitee https://gitee.com/xxxxxxxxxx/gitdemo.git
 
 git remote                                   查看关联的远库名称(列表)
 git remote -v                              查看关联的远库详细信息(列表)
@@ -118,13 +124,13 @@ $ git checkout v1.8.5
  场景                                                                         
 项目关联到多个远程库 【项目名:tensorflow-demo】
  创建Github上的远程仓库   创建Gitee上的远程仓库 
-curl 'https://api.github.com/user/repos' -u 'wanyuaning' -d '{"name":"tensorflow-demo"}'   // ❶使用[全局工具/curl]   ❷GitAPI[创建远程仓库]
+curl 'https://api.github.com/user/repos' -u 'xxxxxxxxxx' -d '{"name":"tensorflow-demo"}'   // ❶使用[全局工具/curl]   ❷GitAPI[创建远程仓库]
 curl 'https://gitee.com/api/v5/user/repos' -d '{"access_token":"1e5ac05ccc2e6136e41ba5e453d7968e","name":"tensorflow-demo","has_issues":"true","has_wiki":"true","can_comment":"true"}' -X POST --header 'Content-Type: application/json;charset=UTF-8'
  初始本地库 
 git init 
  关联Github远程库   关联Gitee远程库 
-git remote add github https://github.com/wanyuaning/tensorflow-demo.git 
-git remote add gitee https://gitee.com/wanyuaning/tensorflow-demo.git 
+git remote add github https://github.com/xxxxxxxxxx/tensorflow-demo.git 
+git remote add gitee https://gitee.com/xxxxxxxxxx/tensorflow-demo.git 
 git remote -v   // 查看关联的远程仓库的详细信息
  开发 
 touch .gitignore README.md
@@ -144,7 +150,7 @@ gitee.com/设置/安全设置/私人令牌: 1e5ac05ccc2e6136e41ba5e453d7968e
 
 GitAPI[创建远程仓库]
 github 交互密码方式
-curl -u 'wanyuaning' https://api.github.com/user/repos -d '{"name":"仓库名"}'  新建到账号：user/repos  新建到组织：orgs/wmgcuan/repos   
+curl -u 'xxxxxxxxxx' https://api.github.com/user/repos -d '{"name":"仓库名"}'  新建到账号：user/repos  新建到组织：orgs/wmgcuan/repos   
 github token方式
 curl https://api.github.com/user/repos?access_token=f325828e29f741e10b1b55473e63feffe575a94f -d '{"name":"仓库名"}'
 ？
@@ -206,14 +212,14 @@ Mac上Git配置与查询
 	ignorecase = true
 	precomposeunicode = true
 [remote "origin"]
-	url = https://github.com/wanyuaning/gitdemo.git
+	url = https://github.com/xxxxxxxxxx/gitdemo.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [user]
 	name = ewanq  // git config user.name "ewanq" 
 	email = ewanoo@163.com  // git config user.email ewanoo@163.com
 全局
-git config --global user.name "wanyuaning"
-git config --global user.email wanyuaning@163.com
+git config --global user.name "xxxxxxxxxx"
+git config --global user.email xxxxxxxxxx@163.com
 git config --list .  // 查看
 git config user.name
 远程通信帐户管理
@@ -233,7 +239,7 @@ git config --global credential.helper osxkeychain
 
 NPM包
 账户 
-u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com
+u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com
 组织：seahan、angg
 规范
 bin  可执行二进制文件
@@ -254,7 +260,7 @@ package.json  包描述
 2 $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
 
 多人发布
-npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
+npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
 npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户
 npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 

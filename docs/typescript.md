@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.03 20:19</span>
         </div>
     </div>
     <div class="content"></div>
@@ -253,8 +253,8 @@ git clone https://github.com/alexjoverm/typescript-library-starter.git ts-axios
 ```
 .git/config
 [remote "origin"]
-	url = https://github.com/wanyuaning/ts-axios.git
-或 ts-axios> git remote add origin https://github.com/wanyuaning/ts-axios.git
+	url = https://github.com/xxxxxxxxxx/ts-axios.git
+或 ts-axios> git remote add origin https://github.com/xxxxxxxxxx/ts-axios.git
 ```
 ts-axios> git push
 

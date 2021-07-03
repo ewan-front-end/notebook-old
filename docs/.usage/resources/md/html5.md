@@ -101,4 +101,71 @@ var radialGradient = context.createRadialGradient(x0, y0, r0, x1, y1, r1) // 放
     radialGradient.addColorStop(1,"white");
     context.fillStyle = radialGradient                                    // 使用模型
     context.fillRect(20, 20, 150, 100)
+
+
+
+
+canvas.toBuffer('image/png') // 赋值给buffer
+    fs.writeFileSync('test.png', buffer)
+
+// 可http传输的数据 可直接放入img src里
+var base64 = canvas.toDataURL({format: 'png', quality:1, width:20000, height:4000}) // options可以是string如"image/jpeg"
+
+// 可以保存大图片
+var blob = dataURLtoBlob(base64)      // 参考数据转换
+var blobUrl = URL.createObjectURL(blob) // Server Worker不支持此方法 
+
+// blobUrl可放入下载链接
+var link = document.createElement("a")   
+    link.download = "grid1.png"
+    link.href = blobUrl
+    link.click()
+
+    
+ 	
+```
+
+## 服务端绘制
+```js
+const {Canvas} = require('canvas')
+const fs = require('fs')
+
+const canvas = new Canvas(300, 120) 
+const context = canvas.getContext('2d')
+context.font = '14px "Microsoft YaHei"' 
+context.fillStyle = '#ff0000'
+context.fillText('Hello Canvas', 84, 24, 204)
+const buffer = canvas.toBuffer('image/png')
+fs.writeFileSync('test2.png', buffer)
+```
+
+## 数据转换
+- File/Blob对象转换为dataURL
+> File对象也是一个Blob对象，二者的处理相同
+```js
+function readBlobAsDataURL(blob, callback) {
+    var a = new FileReader()
+    a.onload = function(e) {callback(e.target.result)}
+    a.readAsDataURL(blob)
+}
+readBlobAsDataURL(blob, function (dataurl){ console.log(dataurl) }) //example
+readBlobAsDataURL(file, function (dataurl){ console.log(dataurl) }) //example
+```
+
+- dataURL转换为Blob/File对象
+> File继承于Blob 扩展了一些属性（文件名、修改时间、路径等） 绝大多数场景下 使用Blob对象就可以了  兼容性：Edge浏览器不支持File对象构造函数，也就是Edge里不能new File()
+```js
+function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n)
+    while(n--){ u8arr[n] = bstr.charCodeAt(n) }
+    return new Blob([u8arr], {type:mime})
+}
+function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n)
+    while(n--){ u8arr[n] = bstr.charCodeAt(n) }
+    return new File([u8arr], filename, {type:mime})
+}
+var blob = dataURLtoBlob('data:text/plain;base64,YWFhYWFhYQ==')             //example
+var file = dataURLtoFile('data:text/plain;base64,YWFhYWFhYQ==', 'test.txt') //example
+
 ```

@@ -49,7 +49,7 @@ module.exports = {
 <van-field value="{{ filter.formatDate(currentFenbufenxiang.time_start, 'yyyy-mm-dd hh:mm') }}" />
 ■ 使用LESS
 $ sudo npm install -g wxss-cli
-$ wxss /Users/wanyuaning/Work/cyj/app/miniprogram/pages
+$ wxss /Users/xxxxxxxxxx/Work/cyj/app/miniprogram/pages
 app/miniprogram/pages/main/excel.less   会自动生成 excel.wxss
 app/miniprogram/pages/main/index.wxss    @import "./excel.wxss";
 

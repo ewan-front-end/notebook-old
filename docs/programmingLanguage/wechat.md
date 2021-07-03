@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.03 20:19</span>
         </div>
     </div>
     <div class="content"></div>
@@ -68,7 +68,7 @@ module.exports = {
 <van-field value="{{ filter.formatDate(currentFenbufenxiang.time_start, 'yyyy-mm-dd hh:mm') }}" />
 ■ 使用LESS
 $ sudo npm install -g wxss-cli
-$ wxss /Users/wanyuaning/Work/cyj/app/miniprogram/pages
+$ wxss /Users/xxxxxxxxxx/Work/cyj/app/miniprogram/pages
 app/miniprogram/pages/main/excel.less   会自动生成 excel.wxss
 app/miniprogram/pages/main/index.wxss    @import "./excel.wxss";
 

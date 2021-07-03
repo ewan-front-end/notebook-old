@@ -202,7 +202,7 @@ const slider = new Slider({
 2. MySQL
     创建数据库:cnpmjs_test
     创建表:将cnpmjs.org/doc/db.sql中的内容复制出来在mysql中执行一遍即可
-    $ cd /Users/wanyuaning/Project/cnpmjs.org
+    $ cd /Users/xxxxxxxxxx/Project/cnpmjs.org
     $ node dispatch.js // 启动成功后，即可看到内网源的web页面了，后台自动开始同步官方模块
 
 3. 内网源的使用
@@ -222,7 +222,7 @@ var config = {
                                                 // #2注意，添加用户时，请添加该处配置的用户，不然不能发布模块的
   admins: {     
     fengmk2: 'fengmk2@gmail.com',
-    admin: 'wanyuaning@163.com',                // #3
+    admin: 'xxxxxxxxxx@163.com',                // #3
     dead_horse: 'dead_horse@qq.com',
   },  
   database: {      
@@ -237,7 +237,7 @@ var config = {
 
 ::: details 开发一个NPM插件
 ```js
-账户 u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com  组织：seahan、angg
+账户 u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com  组织：seahan、angg
 
 规范
 bin   可执行二进制文件
@@ -259,7 +259,7 @@ package.json  包描述
 2 $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
 
 多人发布
-npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
+npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
 npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户
 npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 ```

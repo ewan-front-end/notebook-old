@@ -23,7 +23,7 @@ react-app > npm start // http://localhost:3000/
 ##### 项目管理
 1. 登录平台创建仓库
 2. git init
-3. git remote add origin https://github.com/wanyuaning/react-app.git
+3. git remote add origin https://github.com/xxxxxxxxxx/react-app.git
 4. git push -u origin master // 关联后无需add/commit 远程浏览时无项目文件 切换到正确的分支
 
 ##### VScode开发

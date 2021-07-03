@@ -1,10 +1,31 @@
 [NPM](/tools/npm)
 
+## 画图
+- npm i canvas --save-dev
+- /index.js
+```js
+const {Canvas} = require('canvas')
+const canvas = new Canvas(300, 120) 
+const context = canvas.getContext('2d')
+context.font = '14px "Microsoft YaHei"' 
+context.fillText('Hello Canvas', 84, 24, 204)
+```
+
 ## fs
 - 递归创建目录
 - 拷贝目录
 
 ## fs模块读取流/写入流/管道流
+<pre>
+fs.createReadStream('./1.txt',{
+    highWaterMark:3, // 文件一次读多少字节,默认 64*1024
+    flags:'r',       // 默认 'r'
+    autoClose:true,  // 默认读取完毕后自动关闭
+    start:0,         // 读取文件开始位置
+    end:3,           // 流是闭合区间 包含start也含end
+    encoding:'utf8'  // 默认null
+})
+</pre>
 ```js
 
 'use strict'  // 使用严格模式  ECMAScript5  （后端Node.js不需要考虑兼容性问题） 
@@ -29,7 +50,7 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 
 ## 插件开发
 - 账户 
-  u:wanyuaning  p:wanyuan...ew.. e:wanyuaning@163.com
+  u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com
 - 组织：seahan、angg
 - 规范
   ├── bin                           #可执行二进制文件
@@ -61,7 +82,7 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 
 - 多人发布
   ```
-  npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add wanyuaning @angg/express>
+  npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
   npm owner rm <user> [<@scope>/]<pkg>  # 从包的所有这列表中删除用户
   npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
   ```
