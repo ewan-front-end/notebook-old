@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.03 20:23</span>
+            <span>M 2021.07.04 19:56</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -131,22 +131,11 @@ child.execFile('notepad', ['./test.txt'], function(error, stdout, stderr) { }) /
 ```
 - TextDecoder 对通信、网络和存储内容进行编码和解码的程序 支持base64、二进制、URL编码在内的各种解码方式
 
-## 模块化
-module.exports = {a:1}  const data = require('./src/data.js') // 值的拷贝 运行时同步加载 模块内部的变化不再影响这个值
-[ES6模块化](/programmingLanguage/javascript/es6#模块化) // 值的引用 编译时异步输出 模块内部的变化不再影响这个值
 
-## ES6模块化应用
-1. demo> npm i babel-register babel-env --save-dev
-2. 包装入口文件：
-```js
-// a.js
-import data from './src/data.js'
-console.log(data);
-// aa.js
-require('babel-register') ({ presets: [ 'env' ] })
-module.exports = require('./a.js')
-```
-3. demo> node aa.js // 原来是：node a.js
+
+
+
+
 
 
 ## 版本管理

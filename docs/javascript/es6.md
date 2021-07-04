@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.04 19:47</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,7 +17,7 @@ pageClass: theme-item
 <h1>es6</h1><strong>es6</strong>
 </div>
 <div class="static-content">
-:::2021.06.18:::
+
 
 ## 模块化
 export default fs

@@ -45,7 +45,7 @@
     },
     "vscode": {
         "path": "/tools/vscode",
-        "updateTime": "0000:00:00 00:00"
+        "updateTime": "2021.07.04 16:03"
     },
     "chrome-tools": {
         "path": "/tools/chromeTools",
@@ -57,7 +57,7 @@
     },
     "regular-expression": {
         "path": "/tools/regularExpression",
-        "updateTime": "0000:00:00 00:00"
+        "updateTime": "2021.07.04 12:50"
     },
     "eslint": {
         "path": "/tools/eslint",
@@ -133,7 +133,7 @@
     },
     "node/index": {
         "path": "/node",
-        "updateTime": "2021.07.03 20:23"
+        "updateTime": "2021.07.04 19:56"
     },
     "node-plugin": {
         "path": "/node/plugin",
@@ -157,7 +157,7 @@
     },
     "js-es6": {
         "path": "/javascript/es6",
-        "updateTime": "0000:00:00 00:00"
+        "updateTime": "2021.07.04 19:47"
     },
     "ecmascript": {
         "path": "/javascript/ecmascript",

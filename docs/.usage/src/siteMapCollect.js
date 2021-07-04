@@ -1,6 +1,6 @@
-const siteMap = require('../siteMap')
+const {SITE_MAP} = require('../data/siteMap')
 
-// 从siteMap中收集更新指定内容
+// 从SITE_MAP中收集更新指定内容
 module.exports = function collectUpdated(collectKey){
     let arr = []
     const handleDir = (children) => { 
@@ -15,8 +15,8 @@ module.exports = function collectUpdated(collectKey){
         }
         item.CHILDREN && handleDir(item.CHILDREN) 
     }
-    for (key in siteMap) { 
-        let item = siteMap[key]; handleItem(key, item) 
+    for (key in SITE_MAP) { 
+        let item = SITE_MAP[key]; handleItem(key, item) 
     }
     return arr
 }

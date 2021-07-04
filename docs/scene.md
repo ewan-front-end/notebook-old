@@ -28,6 +28,75 @@
 
 ## 项目
 
+
+
+## 环境搭建 
+::: details Node环境下ES6模块化开发
+<pre>
+■ 目录结构  
+    demo/main.js   
+        import add from './src/a'
+        import { pow, sqrt } from './src/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))    
+    demo/src/a.js
+        export default (a, b) => a + b
+    demo/src/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+<br>
+■ 目标
+    > deme> node main.js 运行不报错
+<br>
+■ 技术部署
+    1. npm init -y
+    1. babel
+    2. nodemon
+</pre>
+:::
+
+::: details HTML+ES6模块化开发
+■ 目录结构
+    /dist/  发布目录
+    /examples/index.html        
+        /script src="js/main.js"///script/              
+    /src/main.js    
+        import add from './modules/a'
+        import { pow, sqrt } from './modules/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))
+    
+    /src/modules/a.js
+        export default (a, b) => a + b
+    /src/modules/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+■ 目标
+    > 把入口文件src/main.js打包到examples/js/下
+    > 监控src/下文件变动 持续打包入口文件
+    > 发布入口文件到dist/下
+<br>
+■ 技术部署
+:::
+
+module.exports = {a:1}  const data = require('./src/data.js') // 值的拷贝 运行时同步加载 模块内部的变化不再影响这个值
+[ES6模块化](/programmingLanguage/javascript/es6#模块化) // 值的引用 编译时异步输出 模块内部的变化不再影响这个值
+
+- babel
+1. demo> npm i babel-register babel-env --save-dev
+2. 包装入口文件：
+```js
+// a.js
+import data from './src/data.js'
+console.log(data);
+// aa.js
+require('babel-register') ({ presets: [ 'env' ] })
+module.exports = require('./a.js')
+```
+3. demo> node aa.js // 原来是：node a.js
+
 ## 工具
 ::: details 表单验证
 - /demo.html

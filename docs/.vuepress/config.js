@@ -20,6 +20,10 @@ module.exports = {
             {
                 "text": "方案",
                 "link": "/solution"
+            },
+            {
+                "text": "场景",
+                "link": "/scene"
             }
         ],
         "sidebarDepth": 2,
