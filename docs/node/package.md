@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.05 12:58</span>
         </div>
     </div>
     <div class="content"></div>
@@ -32,7 +32,9 @@ pageClass: theme-item
   "license": "ISC",
   "devDependencies": {
     "chokidar": "^3.5.1"
-  }
+  },
+
+  "type": "module", // 以哪种模块方案进行解释 
 }
 ```
 

@@ -21,7 +21,7 @@
     },
     "tools": {
         "path": "/tools",
-        "updateTime": "0000:00:00 00:00"
+        "updateTime": "2021.07.05 13:25"
     },
     "git": {
         "path": "/tools/git",
@@ -145,7 +145,7 @@
     },
     "node/package": {
         "path": "/node/package",
-        "updateTime": "0000:00:00 00:00"
+        "updateTime": "2021.07.05 12:58"
     },
     "html5": {
         "path": "/html5",
@@ -157,7 +157,7 @@
     },
     "js-es6": {
         "path": "/javascript/es6",
-        "updateTime": "2021.07.04 19:47"
+        "updateTime": "2021.07.05 14:00"
     },
     "ecmascript": {
         "path": "/javascript/ecmascript",

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.05 13:25</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/webpack">Webpack</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">需求图表</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li></ul></div><div class="custom-block links">
@@ -561,6 +561,27 @@ pageClass: theme-item
 </div>
 </div>
 
+## 工具书
+::: details HTML转义
+```
+ 	     	&nbsp;	        &#160;       空格
+<	     	&lt;	        &#60;        小于号
+>	     	&gt;	        &#62;        大于号
+&	     	&amp;	        &#38;        和号
+"	     	&quot;	        &#34;        引号
+'	      	&apos;(IE no)	&#39;        撇号
+￠          &cent;          &#162;       分（cent）
+£	     	&pound;	        &#163;       镑（pound）
+¥	     	&yen;	        &#165;       元（yen）
+€	     	&euro;	        &#8364;      欧元（euro）
+§	     	&sect;	        &#167;       小节
+©	     	&copy;	        &#169;       版权（copyright）
+®	        &reg;	        &#174;       注册商标	
+™	        &trade;	        &#8482;      商标	
+×	        &times;	        &#215;       乘号	
+÷	        &divide;	    &#247;       除号	
+```
+:::
 
 ## 特殊字符
 ::: details 分类

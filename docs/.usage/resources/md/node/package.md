@@ -13,7 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "chokidar": "^3.5.1"
-  }
+  },
+
+  "type": "module", // 以哪种模块方案进行解释 
 }
 ```
 

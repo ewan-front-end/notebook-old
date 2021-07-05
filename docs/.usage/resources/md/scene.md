@@ -1,4 +1,8 @@
 
+
+
+
+
 - 获取北京时间
 - 前端性能优化-通用的缓存SDK
 - NPM内网源搭建
@@ -30,70 +34,331 @@
 
 ## 环境搭建 
 ::: details Node环境下ES6模块化开发
-<pre>
+http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
+```
 ■ 目录结构  
-    demo/main.js   
-        import add from './src/a'
-        import { pow, sqrt } from './src/b'
-        console.log(add(1, 2))
-        console.log(pow(9))
-        console.log(sqrt(9))    
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ a.js
+    ┃   ┖ b.js
+    ┠ main.js 
+
     demo/src/a.js
         export default (a, b) => a + b
     demo/src/b.js
         export const pow = x => x * x
         export const sqrt = x => Math.sqrt(x)
-<br>
+    demo/main.js   
+        import add from './src/a'
+        import { pow, sqrt } from './src/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))  
+
 ■ 目标
     > deme> node main.js 运行不报错
-<br>
+
 ■ 技术部署
-    1. npm init -y
-    1. babel
-    2. nodemon
-</pre>
+    1. demo> npm init -y
+    2. demo> npm i babel-register babel-env --save-dev
+    3. 创建新入口如：demo/main-new.js
+        require('babel-register') ({ presets: [ 'env' ] })
+        module.exports = require('./main.js') // 在这里输出老入口
+    4. deme> node main-new.js 
+```
 :::
 
 ::: details HTML+ES6模块化开发
+```
+■ 目标
+    > 在静态页(index.html)中以script标签方式引入主入口(main.js)
+    > 将主入口(main.js)打包成 main-bundle.js
+
 ■ 目录结构
-    /dist/  发布目录
-    /examples/index.html        
-        /script src="js/main.js"///script/              
-    /src/main.js    
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ a.js
+    ┃   ┖ b.js
+    ┠ main.js 
+    ┠ index.html
+
+    demo/src/a.js
+        export default (a, b) => a + b
+    demo/src/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+    demo/main.js   
+        import add from './src/a'
+        import { pow, sqrt } from './src/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))  
+    demo/index.html   
+        <h1>HTML+ES6模块化开发</h1>
+        <script src="main.js"></script>
+       
+■ 实现
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
+
+    demo/webpack.config.js
+        module.exports = {
+            mode: 'development',
+            entry: 'main.js',
+            output: 'main-bundle.js'
+        }
+    demo> npx webpack 
+
+    调整 demo/index.html
+        <script src="main-bundle.js"></script>
+    打开 demo/index.html
+```
+:::
+
+::: details HTML+ES6模块化/热更新开发
+```
+■ 目标
+    > 在静态页(dist/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到dist/js/下
+    > 监控响应开发目录
+
+■ 目录结构
+    ┠ dist ---------------------------- 发布目录
+    ┃   ┖ index.html
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ main.js
+    ┃   ┖ modules
+    ┃       ┠ a.js
+    ┃       ┖ b.js    
+    
+    demo/dist/index.html   
+        <h1>HTML+ES6模块化/热更新开发</h1>     
+        <script src="js/main.js"></script>             
+    demo/src/main.js    
         import add from './modules/a'
         import { pow, sqrt } from './modules/b'
         console.log(add(1, 2))
         console.log(pow(9))
-        console.log(sqrt(9))
-    
-    /src/modules/a.js
+        console.log(sqrt(9))    
+    demo/src/modules/a.js
         export default (a, b) => a + b
-    /src/modules/b.js
+    demo/src/modules/b.js
         export const pow = x => x * x
         export const sqrt = x => Math.sqrt(x)
-■ 目标
-    > 把入口文件src/main.js打包到examples/js/下
-    > 监控src/下文件变动 持续打包入口文件
-    > 发布入口文件到dist/下
-<br>
-■ 技术部署
+       
+■ 实现
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 nodemon-webpack-plugin --save-dev
+
+    demo/webpack.config.js
+        const path = require('path')
+        const NodemonPlugin = require('nodemon-webpack-plugin')
+        module.exports = {
+            mode: 'development',
+            entry: path.resolve(__dirname, 'src/main.js'),
+            output: {
+                path: path.resolve(__dirname, 'dist/js'),
+                filename: '[name].js'
+            },
+            plugins: [new NodemonPlugin()]
+        }
+    如果主入口要暴露方法则需指定引用模式/访问前缀：
+        module.exports = {
+            output: {
+                library: 'lib', 
+                libraryTarget: 'umd'
+            }
+        }
+
+    demo> npx webpack --watch
+    部署完成 可以开发了    
+```
 :::
 
-module.exports = {a:1}  const data = require('./src/data.js') // 值的拷贝 运行时同步加载 模块内部的变化不再影响这个值
-[ES6模块化](/programmingLanguage/javascript/es6#模块化) // 值的引用 编译时异步输出 模块内部的变化不再影响这个值
-
-- babel
-1. demo> npm i babel-register babel-env --save-dev
-2. 包装入口文件：
-```js
-// a.js
-import data from './src/data.js'
-console.log(data);
-// aa.js
-require('babel-register') ({ presets: [ 'env' ] })
-module.exports = require('./a.js')
+::: details HTML+ES6模块化/热更新/服务环境开发
 ```
-3. demo> node aa.js // 原来是：node a.js
+■ 目标
+    > 在静态页(example/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到example/js/下
+    > 监控响应开发目录
+    > 服务器预览
+
+■ 目录结构    
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ main.js
+    ┃   ┖ modules
+    ┃       ┠ a.js
+    ┃       ┖ b.js 
+    ┠ example ------------------------- 应用演示
+    ┃   ┖ index.html       
+               
+    demo/src/main.js    
+        import add from './modules/a'
+        import { pow, sqrt } from './modules/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))    
+    demo/src/modules/a.js
+        export default (a, b) => a + b
+    demo/src/modules/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+    demo/example/index.html   
+        <h1>HTML+ES6模块化/热更新/服务环境开发</h1>     
+        <script src="./js/main.js"></script>  
+
+■ 搭建服务
+    demo> npm init -y
+    demo> npm i express@4.17.1 --save-dev 
+
+    demo/example/server.js
+        const express = require('express')
+        const app = express()
+        const port = 3001
+        app.use(express.static(__dirname))
+        app.listen(port, ()=>{console.log('Listen on '+port)})
+    
+    demo> node example/server.js
+
+■ 开发部署
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
+
+    demo/webpack.config.js
+        const path = require('path')        
+        module.exports = {
+            mode: 'development',
+            entry: path.resolve(__dirname, 'src/main.js'),
+            output: {
+                path: path.resolve(__dirname, 'example/js'),
+                filename: '[name].js'
+            }
+        }
+    如果主入口要暴露方法则需指定引用模式/访问前缀：
+        module.exports = {
+            output: {
+                library: 'lib', 
+                libraryTarget: 'umd'
+            }
+        }
+
+    为服务添加热更新
+        demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
+
+        调整服务器 demo/example/server.js
+            const port = 3001
+            const webpackDevMiddleware = require('webpack-dev-middleware')
+            const webpackHotMiddleware = require('webpack-hot-middleware')
+            const webpack = require('webpack')
+            const webpackConfig = require('./webpack.config.js')
+            const compiler = webpack(webpackConfig)
+            
+            app.use(webpackDevMiddleware(compiler))
+            app.use(webpackHotMiddleware(compiler))
+            app.use(express.static(__dirname))
+        
+    demo> node examples/server.js
+    偿试编辑 src/Element.js 再刷新浏览器查看
+```
+:::
+
+::: details HTML+ES6模块化/热更新/服务环境开发------------------------------------
+```
+■ 目录结构
+    ┠ dist ---------------------------- 发布目录
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ main.js
+    ┃   ┖ modules
+    ┃       ┠ a.js
+    ┃       ┖ b.js   
+    ┠ examples ------------------------ 应用演示    
+    ┃   ┠ index.html
+    ┃   ┠ 001
+    ┃   ┃   ┠ app.js
+    ┃   ┃   ┠ index.html
+
+    demo/src/Element.js
+        export class Element{  
+            constructor(type){
+                this.type = type
+                this.data = {a: 1}
+            }
+        }
+    demo/examples/index.html
+        <h1>应用实例</h1>
+        <a href="001/">001</a>
+    demo/examples/001/index.html
+        <script src="/static/Element.js"></script>   <!-- 开启服务 从跟目录读取资源 File协议浏览 "../static/Element.js" 从上一级目录读取资源 -->
+        <script>
+            var el = new lib.Element('Sprite')
+            console.log('el', el)
+        </script>
+
+■ 搭建服务
+    demo> npm init -y
+    demo> npm i express@4.17.1 --save-dev 
+
+    demo/examples/server.js
+        const express = require('express')
+        const app = express()
+        const port = 3001
+        app.use(express.static(__dirname))
+        app.listen(port, ()=>{console.log('Listen on '+port)})
+    
+    demo> node examples/server.js
+    搭建完成 服务根目录/static/Element.js还不存在：需发布打包
+
+■ 发布打包
+    目标：将 src/Element.js 打包到 examples/static/Element.js
+
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
+
+    > demo/examples/webpack.config.js
+        const path = require('path')
+        module.exports = {
+            mode: 'development',
+            entry: {
+                Element: path.resolve(__dirname, '001/app.js') // 用绝对路径 突破服务限制
+            },
+            output: {
+                path: path.resolve(__dirname, 'static'),
+                filename: '[name].js',
+                publicPath: '/static/',
+                library: 'lib',
+                libraryTarget: 'umd'
+            }
+        }
+    > demo/examples/001/app.js
+        import {Element} from '../../src/Element'
+        export {Element}
+
+    npx webpack --config examples/webpack.config.js
+    打包完成 http://localhost:3001
+
+■ 开发打包
+    1. 为服务添加热更新
+        demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
+
+        调整服务器 demo/examples/server.js
+            const port = 3001
+            const webpackDevMiddleware = require('webpack-dev-middleware')
+            const webpackHotMiddleware = require('webpack-hot-middleware')
+            const webpack = require('webpack')
+            const webpackConfig = require('./webpack.config.js')
+            const compiler = webpack(webpackConfig)
+            
+            app.use(webpackDevMiddleware(compiler))
+            app.use(webpackHotMiddleware(compiler))
+            app.use(express.static(__dirname))
+        
+    2. demo> node examples/server.js
+    3. 偿试编辑 src/Element.js 再刷新浏览器查看
+    
+```
+:::
+
+::: details HTML+ES6模块化项目服务开发多入口服务器渲染
+aaaa
+:::
+
+
+
+
 
 ## 工具
 ::: details 表单验证
