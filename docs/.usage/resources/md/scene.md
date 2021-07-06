@@ -67,9 +67,11 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
 :::
 
+
 ::: details HTML+ES6模块化开发
 ```
 ■ 目标
+    > File协议浏览index.html
     > 在静态页(index.html)中以script标签方式引入主入口(main.js)
     > 将主入口(main.js)打包成 main-bundle.js
 
@@ -96,25 +98,30 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         <script src="main.js"></script>
        
 ■ 实现
+    demo> npm init -y
     demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
 
     demo/webpack.config.js
         module.exports = {
-            mode: 'development',
-            entry: 'main.js',
-            output: 'main-bundle.js'
+            entry: './main.js',             // 入口 相对路径
+            output: {                       // 出口 绝对路径
+                filename: 'main-bundle.js',
+                path: __dirname
+            },
+            mode: 'development'             // 环境：production/development/none
         }
     demo> npx webpack 
 
-    调整 demo/index.html
-        <script src="main-bundle.js"></script>
+    调整 demo/index.html script src="main-bundle.js"></script>
     打开 demo/index.html
 ```
 :::
 
+
 ::: details HTML+ES6模块化/热更新开发
 ```
 ■ 目标
+    > File协议浏览dist/index.html
     > 在静态页(dist/index.html)中以script标签方式引入主入口(src/main.js)    
     > 发布主入口文件到dist/js/下
     > 监控响应开发目录
@@ -144,6 +151,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         export const sqrt = x => Math.sqrt(x)
        
 ■ 实现
+    demo> npm init -y
     demo> npm i webpack@5.42.0 webpack-cli@4.7.2 nodemon-webpack-plugin --save-dev
 
     demo/webpack.config.js
@@ -151,7 +159,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         const NodemonPlugin = require('nodemon-webpack-plugin')
         module.exports = {
             mode: 'development',
-            entry: path.resolve(__dirname, 'src/main.js'),
+            entry: './src/main.js',
             output: {
                 path: path.resolve(__dirname, 'dist/js'),
                 filename: '[name].js'
@@ -174,19 +182,23 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ::: details HTML+ES6模块化/热更新/服务环境开发
 ```
 ■ 目标
+    > Http协议浏览example/
     > 在静态页(example/index.html)中以script标签方式引入主入口(src/main.js)    
     > 发布主入口文件到example/js/下
     > 监控响应开发目录
-    > 服务器预览
 
 ■ 目录结构    
+    ┠ dist ---------------------------- 发布目录
     ┠ src ----------------------------- 开发目录
-    ┃   ┠ main.js
+    ┃   ┠ Element.js
+    ┃   ┠ main.js 
     ┃   ┖ modules
     ┃       ┠ a.js
     ┃       ┖ b.js 
     ┠ example ------------------------- 应用演示
-    ┃   ┖ index.html       
+    ┃   ┠ index.html 
+    ┠ plugin -------------------------- 独立插件 src/Element.js最终要独立开发
+
                
     demo/src/main.js    
         import add from './modules/a'
@@ -201,7 +213,20 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         export const sqrt = x => Math.sqrt(x)
     demo/example/index.html   
         <h1>HTML+ES6模块化/热更新/服务环境开发</h1>     
-        <script src="./js/main.js"></script>  
+        <script src="/static/js/main.js"></script>  
+    demo/example/001/index.html   
+        <script src="/lib/Element.js"></script>   <!-- 开启服务 从跟目录读取资源 File协议浏览 "../lib/Element.js" 从上一级目录读取资源 -->
+        <script>
+            var el = new lib.Element('Sprite')
+            console.log('el', el)
+        </script>
+    demo/src/Element.js
+        export class Element{  
+            constructor(type){
+                this.type = type
+                this.data = {a: 1}
+            }
+        }
 
 ■ 搭建服务
     demo> npm init -y
@@ -212,48 +237,45 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         const app = express()
         const port = 3001
         app.use(express.static(__dirname))
-        app.listen(port, ()=>{console.log('Listen on '+port)})
+        app.listen(port, ()=>{console.log('\nhttp://localhost:' + port + '\n')})
     
     demo> node example/server.js
 
 ■ 开发部署
     demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
 
-    demo/webpack.config.js
+    demo/example/webpack.config.js
         const path = require('path')        
         module.exports = {
             mode: 'development',
-            entry: path.resolve(__dirname, 'src/main.js'),
+            entry: {
+                main: path.resolve(__dirname, '../src/main.js'), // 绝对路径 突破服务根目录限制
+                Element: Element: path.resolve(__dirname, '../src/Element.js') 
+            },
             output: {
-                path: path.resolve(__dirname, 'example/js'),
-                filename: '[name].js'
-            }
-        }
-    如果主入口要暴露方法则需指定引用模式/访问前缀：
-        module.exports = {
-            output: {
+                path: path.resolve(__dirname, 'js'),  // 绝对路径
+                filename: '[name].js',
                 library: 'lib', 
                 libraryTarget: 'umd'
             }
-        }
+        }    
+    demo> npx webpack --config example/webpack.config.js
 
     为服务添加热更新
         demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
 
-        调整服务器 demo/example/server.js
-            const port = 3001
+        调整服务器 demo/example/server.js 在'const port = 3001'和'app.use(express.static(__dirname))'之间
             const webpackDevMiddleware = require('webpack-dev-middleware')
             const webpackHotMiddleware = require('webpack-hot-middleware')
             const webpack = require('webpack')
             const webpackConfig = require('./webpack.config.js')
-            const compiler = webpack(webpackConfig)
-            
+            const compiler = webpack(webpackConfig)            
             app.use(webpackDevMiddleware(compiler))
-            app.use(webpackHotMiddleware(compiler))
-            app.use(express.static(__dirname))
+            app.use(webpackHotMiddleware(compiler))            
         
-    demo> node examples/server.js
-    偿试编辑 src/Element.js 再刷新浏览器查看
+    demo> node example/server.js
+    偿试编辑 src/main.js 再刷新浏览器查看
+    如果example/static不生成则手动：npx webpack --config example/webpack.config.js
 ```
 :::
 
@@ -279,6 +301,17 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
                 this.data = {a: 1}
             }
         }
+    demo/src/main.js    
+        import add from './modules/a'
+        import { pow, sqrt } from './modules/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))    
+    demo/src/modules/a.js
+        export default (a, b) => a + b
+    demo/src/modules/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
     demo/examples/index.html
         <h1>应用实例</h1>
         <a href="001/">001</a>
@@ -304,8 +337,6 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
     搭建完成 服务根目录/static/Element.js还不存在：需发布打包
 
 ■ 发布打包
-    目标：将 src/Element.js 打包到 examples/static/Element.js
-
     demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
 
     > demo/examples/webpack.config.js
@@ -327,7 +358,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         import {Element} from '../../src/Element'
         export {Element}
 
-    npx webpack --config examples/webpack.config.js
+    demo> npx webpack --config examples/webpack.config.js
     打包完成 http://localhost:3001
 
 ■ 开发打包

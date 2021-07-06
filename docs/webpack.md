@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.06 14:59</span>
         </div>
     </div>
     <div class="content"></div>
@@ -709,78 +709,67 @@ webpack中的Tapable
   }
 }
 ▉
-▉-WEBPACK_CONFIG▉
-/webpack.config.js
+```
 
-const ▀HtmlWebpackPlugin(PLUGIN_HTML)▀ = require('html-webpack-plugin') // yarn add html-webpack-plugin -D
-const ▀MiniCssExtractPlugin(PLUGIN_LINK)▀ = require('mini-css-extract-plugin')
-let ▀path(BASE)▀ = require('path')
+
+## 配置
+::: details webpack.config.js
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin')         // yarn add html-webpack-plugin -D
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+let path = require('path')
 
 module.exports = {
-  // 入口
-  ▀entry: './src/index.js'(BASE)▀,                           // 相对路径
-  
-  // 出口
-  ▀output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),           // 绝对路径
-  }(BASE)▀,
+    // 基础
+    entry: './src/index.js',                           // 入口 相对路径
+    output: {                                          // 出口 绝对路径
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    mode: 'development',                               // 环境：production/development/none
 
-  // 环境
-  ▀mode: 'development'(MODE)▀, // 值：production/development/none
+    devServer: {
+        port: 3000,             // 端口
+        progress: true,         // 显示进度条
+        contentBase: './build', // 重新指定服务目录
+        compress: true,         // 压缩
+    },
 
-  ▀devServer: {
-    port: 3000,             // 端口
-    progress: true,         // 显示进度条
-    contentBase: './build', // 重新指定服务目录
-    compress: true,         // 压缩
-  }(DEV_SERVER)▀,
-
-  // 插件任务如：打包优化，资源管理，注入环境变量
-  plugins: [
-    ▀new HtmlWebpackPlugin({
-      template: './src/index.html',  // 模板地址 
-      filename: 'index.html',        // 打包后的文件名      
-      minify: {                      // 压缩
-        removeAttributeQuotes: true, // 删除属性双引号
-        collapseWhitespace: true     // 折叠空行
-      },      
-      hash: true                     // 给资源加HASH引用参 与output: {filename: 'bundle.[hash:8].js'}不同      
-    })(PLUGIN_HTML)▀,
-    ▀new MiniCssExtractPlugin({
-      filename: 'main.css'           // 抽离出来的文件名
-    })(PLUGIN_LINK)▀ 
-  ]
-
-  // Loader 打包特定类型模块时 对其进行转换 Webpack默认能识别 JavaScript 和 JSON
-  module: {
-    rules: [
-      ▀{
-        test: /\.less$/, 
-        use:[
-          MiniCssExtractPlugin.loader, 
-          'css-loader',
-          'less-loader'
-        ]
-      }(PLUGIN_LINK)▀,
-      ▀{
-        test: /\.css$/, 
-        use:[
-          {
-            loader: 'style-loader',
-            options: {
-              insertAt: 'top', // 资源插入到模板的位置
-            }
-          }, 
-          'css-loader'
-        ]
-      }(PLUGIN_CSS)▀,
-      ▀{ test: require.resolve('jquery'), use: 'expose-loader?$'}(PLUGIN_EXPOSE_LOADER)▀, // yarn add expose-loader -D 
-      ▀{ test: /\.txt$/, use: 'raw-loader' }(LOADER01)▀ 
+    // 插件任务如：打包优化，资源管理，注入环境变量
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',              // 模板地址 
+            filename: 'index.html',                    // 打包后的文件名      
+            minify: {                                  // 压缩
+                removeAttributeQuotes: true,           // 删除属性双引号
+                collapseWhitespace: true               // 折叠空行
+            },      
+            hash: true                                 // 给资源加HASH引用参 与output: {filename: 'bundle.[hash:8].js'}不同      
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'main.css'                       // 抽离出来的文件名
+        }) 
     ]
-  }
+
+    // 默认能识别 JavaScript 和 JSON
+    module: {
+        rules: [
+            {test: /\.less$/, use:[MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']},
+            {test: /\.css$/, use:[{loader: 'style-loader', options: {insertAt: 'top'/*资源插入到模板的位置*/}}, 'css-loader']},
+            {test: require.resolve('jquery'), use: 'expose-loader?$'}(PLUGIN_EXPOSE_LOADER), // yarn add expose-loader -D 
+            {test: /\.txt$/, use: 'raw-loader' } 
+        ]
+    }
 }
-▉
+```
+:::
+
+
+
+
+
+```
+
 ▉WEBPACK_PLUGIN_HTML▉
 为应用程序生成一个 HTML 文件，并自动注入所有生成的 bundle
 -----

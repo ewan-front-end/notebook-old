@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.04 19:56</span>
+            <span>M 2021.07.06 13:51</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -18,6 +18,8 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 [NPM](/tools/npm)
+
+module、exports、require、global、__filename、__dirname
 
 ## 画图
 - npm i canvas --save-dev

@@ -1,5 +1,7 @@
 [NPM](/tools/npm)
 
+module、exports、require、global、__filename、__dirname
+
 ## 画图
 - npm i canvas --save-dev
 - /index.js

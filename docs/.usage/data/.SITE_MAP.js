@@ -39,11 +39,10 @@ module.exports = {
         mysql:{title:'MySQL', src:'data-mysql'},
         mongodb:{title:'MongoDB', src:'data-mongodb'}
     }},
-    tools: {title:'工具&资源', src: 'tools', links:[{name:'文档', href:'/docs/'}], children: {            
+    tools: {title:'工具&资源', src: 'tools', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
         git: {linkName: 'Git', src:'git'},
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
-        markdown: {linkName: 'Markdown', src:'markdown'},
-        webpack: {linkName: 'Webpack'},
+        markdown: {linkName: 'Markdown', src:'markdown'},        
         qiankun: {linkName: '乾坤微服务', src:'qiankun'},
         charts: {linkName: '需求图表', src:'0002'},
         vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], src:'vscode'},
