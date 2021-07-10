@@ -1,4 +1,28 @@
 
+node获取可用端口号
+用法一：
+var portfinder = require('portfinder');
+
+  portfinder.getPort(function (err, port) {
+    //
+    // `port` 说明可以在此作用域使用
+    //
+  });
+
+用法二：
+const portfinder = require('portfinder');
+
+  portfinder.getPortPromise()
+    .then((port) => {
+        //
+        // `port` 说明可以在此作用域使用
+        //
+    })
+    .catch((err) => {
+        //
+        // 不能使用，肯定会返回具体错误信息`err`,比如`Error: listen EACCES: permission denied 127.0.0.1:80`等信息
+        //
+    });
 
 
 
@@ -179,108 +203,141 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
 :::
 
-::: details HTML+ES6模块化/热更新/服务环境开发
+::: details HTML+ES6模块化/热更新/服务预览
 ```
 ■ 目标
-    > Http协议浏览example/
-    > 在静态页(example/index.html)中以script标签方式引入主入口(src/main.js)    
-    > 发布主入口文件到example/js/下
+    > Http协议浏览dist/index.html
+    > 在静态页(dist/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到dist/js/下
     > 监控响应开发目录
 
-■ 目录结构    
+■ 目录结构
     ┠ dist ---------------------------- 发布目录
+    ┃   ┖ index.html
     ┠ src ----------------------------- 开发目录
-    ┃   ┠ Element.js
-    ┃   ┠ main.js 
+    ┃   ┠ main.js
     ┃   ┖ modules
     ┃       ┠ a.js
-    ┃       ┖ b.js 
-    ┠ example ------------------------- 应用演示
-    ┃   ┠ index.html 
-    ┠ plugin -------------------------- 独立插件 src/Element.js最终要独立开发
-
-               
+    ┃       ┖ b.js    
+    
+    demo/dist/index.html   
+        <h1>HTML+ES6模块化/热更新/服务预览</h1>     
+        <script src="js/main.js"></script>  
+        <script>
+            console.log(lib.str)
+        </script>           
     demo/src/main.js    
         import add from './modules/a'
         import { pow, sqrt } from './modules/b'
         console.log(add(1, 2))
         console.log(pow(9))
-        console.log(sqrt(9))    
+        console.log(sqrt(9)) 
+        export const str = '1234567890'   
     demo/src/modules/a.js
         export default (a, b) => a + b
     demo/src/modules/b.js
         export const pow = x => x * x
-        export const sqrt = x => Math.sqrt(x)
-    demo/example/index.html   
-        <h1>HTML+ES6模块化/热更新/服务环境开发</h1>     
-        <script src="/static/js/main.js"></script>  
-    demo/example/001/index.html   
-        <script src="/lib/Element.js"></script>   <!-- 开启服务 从跟目录读取资源 File协议浏览 "../lib/Element.js" 从上一级目录读取资源 -->
-        <script>
-            var el = new lib.Element('Sprite')
-            console.log('el', el)
-        </script>
-    demo/src/Element.js
-        export class Element{  
-            constructor(type){
-                this.type = type
-                this.data = {a: 1}
-            }
-        }
+        export const sqrt = x => Math.sqrt(x)    
 
 ■ 搭建服务
     demo> npm init -y
     demo> npm i express@4.17.1 --save-dev 
 
-    demo/example/server.js
+    demo/dist/server.js
         const express = require('express')
         const app = express()
         const port = 3001
         app.use(express.static(__dirname))
         app.listen(port, ()=>{console.log('\nhttp://localhost:' + port + '\n')})
     
-    demo> node example/server.js
+    demo> node dist/server.js
 
 ■ 开发部署
     demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
 
-    demo/example/webpack.config.js
+    demo/webpack.config.js
         const path = require('path')        
         module.exports = {
             mode: 'development',
             entry: {
-                main: path.resolve(__dirname, '../src/main.js'), // 绝对路径 突破服务根目录限制
-                Element: Element: path.resolve(__dirname, '../src/Element.js') 
+                main: './src/main.js',                     // 相对路径
             },
             output: {
-                path: path.resolve(__dirname, 'js'),  // 绝对路径
-                filename: '[name].js',
+                path: path.resolve(__dirname, 'dist/js'),  // 绝对路径
+                filename: '[name].js'
+            }
+        } 
+    如果主入口要暴露方法则需指定引用模式/访问前缀：
+        module.exports = {
+            output: {
                 library: 'lib', 
                 libraryTarget: 'umd'
             }
-        }    
-    demo> npx webpack --config example/webpack.config.js
+        }
+    
 
     为服务添加热更新
+        // 监控开发文件 webpack-dev-middleware
+        // 浏览器自刷新 webpack-hot-middleware
         demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
 
-        调整服务器 demo/example/server.js 在'const port = 3001'和'app.use(express.static(__dirname))'之间
+        调整服务器 demo/dist/server.js 在'const port = 3001'和'app.use(express.static(__dirname))'之间
             const webpackDevMiddleware = require('webpack-dev-middleware')
             const webpackHotMiddleware = require('webpack-hot-middleware')
             const webpack = require('webpack')
-            const webpackConfig = require('./webpack.config.js')
+            const webpackConfig = require('../webpack.config.js')
             const compiler = webpack(webpackConfig)            
             app.use(webpackDevMiddleware(compiler))
             app.use(webpackHotMiddleware(compiler))            
         
-    demo> node example/server.js
+    demo> node dist/server.js
     偿试编辑 src/main.js 再刷新浏览器查看
-    如果example/static不生成则手动：npx webpack --config example/webpack.config.js
+    如果dist/js不生成则手动：npx webpack --config dist/webpack.config.js 
 ```
 :::
 
-::: details HTML+ES6模块化/热更新/服务环境开发------------------------------------
+::: details 1111111111
+npm init -y
+npm i webpack webpack-cli webpack-hot-middleware --save-dev
+demo/src/main.js
+
+demo/webpack.config.js
+const path = require('path')
+const webpack = require('webpack')
+module.exports = {
+    mode: 'development',
+    entry: ['./src/main.js'],
+    output: {
+        path: path.resolve(__dirname, 'dist/'),
+        filename: '[name].[hash].js'
+    }
+}
+module.exports = {
+    mode: 'development',
+    entry: ['webpack-hot-middleware/client', './src/main.js'],
+    output: {
+        path: '/'
+    },
+    plugins: [
+        new webpack.optimize.OccurrenceOrderPlugin(), 
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ]
+}
+
+demo> npx webpack
+:::
+
+
+
+::: details 较完整项目
 ```
+■ 目标
+    > Http协议浏览example/
+    > 在静态页(example/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到example/js/下
+    > 监控响应开发目录
+    > 环境
 ■ 目录结构
     ┠ dist ---------------------------- 发布目录
     ┠ src ----------------------------- 开发目录
@@ -293,6 +350,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
     ┃   ┠ 001
     ┃   ┃   ┠ app.js
     ┃   ┃   ┠ index.html
+    ┠ plugin -------------------------- 独立插件 src/Element.js最终要独立开发
 
     demo/src/Element.js
         export class Element{  

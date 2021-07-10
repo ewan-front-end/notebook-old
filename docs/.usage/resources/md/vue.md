@@ -1,4 +1,12 @@
 
+npm install -g @vue/cli
+npm uninstall -g @vue/cli
+vue create 项目名称
+
+npm install -g vue-cli@2.x
+vue init webpack 项目名称
+
+
 - Vue 3.0不再支持filters过滤器
 ```vue
 <template><p>{{ accountBalance | currencyUSD }}</p> <p>{{ accountInUSD }}</p></template> 

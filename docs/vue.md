@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.08 17:26</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,14 @@ pageClass: theme-item
 <h1>Vue</h1><strong>Vue</strong>
 </div>
 <div class="static-content">
+
+npm install -g @vue/cli
+npm uninstall -g @vue/cli
+vue create 项目名称
+
+npm install -g vue-cli@2.x
+vue init webpack 项目名称
+
 
 - Vue 3.0不再支持filters过滤器
 ```vue

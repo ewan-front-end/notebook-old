@@ -18,6 +18,11 @@
 
   "type": "module",                                           // 以哪种模块方案进行解释 module(ESM)/commonjs 
   "private": true,                                            // 是否私有
+                                                              // 环境要求
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
 }
 ```
 
