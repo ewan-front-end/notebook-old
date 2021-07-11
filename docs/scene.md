@@ -322,8 +322,8 @@ demo/package.json
 },
 
 demo/test/
-端到端测试(e2e)
-单元测试
+端到端测试(e2e) 用户角度
+单元测试        程序员的角度
 
 
 
