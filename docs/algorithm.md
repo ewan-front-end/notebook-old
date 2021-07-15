@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.11 21:00</span>
+            <span>M 2021.07.14 14:05</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,7 +17,6 @@ pageClass: theme-item
 <h1>算法</h1><strong>算法</strong>
 </div>
 <div class="static-content">
-:::2021.06.26:::
 
 公式：
 a²+b² = (a+b)²-2ab

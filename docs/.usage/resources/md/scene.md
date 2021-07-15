@@ -1,29 +1,4 @@
 
-node获取可用端口号
-用法一：
-var portfinder = require('portfinder');
-
-  portfinder.getPort(function (err, port) {
-    //
-    // `port` 说明可以在此作用域使用
-    //
-  });
-
-用法二：
-const portfinder = require('portfinder');
-
-  portfinder.getPortPromise()
-    .then((port) => {
-        //
-        // `port` 说明可以在此作用域使用
-        //
-    })
-    .catch((err) => {
-        //
-        // 不能使用，肯定会返回具体错误信息`err`,比如`Error: listen EACCES: permission denied 127.0.0.1:80`等信息
-        //
-    });
-
 
 
 
@@ -45,6 +20,7 @@ const portfinder = require('portfinder');
 - 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
 - OOA（面向对象分析） OOD（面向对象设计）
 - [设计模式(Design pattern)](/designPattern)
+- [node获取可用端口号](/node#node获取可用端口号)
 
 ## 解决方案
 - [用户帐户体系](/solution.html#用户帐户体系sdk)
@@ -140,6 +116,19 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
     打开 demo/index.html
 ```
 :::
+
+::: details 插件开发
+    场景一：HTML+ES6模块化/热更新开发
+    ┠ config -------------------------- 配置目录
+    ┃   ┖ index.js
+    ┠ plugins ------------------------- 插件目录
+    ┃   ┠ [matrix.js](/algorithm#矩阵运算)   
+
+    demo/config/index.js   
+        module.exports = {
+            pluginDistTarget: ''
+        } 
+
 
 
 ::: details HTML+ES6模块化/热更新开发

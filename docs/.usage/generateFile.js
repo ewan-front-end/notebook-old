@@ -33,6 +33,9 @@ module.exports = (ABSOLUTE_PATH, target) => {
     // 资源静态内容
     if (target.src) {
         let file = readFile(_path.resolve(__dirname, './resources/md/'+target.src+'.md'))
+        // 解析自定义样式
+        parseStyle(file)
+
         if (RES_MAP_PATH[target.src]) modifyData = RES_MAP_PATH[target.src].updateTime
 
         // 自定义格式 :::FLEX +++ 1 +++ FLEX:::

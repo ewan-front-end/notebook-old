@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.04 12:50</span>
+            <span>M 2021.07.15 12:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -59,12 +59,14 @@ arr.forEach((e) => {
 <pre class="fs16">
 <strong>匹配位置</strong>
     每一行的开头: (?:^|\n)#{1,6}.+    
+    每一行的结尾: $  // 前提是开启多行模式
 <br>
 <strong>字符范围</strong>
     任意字符 包括（换行符、回车符、行分隔符和段分隔符）    [\s\S]*    [\d\D]*    [\w\W]*
     任意字符 排除（换行符、回车符、行分隔符和段分隔符）    .    [^\n\r\u2028\u2029]
-    换行符   \n
-    回车符   \r
+    缩进符   \t       // tab键
+    换行符   \n       // Windows Linux
+    回车符   \r       // Windows Mac
     行分隔符 \u2028
     段分隔符 \u2029
             \d  [0-9]              \D  [^0-9]                        匹配任意非数字的字符

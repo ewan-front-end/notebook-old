@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.06 13:51</span>
+            <span>M 2021.07.14 14:02</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -20,6 +20,25 @@ pageClass: theme-item
 [NPM](/tools/npm)
 
 module、exports、require、global、__filename、__dirname
+
+## node获取可用端口号
+```
+用法一：
+var portfinder = require('portfinder');
+portfinder.getPort(function (err, port) {
+    // `port` 说明可以在此作用域使用
+});
+
+用法二：
+const portfinder = require('portfinder');
+portfinder.getPortPromise()
+.then((port) => {
+    // `port` 说明可以在此作用域使用
+})
+.catch((err) => {
+    // 不能使用，肯定会返回具体错误信息`err`,比如`Error: listen EACCES: permission denied 127.0.0.1:80`等信息
+});
+```
 
 ## 画图
 - npm i canvas --save-dev

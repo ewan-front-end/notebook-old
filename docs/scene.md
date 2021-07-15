@@ -1,31 +1,6 @@
 - [Node版本管理](/node.html#版本管理)
 
 
-node获取可用端口号
-用法一：
-var portfinder = require('portfinder');
-
-  portfinder.getPort(function (err, port) {
-    //
-    // `port` 说明可以在此作用域使用
-    //
-  });
-
-用法二：
-const portfinder = require('portfinder');
-
-  portfinder.getPortPromise()
-    .then((port) => {
-        //
-        // `port` 说明可以在此作用域使用
-        //
-    })
-    .catch((err) => {
-        //
-        // 不能使用，肯定会返回具体错误信息`err`,比如`Error: listen EACCES: permission denied 127.0.0.1:80`等信息
-        //
-    });
-
 
 
 
@@ -47,6 +22,7 @@ const portfinder = require('portfinder');
 - 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
 - OOA（面向对象分析） OOD（面向对象设计）
 - [设计模式(Design pattern)](/designPattern)
+- [node获取可用端口号](/node#node获取可用端口号)
 
 ## 解决方案
 - [用户帐户体系](/solution.html#用户帐户体系sdk)
@@ -143,6 +119,20 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
 :::
 
+::: details 插件开发
+    场景一：HTML+ES6模块化/热更新开发
+    ┠ config -------------------------- 配置目录
+    ┃   ┖ index.js
+    ┠ plugins ------------------------- 插件目录
+    ┃   ┠ [matrix.js](/algorithm#矩阵运算)   
+
+    demo/config/index.js   
+        module.exports = {
+            pluginDistTarget: ''
+        } 
+
+
+
 ::: details HTML+ES6模块化/热更新开发
 ```
 ■ 目标
@@ -204,17 +194,16 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
 :::
 
-
 ::: details HTML+ES6模块化/热更新/服务预览
 ```
 ■ 目标
-    > Http协议浏览example/index.html
-    > 在静态页(example/index.html)中以script标签方式引入主入口(src/main.js)    
-    > 发布主入口文件到example/js/下
+    > Http协议浏览dist/index.html
+    > 在静态页(dist/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到dist/js/下
     > 监控响应开发目录
 
 ■ 目录结构
-    ┠ example ---------------------------- 发布目录
+    ┠ dist ---------------------------- 发布目录
     ┃   ┖ index.html
     ┠ src ----------------------------- 开发目录
     ┃   ┠ main.js
@@ -222,14 +211,11 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
     ┃       ┠ a.js
     ┃       ┖ b.js    
     
-    demo/example/index.html   
+    demo/dist/index.html   
         <h1>HTML+ES6模块化/热更新/服务预览</h1>     
         <script src="js/main.js"></script>  
-        <script> 
-            console.log(lib.str) 
-            console.log(`3 + 5 = ${lib.add(3, 5)}`)
-            console.log(`7 * 7 = ${lib.pow(7)}`)
-            console.log(`36的平方根 = ${lib.sqrt(36)}`)
+        <script>
+            console.log(lib.str)
         </script>           
     demo/src/main.js    
         import add from './modules/a'
@@ -237,10 +223,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         console.log(add(1, 2))
         console.log(pow(9))
         console.log(sqrt(9)) 
-        const str = 'libstring'
-        export {str, add, pow, sqrt}  
-        // 接收热更新输出，只有accept才能被更新
-        if (module.hot) { module.hot.accept() }  
+        export const str = '1234567890'   
     demo/src/modules/a.js
         export default (a, b) => a + b
     demo/src/modules/b.js
@@ -251,89 +234,58 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
     demo> npm init -y
     demo> npm i express@4.17.1 --save-dev 
 
-    demo/example/server.js
+    demo/dist/server.js
         const express = require('express')
         const app = express()
         const port = 3001
         app.use(express.static(__dirname))
         app.listen(port, ()=>{console.log('\nhttp://localhost:' + port + '\n')})
     
-    demo> node example/server.js
+    demo> node dist/server.js
 
 ■ 开发部署
     demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
 
-    demo/example/webpack.config.js
+    demo/webpack.config.js
         const path = require('path')        
         module.exports = {
             mode: 'development',
             entry: {
-                main: path.resolve(__dirname, '../src/main.js'), // 相对路径 使用绝对路径突破服务限制
+                main: './src/main.js',                     // 相对路径
             },
             output: {
-                path: path.resolve(__dirname, 'js'),             // 绝对路径
-                filename: '[name].js',
-                publicPath: '/js/',                              // 很重要 script资源引用时的依据
+                path: path.resolve(__dirname, 'dist/js'),  // 绝对路径
+                filename: '[name].js'
+            }
+        } 
+    如果主入口要暴露方法则需指定引用模式/访问前缀：
+        module.exports = {
+            output: {
                 library: 'lib', 
                 libraryTarget: 'umd'
             }
         }
-    demo> npx webpack --config example/webpack.config.js 
-    demo> node example/server.js
+    
 
-    为服务添加热更新：监控开发文件/浏览器自刷新
+    为服务添加热更新
+        // 监控开发文件 webpack-dev-middleware
+        // 浏览器自刷新 webpack-hot-middleware
         demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
 
-        调整服务器 demo/example/server.js 在'const port = 3001'和'app.use(express.static(__dirname))'之间
+        调整服务器 demo/dist/server.js 在'const port = 3001'和'app.use(express.static(__dirname))'之间
             const webpackDevMiddleware = require('webpack-dev-middleware')
             const webpackHotMiddleware = require('webpack-hot-middleware')
             const webpack = require('webpack')
-            const webpackConfig = require('./webpack.config.js')
+            const webpackConfig = require('../webpack.config.js')
             const compiler = webpack(webpackConfig)            
             app.use(webpackDevMiddleware(compiler))
-            app.use(webpackHotMiddleware(compiler))  
-
-        服务订阅 demo/example/webpack.config.js            
-            const webpack = require('webpack')
-            module.exports = {  
-                entry: [
-                    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', // 必须这么写，这将连接到服务器，以便在包重新构建时接收通知，然后相应地更新客户端
-                    path.resolve(__dirname, '../src/main.js')
-                ], 
-                plugins: [
-                    new webpack.HotModuleReplacementPlugin(), // 启动HMR
-                    new webpack.NoEmitOnErrorsPlugin()        // 在编译出现错误时，使用 NoEmitOnErrorsPlugin 来跳过输出阶段。这样可以确保输出资源不会包含错误
-                ]
-            }
+            app.use(webpackHotMiddleware(compiler))            
         
-    demo> node example/server.js
-    http://localhost:8081/ 如果输出未定义 1 webpack.config.js output.publicPath是否已设置 2 HtmlWebpackPlugin插件是否设置inject
+    demo> node dist/server.js
     偿试编辑 src/main.js 再刷新浏览器查看
+    如果dist/js不生成则手动：npx webpack --config dist/webpack.config.js 
 ```
 :::
-
-::: detaile 测试
-```
-demo/package.json
-"scripts": {    
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e"
-},
-
-demo/test/
-端到端测试(e2e) 用户角度
-单元测试        程序员的角度
-
-
-
-```
-:::
-
-
-
-
-
 
 ::: details 1111111111
 npm init -y
@@ -377,9 +329,9 @@ demo> npx webpack
     > 发布主入口文件到example/js/下
     > 监控响应开发目录
     > 环境
-■ 目录结构    
+■ 目录结构
+    ┠ dist ---------------------------- 发布目录
     ┠ src ----------------------------- 开发目录
-    ┃   ┠ Element.js
     ┃   ┠ main.js
     ┃   ┖ modules
     ┃       ┠ a.js

@@ -155,6 +155,12 @@ elem[ attr*= value]　匹配附带attr属性的elem元素，并且该属性值�
 
 ::: details 备忘
 ```css
+/* 自动填充背景修改 */
+input:-webkit-autofill{
+	box-shadow:0 0 0 1000px #f00 inset !important;
+    text-fill-color: #333 !important;
+}
+
 /* 下拉箭头 */
 .select:after{ 
     content: ''; display: block; width: 0; height: 0; 

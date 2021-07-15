@@ -1,4 +1,14 @@
 
+- 替换特定索引下的字符
+```js
+String.prototype.replaceAt=function(scope, replacement) {
+    return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
+}
+//使用：
+var hello="Hello World"
+console.log(hello.replaceAt(2, "!!"))
+```
+
 ## 数据类型
 ::: details Array
 ```js
