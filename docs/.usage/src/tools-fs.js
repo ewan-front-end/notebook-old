@@ -18,6 +18,7 @@ module.exports = {
     readFile: (path) => {
         return fs.readFileSync(path, 'utf8')
     },
+    writeFileSync: (path, content) => {fs.writeFileSync(path, content)},
     writeFile: (path, content) => {      
         fs.writeFile(path, content, { encoding: 'utf8' }, err => { 
             if(err){ 

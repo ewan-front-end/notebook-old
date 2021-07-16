@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.06 14:16</span>
+            <span>M 0000:00:00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -37,6 +37,11 @@ pageClass: theme-item
 
   "type": "module",                                           // 以哪种模块方案进行解释 module(ESM)/commonjs 
   "private": true,                                            // 是否私有
+                                                              // 环境要求
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
 }
 ```
 

@@ -2,10 +2,11 @@ const {writeFile, readFile} = require('./src/tools-fs')
 const _path = require('path')
 const {RES_MAP_PATH} = require('./data/resMapPath.js')
 const handleUML = require('./src/handleUML')
+const {parseStyle} = require('./src/parseCode')
 
 module.exports = (ABSOLUTE_PATH, target) => {
     let content
-    let childrenContent = '' // 主题子类
+    let childrenContent = '' // 主题子类 
     let linksContent = ''    // 主题链接
     let contentHeader = ''   // 主题标题、说明、详情
     let staticContent = ''   // 资源静态内容
@@ -34,7 +35,7 @@ module.exports = (ABSOLUTE_PATH, target) => {
     if (target.src) {
         let file = readFile(_path.resolve(__dirname, './resources/md/'+target.src+'.md'))
         // 解析自定义样式
-        parseStyle(file)
+        file = parseStyle(file)
 
         if (RES_MAP_PATH[target.src]) modifyData = RES_MAP_PATH[target.src].updateTime
 

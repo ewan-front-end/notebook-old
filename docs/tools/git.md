@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.15 20:57</span>
+            <span>M 0000:00:00 00:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -21,12 +21,13 @@ pageClass: theme-item
 <pre>
 
 ■ 用户
-----------
-0/1[13-19](bold Cf00 18PX B0f0)
-----------2
-git config --global user.name "xxxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
-git config --global user.email xxxxxxxxxx@163.com
+git config --<span style="font-weight:bold;color:#000;">global</span>xxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
+
+git config --<span style="font-weight:bold;color:#000;">global</span>xxxxxxxxx@163.com
+
 git config --list .  // 查看
+
+
 
 ■ 工作
 git config user.name "ewanq"

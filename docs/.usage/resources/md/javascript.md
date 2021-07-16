@@ -1,13 +1,5 @@
 
-- 替换特定索引下的字符
-```js
-String.prototype.replaceAt=function(scope, replacement) {
-    return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
-}
-//使用：
-var hello="Hello World"
-console.log(hello.replaceAt(2, "!!"))
-```
+
 
 ## 数据类型
 ::: details Array
@@ -99,6 +91,15 @@ Object.assign(target, objA, objB)            // {"name": "柴硕", "car": "宝�
 
 ::: details String
 [中文首字母及排序](/solution#中文获取拼音首字母及排序) - [正则匹配](/tools/regularExpression#字符串匹配方法)
+```js
+String.prototype.replaceAt=function(scope, replacement) {
+    if (scope[0] > this.length) return this // 起始位置越界
+    return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
+}
+//替换特定索引下的字符：console.log("Hello World".replaceAt([2,4], "!!"))
+
+```
+
 ```js
         'Hello'.slice(1,2))          "e"             // 截取范围
         'Hello'.slice(-3)            "llo"           // 截取范围 第一个负数参数为5+-3
