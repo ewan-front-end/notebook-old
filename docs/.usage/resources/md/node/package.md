@@ -36,5 +36,25 @@
         1. npm i concurrently -g
         2. "scripts": { "start": "concurrently \"npm run clientServer\" \"npm run server\"" }
 
-         
+ 
+   
+{
+    "name": "my-plugin",             插件的名字
+    "version": "1.0.0",                插件版本号
+    "description": "一个简单的插件",    插件描述
+    "author": "名字",     作者名
+    "license": "MIT",     许可证书，一般开源是MIT
+    "main": "myPlugin.js",  入口文件路径，require(name)将根据这个路径来引入
+    "scripts": {},          命令行，通过npm run 执行
+                           github仓库项目地址 
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/xxx/my-plugin.git"
+    },
+    "keywords": ["my", "plugin"],   关键词，使用数组形式，方便npm官网搜索
+    
+    "bugs": {
+        "url": "https://github.com/xxx/my-plugin/issues"
+    }
+}     
 </pre>

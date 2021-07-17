@@ -4,24 +4,24 @@ String.prototype.replaceAt=function(scope, replacement) {
 }
 module.exports = {
     parseStyle(code){   
-        console.log(code);
-        const regStyleBlock = /^-{10}[\r\n]([\s\S]+?)^-{10}(\d{1,2})?[\n\r]/m
-
-        let styleBlock = code.match(regStyleBlock) 
-        console.log(styleBlock);
+        //console.log(code);
+        let styleBlock = code.match(/^-{10}[\r\n]{1,2}([\s\S]+?)^-{10}(\d{1,2})?[\r\n]{1,2}/m) 
+        //console.log(styleBlock);
         if (!styleBlock) return code
         
-        let styleArr = styleBlock[1].match(/^\d.+/mg)
-        let scope = styleBlock[2] * 1 || 10            
+        let styleContent = styleBlock[1].match(/^\d.+/mg)
+        let scope = styleBlock[2] * 1 || 10 
+        //console.log(styleContent);           
         
         code = code.replace(styleBlock[0], 'STYLEBLOCK\n')
         
-        const regContent = new RegExp(`STYLEBLOCK[\r\n]{1,2}(([\r\n]{1,2}|^.*[\r\n]{1,2}){1,${scope}})`, 'm')
-        let content = code.match(regContent)
+        let content = code.match(new RegExp(`STYLEBLOCK\n((^.*[\n\r\u2028\u2029]{1,2}){1,${scope}})`, 'm'))
+        //console.log(content);
         if (!content) return code
 
-        let lineContentArr = content[1].match(/^.*[\r\n]{1,2}/gm)
-        //console.log('lineContentArr', lineContentArr, lineContentArr.length);
+        let contentLine = content[1].match(/^.*[\r\n]{1,2}/gm)
+        console.log('contentLine', contentLine, contentLine.length, scope);
+
         const parseLine = str => {
             let arr = str.split('/')
             return arr
@@ -41,20 +41,20 @@ module.exports = {
             index = parseIndex(index)
             const lineArr =  parseLine(line)
             lineArr.forEach(i => {
-                let contentLine = lineContentArr[i]
-                let subStr = contentLine.slice(index[0], index[1])
-                lineContentArr[i] = contentLine.replaceAt(index, `<span style="${style}">${subStr}</span>`)
+                let line = contentLine[i]
+                let subStr = line.slice(index[0], index[1])
+                contentLine[i] = line.replaceAt(index, `<span style="${style}">${subStr}</span>`)
             })
         }
         
-        styleArr.forEach(e => {
+        styleContent.forEach(e => {
             let info = e.match(/(\d{1,2}([\/-]\d{1,2})*)(\[\d{1,2}-\d{1,2}(\|\d{1,2}-\d{1,2})*\])*\(([\w ]+)\)/)
             
             // 行： 1/2/3     索引： [14-19|20-25]     样式： bold Cf00 18PX B0f0            
             handleCodeStyle(info[1], info[3], info[5])
         })
-
-        let newContent = lineContentArr.join('\n')
+        //console.log(contentLine);
+        let newContent = contentLine.join('')
 
         code = code.replace(content[0], newContent)
         

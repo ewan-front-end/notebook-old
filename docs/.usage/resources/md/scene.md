@@ -118,6 +118,63 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 :::
 
 ::: details 插件开发
+```
+命令行工具
+https://zhuanlan.zhihu.com/p/37316872
+https://www.jianshu.com/p/7c29e3e933b0
+https://blog.csdn.net/qq_41807489/article/details/97295547
+    ┠ bin -------------------------- 命令脚本文件
+    ┃   ┖ hi.js
+    ┠ lib ------------------------- 库文件 一些功能代码
+    ┠ test ------------------------- 测试
+    ┠ docs 文档 
+    ┠ script 构建脚本
+    ┠ .editorconfig  统一代码风格 定义项目的编码规范
+    README.md  介绍这个包的功能，
+    LICENSE  声明我们的开源协议
+    npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
+    持续集成，代码覆盖率
+
+demo/.editorconfig
+    # editorconfig.org
+    root = true
+
+    [*]
+    indent_style = space
+    indent_size = 2
+    end_of_line = lf
+    charset = utf-8
+    trim_trailing_whitespace = true
+    insert_final_newline = true
+
+    [*.md]
+    trim_trailing_whitespace = false
+
+demo> npm init -y
+demo/hi.js    
+    #! /usr/bin/env node
+    console.log("JavaScript之禅的朋友你们好")
+demo/package.json
+    "bin": {
+        "hi": "hi.js"
+    }    
+demo> npm link
+demo> hi
+
+
+
+
+
+
+■ 目标
+    > example
+    > test    
+    > 发布ES6到lib下
+    > 发布COMMONJS到lib下
+    > 可SCRIPT标签引用
+    > NPM版本管理
+    > GIT版本管理
+
     场景一：HTML+ES6模块化/热更新开发
     ┠ config -------------------------- 配置目录
     ┃   ┖ index.js
@@ -126,9 +183,10 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 
     demo/config/index.js   
         module.exports = {
-            pluginDistTarget: ''
+            pluginDistTarget: '' // 打包到哪里
         } 
-
+```
+:::
 
 
 ::: details HTML+ES6模块化/热更新开发

@@ -3,17 +3,17 @@
 
 ■ 用户
 ----------
-0/1[13-19](bold C000 18PX)
-----------5
+0/1[13-19](bold C1a1 18PX)
+----------2
 git config --global user.name "xxxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
 git config --global user.email xxxxxxxxxx@163.com
 git config --list .  // 查看
 
 ■ 工作
-git config user.name "ewanq"
-git config user.email ewanoo@163.com
+git config user.name "xxxxxxxxxx"
+git config user.email xxxxxxxxxx@163.com
 
-■ 编辑工作.git/config 
+或直接编辑项目下的.git/config 
 [user]
 	name = xxxxxxxxxx
 	email = xxxxxxxxxx@163.com
