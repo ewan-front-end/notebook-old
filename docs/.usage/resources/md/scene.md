@@ -33,6 +33,7 @@
 
 
 ## 环境搭建 
+[正则表达式测试页](/tools/regularExpression)
 ::: details Node环境下ES6模块化开发
 http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
@@ -117,11 +118,196 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
 :::
 
-::: details 插件开发
+::: details 命令行工具开发
 ```
-命令行工具
-https://zhuanlan.zhihu.com/p/37316872
+目标：
+    - 可安装 npm i @angg/dict -g
+    - 可发布与升级
+    - 可使用 demo> hi
+核心
+    - package.name       安装 　　      名称           npm i ■■              
+    - package.version    安装 升级      版本           npm i @angg/dict@■■    发布之前修改■■
+    - package.bin        使用 　　      命令程序指向    demo> hi                      
+
+■ 简单的 
+    1. demo> npm init -y
+    2. demo/bin/hi.js
+        #! /usr/bin/env node
+        console.log("Node命令插件")
+    3. demo/package.json
+        "bin": {"hi": "bin/hi.js"}
+    4. demo> npm link
+    5. xxxx> hi
+
+■ 健壮的 
+    1. dict> npm init -y
+    2. dict> npm i commander update-notifier superagent xml2js --save-dev
+        commander        命令处理
+        update-notifier  以非侵入性方式通知你的更新软件包
+        superagent       轻量的渐进式的ajax api
+        xml2js           解析操作XML文件
+    3. 文件结结 
+    dict/bin/cli.js
+        #! /usr/bin/env node
+        const program = require('commander')
+        const updateNotifier = require('update-notifier')
+        const pkg = require('../package.json')
+        const translator = require('../lib/translator')
+        updateNotifier({ pkg }).notify()
+        program
+            .version(pkg.version)
+        program
+            .command('*')
+            .description('Query words')
+            .action(translator.query)
+        program
+            .command('query <words>')
+            .alias('q')
+            .description('Query words')
+            .action(translator.query)
+        program
+            .command('ls')
+            .description('List all the source')
+            .action(translator.onList)
+        program
+            .command('use <source>')
+            .description('Change source to source')
+            .action(translator.onUse)
+        program.parse(process.argv)
+        if (process.argv.length === 2) {program.outputHelp()}
+    dict/lib/api.json
+        {
+            "youdao": "http://fanyi.youdao.com/openapi.do?keyfrom=node-fanyi&key=110811608&type=data&doctype=json&version=1.1",
+            "iciba": "http://dict-co.iciba.com/api/dictionary.php?key=D191EBD014295E913574E1EAF8E06666"
+        }
+    dict/lib/translator.js
+        const request = require('superagent')
+        const xml2js = require('xml2js')
+        const chalk = require('chalk')
+        const Configstore = require('configstore')
+        const { URL } = require('url')
+        const log = console.log
+        const api = require('./api.json')
+        const pkg = require('../package.json')
+        const conf = new Configstore(pkg.name, {source: 'youdao'})
+        // 打印词典列表 并标示当前使用
+        exports.onList = function () {
+            let current = getCurrentApi()
+            for (let key in api) { if (key === current) { log(chalk.blue('*  ' + key + '  -> ' + new URL(api[key]).origin)) } else { log('   ' + key + '  -> ' + new URL(api[key]).origin) } }
+        }
+        // 设置当前使用词典
+        exports.onUse = function (source) { setCurrentApi(source) }
+        // 查词
+        exports.query = async function (query) {
+            let current = getCurrentApi(), source = api[current]
+            if (current === 'youdao') { const data = await request.get(source).query({ q: query }); const result = data.body; parseYoudao(result) } else if (current === 'iciba') { const data = await request.get(source).query({ w: query }); parseIciba(data.text) }
+        }
+        // 获取当前使用中词典
+        function getCurrentApi () { let source = conf.get('source'); return source}
+        // 设置当前使用词典
+        function setCurrentApi (source) { conf.set('source', source); log(chalk.cyan(`source has been set to: ${source}`))}
+        // 解析有道查询结果
+        function parseYoudao (data) {
+            let header = ''
+            header += data.query
+            if (data.basic && data.basic.phonetic) { header += chalk.magenta('  [ ' + data.basic.phonetic + ' ]') }
+            log(header + chalk.gray('    ~ fanyi.youdao.com'))
+            // explains
+            if (data.basic && data.basic.explains) { log(); data.basic.explains.forEach((item) => { log(chalk.gray('- ') + chalk.green(item)) }) }
+            // sentence
+            if (data.web && data.web.length) { log(); data.web.forEach((item, i) => { log(chalk.gray(i + 1 + '. ') + item.key); log(`     ${chalk.cyan(item.value.join(','))}\n`) }) }
+        }
+        // 解析Iciba查询结果
+        async function parseIciba (data) {
+            const _data = await parseString(data)
+            data = _data.dict
+            let header = ''
+            header += data.key + ' '
+            if (typeof data.ps === 'string') { data.ps = [data.ps] }
+            if (typeof data.pos === 'string') { data.pos = [data.pos] }
+            if (typeof data.acceptation === 'string') { data.acceptation = [data.acceptation] }
+            if (data.ps && data.ps.length) { var ps = ''; data.ps.forEach((item, i) => { header += chalk.magenta(' ' + (i === 0 ? '英' : '美') + '[ ' + item + ' ] ') }); header += ps }
+            log(header + chalk.gray('    ~ iciba.com'))
+            if (data.pos && data.pos.length) { log(); data.pos.forEach((item, i) => { if (typeof data.pos[i] !== 'string' || !data.pos[i]) { return }; log(chalk.gray('- ') + chalk.green(data.pos[i] + ' ' + data.acceptation[i].trim())) }) }
+            if (data.sent && data.sent.length) {
+                log()
+                data.sent.forEach((item, i) => { if (typeof item.orig !== 'string' && item.orig[0]) { item.orig = item.orig[0].trim() }; if (typeof item.trans !== 'string' && item.trans[0]) { item.trans = item.trans[0].trim() }; log(chalk.gray(i + 1 + '. ') + item.orig); log(`   ${chalk.cyan(item.trans)}\n`) })
+            }
+        }
+        function parseString (xml) { return new Promise(function (resolve, reject) { xml2js.parseString(xml, (err, result) => { if (err) { reject(err) }; resolve(result) }) }) }
+    4. dict/package.json
+        "name": "@angg/dict",            // xxxx> npm install -g @angg/dict
+        "version": "1.0.0",              // xxxx> npm install -g @angg/dict@1.0.0
+        "bin": {
+            "translator": "bin/cli.js",  // xxxx> translator
+            "fanyi": "bin/cli.js",       // xxxx> fanyi
+            "fy": "bin/cli.js"           // xxxx> fy
+        }
+    5. dict> npm link
+    6. xxxx> translator
+       xxxx> fanyi
+       xxxx> fy 
+             fy query book  查词
+             fy ls          词典列表
+             fy use iciba   使用词典 
+
+    
+    发布：如果 还没有帐户 或 多人发布 LINK[npm_user_register|注册]
+        1 检查是否要迭代package.version
+        2 dict> npm adduser                 // 向导分别要求填入username/password/email,可通过 npm whoami 查看当前用户
+        3 dict> npm publish --access public // npm publish 默认发布私有，所以会导致失败
+    安装：xxxx> npm i @angg/dict -g    
+```
+:::
+
+::: details Node插件开发
 https://www.jianshu.com/p/7c29e3e933b0
+```
+目标：
+    - 可发布与升级
+    - 可安装 npm i my-plugin --save
+    - 可使用 var myPlugin = require('my-plugin') 或 import myPlugin from 'my-plugin'
+核心
+    - package.name       安装 使用      名称           npm i ■■              require('■■')      import myPlugin from '■■' 
+    - package.version    安装 升级      版本           npm i my-plugin@■■    发布之前修改■■
+    - package.main            使用      内部程序指向                         require('my-plugin')内部隐式指向■■
+
+1. my-plugin> npm init -y
+2. my-plugin/package.json
+    {"name": "my-plugin", "version": "1.0.0", "main": "myPlugin.js"}
+3. my-plugin/myPlugin.js
+    module.exports = { 
+        sleep(long){
+            var start = Date.now()
+            while((Date.now() - start) < long){}
+        }
+    }
+4. my-plugin/test.js
+    var myPlugin = require('./myPlugin.js')
+    myPlugin.sleep(5000)
+    console.log('睡眠结束！')
+5. my-plugin> node test.js
+
+6. 发布 
+    - 注册账号
+        $ npm adduser //注册账号
+        Username: YOUR_USER_NAME
+        Password: YOUR_PASSWORD
+        Email: YOUR_EMAIL@domain.com
+        $ npm publish . //发布
+    - 进行登录 npm login
+5. 安装
+6. 使用
+    //import myPlugin from 'my-plugin'
+    var myPlugin = require('my-plugin')
+    myPlugin.sleep(2000)
+    console.log('睡眠结束！')
+```
+
+
+命令行工具
+
+```
 https://blog.csdn.net/qq_41807489/article/details/97295547
     ┠ bin -------------------------- 命令脚本文件
     ┃   ┖ hi.js

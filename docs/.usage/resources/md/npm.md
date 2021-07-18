@@ -270,12 +270,12 @@ config.loadConfig = function(customConfig) {
 };
 ```
 
-
-## NPM包
+ANCHOR[npm_user_register|npm#NPM帐户|NPM帐户]
+## NPM帐户
 ```js
-账户 
-u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com
-组织：seahan、angg
+注册账户
+
+    已有账户 u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com  组织：seahan、angg
 规范
 bin  可执行二进制文件
 lib  javascript代码
@@ -300,3 +300,4 @@ npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,
 npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户 npm rm --global gulp
 npm owner ls [<@scope>/]<pkg> # 列出包的所有者
 ```
+

@@ -18,10 +18,52 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+::: details 测试用例
+- test.txt
+- test.html
+```html
+<!DOCTYPE html>
+<html>
+<head><title>正则表达式测试</title></head>
+<body></body>
+</html>
+<script>
+    var content = 
+    `
+    ----------
+    0[13-19](bold C1a1 18PX)
+    1[13-19](bold C1a1 18PX)
+    ----------2
+    `
+
+    /**对整体内容依次处理匹配
+     * 注：确保匹配到的字符串被有效替换(不会再次被匹配到)，避免无限循环
+     */
+    let matchBlock
+    while ((matchBlock = /^-{10}[\r\n]{1,2}([\s\S]+?)^-{10}(\d{1,2})?[\r\n]{1,2}/m.exec(content)) !== null) {
+        content = content.replace(matchBlock[0], 'STYLEBLOCK\n') /*注1*/
+
+        /** 
+         * 一次性匹配得到结果集
+         */
+        let blockContent = matchBlock[1].match(/^\d.+/mg)
+        console.log('一次性匹配得到结果集', blockContent);
+    }
+
+    console.log('一次性匹配结果集再遍历, 没有死循环的风险')
+    const matchBlockArr = content.match(/^-{10}[\r\n]{1,2}([\s\S]+?)^-{10}(\d{1,2})?[\r\n]{1,2}/gm) || [];
+    matchBlockArr.forEach((e) => {
+        console.log(e)
+    })
+</script>
+```
+:::
+
 ## 需要转义的字符-元字符
 <pre class="fs30 bd">
 ^   $   (   )   [   ]   {   }   /   \   *   +   .   ?   | 
 </pre>
+
 
 ## 正则匹配方法
 ```js

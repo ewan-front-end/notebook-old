@@ -563,6 +563,17 @@ pageClass: theme-item
 </div>
 
 ## 工具书
+|　|　|缩进(全角空格"　")
+
+|&thinsp;|&#8201;|&#x2009;   &amp;thinsp; &amp;#8201; &amp;#x2009;
+
+|&nbsp;|&#160;|&#xA0;    &amp;nbsp; &amp;#160; &amp;#xA0;
+
+|&ensp;|&#8194;|&#x2002;    &amp;ensp; &amp;#8194; &amp;#x2002;
+
+|&emsp;|&#8195;|&#x2003;    &amp;emsp; &amp;#8195; &amp;#x2003;
+
+
 ::: details HTML转义
 ```
  	     	&nbsp;	        &#160;       空格
