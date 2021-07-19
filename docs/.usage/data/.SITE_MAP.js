@@ -109,7 +109,7 @@ module.exports = {
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/framework/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/framework/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/framework/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, src:'vuepress'},
         docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }},
-    frontend: {title:'前端体系', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
+    frontend: {title:'前端体系', src:'frontend/index', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', children: {
             systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'账号体系', href:'/solution'},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], src:'0001'},
             systemConfiguration: {title: '配置系统', desc: '集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。', linkName: ''},
@@ -142,11 +142,11 @@ module.exports = {
                 pv: {title:'访问量统计'},
                 behavior: {title:'用户行为统计'}
             }},
-            systemTest: {title:'测试系统', desc:'自动化测试是是一个锥形体系', children: {
+            systemTest: {title:'测试系统', src:'frontend/test', desc:'自动化测试是是一个锥形体系', children: {
                 static:{title: '静态检查', links:[{name:'Eslint', href:'tools/eslint'},{name:'JSCS'}]},
                 unit:{title: '单元测试', src:'unit', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}]},
                 e2e:{title: '端到端测试', desc:'从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景', links:[{name:'Protractor'},{name:'Nightwatch'},{name:'Selenium'}]},
-                ci:{title: '持续集成', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入'},
+                ci:{title: '持续集成(Continuous integration 简称CI)', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入', src:'frontend/ci'},
             }}
         }},
         layerInfrastructure: {title: '基础设施层', desc: '重点关注系统稳定性', children: {

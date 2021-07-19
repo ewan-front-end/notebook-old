@@ -290,35 +290,63 @@ config.loadConfig = function(customConfig) {
 ```
 
 ANCHOR[npm_user_register|npm#NPM帐户|NPM帐户]
+TITLE2[npm_user_register|npm#NPM帐户|NPM帐户]
 ## NPM帐户
-```js
-注册账户
+- 注册账号
+    1. https://www.npmjs.com/                  [Sign Up]
+    2. Username[] Email address[] Password[]   [Create an Account]
 
-    已有账户 u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com  组织：seahan、angg
-规范
-bin  可执行二进制文件
-lib  javascript代码
-doc  文档
-test  单元测试用例
-package.json  包描述
-{
-    "name": "@angg/express"
-    "repository": { "type": "git", "url": "https://github.com/wmgcuan/express.git" },
-    "homepage": "https://github.com/wmgcuan/express",
-    "bugs": { "url": "https://github.com/wmgcuan/express/issues" }
-}
+- 账号管理
+    ```
+    ◖Profile◗
+        Packages                                    Organizations
+        [+ Add Private Packages]                    [+ Add New Organization]                  添加公共包 添加组织   
 
-开发
+    ◖Profile◗ > Packages > Sidebar[Organizations]
+        [+]                                                                                   添加组织
 
-发布 https://segmentfault.com/a/1190000009315989
-1 $ npm adduser // 命令向导分别要求填入username/password/email,可通过 npm whoami 查看当前用户
-2 $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
+    ◖Profile◗ > Packages > Sidebar[Organizations] > list[seahan]
+        [+ Add Package]                                                                       添加公共包
 
-多人发布
-npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
-npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户 npm rm --global gulp
-npm owner ls [<@scope>/]<pkg> # 列出包的所有者
-```
+
+    添加组织 [+ Add New Organization]                Name[]                                    [Create]
+    添公共包 [+ Add Package] > 
+        Create a team                               Name[] Description[]                      [Make it so]                  添加一个新团队
+        List[team] > [Packages]                     Package[]                                 [+ Add Existing Package]      在团队里添加包   20210719测试禁止 只能npm publish
+        List[team] > [Members]                      Username[]                                [+ Add User]                  在团队里添加成员
+
+    ----------
+    0/1[13-19](bold B000 Cfff 18PX)
+    ----------1
+    已有账户 u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com  组织：seahan(公)、angg(公)
+    ```
+- 临时链接
+    ```
+    nodedemo> npm link            
+        根据package.json配置 当前模块链接到全局执行环境
+        1. 为当前包创建软链接 链接到 linux:{prefix}/lib/node_modules/<package.name>   win:{prefix}\node_modules\<package.name>
+        2. 为可执行文件创建软链接 链接到 linux:{prefix}/bin/{package.bin.key}   win:{prefix}\<package.bin.key>
+    nodedemo> npm unlink           卸载链接 
+    example> npm link nodedemo     把公共模块链接到本地 /node_modules/
+    example> npm unlink nodedemo   解除链接
+    xxxx> npm config get prefix    获取全局执行环境如：C:\Users\new\AppData\Roaming\npm
+    ```
+
+- 开发发布 
+    ```
+    demo> npm adduser                               // 登录：向导username/password/email, 可通过 npm whoami 查看当前用户
+    demo> npm publish --access public               // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
+    ```
+
+- 团队发布
+    ```
+    demo> npm owner add <user> [<@scope>/]<pkg>     // 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
+    demo> npm owner rm <user> [<@scope>/]<pkg>      // 从包的所有这列表中删除用户 npm rm --global gulp
+    demo> npm owner ls [<@scope>/]<pkg>             // 列出包的所有者
+    ```
+
+- 参考文档 https://segmentfault.com/a/1190000009315989
+
 
 
 

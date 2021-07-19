@@ -25,7 +25,7 @@ chokidar.watch('./docs/.usage/resources/md')
                 const date = new Date()
                 target.updateTime = date.toJSON().slice(0, 10).replace(/-/g, '.') + ' ' + date.toString().match(/(\d{2}\:\d{2})\:\d{2}/)[1]
                 debug && console.log('重写资源文件：', RES_MAP_PATH[resPath])
-                //RES_MAP_PATH_SET(RES_MAP_PATH)
+                RES_MAP_PATH_SET(RES_MAP_PATH)
                 debug && console.log('重建文档：', target.path)
                 exec('node docs/.usage/create.js ' + target.path, function(error, stdout, stderr) {})
             } else {

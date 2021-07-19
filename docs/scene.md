@@ -3,6 +3,9 @@
 
 
 
+npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
+代码覆盖率
+
 
 - 获取北京时间
 - 前端性能优化-通用的缓存SDK
@@ -36,6 +39,7 @@
 
 ## 环境搭建 
 [正则表达式测试页](/tools/regularExpression)
+
 ::: details Node环境下ES6模块化开发
 http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
 ```
@@ -148,6 +152,8 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         update-notifier  以非侵入性方式通知你的更新软件包
         superagent       轻量的渐进式的ajax api
         xml2js           解析操作XML文件
+        execa            测试 可以调用shell和本地外部程序的javascript封装 child_process的加强版
+
     3. 文件结结 
     dict/bin/cli.js
         #! /usr/bin/env node
@@ -193,10 +199,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         const pkg = require('../package.json')
         const conf = new Configstore(pkg.name, {source: 'youdao'})
         // 打印词典列表 并标示当前使用
-        exports.onList = function () {
-            let current = getCurrentApi()
-            for (let key in api) { if (key === current) { log(chalk.blue('*  ' + key + '  -> ' + new URL(api[key]).origin)) } else { log('   ' + key + '  -> ' + new URL(api[key]).origin) } }
-        }
+        exports.onList = function () { let current = getCurrentApi(); for (let key in api) { if (key === current) { log(chalk.blue('*  ' + key + '  -> ' + new URL(api[key]).origin)) } else { log('   ' + key + '  -> ' + new URL(api[key]).origin) } } }
         // 设置当前使用词典
         exports.onUse = function (source) { setCurrentApi(source) }
         // 查词
@@ -245,7 +248,7 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
             "fanyi": "bin/cli.js",       // xxxx> fanyi
             "fy": "bin/cli.js"           // xxxx> fy
         }
-    5. dict> npm link
+    5. dict> npm link   // 链接到全局执行环境 解除链接：npm unlink
     6. xxxx> translator
        xxxx> fanyi
        xxxx> fy 
@@ -253,126 +256,88 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
              fy ls          词典列表
              fy use iciba   使用词典 
 
+    编写测试
+        dict> npm i execa --save-dev
+
+        dict/test/index.test.js
+            const execa = require('execa')
+            
+            test('查词Query words', async () => {
+                const word = 'test'
+                const ret = await execa('./bin/cli.js', ['query', word])
+                expect(ret.stdout).toMatch(new RegExp(word))
+            })
+
+            test('切换词典Change source to source', async () => {
+                const source = 'youdao'
+                const ret = await execa('./bin/cli.js', ['use', source])
+                expect(ret.stdout).toBe(`source has been set to: ${source}`)
+            })
+
+            test('词典列表List all the source', async () => {
+                const ret = await execa('./bin/cli.js', ['ls'])
+                expect(ret.stdout.replace('\n', '')).toMatch(/(?=.*youdao)(?=.*iciba)^.*$/)
+            })
+
+
+        
+
     
-    发布：如果 还没有帐户 或 多人发布 LINK[npm_user_register|注册]
-        1 检查是否要迭代package.version
-        2 dict> npm adduser                 // 向导分别要求填入username/password/email,可通过 npm whoami 查看当前用户
-        3 dict> npm publish --access public // npm publish 默认发布私有，所以会导致失败
-    安装：xxxx> npm i @angg/dict -g    
+    ▇发布&升级▇  
+        1 package.version
+        2 dict> npm adduser                 LINK[npm_user_register|没有帐户&多人发布]
+        3 dict> npm publish --access public 
+    ▇安装▇ xxxx> npm i @angg/dict -g 
+    ▇使用▇ xxxx> translator
+            xxxx> fanyi
+            xxxx> fy 
+                  fy query book  查词
+                  fy ls          词典列表
+                  fy use iciba   使用词典   
 ```
 :::
 
 ::: details Node插件开发
-https://www.jianshu.com/p/7c29e3e933b0
 ```
 目标：
     - 可发布与升级
-    - 可安装 npm i my-plugin --save
-    - 可使用 var myPlugin = require('my-plugin') 或 import myPlugin from 'my-plugin'
+    - 可安装 npm i @angg/tools --save
+    - 可使用 var tools = require('@angg/tools') 或 import tools from '@angg/tools'
 核心
     - package.name       安装 使用      名称           npm i ■■              require('■■')      import myPlugin from '■■' 
-    - package.version    安装 升级      版本           npm i my-plugin@■■    发布之前修改■■
-    - package.main            使用      内部程序指向                         require('my-plugin')内部隐式指向■■
+    - package.version    安装 升级      版本           npm i @angg/tools@■■    发布之前修改■■
+    - package.main            使用      内部程序指向                         require('@angg/tools')内部隐式指向■■
 
-1. my-plugin> npm init -y
-2. my-plugin/package.json
-    {"name": "my-plugin", "version": "1.0.0", "main": "myPlugin.js"}
-3. my-plugin/myPlugin.js
-    module.exports = { 
-        sleep(long){
-            var start = Date.now()
-            while((Date.now() - start) < long){}
+部署
+    1. tools> npm init -y
+    2. tools/package.json
+        {
+            "name": "@angg/tools", 
+            "version": "1.0.0", 
+            "main": "src/main.js"
         }
-    }
-4. my-plugin/test.js
-    var myPlugin = require('./myPlugin.js')
-    myPlugin.sleep(5000)
-    console.log('睡眠结束！')
-5. my-plugin> node test.js
+    3. tools/src/main.js
+        module.exports = { 
+            sleep(long){
+                var start = Date.now()
+                while((Date.now() - start) < long){}
+            }
+        }
+    4. tools/test/main.js
+        var tools = require('../src/main.js')
+        tools.sleep(5000)
+        console.log('睡眠结束！')
+    5. tools> node test/main.js
 
-6. 发布 
-    - 注册账号
-        $ npm adduser //注册账号
-        Username: YOUR_USER_NAME
-        Password: YOUR_PASSWORD
-        Email: YOUR_EMAIL@domain.com
-        $ npm publish . //发布
-    - 进行登录 npm login
-5. 安装
-6. 使用
-    //import myPlugin from 'my-plugin'
-    var myPlugin = require('my-plugin')
-    myPlugin.sleep(2000)
-    console.log('睡眠结束！')
-```
-
-
-命令行工具
-
-```
-https://blog.csdn.net/qq_41807489/article/details/97295547
-    ┠ bin -------------------------- 命令脚本文件
-    ┃   ┖ hi.js
-    ┠ lib ------------------------- 库文件 一些功能代码
-    ┠ test ------------------------- 测试
-    ┠ docs 文档 
-    ┠ script 构建脚本
-    ┠ .editorconfig  统一代码风格 定义项目的编码规范
-    README.md  介绍这个包的功能，
-    LICENSE  声明我们的开源协议
-    npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
-    持续集成，代码覆盖率
-
-demo/.editorconfig
-    # editorconfig.org
-    root = true
-
-    [*]
-    indent_style = space
-    indent_size = 2
-    end_of_line = lf
-    charset = utf-8
-    trim_trailing_whitespace = true
-    insert_final_newline = true
-
-    [*.md]
-    trim_trailing_whitespace = false
-
-demo> npm init -y
-demo/hi.js    
-    #! /usr/bin/env node
-    console.log("JavaScript之禅的朋友你们好")
-demo/package.json
-    "bin": {
-        "hi": "hi.js"
-    }    
-demo> npm link
-demo> hi
-
-
-
-
-
-
-■ 目标
-    > example
-    > test    
-    > 发布ES6到lib下
-    > 发布COMMONJS到lib下
-    > 可SCRIPT标签引用
-    > NPM版本管理
-    > GIT版本管理
-
-    场景一：HTML+ES6模块化/热更新开发
-    ┠ config -------------------------- 配置目录
-    ┃   ┖ index.js
-    ┠ plugins ------------------------- 插件目录
-    ┃   ┠ [matrix.js](/algorithm#矩阵运算)   
-
-    demo/config/index.js   
-        module.exports = {
-            pluginDistTarget: '' // 打包到哪里
-        } 
+▇发布&升级▇  
+    1 package.version
+    2 tools> npm adduser                 LINK[npm_user_register|没有帐户&多人发布]
+    3 tools> npm publish --access public 
+▇安装▇ demo> npm i @angg/tools --save
+▇使用▇ demo/demo.js
+        var tools = require('@angg/tools')
+        tools.sleep(5000)
+        console.log('睡眠结束！')
 ```
 :::
 
