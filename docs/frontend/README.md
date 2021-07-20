@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.19 20:03</span>
+            <span>M 2021.07.20 14:30</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerBusiness">业务层</a></li><li><a href="/frontend/layerSecurity">保障层</a></li><li><a href="/frontend/layerInfrastructure">基础设施层</a></li><li><a href="/frontend/layerOffline">线下层</a></li></ul></div><div class="custom-block links">
@@ -80,6 +80,7 @@ plugins      —些 IPlugin 的实现
 ┠ .eslintrc.js ------------------- ES语法检查配置
 ┠ .eslintignore
 ┠ .babelrc
+┠ .travis.yml -------------------- 持续集成配置
 ```
 
 </div>

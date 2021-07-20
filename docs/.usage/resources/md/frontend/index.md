@@ -56,4 +56,5 @@ plugins      —些 IPlugin 的实现
 ┠ .eslintrc.js ------------------- ES语法检查配置
 ┠ .eslintignore
 ┠ .babelrc
+┠ .travis.yml -------------------- 持续集成配置
 ```
