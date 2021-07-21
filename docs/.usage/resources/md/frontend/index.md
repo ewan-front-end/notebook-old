@@ -2,6 +2,9 @@
 监控体系
 
 
+class命名规范：业务类型-子类型-作用 如：register-info-wrapper
+
+
 
 
 ```

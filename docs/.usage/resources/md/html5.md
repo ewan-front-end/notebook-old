@@ -1,5 +1,5 @@
 
-
+charCodeAt() codePointAt()
 
 ## 缓存
 <pre>
