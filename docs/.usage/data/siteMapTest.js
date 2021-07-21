@@ -1,7 +1,7 @@
 const fs = require('fs')
 const _path = require('path')
 const siteMap = require('./siteMap')
-const R_D__ = _path.resolve(__dirname, '../')
+const R_D__ = _path.resolve(__dirname, '../../')
 
 let flatDataMap = {}
 

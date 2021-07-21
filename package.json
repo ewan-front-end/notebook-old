@@ -19,7 +19,13 @@
     },
     "scripts": {
         "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/createWatch.js\"",
-        "docs:build": "vuepress build docs"
+        "docs:build": "vuepress build docs",
+        "deploy": "node docs/.usage/deploy.js",
+        "create": "node docs/.usage/create.js",
+        "watch": "node docs/.usage/createWatch.js",
+        "scene": "node docs/.usage/updateScene.js",
+        "solution": "node docs/.usage/updateSolution.js",
+        "usage": "node docs/.usage/updateUsage.js"
     },
     "keywords": [],
     "author": "",

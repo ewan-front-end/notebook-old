@@ -1,8 +1,8 @@
-const {writeFile, readFile} = require('./src/tools-fs')
+const {writeFile, readFile} = require('./tools-fs')
 const _path = require('path')
-const {RES_MAP_PATH} = require('./data/resMapPath.js')
-const handleUML = require('./src/handleUML')
-const {parseStyle} = require('./src/parseCode')
+const {RES_MAP_PATH} = require('../data/resMapPath.js')
+const handleUML = require('./handleUML')
+const {parseStyle} = require('./parseCode')
 
 module.exports = (ABSOLUTE_PATH, target) => {
     let content
@@ -33,7 +33,7 @@ module.exports = (ABSOLUTE_PATH, target) => {
     }
     // 资源静态内容
     if (target.src) {
-        let file = readFile(_path.resolve(__dirname, './resources/md/'+target.src+'.md'))
+        let file = readFile(_path.resolve(__dirname, '../resources/md/'+target.src+'.md'))
         // 解析自定义样式
         file = parseStyle(file)
 

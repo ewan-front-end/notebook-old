@@ -152,8 +152,6 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
         update-notifier  以非侵入性方式通知你的更新软件包
         superagent       轻量的渐进式的ajax api
         xml2js           解析操作XML文件
-        execa            测试 可以调用shell和本地外部程序的javascript封装 child_process的加强版
-
     3. 文件结结 
     dict/bin/cli.js
         #! /usr/bin/env node
@@ -257,30 +255,41 @@ http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
              fy use iciba   使用词典 
 
     编写测试
-        dict> npm i execa --save-dev
+        dict> npm i mocha chai --save-dev
 
         dict/test/index.test.js
             const execa = require('execa')
-            
-            test('查词Query words', async () => {
+
+            test('Query words', async () => {
                 const word = 'test'
                 const ret = await execa('./bin/cli.js', ['query', word])
                 expect(ret.stdout).toMatch(new RegExp(word))
             })
 
-            test('切换词典Change source to source', async () => {
+            test('Change source to source', async () => {
                 const source = 'youdao'
                 const ret = await execa('./bin/cli.js', ['use', source])
                 expect(ret.stdout).toBe(`source has been set to: ${source}`)
             })
 
-            test('词典列表List all the source', async () => {
+            test('List all the source', async () => {
                 const ret = await execa('./bin/cli.js', ['ls'])
                 expect(ret.stdout.replace('\n', '')).toMatch(/(?=.*youdao)(?=.*iciba)^.*$/)
             })
 
 
-        
+
+
+        dict/src/add.js
+            module.exports =  function add(a,b) { return a + b }
+        dict/test/add.js
+            const chai = require('chai')
+            const should = chai.should()
+            const add = require('../src/add')
+
+            describe("add func test",() => {
+                it('2 add 2 should equal 4',() => { add(2,2).should.equal(4) })
+            })
 
     
     ▇发布&升级▇  

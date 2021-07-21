@@ -3,7 +3,7 @@ const Path = require('path')
 const argArr = process.argv.slice(2)                    // 命令参数
 const {SITE_MAP, handleSiteMap} = require('./data/siteMap.js')     // 站点数据
 const {PATH_MAP_CREATOR, INDEX_CHILDREN_STR} = handleSiteMap() //require('./src/handleDataToMap.js')(SITE_MAP)
-const generateFile = require('./generateFile')
+const generateFile = require('./src/generateFile')
 
 const handleCreator = ({type, path, target}) => {
     const ABSOLUTE_PATH = Path.resolve(__dirname, '..' + path)

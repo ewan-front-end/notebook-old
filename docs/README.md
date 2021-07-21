@@ -17,7 +17,7 @@ sidebar: false
 - [︳Webpack](/webpack)
 - [︳Nginx](/nginx)
 - [︳算法](/algorithm)
-- [︳ECMAScript](/ecma)
+- [︳ECMAScript规范](/ecma)
 - [︳Socket](/socket)
 - [︳Node](/node)
 - [︳HTML5](/html5)

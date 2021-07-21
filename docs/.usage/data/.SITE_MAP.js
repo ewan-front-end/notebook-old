@@ -47,7 +47,7 @@ module.exports = {
         charts: {linkName: '需求图表', src:'0002'},
         vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], src:'vscode'},
         chromeTools:{src:'chrome-tools'},
-        uml:{src:'uml', links:[{name:'PlantUML语言', href:'/programmingLanguage/plantuml'}]},
+        uml:{src:'plantuml', links:[{name:'PlantUML语言', href:'/programmingLanguage/plantuml'}]},
         regularExpression:{linkName:'正则表达式', src:'regular-expression'},
         eslint: {linkName: 'ESLint', src:'eslint'},
         htmlBundler: {title:'html-bundler', src:'html-bundler'}
