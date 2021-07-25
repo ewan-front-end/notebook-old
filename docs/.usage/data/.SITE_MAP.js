@@ -44,7 +44,7 @@ module.exports = {
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
         markdown: {linkName: 'Markdown', src:'markdown'},        
         qiankun: {linkName: '乾坤微服务', src:'qiankun'},
-        charts: {linkName: '需求图表', src:'0002'},
+        charts: {linkName: 'ECharts图表库', src:'echarts'},
         vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], src:'vscode'},
         chromeTools:{src:'chrome-tools'},
         uml:{src:'plantuml', links:[{name:'PlantUML语言', href:'/programmingLanguage/plantuml'}]},

@@ -14,10 +14,20 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>需求图表</h1><strong>需求图表</strong>
+<h1>ECharts图表库</h1><strong>ECharts图表库</strong>
 </div>
 <div class="static-content">
 
-
+```js
+{
+    grid: {
+        left: 10,
+        right: 10,
+        bottom: 20,
+        top: 50,
+        containLabel: true
+    },
+}
+```
 
 </div>

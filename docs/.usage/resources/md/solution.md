@@ -37,23 +37,23 @@ http://blog.haoji.me/pinyinjs.html  key: JS版汉字与拼音互转终极方案�
 ## 用户帐户体系SDK
 es6+
 
-
+```
 SDK特点
-- 纯JS 无依赖
+    纯JS 无依赖
 SDK要求
-- 通用性 兼容性 可靠性 封装性
-- 有更多使用ES6+的场景
+    通用性 兼容性 可靠性 封装性
 SDK开发
-- 业务逻辑为主 忽略样式和HTML结构
+    业务逻辑为主 忽略样式和HTML结构
 
 架构
-- 环境搭建        
+    环境搭建        
         ES5-SHIM支持IE8
         工程化工具WEBPACK(模块化管理、代码优化、压缩合并)(ES6+语法的编译工具BABEL(ES6+转ES6,兼容更多的浏览器))        
         合适的脚手架工具（HTML-BUNDLER）
-- 架构设计
-- 开发流程
-参才截图
+    架构设计
+    开发流程
+        参才截图
+```
 
 时间线
 
@@ -73,52 +73,52 @@ html-bundler
 ReferenceError: primordials is not defined
 node版本太高
 
+```
+需求分析
+    1. 产品需要什么样的内容和效果
+    2. 技术上需要做哪些工作才能达到产品要求
+    3. 技术上有哪些指标
 
-## 需求分析
-1. 产品需要什么样的内容和效果
-2. 技术上需要做哪些工作才能达到产品要求
-3. 技术上有哪些指标
+    产品要求
+    - 包含登录／注册／找回密码／信息设置与修改
+    - 支持PC和移动端，各个子网站需要有自己的样式
+    - 功能逻辑必须统一和同步
 
-#### 产品要求
-- 包含登录／注册／找回密码／信息设置与修改
-- 支持PC和移动端，各个子网站需要有自己的样式
-- 功能逻辑必须统一和同步
+    技术应对
+    - 通过JS SDK的方式，由一个团队统一开发维护，保证功能的统一以及修改的同步
+    - 支持PC和移动端，因此包体积要小，要分包，不能有依赖
+    - JS SDK要包含全部的业务逻辑，但不包含具体样式，由下游业务方进行自定义
 
-#### 技术应对
-- 通过JS SDK的方式，由一个团队统一开发维护，保证功能的统一以及修改的同步
-- 支持PC和移动端，因此包体积要小，要分包，不能有依赖
-- JS SDK要包含全部的业务逻辑，但不包含具体样式，由下游业务方进行自定义
-
-#### 前端技术指标
-- 浏览器兼容到IE8
-- 支持PC和移动端,大小不能超过30k
-- 支持多种引用方式：直接引用，commonJS(require([module])), AMD(require([module], callback)), ES6(import)
-
-
-## 架构设计
-原则：自顶向下，自外而内，从用户最先接触的地方开始
-
-1. 对外的API接口设计
-    - 原则
-        简单易用，封装性，灵活性
-    - 考虑下三个问题
-        暴露什么样的接口？（类or普能函数or对象）<br>
-        有哪些配置项？<br>
-        默认值是什么？<br>
-    - 编写公共模块的三个原则
-        (1) 对外暴露函数：单一功能，且无内部状态<br>
-        (2) 对外暴露对象：无关联的功能集合<br>
-        (3) 对外暴露class(构造函数):互相关联的功能集合或存有内部状态的功能<br>
-2. 模块的划分与关联<br>
-<img :src="$withBase('/images/solution-01.png')"><br>
-    如何编写一个业务模块
-    - init: 初始化，用于接受参数和设置初始值
-    - render: 渲染，
-    - event: 事件绑定
-
-3. 模块的具体实现与一般性套路
+    前端技术指标
+    - 浏览器兼容到IE8
+    - 支持PC和移动端,大小不能超过30k
+    - 支持多种引用方式：直接引用，commonJS(require([module])), AMD(require([module], callback)), ES6(import)
 
 
+架构设计
+    原则：自顶向下，自外而内，从用户最先接触的地方开始
+
+    1. 对外的API接口设计
+        原则
+            简单易用，封装性，灵活性
+        考虑下三个问题
+            暴露什么样的接口(类/函数/对象)？
+            有哪些配置项？
+            默认值是什么？
+        编写公共模块的三个原则
+            (1) 对外暴露函数  单一功能，且无内部状态
+            (2) 对外暴露对象  无关联的功能集合
+            (3) 对外暴露类　  互相关联的功能集合或存有内部状态的功能
+    2. 模块的划分与关联
+        <img :src="$withBase('/images/solution-01.png')">
+        如何编写一个业务模块
+            init    初始化 参数初始值 参数调配 功能调控 
+            render  渲染功能
+            event   事件绑定
+
+    3. 模块的具体实现与一般性套路
+
+```
 
 App
 
@@ -128,10 +128,11 @@ App
     搭建es6+工程环境：webpack babel  
     模块：common 登录 注册 账号设置 密码找回
 
-[s14 b ci|场景]
+场景
 MPA
 SPA
 Portal
+
 ### 身份验证
 chrome 身份验证器 插件
 身份验证器用以在浏览器中生成二步认证代码
@@ -149,7 +150,7 @@ es6-passport> hb dev
 
 ## 环境准备
 ```
-npm install es5-shim babel-polyfill --save-dev        //安装必要的polyfill
+npm i es5-shim babel-polyfill --save-dev        //安装必要的polyfill
     es6-passport/webpack.dll.js
         const vendors = ['es5-shim', 'babel-polyfill']
     es6-passport> npm run dll              // vendors重新生成
@@ -185,36 +186,37 @@ es6-passport> hb dev
 - src/js/common/config.js
 ```js
 export default {
-    loginFormId: 'form',
-    loginSubmitId: 'submit',
-    loginInputAccountId: 'input',
-    loginInputPasswordId: 'password'
+    sdkPrdfix: 'sdk',   // 通用前缀
+                        // 登录
+    login: {
+        class: {
+            
+        },
+        id: {
+            loginFormId: 'form',
+            loginSubmitId: 'submit',
+            loginInputAccountId: 'input',
+            loginInputPasswordId: 'password'
+        }
+    }    
 }
 ```
-- src/js/common/formCheck.js
-```js
-export default (form) => {
-    return () => {
-        alert(form.id)
-        return []
-    }
-}
+ [滑块验证]()
+
 ```
-- src/js/login/init.js
-```js
+■ src/js/login/init.js
 import render from './render'
 import event from './event'
 import config from '../common/config'
-import formCheck from '../common/formCheck'
+import formCheck from '../common/formCheck' [表单验证]()
 
 window.login = (options) => {
     const container = options.container
     render(container)
     event()
 }
-```
-- src/js/login/render.js
-```js
+
+■ src/js/login/render.js
 import {loginFormId, loginInputAccountId, loginInputPasswordId, loginSubmitId} from '../common/config'
 export default (container) => {
     const tpl = `<form id="${loginFormId}">
@@ -224,16 +226,12 @@ export default (container) => {
     </form>`
     container.innerHTML = tpl
 }
-```
-- src/js/login/event.js
-```js
+
+■ src/js/login/event.js
 import {loginFormId, loginSubmitId, loginInputAccountId} from '../common/config'
 import formCheck from '../common/formCheck'
 export default () => {
-    const btn = document.getElementById(loginSubmitId)
-    const input = document.getElementById(loginInputAccountId)
-    const check = formCheck(document.getElementById(loginFormId))
-
+    const btn = document.getElementById(loginSubmitId), input = document.getElementById(loginInputAccountId), check = formCheck(document.getElementById(loginFormId))
     btn.onclick = () => {
         check()
     }
@@ -271,7 +269,7 @@ FetchMock.mock('/login', (url, opts) => {
 
 
 
-[表单验证](/scene)
+
 无状态 输出函数
 
 
@@ -300,5 +298,10 @@ FetchMock.mock('/login', (url, opts) => {
                                                                                        注册请求 失败
                                                                                                 成功：
 
+
+html-bundler
+
+
+
 ```
-众有的和主和
+

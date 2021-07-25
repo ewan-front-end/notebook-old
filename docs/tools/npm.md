@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.07.25 20:53</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,15 @@ pageClass: theme-item
 <h1>NPM</h1><strong>NPM</strong>
 </div>
 <div class="static-content">
+
+## NPM安装插件的过程
+① 发出 npm install 命令
+② 查询node_modules目录之中是否已经存在指定模块，若存在，不再重新安装
+③ 若不存在，npm 向 registry 查询模块压缩包的网址
+④ 下载压缩包，存放在根目录下的.npm目录里
+⑤ 解压压缩包到当前项目的node_modules目录
+
+
 
 
 ## 代理源cnpm
