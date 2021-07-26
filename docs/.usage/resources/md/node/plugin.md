@@ -1,4 +1,6 @@
-:::2021.06.17:::## node插件开发
+
+## node插件开发
+```
 .
 ├── bin                          #运行目录
 ├── lib                           #主代码目录
@@ -10,74 +12,50 @@
 ├── LICENSE                 #许可证书
 ├── package.json          #npm配置
 ├── README.md           #README
+```
 
 ## gulp
 [gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
+```
 1. demo> npm install --save-dev gulp
-2. demo/gulpfile.js
-> 在运行 gulp 命令时会被自动加载
-```js
-// 默认任务
-function defaultTask(cb) {
-  // place code for your default task here
-  cb();
-}
-// 老版本gulp是用task()注册任务的，现仍然可以用
-exports.default = defaultTask // 任何导出(export)的函数都将注册到gulp的任务(task)系统中
-// 注册更多的任务
-```
-3. demo> gulp                     // 默认任务（task）将执行, 如果是本地安装,则"dev":"gulp",demo> npm run dev<br>
-   `demo> gulp <task> <othertask>`  // 运行多任务
+2. demo/gulpfile.js                               // 在运行 gulp 命令时会被自动加载   
 
-- API
-```js
-// gulp API
-const { src, dest, series, parallel } = require('gulp')
-src()   // 用于处理计算机上存放的文件 接受(匹配文件系统文件)参数，将所有匹配的文件读取到内存中并通过流(stream)进行处理,应当从任务(task)中返回
-dest()  // 用于处理计算机上存放的文件
-series() 或 parallel()
-// stream API
-.pipe() // 用于连接转换流(Transform streams)或可写流(Writable streams)
-```
+    // 默认任务
+    function defaultTask(cb) { cb() }
+    exports.default = defaultTask                 // 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用
+    // 注册更多的任务 ...
+    
+3. demo> gulp                                     // 默认任务（task）将执行, 如果是本地安装,则"dev":"gulp",demo> npm run dev
+   demo> gulp <task> <othertask>                  // 运行多任务
+
+- API    
+    const { 
+        src,                                      // 用于处理计算机上存放的文件 文件读取到内存中并通过流(stream)进行处理,应当从任务(task)中返回 
+        dest,                                     // 用于处理计算机上存放的文件
+        series,                                   // 串联 任务功能、组合操作组合成同时执行的较大操作
+        parallel                                  // 并联 
+    } = require('gulp') 
+
+    src(文件路径).pipe()                           // 用于连接转换流(Transform streams)或可写流(Writable streams)
+
+
 - 任务分割
 - 公有&私有任务
-```js
-// `clean` 函数并未被导出（export），因此被认为是私有任务（private task）。
-// 它仍然可以被用在 `series()` 组合中。
-function clean(cb) {
-  // body omitted
-  cb();
-}
+    function clean(cb) { cb() }                   // 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中
+    function build(cb) { cb() }                   // 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo> gulp build 可被用在串联(series)组合中
+    exports.build = build;
+    exports.default = series(clean, build);
 
-// `build` 函数被导出（export）了，因此它是一个公开任务（public task），并且可以被 `gulp` 命令直接调用:demo> gulp build
-// 它也仍然可以被用在 `series()` 组合中。
-function build(cb) {
-  // body omitted
-  cb();
-}
-exports.build = build;
-exports.default = series(clean, build);
-```
 - 组合任务
-```js
-const { series, parallel } = require('gulp')
-function transpile1(cb) {/* body omitted */ cb()}
-function bundle2(cb) {/* body omitted */ cb()}
-function javascript(cb) {/* body omitted */ cb()}
-function css(cb) {/* body omitted */ cb()}
-exports.build = series(transpile1, bundle2) // series()   如果需要让任务按顺序执行
-exports.build2 = parallel(javascript, css)  // parallel() 希望以最大并发来运行的任务
-/* series() 和 parallel() 可以被嵌套到任意深度
-exports.build = series(
-  clean,
-  parallel(
-    cssTranspile,
-    series(jsTranspile, jsBundle)
-  ),
-  parallel(cssMinify, jsMinify),
-  publish
-);
-*/
+    const { series, parallel } = require('gulp')
+    function transpile1(cb) { cb() }
+    function bundle2(cb) { cb() }
+    function javascript(cb) { cb() }
+    function css(cb) { cb() }
+    exports.build = series(transpile1, bundle2)   // 如果需要让任务按顺序执行   串联组合
+    exports.build2 = parallel(javascript, css)    // 希望以最大并发来运行的任务 并联组合
+                                                  // 嵌套组合 任意深度
+    exports.build3 = series(clean, parallel(cssTranspile, series(jsTranspile, jsBundle)), parallel(cssMinify, jsMinify), publish)
 ```
 
 

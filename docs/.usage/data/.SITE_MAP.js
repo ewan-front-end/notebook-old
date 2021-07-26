@@ -87,7 +87,7 @@ module.exports = {
     ecma: {linkName: 'ECMAScript规范', links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
     socket: {linkName:'Socket', src:'socket'},
     node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], src:'node/index', children:{
-        plugin:{title:'插件', src:'node-plugin'},
+        plugin:{title:'插件', src:'node/plugin'},
         framework:{title:'框架', src:'node-framework'},
         package:{title:'描述文件package.json', src:'node/package'}
     }},

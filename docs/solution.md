@@ -1,3 +1,25 @@
+
+## HTML入口打包(bundlewan)
+```
+demo> npm init -y
+demo/package.json
+    "bin": {
+        "bundlewan": "./bin/bundlewan.js"
+    }
+demo/bin/bundlewan.js     
+    #!/usr/bin/env node
+    var commander = require('commander')  // npm i commander --save-dev 
+    var fs = require('fs')
+    var path = require('path')
+    var pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'))
+    // 命令处理开始
+    commander.version(pkg.version).option('-v --version', 'version info')
+    commander.parse(commander.argv)
+    // 命令处理结束
+```    
+
+
+
 ## 浏览器静默与激活
 ```js
 var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null; // 不同浏览器 hidden 名称
