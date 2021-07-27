@@ -30,13 +30,18 @@
 
 - API    
     const { 
-        src,                                      // 用于处理计算机上存放的文件 文件读取到内存中并通过流(stream)进行处理,应当从任务(task)中返回 
-        dest,                                     // 用于处理计算机上存放的文件
+        src,                                      // 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回 
+        dest(path[,options]),                     // 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename
         series,                                   // 串联 任务功能、组合操作组合成同时执行的较大操作
         parallel                                  // 并联 
     } = require('gulp') 
 
-    src(文件路径).pipe()                           // 用于连接转换流(Transform streams)或可写流(Writable streams)
+    实例：
+    gulp.src('script/jquery.js').pipe(gulp.dest('dist/foo.js'))  
+    最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js
+    pipe用于连接转换流(Transform streams)或可写流(Writable streams)
+
+
 
 
 - 任务分割

@@ -16,6 +16,8 @@ demo/bin/bundlewan.js
     commander.version(pkg.version).option('-v --version', 'version info')
     commander.parse(commander.argv)
     // 命令处理结束
+
+// npm i fs-extra --save
 ```    
 
 
