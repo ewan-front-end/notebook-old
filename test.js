@@ -1,33 +1,6 @@
-var plantuml = require('C:/Program Files/nodejs/node_modules/node-plantuml/lib/node-plantuml');
-var fs = require('fs');
- 
-var str =`
-start
-:"步骤1处理";
-:"步骤2处理";
-if ("条件1判断") then (true)
-    :条件1成立时执行的动作;
-    if ("分支条件2判断") then (no)
-        :"条件2不成立时执行的动作";
-    else
-        if ("条件3判断") then (yes)
-            :"条件3成立时的动作";
-        else (no)
-            :"条件3不成立时的动作";
-        endif
-    endif
-    :"顺序步骤3处理";
-endif
-if ("条件4判断") then (yes)
-:"条件4成立的动作";
-else
-    if ("条件5判断") then (yes)
-        :"条件5成立时的动作";
-    else (no)
-        :"条件5不成立时的动作";
-    endif
-endif
-stop
-`
-var gen = plantuml.generate(str);
-gen.out.pipe(fs.createWriteStream("output-file.png"))
+
+const {parseDate, formatDate, beforeTodayDays, yesterday, latestSevenDays, latestFifteenDays, latestThirtyDaysRange, latestThirtyDays} = require('./test2')
+console.log(latestThirtyDaysRange())
+console.log(latestThirtyDays())
+console.log(yesterday())
+console.log(formatDate())
