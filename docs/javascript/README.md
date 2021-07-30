@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.30 19:41</span>
+            <span>M 2021.07.30 20:23</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -21,7 +21,8 @@ pageClass: theme-item
 
 事件模型
 
-事件循环机制
+## 事件循环机制
+
 
 ## 数据类型
 ::: details Array
