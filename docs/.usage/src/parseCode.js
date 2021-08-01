@@ -3,10 +3,8 @@ String.prototype.replaceAt=function(scope, replacement) {
     return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
 }
 module.exports = {
-    parseStyle(code){   
-        //console.log(code);
-        let styleBlock = code.match(/^-{10}[\r\n]{1,2}([\s\S]+?)^-{10}(\d{1,2})?[\r\n]{1,2}/m) 
-        //console.log(styleBlock);
+    parseStyle(code){ 
+        let styleBlock = code.match(/^-{10}[\r\n]{1,2}([\s\S]+?)^-{10}(\d{1,2})?[\r\n]{1,2}/m)         
         if (!styleBlock) return code
         
         let styleContent = styleBlock[1].match(/^\d.+/mg)

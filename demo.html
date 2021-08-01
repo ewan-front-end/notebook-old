@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,80 +11,22 @@
 </body>
 </html>
 <script>
-    let str = `
-122sdfghj
-----------
-0/1[13-19](bold Cf00 18PX B0f0)
-----------2
-git config --global user.name "xxxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
-git config --global user.email xxxxxxxxxx@163.com
-git config --list .  // 查看
-
-■ 工作
-git config user.name "ewanq"
-git config user.email ewanoo@163.com
-
-■ 编辑工作.git/config 
-[user]
-    name = xxxxxxxxxx
-        email = xxxxxxxxxx@163.com 
-`
-console.log(str);
-/**
- *  line: 1-2 或 1/2/3 
- * index: [10-15] 或 [14-19|20-25]
- * style: bold Cf00 18PX B0f0
- */
-
-String.prototype.replaceAt=function(scope, replacement) {
-    return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
+Date.prototype.format = function(fmt) { 
+    var weekMap = ['日','一','二','三','四','五','六']
+    var o = {"M+": this.getMonth()+1, "D+": this.getDate(), "h+": this.getHours(), "m+": this.getMinutes(), "s+": this.getSeconds(), "S": this.getMilliseconds()} 
+    if(/(Y+)/.test(fmt)) {fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length))}
+    if(/(w+)/.test(fmt)) {fmt = fmt.replace(RegExp.$1, '星期' + weekMap[this.getDay()])}
+    for(var k in o) {if(new RegExp("("+ k +")").test(fmt)){fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00"+ o[k]).substr(("" + o[k]).length)))}}
+    return fmt
 }
-const regStyleBlock = /-{10}\s*[\r\n]([\s\S]+)-{10}(\d{1,2})?/
-const regStyle = /(\d{1,2}([\/-]\d{1,2})*)(\[\d{1,2}-\d{1,2}(\|\d{1,2}-\d{1,2})*\])*\(([\w ]+)\)/
+Date.prototype.parse = function() {
+    const Y = this.getFullYear(), M = this.getMonth() + 1, D = this.getDate(), h = this.getHours(), m = this.getMinutes(), s = this.getSeconds(), w = this.getDay()
+    const YY = (Y + '').substr(2), MM = M < 10 ? '0' + M : M + '', DD = D < 10 ? '0' + D : D + '', hh = h < 10 ? '0' + h : h + '', mm = m < 10 ? '0' + m : m + '', ss = s < 10 ? '0' + s : s + ''   
+    return {year: Y, month: M, day: D, hour: h, minute: m, second: s, week: w, Y, M, D, h, m, s, w, YY, MM, DD, hh, mm, ss}
+}    
 
-let styleBlock = str.match(regStyleBlock)
-let styleArr = styleBlock[1].split(/[\r\n]/)
-let scope = styleBlock[2] * 1 || 10
-
-str = str.replace(styleBlock[0], 'STYLEBLOCK')
-const regContent = new RegExp(`STYLEBLOCK\s*[\n\r]((.*[\n\r]){1,${scope}})`)
-let content = str.match(regContent)
-let lineContentArr = content[1].split(/[\r\n]/)
-const parseLine = str => {
-    let arr = str.split('/')
-    return arr
-}
-const parseIndex = index => eval(index.replace('-', ','))
-const parseStyle = str => {
-    let style = ''
-    str.split(' ').forEach(e => {
-        if (e === 'bold') style += 'font-weight:bold;'
-        if (e.match(/^C\w{3,6}/)) style += `color:${e.replace('C','#')};`
-        if (e.match(/^B\w{3,6}/)) style += `background-color:${e.replace('B','#')};`
-    })
-    return style
-}
-const handleCodeStyle = (line, index, style) => {
-    style = parseStyle(style)
-    index = parseIndex(index)
-    const lineArr =  parseLine(line)
-    lineArr.forEach(i => {
-        let contentLine = lineContentArr[i]
-        let subStr = contentLine.slice(index[0], index[1])
-        lineContentArr[i] = contentLine.replaceAt(index, `<span style="${style}">${subStr}</span>`)
-    })
-}
-
-styleArr.pop()
-styleArr.forEach(e => {
-    const arr = e.match(regStyle)
-    // 行： 1/2/3     索引： [14-19|20-25]     样式： bold Cf00 18PX B0f0
-    handleCodeStyle(arr[1], arr[3], arr[5])
-})
-
-let newContent = lineContentArr.join('\n')
-
-str = str.replace(content[0], newContent)
-
-console.log(str)
+var dt = new Date()
+dt.format('YYYY-M-D h:m:s w')
+console.log(dt.format('YYYY-M-D h:m:s w'));
+console.log(dt.parse());
 </script>
