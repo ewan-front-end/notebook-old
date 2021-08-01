@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.07.30 20:23</span>
+            <span>M 2021.07.31 13:45</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -111,6 +111,16 @@ Math.floor(Math.random() * (8 - 4)) + 4      _.random(4, 8)                     
 Object.assign(target, objA, objB)            // {"name": "柴硕", "car": "宝马", "loveEat": true}      浅拷贝
 ```
 ::: 
+
+::: details Array扩展
+```js
+Array.prototype.unique = function () { 
+    var res = [], json = {}
+    for (var i = 0; i < this.length; i++) { if (!json[this[i]]) { res.push(this[i]); json[this[i]] = 1 } }
+    return res
+}
+```
+:::
 
 ::: details String
 [中文首字母及排序](/solution#中文获取拼音首字母及排序) - [正则匹配](/tools/regularExpression#字符串匹配方法)
@@ -297,7 +307,7 @@ module.exports = {
     latestSevenDays: () => beforeTodayDays(7),
     latestFifteenDays: () => beforeTodayDays(15),
     latestThirtyDaysRange: () => beforeTodayDaysRange(30),
-    latestThirtyDays: () => beforeTodayDays(30)
+    latestThirtyDays: () => beforeTodayDays(30)              //['0000-00-00', '0000-00-00'] 
 }
 ///////////////////////////////////////////// 引用
 const {parseDate, formatDate, beforeTodayDays, yesterday, latestSevenDays, latestFifteenDays, latestThirtyDaysRange, latestThirtyDays} = require('./dateTools')

@@ -67,6 +67,11 @@
         borderWidth:0,                          // 边框线宽
         padding:5,                              // 图例内边距，单位px 5 [5, 10] [5,10,5,10]
         textStyle:mytextStyle,                  // 文本样式
-    }
+    },
+    series: [
+        {
+            label: {show: true, position: 'top'},  // 节点标签：是否在节点上标值、位置(top/bottom/left/right/inside/insideTop/...insideFill/insideStroke)
+        }
+    ]
 }
 ```

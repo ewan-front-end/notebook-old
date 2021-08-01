@@ -14,6 +14,28 @@
 ├── README.md           #README
 ```
 
+
+[1627821297226|node-inspect] 
+::: details node-inspect node调试
+```
+全局安装 > npm install -g node-inspect
+使用实例：
+demo/server.js
+    var http = require("http")
+    var app = http.createServer(function(req, res) {
+        res.writeHead(200, {"Content-Type": "text/plain"})
+        res.end("Hello world!")
+    })
+    app.listen(3000, "localhost")
+demo> node --inspect server.js
+    Debugger listening on ws://127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e
+    For help, see: https://nodejs.org/en/docs/inspector
+浏览器输入 chrome://inspect
+    [Configure...] > input[127.0.0.1:9229] [Done]
+    监听列表 [inspect] 弹出调试面板
+```
+:::
+
 ## gulp
 [gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 ```

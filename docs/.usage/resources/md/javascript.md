@@ -93,6 +93,16 @@ Object.assign(target, objA, objB)            // {"name": "柴硕", "car": "宝�
 ```
 ::: 
 
+::: details Array扩展
+```js
+Array.prototype.unique = function () { 
+    var res = [], json = {}
+    for (var i = 0; i < this.length; i++) { if (!json[this[i]]) { res.push(this[i]); json[this[i]] = 1 } }
+    return res
+}
+```
+:::
+
 ::: details String
 [中文首字母及排序](/solution#中文获取拼音首字母及排序) - [正则匹配](/tools/regularExpression#字符串匹配方法)
 ```js
@@ -278,7 +288,7 @@ module.exports = {
     latestSevenDays: () => beforeTodayDays(7),
     latestFifteenDays: () => beforeTodayDays(15),
     latestThirtyDaysRange: () => beforeTodayDaysRange(30),
-    latestThirtyDays: () => beforeTodayDays(30)
+    latestThirtyDays: () => beforeTodayDays(30)              //['0000-00-00', '0000-00-00'] 
 }
 ///////////////////////////////////////////// 引用
 const {parseDate, formatDate, beforeTodayDays, yesterday, latestSevenDays, latestFifteenDays, latestThirtyDaysRange, latestThirtyDays} = require('./dateTools')

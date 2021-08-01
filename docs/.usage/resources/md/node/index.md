@@ -407,7 +407,7 @@ url-loader
 webpack
 webpack-stream
 is-stream
-
+node-inspector // node调试
 
 
 
