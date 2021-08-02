@@ -2,6 +2,8 @@
 
 module、exports、require、global、__filename、__dirname
 
+LINK[1627821297227|node-inspect]
+
 ## node获取可用端口号
 ```
 用法一：
@@ -303,6 +305,7 @@ cluster.on('disconnect', function(worker) {
 ```
 
 #### child_process
+```
 - exec execFile fork
 - spawnSync execFileSync execSync
 <br>
@@ -337,7 +340,7 @@ cluster.on('disconnect', function(worker) {
 </div>
 <br>
 <br>
-
+```
 **spawn与exec的相同点**
 1. 都用于开一个子进程执行指定命令。
 2. 都可以自定义子进程的运行环境。
@@ -407,7 +410,7 @@ url-loader
 webpack
 webpack-stream
 is-stream
-node-inspector // node调试
+node-inspect node调试
 
 
 

@@ -7,7 +7,7 @@ const generateFile = require('./src/generateFile')
 
 const handleCreator = ({type, path, target}) => {
     const ABSOLUTE_PATH = Path.resolve(__dirname, '..' + path)
-    type === 'DIR' ? mkdirSync(ABSOLUTE_PATH) : generateFile(ABSOLUTE_PATH, target)
+    type === 'DIR' ? mkdirSync(ABSOLUTE_PATH) : generateFile(ABSOLUTE_PATH, target, path)
 }
 const createIndexFile = () => {
     let content = readFile(Path.resolve(__dirname, './resources/md/index.md'))

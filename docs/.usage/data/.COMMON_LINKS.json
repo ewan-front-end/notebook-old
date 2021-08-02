@@ -1,6 +1,1 @@
-{
-    "npm_user_register": {
-        "name": "注册",
-        "path": "/npm"
-    }
-}
+{"2":{"stamp":"2","path":"/node/plugin","name":"1627821297229"},"1627821297226":{"stamp":"1627821297226","path":"/node/plugin","name":"node-inspect"},"1627821297227":{"stamp":"1627821297227","path":"/node/plugin","name":"node-inspect"},"1627821297228":{"stamp":"1627821297228","path":"/node/plugin","name":"集成自动测试配置"},"1627902607207":{"stamp":"1627902607207","path":"/node/plugin","name":"发布为运行命令"},"1627903874915":{"stamp":"1627903874915","path":"/node/plugin","name":"gulp"},"1627905586210":{"stamp":"1627905586210","path":"/node/plugin","name":"chokidar"},"1627905787356":{"stamp":"1627905787356","path":"/node/plugin","name":"chalk"},"1627908583281":{"stamp":"1627908583281","path":"/node/plugin","name":"commander"}}

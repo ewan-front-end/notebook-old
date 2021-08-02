@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.08.02 20:20</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -20,6 +20,8 @@ pageClass: theme-item
 [NPM](/tools/npm)
 
 module、exports、require、global、__filename、__dirname
+
+<a href="/node/plugin.html#1627821297227">node-inspect</a>
 
 ## node获取可用端口号
 ```
@@ -322,6 +324,7 @@ cluster.on('disconnect', function(worker) {
 ```
 
 #### child_process
+```
 - exec execFile fork
 - spawnSync execFileSync execSync
 <br>
@@ -356,7 +359,7 @@ cluster.on('disconnect', function(worker) {
 </div>
 <br>
 <br>
-
+```
 **spawn与exec的相同点**
 1. 都用于开一个子进程执行指定命令。
 2. 都可以自定义子进程的运行环境。
@@ -426,7 +429,7 @@ url-loader
 webpack
 webpack-stream
 is-stream
-
+node-inspect node调试
 
 
 
