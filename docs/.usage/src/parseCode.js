@@ -88,7 +88,7 @@ module.exports = {
             let path = ''
             linkObj.path && (path = linkObj.path + '.html')
             console.log('**',linkObj);
-            code = code.replace(m[0], `<a href="${path}#${m[1]}">${name}</a>`)             
+            code = code.replace(m[0], `<a href="${path}#${m[1]}">${name}</a>`)      
         }        
         return code
     }

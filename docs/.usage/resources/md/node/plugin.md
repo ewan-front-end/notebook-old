@@ -14,7 +14,9 @@
 ├── README.md           #README
 ```
 
+<a href="http://localhost:8080/node/plugin.html#1627821297227">000000</a>
 <a href="http://localhost:8080/node/plugin.html#1627821297227">111111</a>
+<a href="/node/plugin.html#1627821297227">222222</a>
  
 ::: details node-inspect node调试
 ```
@@ -36,21 +38,21 @@ demo> node --inspect server.js
 ```
 :::
 
-## gulp
-[gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
+ANCHOR[1627903874915|gulp]
+::: details gulp
 ```
-1. demo> npm install --save-dev gulp
-2. demo/gulpfile.js                               // 在运行 gulp 命令时会被自动加载   
+[官网](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 
-    // 默认任务
-    function defaultTask(cb) { cb() }
-    exports.default = defaultTask                 // 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用
-    // 注册更多的任务 ...
-    
-3. demo> gulp                                     // 默认任务（task）将执行, 如果是本地安装,则"dev":"gulp",demo> npm run dev
-   demo> gulp <task> <othertask>                  // 运行多任务
+┃ 1. demo> npm install --save-dev gulp
+┃ 2. demo/gulpfile.js                             // 在运行 gulp 命令时会被自动加载
+┃                                                 // 默认任务
+┃     function defaultTask(cb) { cb() }
+┃     exports.default = defaultTask               // 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用
+┃     ...                                         // 注册更多的任务     
+┃ 3. demo> gulp                                   // 默认任务（task）将执行, 如果是本地安装,则"scripts":{"dev":"gulp"}  demo> npm run dev
+┃    demo> gulp <task> <othertask>                // 运行多任务
 
-- API    
+API    
     const { 
         src,                                      // 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回 
         dest(path[,options]),                     // 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename
@@ -58,22 +60,19 @@ demo> node --inspect server.js
         parallel                                  // 并联 
     } = require('gulp') 
 
-    实例：
-    gulp.src('script/jquery.js').pipe(gulp.dest('dist/foo.js'))  
-    最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js
-    pipe用于连接转换流(Transform streams)或可写流(Writable streams)
+实例：
+    gulp.src('script/jquery.js')                  // 最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js
+        .pipe(gulp.dest('dist/foo.js'))           // pipe用于连接转换流(Transform streams)或可写流(Writable streams)
 
+任务分割
 
-
-
-- 任务分割
-- 公有&私有任务
+公有&私有任务
     function clean(cb) { cb() }                   // 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中
     function build(cb) { cb() }                   // 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo> gulp build 可被用在串联(series)组合中
     exports.build = build;
     exports.default = series(clean, build);
 
-- 组合任务
+组合任务
     const { series, parallel } = require('gulp')
     function transpile1(cb) { cb() }
     function bundle2(cb) { cb() }
@@ -81,10 +80,10 @@ demo> node --inspect server.js
     function css(cb) { cb() }
     exports.build = series(transpile1, bundle2)   // 如果需要让任务按顺序执行   串联组合
     exports.build2 = parallel(javascript, css)    // 希望以最大并发来运行的任务 并联组合
-                                                  // 嵌套组合 任意深度
+                                                  // 嵌套组合 任意深度 ↧
     exports.build3 = series(clean, parallel(cssTranspile, series(jsTranspile, jsBundle)), parallel(cssMinify, jsMinify), publish)
 ```
-
+:::
 
 ## node-plantuml
 > 画图 [PlantUML](/programmingLanguage/plantuml)
@@ -121,62 +120,61 @@ plantuml.generate(input, options, callback)
         dot:
         charset: 'UTF-8'
     }
-</pre>
 
-## 文件监控
-参考chokidar
 
-## chokidar
-> 可以用于监控文件、文件夹变化，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
-1. demo> npm init -y 
-2. demo> npm i chokidar --save-dev
-3. 实例
-```js
-const chokidar = require('chokidar');
-const log = console.log
-// chokidar.watch("E:\\work\\demo\\") 可以监控文件、文件夹, 参数类型file/dir/glob/array
-// chokidar.watch('.') 监控当前目录
-// chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});
-chokidar.watch('./src')
-  .on('raw', (event, path, details) => log('RAW:', event, path, details))
-  .on('ready', () => console.log('初始扫描完成，准备好监听改变'))
-  .on('add',       path => log('ADD:',       path))
-  .on('change',    path => log('CHANGE:',    path))
-  .on('unlink',    path => log('UNLINK:',    path))
-  .on('addDir',    path => log('ADDDIR:',    path))
-  .on('unlinkDir', path => log('UNLINKDIR:', path))
-  .on('all', (event, path) => log('ALL:', event, path)) // 可以在这做事件分支而忽略前面的具体事件    
-  .on('error', error => log(`监听错误: ${error}`))
+
+
+ANCHOR[1627905586210|chokidar]
+::: details chokidar 监控文件/文件夹变化
 ```
-路径：
-<pre>
-demo> node src/watcher.js
-demo/src/watcher.js
-    chokidar.watch('./src/js') 而非 chokidar.watch('./js')
-</pre>
-场景：
-<pre>
-新建src/b.js
-    RAW: rename b.js { watchedPath: 'src' }
-    ADD: src\b.js
-    ALL: add src\b.js
-删除src/b.js
-    RAW: rename b.js { watchedPath: 'src' }
-    RAW: rename b.js { watchedPath: 'src\\b.js' }
-    UNLINK: src\b.js
-    ALL: unlink src\b.js
-编辑src/a.js
-    RAW: change a.js { watchedPath: 'src' }
-    RAW: change a.js { watchedPath: 'src\\a.js' }
-    RAW: change a.js { watchedPath: 'src' }
-    RAW: change a.js { watchedPath: 'src\\a.js' }
-    CHANGE: src\a.js
-    ALL: change src\a.js
-</pre>
+可以用于，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
 
+安装：demo> npm i chokidar --save-dev
+实例：
+    const chokidar = require('chokidar'), log = console.log  
+    // chokidar.watch("E:\\work\\demo\\")                                        可以监控文件、文件夹, 参数类型file/dir/glob/array
+    // chokidar.watch('.')                                                       监控当前目录
+    // chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});  
+    chokidar.watch('./src')
+        .on('raw', (event, path, details) => log('RAW:', event, path, details))
+        .on('ready', () => console.log('初始扫描完成，准备好监听改变'))
+        .on('add',       path => log('ADD:',       path))
+        .on('change',    path => log('CHANGE:',    path))
+        .on('unlink',    path => log('UNLINK:',    path))
+        .on('addDir',    path => log('ADDDIR:',    path))
+        .on('unlinkDir', path => log('UNLINKDIR:', path))
+        .on('all', (event, path) => log('ALL:', event, path))                    // 可以在这做事件分支而忽略前面的具体事件    
+        .on('error', error => log(`监听错误: ${error}`))
 
-## chalk
-> 颜色的插件
+实例：    
+    demo/src/watcher.js
+        chokidar.watch('./src/js')                                                   // 注意路径写法 非chokidar.watch('./js')    
+    demo> node src/watcher.js
+
+监控场景：
+    新建src/b.js
+        RAW: rename b.js { watchedPath: 'src' }
+        ADD: src\b.js
+        ALL: add src\b.js
+    删除src/b.js
+        RAW: rename b.js { watchedPath: 'src' }
+        RAW: rename b.js { watchedPath: 'src\\b.js' }
+        UNLINK: src\b.js
+        ALL: unlink src\b.js
+    编辑src/a.js
+        RAW: change a.js { watchedPath: 'src' }
+        RAW: change a.js { watchedPath: 'src\\a.js' }
+        RAW: change a.js { watchedPath: 'src' }
+        RAW: change a.js { watchedPath: 'src\\a.js' }
+        CHANGE: src\a.js
+        ALL: change src\a.js
+```
+:::
+
+ANCHOR[1627905787356|chalk] 
+::: details chalk 命令行颜色工具
+颜色的插件
+:::
 
 ## uglify-js
 > `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
@@ -264,42 +262,39 @@ program.parse(process.argv);
 ```
 - demo> node bin/demo.js deploy projectname
 
-ANCHOR[1627821297227|node-inspect]
 
-## 发布为运行命令
-之前都是通过node命令来运行执行文件
-【主命令 命令 参数 选项】形式：$ abc create name [--options] 
-1. 给工具起名字(命令名)如：abc
-    /package.json
-    ```json
-    {
-        "bin": {
-            "abc": "./bin/demo.js"
-        }
-    }
-   ```
-2. 定义命令、选项、帮助和业务逻辑
-    ```js
+
+ANCHOR[1627902607207|发布为运行命令]
+::: details 发布为运行命令
+```
+目标：demo> abc create name [--options]  // 主命令 命令 参数 选项
+
+项目：abc-project/ 后面简写成abc/
+
+1. 给工具起名字(命令名)如：abc                                            abc/package.json    
+    {"bin": {"abc": "./bin/demo.js"}}
+
+2. 定义命令、选项、帮助和业务逻辑                                          abc/bin/demo.js
     #!/usr/bin/env node
-
-    var program = require('commander')
-
-
-    program
+    var commander = require('commander')
+    commander
         .command("summary <cmd>")
-        .alias("sm") //提供一个别名
-        .description("generate a `SUMMARY.md` from a folder") //描述，会显示在帮助信息里
+        .alias("sm")                                                    // 提供一个别名
+        .description("generate a `SUMMARY.md` from a folder")           // 描述，会显示在帮助信息里
         .action(function(md, cmd){
             console.log('参数', md, cmd);
-        }) 
-        
-    ```
-    node bin/demo.js summary abcd 
-    node bin/demo.js sm aaabbb 
+        })
+                                                                        abc> node bin/demo.js summary abcd 
+                                                                        abc> node bin/demo.js sm aaabbb  
 3. 本地项目和本地npm模块之间建立连接进行模块测试
-    demo> npm link      //npm unlink 模块名  解除
+    abc> npm link                                                       // npm unlink 模块名  解除
+                                                                        xxx> abc sm aabb
+```
+:::
+ 
 
-abc sm aabb
+ 
+
 
 
 
@@ -421,7 +416,7 @@ if (program.yourname) {
   console.log(`Hello, ${program.yourname}! ${program.glad ? 'I am very happy to see you!' : ''}`);
 }
 
-  ```
+```
 
 
 
