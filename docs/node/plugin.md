@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.02 20:04</span>
+            <span>M 2021.08.02 21:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -201,8 +201,11 @@ plantuml.generate(input, options, callback)
 ## child_process
 > 命令执行控制 执行系统命令
 
-## commander
-> 命令行编程工具 命令创建与处理
+<a name="1627908583281" id="1627908583281">隐式锚点</a>
+::: details commander 命令行编程工具
+```
+安装：demo> npm install commander --save
+
 command      自定义执行的命令
 option       可选参数
 alias        用于 执行命令的别名
@@ -210,6 +213,41 @@ description  命令描述
 action       执行命令后所执行的方法
 usage        用户使用提示
 parse        解析命令行参数，注意这个方法一定要放到最后调用
+
+
+响应版本号
+    demo/bin/demo.js    
+        #!/usr/bin/env node
+        var program = require('commander')
+        program                                     
+            .version("0.0.2")                         
+            .option('-v --version', 'version info')         // 接收 -v  
+        program.parse(process.argv)                         // 必须    
+    demo> node bin/demo.js -v                               // 运行
+
+发布为一个运行命令：abc
+    目标：xxxx> abc create name [--options]                  // 主命令 命令 参数 选项
+    项目：
+        demo/package.json    
+            {"bin": {"abc": "./bin/demo.js"}}
+
+        demo/bin/demo.js                                                     // 定义命令、选项、帮助和业务逻辑 
+            #!/usr/bin/env node
+            var commander = require('commander')
+            commander
+                .command("summary <cmd>")
+                .alias("sm")                                                    // 提供一个别名
+                .description("generate a `SUMMARY.md` from a folder")           // 描述，会显示在帮助信息里
+                .action(function(md, cmd){
+                    console.log('参数', md, cmd);
+                })
+                                                                                abc> node bin/demo.js summary abcd 
+                                                                                abc> node bin/demo.js sm aaabbb  
+        
+        demo> npm link                                                       // 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除
+        xxxx> abc sm aabb
+```
+:::
 
 ## nodemon
 > 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
@@ -258,18 +296,7 @@ myCache.get( "myKey", function( err, value ){ if( !err ){} });
 </pre>
 
 
-## 响应版本号
-- demo> npm install commander --save
-- demo/bin/demo.js
-```js
-#!/usr/bin/env node
-var program = require('commander')
-program                                     
-  .version("0.0.2")                         
-  .option('-v --version', 'version info')   
-program.parse(process.argv)
-```
-- demo> node bin/demo.js -v
+
 
 ## 自定义命令deploy
 ```js
@@ -283,33 +310,7 @@ program.parse(process.argv);
 
 
 
-<a name="1627902607207" id="1627902607207">隐式锚点</a>
-::: details 发布为运行命令
-```
-目标：demo> abc create name [--options]  // 主命令 命令 参数 选项
 
-项目：abc-project/ 后面简写成abc/
-
-1. 给工具起名字(命令名)如：abc                                            abc/package.json    
-    {"bin": {"abc": "./bin/demo.js"}}
-
-2. 定义命令、选项、帮助和业务逻辑                                          abc/bin/demo.js
-    #!/usr/bin/env node
-    var commander = require('commander')
-    commander
-        .command("summary <cmd>")
-        .alias("sm")                                                    // 提供一个别名
-        .description("generate a `SUMMARY.md` from a folder")           // 描述，会显示在帮助信息里
-        .action(function(md, cmd){
-            console.log('参数', md, cmd);
-        })
-                                                                        abc> node bin/demo.js summary abcd 
-                                                                        abc> node bin/demo.js sm aaabbb  
-3. 本地项目和本地npm模块之间建立连接进行模块测试
-    abc> npm link                                                       // npm unlink 模块名  解除
-                                                                        xxx> abc sm aabb
-```
-:::
  
 
  
