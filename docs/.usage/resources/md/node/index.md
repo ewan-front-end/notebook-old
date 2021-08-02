@@ -2,6 +2,8 @@
 
 module、exports、require、global、__filename、__dirname
 
+LINK[1627821297227|node-inspect]
+
 ## node获取可用端口号
 ```
 用法一：
@@ -407,7 +409,7 @@ url-loader
 webpack
 webpack-stream
 is-stream
-node-inspector // node调试
+node-inspect node调试
 
 
 

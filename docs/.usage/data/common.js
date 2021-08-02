@@ -5,6 +5,6 @@ module.exports = {
 
         isModul ? 
         writeFile(Path.resolve(__dirname, path), `module.exports = ${JSON.stringify(obj, null, 4)}`) :
-        writeFileSync(Path.resolve(__dirname, path), obj)
+        writeFileSync(Path.resolve(__dirname, path), JSON.stringify(obj))
     }
 }

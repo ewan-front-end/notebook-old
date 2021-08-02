@@ -1,6 +1,1 @@
-{
-    "npm_user_register": {
-        "name": "注册",
-        "path": "/npm"
-    }
-}
+{"2":{"stamp":"2","path":"/node/plugin","name":"1627821297229"},"1627821297226":{"stamp":"1627821297226","path":"/node/plugin","name":"node-inspect"},"1627821297227":{"stamp":"1627821297227","path":"/node/plugin","name":"node-inspect"},"1627821297228":{"stamp":"1627821297228","path":"/node/plugin","name":"集成自动测试配置"}}

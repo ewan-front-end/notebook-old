@@ -14,8 +14,8 @@
 ├── README.md           #README
 ```
 
-
-[1627821297226|node-inspect] 
+<a href="http://localhost:8080/node/plugin.html#1627821297227">111111</a>
+ 
 ::: details node-inspect node调试
 ```
 全局安装 > npm install -g node-inspect
@@ -112,8 +112,7 @@ demo> node --inspect server.js
     `
     var gen = plantuml.generate(umlStr);
     gen.out.pipe(fs.createWriteStream("output-file.png"))
-    ``
-<pre>
+    ```
 设置图形尺寸：(在umlStr前面)scale 1000 width
 plantuml.generate(input, options, callback)
     options:{
@@ -265,6 +264,8 @@ program.parse(process.argv);
 ```
 - demo> node bin/demo.js deploy projectname
 
+ANCHOR[1627821297227|node-inspect]
+
 ## 发布为运行命令
 之前都是通过node命令来运行执行文件
 【主命令 命令 参数 选项】形式：$ abc create name [--options] 
@@ -365,11 +366,6 @@ rd                          rd
 
 Options:
 
-
-
-
-
-
 #!/usr/bin/env node
 
 var inquirer = require('inquirer');
@@ -427,9 +423,13 @@ if (program.yourname) {
 
   ```
 
+
+
+
 USAGE:
 
 
 
 
   bin> node app.js --help
+
