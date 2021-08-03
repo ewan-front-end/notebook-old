@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.02 21:00</span>
+            <span>M 2021.08.03 20:59</span>
         </div>
     </div>
     <div class="content"></div>
@@ -19,7 +19,7 @@ pageClass: theme-item
 <div class="static-content">
 
 ## node插件开发
-```
+<pre class="custom-block">
 .
 ├── bin                          #运行目录
 ├── lib                           #主代码目录
@@ -31,15 +31,15 @@ pageClass: theme-item
 ├── LICENSE                 #许可证书
 ├── package.json          #npm配置
 ├── README.md           #README
-```
+</pre>
 
 <a href="http://localhost:8080/node/plugin.html#1627821297227">000000</a>
 <a href="http://localhost:8080/node/plugin.html#1627821297227">111111</a>
 <a href="/node/plugin.html#1627821297227">222222</a>
  
 ::: details node-inspect node调试
-```
-全局安装 > npm install -g node-inspect
+<pre class="custom-block">
+全局安装 &gt; npm install -g node-inspect
 使用实例：
 demo/server.js
     var http = require("http")
@@ -48,46 +48,46 @@ demo/server.js
         res.end("Hello world!")
     })
     app.listen(3000, "localhost")
-demo> node --inspect server.js
-    Debugger listening on ws://127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e
-    For help, see: https://nodejs.org/en/docs/inspector
-浏览器输入 chrome://inspect
-    [Configure...] > input[127.0.0.1:9229] [Done]
+demo&gt; node --inspect server.js
+    Debugger listening on ws:<span class="comment">//127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e</span>
+    For help, see: https:<span class="comment">//nodejs.org/en/docs/inspector</span>
+浏览器输入 chrome:<span class="comment">//inspect</span>
+    [Configure...] &gt; input[127.0.0.1:9229] [Done]
     监听列表 [inspect] 弹出调试面板
-```
+</pre>
 :::
 
-<a name="1627903874915" id="1627903874915">隐式锚点</a>
+<a class="anchor" name="1627903874915" id="1627903874915">----</a>
 ::: details gulp
-```
-[官网](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
+<pre class="custom-block">
+[官网](https:<span class="comment">//www.gulpjs.com.cn/docs/getting-started/quick-start/)</span>
 
-┃ 1. demo> npm install --save-dev gulp
-┃ 2. demo/gulpfile.js                             // 在运行 gulp 命令时会被自动加载
-┃                                                 // 默认任务
+┃ 1. demo&gt; npm install --save-dev gulp
+┃ 2. demo/gulpfile.js                             <span class="comment">// 在运行 gulp 命令时会被自动加载</span>
+┃                                                 <span class="comment">// 默认任务</span>
 ┃     function defaultTask(cb) { cb() }
-┃     exports.default = defaultTask               // 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用
-┃     ...                                         // 注册更多的任务     
-┃ 3. demo> gulp                                   // 默认任务（task）将执行, 如果是本地安装,则"scripts":{"dev":"gulp"}  demo> npm run dev
-┃    demo> gulp <task> <othertask>                // 运行多任务
+┃     exports.default = defaultTask               <span class="comment">// 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用</span>
+┃     ...                                         <span class="comment">// 注册更多的任务     </span>
+┃ 3. demo&gt; gulp                                   <span class="comment">// 默认任务（task）将执行, 如果是本地安装,则"scripts":{"dev":"gulp"}  demo&gt; npm run dev</span>
+┃    demo&gt; gulp &lt;task&gt; &lt;othertask&gt;                <span class="comment">// 运行多任务</span>
 
 API    
     const { 
-        src,                                      // 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回 
-        dest(path[,options]),                     // 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename
-        series,                                   // 串联 任务功能、组合操作组合成同时执行的较大操作
-        parallel                                  // 并联 
+        src,                                      <span class="comment">// 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回 </span>
+        dest(path[,options]),                     <span class="comment">// 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename</span>
+        series,                                   <span class="comment">// 串联 任务功能、组合操作组合成同时执行的较大操作</span>
+        parallel                                  <span class="comment">// 并联 </span>
     } = require('gulp') 
 
 实例：
-    gulp.src('script/jquery.js')                  // 最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js
-        .pipe(gulp.dest('dist/foo.js'))           // pipe用于连接转换流(Transform streams)或可写流(Writable streams)
+    gulp.src('script/jquery.js')                  <span class="comment">// 最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js</span>
+        .pipe(gulp.dest('dist/foo.js'))           <span class="comment">// pipe用于连接转换流(Transform streams)或可写流(Writable streams)</span>
 
 任务分割
 
 公有&私有任务
-    function clean(cb) { cb() }                   // 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中
-    function build(cb) { cb() }                   // 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo> gulp build 可被用在串联(series)组合中
+    function clean(cb) { cb() }                   <span class="comment">// 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中</span>
+    function build(cb) { cb() }                   <span class="comment">// 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo&gt; gulp build 可被用在串联(series)组合中</span>
     exports.build = build;
     exports.default = series(clean, build);
 
@@ -97,78 +97,82 @@ API
     function bundle2(cb) { cb() }
     function javascript(cb) { cb() }
     function css(cb) { cb() }
-    exports.build = series(transpile1, bundle2)   // 如果需要让任务按顺序执行   串联组合
-    exports.build2 = parallel(javascript, css)    // 希望以最大并发来运行的任务 并联组合
-                                                  // 嵌套组合 任意深度 ↧
+    exports.build = series(transpile1, bundle2)   <span class="comment">// 如果需要让任务按顺序执行   串联组合</span>
+    exports.build2 = parallel(javascript, css)    <span class="comment">// 希望以最大并发来运行的任务 并联组合</span>
+                                                  <span class="comment">// 嵌套组合 任意深度 ↧</span>
     exports.build3 = series(clean, parallel(cssTranspile, series(jsTranspile, jsBundle)), parallel(cssMinify, jsMinify), publish)
-```
+</pre>
 :::
 
-## node-plantuml
-> 画图 [PlantUML](/programmingLanguage/plantuml)
-- [java环境配置](/programmingLanguage/java)
-- npm install node-plantuml -g   // Cannot find module 'node-plantuml' 本地安装npm install node-plantuml --save-dev
-- $ puml -h
-- /test.js
-    ```js
-    var plantuml = require('node-plantuml');
-    var fs = require('fs');
-    
-    var umlStr = `
-    :Alarms;
-    while (Unselect/select ?) is (unselect)
-    :Unselect alarm;
-    endwhile (select)
-    if (Select alarm) then (accept);
-    :Accept alarm;
-    :Reset alarm;
-    else(commit)
-    :Commit alarm;
-    :Audit alarm;
-    endif
-    :Alarm logs;
-    `
-    var gen = plantuml.generate(umlStr);
-    gen.out.pipe(fs.createWriteStream("output-file.png"))
-    ```
-设置图形尺寸：(在umlStr前面)scale 1000 width
-plantuml.generate(input, options, callback)
-    options:{
-        format: 'png' // 输出格式ascii/unicode/svg/eps/png
-        config: ''  // classic/classic
-        dot:
-        charset: 'UTF-8'
-    }
+<a class="anchor" name="1627908583281" id="1627908583281">----</a>
+::: details commander 命令行编程工具
+<pre class="custom-block">
+➤ 安装：demo&gt; npm install commander --save
 
+➤ 实例：响应版本号
+    demo/bin/demo.js    
+        #!/usr/bin/env node
+        var program = require('commander')
+        program                                     
+            .version("0.0.2")                         
+            .option('-v --version', 'version info')                    <span class="comment">// 为主命令提供参数  </span>
+        program.parse(process.argv)                                    <span class="comment">// 必须    </span>
+    demo&gt; node bin/demo.js -v                                          <span class="comment">// 运行</span>
 
+➤ 实例：发布一个运行命令：abc
+    目标：xxxx&gt; abc create name [--options]                             <span class="comment">// 主命令 命令 参数 选项</span>
+    项目：
+        demo/package.json    
+            {"bin": {"abc": "./bin/demo.js"}}
 
+        demo/bin/demo.js                                               <span class="comment">// 定义命令、选项、帮助和业务逻辑 </span>
+            #!/usr/bin/env node
+            var commander = require('commander')
+            commander
+                .command("summary &lt;cmd&gt;")                              <span class="comment">// 命令</span>
+                .alias("sm")                                           <span class="comment">// 命令别名</span>
+                .description("generate a `SUMMARY.md` from a folder")  <span class="comment">// 命令描述</span>
+                .usage()                                               <span class="comment">// 用户使用提示</span>
+                .option('-v --version', 'version info')                <span class="comment">// 为命令提供参数</span>
+                .action(function(md, cmd){                             <span class="comment">// 命令执行体</span>
+                    console.log('参数', md, cmd);
+                })
+            commander.parse(process.argv)                              <span class="comment">// 解析命令行参数 一定要放到最后调用</span>
 
-<a name="1627905586210" id="1627905586210">隐式锚点</a>
+        demo&gt; node bin/demo.js summary abcd 
+        demo&gt; node bin/demo.js sm aaabbb  
+        
+        demo&gt; npm link                                                 <span class="comment">// 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除</span>
+        xxxx&gt; abc sm aabb
+</pre>
+:::
+
+<a class="anchor" name="1627905586210" id="1627905586210">----</a>
 ::: details chokidar 监控文件/文件夹变化
-```
+<pre class="custom-block">
 可以用于，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
 
-安装：demo> npm i chokidar --save-dev
+安装：demo&gt; npm i chokidar --save-dev
 实例：
     const chokidar = require('chokidar'), log = console.log  
-    // chokidar.watch("E:\\work\\demo\\")                                        可以监控文件、文件夹, 参数类型file/dir/glob/array
-    // chokidar.watch('.')                                                       监控当前目录
-    // chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});  
+    <span class="comment">// chokidar.watch("E:\\work\\demo\\")                                        可以监控文件、文件夹, 参数类型file/dir/glob/array</span>
+    <span class="comment">// chokidar.watch('.')                                                       监控当前目录</span>
+    <span class="comment">// chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});  </span>
     chokidar.watch('./src')
-        .on('raw', (event, path, details) => log('RAW:', event, path, details))
-        .on('ready', () => console.log('初始扫描完成，准备好监听改变'))
-        .on('add',       path => log('ADD:',       path))
-        .on('change',    path => log('CHANGE:',    path))
-        .on('unlink',    path => log('UNLINK:',    path))
-        .on('addDir',    path => log('ADDDIR:',    path))
-        .on('unlinkDir', path => log('UNLINKDIR:', path))
-        .on('all', (event, path) => log('ALL:', event, path))                    // 可以在这做事件分支而忽略前面的具体事件    
-        .on('error', error => log(`监听错误: ${error}`))
+        .on('raw', (event, path, details) =&gt; log('RAW:', event, path, details))
+        .on('ready', () =&gt; console.log('初始扫描完成，准备好监听改变'))
+        .on('add',       path =&gt; log('ADD:',       path))
+        .on('change',    path =&gt; log('CHANGE:',    path))
+        .on('unlink',    path =&gt; log('UNLINK:',    path))
+        .on('addDir',    path =&gt; log('ADDDIR:',    path))
+        .on('unlinkDir', path =&gt; log('UNLINKDIR:', path))
+        .on('all', (event, path) =&gt; log('ALL:', event, path))                    <span class="comment">// 可以在这做事件分支而忽略前面的具体事件    </span>
+        .on('error', error =&gt; log(`监听错误: ${error}`))
 
 实例：    
     demo/src/watcher.js
-        chokidar.watch('./src/js')                                                   // 注意路径写法 非chokidar.watch('./js')    
-    demo> node src/watcher.js
+        chokidar.watch('./src/js')                                                   <span class="comment">// 注意路径写法 非chokidar.watch('./js')    </span>
+    demo&gt; node src/watcher.js
 
 监控场景：
     新建src/b.js
@@ -187,84 +191,95 @@ plantuml.generate(input, options, callback)
         RAW: change a.js { watchedPath: 'src\\a.js' }
         CHANGE: src\a.js
         ALL: change src\a.js
-```
+</pre>
 :::
 
-<a name="1627905787356" id="1627905787356">隐式锚点</a> 
+<a class="anchor" name="1627905787356" id="1627905787356">----</a> 
 ::: details chalk 命令行颜色工具
 颜色的插件
 :::
 
-## uglify-js
-> `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
+<a class="anchor" name="1627966781710" id="1627966781710">----</a> 
+::: details node-plantuml
+> 绘图工具[PlantUML](/programmingLanguage/plantuml)
+1. [java环境配置](/programmingLanguage/java)
+2. xxxx> npm i node-plantuml --save-dev                           
+3. xxxx> puml -h
 
-## child_process
-> 命令执行控制 执行系统命令
-
-<a name="1627908583281" id="1627908583281">隐式锚点</a>
-::: details commander 命令行编程工具
+- 实例 
+    demo/test.js
+    ```js
+    var plantuml = require('node-plantuml'),fs = require('fs')
+    var umlStr = `
+    :Alarms;
+    while (Unselect/select ?) is (unselect)
+    :Unselect alarm;
+    endwhile (select)
+    if (Select alarm) then (accept);
+    :Accept alarm;
+    :Reset alarm;
+    else(commit)
+    :Commit alarm;
+    :Audit alarm;
+    endif
+    :Alarm logs;
+    `
+    var gen = plantuml.generate(umlStr)                         // 详细参数
+    gen.out.pipe(fs.createWriteStream("output-file.png"))       // 输出图片
+    ```
+    demo> node test.js
+    
+- 设置图形尺寸：(在umlStr前面)scale 1000 width
 ```
-安装：demo> npm install commander --save
+@startuml
+scale 500*500
+@enduml
+```
 
-command      自定义执行的命令
-option       可选参数
-alias        用于 执行命令的别名
-description  命令描述
-action       执行命令后所执行的方法
-usage        用户使用提示
-parse        解析命令行参数，注意这个方法一定要放到最后调用
-
-
-响应版本号
-    demo/bin/demo.js    
-        #!/usr/bin/env node
-        var program = require('commander')
-        program                                     
-            .version("0.0.2")                         
-            .option('-v --version', 'version info')         // 接收 -v  
-        program.parse(process.argv)                         // 必须    
-    demo> node bin/demo.js -v                               // 运行
-
-发布为一个运行命令：abc
-    目标：xxxx> abc create name [--options]                  // 主命令 命令 参数 选项
-    项目：
-        demo/package.json    
-            {"bin": {"abc": "./bin/demo.js"}}
-
-        demo/bin/demo.js                                                     // 定义命令、选项、帮助和业务逻辑 
-            #!/usr/bin/env node
-            var commander = require('commander')
-            commander
-                .command("summary <cmd>")
-                .alias("sm")                                                    // 提供一个别名
-                .description("generate a `SUMMARY.md` from a folder")           // 描述，会显示在帮助信息里
-                .action(function(md, cmd){
-                    console.log('参数', md, cmd);
-                })
-                                                                                abc> node bin/demo.js summary abcd 
-                                                                                abc> node bin/demo.js sm aaabbb  
-        
-        demo> npm link                                                       // 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除
-        xxxx> abc sm aabb
+- 详细参数
+```
+plantuml.generate(input, {
+        format: 'png'                            // 输出格式ascii/unicode/svg/eps/png
+        config: ''                               // classic/classic
+        dot:
+        charset: 'UTF-8'
+    }, 
+    () => { /* callback */ })
 ```
 :::
 
-## nodemon
-> 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
-1. npm install -g nodemon 或 demo> npm install --save-dev nodemon
-2. demo> nodemon main.js                 // 相当于demo> node main.js
-   demo> nodemon main.js localhost 8080  // 如果没有在应用中指定端口，可以在命令中指定
+<a class="anchor" name="1627970757090" id="1627970757090">----</a> 
+::: details uglify-js
+- npm i uglify-js -g  
+- demo> uglifyjs xlsx.rich.js -o xlsx.rich.min.js // 压缩   
+- demo> uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` // 压缩混淆 scss压缩参考./scss
+:::
 
-demo/src/01.js
-```js
-module.exports = 'test text' // 启动nodemon后可响应文件的更改
-```
+<a class="anchor" name="1627970949874" id="1627970949874">----</a>
+::: details child_process
+> 命令执行控制 执行系统命令
+:::
+
+<a class="anchor" name="1627971037955" id="1627971037955">----</a>
+::: details nodemon
+<pre class="custom-block">
+&gt; 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
+
+- xxxx&gt; npm i -g nodemon 或 
+- demo&gt; npm install --save-dev nodemon
+- demo&gt; nodemon main.js  或                <span class="comment">// 相当于node main.js</span>
+- demo&gt; nodemon main.js localhost 8080     <span class="comment">// 如果没有在应用中指定端口，可以在命令中指定</span>
+
+<span class="title6">实例</span>
+demo/src/01.js    
+    module.exports = 'test text'           <span class="comment">// 启动nodemon后可响应文件的更改</span>
 demo/main.js
-```js
-var str = require('./src/01')
-console.log(str);
-```
-demo> nodemon ./main.js  // 如果是本地安装的nodemon,则"dev":"nodemon ./main.js"
+    var str = require('./src/01')
+    console.log(str);
+demo&gt; nodemon ./main.js                   
+</pre>
+:::
+
 
 ## pm2
 > 生产环境使用
@@ -301,10 +316,10 @@ myCache.get( "myKey", function( err, value ){ if( !err ){} });
 ## 自定义命令deploy
 ```js
 program
-    .command('deploy <name>')                                      // 参数name必填
+    .command('deploy <name>')                                       // 参数name必填
     .description('部署一个服务节点')                                 // help时可看到
-    .action(function(name){ console.log('Deploying "%s"', name) }) // 命令处理函数 带入处理好的参数
-program.parse(process.argv);
+    .action(function(name){ console.log('Deploying "%s"', name) })  // 命令处理函数 带入处理好的参数
+program.parse(process.argv)
 ```
 - demo> node bin/demo.js deploy projectname
 

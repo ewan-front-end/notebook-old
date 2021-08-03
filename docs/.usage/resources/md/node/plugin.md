@@ -1,6 +1,6 @@
 
 ## node插件开发
-```
+===+
 .
 ├── bin                          #运行目录
 ├── lib                           #主代码目录
@@ -12,14 +12,14 @@
 ├── LICENSE                 #许可证书
 ├── package.json          #npm配置
 ├── README.md           #README
-```
+===-
 
 <a href="http://localhost:8080/node/plugin.html#1627821297227">000000</a>
 <a href="http://localhost:8080/node/plugin.html#1627821297227">111111</a>
 <a href="/node/plugin.html#1627821297227">222222</a>
  
 ::: details node-inspect node调试
-```
+===+
 全局安装 > npm install -g node-inspect
 使用实例：
 demo/server.js
@@ -35,12 +35,12 @@ demo> node --inspect server.js
 浏览器输入 chrome://inspect
     [Configure...] > input[127.0.0.1:9229] [Done]
     监听列表 [inspect] 弹出调试面板
-```
+===-
 :::
 
 ANCHOR[1627903874915|gulp]
 ::: details gulp
-```
+===+
 [官网](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 
 ┃ 1. demo> npm install --save-dev gulp
@@ -82,51 +82,55 @@ API
     exports.build2 = parallel(javascript, css)    // 希望以最大并发来运行的任务 并联组合
                                                   // 嵌套组合 任意深度 ↧
     exports.build3 = series(clean, parallel(cssTranspile, series(jsTranspile, jsBundle)), parallel(cssMinify, jsMinify), publish)
-```
+===-
 :::
 
-## node-plantuml
-> 画图 [PlantUML](/programmingLanguage/plantuml)
-- [java环境配置](/programmingLanguage/java)
-- npm install node-plantuml -g   // Cannot find module 'node-plantuml' 本地安装npm install node-plantuml --save-dev
-- $ puml -h
-- /test.js
-    ```js
-    var plantuml = require('node-plantuml');
-    var fs = require('fs');
-    
-    var umlStr = `
-    :Alarms;
-    while (Unselect/select ?) is (unselect)
-    :Unselect alarm;
-    endwhile (select)
-    if (Select alarm) then (accept);
-    :Accept alarm;
-    :Reset alarm;
-    else(commit)
-    :Commit alarm;
-    :Audit alarm;
-    endif
-    :Alarm logs;
-    `
-    var gen = plantuml.generate(umlStr);
-    gen.out.pipe(fs.createWriteStream("output-file.png"))
-    ```
-设置图形尺寸：(在umlStr前面)scale 1000 width
-plantuml.generate(input, options, callback)
-    options:{
-        format: 'png' // 输出格式ascii/unicode/svg/eps/png
-        config: ''  // classic/classic
-        dot:
-        charset: 'UTF-8'
-    }
+ANCHOR[1627908583281|commander]
+::: details commander 命令行编程工具
+===+
+➤ 安装：demo> npm install commander --save
 
+➤ 实例：响应版本号
+    demo/bin/demo.js    
+        #!/usr/bin/env node
+        var program = require('commander')
+        program                                     
+            .version("0.0.2")                         
+            .option('-v --version', 'version info')                    // 为主命令提供参数  
+        program.parse(process.argv)                                    // 必须    
+    demo> node bin/demo.js -v                                          // 运行
 
+➤ 实例：发布一个运行命令：abc
+    目标：xxxx> abc create name [--options]                             // 主命令 命令 参数 选项
+    项目：
+        demo/package.json    
+            {"bin": {"abc": "./bin/demo.js"}}
 
+        demo/bin/demo.js                                               // 定义命令、选项、帮助和业务逻辑 
+            #!/usr/bin/env node
+            var commander = require('commander')
+            commander
+                .command("summary <cmd>")                              // 命令
+                .alias("sm")                                           // 命令别名
+                .description("generate a `SUMMARY.md` from a folder")  // 命令描述
+                .usage()                                               // 用户使用提示
+                .option('-v --version', 'version info')                // 为命令提供参数
+                .action(function(md, cmd){                             // 命令执行体
+                    console.log('参数', md, cmd);
+                })
+            commander.parse(process.argv)                              // 解析命令行参数 一定要放到最后调用
+
+        demo> node bin/demo.js summary abcd 
+        demo> node bin/demo.js sm aaabbb  
+        
+        demo> npm link                                                 // 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除
+        xxxx> abc sm aabb
+===-
+:::
 
 ANCHOR[1627905586210|chokidar]
 ::: details chokidar 监控文件/文件夹变化
-```
+===+
 可以用于，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
 
 安装：demo> npm i chokidar --save-dev
@@ -168,7 +172,7 @@ ANCHOR[1627905586210|chokidar]
         RAW: change a.js { watchedPath: 'src\\a.js' }
         CHANGE: src\a.js
         ALL: change src\a.js
-```
+===-
 :::
 
 ANCHOR[1627905787356|chalk] 
@@ -176,76 +180,87 @@ ANCHOR[1627905787356|chalk]
 颜色的插件
 :::
 
-## uglify-js
-> `npm install uglify-js -g  压缩 uglifyjs xlsx.rich.js -o xlsx.rich.min.js   压缩混淆 uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` //scss压缩  参考./scss
+ANCHOR[1627966781710|node-plantuml] 
+::: details node-plantuml
+> 绘图工具[PlantUML](/programmingLanguage/plantuml)
+1. [java环境配置](/programmingLanguage/java)
+2. xxxx> npm i node-plantuml --save-dev                           
+3. xxxx> puml -h
 
-## child_process
-> 命令执行控制 执行系统命令
-
-ANCHOR[1627908583281|commander]
-::: details commander 命令行编程工具
+- 实例 
+    demo/test.js
+    ```js
+    var plantuml = require('node-plantuml'),fs = require('fs')
+    var umlStr = `
+    :Alarms;
+    while (Unselect/select ?) is (unselect)
+    :Unselect alarm;
+    endwhile (select)
+    if (Select alarm) then (accept);
+    :Accept alarm;
+    :Reset alarm;
+    else(commit)
+    :Commit alarm;
+    :Audit alarm;
+    endif
+    :Alarm logs;
+    `
+    var gen = plantuml.generate(umlStr)                         // 详细参数
+    gen.out.pipe(fs.createWriteStream("output-file.png"))       // 输出图片
+    ```
+    demo> node test.js
+    
+- 设置图形尺寸：(在umlStr前面)scale 1000 width
 ```
-安装：demo> npm install commander --save
+@startuml
+scale 500*500
+@enduml
+```
 
-command      自定义执行的命令
-option       可选参数
-alias        用于 执行命令的别名
-description  命令描述
-action       执行命令后所执行的方法
-usage        用户使用提示
-parse        解析命令行参数，注意这个方法一定要放到最后调用
-
-
-响应版本号
-    demo/bin/demo.js    
-        #!/usr/bin/env node
-        var program = require('commander')
-        program                                     
-            .version("0.0.2")                         
-            .option('-v --version', 'version info')         // 接收 -v  
-        program.parse(process.argv)                         // 必须    
-    demo> node bin/demo.js -v                               // 运行
-
-发布为一个运行命令：abc
-    目标：xxxx> abc create name [--options]                  // 主命令 命令 参数 选项
-    项目：
-        demo/package.json    
-            {"bin": {"abc": "./bin/demo.js"}}
-
-        demo/bin/demo.js                                                     // 定义命令、选项、帮助和业务逻辑 
-            #!/usr/bin/env node
-            var commander = require('commander')
-            commander
-                .command("summary <cmd>")
-                .alias("sm")                                                    // 提供一个别名
-                .description("generate a `SUMMARY.md` from a folder")           // 描述，会显示在帮助信息里
-                .action(function(md, cmd){
-                    console.log('参数', md, cmd);
-                })
-                                                                                abc> node bin/demo.js summary abcd 
-                                                                                abc> node bin/demo.js sm aaabbb  
-        
-        demo> npm link                                                       // 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除
-        xxxx> abc sm aabb
+- 详细参数
+```
+plantuml.generate(input, {
+        format: 'png'                            // 输出格式ascii/unicode/svg/eps/png
+        config: ''                               // classic/classic
+        dot:
+        charset: 'UTF-8'
+    }, 
+    () => { /* callback */ })
 ```
 :::
 
-## nodemon
-> 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
-1. npm install -g nodemon 或 demo> npm install --save-dev nodemon
-2. demo> nodemon main.js                 // 相当于demo> node main.js
-   demo> nodemon main.js localhost 8080  // 如果没有在应用中指定端口，可以在命令中指定
+ANCHOR[1627970757090|uglify-js] 
+::: details uglify-js
+- npm i uglify-js -g  
+- demo> uglifyjs xlsx.rich.js -o xlsx.rich.min.js // 压缩   
+- demo> uglifyjs xlsx.rich.js -m -o xlsx.rich.min.js` // 压缩混淆 scss压缩参考./scss
+:::
 
-demo/src/01.js
-```js
-module.exports = 'test text' // 启动nodemon后可响应文件的更改
-```
+ANCHOR[1627970949874|child_process]
+::: details child_process
+> 命令执行控制 执行系统命令
+:::
+
+ANCHOR[1627971037955|nodemon]
+::: details nodemon
+===+
+> 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
+
+- xxxx> npm i -g nodemon 或 
+- demo> npm install --save-dev nodemon
+- demo> nodemon main.js  或                // 相当于node main.js
+- demo> nodemon main.js localhost 8080     // 如果没有在应用中指定端口，可以在命令中指定
+
+[H6] 实例
+demo/src/01.js    
+    module.exports = 'test text'           // 启动nodemon后可响应文件的更改
 demo/main.js
-```js
-var str = require('./src/01')
-console.log(str);
-```
-demo> nodemon ./main.js  // 如果是本地安装的nodemon,则"dev":"nodemon ./main.js"
+    var str = require('./src/01')
+    console.log(str);
+demo> nodemon ./main.js                   
+===-
+:::
+
 
 ## pm2
 > 生产环境使用
@@ -282,10 +297,10 @@ myCache.get( "myKey", function( err, value ){ if( !err ){} });
 ## 自定义命令deploy
 ```js
 program
-    .command('deploy <name>')                                      // 参数name必填
+    .command('deploy <name>')                                       // 参数name必填
     .description('部署一个服务节点')                                 // help时可看到
-    .action(function(name){ console.log('Deploying "%s"', name) }) // 命令处理函数 带入处理好的参数
-program.parse(process.argv);
+    .action(function(name){ console.log('Deploying "%s"', name) })  // 命令处理函数 带入处理好的参数
+program.parse(process.argv)
 ```
 - demo> node bin/demo.js deploy projectname
 
