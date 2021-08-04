@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.03 12:56</span>
+            <span>M 2021.08.04 21:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -91,21 +91,33 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ```
 
 ## 插件开发
+
+<pre class="custom-block">
+├── bin                   <span class="comment"> // 运行目录</span>
+├── lib                   <span class="comment"> // 主代码目录</span>
+├── CHANGELOG.md          <span class="comment"><span class="comment"> // 版本更新说明</span></span>
+├── LICENSE               <span class="comment"> // 许可证书</span>
+├── package.json          <span class="comment"> // npm配置</span>
+├── README.md             <span class="comment"> // README</span>
+│
+├── docs                  <span class="comment"> // 使用文档</span>
+├── example               <span class="comment"> // 示例目录</span>
+│
+├── test                  <span class="comment"> // 测试目录，提供单元测试</span>
+├── .travis.yml           <span class="comment"> // 集成自动测试配置</span>
+│
+├── .npmignore            <span class="comment"> // npm发布时忽略的文件</span>
+│
+├── CHANGELOG.md           // 版本更新说明
+│
+├── package.json          <span class="comment"> // NPM配置</span>
+</pre>
+
 - 账户 
   u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com
 - 组织：seahan、angg
 - 规范
-  ├── bin                           #可执行二进制文件
-  ├── lib                           #主代码目录
-  ├── doc                           #主代码目录
-  ├── example                       #示例目录
-  ├── test                          #测试目录，提供单元测试
-  ├── .travis.yml               #集成自动测试配置
-  ├── .npmignore             #npm发布时忽略的文件
-  ├── CHANGELOG.md   #版本更新说明
-  ├── LICENSE                 #许可证书
-  ├── README.md           #README
-  ├── package.json          #npm配置    
+
   
   package.json  包描述
   {
@@ -128,7 +140,7 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
   npm owner rm <user> [<@scope>/]<pkg>  # 从包的所有这列表中删除用户
   npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
   ```
-## 
+ 
 
 
 ## 插件

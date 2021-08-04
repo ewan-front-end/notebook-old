@@ -1,23 +1,5 @@
 
-## node插件开发
-===+
-.
-├── bin                          #运行目录
-├── lib                           #主代码目录
-├── example                 #示例目录
-├── test                         #测试目录，提供单元测试
-├── .travis.yml               #集成自动测试配置
-├── .npmignore             #npm发布时忽略的文件
-├── CHANGELOG.md   #版本更新说明
-├── LICENSE                 #许可证书
-├── package.json          #npm配置
-├── README.md           #README
-===-
 
-<a href="http://localhost:8080/node/plugin.html#1627821297227">000000</a>
-<a href="http://localhost:8080/node/plugin.html#1627821297227">111111</a>
-<a href="/node/plugin.html#1627821297227">222222</a>
- 
 ::: details node-inspect node调试
 ===+
 全局安装 > npm install -g node-inspect
@@ -40,9 +22,8 @@ demo> node --inspect server.js
 
 ANCHOR[1627903874915|gulp]
 ::: details gulp
-===+
 [官网](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
-
+===+
 ┃ 1. demo> npm install --save-dev gulp
 ┃ 2. demo/gulpfile.js                             // 在运行 gulp 命令时会被自动加载
 ┃                                                 // 默认任务
@@ -261,14 +242,18 @@ demo> nodemon ./main.js
 ===-
 :::
 
-
-## pm2
+ANCHOR[1628080742911|pm2] 
+::: details pm2
 > 生产环境使用
+:::
 
-## concurrently
+ANCHOR[1628080758946|concurrently] 
+::: details concurrently
 [concurrently](/node/package#scripts)
+:::
 
-## node-cache
+ANCHOR[1628080852157|node-cache] 
+::: details node-cache
 > 缓存数据
 npm install node-cache --save-dev
 ```js
@@ -281,7 +266,7 @@ myCache.set( "myKey", {name:"Jim"}, function( err, success ){ if( !err && succes
 // 获取 key [callback]
 myCache.get( "myKey", function( err, value ){ if( !err ){} });
 ```
-<pre>
+===+
 构建参数new NodeCache( { stdTTL: 100, checkperiod: 120 } )
     stdTTL         (默认值:0)每个生成的缓存元素的标准ttl，单位是秒。0 =无限
     checkperiod    (默认为600)自动删除检查周期，单位为秒。0 =没有定期检查。如果试图获取一个丢失的或过期的值，
@@ -289,27 +274,8 @@ myCache.get( "myKey", function( err, value ){ if( !err ){} });
     useClones      (默认值:true) en/disable变量克隆。如果为true，您将获得缓存变量的副本。如果为false，则保存并获得参考。注意:建议使用true，因为它的行为类似于基于服务器的缓存。
                     如果你想保存可变对象或其他涉及到可变性的复杂类型，你应该设置false。下面是一个简单的代码示例，显示了不同的行为
     deleteOnExpire (默认值:true)变量过期时是否自动删除。如果为true，该变量将被删除。如果为false，该变量将保持不变。建议您在事件过期时自行处理该变量。
-</pre>
-
-
-
-
-## 自定义命令deploy
-```js
-program
-    .command('deploy <name>')                                       // 参数name必填
-    .description('部署一个服务节点')                                 // help时可看到
-    .action(function(name){ console.log('Deploying "%s"', name) })  // 命令处理函数 带入处理好的参数
-program.parse(process.argv)
-```
-- demo> node bin/demo.js deploy projectname
-
-
-
-
- 
-
- 
+===-
+:::
 
 
 
@@ -317,130 +283,4 @@ program.parse(process.argv)
 
 
 
-
-
-
-必须参数<> 可选参数[]
-
-hb create --help
-
-
-```js
-var program = require('commander')
-
-program
-  .version('0.0.1', '-v, --version') //<版本值>,[响应标识默认-V,--version] 长标识必需
-
-program
-  .command('rm <dir>')
-  .option('-r, --recursive', 'Remove recursively')
-  .action(function (dir, cmd) {
-    console.log('remove ' + dir + (cmd.recursive ? ' recursively' : ''))
-  })
-
-// 自定义命令 create
-commander.command('create [project]')  
-    .description('create a empty project')  // 如--help 罗列Commands时：create [options] [project]  create a empty project
-    .option('-w --webpack')
-    .action(function(project, webpack) {
-        fs.copySync(DEFAULT_STRUCTURE, path.join(currentPath, project));
-        fs.copySync(DEFAULT_CONFIG, path.join(currentPath, project, './html-bundler.config.js'));
-        logger.notice('项目' + project + '创建成功');
-        if (webpack.webpack) {
-            fs.copySync(DEFAULT_WEBPACK_CONFIG, path.join(currentPath, project, './webpack.config.js'));
-            fs.copySync(DEFAULT_DLL_CONFIG, path.join(currentPath, project, './webpack.dll.js'));
-            logger.info('webpack配置文件创建成功, 请根据项目情况进行修改并安装依赖');
-        }
-    })
-
-demo> hb create --help
-    Usage: create [options] [project]
-    create a empty project
-    Options:
-        -h, --help    output usage information
-        -w --webpack
-
-
-
-
-Usage: html-bundler [options] [command]
-
-
-Commands:
-
-init [options]              if your project rootpath has not `html-bundler.config.js` & `webpack.config.js`, this command will create these files
-create [options] [project]  create a empty project
-dev [options]               dev
-dest                        dest
-qa                          qa
-rd                          rd
-
-Options:
-
-#!/usr/bin/env node
-
-var inquirer = require('inquirer');
-var program = require('commander');//一个帮助快速开发Nodejs命令行工具的package
-var Promise = require("bluebird");
-var fs = Promise.promisifyAll(require('fs-extra'));
-var chalk = require('chalk');//终端输出时颜色样式输出工具
-var figlet = require('figlet');
-var ora = require('ora');
-var exec = require('promise-exec');
-var shell =require('shelljs');//用于执行shell脚本的包
-console.log(
-    chalk.green(
-        figlet.textSync("NODE CLI")
-    )
-);
-program
-  .version(require('../package').version)
-  .usage('<command> [options] 快速启动项目') //-h 打印的用户提示
-
-program
-  .option('-n, --yourname [yourname]', 'Your name')
-  .option('-g, --glad', 'Tell us you are happy')
-
-/** 自定义命令revert 
- * 
- */
-program
-  .command('revert <name>')
-  .description('我是一段描述')                      //描述
-  .option('--rules', 'list all module rule names') //选项
-  .option('--plugins', 'list all plugin names')
-  .alias('rv')//命令别名
-  .action((name,cmd) => {
-    //如果传了选项，这样可以取到
-    var rules = cmd.rules ? true : false;
-    //name取到命令后面的参数
-        console.log(`回复啦${name}`)
-  })
-
-
-// 添加一些有用的信息到help选项
-program.on('--help', () => {
-  console.log()
-  console.log(`  Run ${chalk.cyan(`vue <command> --help`)} for detailed usage of given command.`)
-  console.log()
-})
-
-//解析参数这一行要放到定义的命令最后面
-program.parse(process.argv);
-
-if (program.yourname) {
-  console.log(`Hello, ${program.yourname}! ${program.glad ? 'I am very happy to see you!' : ''}`);
-}
-
-```
-
-
-
-
-USAGE:
-
-
-
-
-  bin> node app.js --help
 

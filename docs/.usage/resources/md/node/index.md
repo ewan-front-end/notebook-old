@@ -72,21 +72,32 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ```
 
 ## 插件开发
+===+
+├── bin                    // 运行目录
+├── lib                    // 主代码目录
+├── CHANGELOG.md           // 版本更新说明
+├── LICENSE                // 许可证书
+├── package.json           // npm配置
+├── README.md              // README
+│
+├── docs                   // 使用文档
+├── example                // 示例目录
+│
+├── test                   // 测试目录，提供单元测试
+├── .travis.yml            // 集成自动测试配置
+│
+├── .npmignore             // npm发布时忽略的文件
+│
+├── CHANGELOG.md           // 版本更新说明
+│
+├── package.json           // NPM配置
+===-
+
 - 账户 
   u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com
 - 组织：seahan、angg
 - 规范
-  ├── bin                           #可执行二进制文件
-  ├── lib                           #主代码目录
-  ├── doc                           #主代码目录
-  ├── example                       #示例目录
-  ├── test                          #测试目录，提供单元测试
-  ├── .travis.yml               #集成自动测试配置
-  ├── .npmignore             #npm发布时忽略的文件
-  ├── CHANGELOG.md   #版本更新说明
-  ├── LICENSE                 #许可证书
-  ├── README.md           #README
-  ├── package.json          #npm配置    
+
   
   package.json  包描述
   {
@@ -109,7 +120,7 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
   npm owner rm <user> [<@scope>/]<pkg>  # 从包的所有这列表中删除用户
   npm owner ls [<@scope>/]<pkg>         # 列出包的所有者
   ```
-## 
+ 
 
 
 ## 插件

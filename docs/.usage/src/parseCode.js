@@ -64,7 +64,7 @@ function parseAnchor(code, filePath){
     let matchAnchor
     while ((matchAnchor = /ANCHOR\[(\d{13})\|?([^\]]*)\]/.exec(code)) !== null) {
         //console.log('====', matchAnchor[1], matchAnchor[2]);
-        code = code.replace(matchAnchor[0], `<a class="anchor" name="${matchAnchor[1]}" id="${matchAnchor[1]}">----</a>`) 
+        code = code.replace(matchAnchor[0], `<div class="anchor" name="${matchAnchor[1]}" id="${matchAnchor[1]}"></div>\n`) 
         commonLinks.addAnchor(matchAnchor[1], matchAnchor[2], filePath)
     }
     commonLinks.save()
@@ -93,18 +93,19 @@ function parseLink(code){
     return code
 }
 function parseCustomBlock(block) {
-    block = block.replace('===+', '').replace('===-', '').replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+    block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
     // [H1-6] 标题
     let matchTitle
     while ((matchTitle = /\[H(\d)\]\s*([^\r\n]+)/.exec(block)) !== null) {block = block.replace(matchTitle[0], `<span class="title${matchTitle[1]}">${matchTitle[2]}</span>`)}  
     // // 注释
-    const matchComment = block.match(/\/\/[^\n\r]+/g) || [];
+    const matchComment = block.match(/\s\/\/[^\n\r]+/g) || [];
     matchComment.forEach(e => {block = block.replace(e, `<span class="comment">${e}</span>`)})
     // /* 注释 */
     const matchComment2 = block.match(/\/\*.+\*\//g) || [];
     matchComment2.forEach(e => {block = block.replace(e, `<span class="comment">${e}</span>`)})
     
-    return `<pre class="custom-block">${block}</pre>`    
+    block = block.replace('===+', '\n<pre class="custom-block">').replace('===-', '</pre>')
+    return `${block}`    
 }
 module.exports = {
     parse(code, PATH){
