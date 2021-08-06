@@ -5,28 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        @keyframes loading{ 
+            from {transform: rotate(0deg);} 
+            to {transform: rotate(360deg);} 
+        }
+
+        .dian{
+            --size: 50px;
+            --dian: 8px; 
+            --color: #333; 
+            width: var(--size); height: var(--size); 
+            display:inline-flex; justify-content: center; align-items: center;
+            /* animation: loading 2s linear infinite; */
+            background-color: #f00;
+        }        
+        .dian i{
+            display: inline-block;
+            width: var(--size); height: var(--dian); 
+            /* transform: rotate(45deg); */
+            position: relative; z-index: 1;
+            background-color: #0f0;
+        }
+        
+    </style>
 </head>
 <body>
+    <div>
+        <span class="dian jb"><i><i></i></i></span>
+    </div>
     
 </body>
 </html>
-<script>
-Date.prototype.format = function(fmt) { 
-    var weekMap = ['日','一','二','三','四','五','六']
-    var o = {"M+": this.getMonth()+1, "D+": this.getDate(), "h+": this.getHours(), "m+": this.getMinutes(), "s+": this.getSeconds(), "S": this.getMilliseconds()} 
-    if(/(Y+)/.test(fmt)) {fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length))}
-    if(/(w+)/.test(fmt)) {fmt = fmt.replace(RegExp.$1, '星期' + weekMap[this.getDay()])}
-    for(var k in o) {if(new RegExp("("+ k +")").test(fmt)){fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00"+ o[k]).substr(("" + o[k]).length)))}}
-    return fmt
-}
-Date.prototype.parse = function() {
-    const Y = this.getFullYear(), M = this.getMonth() + 1, D = this.getDate(), h = this.getHours(), m = this.getMinutes(), s = this.getSeconds(), w = this.getDay()
-    const YY = (Y + '').substr(2), MM = M < 10 ? '0' + M : M + '', DD = D < 10 ? '0' + D : D + '', hh = h < 10 ? '0' + h : h + '', mm = m < 10 ? '0' + m : m + '', ss = s < 10 ? '0' + s : s + ''   
-    return {year: Y, month: M, day: D, hour: h, minute: m, second: s, week: w, Y, M, D, h, m, s, w, YY, MM, DD, hh, mm, ss}
-}    
-
-var dt = new Date()
-dt.format('YYYY-M-D h:m:s w')
-console.log(dt.format('YYYY-M-D h:m:s w'));
-console.log(dt.parse());
-</script>

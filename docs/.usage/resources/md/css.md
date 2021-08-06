@@ -1,36 +1,9 @@
 
-- 应用
-[引入字体](#引入字体)
-[CSS变量](#CSS变量)
-[选择器](#选择器)
-
-- 外观
-[loading](#Loading)
 
 
-- 功能
-[文本溢出(单行/多行)](#文本溢出)
-[文本不可选](#文本不可选)
-[图片置灰](#图片置灰)
-[清除浮动](#清除浮动)
-[IOS下可输入文本框](#IOS下可输入文本框)
-[去除超链接背景](#去除超链接背景)
-[字符间距离](#字符间距离)
-[首行自动空两格](#首行自动空两格)
-[向左缩进隐藏文本](#向左缩进隐藏文本)
-[去除图片底部空隙](#去除图片底部空隙)
-[去除触摸高亮](#去除触摸高亮)
-[去掉button点击蓝框按钮阴影蓝边](#去掉button点击蓝框按钮阴影蓝边)
-[清除input阴影](#清除input阴影)
 
-
-::: details flex
-## 轴线一维布局(弹性盒子)
+::: details Flex 轴线一维布局 弹性盒子
 <img :src="$withBase('/images/flex.jpg')"><br>
-[SCENE:flex]flex/item宽度不均匀不等分[/SCENE]
-`<div class="flex"><div class="item">测试内容</div><div class="item"></div></div>`
-解决：在item里加上width:1% 
-
 ```css
 .flex{
 　display: flex;　
@@ -45,10 +18,13 @@
 　order: 0;
 }
 ```
+
+[SCENE:flex]flex/item宽度不均匀不等分[/SCENE]
+`<div class="flex"><div class="item">测试内容</div><div class="item"></div></div>`
+解决：在item里加上width:1% 
 :::
 
-::: details grid
-## 网格二维布局
+::: details Grid 网格二维布局
 概念：容器(container) 项目(item)  行(row)   列(column)  单元格(cell)  网格线(grid line) 片段(fraction) 区域(area)
 http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 
@@ -107,7 +83,7 @@ http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 ```
 :::
 
-::: details background
+::: details Background
 ```css
 background-color
 background-position
@@ -124,22 +100,25 @@ background-image
 :::
 
 ::: details nth-child & nth-of-type
-```css
-x:nth-child(n)                                 获取x元素的父元素中，第n个元素。无类型限制
-el:nth-child(2n)    选择父元素列表中的第 2n 个标签，也就是偶数个元素
-el:nth-child(n+n)   选择父元素列表中的第 n 个标签后的标签
-el:nth-child(-n+n)  选择父元素列表中的第 n 个标签之前的标签
-el:nth-child(odd)   选择父元素列表中的是奇数的标签
-el:nth-child(even)  选择父元素列表中的是偶数的标签
-el:nth-child(n+3)   未知
-el:nth-child(n-3)   未知
+===+
+<div>
+    <p>第一个</p>
+    <span>other</span>
+    <p>第二个</p>  <--------------  div p:nth-child(3){color:#f00}        [-, p, span, p, p] [3]
+    <p>第三个</p>  <--------------  div p:nth-of-type(3) {color:#0f0}     [-, p, p, p] [3]
+</div>
 
-.color-group i:nth-child(1){color: #318ed8;}   序号优先 第1层元素 匹配 
-.color-group i:nth-of-type(1){color: #318ed8;} 类型优先 元素 匹配第1个 ```
+x:nth-child(n)         [兄弟节点集][n]        
+x:nth-of-type(n)       [同类兄弟节点集][n]  
 
-x:nth-of-type(n)                               获取x元素父元素中，第n个x元素。限制了类型
-
- 
+el:nth-child(2n)       选择父元素列表中的第 2n 个标签, 也就是偶数个元素
+el:nth-child(n+n)      选择父元素列表中的第 n 个标签后的标签
+el:nth-child(-n+n)     选择父元素列表中的第 n 个标签之前的标签
+el:nth-child(odd)      选择父元素列表中的是奇数的标签
+el:nth-child(even)     选择父元素列表中的是偶数的标签
+el:nth-child(n+3)      未知
+el:nth-child(n-3)      未知
+===-
 :::
 
 ::: details 选择器
@@ -287,8 +266,11 @@ table border-collapse:collapse;
 }
 ```
 ```css
+<span class="ring"></span>
+
 .ring { 
-    --size: 40px; --border: 6px; --color: 0,180,220; vertical-align: middle;
+    --size: 40px; --border: 6px; --color: 0,180,220; /* 变量 */
+    vertical-align: middle;
     border-color:transparent rgba(var(--color), 0.2) rgba(var(--color), 0.6) rgba(var(--color), 1);
     display: inline-block; position: relative; 
     /* animation: loading2 1s linear infinite; */
@@ -305,9 +287,10 @@ table border-collapse:collapse;
 .ring::after  {transform: rotate(-60deg);}
 ```
 ```css
+<span class="mum jb"><i><i><i><i><i><i></i></i></i></i></i></i></span>
+
 .mum{
-    --size: 60px; 
-    --width: 15px; --height: 4px; --color: #333; --radius: 5px;
+    --size: 60px; --width: 15px; --height: 4px; --color: #333; --radius: 5px;
     width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center; vertical-align: middle;
     /* animation: loading2 1.5s linear infinite; */
 }   
@@ -335,6 +318,8 @@ table border-collapse:collapse;
 .mum.jb > i > i > i > i > i:after{opacity: 0.95;}
 ```
 ```css
+<span class="dian jb"><i><i><i><i></i></i></i></i></span>
+
 .dian{
     --size: 50px;
     --dian: 8px; --color: #333; 
@@ -361,11 +346,7 @@ table border-collapse:collapse;
 .dian.jb > i > i > i:after{opacity: 0.70;}
 .dian.jb > i > i > i > i:after{opacity: 0.85;}
 ```
-```html
-<span class="ring"></span>
-<span class="mum jb"><i><i><i><i><i><i></i></i></i></i></i></i></span>
-<span class="dian jb"><i><i><i><i></i></i></i></i></span>
-```
+
 
 
 
