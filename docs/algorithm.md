@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.08.07 21:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,15 @@ pageClass: theme-item
 <h1>算法</h1><strong>算法</strong>
 </div>
 <div class="static-content">
+
+## 对称加密
+
+## 非对称加密
+原则：公钥加密，私钥解密
+
+## 摘要运算
+> 可将消息哈希转换成一个固定长度的值唯一的字符串
+
 
 公式：
 a²+b² = (a+b)²-2ab

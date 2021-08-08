@@ -1,36 +1,9 @@
 
-- 应用
-[引入字体](#引入字体)
-[CSS变量](#CSS变量)
-[选择器](#选择器)
-
-- 外观
-[loading](#Loading)
 
 
-- 功能
-[文本溢出(单行/多行)](#文本溢出)
-[文本不可选](#文本不可选)
-[图片置灰](#图片置灰)
-[清除浮动](#清除浮动)
-[IOS下可输入文本框](#IOS下可输入文本框)
-[去除超链接背景](#去除超链接背景)
-[字符间距离](#字符间距离)
-[首行自动空两格](#首行自动空两格)
-[向左缩进隐藏文本](#向左缩进隐藏文本)
-[去除图片底部空隙](#去除图片底部空隙)
-[去除触摸高亮](#去除触摸高亮)
-[去掉button点击蓝框按钮阴影蓝边](#去掉button点击蓝框按钮阴影蓝边)
-[清除input阴影](#清除input阴影)
 
-
-::: details flex
-## 轴线一维布局(弹性盒子)
+::: details Flex 轴线一维布局 弹性盒子
 <img :src="$withBase('/images/flex.jpg')"><br>
-[SCENE:flex]flex/item宽度不均匀不等分[/SCENE]
-`<div class="flex"><div class="item">测试内容</div><div class="item"></div></div>`
-解决：在item里加上width:1% 
-
 ```css
 .flex{
 　display: flex;　
@@ -45,10 +18,13 @@
 　order: 0;
 }
 ```
+
+[SCENE:flex]flex/item宽度不均匀不等分[/SCENE]
+`<div class="flex"><div class="item">测试内容</div><div class="item"></div></div>`
+解决：在item里加上width:1% 
 :::
 
-::: details grid
-## 网格二维布局
+::: details Grid 网格二维布局
 概念：容器(container) 项目(item)  行(row)   列(column)  单元格(cell)  网格线(grid line) 片段(fraction) 区域(area)
 http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 
@@ -107,7 +83,7 @@ http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 ```
 :::
 
-::: details background
+::: details Background
 ```css
 background-color
 background-position
@@ -124,22 +100,25 @@ background-image
 :::
 
 ::: details nth-child & nth-of-type
-```css
-x:nth-child(n)                                 获取x元素的父元素中，第n个元素。无类型限制
-el:nth-child(2n)    选择父元素列表中的第 2n 个标签，也就是偶数个元素
-el:nth-child(n+n)   选择父元素列表中的第 n 个标签后的标签
-el:nth-child(-n+n)  选择父元素列表中的第 n 个标签之前的标签
-el:nth-child(odd)   选择父元素列表中的是奇数的标签
-el:nth-child(even)  选择父元素列表中的是偶数的标签
-el:nth-child(n+3)   未知
-el:nth-child(n-3)   未知
+===+
+<div>
+    <p>第一个</p>
+    <span>other</span>
+    <p>第二个</p>  <--------------  div p:nth-child(3){color:#f00}        [-, p, span, p, p] [3]
+    <p>第三个</p>  <--------------  div p:nth-of-type(3) {color:#0f0}     [-, p, p, p] [3]
+</div>
 
-.color-group i:nth-child(1){color: #318ed8;}   序号优先 第1层元素 匹配 
-.color-group i:nth-of-type(1){color: #318ed8;} 类型优先 元素 匹配第1个 ```
+x:nth-child(n)         [兄弟节点集][n]        
+x:nth-of-type(n)       [同类兄弟节点集][n]  
 
-x:nth-of-type(n)                               获取x元素父元素中，第n个x元素。限制了类型
-
- 
+el:nth-child(2n)       选择父元素列表中的第 2n 个标签, 也就是偶数个元素
+el:nth-child(n+n)      选择父元素列表中的第 n 个标签后的标签
+el:nth-child(-n+n)     选择父元素列表中的第 n 个标签之前的标签
+el:nth-child(odd)      选择父元素列表中的是奇数的标签
+el:nth-child(even)     选择父元素列表中的是偶数的标签
+el:nth-child(n+3)      未知
+el:nth-child(n-3)      未知
+===-
 :::
 
 ::: details 选择器
@@ -281,91 +260,56 @@ table border-collapse:collapse;
 <img :src="$withBase('/images/loading.jpg')">
 
 ```css
-@keyframes loading{ 
-    from {transform: rotate(0deg);} 
-    to {transform: rotate(360deg);} 
-}
+@keyframes loading{from {transform: rotate(0deg)} to {transform: rotate(360deg)}}
 ```
 ```css
-.ring { 
-    --size: 40px; --border: 6px; --color: 0,180,220; vertical-align: middle;
-    border-color:transparent rgba(var(--color), 0.2) rgba(var(--color), 0.6) rgba(var(--color), 1);
-    display: inline-block; position: relative; 
-    /* animation: loading2 1s linear infinite; */
-}
-.ring, .ring::before, .ring::after{
-    width: var(--size); height: var(--size); border-width: var(--border); border-style: solid; border-radius: 100%; z-index: 1;
-}
-.ring::before, .ring::after { 
-    content: '';
-    position: absolute; top: calc(var(--border) * -1); left: calc(var(--border) * -1);
-    border-color:transparent rgba(var(--color), 0.05) rgba(var(--color), 0.4) rgba(var(--color), 0.8);
-} 
-.ring::before {transform: rotate(-30deg);}    
-.ring::after  {transform: rotate(-60deg);}
-```
-```css
-.mum{
-    --size: 60px; 
-    --width: 15px; --height: 4px; --color: #333; --radius: 5px;
-    width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center; vertical-align: middle;
-    /* animation: loading2 1.5s linear infinite; */
-}   
-.mum i{
-    display: inline-block; position: relative; z-index: 1; transform: rotate(30deg); 
-    width: var(--size); height: var(--height); line-height: 0; font-size: 0;
-}
-.mum i::before, .mum i:after{
-    content: ''; position: absolute; top: 0;
-    width: var(--width); height: var(--height);
-    background-color:var(--color); border-radius: var(--radius);
-}
-.mum:before, .mum i::before{ left: 0;}
-.mum:after, .mum i::after{ right: 0;}
-.mum.jb > i:before{opacity: 0;}
-.mum.jb > i > i:before{opacity: 0.05;}
-.mum.jb > i > i > i:before{opacity: 0.19;}
-.mum.jb > i > i > i > i:before{opacity: 0.32;}
-.mum.jb > i > i > i > i > i:before{opacity: 0.44;}
-.mum.jb > i > i > i > i > i > i:before{opacity: 0.55;}
-.mum.jb > i:after{opacity: 0.65;}
-.mum.jb > i > i:after{opacity: 0.74;}
-.mum.jb > i > i > i:after{opacity: 0.82;}
-.mum.jb > i > i > i > i:after{opacity: 0.89;}
-.mum.jb > i > i > i > i > i:after{opacity: 0.95;}
-```
-```css
-.dian{
-    --size: 50px;
-    --dian: 8px; --color: #333; 
-    width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center;
-    animation: loading 2s linear infinite;
-}        
-.dian i{
-    display: inline-block;
-    width: var(--size); height: var(--dian); transform: rotate(45deg);
-    position: relative; z-index: 1;
-}
-.dian i::before, .dian i:after{
-    content: ''; position: absolute; top: 0;
-    width: var(--dian); height: var(--dian);
-    background-color:var(--color); border-radius: 100%;
-}
+/* 点状 <span class="dian"><i><i><i><i></i></i></i></i></span> */
+.dian{--size: 60px; --dian-color: #3c3; --dian-size: 8px}      
+.dian{width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center; animation: loading 2s linear infinite}
+.dian i{width: var(--size); height: var(--dian-size); display: block; transform: rotate(45deg); position: relative; z-index: 1}        
+.dian i::before, .dian i:after{width: var(--dian-size); height: var(--dian-size); content: ''; position: absolute; top: 0; border-radius: 100%; background-color:var(--dian-color)} 
 .dian i::before{ left: 0;}
-.dian i::after{ right: 0;}
-.dian.jb > i > i:before{opacity: 0.05;}
-.dian.jb > i > i > i:before{opacity: 0.10;}
-.dian.jb > i > i > i > i:before{opacity: 0.25;}
-.dian.jb > i:after{opacity: 0.40;}
-.dian.jb > i > i:after{opacity: 0.55;}
-.dian.jb > i > i > i:after{opacity: 0.70;}
-.dian.jb > i > i > i > i:after{opacity: 0.85;}
+.dian i::after{ right: 0;}        
+.dian > i:before{opacity: 0.05;} 
+.dian > i > i:before{opacity: 0.10;}
+.dian > i > i > i:before{opacity: 0.25;}
+.dian > i > i > i > i:before{opacity: 0.40;}
+.dian > i:after{opacity: 0.55;}
+.dian > i > i:after{opacity: 0.70;}
+.dian > i > i > i:after{opacity: 0.85;}
+
+/* 菊花 <span class="mum"><i><i><i><i><i><i></i></i></i></i></i></i></span> */
+.mum{--size: 60px; --mum-color: #08c; --mum-width: 15px; --mum-height: 4px; }
+.mum{width: var(--size); height: var(--size); display:inline-flex; justify-content: center; align-items: center; animation: loading 1.5s linear infinite}   
+.mum i{width: var(--size); height: var(--mum-height); display: block; position: relative; z-index: 1; transform: rotate(30deg)}
+.mum i::before, .mum i:after{width: var(--mum-width); height: var(--mum-height); content: ''; position: absolute; top: 0; background-color:var(--mum-color); border-radius: 100%}
+.mum i::before{ left: 0;}
+.mum i::after{ right: 0;}
+.mum > i:before{opacity: 0}
+.mum > i > i:before{opacity: 0.05}
+.mum > i > i > i:before{opacity: 0.19}
+.mum > i > i > i > i:before{opacity: 0.32}
+.mum > i > i > i > i > i:before{opacity: 0.44}
+.mum > i > i > i > i > i > i:before{opacity: 0.55}
+.mum > i:after{opacity: 0.65}
+.mum > i > i:after{opacity: 0.74}
+.mum > i > i > i:after{opacity: 0.82}
+.mum > i > i > i > i:after{opacity: 0.89}
+.mum > i > i > i > i > i:after{opacity: 0.95}
+
+/* 咬尾蛇 <span class="ring"></span>*/
+.ring {--size: 50px; --ring-width: 6px; --ring-color: 0,0,0}
+.ring {display: inline-block; position: relative; animation: loading 1s linear infinite}  
+.ring::before {transform: rotate(30deg);}    
+.ring::after  {transform: rotate(60deg);}      
+.ring::before, .ring::after {content: ''; position: absolute; top: calc(var(--ring-width) * -1); left: calc(var(--ring-width) * -1)}
+.ring, .ring::before, .ring::after {
+    width: var(--size); height: var(--size); z-index: 1; 
+    border-width: var(--ring-width); border-style: solid; border-radius: 100%; border-color:transparent rgba(var(--ring-color), 0.1) rgba(var(--ring-color), 0.3) rgba(var(--ring-color), 0.6);
+}
 ```
-```html
-<span class="ring"></span>
-<span class="mum jb"><i><i><i><i><i><i></i></i></i></i></i></i></span>
-<span class="dian jb"><i><i><i><i></i></i></i></i></span>
-```
+
+
 
 
 
@@ -447,7 +391,8 @@ document.addEventListener('mousemove', (e) => {
 ```
 **JavaScript 与 CSS 通信**
 `--foo: if(x > 5) this.width = 10;`
-
+计算
+calc(var(--border) * -1)
 
 
 
@@ -478,7 +423,6 @@ transform-origin: center bottom 基点
 ```
 
 ## 动画
-
 ```html
 <style>
   div{ width: 600px; height: 230px }

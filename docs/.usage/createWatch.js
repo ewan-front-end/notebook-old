@@ -19,12 +19,13 @@ chokidar.watch('./docs/.usage/resources/md')
             console.log('updateSolution')
             exec('node docs/.usage/updateSolution.js ', function(error, stdout, stderr) {})
         } else if (RES_MAP_PATH) {
-            const target = RES_MAP_PATH[resPath]            
+            const target = RES_MAP_PATH[resPath]  
+            console.log('target', target);          
             if (target) {   
                 debug && console.log('资源映射：', target)    
                 const date = new Date()
                 target.updateTime = date.toJSON().slice(0, 10).replace(/-/g, '.') + ' ' + date.toString().match(/(\d{2}\:\d{2})\:\d{2}/)[1]
-                debug && console.log('重写资源文件：', RES_MAP_PATH[resPath])
+                debug && console.log('重写资源文件：', target)
                 setResMapPath(RES_MAP_PATH)
                 debug && console.log('重建文档：', target.path)
                 exec('node docs/.usage/create.js ' + target.path, function(error, stdout, stderr) {})

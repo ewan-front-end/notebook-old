@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.08.08 15:52</span>
         </div>
     </div>
     <div class="content"></div>
@@ -416,7 +416,7 @@ module.exports = {
 
 ## 主页
 docs/README.md
-```{2,16}
+```
 ---
 home: true
 heroImage: /hero.png
@@ -463,17 +463,26 @@ layout: SpecialLayout
 ```
 
 ## 自定义格式
+
+
+<pre class="custom-block">
 :::FLEX
-+++ 资源
++++ 1
+&lt;strong&gt;■ 资源&lt;/strong&gt;
 - [icomoon](http://icomoon.io/app)
 +++
-+++ 常用工具
++++ 2
+&lt;strong&gt;■ 常用工具&lt;/strong&gt;
 - [JSRun](https://jsrun.net/new)
 +++
-+++ 平台&文档
++++ 1
+&lt;strong&gt;■ 平台&文档&lt;/strong&gt;
 - [GitHub](https://github.com/)
 +++
-:::FLEX
+FLEX:::
+</pre>
+
+
 
 
 
