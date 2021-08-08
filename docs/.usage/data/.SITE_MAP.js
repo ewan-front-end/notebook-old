@@ -109,6 +109,7 @@ module.exports = {
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/framework/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/framework/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/framework/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, src:'vuepress'},
         docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }},
+    standard: {title:'规范', src:'standard/index', children: {}},
     frontend: {title:'前端体系', src:'frontend/index', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', children: {
             systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'账号体系', href:'/solution'},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], src:'0001'},
@@ -169,7 +170,7 @@ module.exports = {
             }},
             systemComponent: {title:'组件系统',desc:'作用在于集中管理可复用的开发资源,各业务线优先从系统中选取可复用的部分，同时向系统中沉淀组件'}
         }}
-    }, links:[{name:'qiankun',href:'/tools/qiankun'}]},
+    }, links:[{name:'规范', href:'/standard'}, {name:'qiankun',href:'/tools/qiankun'}]},
     projects:{title:'项目', src:'projects'},
     other: {linkName:'其它', src:'other'}
 }

@@ -397,7 +397,7 @@ module.exports = {
 
 ## 主页
 docs/README.md
-```{2,16}
+```
 ---
 home: true
 heroImage: /hero.png
@@ -444,17 +444,25 @@ layout: SpecialLayout
 ```
 
 ## 自定义格式
+
+===+
 :::FLEX
-+++ 资源
++++ 1
+<strong>■ 资源</strong>
 - [icomoon](http://icomoon.io/app)
 +++
-+++ 常用工具
++++ 2
+<strong>■ 常用工具</strong>
 - [JSRun](https://jsrun.net/new)
 +++
-+++ 平台&文档
++++ 1
+<strong>■ 平台&文档</strong>
 - [GitHub](https://github.com/)
 +++
-:::FLEX
+FLEX:::
+===-
+
+
 
 
 

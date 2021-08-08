@@ -1,4 +1,6 @@
 const commonLinks = require('../data/commonLinks')
+const TAG_MAP_BLOCK = {}
+let blockCount = 0
 
 String.prototype.replaceAt=function(scope, replacement) {
     if (scope[0] > this.length) return this
@@ -98,29 +100,50 @@ function parseCustomBlock(block) {
     let matchTitle
     while ((matchTitle = /\[H(\d)\]\s*([^\r\n]+)/.exec(block)) !== null) {block = block.replace(matchTitle[0], `<span class="title${matchTitle[1]}">${matchTitle[2]}</span>`)}  
     // // 注释
-    const matchComment = block.match(/\s\/\/[^\n\r]+/g) || [];
-    matchComment.forEach(e => {block = block.replace(e, `<span class="comment">${e}</span>`)})
+    const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
+    matchComment.forEach(e => {
+        let firstWord = e.substr(1,1), colorClass = '', _e = e
+        if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
+        block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
+    })
     // /* 注释 */
-    const matchComment2 = block.match(/\/\*.+\*\//g) || [];
-    matchComment2.forEach(e => {block = block.replace(e, `<span class="comment">${e}</span>`)})
+    const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
+    matchComment2.forEach(e => {
+        let firstWord = e.substr(0,1), colorClass = '', _e = e
+        if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
+        block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
+    })
     
     block = block.replace('===+', '\n<pre class="custom-block">').replace('===-', '</pre>')
-    return `${block}`    
+
+    blockCount++
+    const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount
+    TAG_MAP_BLOCK[CUSTOM_BLOCK_NAME] = block
+
+    return CUSTOM_BLOCK_NAME   
 }
 module.exports = {
-    parse(code, PATH){
+    parseStart(code, PATH){
+        // 代码块
+        const matchCustomBlock = code.match(/===\+[\s\S]+?===\-/g) || []
+        matchCustomBlock.forEach((block) => {code = code.replace(block, parseCustomBlock(block))})
+
         // 解析自定义样式
         code = parseStyle(code)
         // 通用链接
         code = parseAnchor(code, PATH) // 锚点
         code = parseTitle(code, PATH)  // 标题
         code = parseLink(code)
-
-        const matchCustomBlock = code.match(/===\+[\s\S]+?===\-/g) || []
-        matchCustomBlock.forEach((block) => {code = code.replace(block, parseCustomBlock(block))})
         
         return code        
-    }    
+    },
+    parseEnd(code){
+        for (let key in TAG_MAP_BLOCK) {
+            code = code.replace(key, TAG_MAP_BLOCK[key])
+        }        
+        return code
+    }
+
 }
 //<h2 id="node插件开发"> node插件开发</h2>
 //<a href="#node插件开发" class="header-anchor">#</a>
