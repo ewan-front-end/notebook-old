@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.08.09 13:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -18,8 +18,10 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
-
+函数柯理化
+  参数复用 兼容性检测 延迟执行
 事件模型
+  捕获 冒泡
 
 ## 事件循环机制
 

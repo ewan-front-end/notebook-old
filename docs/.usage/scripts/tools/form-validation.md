@@ -1,4 +1,4 @@
-```
+```js
 ■ /demo.html
 <form id="formid" onsubmit="return false">
     <div id="loginNoAutocomplete"><input type="text"><input type="password"></div>
