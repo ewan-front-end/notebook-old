@@ -113,7 +113,13 @@ function parseCustomBlock(block) {
         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
     })
-    
+    // [img:$withBase('/images/左移位运算符.jpg')]
+    const matchImage = block.match(/\[img:(.+)?\]/g) || [];
+    matchImage.forEach(e => {
+        const m = e.match(/\[img:(.+)?\]/)
+        block = block.replace(e, `<img :src="${m[1]}">`)
+    })
+
     block = block.replace('===+', '\n<pre class="custom-block">').replace('===-', '</pre>')
 
     blockCount++

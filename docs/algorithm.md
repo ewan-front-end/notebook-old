@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.07 21:00</span>
+            <span>M 2021.08.09 20:47</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,25 @@ pageClass: theme-item
 <h1>算法</h1><strong>算法</strong>
 </div>
 <div class="static-content">
+
+## Javascript运算基础
+[链接](http://c.biancheng.net/view/5471.html)
+[链接](https://blog.csdn.net/oracle_microsoft/article/details/4398216)
+
+
+<pre class="custom-block">
+'&lt;&lt;'左移位运算符 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
+    5 &lt;&lt; 2    <span class="comment"> // 返回值20</span>
+    <img :src="$withBase('/images/左移位运算符.jpg')">
+
+'&gt;&gt;'右移位运算符 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
+    1000 &gt;&gt; 8    <span class="comment"> // 返回值3</span>
+    <img :src="$withBase('/images/右移位运算符.jpg')">
+
+'&gt;&gt;&gt;'运算符
+
+'|='按位或
+</pre>
 
 ## 对称加密
 

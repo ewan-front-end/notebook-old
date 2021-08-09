@@ -1,4 +1,22 @@
 
+## Javascript运算基础
+[链接](http://c.biancheng.net/view/5471.html)
+[链接](https://blog.csdn.net/oracle_microsoft/article/details/4398216)
+
+===+
+'<<'左移位运算符 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
+    5 << 2     // 返回值20
+    [img:$withBase('/images/左移位运算符.jpg')]
+
+'>>'右移位运算符 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
+    1000 >> 8     // 返回值3
+    [img:$withBase('/images/右移位运算符.jpg')]
+
+'>>>'运算符
+
+'|='按位或
+===-
+
 ## 对称加密
 
 ## 非对称加密

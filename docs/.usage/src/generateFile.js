@@ -43,9 +43,16 @@ module.exports = (ABSOLUTE_PATH, target, PATH) => {
         let matchFLEX
         while ((matchFLEX = /\:\:\:FLEX([\s\S]+?)FLEX\:\:\:/.exec(file)) !== null) {  
             let content = matchFLEX[1], _content = '', matchItem
-            while ((matchItem = /\+\+\+ (\d{1,2})([\s\S]*?)\+\+\+/.exec(content)) !== null) { 
+            while ((matchItem = /\+\+\+ (\d{1,4})([\s\S]*?)\+\+\+(\w+)?/.exec(content)) !== null) { 
                 content = content.replace(matchItem[0], '') 
-                _content += `<div class="box-flex-item flex-${matchItem[1]}">\n${matchItem[2]}\n</div>`
+                let styleStr = '', classStr = '', exClass = matchItem[3] ?  ' ' + matchItem[3] : ''
+                if (matchItem[1] > 10) {
+                    styleStr = ` style="flex-basis: ${matchItem[1]}px"`
+                } else {
+                    classStr = ` flex-${matchItem[1]}`
+                }
+                
+                _content += `<div class="box-flex-item${classStr}${exClass}"${styleStr}>\n${matchItem[2]}\n</div>`
             }
             file = file.replace(matchFLEX[0], `<div class="box-flex">${_content}</div>`)            
         }        
