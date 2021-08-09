@@ -1,7 +1,7 @@
 const rules = {
     mobile: v => { },
     email: v => { 
-        v.match(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/)
+        v.match(/^[\w-]+@[\w-]+(\.[a-zA-Z0-9_-]+)+$/)
     },
     required: v => {
         if (!v.trim()) { return { type: 'required', message: '必填' } }
