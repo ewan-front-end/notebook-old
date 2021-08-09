@@ -100,13 +100,14 @@ function core_md5(x, len) {
     }
     return Array(a, b, c, d);
 }
-/* These functions implement the four basic operations the algorithm uses. */
+
 function md5_cmn(q, a, b, x, s, t) { return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b) }
+/* 算法使用的四个基本操作 */
 function md5_ff(a, b, c, d, x, s, t) { return md5_cmn((b & c) | ((~b) & d), a, b, x, s, t) }
 function md5_gg(a, b, c, d, x, s, t) { return md5_cmn((b & d) | (c & (~d)), a, b, x, s, t) }
 function md5_hh(a, b, c, d, x, s, t) { return md5_cmn(b ^ c ^ d, a, b, x, s, t) }
 function md5_ii(a, b, c, d, x, s, t) { return md5_cmn(c ^ (b | (~d)), a, b, x, s, t) }
-/* Calculate the HMAC-MD5, of a key and some data */
+/* 计算HMAC-MD5，一个密钥和一些数据 */
 function core_hmac_md5(key, data) {
     var bkey = str2binl(key);
     if (bkey.length > 16) bkey = core_md5(bkey, key.length * chrsz);
@@ -119,21 +120,21 @@ function core_hmac_md5(key, data) {
     return core_md5(opad.concat(hash), 512 + 128);
 }
 /*
- * Add integers, wrapping at 2^32. This uses 16-bit operations internally
- * to work around bugs in some JS interpreters.
+加整数，以2^32换行。 它在内部使用16位操作  
+解决一些JS解释器中的错误
  */
 function safe_add(x, y) {
     var lsw = (x & 0xFFFF) + (y & 0xFFFF);
     var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
     return (msw << 16) | (lsw & 0xFFFF);
 }
-/* Bitwise rotate a 32-bit number to the left. */
+/* 按位向左旋转一个32位的数字。*/
 function bit_rol(num, cnt) {
     return (num << cnt) | (num >>> (32 - cnt));
 }
 /*
- * Convert a string to an array of little-endian words
- * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
+将字符串转换为小端字数组  
+如果chrsz是ASCII，字符>255的高字节将被无声地忽略。
  */
 function str2binl(str) {
     var bin = Array();
@@ -142,7 +143,7 @@ function str2binl(str) {
         bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
     return bin;
 }
-/* Convert an array of little-endian words to a string */
+/* 将小端(little-endian)字节序转换为字符串 */
 function binl2str(bin) {
     var str = "";
     var mask = (1 << chrsz) - 1;
