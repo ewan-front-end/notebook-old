@@ -172,5 +172,10 @@ module.exports = {
         }}
     }, links:[{name:'规范', href:'/standard'}, {name:'qiankun',href:'/tools/qiankun'}]},
     projects:{title:'项目', src:'projects'},
-    other: {linkName:'其它', src:'other'}
+    other: {linkName:'其它', src:'other'},
+    jishuanji: {title:'计算机', children:{
+      shujujiegou: {title:'数据结构'},
+      jishuanjiwangluo: {title:'计算机网络'},
+      shuanfa: {title:'算法'}
+    }}
 }
