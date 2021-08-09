@@ -14,27 +14,27 @@ const rules = {
 /**
  * 通用表单验证                              
  * @param {element} form DOM表单                 
- * @return {array} 检测异常列表                  
+ * @return {array} 检测异常列表 [{dom:Element, name:'email', message:'必填', type:'required', errorArr:[{ type: 'required', message: '必填' }]}]                  
  */
 export default (form) => {
     if (!(form && form.elements)) return
     const elements = form.elements
     const NAME_ELEMENT = {} // 字段对比时用于查询重复目标
     const checkResult = []  // 最终返回的异常结果集
-
+     
     Array.from(elements).filter(item => item.getAttribute('valid')).map(item => {
         const valids = item.getAttribute('valid').split(',')
         const value = item.value
+        const index = item.name || item.id
         const errorArr = []
-        const itemIndex = item.name || item.id
 
-        itemIndex && (NAME_ELEMENT[itemIndex] = item)
+        index && (NAME_ELEMENT[index] = value)
         valids.forEach(valid => {
             let result
             if (valid.match(/^compare=(\w+)/)) {
-                const compareTarget = NAME_ELEMENT[RegExp.$1]
-                compareTarget && (result = rules['compare'](value, compareTarget.value))
-            }
+                const targetValue = NAME_ELEMENT[RegExp.$1]
+                targetValue && (result = rules['compare'](value, targetValue))
+              }
             rules[valid] && (result = rules[valid](value))
             result && errorArr.push(result)
         })
@@ -42,7 +42,7 @@ export default (form) => {
             checkResult.push({
                 dom: item,
                 errorArr,
-                name: item.name,
+                name: index,
                 message: errorArr[0].message,
                 type: errorArr[0].type
             })
@@ -53,7 +53,7 @@ export default (form) => {
 /*
 <form id="formid" onsubmit="return false">
     <label>
-        <input type="text" valid="required,email">
+        <input type="text" name="email" "valid="required,email">
     </label>
     <input id="submitid" value="Login" type="submit" >
 </form>
