@@ -23,13 +23,24 @@ pageClass: theme-item
 <strong>■ 普通注释</strong>
 
 <pre class="custom-block">
-目的：帮助开发者和阅读者更好地理解程序
-规范：
-    1. 总是在单行注释符后留一个空格
-    2. 总是在多行注释的结束符前留一个空格（使星号对齐）
-    3. 不要把注释写在多行注释的开始符、结束符所在行
-    4. 不要编写无意义的注释
-</pre>
+&lt;div&gt;
+    &lt;p&gt;第一个&lt;/p&gt;
+    &lt;span&gt;other&lt;/span&gt;
+    &lt;p&gt;第二个&lt;/p&gt;  &lt;--------------  div p:nth-child(3){color:#f00}        [-, p, span, p, p] [3]
+    &lt;p&gt;第三个&lt;/p&gt;  &lt;--------------  div p:nth-of-type(3) {color:#0f0}     [-, p, p, p] [3]
+&lt;/div&gt;
+
+x:nth-child(n)         [兄弟节点集][n]        
+x:nth-of-type(n)       [同类兄弟节点集][n]  
+
+el:nth-child(2n)       选择父元素列表中的第 2n 个标签, 也就是偶数个元素
+el:nth-child(n+n)      选择父元素列表中的第 n 个标签后的标签
+el:nth-child(-n+n)     选择父元素列表中的第 n 个标签之前的标签
+el:nth-child(odd)      选择父元素列表中的是奇数的标签
+el:nth-child(even)     选择父元素列表中的是偶数的标签
+el:nth-child(n+3)      未知
+el:nth-child(n-3)      未知
+</pre>1
 
 </div><div class="box-flex-item" style="flex-basis: 100px">
 
@@ -179,19 +190,18 @@ function setOpacity(node, val) {
 <strong>■ 文件注释</strong>
 
 <pre class="custom-block">
-规范：
-    1. 文件注释位于文件的最前面
-    2. 文件注释必须全部以英文字符表示，并存在于文件的开发版本与生产版本中
+'&lt;&lt;'左移位运算符 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
+    5 &lt;&lt; 2    <span class="comment"> // 返回值20</span>
+    <img :src="$withBase('/images/左移位运算符.jpg')">
 
-<span class="comment color3">/*!
- * jRaiser 2 Javascript Library
- * kan.56.com - v1.0.0 (2013-03-15T14:55:51+0800)     <span class="comment"> // 概要说明及版本(必须) 修改时间(必须)以ISO格式表示</span>
- * http://jraiser.org/ | Released under MIT license   <span class="comment"> // 项目地址(开源组件必须) 开源协议(开源组件必须)</span>
- * Copyright 2005-2013 56.com                         <span class="comment"> // 版权声明(必须)</span>
- *
- * Include sizzle (http://sizzlejs.com/)              <span class="comment"> // 如果文件内包含开源组件 则必须在文件注释中进行说明</span>
- */</span>
-</pre>
+'&gt;&gt;'右移位运算符 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
+    1000 &gt;&gt; 8    <span class="comment"> // 返回值3</span>
+    <img :src="$withBase('/images/右移位运算符.jpg')">
+
+'&gt;&gt;&gt;'运算符
+
+'|='按位或
+</pre>0
 
 </div></div>
 

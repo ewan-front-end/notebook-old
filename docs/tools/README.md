@@ -22,8 +22,7 @@ pageClass: theme-item
 <h1>工具&资源</h1><strong>工具&资源</strong>
 </div>
 <div class="static-content">
-<div class="box-flex">
-<div class="box-flex-item flex-1">
+<div class="box-flex"><div class="box-flex-item flex-1">
 
 <strong>■ 资源</strong>
 - [icomoon](http://icomoon.io/app)
@@ -45,8 +44,7 @@ pageClass: theme-item
 - [自助建站国内](https://www.strikingly.com/)
 - [plantuml](https://plantuml.com/zh/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 常用工具</strong>
 - [模拟短信验证](https://www.yinsiduanxin.com/)
@@ -66,8 +64,7 @@ pageClass: theme-item
 - [下载YouTube视频](http://en.savefrom.net/)
 - [下载YouTube字幕](http://keepvid.com/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 平台&文档</strong>
 - [GitHub](https://github.com/)
@@ -86,12 +83,10 @@ pageClass: theme-item
 - [代码规范](https://standardjs.com/rules-zhcn.html)
 - [gulp](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 
-</div>
-</div>
+</div></div>
 
 
-<div class="box-flex">
-<div class="box-flex-item flex-1">
+<div class="box-flex"><div class="box-flex-item flex-1">
 
 <strong>■ 待整理</strong>
 - [代码对比/归并](http://tool.oschina.net/diff)
@@ -140,8 +135,7 @@ pageClass: theme-item
 - [IT教程网](http://www.itjiaocheng.com/index.html)
 - [正则表达式测试工具](https://regexper.com/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 知识储备相关</strong>
 - [前端相关网站、博客、以及活跃开发者](https://github.com/jikeytang/front-end-collect)
@@ -184,8 +178,7 @@ pageClass: theme-item
 - [码农网](http://www.codeceo.com/)
 - [程序员找工作黑名单](http://coder.shengxinjing.cn/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 移动Web相关</strong>
 - [iphone分辨率终极指南](http://images.shejidaren.com/wp-content/uploads/2014/09/iphone-Resolutions-guide.png)
@@ -225,8 +218,7 @@ pageClass: theme-item
 - [RequireJS中文网](http://www.requirejs.cn/)
 - [require.js的用法](http://www.ruanyifeng.com/blog/2012/11/require_js.html)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 部署流程相关</strong>
 - [Gulp官网](http://gulpjs.com/)
@@ -263,8 +255,7 @@ pageClass: theme-item
 - [web前端开发-移动端页面开发资源总结]( http://www.html5dw.com/post?id=1491)
 - [H5项目常见问题及注意事项](http://www.open-open.com/lib/view/open1449325854077.html)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ H5案例相关</strong>
 
@@ -305,8 +296,7 @@ pageClass: theme-item
 - [腾讯大师兄 - 移动开发者工具镜像站点](https://dsx.bugly.qq.com/)
 - [ionic 教程](http://www.runoob.com/ionic/ionic-tutorial.html)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ GitHub相关</strong>
 - [GitHub](https://github.com/)
@@ -348,8 +338,7 @@ pageClass: theme-item
 - [AngularJS对比React](http://www.oschina.net/translate/angularjs-vs-react)
 - [React和Angular优缺点及适合场景](https://www.zhihu.com/question/23444167)
 
-</div>
-</div>
+</div></div>
 
 
 
@@ -358,8 +347,7 @@ pageClass: theme-item
 
 
  
-<div class="box-flex">
-<div class="box-flex-item flex-1">
+<div class="box-flex"><div class="box-flex-item flex-1">
 
 <strong>■ Vue.js相关</strong>
 - [Vue.js中文文档](https://vuefe.cn/v2/guide/)
@@ -392,8 +380,7 @@ pageClass: theme-item
 - [Weex 中文官网](http://alibaba.github.io/weex/cn/)
 - [Weex中文社区](http://www.weex.help/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ JavaScript相关</strong>
 - [JavaScript菜鸟教程](http://www.runoob.com/jsref/dom-obj-document.html)
@@ -426,8 +413,7 @@ pageClass: theme-item
 <strong>■ 组件开发相关</strong>
 - [KISSY - A Powerful JavaScript Framework](http://docs.kissyui.com/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 在线学习相关</strong>
 - [慕课网（IMOOC）](http://www.imooc.com/)
@@ -463,8 +449,7 @@ pageClass: theme-item
 - [Brian的个人博客](http://www.brianlee.cn/)
 - [渔人码头](https://www.cnblogs.com/imwtr/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 活动相关</strong>
 - [SegmentFault活动](https://segmentfault.com/events)
@@ -496,8 +481,7 @@ pageClass: theme-item
 - [NUXT 一条命令行的背后到底发生了什么](https://segmentfault.com/a/1190000008114613)
 - [基于nuxt和iview搭建后台管理系统实践(1)](https://juejin.im/post/5b439265f265da0f9e5881f5)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 微信小程序相关</strong>
 - [微信小程序商城，微信小程序微店](https://github.com/EastWorld/wechat-app-mall)
@@ -525,8 +509,7 @@ pageClass: theme-item
 - [vue-js-源码揭秘](https://ustbhuangyi.github.io/vue-analysis/)
 - [Vue技术内幕](http://hcysun.me/vue-design/)
 
-</div>
-<div class="box-flex-item flex-1">
+</div><div class="box-flex-item flex-1">
 
 <strong>■ 服务器相关</strong>
 - [服务器武装自己](https://segmentfault.com/a/1190000013242438)
@@ -559,8 +542,7 @@ pageClass: theme-item
 - [TypeScript官网](https://www.typescriptlang.org/)
 - [TypeScript中文网](http://tslang.cn/index.html)
 
-</div>
-</div>
+</div></div>
 
 ## 工具书
 |　|　|缩进(全角空格"　")

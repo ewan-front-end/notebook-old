@@ -134,11 +134,12 @@ function bit_rol(num, cnt) {
 }
 /*
 将字符串转换为小端字数组  
-如果chrsz是ASCII，字符>255的高字节将被无声地忽略。
+如果chrsz是ASCII，字符>255的高字节将被无声地忽略
  */
 function str2binl(str) {
+    debugger
     var bin = Array();
-    var mask = (1 << chrsz) - 1;
+    var mask = (1 << chrsz) - 1; // 255
     for (var i = 0; i < str.length * chrsz; i += chrsz)
         bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
     return bin;
@@ -177,7 +178,7 @@ function binl2b64(binarray) {
     return str;
 }
 
-console.log('hex_md5:',hex_md5(`避免缓存中自动缓存密码.比如在使用谷歌浏览器登陆时,输入的用户名和密码会自动缓存,下次登陆时无需输入密码就可以实现登陆,这样就给别人留下漏洞,当别人用你电脑登陆或把input的type改为test 那么你的密码就泄露了`));
+//console.log('hex_md5:',hex_md5(`避免缓存中自动缓存密码.比如在使用谷歌浏览器登陆时,输入的用户名和密码会自动缓存,下次登陆时无需输入密码就可以实现登陆,这样就给别人留下漏洞,当别人用你电脑登陆或把input的type改为test 那么你的密码就泄露了`));
 /*
 <script type="js/ecmascript" src="md5.js"></script>
 <script type="text/javascript">  

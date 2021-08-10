@@ -1,5 +1,49 @@
 
-## Javascript运算基础
+## 运算基础
+- bit  比特 0或1
+
+- 字节(8 bit Byte) 逻辑寻址单位
+    byte 字节     01011110
+    可表示的数值范围：0-255 即：0b00000000 - 0b11111111
+
+- 处理器 面向字节
+    存储地址 8位、16位、32位、64位或128位
+
+- 字节序(Endian)
+===+
+
+    存储：int a = 0x12345678
+        正序(Big-Endian)     0x12 0x34 0x56 0x78
+        逆序(Little-Endian)  0x78 0x56 0x34 0x12
+
+    Adobe Photoshop                          Big Endian
+    BMP (Windows and OS/2 Bitmaps)           Little Endian
+    DXF (AutoCad)                            Variable
+    GIF                                      Little Endian
+    IMG (GEM Raster)                         Big Endian
+    JPEG                                     Big Endian
+    FLI (Autodesk Animator)                  Little Endian
+    MacPaint                                 Big Endian
+    PCX (PC Paintbrush)                      Little Endian
+    PostScript                               Not Applicable (text!)
+    POV (Persistence of Vision ray-tracer)   Not Applicable (text!)
+    QTM (Quicktime Movies)                   Little Endian (on a Mac!) （PeterLee注Big Endian in my opinion）
+    Microsoft RIFF (.WAV & .AVI)             Both
+    Microsoft RTF (Rich Text Format)         Little Endian
+    SGI (Silicon Graphics)                   Big Endian
+    Sun Raster                               Big Endian
+    TGA (Targa)                              Little Endian
+    TIFF                                     Both, Endian identifier encoded into file
+    WPG (WordPerfect Graphics Metafile)      Big Endian (on a PC!)
+    XWD (X Window Dump)                      Both, Endian identifier encoded into file
+===-
+
+
+
+二进制 0b 开头
+八进制 0 开头
+十六进制 0x 开头
+
 [链接](http://c.biancheng.net/view/5471.html)
 [链接](https://blog.csdn.net/oracle_microsoft/article/details/4398216)
 
@@ -15,7 +59,21 @@
 '>>>'运算符
 
 '|='按位或
+    i = 1
+    i|=2 相当于 i= i|2  // 0001 | 0010 = 0011 = 3
+    本质为相位或运算
+        0   0   0   1      1
+        0   0   1   0      2
+        0   0   1   1      或运算
+
+
+
+
+
+
 ===-
+
+
 
 ## 对称加密
 

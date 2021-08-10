@@ -466,21 +466,24 @@ layout: SpecialLayout
 
 
 <pre class="custom-block">
-:::FLEX
-+++ 1
-&lt;strong&gt;■ 资源&lt;/strong&gt;
-- [icomoon](http://icomoon.io/app)
-+++
-+++ 2
-&lt;strong&gt;■ 常用工具&lt;/strong&gt;
-- [JSRun](https://jsrun.net/new)
-+++
-+++ 1
-&lt;strong&gt;■ 平台&文档&lt;/strong&gt;
-- [GitHub](https://github.com/)
-+++
-FLEX:::
-</pre>
+&lt;div&gt;
+    &lt;p&gt;第一个&lt;/p&gt;
+    &lt;span&gt;other&lt;/span&gt;
+    &lt;p&gt;第二个&lt;/p&gt;  &lt;--------------  div p:nth-child(3){color:#f00}        [-, p, span, p, p] [3]
+    &lt;p&gt;第三个&lt;/p&gt;  &lt;--------------  div p:nth-of-type(3) {color:#0f0}     [-, p, p, p] [3]
+&lt;/div&gt;
+
+x:nth-child(n)         [兄弟节点集][n]        
+x:nth-of-type(n)       [同类兄弟节点集][n]  
+
+el:nth-child(2n)       选择父元素列表中的第 2n 个标签, 也就是偶数个元素
+el:nth-child(n+n)      选择父元素列表中的第 n 个标签后的标签
+el:nth-child(-n+n)     选择父元素列表中的第 n 个标签之前的标签
+el:nth-child(odd)      选择父元素列表中的是奇数的标签
+el:nth-child(even)     选择父元素列表中的是偶数的标签
+el:nth-child(n+3)      未知
+el:nth-child(n-3)      未知
+</pre>0
 
 
 

@@ -28,6 +28,7 @@ sidebar: false
 - [︳前端体系](/frontend)
 - [︳项目](/projects)
 - [︳其它](/other)
+- [︳计算机](/computer)
 
 </div>
 
