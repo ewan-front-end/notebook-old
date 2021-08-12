@@ -178,7 +178,9 @@ function binl2b64(binarray) {
     return str;
 }
 
-//console.log('hex_md5:',hex_md5(`避免缓存中自动缓存密码.比如在使用谷歌浏览器登陆时,输入的用户名和密码会自动缓存,下次登陆时无需输入密码就可以实现登陆,这样就给别人留下漏洞,当别人用你电脑登陆或把input的type改为test 那么你的密码就泄露了`));
+console.log('str2binl:',str2binl(12));
+console.log('binl2str', binl2str([3355185]));
+console.log('binl2str', binl2str([12849]));
 /*
 <script type="js/ecmascript" src="md5.js"></script>
 <script type="text/javascript">  
@@ -188,5 +190,9 @@ function MD5(pwd){
 //赋值回给 密码input 或 ajax请求.
 }
 </script> 
+
+
+
+
 
  */

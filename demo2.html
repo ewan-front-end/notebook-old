@@ -5,53 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body{
-            background-color: #ccc;
-        }
-        .test{
-            width: 0;
-            height: 400px;
-            border-style: solid;
-            border-width: 0 200px 0 200px;
-            border-color: transparent #000 transparent #fff;
-            background-color: #000;            
-            border-radius: 200px;
-            text-align: center;
-            position: relative;
-        }
-        .test:before{
-            content: '';
-            display: block;
-            width: 50px;
-            height: 50px;
-            border:#fff 75px solid;
-            background-color: #000;
-            border-radius: 100px;
-            position: absolute;
-            top: 0;
-            left: -100px;
-        }
-        .test:after{
-            content: '';
-            display: block;
-            width: 50px;
-            height: 50px;
-            border:#000 75px solid;
-            background-color: #fff;
-            border-radius: 100px;
-            position: absolute;
-            bottom: 0;
-            left: -100px;
-        }
-
-        h1:before{
-            content:'我爱'
-        }
-        h1:after{
-            content:'的山水'
-        }
-    </style>
+    
 </head>
 <body>
     <div class="test"></div>
@@ -61,3 +15,24 @@
 
 </body>
 </html>
+<script src="./docs/.usage/scripts/utils/encode/encode.js?v=1"></script>
+<script>
+var oReq = new XMLHttpRequest();
+oReq.open("GET", "./docs/.usage/resources/images/pixel.jpg", true);
+oReq.responseType = "arraybuffer";
+
+oReq.onload = function (oEvent) {
+  var arrayBuffer = oReq.response; // 注意:不是oReq.responseText
+  console.log('arrayBuffer', arrayBuffer);
+  if (arrayBuffer) {
+    var byteArray = new Uint8Array(arrayBuffer);
+    console.log('byteArray', byteArray);
+    for (var i = 0; i < byteArray.byteLength; i++) {
+      // 对数组中的每个字节进行操作
+    }
+  }
+};
+
+oReq.send(null);
+
+</script>

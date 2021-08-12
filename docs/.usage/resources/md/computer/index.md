@@ -25,9 +25,11 @@ ACHOR[1628599921387|字符集]
         0111 1011    0173          123          0x7B           {           开花括号             { | } ~ DEL
         0111 1111    0177          127          0x7F           DEL         删除
 
-    ▮ 除了英语之外，其它语言，编码不够用，于是有了不同语种的ASCII/Unicode的扩增版 利用ASCII字节中闲置的最高位 扩展到了第255号字符
+    ▮ 计算机的世界化过程中，欧洲紧随其后，ASCII基础上，利用ASCII字节中闲置的最高位 扩展到了第255号字符
 
-    ▮ 编码方式的统一，Unicode规范出台，为世界上所有字符都分配了一个唯一的数字编号，从 0x000000 到 0x10FFFF 有 110 多万个
+    ▮ 亚洲象形文字，ASCII基础上，通过扩展字节表示更多的字符
+
+    ▮ 世界统一标准，Unicode规范出台，为世界上所有字符都分配了一个唯一的数字编号，从 0x000000 到 0x10FFFF 有 110 多万个
 
     ▮ Unicode规范实现：规范编号对应到二进制表示方案主要有 UTF-8 UTF-16 UTF-32
 
@@ -51,6 +53,10 @@ ACHOR[1628599921387|字符集]
 :::
 
 ::: details 字符集JS操作
+'123' => [3355185] [12849]
+:::
+::: details 二进制文件格式设计
+base64: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=
 :::
 
 ## 数据结构
