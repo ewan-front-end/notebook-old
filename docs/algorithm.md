@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.12 15:03</span>
+            <span>M 2021.08.13 21:01</span>
         </div>
     </div>
     <div class="content"></div>
@@ -69,6 +69,13 @@ pageClass: theme-item
 
 
 <pre class="custom-block">
+
+原码：00000000 00000000 00000000 00000101
+反码：11111111 11111111 11111111 11111010
+补码：11111111 11111111 11111111 11111011
+
+溢出：
+
 '&lt;&lt;'左移位运算符 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
     5 &lt;&lt; 2    <span class="comment"> // 返回值20</span>
     <img :src="$withBase('/images/左移位运算符.jpg')">
@@ -80,7 +87,7 @@ pageClass: theme-item
 
 '&gt;&gt;&gt;'运算符
 
-'|='按位或
+'|='按位或  数学意义：
     i = 1
     i|=2 相当于 i= i|2 <span class="comment"> // 0001 | 0010 = 0011 = 3</span>
     本质为相位或运算
@@ -89,7 +96,19 @@ pageClass: theme-item
         0   0   1   1      或运算
 
 
-
+<h1>实际应用</h1>
+    - 判断奇偶
+        a&1 == 0 <span class="comment"> // 偶数</span>
+        a&1 == 1 <span class="comment"> // 奇数</span>
+    - 整数平均数
+       <span class="comment"> // (x+y)/2可能产生溢出</span>
+        int average(int x, int y) {   
+            return (x&y)+((x^y)&gt;&gt;1);
+        }
+    - 不用临时变量交换两个数
+        x ^= y;
+        y ^= x;
+        x ^= y;
 
 
 

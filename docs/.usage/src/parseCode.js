@@ -94,8 +94,20 @@ function parseLink(code){
     }        
     return code
 }
+
+// 处理自定义块
 function parseCustomBlock(block) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+    // Markdown元素
+    // 标题 /^\s*((#{1,6})\s([^\n\r]+))/
+    // 点列表 /^\s*(-\s([^\n\r]+))/
+    // 序列表 /^\s*(\d{1,2}\.\s([^\n\r]+))/
+    let markdownTitle
+    while ((markdownTitle = /^\s*((#{1,6})\s([^\n\r]+))/m.exec(block)) !== null) {console.log(markdownTitle); block = block.replace(markdownTitle[1], `<h${7-markdownTitle[2].length}>${markdownTitle[3]}</h${7-markdownTitle[2].length}>`)}
+
+    
+    
+    
     // [H1-6] 标题
     let matchTitle
     while ((matchTitle = /\[H(\d)\]\s*([^\r\n]+)/.exec(block)) !== null) {block = block.replace(matchTitle[0], `<span class="title${matchTitle[1]}">${matchTitle[2]}</span>`)}  

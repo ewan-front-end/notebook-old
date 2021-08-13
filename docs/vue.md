@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.08.13 21:02</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,17 @@ pageClass: theme-item
 <h1>Vue</h1><strong>Vue</strong>
 </div>
 <div class="static-content">
+
+
+## vue-element-admin
+
+<pre class="custom-block">
+- 自定义ICON
+    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
+    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
+    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
+</pre>
+
 
 npm install -g @vue/cli
 npm uninstall -g @vue/cli
@@ -30,7 +41,7 @@ vue init webpack 项目名称
 ```vue
 <template><p>{{ accountBalance | currencyUSD }}</p> <p>{{ accountInUSD }}</p></template> 
 <script>
- export default {
+ export default { 
     props: { accountBalance: { type: Number, required: true } },
     filters: { currencyUSD(value) { return '$' + value } },
     computed: { accountInUSD() { return '$' + this.accountBalance } }

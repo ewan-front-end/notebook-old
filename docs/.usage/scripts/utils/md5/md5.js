@@ -23,6 +23,7 @@ function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }
 function md5_vm_test() { return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72" }
 /* 计算小端字数组和位长度的MD5   */
 function core_md5(x, len) {
+    debugger
     /* append padding */
     x[len >> 5] |= 0x80 << ((len) % 32);
     x[(((len + 64) >>> 9) << 4) + 14] = len;
@@ -178,9 +179,9 @@ function binl2b64(binarray) {
     return str;
 }
 
-console.log('str2binl:',str2binl(12));
-console.log('binl2str', binl2str([3355185]));
-console.log('binl2str', binl2str([12849]));
+console.log('str2binl:',str2binl(12345678));
+//console.log('binl2str', binl2str([3355185]));
+//console.log('binl2str', binl2str([12849]));
 /*
 <script type="js/ecmascript" src="md5.js"></script>
 <script type="text/javascript">  
