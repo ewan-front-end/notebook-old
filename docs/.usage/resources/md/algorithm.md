@@ -1,41 +1,36 @@
 
+===+
+数学公式：
+a²+b² = (a+b)²-2ab
+a²-b² = (a+b)(a-b)
+===-
+
 ## 运算基础
 - bit  比特 0或1
 
 - 字节(8 bit Byte) 逻辑寻址单位
     byte 字节     01011110
-    可表示的数值范围：0-255 即：0b00000000 - 0b11111111
+    可表示的**数值范围**：0-255 即：0b00000000 - 0b11111111
 
 - 处理器 面向字节
     存储地址 8位、16位、32位、64位或128位
 
 - 字节序(Endian)
 ===+
-
     存储：int a = 0x12345678
         正序(Big-Endian)     0x12 0x34 0x56 0x78
         逆序(Little-Endian)  0x78 0x56 0x34 0x12
 
-    Adobe Photoshop                          Big Endian
-    BMP (Windows and OS/2 Bitmaps)           Little Endian
-    DXF (AutoCad)                            Variable
-    GIF                                      Little Endian
-    IMG (GEM Raster)                         Big Endian
-    JPEG                                     Big Endian
-    FLI (Autodesk Animator)                  Little Endian
-    MacPaint                                 Big Endian
-    PCX (PC Paintbrush)                      Little Endian
-    PostScript                               Not Applicable (text!)
-    POV (Persistence of Vision ray-tracer)   Not Applicable (text!)
-    QTM (Quicktime Movies)                   Little Endian (on a Mac!) （PeterLee注Big Endian in my opinion）
-    Microsoft RIFF (.WAV & .AVI)             Both
-    Microsoft RTF (Rich Text Format)         Little Endian
-    SGI (Silicon Graphics)                   Big Endian
-    Sun Raster                               Big Endian
-    TGA (Targa)                              Little Endian
-    TIFF                                     Both, Endian identifier encoded into file
-    WPG (WordPerfect Graphics Metafile)      Big Endian (on a PC!)
-    XWD (X Window Dump)                      Both, Endian identifier encoded into file
+    Adobe Photoshop                        Big Endian                          BMP (Windows and OS/2 Bitmaps)         Little Endian
+    DXF (AutoCad)                          Variable                            GIF                                    Little Endian
+    IMG (GEM Raster)                       Big Endian                          JPEG                                   Big Endian
+    FLI (Autodesk Animator)                Little Endian                       MacPaint                               Big Endian
+    PCX (PC Paintbrush)                    Little Endian                       PostScript                             Not Applicable (text!)
+    POV (Persistence of Vision ray-tracer) Not Applicable (text!)              QTM (Quicktime Movies)                 Little Endian (on a Mac!) 
+    Microsoft RIFF (.WAV & .AVI)           Both                                Microsoft RTF (Rich Text Format)       Little Endian
+    SGI (Silicon Graphics)                 Big Endian                          Sun Raster                             Big Endian
+    TGA (Targa)                            Little Endian                       TIFF                                   Both, Endian identifier encoded into file
+    WPG (WordPerfect Graphics Metafile)    Big Endian (on a PC!)               XWD (X Window Dump)                    Both, Endian identifier encoded into file
 ===-
 
 
@@ -55,18 +50,18 @@
 
 溢出：
 
-'<<'左移位运算符 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
+左移位运算符 '<<' 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
     5 << 2     // 返回值20
     [img:$withBase('/images/左移位运算符.jpg')]
     1 << 8     // 256
 
-'>>'右移位运算符 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
+右移位运算符 '>>' 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
     1000 >> 8     // 返回值3
     [img:$withBase('/images/右移位运算符.jpg')]
 
 '>>>'运算符
 
-'|='按位或  数学意义：
+按位或 '|=' 数学意义：
     i = 1
     i|=2 相当于 i= i|2  // 0001 | 0010 = 0011 = 3
     本质为相位或运算
@@ -75,19 +70,18 @@
         0   0   1   1      或运算
 
 
-###### 实际应用
-    - 判断奇偶
-        a&1 == 0  // 偶数
-        a&1 == 1  // 奇数
-    - 整数平均数
-        // (x+y)/2可能产生溢出
-        int average(int x, int y) {   
-            return (x&y)+((x^y)>>1);
-        }
-    - 不用临时变量交换两个数
-        x ^= y;
-        y ^= x;
-        x ^= y;
+[#]  实际应用 
+- 判断奇偶
+    a&1 == 0  // 偶数
+    a&1 == 1  // 奇数
+- 整数平均数    
+    int average(int x, int y) {   // (x+y)/2可能产生溢出
+        return (x&y)+((x^y)>>1);
+    }
+- 不用**临时变量**交换两个数
+    x ^= y;
+    y ^= x;
+    x ^= y;
 
 
 
@@ -104,66 +98,64 @@
 > 可将消息哈希转换成一个固定长度的值唯一的字符串
 
 
-公式：
-a²+b² = (a+b)²-2ab
-a²-b² = (a+b)(a-b)
+
 
 ## Depth-First-Search
 
 
 ::: details 矩阵运算
-[矩阵算法](/projects#矩阵算法工具包)
-```
-■ 加减运算
-    > 运算规则
-        同型矩阵 加减法运算才有意义 即加减运算是可行的
-    > 运算性质
-    　　满足交换律和结合律
-        　　交换律 a + b = b + a
-        　　结合律 (a + b ) + c = a + (b + c)
-    > 实现：matrix(a, b)
-        1. 判断a、b是否为同型矩阵
-        2. 相同位置的元素相加减 
-    > 实例：
-            ┌ a1 a2 a3 ┐     ┌ b1 b2 b3 ┐              ┌ a1+b1 a2+b2 a3+b3 ┐              ┌ a1-b1 a2-b2 a3-b3 ┐      ┌ 1 2 3 ┐   ┌ 1 2 3 ┐   ┌ 2  4  6  ┐                                           
-        A = │ a4 a5 a6 │ B = │ b4 b5 b6 │      A + B = │ a4+b4 a5+b5 a6+b6 │      A - B = │ a4-b4 a5-b5 a6-b6 │      │ 4 5 6 │ + │ 4 5 6 │ = │ 8  10 12 │       
-            └ a7 a8 a9 ┘     └ b7 b8 b9 ┘              └ a7+b7 a8+b8 a9+b9 ┘              └ a7-b7 a8-b8 a9-b9 ┘      └ 7 8 9 ┘   └ 7 8 9 ┘   └ 14 16 18 ┘ 
+链接：[矩阵算法](/projects#矩阵算法工具包)
+===+
+[#]  加减运算 
+- 规则
+    同型矩阵 加减法运算才有意义 即加减运算是可行的
+- 性质
+　　满足交换律和结合律
+    　　交换律 a + b = b + a
+    　　结合律 (a + b ) + c = a + (b + c)
+- 实现：matrix(a, b)
+    1. 判断a、b是否为同型矩阵
+    2. 相同位置的元素相加减 
+- 实例：
+        ┌ a1 a2 a3 ┐     ┌ b1 b2 b3 ┐              ┌ a1+b1 a2+b2 a3+b3 ┐              ┌ a1-b1 a2-b2 a3-b3 ┐      ┌ 1 2 3 ┐   ┌ 1 2 3 ┐   ┌ 2  4  6  ┐                                           
+    A = │ a4 a5 a6 │ B = │ b4 b5 b6 │      A + B = │ a4+b4 a5+b5 a6+b6 │      A - B = │ a4-b4 a5-b5 a6-b6 │      │ 4 5 6 │ + │ 4 5 6 │ = │ 8  10 12 │       
+        └ a7 a8 a9 ┘     └ b7 b8 b9 ┘              └ a7+b7 a8+b8 a9+b9 ┘              └ a7-b7 a8-b8 a9-b9 ┘      └ 7 8 9 ┘   └ 7 8 9 ┘   └ 14 16 18 ┘ 
 
-■ 乘法:矩阵与数
-    > 运算规则
-    　　数乘矩阵，就是将数乘矩阵中的每一个元素
-    　　称-A为A的负矩阵
-    > 运算性质
-    　　满足结合律和分配律
-        　　结合律： (λμ)A = λ(μA)  (λ+μ)A = λA+μA
-        　　分配律： λ(A+B) = λA+λB
-    > 典型例题
-            ┌ a1 a2 a3 ┐                ┌ a1*10 a2*10 a3*10 ┐      ┌ 1 2 3 ┐        ┌ 10 20 30 ┐                                          
-        A = │ a4 a5 a6 │       A * 10 = │ a4*10 a5*10 a6*10 │      │ 4 5 6 │ * 10 = │ 40 50 60 │       
-            └ a7 a8 a9 ┘                └ a7*10 a8*10 a9*10 ┘      └ 7 8 9 ┘        └ 70 80 90 ┘
+[#]  乘法:矩阵与数 
+- 规则
+　　数乘矩阵，就是将数乘以矩阵中的每一个元素
+　　称-A为A的负矩阵
+- 性质
+　　满足结合律和分配律
+    　　结合律： (λμ)A = λ(μA)  (λ+μ)A = λA+μA
+    　　分配律： λ(A+B) = λA+λB
+- 例题
+        ┌ a1 a2 a3 ┐                ┌ a1*10 a2*10 a3*10 ┐      ┌ 1 2 3 ┐        ┌ 10 20 30 ┐                                          
+    A = │ a4 a5 a6 │       A * 10 = │ a4*10 a5*10 a6*10 │      │ 4 5 6 │ * 10 = │ 40 50 60 │       
+        └ a7 a8 a9 ┘                └ a7*10 a8*10 a9*10 ┘      └ 7 8 9 ┘        └ 70 80 90 ┘
 
-■ 乘法:矩阵与矩阵
-    > 性质&规则
-        1. 有意义的运算 A矩阵的列数 ＝ B矩阵的行数
-        2. 不对易性(不满足交换律) 顺序敏感
-    　　A * B = C：
+[#]  乘法:矩阵与矩阵 
+- 性质&规则
+    1. 有意义的运算 A矩阵的列数 ＝ B矩阵的行数
+    2. 不对易性(不满足交换律) 顺序敏感
+　　如：A * B = C 则：
     　　1. C行数与A相同，C列数与B相同
     　　2. C的第i行第j列的元素 由A的第i行元素与B的第j列元素对应相乘，再取乘积之和
 
     ▢▢▢   ▢▢▢   ▤▤▤ ▦▢▢   ▢▢▢ ▦▢▢   ▢▢▢ ▦▢▢   ▤▤▤ ▦▦▢   ▢▢▢ ▦▦▢   ▢▢▢ ▦▦▢   ▤▤▤ ▦▦▦   ▢▢▢ ▦▦▦   ▢▢▢ ▦▦▦
     ▢▢▢ * ▢▢▢   ▢▢▢ ▥▢▢ > ▤▤▤ ▦▢▢ > ▢▢▢ ▦▢▢ > ▢▢▢ ▦▥▢ > ▤▤▤ ▦▦▢ > ▢▢▢ ▦▦▢ > ▢▢▢ ▦▦▥ > ▤▤▤ ▦▦▦ > ▢▢▢ ▦▦▦
     ▢▢▢   ▢▢▢   ▢▢▢ ▥▢▢   ▢▢▢ ▥▢▢   ▤▤▤ ▦▢▢   ▢▢▢ ▦▥▢   ▢▢▢ ▦▥▢   ▤▤▤ ▦▦▢   ▢▢▢ ▦▦▥   ▢▢▢ ▦▦▥   ▤▤▤ ▦▦▦
-    ┌❶ ❷ ❸┐ ┌❶ ❷ ❸┐   1   ┌30 ▢ ▢┐  4   ┌30 ▢ ▢┐  7   ┌30  ▢ ▢┐      2   ┌30 36 ▢┐  8   ┌30  36 ▢┐  14  ┌30  36  ▢┐      3   ┌30  36  42┐  12  ┌30  36  42┐  21  ┌30  36  42 ┐     
-    │❹ ❺ ❻│*│❹ ❺ ❻│   +8  │ ❹ ▢ ▢│  +20 │66 ▢ ▢│  +32 │66  ▢ ▢│      +10 │66  ❺ ▢│  +25 │66  81 ▢│  +40 │66  81  ▢│      +12 │66  81  ❻ │  +30 │66  81  96│  +48 │66  81  96 │    
-    └❼ ❽ ❾┘ └❼ ❽ ❾┘   +21 └ ❼ ▢ ▢┘  +42 └ ❼ ▢ ▢┘  +63 └102 ▢ ▢┘      +24 └102 ❽ ▢┘  +48 └102  ❽ ▢┘  +72 └102 126 ▢┘      +27 └102 126 ❾ ┘  +54 └102 126 ❾ ┘  +81 └102 126 150┘    
+    ┌➀ ➁ ➂┐ ┌➀ ➁ ➂┐   1   ┌30 ▢ ▢┐  4   ┌30 ▢ ▢┐  7   ┌30  ▢ ▢┐      2   ┌30 36 ▢┐  8   ┌30  36 ▢┐  14  ┌30  36  ▢┐      3   ┌30  36  42┐  12  ┌30  36  42┐  21  ┌30  36  42 ┐     
+    │➃ ➄ ➅│*│➃ ➄ ➅│   +8  │ ❹ ▢ ▢│  +20 │66 ▢ ▢│  +32 │66  ▢ ▢│      +10 │66  ❺ ▢│  +25 │66  81 ▢│  +40 │66  81  ▢│      +12 │66  81  ❻ │  +30 │66  81  96│  +48 │66  81  96 │    
+    └➆ ➇ ➈┘ └➆ ➇ ➈┘   +21 └ ❼ ▢ ▢┘  +42 └ ❼ ▢ ▢┘  +63 └102 ▢ ▢┘      +24 └102 ❽ ▢┘  +48 └102  ❽ ▢┘  +72 └102 126 ▢┘      +27 └102 126 ❾ ┘  +54 └102 126 ❾ ┘  +81 └102 126 150┘    
 
-    > 典型例题
+    - 典型例题
             ┌ a1 ┐                            ┌ a1 ┐                  ┌ a1b1 a1b2 a1b3 ┐                          ┌ a1 ┐
         A = │ a2 │ B = [ b1 b2 b3 ]      AB = │ a2 │ * [ b1 b2 b3 ] = │ a2b1 a2b2 a2b3 │      BA = [ b1 b2 b3 ] * │ a2 │ = b1a1 + b2a2 + b3a3
             └ a3 ┘                            └ a3 ┘                  └ a3b1 a3b2 a3b3 ┘                          └ a3 ┘
 
         ┌ 1 2  ┐ ┌ 1  2 -3 ┐ = ┌ -1  4 1 ┐
-        └ 1 -1 ┘ └ -1 1 2  ┘   └ 2  1 -5  ┘
+        └ 1 -1 ┘ └ -1 1 2  ┘   └ 2  1 -5 ┘
               
      
          
@@ -270,7 +262,7 @@ a²-b² = (a+b)(a-b)
 　　思考：设，有几种方法可以求？
 　　解  方法一：先求矩阵乘法，得到一个二阶方阵，再求其行列式．
 　　　　方法二：先分别求行列式，再取它们的乘积．
-```
+===-
 :::
 ::: details 矩阵算法实现
 ```js
@@ -301,6 +293,7 @@ export default Matrix
 :::
 
 ## 缓动算法
+===+
 /**
   * ░▒▓ 缓动策略 ▓▒░
                                                                                                                         ✚ linear        ✚ easeIn                 
@@ -331,7 +324,7 @@ tweens.setStrategyObj({
 // tweens.useStrategy('sineaseOut')
 // 策略使用
 // tweens.run(t - startTime, startPos, endPos, duration)
-
+===-
 
 
 ## 傅立叶变换

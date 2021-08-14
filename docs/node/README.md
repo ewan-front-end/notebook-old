@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 2021.08.04 21:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
+    <div class="content"><div class="children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>Node</h1><strong>Node</strong>
@@ -92,7 +92,7 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 
 ## 插件开发
 
-<pre class="custom-block">
+<pre class="normal-block">
 ├── bin                   <span class="comment"> // 运行目录</span>
 ├── lib                   <span class="comment"> // 主代码目录</span>
 ├── CHANGELOG.md          <span class="comment"><span class="comment"> // 版本更新说明</span></span>

@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 2021.08.09 13:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
+    <div class="content"><div class="children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>Javascript</h1><strong>Javascript</strong>

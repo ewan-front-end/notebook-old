@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 0000:00:00 00:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block links">
+    <div class="content"><div class="links">
 <ul class="desc">
 <li><a href="/framework/vuepress">vuepress</a></li>
 <li><a href="/framework/docsify">docsify</a></li>

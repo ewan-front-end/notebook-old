@@ -465,25 +465,12 @@ layout: SpecialLayout
 ## 自定义格式
 
 
-<pre class="custom-block">
-&lt;div&gt;
-    &lt;p&gt;第一个&lt;/p&gt;
-    &lt;span&gt;other&lt;/span&gt;
-    &lt;p&gt;第二个&lt;/p&gt;  &lt;--------------  div p:nth-child(3){color:#f00}        [-, p, span, p, p] [3]
-    &lt;p&gt;第三个&lt;/p&gt;  &lt;--------------  div p:nth-of-type(3) {color:#0f0}     [-, p, p, p] [3]
-&lt;/div&gt;
-
-x:nth-child(n)         [兄弟节点集][n]        
-x:nth-of-type(n)       [同类兄弟节点集][n]  
-
-el:nth-child(2n)       选择父元素列表中的第 2n 个标签, 也就是偶数个元素
-el:nth-child(n+n)      选择父元素列表中的第 n 个标签后的标签
-el:nth-child(-n+n)     选择父元素列表中的第 n 个标签之前的标签
-el:nth-child(odd)      选择父元素列表中的是奇数的标签
-el:nth-child(even)     选择父元素列表中的是偶数的标签
-el:nth-child(n+3)      未知
-el:nth-child(n-3)      未知
-</pre>0
+<pre class="normal-block">
+<span>● 自定义ICON</span>
+    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
+    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
+    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
+</pre>2
 
 
 

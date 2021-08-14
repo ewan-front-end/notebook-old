@@ -16,13 +16,13 @@ module.exports = (ABSOLUTE_PATH, target, PATH) => {
     if(target.children) {
         let listStr = ''
         for (i in target.children){ let {linkName, path} = target.children[i]; listStr += `<li><a href="${path}">${linkName}</a></li>` } 
-        childrenContent += `<div class="custom-block children"><ul>${listStr}</ul></div>`
+        childrenContent += `<div class="children"><ul>${listStr}</ul></div>`
     }
     // 主题链接
     if(target.links) {  
         let listStr = ''
         target.links.forEach(({name, href}) => { listStr += `<li><a href="${href}">${name}</a></li>\n` })  
-        linksContent += `<div class="custom-block links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
+        linksContent += `<div class="links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
     }
     // 主题标题、说明、详情
     if (target.title || target.desc || target.detail) {

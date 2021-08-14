@@ -98,19 +98,21 @@ function parseLink(code){
 // 处理自定义块
 function parseCustomBlock(block) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
-    // Markdown元素
-    // 标题 /^\s*((#{1,6})\s([^\n\r]+))/
-    // 点列表 /^\s*(-\s([^\n\r]+))/
-    // 序列表 /^\s*(\d{1,2}\.\s([^\n\r]+))/
-    let markdownTitle
-    while ((markdownTitle = /^\s*((#{1,6})\s([^\n\r]+))/m.exec(block)) !== null) {console.log(markdownTitle); block = block.replace(markdownTitle[1], `<h${7-markdownTitle[2].length}>${markdownTitle[3]}</h${7-markdownTitle[2].length}>`)}
+     
+    // - Markdown点列表
+    while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`)} 
+    // - Markdown局部加粗
+    while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)}
 
+    // # 标题文本    #个数(1-6)代表尺寸
+    // [#] 反相标题  [] 可增加空格为标题作内边距
+    while (/^\s*((\[?)(#{1,6})\]?\s([^\n\r]+))/m.exec(block) !== null) {
+        const bg = RegExp.$2 ? ' bgc3 cf' : ''
+        block = block.replace(RegExp.$1, `<span class="h${RegExp.$3.length}${bg}">${RegExp.$4}</span>`)
+    }
+    // * 行加粗
+    while (/^\s*(\*\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)} 
     
-    
-    
-    // [H1-6] 标题
-    let matchTitle
-    while ((matchTitle = /\[H(\d)\]\s*([^\r\n]+)/.exec(block)) !== null) {block = block.replace(matchTitle[0], `<span class="title${matchTitle[1]}">${matchTitle[2]}</span>`)}  
     // // 注释
     const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
     matchComment.forEach(e => {
@@ -132,7 +134,7 @@ function parseCustomBlock(block) {
         block = block.replace(e, `<img :src="${m[1]}">`)
     })
 
-    block = block.replace('===+', '\n<pre class="custom-block">').replace('===-', '</pre>')
+    block = block.replace('===+', '\n<pre class="normal-block">').replace('===-', '</pre>')
 
     blockCount++
     const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount

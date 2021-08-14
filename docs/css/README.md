@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 2021.08.07 14:46</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
+    <div class="content"><div class="children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>CSS</h1><strong>CSS</strong>
@@ -121,7 +121,7 @@ background-image
 
 ::: details nth-child & nth-of-type
 
-<pre class="custom-block">
+<pre class="normal-block">
 &lt;div&gt;
     &lt;p&gt;第一个&lt;/p&gt;
     &lt;span&gt;other&lt;/span&gt;

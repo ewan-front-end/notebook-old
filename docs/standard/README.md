@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 2021.08.09 14:08</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul></ul></div></div>
+    <div class="content"><div class="children"><ul></ul></div></div>
 </div>
 <div class="content-header">
 <h1>规范</h1><strong>规范</strong>
@@ -22,7 +22,105 @@ pageClass: theme-item
 
 <strong>■ 普通注释</strong>
 
-<pre class="custom-block">
+<pre class="normal-block">
+<span>● 自定义ICON</span>
+    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
+    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
+    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
+</pre>3
+
+</div><div class="box-flex-item" style="flex-basis: 100px">
+
+
+<pre class="normal-block">
+
+&nbsp;<span class="comment color5"> // 正确的单行注释</span>
+&nbsp; 
+&nbsp; <span class="comment color5">/*
+&nbsp; 正确的多行注释
+&nbsp; 注释符星号对齐                           
+&nbsp;  */</span>
+</pre>
+
+</div><div class="box-flex-item" style="flex-basis: 300px">
+
+
+<pre class="normal-block">
+
+<span class="comment color1">/* 不要在此书写
+                             
+   不要在此书写 */</span>
+<span class="comment color1">
+// 声明变量value(无意义)</span>
+</pre>
+
+</div><div class="box-flex-item flex-1">
+
+<strong>■ TODO</strong>
+
+<pre class="normal-block"><span class="comment">
+// TODO 未处理IE6-8的兼容性</span>
+function setOpacity(node, val) {
+    node.style.opacity = val;
+}
+</pre>
+
+</div></div>
+
+<div class="box-flex"><div class="box-flex-item" style="flex-basis: 400px">
+
+<strong>■ 文档注释</strong>
+
+<pre class="normal-block">
+规范：
+    1. 星号对齐
+    2. 注释内容与星号间留一个空格
+    3. 文档注释必须包含一个或多个注释标签
+</pre>
+
+</div><div class="box-flex-item flex-1">
+
+
+<pre class="normal-block">
+
+类型：String/Number/Object/Array/ArrayLike&lt;Element&gt;/Element
+多类型：{(string|string[])} {*}
+
+参数有默认值时：[参数名=默认值]
+</pre>
+
+</div></div>
+
+<div class="box-flex"><div class="box-flex-item" style="flex-basis: 200px">
+
+
+<pre class="normal-block">
+<span class="comment color1">/**
+ <strong>模块说明</strong>
+ <strong>@module 模块名</strong>
+ */</span>
+
+<span class="comment color2">/**
+ <strong>类说明</strong>
+ <strong>@class 类名</strong>
+ <strong>@constructor</strong>
+ <strong>@param {参数类型} 参数名 参数说明</strong>
+ */</span>
+
+<span class="comment color3">/**
+ <strong>类方法说明</strong>
+ <strong>@method 方法名</strong>
+ <strong>@for 所属类名                     </strong>
+ <strong>@param {参数类型} 参数名 参数说明  </strong>
+ <strong>@return {返回值类型} 返回值说明    </strong>
+ <strong>@static                          </strong>
+ */</span>
+</pre>
+
+</div><div class="box-flex-item" style="flex-basis: 300px">
+
+
+<pre class="normal-block">
 &lt;div&gt;
     &lt;p&gt;第一个&lt;/p&gt;
     &lt;span&gt;other&lt;/span&gt;
@@ -40,128 +138,15 @@ el:nth-child(odd)      选择父元素列表中的是奇数的标签
 el:nth-child(even)     选择父元素列表中的是偶数的标签
 el:nth-child(n+3)      未知
 el:nth-child(n-3)      未知
-</pre>1
-
-</div><div class="box-flex-item" style="flex-basis: 100px">
-
-
-<pre class="custom-block">
-
-&nbsp;<span class="comment color5"> // 正确的单行注释</span>
-&nbsp; 
-&nbsp; <span class="comment color5">/*
-&nbsp; 正确的多行注释
-&nbsp; 注释符星号对齐                           
-&nbsp;  */</span>
-</pre>
-
-</div><div class="box-flex-item" style="flex-basis: 300px">
-
-
-<pre class="custom-block">
-
-<span class="comment color1">/* 不要在此书写
-                             
-   不要在此书写 */</span>
-<span class="comment color1">
-// 声明变量value(无意义)</span>
-</pre>
-
-</div><div class="box-flex-item flex-1">
-
-<strong>■ TODO</strong>
-
-<pre class="custom-block"><span class="comment">
-// TODO 未处理IE6-8的兼容性</span>
-function setOpacity(node, val) {
-    node.style.opacity = val;
-}
-</pre>
-
-</div></div>
-
-<div class="box-flex"><div class="box-flex-item" style="flex-basis: 400px">
-
-<strong>■ 文档注释</strong>
-
-<pre class="custom-block">
-规范：
-    1. 星号对齐
-    2. 注释内容与星号间留一个空格
-    3. 文档注释必须包含一个或多个注释标签
-</pre>
-
-</div><div class="box-flex-item flex-1">
-
-
-<pre class="custom-block">
-
-类型：String/Number/Object/Array/ArrayLike&lt;Element&gt;/Element
-多类型：{(string|string[])} {*}
-
-参数有默认值时：[参数名=默认值]
-</pre>
-
-</div></div>
-
-<div class="box-flex"><div class="box-flex-item" style="flex-basis: 200px">
-
-
-<pre class="custom-block">
-<span class="comment color1">/**
- * 模块说明
- * @module 模块名
- */</span>
-
-<span class="comment color2">/**
- * 类说明
- * @class 类名
- * @constructor
- * @param {参数类型} 参数名 参数说明
- */</span>
-
-<span class="comment color3">/**
- * 类方法说明
- * @method 方法名
- * @for 所属类名                     
- * @param {参数类型} 参数名 参数说明  
- * @return {返回值类型} 返回值说明    
- * @static                          
- */</span>
-</pre>
-
-</div><div class="box-flex-item" style="flex-basis: 300px">
-
-
-<pre class="custom-block">
-<span class="comment color1">/**
- * 提供最基础、最核心的接口
- * @module Core
- */</span>
-
-<span class="comment color2">/**
- * 节点集合类
- * @class NodeList
- * @constructor                     
- * @param {ArrayLike&lt;Element&gt;} nodes 初始化节点
- */</span>
-
-<span class="comment color3">/**
- * 返回当前集合中指定位置的元素
- * @method
- * @for NodeList                                         
- * @param {Number} [i=0] 位置下标
- * @return {Element} 指定元素   
- */</span>
-</pre>
+</pre>0
 
 </div><div class="box-flex-item flex-4">
 
 
-<pre class="custom-block">
+<pre class="normal-block">
 <span class="comment color4">/**
- * 属性说明
- * @property {属性类型} 属性名
+ <strong>属性说明</strong>
+ <strong>@property {属性类型} 属性名</strong>
  */</span>
 
 
@@ -189,19 +174,20 @@ function setOpacity(node, val) {
 
 <strong>■ 文件注释</strong>
 
-<pre class="custom-block">
-'&lt;&lt;'左移位运算符 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
-    5 &lt;&lt; 2    <span class="comment"> // 返回值20</span>
-    <img :src="$withBase('/images/左移位运算符.jpg')">
+<pre class="normal-block">
+规范：
+    1. 文件注释位于文件的最前面
+    2. 文件注释必须全部以英文字符表示，并存在于文件的开发版本与生产版本中
 
-'&gt;&gt;'右移位运算符 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
-    1000 &gt;&gt; 8    <span class="comment"> // 返回值3</span>
-    <img :src="$withBase('/images/右移位运算符.jpg')">
-
-'&gt;&gt;&gt;'运算符
-
-'|='按位或
-</pre>0
+<span class="comment color3">/*!
+ <strong>jRaiser 2 Javascript Library</strong>
+ <strong>kan.56.com - v1.0.0 (2013-03-15T14:55:51+0800)     <span class="comment"> // 概要说明及版本(必须) 修改时间(必须)以ISO格式表示</strong></span>
+ <strong>http://jraiser.org/ | Released under MIT license   <span class="comment"> // 项目地址(开源组件必须) 开源协议(开源组件必须)</strong></span>
+ <strong>Copyright 2005-2013 56.com                         <span class="comment"> // 版权声明(必须)</strong></span>
+ *
+ <strong>Include sizzle (http://sizzlejs.com/)              <span class="comment"> // 如果文件内包含开源组件 则必须在文件注释中进行说明</strong></span>
+ */</span>
+</pre>
 
 </div></div>
 

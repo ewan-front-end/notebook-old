@@ -17,22 +17,42 @@
 </html>
 <script src="./docs/.usage/scripts/utils/encode/encode.js?v=1"></script>
 <script>
-var oReq = new XMLHttpRequest();
-oReq.open("GET", "./docs/.usage/resources/images/pixel.jpg", true);
-oReq.responseType = "arraybuffer";
 
-oReq.onload = function (oEvent) {
-  var arrayBuffer = oReq.response; // 注意:不是oReq.responseText
-  console.log('arrayBuffer', arrayBuffer);
-  if (arrayBuffer) {
-    var byteArray = new Uint8Array(arrayBuffer);
-    console.log('byteArray', byteArray);
-    for (var i = 0; i < byteArray.byteLength; i++) {
-      // 对数组中的每个字节进行操作
-    }
-  }
-};
+var block = `'>>>'运算符
 
-oReq.send(null);
+'|='按位或  数学意义：
+    i = 1
+    i|=2 相当于 i= i|2  // 0001 | 0010 = 0011 = 3
+    本质为相位或运算
+        0   0   0   1      1
+        0   0   1   0      2
+        0   0   1   1      或运算
+
+
+###### 实际应用
+    - 判断奇偶
+        a&1 == 0  // 偶数
+        a&1 == 1  // 奇数
+    - 整数平均数
+        // (x+y)/2可能产生溢出
+        int average(int x, int y) {   
+            return (x&y)+((x^y)>>1);
+        }
+    - 不用临时变量交换两个数
+        x ^= y;
+        y ^= x;
+        x ^= y;
+
+
+
+===-
+
+
+
+## 对称加密`
+
+
+while (/^\s*((#{1,6})\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<h${7-RegExp.$2.length}>${RegExp.$3}</h${7-RegExp.$2.length}>`)}
+console.log(block);
 
 </script>
