@@ -19,7 +19,7 @@ pageClass: theme-item
 <div class="static-content">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 数学公式：
 a²+b² = (a+b)²-2ab
 a²-b² = (a+b)(a-b)
@@ -37,7 +37,7 @@ a²-b² = (a+b)(a-b)
 
 - 字节序(Endian)
 
-<pre class="normal-block">
+<pre class="code-block">
     存储：int a = 0x12345678
         正序(Big-Endian)     0x12 0x34 0x56 0x78
         逆序(Little-Endian)  0x78 0x56 0x34 0x12
@@ -64,7 +64,7 @@ a²-b² = (a+b)(a-b)
 [链接](https://blog.csdn.net/oracle_microsoft/article/details/4398216)
 
 
-<pre class="normal-block">
+<pre class="code-block">
 
 原码：00000000 00000000 00000000 00000101
 反码：11111111 11111111 11111111 11111010
@@ -128,7 +128,7 @@ a²-b² = (a+b)(a-b)
 ::: details 矩阵运算
 链接：[矩阵算法](/projects#矩阵算法工具包)
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="h1 bgc3 cf"> 加减运算 </span>
 <span>● 规则</span>
     同型矩阵 加减法运算才有意义 即加减运算是可行的
@@ -317,9 +317,9 @@ export default Matrix
 
 ## 缓动算法
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="comment">/**
-  <strong>░▒▓ 缓动策略 ▓▒░</strong>
+  * ░▒▓ 缓动策略 ▓▒░
                                                                                                                         ✚ linear        ✚ easeIn                 
                             ┌────────────────────── DURATION d=5 ──────────────────────┐                                 100*1/5+0= 20   100*(t/=5)*0.2+0= 4      
         START_POSITION b=0 ▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ END_POSITION c=100              100*2/5+0= 40   100*(t/=5)*0.4+0= 16 
@@ -333,7 +333,7 @@ export default Matrix
     100*(t/=5)*0.6*0.6*0.6*0.6+0= 7.775   100*((t=3/5-1)*-0.4*-0.4*-0.4*-0.4+1)+0= 98.97   100*(t/=5)*0.6*0.6+0= 21.59   100*((t=3/5-1)*-0.4*-0.4+1)+0= 93.60             
     100*(t/=5)*0.8*0.8*0.8*0.8+0= 32.76   100*((t=4/5-1)*-0.2*-0.2*-0.2*-0.2+1)+0= 99.96   100*(t/=5)*0.8*0.8+0= 51.20   100*((t=4/5-1)*-0.2*-0.2+1)+0= 99.20
     100*(t/=5)*1.0*1.0*1.0*1.0+0= 100     100*((t=5/5-1)*-0.0*-0.0*-0.0*-0.0+1)+0= 100     100*(t/=5)*1.0*1.0+0= 100     100*((t=5/5-1)*-0.0*-0.0+1)+0= 100
-  <strong> </strong>
+  *  
   */</span>
 let tweens = new StrategyPattern()
 tweens.setStrategyObj({

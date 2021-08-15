@@ -92,7 +92,7 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 
 ## 插件开发
 
-<pre class="normal-block">
+<pre class="code-block">
 ├── bin                   <span class="comment"> // 运行目录</span>
 ├── lib                   <span class="comment"> // 主代码目录</span>
 ├── CHANGELOG.md          <span class="comment"><span class="comment"> // 版本更新说明</span></span>

@@ -21,7 +21,7 @@ pageClass: theme-item
 
 ## vue-element-admin
 
-<pre class="normal-block">
+<pre class="code-block">
 <span>● 自定义ICON</span>
     1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
     2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入

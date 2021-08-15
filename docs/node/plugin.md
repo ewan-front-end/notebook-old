@@ -21,7 +21,7 @@ pageClass: theme-item
 
 ::: details node-inspect node调试
 
-<pre class="normal-block">
+<pre class="code-block">
 全局安装 &gt; npm install -g node-inspect
 使用实例：
 demo/server.js
@@ -45,7 +45,7 @@ demo&gt; node --inspect server.js
 ::: details gulp
 [官网](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 
-<pre class="normal-block">
+<pre class="code-block">
 <span>● 自定义ICON</span>
     1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
     2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
@@ -57,7 +57,7 @@ demo&gt; node --inspect server.js
 
 ::: details commander 命令行编程工具
 
-<pre class="normal-block">
+<pre class="code-block">
 ➤ 安装：demo&gt; npm install commander --save
 
 ➤ 实例：响应版本号
@@ -102,7 +102,7 @@ demo&gt; node --inspect server.js
 
 ::: details chokidar 监控文件/文件夹变化
 
-<pre class="normal-block">
+<pre class="code-block">
 可以用于，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
 
 安装：demo&gt; npm i chokidar --save-dev
@@ -221,7 +221,7 @@ plantuml.generate(input, {
 
 ::: details nodemon
 
-<pre class="normal-block">
+<pre class="code-block">
 &gt; 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
 
 <span>● xxxx&gt; npm i -g nodemon 或 </span>
@@ -267,7 +267,7 @@ myCache.set( "myKey", {name:"Jim"}, function( err, success ){ if( !err && succes
 myCache.get( "myKey", function( err, value ){ if( !err ){} });
 ```
 
-<pre class="normal-block">
+<pre class="code-block">
 构建参数new NodeCache( { stdTTL: 100, checkperiod: 120 } )
     stdTTL         (默认值:0)每个生成的缓存元素的标准ttl，单位是秒。0 =无限
     checkperiod    (默认为600)自动删除检查周期，单位为秒。0 =没有定期检查。如果试图获取一个丢失的或过期的值，

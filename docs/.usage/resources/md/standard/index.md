@@ -18,6 +18,12 @@ col 02
     &#47;&#42; 多行注释 &#42;&#47;
     &#91;img:$withBase('/images/插入图片.jpg')&#93;
 &#61;&#61;&#61;&#45;
+预设className：
+    颜色 c0 c3 c6 c9 cc cf
+    背景 bgc0 bgc3 bgc6 bgc9 bgcc bgcf
+    标题 h1 h2 h3 h4 h5 h6
+    注释 comment
+
 
 
 [##]  PlantUML 

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.15 20:38</span>
+            <span>M 2021.08.15 20:56</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -20,7 +20,7 @@ pageClass: theme-item
 
 ## 文档vuepress
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="h2 bgc3 cf"> 普通代码 </span>
 <span>● Flex</span>
 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
@@ -38,6 +38,12 @@ col 02
     &#47;&#42; 多行注释 &#42;&#47;
     &#91;img:$withBase('/images/插入图片.jpg')&#93;
 &#61;&#61;&#61;&#45;
+预设className：
+    颜色 c0 c3 c6 c9 cc cf
+    背景 bgc0 bgc3 bgc6 bgc9 bgcc bgcf
+    标题 h1 h2 h3 h4 h5 h6
+    注释 comment
+
 
 
 <span class="h2 bgc3 cf"> PlantUML </span>
@@ -49,7 +55,7 @@ col 02
 <div class="box-flex-item  flex-1">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="h1 bgc3 cf"> 普通注释 </span>
 目的：帮助开发者和阅读者更好地理解程序+
 规范：
@@ -63,7 +69,7 @@ col 02
 <div class="box-flex-item " style="flex-basis:100px">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 
 &nbsp;<span class="comment color5"> // 正确的单行注释</span>
 &nbsp; 
@@ -77,7 +83,7 @@ col 02
 <div class="box-flex-item " style="flex-basis:300px">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 
 <span class="comment color1">/* 不要在此书写
                              
@@ -91,7 +97,7 @@ col 02
 
 <strong>■ TODO</strong>
 
-<pre class="normal-block"><span class="comment">
+<pre class="code-block"><span class="comment">
 // TODO 未处理IE6-8的兼容性</span>
 function setOpacity(node, val) {
     node.style.opacity = val;
@@ -105,7 +111,7 @@ function setOpacity(node, val) {
 <div class="box-flex-item " style="flex-basis:400px">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="h1 bgc3 cf"> 文档注释 </span>
 规范：
     1. 星号对齐
@@ -117,7 +123,7 @@ function setOpacity(node, val) {
 <div class="box-flex-item  flex-1">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 
 类型：String/Number/Object/Array/ArrayLike&lt;Element&gt;/Element
 多类型：{(string|string[])} {*}
@@ -132,7 +138,7 @@ function setOpacity(node, val) {
 <div class="box-flex-item " style="flex-basis:200px">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="comment color1">/**
  * 模块说明
  * @module 模块名
@@ -159,7 +165,7 @@ function setOpacity(node, val) {
 <div class="box-flex-item " style="flex-basis:300px">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="comment color1">/**
  * 提供最基础、最核心的接口
  * @module Core
@@ -185,7 +191,7 @@ function setOpacity(node, val) {
 <div class="box-flex-item  flex-4">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="comment color4">/**
  * 属性说明
  * @property {属性类型} 属性名
@@ -215,7 +221,7 @@ function setOpacity(node, val) {
 <div class="box-flex-item  flex-1">
 
 
-<pre class="normal-block">
+<pre class="code-block">
 <span class="h1 bgc3 cf"> 文件注释 </span>
 规范：
     1. 文件注释位于文件的最前面

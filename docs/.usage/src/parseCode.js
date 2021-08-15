@@ -134,7 +134,7 @@ function parseCustomBlock(block) {
         block = block.replace(e, `<img :src="${m[1]}">`)
     })
 
-    block = block.replace('===+', '\n<pre class="normal-block">').replace('===-', '</pre>')
+    block = block.replace('===+', '\n<pre class="code-block">').replace('===-', '</pre>')
 
     blockCount++
     const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount

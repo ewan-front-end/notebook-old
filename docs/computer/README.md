@@ -21,7 +21,7 @@ pageClass: theme-item
 ACHOR[1628599921387|字符集]
 ::: details 字符集
 
-<pre class="normal-block">
+<pre class="code-block">
 &lt;div&gt;
     &lt;p&gt;第一个&lt;/p&gt;
     &lt;span&gt;other&lt;/span&gt;
@@ -39,7 +39,7 @@ el:nth-child(odd)      选择父元素列表中的是奇数的标签
 el:nth-child(even)     选择父元素列表中的是偶数的标签
 el:nth-child(n+3)      未知
 el:nth-child(n-3)      未知
-</pre>6
+</pre>7
 :::
 
 ::: details 字符集JS操作

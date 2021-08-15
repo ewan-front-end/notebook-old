@@ -121,7 +121,7 @@ background-image
 
 ::: details nth-child & nth-of-type
 
-<pre class="normal-block">
+<pre class="code-block">
 &lt;div&gt;
     &lt;p&gt;第一个&lt;/p&gt;
     &lt;span&gt;other&lt;/span&gt;
