@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 0000.00.00 00:00</span>
         </div>
     </div>
-    <div class="content"><div class="children"><ul><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/style">样式库</a></li><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/function">功能库</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/style">样式库</a></li><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/function">功能库</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>公共库</h1><strong>公共库</strong>

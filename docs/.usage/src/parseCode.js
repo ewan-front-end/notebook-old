@@ -101,7 +101,7 @@ function parseCustomBlock(block) {
      
     // - Markdown点列表
     while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`)} 
-    // - Markdown局部加粗
+    // Markdown**局部加粗**
     while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)}
 
     // # 标题文本    #个数(1-6)代表尺寸
@@ -110,8 +110,8 @@ function parseCustomBlock(block) {
         const bg = RegExp.$2 ? ' bgc3 cf' : ''
         block = block.replace(RegExp.$1, `<span class="h${RegExp.$3.length}${bg}">${RegExp.$4}</span>`)
     }
-    // * 行加粗
-    while (/^\s*(\*\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)} 
+    // * 行加粗 会和多行注释相冲突
+    //while (/^\s*(\*\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)} 
     
     // // 注释
     const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];

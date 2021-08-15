@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 0000:00:00 00:00</span>
         </div>
     </div>
-    <div class="content"><div class="links">
+    <div class="content"><div class="custom-block links">
 <ul class="desc">
 <li><a href="/solution">账号体系</a></li>
 <li><a href="./systemBusiness/libraryPublic/function/login">登陆</a></li>

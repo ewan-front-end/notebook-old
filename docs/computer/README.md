@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 2021.08.12 20:56</span>
         </div>
     </div>
-    <div class="content"><div class="children"><ul><li><a href="/computer/dataStructure">数据结构</a></li><li><a href="/computer/computerNetworks">计算机网络</a></li><li><a href="/computer/algorithm">算法</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/computer/dataStructure">数据结构</a></li><li><a href="/computer/computerNetworks">计算机网络</a></li><li><a href="/computer/algorithm">算法</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>计算机</h1><strong>计算机</strong>
@@ -39,7 +39,7 @@ el:nth-child(odd)      选择父元素列表中的是奇数的标签
 el:nth-child(even)     选择父元素列表中的是偶数的标签
 el:nth-child(n+3)      未知
 el:nth-child(n-3)      未知
-</pre>3
+</pre>6
 :::
 
 ::: details 字符集JS操作

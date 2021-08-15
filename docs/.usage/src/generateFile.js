@@ -16,13 +16,13 @@ module.exports = (ABSOLUTE_PATH, target, PATH) => {
     if(target.children) {
         let listStr = ''
         for (i in target.children){ let {linkName, path} = target.children[i]; listStr += `<li><a href="${path}">${linkName}</a></li>` } 
-        childrenContent += `<div class="children"><ul>${listStr}</ul></div>`
+        childrenContent += `<div class="custom-block children"><ul>${listStr}</ul></div>`
     }
     // 主题链接
     if(target.links) {  
         let listStr = ''
         target.links.forEach(({name, href}) => { listStr += `<li><a href="${href}">${name}</a></li>\n` })  
-        linksContent += `<div class="links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
+        linksContent += `<div class="custom-block links">\n<ul class="desc">\n${listStr}</ul>\n</div>`
     }
     // 主题标题、说明、详情
     if (target.title || target.desc || target.detail) {
@@ -39,22 +39,41 @@ module.exports = (ABSOLUTE_PATH, target, PATH) => {
 
         if (RES_MAP_PATH[target.src]) modifyData = RES_MAP_PATH[target.src].updateTime
 
-        // 自定义格式 :::FLEX +++ 1 +++ FLEX:::
+        /*
+        编译目标：
+            <div class="box-flex"> 
+                <div class="box-flex-item flex-8">col 01</div>
+                <div class="box-flex-item classname" style="flex-basis:100px">col 02</div>
+            </div>
+        书写格式：
+            ---------- 8             小于等于10 flex-grow: 8
+            col 01
+            ========== 100classname  大于10 flex-basis: n  可注入自定义classname
+            col 02
+            ----------
+         */ 
         let matchFLEX
-        while ((matchFLEX = /\:\:\:FLEX([\s\S]+?)FLEX\:\:\:/.exec(file)) !== null) {  
-            let content = matchFLEX[1], _content = '', matchItem
-            while ((matchItem = /\+\+\+ (\d{1,4})([\s\S]*?)\+\+\+(\w+)?/.exec(content)) !== null) { 
-                content = content.replace(matchItem[0], '') 
-                let styleStr = '', classStr = '', exClass = matchItem[3] ?  ' ' + matchItem[3] : ''
-                if (matchItem[1] > 10) {
-                    styleStr = ` style="flex-basis: ${matchItem[1]}px"`
-                } else {
-                    classStr = ` flex-${matchItem[1]}`
-                }
-                
-                _content += `<div class="box-flex-item${classStr}${exClass}"${styleStr}>\n${matchItem[2]}\n</div>`
+        while ((matchFLEX = /\-{10,}\s(\d{1,4})([a-z-]*)[\r\n]([\s\S]+?)\-{10,}/.exec(file)) !== null) { 
+            let itemSize = matchFLEX[1],
+                itemClass = matchFLEX[2],                
+                itemStyle = '',
+                content = matchFLEX[3]
+            
+            if (itemSize > 10) { itemStyle = ` style="flex-basis:${itemSize}px"` } else { itemClass += ' flex-' + itemSize }
+
+            let matchNext, itemsStr = ''
+            while (matchNext = /([\s\S]+?)={10,}\s(\d{1,4})([a-z-]*)[\r\n]/.exec(content)){                
+                content = content.replace(matchNext[0], '')
+                itemsStr += `\n<div class="box-flex-item ${itemClass}"${itemStyle}>\n${matchNext[1]}\n</div>`
+
+                itemSize = matchNext[2],
+                itemClass = matchNext[3],                    
+                itemStyle = ''
+                if (itemSize > 10) { itemStyle = ` style="flex-basis:${itemSize}px"` } else { itemClass += ' flex-' + itemSize }                
             }
-            file = file.replace(matchFLEX[0], `<div class="box-flex">${_content}</div>`)            
+            
+            itemsStr += `\n<div class="box-flex-item ${itemClass}"${itemStyle}>\n${content}\n</div>`
+            file = file.replace(matchFLEX[0], `<div class="box-flex">${itemsStr}\n</div>`)            
         }        
 
         // PlantUML图形
