@@ -71,7 +71,47 @@
     series: [
         {
             label: {show: true, position: 'top'},  // 节点标签：是否在节点上标值、位置(top/bottom/left/right/inside/insideTop/...insideFill/insideStroke)
+            stack: 'area',                         // 如果要和其它series item堆叠在一起 则使用相同的堆叠名
         }
     ]
 }
 ```
+
+===+
+data = {
+    stack: {}, // 条状图 多个legend 且某些legend要堆叠在一起
+    legend: [],
+    dataAxis: []
+}
+
+const seriesArr = []
+legend.forEach(e => {
+    seriesArr.push({
+        name: e.title,
+        data: e.data,
+        type: 'bar',
+        stack: 'area',
+        label: { show: true, position: 'insideTop' },
+        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 }}}
+        // itemStyle: {
+        //   color: new echarts.graphic.LinearGradient(
+        //     0, 0, 0, 1,
+        //     [
+        //       { offset: 0, color: '#bf88f2' },
+        //       { offset: 1, color: '#3f39de' }
+        //     ]
+        //   )
+        // }
+    })
+})
+var options = {
+    tooltip: { trigger: 'axis' },
+    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
+    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 }},
+    yAxis: { type: 'value' },
+    // legend: { data: legendData, right: 'center', bottom: 0 },
+    series: seriesArr
+}
+// if (dataVal.length > 10) options.xAxis.axisLabel.rotate = -45
+this.chart.setOption(options)
+===-
