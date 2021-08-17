@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.15 20:56</span>
+            <span>M 2021.08.17 18:33</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -32,11 +32,20 @@ col 02
 &#61;&#61;&#61;&#43; 
     &#45; Markdown点列表
     &#42;&#42;局部加粗&#42;&#42;
-    &#35; 标题文本   <span class="comment"> // #个数(1-6)代表尺寸</span>
-    &#91;&#35;&#93; 反相标题 <span class="comment"> // 可增加空格为标题作内边距</span>
+
+    &#35; 标题文本                               <span class="comment"> // #个数(1-6)代表尺寸</span>
+    &#91;&#35;&#93; 反相标题                             <span class="comment"> // 可增加空格为标题作内边距</span>
+
     &#47;&#47; 单行注释
     &#47;&#42; 多行注释 &#42;&#47;
-    &#91;img:$withBase('/images/插入图片.jpg')&#93;
+
+    &#91;img:$withBase('/images/插入图片.jpg')&#93;  <span class="comment"> // 插入图片</span>
+
+    &#91;STYLE_START&#93;                           <span class="comment"> // 样式描述开始</span>
+    1[2-4](bold red)                        <span class="comment"> // 行1 索引(2-4)   class        行数计算：有效行数，空行忽略</span>
+    1/2/3[10-15]{color:#f00}                <span class="comment"> // 行1、2、3 索引(10-15) style  索引计算：有效字符起始，首尾空格忽略</span>
+    &#91;STYLE_END&#93;                             <span class="comment"> // 样式描述结束</span>
+
 &#61;&#61;&#61;&#45;
 预设className：
     颜色 c0 c3 c6 c9 cc cf

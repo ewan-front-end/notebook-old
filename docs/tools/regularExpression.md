@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.14 17:18</span>
+            <span>M 2021.08.17 19:07</span>
         </div>
     </div>
     <div class="content"></div>
@@ -92,6 +92,15 @@ arr.forEach((e) => {
 ```
 
 ## 匹配实例
+
+<pre class="code-block">
+<span class="h1 bgc3 cf"> 匹配IP </span>
+    STYLE_BLOCK
+    ((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}
+    <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
+    <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
+    <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
+</pre>
 <pre class="fs16">
 <strong>匹配位置</strong>
     每一行的开头: (?:^|\n)#{1,6}.+    

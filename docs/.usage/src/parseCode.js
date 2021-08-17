@@ -8,9 +8,6 @@ String.prototype.replaceAt=function(scope, replacement) {
 }
 
 function parseStyle(code){ 
-    let styleBlock = code.match(/^-{10}[\r\n]{1,2}([\s\S]+?)^-{10}(\d{1,2})?[\r\n]{1,2}/m)         
-    if (!styleBlock) return code
-    
     let styleContent = styleBlock[1].match(/^\d.+/mg)
     let scope = styleBlock[2] * 1 || 10 
     //console.log(styleContent);           
@@ -98,6 +95,30 @@ function parseLink(code){
 // 处理自定义块
 function parseCustomBlock(block) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+
+    /*
+    [STYLE_START]                            // 样式描述开始
+    1[2-4](bold red)                         // 行1 索引(2-4)   class
+    1/2/3[10-15]{color:#f00}                 // 行1、2、3 索引(10-15) style
+    [STYLE_END]                              // 样式描述结束
+     */
+    let styleBlock   
+    while ((styleBlock = /\[STYLE_START\]\s*[\r\n]+([\s\S]+?)\s*[\r\n]+\s*\[STYLE_END\]/.exec(block)) !== null) {
+        block = block.replace(styleBlock[0], 'STYLE_BLOCK') 
+        let maxLineNum = 0
+        const styleStrArr = styleBlock[1].trim().split(/\s*[\r\n]+\s*/)
+        const styleObjArr = styleStrArr.map(e => {
+            let m = e.match(/(\d+((\/\d+)*)?)\[(\d+)-(\d+)\]((\([\w\s-]+\))|(\{[\w\s-:#;]+\}))/)
+            let line = m[1].split('/')
+            line.forEach(item => { maxLineNum = Math.max(maxLineNum, item) })
+            return {line, index: [m[4], m[5]], style: m[6]}
+        })
+        // 截取要格式化的内容
+        const content = block.match(new RegExp(`STYLE_BLOCK\s*[\r\n]+((^.*[\n\r\u2028\u2029]+){4})`, 'm'))
+        const contentArr = content[1].split(/[\r\n]/)
+        //console.log(content);
+        console.log(contentArr);
+    } 
      
     // - Markdown点列表
     while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`)} 
@@ -149,7 +170,7 @@ module.exports = {
         matchCustomBlock.forEach((block) => {code = code.replace(block, parseCustomBlock(block))})
 
         // 解析自定义样式
-        code = parseStyle(code)
+        //code = parseStyle(code)
         // 通用链接
         code = parseAnchor(code, PATH) // 锚点
         code = parseTitle(code, PATH)  // 标题
