@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.17 19:07</span>
+            <span>M 2021.08.19 20:44</span>
         </div>
     </div>
     <div class="content"></div>
@@ -100,9 +100,22 @@ arr.forEach((e) => {
     <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
     <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
     <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
+<span class="h1 bgc3 cf"> 密码 </span>
+    <span>● [a-zA-Z\d@!%&\$\*\?]{8,} <span class="comment"> // 大小写字母、数字、@!%&$*? 任意组合 8位以上</span></span>
+    <span>● (?=.*[A-Z])              <span class="comment"> // 限制 某位置会出现大写字母</span></span>
+    <span>● (?=.*[a-z])              <span class="comment"> // 限制 某位置会出现小写字母</span></span>
+    <span>● (?=.*\d)                 <span class="comment"> // 限制 某位置会出现数字</span></span>
+    <span>● (?=.*[@!%&\$\*\?]        <span class="comment"> // 限制 某位置会出现列举字符</span></span>
+
+    ^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$                                 <span class="comment"> // 至少8个字符，至少一个字母和一个数字</span>
+    ^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$         <span class="comment"> // 至少8个字符，至少一个字母，一个数字和一个特殊字符</span>
+    ^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]{8,}$                         <span class="comment"> // 至少8个字符，至少一个大写字母，一个小写字母和一个数字</span>
+    ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$ <span class="comment"> // 至少8个字符，至少一个大写字母，一个小写字母，一个数字和一个特殊字符</span>
+    ^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,10}$ <span class="comment"> // 最少8个字符，最多10个字符，至少一个大写字母，一个小写字母，一个数字和一个特殊字符</span>
 </pre>
 <pre class="fs16">
 <strong>匹配位置</strong>
+    ^、$、\b、\B
     每一行的开头: (?:^|\n)#{1,6}.+    
     每一行的结尾: $  // 前提是开启多行模式
 <br>
@@ -131,6 +144,13 @@ arr.forEach((e) => {
 <br>
 <strong>取反</strong>      
     \W \S \D [^x]匹配除了x以外的任意字符 !(else|\s) [^aeiou]匹配除了aeiou这几个字母以外的任意字符
+
+<br>
+<strong>分组</strong> 
+顺序： ((A)(B(C))) 从左至右'('的顺序 ❶((A)(B(C))) ❷(A) ❸(B(C)) ❹(C)
+意议：
+    1. 向后引用 第i个分组匹配的字符串，可以在后续通过'\i'再次引用 例 (hello)\s(world)\s\1\2 匹配 hello world helloworld
+    2. 分组取值 可以matcher.group(i)等方式取值
 
 <strong>复杂</strong>    
 (?=exp) 向前查找位置 查找exp之前的位置
