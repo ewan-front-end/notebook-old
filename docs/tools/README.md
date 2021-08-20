@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.16 15:16</span>
+            <span>M 2021.08.20 16:55</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">ECharts图表库</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li></ul></div><div class="custom-block links">
@@ -56,6 +56,7 @@ pageClass: theme-item
 - [图片转Base64](http://tool.chinaz.com/tools/imgtobase)
 - [在线har文件解析](http://ericduran.github.io/chromeHAR/)
 - [正则表达式工具](http://www.regexlab.com/zh/mtracer/)
+- [正则表达式](https://c.runoob.com/front-end/854)
 - [正则测试](http://tool.chinaz.com/regex))
 - [草料二维码生成器](http://cli.im/)
 - [浏览器同步测试工具](http://www.browsersync.cn/)
