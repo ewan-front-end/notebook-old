@@ -21,8 +21,11 @@ pageClass: theme-item
 <pre>
 
 ■ 用户
-git config --<span style="font-weight:bold;color:#1a1;">global</span>xxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
-git config --<span style="font-weight:bold;color:#1a1;">global</span>xxxxxxxxx@163.com
+----------
+0/1[13-19](bold C1a1 18PX)
+----------2
+git config --global user.name "xxxxxxxxxx" //用户名和邮箱地址是本地git客户端的一个变量,每次commit都会用用户名和邮箱纪录。github的contributions统计就是按邮箱来统计的
+git config --global user.email xxxxxxxxxx@163.com
 git config --list .  // 查看
 
 ■ 工作

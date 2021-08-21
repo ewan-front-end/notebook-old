@@ -93,25 +93,11 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ## 插件开发
 
 <pre class="code-block">
-├── bin                   <span class="comment"> // 运行目录</span>
-├── lib                   <span class="comment"> // 主代码目录</span>
-├── CHANGELOG.md          <span class="comment"><span class="comment"> // 版本更新说明</span></span>
-├── LICENSE               <span class="comment"> // 许可证书</span>
-├── package.json          <span class="comment"> // npm配置</span>
-├── README.md             <span class="comment"> // README</span>
-│
-├── docs                  <span class="comment"> // 使用文档</span>
-├── example               <span class="comment"> // 示例目录</span>
-│
-├── test                  <span class="comment"> // 测试目录，提供单元测试</span>
-├── .travis.yml           <span class="comment"> // 集成自动测试配置</span>
-│
-├── .npmignore            <span class="comment"> // npm发布时忽略的文件</span>
-│
-├── CHANGELOG.md           // 版本更新说明
-│
-├── package.json          <span class="comment"> // NPM配置</span>
-</pre>
+<span>● 自定义ICON</span>
+    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
+    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
+    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
+</pre>1
 
 - 账户 
   u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com

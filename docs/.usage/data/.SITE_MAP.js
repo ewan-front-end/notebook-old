@@ -39,7 +39,7 @@ module.exports = {
         mysql:{title:'MySQL', src:'data-mysql'},
         mongodb:{title:'MongoDB', src:'data-mongodb'}
     }},
-    tools: {title:'工具&资源', src: 'tools', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
+    tools: {title:'工具&资源', src: 'tools/index', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
         git: {linkName: 'Git', src:'git'},
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
         markdown: {linkName: 'Markdown', src:'markdown'},        
@@ -50,7 +50,8 @@ module.exports = {
         uml:{src:'plantuml', links:[{name:'PlantUML语言', href:'/programmingLanguage/plantuml'}]},
         regularExpression:{linkName:'正则表达式', src:'regular-expression'},
         eslint: {linkName: 'ESLint', src:'eslint'},
-        htmlBundler: {title:'html-bundler', src:'html-bundler'}
+        htmlBundler: {title:'html-bundler', src:'html-bundler'},
+        postman: {title:'PostMan', src:'tools/postman'}
     }},     
     css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
         preset:{title:'预处理', src:'css-preset'},

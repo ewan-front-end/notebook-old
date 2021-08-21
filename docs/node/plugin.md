@@ -22,22 +22,11 @@ pageClass: theme-item
 ::: details node-inspect node调试
 
 <pre class="code-block">
-全局安装 &gt; npm install -g node-inspect
-使用实例：
-demo/server.js
-    var http = require("http")
-    var app = http.createServer(function(req, res) {
-        res.writeHead(200, {"Content-Type": "text/plain"})
-        res.end("Hello world!")
-    })
-    app.listen(3000, "localhost")
-demo&gt; node --inspect server.js
-    Debugger listening on ws://127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e
-    For help, see: https://nodejs.org/en/docs/inspector
-浏览器输入 chrome://inspect
-    [Configure...] &gt; input[127.0.0.1:9229] [Done]
-    监听列表 [inspect] 弹出调试面板
-</pre>
+<span>● 自定义ICON</span>
+    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
+    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
+    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
+</pre>2
 :::
 
 <div class="anchor" name="1627903874915" id="1627903874915"></div>
@@ -46,11 +35,46 @@ demo&gt; node --inspect server.js
 [官网](https://www.gulpjs.com.cn/docs/getting-started/quick-start/)
 
 <pre class="code-block">
-<span>● 自定义ICON</span>
-    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
-    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
-    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
-</pre>0
+┃ 1. demo&gt; npm install --save-dev gulp
+┃ 2. demo/gulpfile.js                            <span class="comment"> // 在运行 gulp 命令时会被自动加载</span>
+┃                                                <span class="comment"> // 默认任务</span>
+┃     function defaultTask(cb) { cb() }
+┃     exports.default = defaultTask              <span class="comment"> // 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用</span>
+┃     ...                                        <span class="comment"> // 注册更多的任务     </span>
+┃ 3. demo&gt; gulp                                  <span class="comment"> // 默认任务（task）将执行, 如果是本地安装,则"scripts":{"dev":"gulp"}  demo&gt; npm run dev</span>
+┃    demo&gt; gulp &lt;task&gt; &lt;othertask&gt;               <span class="comment"> // 运行多任务</span>
+
+API    
+    const { 
+        src,                                     <span class="comment"> // 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回 </span>
+        dest(path[,options]),                    <span class="comment"> // 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename</span>
+        series,                                  <span class="comment"> // 串联 任务功能、组合操作组合成同时执行的较大操作</span>
+        parallel                                 <span class="comment"> // 并联 </span>
+    } = require('gulp') 
+
+实例：
+    gulp.src('script/jquery.js')                 <span class="comment"> // 最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js</span>
+        .pipe(gulp.dest('dist/foo.js'))          <span class="comment"> // pipe用于连接转换流(Transform streams)或可写流(Writable streams)</span>
+
+任务分割
+
+公有&私有任务
+    function clean(cb) { cb() }                  <span class="comment"> // 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中</span>
+    function build(cb) { cb() }                  <span class="comment"> // 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo&gt; gulp build 可被用在串联(series)组合中</span>
+    exports.build = build;
+    exports.default = series(clean, build);
+
+组合任务
+    const { series, parallel } = require('gulp')
+    function transpile1(cb) { cb() }
+    function bundle2(cb) { cb() }
+    function javascript(cb) { cb() }
+    function css(cb) { cb() }
+    exports.build = series(transpile1, bundle2)  <span class="comment"> // 如果需要让任务按顺序执行   串联组合</span>
+    exports.build2 = parallel(javascript, css)   <span class="comment"> // 希望以最大并发来运行的任务 并联组合</span>
+                                                 <span class="comment"> // 嵌套组合 任意深度 ↧</span>
+    exports.build3 = series(clean, parallel(cssTranspile, series(jsTranspile, jsBundle)), parallel(cssMinify, jsMinify), publish)
+</pre>
 :::
 
 <div class="anchor" name="1627908583281" id="1627908583281"></div>

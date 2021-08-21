@@ -318,37 +318,11 @@ export default Matrix
 ## 缓动算法
 
 <pre class="code-block">
-<span class="comment">/**
-  * ░▒▓ 缓动策略 ▓▒░
-                                                                                                                        ✚ linear        ✚ easeIn                 
-                            ┌────────────────────── DURATION d=5 ──────────────────────┐                                 100*1/5+0= 20   100*(t/=5)*0.2+0= 4      
-        START_POSITION b=0 ▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ END_POSITION c=100              100*2/5+0= 40   100*(t/=5)*0.4+0= 16 
-                            ▲           ▲           ▲           ▲           ▲          ▲                                 100*3/5+0= 60   100*(t/=5)*0.6+0= 36 
-                            0           1           2           3           4          5                                 100*4/5+0= 80   100*(t/=5)*0.8+0= 64
-                                                                                                                        100*5/5+0= 100  100*(t/=5)*1.0+0= 100
-
-    ✚ strongEaseIn                        ✚ strongEaseOut                                 ✚ sineaseIn                  ✚ sineaseOut 
-    100*(t/=5)*0.2*0.2*0.2*0.2+0= 0.032   100*((t=1/5-1)*-0.8*-0.8*-0.8*-0.8+1)+0= 67.23   100*(t/=5)*0.2*0.2+0= 0.800   100*((t=1/5-1)*-0.8*-0.8+1)+0= 48.79
-    100*(t/=5)*0.4*0.4*0.4*0.4+0= 1.024   100*((t=2/5-1)*-0.6*-0.6*-0.6*-0.6+1)+0= 92.22   100*(t/=5)*0.4*0.4+0= 6.400   100*((t=2/5-1)*-0.6*-0.6+1)+0= 78.40
-    100*(t/=5)*0.6*0.6*0.6*0.6+0= 7.775   100*((t=3/5-1)*-0.4*-0.4*-0.4*-0.4+1)+0= 98.97   100*(t/=5)*0.6*0.6+0= 21.59   100*((t=3/5-1)*-0.4*-0.4+1)+0= 93.60             
-    100*(t/=5)*0.8*0.8*0.8*0.8+0= 32.76   100*((t=4/5-1)*-0.2*-0.2*-0.2*-0.2+1)+0= 99.96   100*(t/=5)*0.8*0.8+0= 51.20   100*((t=4/5-1)*-0.2*-0.2+1)+0= 99.20
-    100*(t/=5)*1.0*1.0*1.0*1.0+0= 100     100*((t=5/5-1)*-0.0*-0.0*-0.0*-0.0+1)+0= 100     100*(t/=5)*1.0*1.0+0= 100     100*((t=5/5-1)*-0.0*-0.0+1)+0= 100
-  *  
-  */</span>
-let tweens = new StrategyPattern()
-tweens.setStrategyObj({
-  linear: (t,b,c,d) =&gt; c * t / d + b,
-  easeIn: (t,b,c,d) =&gt; c * (t /= d) * t + b,
-  strongEaseIn: (t,b,c,d) =&gt; c * (t /= d) * t * t * t * t + b,
-  strongEaseOut: (t,b,c,d) =&gt; c * ((t = t / d - 1) * t * t * t * t + 1) + b,
-  sineaseIn: (t,b,c,d) =&gt; c * (t /= d) * t * t + b,
-  sineaseOut: (t,b,c,d) =&gt; c * ((t = t / d - 1) * t * t + 1) + b
-})<span class="comment">
-// 指针</span><span class="comment">
-// tweens.useStrategy('sineaseOut')</span><span class="comment">
-// 策略使用</span><span class="comment">
-// tweens.run(t - startTime, startPos, endPos, duration)</span>
-</pre>
+<span>● 自定义ICON</span>
+    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
+    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
+    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
+</pre>0
 
 
 ## 傅立叶变换
