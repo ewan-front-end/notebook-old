@@ -33,7 +33,9 @@
 - [草料二维码生成器](http://cli.im/)
 - [浏览器同步测试工具](http://www.browsersync.cn/)
 - [Git常用命令速查表](https://dn-coding-net-production-pp.qbox.me/e8dd7837-b39d-413e-9beb-ed51984719e0.png)
-代码在线编辑/运行
+- [HTML转义工具](https://www.sojson.com/rehtml)
+
+<strong>■ 代码在线编辑/运行</strong>
 - [CodeSandBox](https://codesandbox.io/s/xv36w4695o?file=/index.html)  
 - [JSRun](https://jsrun.net/new)
 - [下载YouTube视频](http://en.savefrom.net/)

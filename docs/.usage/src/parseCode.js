@@ -149,11 +149,97 @@ function parseCustomBlock(block) {
         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
     })
     // [img:$withBase('/images/左移位运算符.jpg')]
-    const matchImage = block.match(/\[img:(.+)?\]/g) || [];
+    const matchImage = block.match(/\[img:(.+?)\]/g) || [];
     matchImage.forEach(e => {
         const m = e.match(/\[img:(.+)?\]/)
         block = block.replace(e, `<img :src="${m[1]}">`)
     })
+
+    // ↧Headers
+    const matchDown = block.match(/↧.?\b([\w-]+)\b/g) || [];
+    matchDown.forEach(e => {
+        const word = e.replace('↧', '')
+        block = block.replace(e, `<span class="cc">${word}</span>`)
+    })
+    // ↥Body
+    const matchUp = block.match(/↥.?\b([\w-]+)\b/g) || [];
+    matchUp.forEach(e => {
+        const word = e.replace('↥', '')
+        block = block.replace(e, `<strong class="c0">${word}</strong>`)
+    })
+
+    // 表单元素[FORM_START][FORM_END]
+    const matchForm = block.match(/\s*\[FORM_START\][\s\S]+?\[FORM_END\]/g) || [];
+    matchForm.forEach(e => {
+        let content = e.replace(/\s*\[FORM_START\]\s*[\r\n]+/, '').replace(/\s*\[FORM_END\]/, '')        
+        while (/(\[DROP_DOWN\|(.+?)\])/.exec(content) !== null) {
+            const options = RegExp.$2.split('  '), checked = 0
+            content = content.replace(RegExp.$1, `<span class="drop-down">${options[checked]}</span>`)
+        }
+        while (/(\[INPUT\|(.+?)\])/.exec(content) !== null) {
+            content = content.replace(RegExp.$1, `<span class="input">${RegExp.$2}</span>`)
+        }
+        while (/(\[BTN([\>\|]|&gt;)(.+?)\])/.exec(content) !== null) {
+            const classStr = RegExp.$2 === '|' ? 'button' : 'button active'
+            content = content.replace(RegExp.$1, `<span class="${classStr}">${RegExp.$3}</span>`)
+        }
+        while (/^\s*(\[TAB\](.+))$/m.exec(content) !== null) {
+            let $1 = RegExp.$1, $2 = RegExp.$2
+            $2 = $2.replace('  [', '</i><strong>').replace(']  ', '</strong><i>').replace('[', '<strong>').replace(']', '</strong>').replace(/\s\s/g, '</i><i>')
+            content = content.replace($1, `<span class="tab"><i>${$2}</i></span>`) 
+        }   
+        while (/^\s*(\[RADIO\](.+))$/m.exec(content) !== null) {
+            let $1 = RegExp.$1, $2 = RegExp.$2
+            $2 = $2.replace('  [', '</i><strong>').replace(']  ', '</strong><i>').replace('[', '<strong>').replace(']', '</strong>').replace(/\s\s/g, '</i><i>')
+            content = content.replace($1, `<span class="radio"><i>${$2}</i></span>`) 
+        }   
+        while (/(\[LIST\|(.+?)\])/.exec(content) !== null) {
+            let $1 = RegExp.$1, $2 = RegExp.$2
+            let html = ''
+            let items = $2.match(/[\w\u4e00-\u9fa5-]+(\([\w\u4e00-\u9fa5-\s\*]+\))?/g) || []
+            items.forEach(item => {
+                let itemStr = ''
+                let m = item.match(/([\w\u4e00-\u9fa5-]+)(\((.+)\))?/)
+                let title = m[1], children = m[3].split(/\s{2,}/) || []
+                let childrenStr = ''
+                children.forEach(e => {
+                    childrenStr += `<i>${e}</i>`
+                })
+                itemStr += `<span class="item-title">${title}</span>`
+                childrenStr && (itemStr += `<span class="sub-box">${childrenStr}</span>`)
+                html += `<span class="list-item">${itemStr}</span>`
+            })
+
+            content = content.replace($1, `<span class="list">${html}</span>`)
+        } 
+        while (/(\[TABLE\]([\s\S]+?)[\r\n]+\s*\[TABLE_END\])/.exec(content) !== null) {
+            let $1 = RegExp.$1, $2 = RegExp.$2
+            let tableHtml = ''
+            const lines = $2.split(/\s*[\r\n]+\s*/)
+            const colArr = []
+            const header = lines.splice(0, 1)[0].split(/\s{2,}/)
+            const colsNum = header.length
+            header.forEach(tit => {
+                colArr.push(`<strong>${tit}</strong>`)
+            })
+            lines.forEach(line => {
+                const valArr = line.split(/\s{2,}/)
+                for (let i = 0; i < colsNum; i++){
+                    let val = valArr[i] || ''
+                    colArr[i] += `<i>${val}</i>`
+                }
+            })
+            colArr.forEach(col => {
+                tableHtml += `<span class="col">${col}</span>`
+            })            
+            content = content.replace($1, `<span class="table">${tableHtml}</span>`) 
+        }
+
+        block = block.replace(e, `<div class="form-elements">${content}</div>`)
+    })
+
+    block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.jpg')">`)  
+    block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.jpg')">`)  
 
     block = block.replace('===+', '\n<pre class="code-block">').replace('===-', '</pre>')
 

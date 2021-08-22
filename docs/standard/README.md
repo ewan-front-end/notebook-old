@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.17 18:33</span>
+            <span>M 2021.08.22 20:04</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -21,11 +21,50 @@ pageClass: theme-item
 ## 文档vuepress
 
 <pre class="code-block">
-<span>● 自定义ICON</span>
-    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
-    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
-    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
-</pre>9
+<span class="h2 bgc3 cf"> 普通代码 </span>
+<span>● Flex</span>
+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
+col 01
+&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname <span class="comment"> // 大于10 flex-basis: n  可注入自定义classname</span>
+col 02
+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+<span class="h2 bgc3 cf"> 自定义代码块 </span>
+&#61;&#61;&#61;&#43; 
+    &#45; Markdown点列表
+    &#42;&#42;局部加粗&#42;&#42;
+
+    &#35; 标题文本                               <span class="comment"> // #个数(1-6)代表尺寸</span>
+    &#91;&#35;&#93; 反相标题                             <span class="comment"> // 可增加空格为标题作内边距</span>
+
+    &#47;&#47; 单行注释
+    &#47;&#42; 多行注释 &#42;&#47;
+
+    &#91;img:$withBase('/images/插入图片.jpg')&#93;  <span class="comment"> // 插入图片</span>
+
+    &#91;STYLE_START&#93;                           <span class="comment"> // 样式描述开始</span>
+    1[2-4](bold red)                        <span class="comment"> // 行1 索引(2-4)   class        行数计算：有效行数，空行忽略</span>
+    1/2/3[10-15]{color:#f00}                <span class="comment"> // 行1、2、3 索引(10-15) style  索引计算：有效字符起始，首尾空格忽略</span>
+    &#91;STYLE_END&#93;                             <span class="comment"> // 样式描述结束</span>
+
+    <span class="cc">Headers</span>                                 <span class="comment"> // &#8615;Headers</span>
+    <strong class="c0">Body</strong>                                    <span class="comment"> // &#8613;Body</span><div class="form-elements">        <span class="list">XX项目API集(*login  upload)</span>
+        <span class="drop-down">POST</span> <span class="input"><img :src="$withBase('/images/db-brace-left.jpg')">origin<img :src="$withBase('/images/db-brace-right.jpg')">/api/login/</span>  <span class="button">Send</span> <span class="button">Save</span>
+        <span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
+        <span class="radio"><i>none</i><i>form-data</i><strong>x-www-form-urlencoded</strong><i>raw</i><i>binary</i><i>GraphQL</i><i></i><i></i><i></i><i></i></span>
+        <span class="table"><span class="col"><strong>KEY</strong><i>username</i><i>password</i></span><span class="col"><strong>VALUE</strong><i>ewan</i><i>123456</i></span><span class="col"><strong>DESCRIPTION</strong><i></i><i></i></span></span>
+        <span class="button active">Save</span> &gt; <span class="button active">Send</span></div>
+
+&#61;&#61;&#61;&#45;
+预设className：
+    颜色 c0 c3 c6 c9 cc cf
+    背景 bgc0 bgc3 bgc6 bgc9 bgcc bgcf
+    标题 h1 h2 h3 h4 h5 h6
+    注释 comment
+
+
+
+<span class="h2 bgc3 cf"> PlantUML </span>
+</pre>
 
 
 ::: details Javascript注释
@@ -34,43 +73,14 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-data = {
-    stack: {},<span class="comment"> // 条状图 多个legend 且某些legend要堆叠在一起</span>
-    legend: [],
-    dataAxis: []
-}
-
-const seriesArr = []
-legend.forEach(e =&gt; {
-    seriesArr.push({
-        name: e.title,
-        data: e.data,
-        type: 'bar',
-        stack: 'area',
-        label: { show: true, position: 'insideTop' },
-        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 }}}
-       <span class="comment"> // itemStyle: {</span>
-       <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
-       <span class="comment"> //     0, 0, 0, 1,</span>
-       <span class="comment"> //     [</span>
-       <span class="comment"> //       { offset: 0, color: '#bf88f2' },</span>
-       <span class="comment"> //       { offset: 1, color: '#3f39de' }</span>
-       <span class="comment"> //     ]</span>
-       <span class="comment"> //   )</span>
-       <span class="comment"> // }</span>
-    })
-})
-var options = {
-    tooltip: { trigger: 'axis' },
-    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
-    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 }},
-    yAxis: { type: 'value' },
-   <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
-    series: seriesArr
-}<span class="comment">
-// if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
-this.chart.setOption(options)
-</pre>0
+<span class="h1 bgc3 cf"> 普通注释 </span>
+目的：帮助开发者和阅读者更好地理解程序+
+规范：
+    1. 总是在单行注释符后留一个空格
+    2. 总是在多行注释的结束符前留一个空格（使星号对齐）
+    3. 不要把注释写在多行注释的开始符、结束符所在行
+    4. 不要编写无意义的注释
+</pre>
 
 </div>
 <div class="box-flex-item " style="flex-basis:100px">

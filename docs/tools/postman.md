@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.21 20:58</span>
+            <span>M 2021.08.22 20:00</span>
         </div>
     </div>
     <div class="content"></div>
@@ -34,10 +34,30 @@ pageClass: theme-item
     &gt; [Add] &gt; 
 
 <span class="h1 bgc3 cf"> 验证 </span>
-    <span>● 登录 POST xxx/api/login/</span>
+    <span>● 登录 </span><div class="form-elements">        <span class="list"><span class="list-item"><span class="item-title">XX项目API集</span><span class="sub-box"><i>*login</i><i>upload</i></span></span></span>
+        切换环境：<span class="drop-down">sever-demo</span>  要使用的变量：origin
 
+        <span class="drop-down">POST</span> <span class="input"><img :src="$withBase('/images/db-brace-left.jpg')">origin<img :src="$withBase('/images/db-brace-right.jpg')">/api/login/</span>  <span class="button">Send</span> <span class="button">Save</span>
+        
+        <span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
+        <span class="radio"><i>none</i><i>form-data</i><strong>x-www-form-urlencoded</strong><i>raw</i><i>binary</i><i>GraphQL</i><i></i><i></i><i></i><i></i></span>
+        <span class="table"><span class="col"><strong>KEY</strong><i>username</i><i>password</i></span><span class="col"><strong>VALUE</strong><i>ewan</i><i>123456</i></span><span class="col"><strong>DESCRIPTION</strong><i></i><i></i></span></span>
 
+        <span class="button active">Save</span> &gt; <span class="button active">Send</span> &gt; 得到：e4fc5eb9-316a-48e5-a970-dc116e7ab897</div>
+    
+    <span>● 需要验证的请求</span><div class="form-elements">        <span class="list"><span class="list-item"><span class="item-title">XX项目API集</span><span class="sub-box"><i>login</i><i>*upload</i></span></span></span>
+        切换环境：<span class="drop-down">sever-demo</span>  要使用的变量：origin
 
+        <span class="drop-down">POST</span> <span class="input"><img :src="$withBase('/images/db-brace-left.jpg')">origin<img :src="$withBase('/images/db-brace-right.jpg')">/api/cdn/UploadFile/</span>  <span class="button">Send</span> <span class="button">Save</span>
+
+        <span class="tab"><i>Params</i><i>Authorization</i><strong>Headers</strong><i>Body</i><i>Pre-request Script</i><i>Tests</i><i>Settings</i><i></i><i></i><i></i><i></i><i></i><i> </i></span>
+        <span class="table"><span class="col"><strong>KEY</strong><i>authenticate</i></span><span class="col"><strong>VALUE</strong><i>e4fc5eb9-316a-48e5-a970-dc116e7ab897</i></span><span class="col"><strong>DESCRIPTION</strong><i></i></span></span>
+
+        <span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
+        <span class="radio"><i>none</i><i>form-data</i><i>x-www-form-urlencoded</i><i>raw</i><strong>binary</strong><i>GraphQL </i></span>
+        <span class="button active">Select File</span>
+
+        <span class="button active">Save</span> &gt; <span class="button active">Send</span></div>
 </pre>
 
 </div>

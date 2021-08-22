@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000:00:00 00:00</span>
+            <span>M 2021.08.22 13:14</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">ECharts图表库</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li><li><a href="/tools/postman">PostMan</a></li></ul></div><div class="custom-block links">
@@ -62,7 +62,9 @@ pageClass: theme-item
 - [草料二维码生成器](http://cli.im/)
 - [浏览器同步测试工具](http://www.browsersync.cn/)
 - [Git常用命令速查表](https://dn-coding-net-production-pp.qbox.me/e8dd7837-b39d-413e-9beb-ed51984719e0.png)
-代码在线编辑/运行
+- [HTML转义工具](https://www.sojson.com/rehtml)
+
+<strong>■ 代码在线编辑/运行</strong>
 - [CodeSandBox](https://codesandbox.io/s/xv36w4695o?file=/index.html)  
 - [JSRun](https://jsrun.net/new)
 - [下载YouTube视频](http://en.savefrom.net/)

@@ -26,6 +26,21 @@ col 02
     1/2/3[10-15]{color:#f00}                 // 行1、2、3 索引(10-15) style  索引计算：有效字符起始，首尾空格忽略
     &#91;STYLE_END&#93;                              // 样式描述结束
 
+    ↧Headers                                  // &#8615;Headers
+    ↥Body                                     // &#8613;Body
+
+    [FORM_START]
+        [LIST|XX项目API集(*login  upload)]
+        [DROP_DOWN|POST] [INPUT|{{origin}}/api/login/]  [BTN|Send] [BTN|Save]
+        [TAB]Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings
+        [RADIO]none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL        
+        [TABLE]KEY        VALUE      DESCRIPTION  
+            username   ewan
+            password   123456
+        [TABLE_END]
+        [BTN>Save] > [BTN>Send]
+    [FORM_END]
+
 &#61;&#61;&#61;&#45;
 预设className：
     颜色 c0 c3 c6 c9 cc cf
