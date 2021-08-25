@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.20 17:51</span>
+            <span>M 2021.08.25 14:36</span>
         </div>
     </div>
     <div class="content"></div>
@@ -94,13 +94,13 @@ arr.forEach((e) => {
 ## 匹配实例
 
 <pre class="code-block">
-<span class="h1 bgc3 cf"> 匹配IP </span>
+<span class="h1 bg3 cf"> 匹配IP </span>
     STYLE_BLOCK
     ((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}
     <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
     <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
     <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
-<span class="h1 bgc3 cf"> 密码 </span>
+<span class="h1 bg3 cf"> 密码 </span>
     <span>● ^(?=.*[a-z])              <span class="comment"> // 匹配行头 跟随内容包含小写字母</span></span>
     <span>● ^(?=.*[A-Z])              <span class="comment"> // 匹配行头 跟随内容包含大写字母</span></span>
     <span>● ^(?=.*\d)                 <span class="comment"> // 匹配行头 跟随内容包含数字</span></span>
@@ -110,7 +110,7 @@ arr.forEach((e) => {
    <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符</span>
     ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])[A-Za-z\d@!%&\$\*\?]{8,}$ 
 
-<span class="h1 bgc3 cf"> 密码2 </span>
+<span class="h1 bg3 cf"> 密码2 </span>
    <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含大写字母、小写字母、数字、特殊字符中三种类型</span>
     <span class="h1">^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))|((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))|((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?]))[A-Za-z\d@!%&\$\*\?]{8,}$</span>
     (?=.*[a-z])(?=.*[A-Z])(?=.*\d))|            <span class="comment"> // 包含 小字母、大字母、数字 三种</span>
@@ -140,6 +140,10 @@ arr.forEach((e) => {
             \d  [0-9]              \D  [^0-9]                        匹配任意非数字的字符
             \w  [0-9a-zA-Z_]       \W  [^0-9a-zA-Z_]                 匹配任意不是字母，数字，下划线，汉字的字符
             \s  [ \t\v\n\r\f]      \S  [^ \t\v\n\r\f]                匹配任意不是空白符的字符
+                \x20                                                     匹配一个空格
+                \t                                                       匹配一个制表符。等价于 \x09 和 \cI。
+                \v                                                       匹配一个垂直制表符。等价于 \x0b 和 \cK
+                \f                                                       匹配一个换页符。等价于 \x0c 和 \cL。
             \b  a\b \bnice         \B                                匹配不是单词开头或结束的位置(隐式位置)
     中文     [0-9a-zA-Z\u4e00-\u9fa5_-]    [\w\u4e00-\u9fa5-]
 

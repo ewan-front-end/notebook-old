@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.22 20:04</span>
+            <span>M 2021.08.23 20:22</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -21,50 +21,43 @@ pageClass: theme-item
 ## 文档vuepress
 
 <pre class="code-block">
-<span class="h2 bgc3 cf"> 普通代码 </span>
-<span>● Flex</span>
-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
-col 01
-&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname <span class="comment"> // 大于10 flex-basis: n  可注入自定义classname</span>
-col 02
-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
-<span class="h2 bgc3 cf"> 自定义代码块 </span>
-&#61;&#61;&#61;&#43; 
-    &#45; Markdown点列表
-    &#42;&#42;局部加粗&#42;&#42;
+data = {
+    stack: {},<span class="comment"> // 条状图 多个legend 且某些legend要堆叠在一起</span>
+    legend: [],
+    dataAxis: []
+}
 
-    &#35; 标题文本                               <span class="comment"> // #个数(1-6)代表尺寸</span>
-    &#91;&#35;&#93; 反相标题                             <span class="comment"> // 可增加空格为标题作内边距</span>
-
-    &#47;&#47; 单行注释
-    &#47;&#42; 多行注释 &#42;&#47;
-
-    &#91;img:$withBase('/images/插入图片.jpg')&#93;  <span class="comment"> // 插入图片</span>
-
-    &#91;STYLE_START&#93;                           <span class="comment"> // 样式描述开始</span>
-    1[2-4](bold red)                        <span class="comment"> // 行1 索引(2-4)   class        行数计算：有效行数，空行忽略</span>
-    1/2/3[10-15]{color:#f00}                <span class="comment"> // 行1、2、3 索引(10-15) style  索引计算：有效字符起始，首尾空格忽略</span>
-    &#91;STYLE_END&#93;                             <span class="comment"> // 样式描述结束</span>
-
-    <span class="cc">Headers</span>                                 <span class="comment"> // &#8615;Headers</span>
-    <strong class="c0">Body</strong>                                    <span class="comment"> // &#8613;Body</span><div class="form-elements">        <span class="list">XX项目API集(*login  upload)</span>
-        <span class="drop-down">POST</span> <span class="input"><img :src="$withBase('/images/db-brace-left.jpg')">origin<img :src="$withBase('/images/db-brace-right.jpg')">/api/login/</span>  <span class="button">Send</span> <span class="button">Save</span>
-        <span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
-        <span class="radio"><i>none</i><i>form-data</i><strong>x-www-form-urlencoded</strong><i>raw</i><i>binary</i><i>GraphQL</i><i></i><i></i><i></i><i></i></span>
-        <span class="table"><span class="col"><strong>KEY</strong><i>username</i><i>password</i></span><span class="col"><strong>VALUE</strong><i>ewan</i><i>123456</i></span><span class="col"><strong>DESCRIPTION</strong><i></i><i></i></span></span>
-        <span class="button active">Save</span> &gt; <span class="button active">Send</span></div>
-
-&#61;&#61;&#61;&#45;
-预设className：
-    颜色 c0 c3 c6 c9 cc cf
-    背景 bgc0 bgc3 bgc6 bgc9 bgcc bgcf
-    标题 h1 h2 h3 h4 h5 h6
-    注释 comment
-
-
-
-<span class="h2 bgc3 cf"> PlantUML </span>
-</pre>
+const seriesArr = []
+legend.forEach(e =&gt; {
+    seriesArr.push({
+        name: e.title,
+        data: e.data,
+        type: 'bar',
+        stack: 'area',
+        label: { show: true, position: 'insideTop' },
+        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 <img :src="$withBase('/images/db-brace-right.jpg')">}
+       <span class="comment"> // itemStyle: {</span>
+       <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
+       <span class="comment"> //     0, 0, 0, 1,</span>
+       <span class="comment"> //     [</span>
+       <span class="comment"> //       { offset: 0, color: '#bf88f2' },</span>
+       <span class="comment"> //       { offset: 1, color: '#3f39de' }</span>
+       <span class="comment"> //     ]</span>
+       <span class="comment"> //   )</span>
+       <span class="comment"> // }</span>
+    })
+})
+var options = {
+    tooltip: { trigger: 'axis' },
+    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
+    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 <img :src="$withBase('/images/db-brace-right.jpg')">,
+    yAxis: { type: 'value' },
+   <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
+    series: seriesArr
+}<span class="comment">
+// if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
+this.chart.setOption(options)
+</pre>0
 
 
 ::: details Javascript注释
@@ -73,7 +66,7 @@ col 02
 
 
 <pre class="code-block">
-<span class="h1 bgc3 cf"> 普通注释 </span>
+<span class="h1 bg3 cf"> 普通注释 </span>
 目的：帮助开发者和阅读者更好地理解程序+
 规范：
     1. 总是在单行注释符后留一个空格
@@ -129,7 +122,7 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1 bgc3 cf"> 文档注释 </span>
+<span class="h1 bg3 cf"> 文档注释 </span>
 规范：
     1. 星号对齐
     2. 注释内容与星号间留一个空格
@@ -239,20 +232,33 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1 bgc3 cf"> 文件注释 </span>
-规范：
-    1. 文件注释位于文件的最前面
-    2. 文件注释必须全部以英文字符表示，并存在于文件的开发版本与生产版本中2222
+<span class="h1 bg3 cf"> 匹配IP </span>
+    STYLE_BLOCK
+    ((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}
+    <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
+    <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
+    <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
+<span class="h1 bg3 cf"> 密码 </span>
+    <span>● ^(?=.*[a-z])              <span class="comment"> // 匹配行头 跟随内容包含小写字母</span></span>
+    <span>● ^(?=.*[A-Z])              <span class="comment"> // 匹配行头 跟随内容包含大写字母</span></span>
+    <span>● ^(?=.*\d)                 <span class="comment"> // 匹配行头 跟随内容包含数字</span></span>
+    <span>● ^(?=.*[@!%&\$\*\?])       <span class="comment"> // 匹配行头 跟随内容包含列举字符</span></span>
+    <span>● [a-zA-Z\d@!%&\$\*\?]{8,}  <span class="comment"> // 匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上</span></span>
 
-<span class="comment color3">/*!
- * jRaiser 2 Javascript Library
- * kan.56.com - v1.0.0 (2013-03-15T14:55:51+0800)     <span class="comment"> // 概要说明及版本(必须) 修改时间(必须)以ISO格式表示</span>
- * http://jraiser.org/ | Released under MIT license   <span class="comment"> // 项目地址(开源组件必须) 开源协议(开源组件必须)</span>
- * Copyright 2005-2013 56.com                         <span class="comment"> // 版权声明(必须)</span>
- *
- * Include sizzle (http://sizzlejs.com/)              <span class="comment"> // 如果文件内包含开源组件 则必须在文件注释中进行说明</span>
- */</span>
-</pre>
+   <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符</span>
+    ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])[A-Za-z\d@!%&\$\*\?]{8,}$ 
+
+<span class="h1 bg3 cf"> 密码2 </span>
+   <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含大写字母、小写字母、数字、特殊字符中三种类型</span>
+    <span class="h1">^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))|((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))|((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?]))[A-Za-z\d@!%&\$\*\?]{8,}$</span>
+    (?=.*[a-z])(?=.*[A-Z])(?=.*\d))|            <span class="comment"> // 包含 小字母、大字母、数字 三种</span>
+    ((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))| <span class="comment"> // 包含 小字母、大字母、特殊字符 三种</span>
+    ((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|    <span class="comment"> // 包含 小字母、数字、特殊字符 三种</span>
+    ((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])      <span class="comment"> // 包含 大字母、数字、特殊字符 三种</span>
+
+    
+    
+</pre>0
 
 </div>
 </div>

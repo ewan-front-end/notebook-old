@@ -30,7 +30,7 @@ col 02
     ↥Body                                     // &#8613;Body
 
     [FORM_START]
-        [LIST|XX项目API集(*login  upload)]
+        [LIST|XX项目API集(*login  upload)] 
         [DROP_DOWN|POST] [INPUT|{{origin}}/api/login/]  [BTN|Send] [BTN|Save]
         [TAB]Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings
         [RADIO]none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL        
@@ -44,7 +44,7 @@ col 02
 &#61;&#61;&#61;&#45;
 预设className：
     颜色 c0 c3 c6 c9 cc cf
-    背景 bgc0 bgc3 bgc6 bgc9 bgcc bgcf
+    背景 bg0 bg3 bg6 bg9 bgc bgf
     标题 h1 h2 h3 h4 h5 h6
     注释 comment
 

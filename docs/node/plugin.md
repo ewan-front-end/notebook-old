@@ -26,7 +26,7 @@ pageClass: theme-item
     1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
     2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
     3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
-</pre>2
+</pre>3
 :::
 
 <div class="anchor" name="1627903874915" id="1627903874915"></div>
@@ -98,7 +98,7 @@ API
     目标：xxxx&gt; abc create name [--options]                            <span class="comment"> // 主命令 命令 参数 选项</span>
     项目：
         demo/package.json    
-            {"bin": {"abc": "./bin/demo.js"}}
+            {"bin": {"abc": "./bin/demo.js"<img :src="$withBase('/images/db-brace-right.jpg')">
 
         demo/bin/demo.js                                              <span class="comment"> // 定义命令、选项、帮助和业务逻辑 </span>
             #!/usr/bin/env node

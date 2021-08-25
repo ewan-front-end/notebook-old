@@ -119,18 +119,38 @@ function parseCustomBlock(block) {
         //console.log(content);
         console.log(contentArr);
     } 
+
+    block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
+    block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
      
     // - Markdown点列表
     while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`)} 
     // Markdown**局部加粗**
     while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)}
 
-    // # 标题文本    #个数(1-6)代表尺寸
-    // [#] 反相标题  [] 可增加空格为标题作内边距
-    while (/^\s*((\[?)(#{1,6})\]?\s([^\n\r]+))/m.exec(block) !== null) {
-        const bg = RegExp.$2 ? ' bgc3 cf' : ''
-        block = block.replace(RegExp.$1, `<span class="h${RegExp.$3.length}${bg}">${RegExp.$4}</span>`)
+    // 盒子：■⇤{}()content■
+    while (/(\x20*)(■(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)■)/.exec(block) !== null) {
+        const $INDENT = RegExp.$1, $FORMAT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CLASS = RegExp.$4 || RegExp.$6, $STYLE = RegExp.$5, $CONTENT = RegExp.$8
+        let str = ''
+        console.log('---',$CONTENT);
+        $CLASS && (str += ` class=${$CLASS.replace('(','"').replace(')','"')}`)
+        $STYLE && (str += ` style=${$STYLE.replace('{','"').replace('}','"')}`)
+        block = block.replace($FORMAT, `<div${str}>${$CONTENT}</div>`)
     }
+
+    // 标题：# Title Text{color:red}    #个数(1-6)代表尺寸 [#] 反相标题  [] 可增加空格为标题作内边距
+    while (/^\x20*((\[?)(#{1,6})\]?\s([^\n\r\{]+)(\{([\w\s-;:'"#]+)\})?)/m.exec(block) !== null) {
+        const $FORMAT = RegExp.$1, $NVERT = RegExp.$2, $LEVEL = RegExp.$3, $CONTENT = RegExp.$4, $STYLE = RegExp.$6        
+        let classStr = `h${$LEVEL.length}`
+        $NVERT && (classStr += ' bg3 cf')
+        let str = `class="${classStr}"`, content = $CONTENT
+        if ($STYLE) {
+            str += ` style="${$STYLE}"`
+            content = content.replace(/\{([\w\s-;:'"#]+)\}/, '')
+        }        
+        block = block.replace($FORMAT, `<span ${str}>${content}</span>`)
+    }
+    
     // * 行加粗 会和多行注释相冲突
     //while (/^\s*(\*\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)} 
     
@@ -166,80 +186,155 @@ function parseCustomBlock(block) {
     matchUp.forEach(e => {
         const word = e.replace('↥', '')
         block = block.replace(e, `<strong class="c0">${word}</strong>`)
-    })
+    })      
 
-    // 表单元素[FORM_START][FORM_END]
-    const matchForm = block.match(/\s*\[FORM_START\][\s\S]+?\[FORM_END\]/g) || [];
+    // 表单元素[FORM_START][FORM_END] 
+    // [FORM_START|vtop]
+    const matchForm = block.match(/\s*\[FORM_START\][\s\S]+?\[FORM_END\]\s*[\r\n]+/g) || [];
     matchForm.forEach(e => {
-        let content = e.replace(/\s*\[FORM_START\]\s*[\r\n]+/, '').replace(/\s*\[FORM_END\]/, '')        
-        while (/(\[DROP_DOWN\|(.+?)\])/.exec(content) !== null) {
-            const options = RegExp.$2.split('  '), checked = 0
-            content = content.replace(RegExp.$1, `<span class="drop-down">${options[checked]}</span>`)
+        let content = e.replace(/\s*\[FORM_START\]\s*[\r\n]+/, '').replace(/\s*\[FORM_END\]/, '') 
+        // ↴classname ↤ ↦
+        while (/(↴([\w\s-;:'"#]+[\w'";])?([\s\S]*)↤([\s\S]+)↦)/.exec(content) !== null) {
+            const $ALL = RegExp.$1, $STYLE = RegExp.$2, $CONTENT = RegExp.$4
+            content = content.replace($ALL, `<span class="inline" style="${$STYLE}">${$CONTENT}</span>`)
+        }    
+        
+        // INPUT:▭{}()value▭
+        while (/(▭(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)▭)/.exec(content) !== null) {
+            const $ALL = RegExp.$1, $STYLE = RegExp.$5, $CLASS = RegExp.$3 || RegExp.$7 || '', $VALUE = RegExp.$8, styleStr = $STYLE ? ` style="${$STYLE}"` : ''
+            content = content.replace($ALL, `<span class="input ${$CLASS}"${styleStr}>${$VALUE}</span>`)
         }
-        while (/(\[INPUT\|(.+?)\])/.exec(content) !== null) {
-            content = content.replace(RegExp.$1, `<span class="input">${RegExp.$2}</span>`)
+        // [BTN|正常置灰] [BTN>主题激活] [BTNbg3 cf|自定义类]
+        while (/(\[BTN([\w\s-]*)([\>\|]|&gt;)(.+?)\])/.exec(content) !== null) { 
+            const $ALL = RegExp.$1, $CLASS = RegExp.$2, $TYPE = RegExp.$3, $VAL = RegExp.$4
+            let classStr = 'button'
+            $CLASS && (classStr = 'button ' + $CLASS)
+            $TYPE === '&gt;' && (classStr = 'button active')
+            content = content.replace($ALL, `<span class="${classStr}">${$VAL}</span>`)
         }
-        while (/(\[BTN([\>\|]|&gt;)(.+?)\])/.exec(content) !== null) {
-            const classStr = RegExp.$2 === '|' ? 'button' : 'button active'
-            content = content.replace(RegExp.$1, `<span class="${classStr}">${RegExp.$3}</span>`)
+        
+        // 选项卡：▥⇤Params  Authorization  [Headers]  Body  Pre-request Script  Tests  Settings▥  
+        while (/((\x20*)▥(⇤?)(.+?)▥)/.exec(content) !== null) {
+            const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4 
+            let html = ''         
+            $CONTENT.split(/\x20{2,}/).forEach(item => { html += item.indexOf('[') > -1 ? item.replace('[', '<strong>').replace(']', '</strong>') : `<i>${item}</i>` })
+            html = $SET_FLUSH ? `<span class="tab">${html}</span>` : `${$INDENT}<span class="tab">${html}</span>`
+            content = content.replace($FORMAT, html) 
+        }  
+        // 单选框：◉⇤none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL◉
+        while (/((\x20*)◉(⇤?)(.+?)◉)/.exec(content) !== null) {
+            const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4 
+            let html = ''         
+            $CONTENT.split(/\x20{2,}/).forEach(item => { html += item.indexOf('[') > -1 ? item.replace('[', '<strong>').replace(']', '</strong>') : `<i>${item}</i>` })
+            html = $SET_FLUSH ? `<span class="radio">${html}</span>` : `${$INDENT}<span class="radio">${html}</span>`
+            content = content.replace($FORMAT, html) 
+        } 
+        // 单选框：▣⇤none  [form-data]  x-www-form-urlencoded  raw  [binary]  GraphQL▣
+        while (/((\x20*)▣(⇤?)(.+?)▣)/.exec(content) !== null) {
+            const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4 
+            let html = ''         
+            $CONTENT.split(/\x20{2,}/).forEach(item => { html += item.indexOf('[') > -1 ? item.replace('[', '<strong>').replace(']', '</strong>') : `<i>${item}</i>` })
+            html = $SET_FLUSH ? `<span class="checkbox">${html}</span>` : `${$INDENT}<span class="checkbox">${html}</span>`
+            content = content.replace($FORMAT, html) 
+        } 
+        
+        // ▼collection-name{color:#f11}(bd)▼   
+        // ▼{}()选项一{}()  选项二▼
+        let drapdownMatch
+        while ((drapdownMatch = /▼(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)▼/.exec(content)) !== null) {
+            const $ALL = drapdownMatch[0], $WRAPPER_STYLE = drapdownMatch[4], $WRAPPER_CLASS = drapdownMatch[2] || drapdownMatch[6], $CONTENT = drapdownMatch[7] 
+            let optionsStr = ''
+            $CONTENT.split('  ').forEach(option => {
+                const m = option.match(/([\w\s\u4e00-\u9fa5-]+)(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?/), $OPTION_TEXT = m[1], $OPTION_CLASS = m[3] || m[7] || '', $OPTION_STYLE = m[5] || ''
+                let str = ''
+                $OPTION_CLASS && (str += ` class="${$OPTION_CLASS}"`)
+                $OPTION_STYLE && (str += ` style="${$OPTION_STYLE}"`)
+                optionsStr += `<i${str}>${$OPTION_TEXT}</i>`
+            })
+            content = content.replace($ALL, `<span class="drop-down">${optionsStr}</span>`)
         }
-        while (/^\s*(\[TAB\](.+))$/m.exec(content) !== null) {
-            let $1 = RegExp.$1, $2 = RegExp.$2
-            $2 = $2.replace('  [', '</i><strong>').replace(']  ', '</strong><i>').replace('[', '<strong>').replace(']', '</strong>').replace(/\s\s/g, '</i><i>')
-            content = content.replace($1, `<span class="tab"><i>${$2}</i></span>`) 
-        }   
-        while (/^\s*(\[RADIO\](.+))$/m.exec(content) !== null) {
-            let $1 = RegExp.$1, $2 = RegExp.$2
-            $2 = $2.replace('  [', '</i><strong>').replace(']  ', '</strong><i>').replace('[', '<strong>').replace(']', '</strong>').replace(/\s\s/g, '</i><i>')
-            content = content.replace($1, `<span class="radio"><i>${$2}</i></span>`) 
-        }   
-        while (/(\[LIST\|(.+?)\])/.exec(content) !== null) {
-            let $1 = RegExp.$1, $2 = RegExp.$2
-            let html = ''
-            let items = $2.match(/[\w\u4e00-\u9fa5-]+(\([\w\u4e00-\u9fa5-\s\*]+\))?/g) || []
-            items.forEach(item => {
-                let itemStr = ''
-                let m = item.match(/([\w\u4e00-\u9fa5-]+)(\((.+)\))?/)
-                let title = m[1], children = m[3].split(/\s{2,}/) || []
-                let childrenStr = ''
-                children.forEach(e => {
-                    childrenStr += `<i>${e}</i>`
-                })
-                itemStr += `<span class="item-title">${title}</span>`
-                childrenStr && (itemStr += `<span class="sub-box">${childrenStr}</span>`)
+         
+        // ▤{color:#ccc}(bd)目录名称一{}()[子类名称{}(),子类名称{}()]  目录名称二▤
+        // ▤菜单名称▤
+        let listMatch
+        while ((listMatch = /▤(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)▤/.exec(content)) !== null) {        
+            const $ALL = listMatch[0], $WRAPPER_STYLE = listMatch[4], $WRAPPER_CLASS = listMatch[2] || listMatch[6], $CONTENT = listMatch[7] 
+            let styleStr = '', className = 'list', html = ''
+
+            $WRAPPER_STYLE && (styleStr = ` style="${$WRAPPER_STYLE}"`)
+            $WRAPPER_CLASS && (className += ' ' + $WRAPPER_CLASS)
+            $CONTENT.split(/\s{2,}/).forEach(item => {                
+                const m = item.match(/([\w\s\u4e00-\u9fa5-]+)(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(\[(.+?)\])?/), $ITEM_TEXT = m[1], $ITEM_CLASS = m[3] || m[7] || '', $ITEM_STYLE = m[5] || '', $ITEM_SUB = m[9]
+                let itemClassName = 'item-title', itemStyleStr = ''
+                $ITEM_CLASS && (itemClassName += ' ' + $ITEM_CLASS)
+                $ITEM_STYLE && (itemStyleStr = ` style="${$ITEM_STYLE}"`)
+                let itemStr = `<span class="${itemClassName}"${itemStyleStr}>${$ITEM_TEXT}</span>`
+                if ($ITEM_SUB) {  
+                    let childrenStr = ''                  
+                    $ITEM_SUB.split(',').forEach((e, i) => {
+                        const m2 = e.match(/([\w\u4e00-\u9fa5-]+)(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?/), $SUB_TEXT = m2[1], $SUB_CLASS = m2[3] || m2[7] || '', $SUB_STYLE = m2[5] || ''
+                        let str = '' 
+                        $SUB_STYLE && (str += ` style="${$STYLE}"`)
+                        $SUB_CLASS && (str += ` class="${$SUB_CLASS}"`)
+                        childrenStr += `<i${str}>${$SUB_TEXT}</i>`                        
+                    })
+                    itemStr += `<span class="sub-box">${childrenStr}</span>`
+                }
                 html += `<span class="list-item">${itemStr}</span>`
             })
-
-            content = content.replace($1, `<span class="list">${html}</span>`)
-        } 
-        while (/(\[TABLE\]([\s\S]+?)[\r\n]+\s*\[TABLE_END\])/.exec(content) !== null) {
-            let $1 = RegExp.$1, $2 = RegExp.$2
+            content = content.replace($ALL, `<span class="${className}"${styleStr}><div class="list-wrapper">${html}</div></span>`)
+        }
+        /** 
+         * 表格
+         * ▦⇤VARIABLE(变量){color:26f}  INITIAL VALUE(初始值)  CURRENT VALUE(当前值)
+         *     API{color:26f}  https://api.com:4432  https://api.com:4432
+         * ▦
+         */
+        while (/((\x20*)▦(⇤?)([\s\S]+?)[\r\n]+\x20*▦)/.exec(content) !== null) {
+            const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4            
             let tableHtml = ''
-            const lines = $2.split(/\s*[\r\n]+\s*/)
-            const colArr = []
+            const lines = $CONTENT.split(/\x20*[\r\n]+\x20*/)
             const header = lines.splice(0, 1)[0].split(/\s{2,}/)
-            const colsNum = header.length
-            header.forEach(tit => {
-                colArr.push(`<strong>${tit}</strong>`)
+            const colArr = [], colsNum = header.length
+            header.forEach(tit => { 
+                let hasStyle = tit.match(/\{([\w\s-;:'"#]+)\}/), styleStr = ''
+                if (hasStyle) {
+                    styleStr = ` style="${hasStyle[1]}"`
+                    tit = tit.replace(/\{([\w\s-;:'"#]+)\}/, '')
+                }
+                colArr.push(`<strong>${tit}</strong>`) 
             })
             lines.forEach(line => {
                 const valArr = line.split(/\s{2,}/)
                 for (let i = 0; i < colsNum; i++){
-                    let val = valArr[i] || ''
-                    colArr[i] += `<i>${val}</i>`
+                    let val = valArr[i] || '', hasStyle = val.match(/\{([\w\s-;:'"#]+)\}/), styleStr = ''                    
+                    if (hasStyle) {
+                        styleStr = ` style="${hasStyle[1]}"`
+                        val = val.replace(/\{([\w\s-;:'"#]+)\}/, '')
+                    }                  
+                    colArr[i] += `<i${styleStr}>${val}</i>`
                 }
             })
             colArr.forEach(col => {
                 tableHtml += `<span class="col">${col}</span>`
             })            
-            content = content.replace($1, `<span class="table">${tableHtml}</span>`) 
+            content = content.replace($FORMAT, `<span class="table">${tableHtml}</span>`) 
         }
 
         block = block.replace(e, `<div class="form-elements">${content}</div>`)
     })
 
-    block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.jpg')">`)  
-    block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.jpg')">`)  
+    // STYLE&CLASS:[{color:#f00}(bd)text content]
+    // STYLE=\{([\w\s-;:'"#]+)\} CLASS=\(([\w\s-]+)\) 内容=.+?
+    // ((STYLE)|(CLASS)){1,2}(内容)
+    const styleClassMatch = block.match(/\[((\{[\w\s-;:'"#]+\})|(\([\w\s-]+\))){1,2}.+?\]/g) || []
+    styleClassMatch.forEach(e => {
+        const m = e.match(/\[(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)\]/), $STYLE = m[4] || '', $CLASS = m[2] || m[6] || '', $CONTENT = m[7]
+        let str = ''
+        $STYLE && (str += ` style="${$STYLE}"`)
+        $CLASS && (str += ` class="${$CLASS}"`)
+        block = block.replace(e, `<span${str}>${$CONTENT}</span>`)
+    }) 
 
     block = block.replace('===+', '\n<pre class="code-block">').replace('===-', '</pre>')
 

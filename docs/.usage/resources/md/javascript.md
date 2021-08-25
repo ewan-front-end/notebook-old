@@ -136,8 +136,8 @@ String.prototype.replaceAt=function(scope, replacement) {
         'Hello'.indexOf('l',-3)       2              // 位置 位置 负参转为0
         'Hello'.lastIndexOf('l')      3              // 搜索 位置 从'Hello'第尾位开始'l'的首次出现位置
 
-        'Hello'.charAt(2)            "l"             // 搜索 值   子字符
-        'Hello'.charCodeAt(2)        108             // 搜索 值   子字符Unicode编码
+        'Hello'.charAt(2)            "l"             // 搜索      值   子字符
+        'Hello'.charCodeAt(2)        108             // 搜索 转换 值   子字符Unicode编码
 
    'HelloHello'.match(/gg/)                          // 搜索 匹配 null
    'HelloHello'.match(/ll/)                          // 搜索 匹配 {0:"ll", index:2, input:"HelloHello", groups:undefined}
@@ -164,6 +164,14 @@ String.prototype.replaceAt=function(scope, replacement) {
          String.fromCharCode(65)       "A"           // 转换 Unicode转字符
          String.fromCharCode(65,66,67) "ABC"         // 转换 Unicode转字符
 ```
+function string2unicode(str){
+　　var ret ="";
+　　for(var i=0; i<str.length; i++){
+　　　　//var code = str.charCodeAt(i); //var code16 = code.toString(16); //var ustr = "\\u"+code16; //ret +=ustr;
+       ret += "\\u" + str.charCodeAt(i).toString(16);
+    }
+    return ret;
+}
 :::
 
 ::: details 类型转换

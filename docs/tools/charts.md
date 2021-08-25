@@ -112,7 +112,7 @@ legend.forEach(e =&gt; {
         type: 'bar',
         stack: 'area',
         label: { show: true, position: 'insideTop' },
-        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 }}}
+        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 <img :src="$withBase('/images/db-brace-right.jpg')">}
        <span class="comment"> // itemStyle: {</span>
        <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
        <span class="comment"> //     0, 0, 0, 1,</span>
@@ -127,7 +127,7 @@ legend.forEach(e =&gt; {
 var options = {
     tooltip: { trigger: 'axis' },
     grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
-    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 }},
+    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 <img :src="$withBase('/images/db-brace-right.jpg')">,
     yAxis: { type: 'value' },
    <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
     series: seriesArr
