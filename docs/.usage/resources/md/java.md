@@ -2,7 +2,7 @@
 - 安装JDK
     http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html   jdk-16.0.1_windows-x64_bin.exe
 - 配置环境变量
-<pre>
+===+
     此电脑/属性/高级系统设置/环境变量
     系统变量 > 新建
         变量名: "JAVA_HOME"
@@ -19,4 +19,4 @@
         确定
 
     > java -version
-</pre>
+===-

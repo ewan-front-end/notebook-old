@@ -11,12 +11,13 @@ pageClass: theme-item
             <span>M 2021.08.04 21:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>Node</h1><strong>Node</strong>
 </div>
 <div class="static-content">
+
 [NPM](/tools/npm)
 
 module、exports、require、global、__filename、__dirname
@@ -93,11 +94,43 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ## 插件开发
 
 <pre class="code-block">
-<span>● 自定义ICON</span>
-    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
-    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
-    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
-</pre>2
+data = {
+    stack: {},<span class="comment"> // 条状图 多个legend 且某些legend要堆叠在一起</span>
+    legend: [],
+    dataAxis: []
+}
+
+const seriesArr = []
+legend.forEach(e =&gt; {
+    seriesArr.push({
+        name: e.title,
+        data: e.data,
+        type: 'bar',
+        stack: 'area',
+        label: { show: true, position: 'insideTop' },
+        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 <img :src="$withBase('/images/db-brace-right.png')">}
+       <span class="comment"> // itemStyle: {</span>
+       <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
+       <span class="comment"> //     0, 0, 0, 1,</span>
+       <span class="comment"> //     [</span>
+       <span class="comment"> //       { offset: 0, color: '#bf88f2' },</span>
+       <span class="comment"> //       { offset: 1, color: '#3f39de' }</span>
+       <span class="comment"> //     ]</span>
+       <span class="comment"> //   )</span>
+       <span class="comment"> // }</span>
+    })
+})
+var options = {
+    tooltip: { trigger: 'axis' },
+    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
+    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 <img :src="$withBase('/images/db-brace-right.png')">,
+    yAxis: { type: 'value' },
+   <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
+    series: seriesArr
+}<span class="comment">
+// if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
+this.chart.setOption(options)
+</pre>1
 
 - 账户 
   u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com

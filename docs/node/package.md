@@ -18,6 +18,7 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
 ```json
 {
     "name": "watcher",                                          // 插件名称 不与项目目录名重复 npm install xxxx

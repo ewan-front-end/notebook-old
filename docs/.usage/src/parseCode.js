@@ -131,15 +131,14 @@ function parseCustomBlock(block) {
     // 盒子：■⇤{}()content■
     while (/(\x20*)(■(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)■)/.exec(block) !== null) {
         const $INDENT = RegExp.$1, $FORMAT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CLASS = RegExp.$4 || RegExp.$6, $STYLE = RegExp.$5, $CONTENT = RegExp.$8
-        let str = ''
-        console.log('---',$CONTENT);
+        let str = ''        
         $CLASS && (str += ` class=${$CLASS.replace('(','"').replace(')','"')}`)
         $STYLE && (str += ` style=${$STYLE.replace('{','"').replace('}','"')}`)
         block = block.replace($FORMAT, `<div${str}>${$CONTENT}</div>`)
     }
 
     // 标题：# Title Text{color:red}    #个数(1-6)代表尺寸 [#] 反相标题  [] 可增加空格为标题作内边距
-    while (/^\x20*((\[?)(#{1,6})\]?\s([^\n\r\{]+)(\{([\w\s-;:'"#]+)\})?)/m.exec(block) !== null) {
+    while (/\x20*((\[?)(#{1,6})\]?\s([^\n\r\{]+)(\{([\w\s-;:'"#]+)\})?)/.exec(block) !== null) {
         const $FORMAT = RegExp.$1, $NVERT = RegExp.$2, $LEVEL = RegExp.$3, $CONTENT = RegExp.$4, $STYLE = RegExp.$6        
         let classStr = `h${$LEVEL.length}`
         $NVERT && (classStr += ' bg3 cf')

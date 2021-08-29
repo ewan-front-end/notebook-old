@@ -1,4 +1,4 @@
-const {reWriteFile} = require('./common')
+const {reWriteFile} = require('../common.js')
 const PATH = './.RES_MAP_PATH.json'
 const RES_MAP_PATH = require(PATH) || {}
 module.exports = {

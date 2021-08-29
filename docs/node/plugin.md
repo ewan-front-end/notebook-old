@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.04 20:45</span>
+            <span>N 2021.08.29 20:56</span>
         </div>
     </div>
     <div class="content"></div>
@@ -19,14 +19,26 @@ pageClass: theme-item
 <div class="static-content">
 
 
+
 ::: details node-inspect node调试
 
 <pre class="code-block">
-<span>● 自定义ICON</span>
-    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
-    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
-    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
-</pre>3
+全局安装 &gt; npm install -g node-inspect
+使用实例：
+demo/server.js
+    var http = require("http")
+    var app = http.createServer(function(req, res) {
+        res.writeHead(200, {"Content-Type": "text/plain"})
+        res.end("Hello world!")
+    })
+    app.listen(3000, "localhost")
+demo&gt; node --inspect server.js
+    Debugger listening on ws://127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e
+    For help, see: https://nodejs.org/en/docs/inspector
+浏览器输入 chrome://inspect
+    [Configure...] &gt; input[127.0.0.1:9229] [Done]
+    监听列表 [inspect] 弹出调试面板
+</pre>
 :::
 
 <div class="anchor" name="1627903874915" id="1627903874915"></div>
@@ -98,7 +110,7 @@ API
     目标：xxxx&gt; abc create name [--options]                            <span class="comment"> // 主命令 命令 参数 选项</span>
     项目：
         demo/package.json    
-            {"bin": {"abc": "./bin/demo.js"<img :src="$withBase('/images/db-brace-right.jpg')">
+            {"bin": {"abc": "./bin/demo.js"<img :src="$withBase('/images/db-brace-right.png')">
 
         demo/bin/demo.js                                              <span class="comment"> // 定义命令、选项、帮助和业务逻辑 </span>
             #!/usr/bin/env node

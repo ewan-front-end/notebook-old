@@ -1,4 +1,4 @@
-const {mkdirSync, writeFile, readFile} = require('./src/tools-fs')
+const {mkdirSync, writeFile, readFile} = require('./tools-fs')
 const Path = require('path')
 const argArr = process.argv.slice(2)                    // 命令参数
 const {SITE_MAP, handleSiteMap} = require('./data/siteMap.js')     // 站点数据

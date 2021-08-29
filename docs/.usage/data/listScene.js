@@ -1,4 +1,4 @@
-const {reWriteFile} = require('./common')
+const {reWriteFile} = require('../common.js')
 const PATH = './.LIST_SCENE.json'
 const LIST_SCENE = require(PATH)
 module.exports = {

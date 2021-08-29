@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>IOS</h1><strong>IOS</strong>
 </div>
 <div class="static-content">
+
 创建AppID(应用ID非AStoreID)
 
 开发者账号

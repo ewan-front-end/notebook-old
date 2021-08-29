@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>Electron</h1><strong>Electron</strong>
 </div>
 <div class="static-content">
+
 ```
 Electron
 安装

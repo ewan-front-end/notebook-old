@@ -1,4 +1,4 @@
-const {writeFile, readFile} = require('./tools-fs')
+const {writeFile, readFile} = require('../tools-fs.js')
 const _path = require('path')
 const {RES_MAP_PATH} = require('../data/resMapPath.js')
 const handleUML = require('./handleUML')
@@ -102,7 +102,7 @@ module.exports = (ABSOLUTE_PATH, target, PATH) => {
 </div>
 ${contentHeader}
 <div class="static-content">
-${staticContent}
+\n${staticContent}
 </div>`                 
     writeFile(ABSOLUTE_PATH + '.md', content)
 }

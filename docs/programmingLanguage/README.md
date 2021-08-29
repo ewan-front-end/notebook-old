@@ -11,7 +11,7 @@ pageClass: theme-item
             <span>M 0000.00.00 00:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/programmingLanguage/matlab">matlab</a></li><li><a href="/programmingLanguage/ruby">ruby</a></li><li><a href="/programmingLanguage/wechat">微信小程序</a></li><li><a href="/programmingLanguage/electron">Electron</a></li><li><a href="/programmingLanguage/java">Java</a></li><li><a href="/programmingLanguage/plantuml">PlantUML</a></li><li><a href="/programmingLanguage/python">Python</a></li></ul></div><div class="custom-block links">
+    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div><div class="custom-block links">
 <ul class="desc">
 <li><a href="/javascript">javascript</a></li>
 </ul>
@@ -21,5 +21,6 @@ pageClass: theme-item
 <h1>编程语言</h1><strong>编程语言</strong>
 </div>
 <div class="static-content">
+
 
 </div>

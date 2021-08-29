@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>CSS变量</h1><strong>CSS变量</strong>
 </div>
 <div class="static-content">
+
 js操作变量
 ```html
 <style>

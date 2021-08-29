@@ -1,0 +1,1694 @@
+{
+    "/": {
+        "children": [
+            "/vue/",
+            "/docs",
+            "/timeline",
+            "/database/",
+            "/tools/",
+            "/css/",
+            "/system/",
+            "/server",
+            "/typescript",
+            "/designPattern",
+            "/webpack",
+            "/nginx",
+            "/algorithm",
+            "/ecma",
+            "/socket",
+            "/node/",
+            "/html5",
+            "/javascript/",
+            "/programmingLanguage/",
+            "/framework/",
+            "/standard/",
+            "/frontend/",
+            "/projects",
+            "/other",
+            "/computer/"
+        ],
+        "src": "index",
+        "path": "/"
+    },
+    "/README": {
+        "children": [
+            "/vue/",
+            "/docs",
+            "/timeline",
+            "/database/",
+            "/tools/",
+            "/css/",
+            "/system/",
+            "/server",
+            "/typescript",
+            "/designPattern",
+            "/webpack",
+            "/nginx",
+            "/algorithm",
+            "/ecma",
+            "/socket",
+            "/node/",
+            "/html5",
+            "/javascript/",
+            "/programmingLanguage/",
+            "/framework/",
+            "/standard/",
+            "/frontend/",
+            "/projects",
+            "/other",
+            "/computer/"
+        ],
+        "src": "index",
+        "path": "/"
+    },
+    "/vue/": {
+        "title": "Vue",
+        "src": "vue/index",
+        "links": [
+            {
+                "name": "vue-element-admin",
+                "href": "vue/vue-element-admin/index"
+            }
+        ],
+        "children": [],
+        "key": "vue",
+        "linkName": "Vue",
+        "path": "/vue/"
+    },
+    "/vue/README": {
+        "title": "Vue",
+        "src": "vue/index",
+        "links": [
+            {
+                "name": "vue-element-admin",
+                "href": "vue/vue-element-admin/index"
+            }
+        ],
+        "children": [],
+        "key": "vue",
+        "linkName": "Vue",
+        "path": "/vue/"
+    },
+    "/docs": {
+        "title": "文档",
+        "src": "docs",
+        "links": [
+            {
+                "name": "vuepress",
+                "href": "/framework/vuepress"
+            },
+            {
+                "name": "docsify",
+                "href": "/framework/docsify"
+            }
+        ],
+        "parent": "/",
+        "key": "docs",
+        "linkName": "文档",
+        "path": "/docs"
+    },
+    "/timeline": {
+        "title": "时间线",
+        "src": "timeline",
+        "parent": "/",
+        "key": "timeline",
+        "linkName": "时间线",
+        "path": "/timeline"
+    },
+    "/database/": {
+        "title": "数据库",
+        "children": [
+            "/database/mysql",
+            "/database/mongodb"
+        ],
+        "key": "database",
+        "linkName": "数据库",
+        "path": "/database/"
+    },
+    "/database/README": {
+        "title": "数据库",
+        "children": [
+            "/database/mysql",
+            "/database/mongodb"
+        ],
+        "key": "database",
+        "linkName": "数据库",
+        "path": "/database/"
+    },
+    "/database/mysql": {
+        "title": "MySQL",
+        "src": "data-mysql",
+        "parent": "/database/",
+        "key": "mysql",
+        "linkName": "MySQL",
+        "path": "/database/mysql"
+    },
+    "/database/mongodb": {
+        "title": "MongoDB",
+        "src": "data-mongodb",
+        "parent": "/database/",
+        "key": "mongodb",
+        "linkName": "MongoDB",
+        "path": "/database/mongodb"
+    },
+    "/tools/": {
+        "title": "工具&资源",
+        "src": "tools/index",
+        "links": [
+            {
+                "name": "文档",
+                "href": "/docs/"
+            },
+            {
+                "name": "Webpack",
+                "href": "/webpack"
+            }
+        ],
+        "children": [
+            "/tools/git",
+            "/tools/npm",
+            "/tools/markdown",
+            "/tools/qiankun",
+            "/tools/charts",
+            "/tools/vscode",
+            "/tools/chromeTools",
+            "/tools/uml",
+            "/tools/regularExpression",
+            "/tools/eslint",
+            "/tools/htmlBundler",
+            "/tools/postman"
+        ],
+        "key": "tools",
+        "linkName": "工具&资源",
+        "path": "/tools/"
+    },
+    "/tools/README": {
+        "title": "工具&资源",
+        "src": "tools/index",
+        "links": [
+            {
+                "name": "文档",
+                "href": "/docs/"
+            },
+            {
+                "name": "Webpack",
+                "href": "/webpack"
+            }
+        ],
+        "children": [
+            "/tools/git",
+            "/tools/npm",
+            "/tools/markdown",
+            "/tools/qiankun",
+            "/tools/charts",
+            "/tools/vscode",
+            "/tools/chromeTools",
+            "/tools/uml",
+            "/tools/regularExpression",
+            "/tools/eslint",
+            "/tools/htmlBundler",
+            "/tools/postman"
+        ],
+        "key": "tools",
+        "linkName": "工具&资源",
+        "path": "/tools/"
+    },
+    "/tools/git": {
+        "linkName": "Git",
+        "src": "git",
+        "parent": "/tools/",
+        "key": "git",
+        "title": "Git",
+        "path": "/tools/git"
+    },
+    "/tools/npm": {
+        "linkName": "NPM",
+        "src": "npm",
+        "scene": [
+            {
+                "title": "NPM内网源搭建",
+                "href": "/tools/npm",
+                "id": "NPM内网源搭建"
+            },
+            {
+                "title": "NPM版本管理",
+                "href": "/node",
+                "id": "版本管理"
+            }
+        ],
+        "usage": [
+            {
+                "title": "rvm",
+                "href": "/node",
+                "id": "版本管理",
+                "desc": "源于node版本改变的匹配"
+            }
+        ],
+        "parent": "/tools/",
+        "key": "npm",
+        "title": "NPM",
+        "path": "/tools/npm"
+    },
+    "/tools/markdown": {
+        "linkName": "Markdown",
+        "src": "markdown",
+        "parent": "/tools/",
+        "key": "markdown",
+        "title": "Markdown",
+        "path": "/tools/markdown"
+    },
+    "/tools/qiankun": {
+        "linkName": "乾坤微服务",
+        "src": "qiankun",
+        "parent": "/tools/",
+        "key": "qiankun",
+        "title": "乾坤微服务",
+        "path": "/tools/qiankun"
+    },
+    "/tools/charts": {
+        "linkName": "ECharts图表库",
+        "src": "echarts",
+        "parent": "/tools/",
+        "key": "charts",
+        "title": "ECharts图表库",
+        "path": "/tools/charts"
+    },
+    "/tools/vscode": {
+        "linkName": "VSCode",
+        "scene": [
+            {
+                "title": "简化特定通用代码",
+                "href": "/tools/vscode",
+                "id": "自定义用户片段"
+            }
+        ],
+        "src": "vscode",
+        "parent": "/tools/",
+        "key": "vscode",
+        "title": "VSCode",
+        "path": "/tools/vscode"
+    },
+    "/tools/chromeTools": {
+        "src": "chrome-tools",
+        "parent": "/tools/",
+        "key": "chromeTools",
+        "title": "chromeTools",
+        "linkName": "chromeTools",
+        "path": "/tools/chromeTools"
+    },
+    "/tools/uml": {
+        "src": "plantuml",
+        "links": [
+            {
+                "name": "PlantUML语言",
+                "href": "/programmingLanguage/plantuml"
+            }
+        ],
+        "parent": "/tools/",
+        "key": "uml",
+        "title": "uml",
+        "linkName": "uml",
+        "path": "/tools/uml"
+    },
+    "/tools/regularExpression": {
+        "linkName": "正则表达式",
+        "src": "regular-expression",
+        "parent": "/tools/",
+        "key": "regularExpression",
+        "title": "正则表达式",
+        "path": "/tools/regularExpression"
+    },
+    "/tools/eslint": {
+        "linkName": "ESLint",
+        "src": "eslint",
+        "parent": "/tools/",
+        "key": "eslint",
+        "title": "ESLint",
+        "path": "/tools/eslint"
+    },
+    "/tools/htmlBundler": {
+        "title": "html-bundler",
+        "src": "html-bundler",
+        "parent": "/tools/",
+        "key": "htmlBundler",
+        "linkName": "html-bundler",
+        "path": "/tools/htmlBundler"
+    },
+    "/tools/postman": {
+        "title": "PostMan",
+        "src": "tools/postman",
+        "parent": "/tools/",
+        "key": "postman",
+        "linkName": "PostMan",
+        "path": "/tools/postman"
+    },
+    "/css/": {
+        "title": "CSS",
+        "src": "css",
+        "desc": "层叠样式表(Cascading Style Sheets)",
+        "children": [
+            "/css/preset",
+            "/css/variable"
+        ],
+        "key": "css",
+        "linkName": "CSS",
+        "path": "/css/"
+    },
+    "/css/README": {
+        "title": "CSS",
+        "src": "css",
+        "desc": "层叠样式表(Cascading Style Sheets)",
+        "children": [
+            "/css/preset",
+            "/css/variable"
+        ],
+        "key": "css",
+        "linkName": "CSS",
+        "path": "/css/"
+    },
+    "/css/preset": {
+        "title": "预处理",
+        "src": "css-preset",
+        "parent": "/css/",
+        "key": "preset",
+        "linkName": "预处理",
+        "path": "/css/preset"
+    },
+    "/css/variable": {
+        "title": "CSS变量",
+        "src": "css-variable",
+        "parent": "/css/",
+        "key": "variable",
+        "linkName": "CSS变量",
+        "path": "/css/variable"
+    },
+    "/system/": {
+        "title": "操作系统",
+        "src": "system",
+        "children": [
+            "/system/mac",
+            "/system/linux",
+            "/system/windows",
+            "/system/ios",
+            "/system/android"
+        ],
+        "key": "system",
+        "linkName": "操作系统",
+        "path": "/system/"
+    },
+    "/system/README": {
+        "title": "操作系统",
+        "src": "system",
+        "children": [
+            "/system/mac",
+            "/system/linux",
+            "/system/windows",
+            "/system/ios",
+            "/system/android"
+        ],
+        "key": "system",
+        "linkName": "操作系统",
+        "path": "/system/"
+    },
+    "/system/mac": {
+        "title": "MacBook",
+        "linkName": "MacBook",
+        "src": "system-mac",
+        "parent": "/system/",
+        "key": "mac",
+        "path": "/system/mac"
+    },
+    "/system/linux": {
+        "title": "Linux",
+        "linkName": "Linux",
+        "src": "system-linux",
+        "parent": "/system/",
+        "key": "linux",
+        "path": "/system/linux"
+    },
+    "/system/windows": {
+        "title": "Windows",
+        "linkName": "Windows",
+        "src": "system-windows",
+        "parent": "/system/",
+        "key": "windows",
+        "path": "/system/windows"
+    },
+    "/system/ios": {
+        "title": "IOS",
+        "linkName": "IOS",
+        "src": "ios",
+        "parent": "/system/",
+        "key": "ios",
+        "path": "/system/ios"
+    },
+    "/system/android": {
+        "title": "Android",
+        "linkName": "Android",
+        "src": "android",
+        "parent": "/system/",
+        "key": "android",
+        "path": "/system/android"
+    },
+    "/server": {
+        "title": "服务器",
+        "src": "server",
+        "links": [
+            {
+                "name": "koa",
+                "href": "/node/koa"
+            },
+            {
+                "name": "express",
+                "href": "/node/express"
+            }
+        ],
+        "parent": "/",
+        "key": "server",
+        "linkName": "服务器",
+        "path": "/server"
+    },
+    "/typescript": {
+        "linkName": "Typescript",
+        "src": "typescript",
+        "parent": "/",
+        "key": "typescript",
+        "title": "Typescript",
+        "path": "/typescript"
+    },
+    "/designPattern": {
+        "title": "设计模式",
+        "src": "design-pattern",
+        "parent": "/",
+        "key": "designPattern",
+        "linkName": "设计模式",
+        "path": "/designPattern"
+    },
+    "/webpack": {
+        "linkName": "Webpack",
+        "src": "webpack",
+        "parent": "/",
+        "key": "webpack",
+        "title": "Webpack",
+        "path": "/webpack"
+    },
+    "/nginx": {
+        "linkName": "Nginx",
+        "usage": [
+            {
+                "title": "windows",
+                "desc": [
+                    {
+                        "title": "安装",
+                        "text": "http://nginx.org/en/download.html"
+                    },
+                    {
+                        "title": "配置",
+                        "text": "c:\\nginx\\conf\\nginx.conf"
+                    },
+                    {
+                        "title": "启动",
+                        "text": "c:\\server\\nginx-1.0.2 > start nginx 或 c:\\server\\nginx-1.0.2 > nginx.exe"
+                    },
+                    {
+                        "title": "重启",
+                        "text": "c:\\server\\nginx-1.0.2 > nginx.exe -s reload  "
+                    },
+                    {
+                        "title": "停止",
+                        "text": "c:\\server\\nginx-1.0.2 > nginx.exe -s stop 或 c:\\server\\nginx-1.0.2 > nginx.exe -s quit"
+                    }
+                ]
+            },
+            {
+                "title": "mac",
+                "desc": [
+                    {
+                        "title": "依赖ruby",
+                        "text": "ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\""
+                    },
+                    {
+                        "title": "安装",
+                        "text": "brew install nginx"
+                    },
+                    {
+                        "title": "配置",
+                        "text": "/usr/local/etc/nginx/nginx.conf"
+                    },
+                    {
+                        "title": "启动",
+                        "text": "nginx  重启: nginx -s reload  停止: nginx -s stop"
+                    }
+                ]
+            }
+        ],
+        "src": "nginx",
+        "parent": "/",
+        "key": "nginx",
+        "title": "Nginx",
+        "path": "/nginx"
+    },
+    "/algorithm": {
+        "linkName": "算法",
+        "src": "algorithm",
+        "parent": "/",
+        "key": "algorithm",
+        "title": "算法",
+        "path": "/algorithm"
+    },
+    "/ecma": {
+        "linkName": "ECMAScript规范",
+        "src": "ecmascript",
+        "links": [
+            {
+                "name": "ES6",
+                "href": "/programmingLanguage/javascript/es6"
+            }
+        ],
+        "parent": "/",
+        "key": "ecma",
+        "title": "ECMAScript规范",
+        "path": "/ecma"
+    },
+    "/socket": {
+        "linkName": "Socket",
+        "src": "socket",
+        "parent": "/",
+        "key": "socket",
+        "title": "Socket",
+        "path": "/socket"
+    },
+    "/node/": {
+        "linkName": "Node",
+        "scene": [
+            {
+                "title": "Node版本管理",
+                "href": "/node",
+                "id": "版本管理"
+            }
+        ],
+        "usage": [
+            {
+                "title": "rvm",
+                "href": "/node",
+                "id": "版本管理",
+                "desc": [
+                    "nvm list 显示已安装的列表",
+                    "nvm list available 显示可安装的所有版本",
+                    "nvm install 12.18.2 安装特定版本",
+                    "nvm use 12.18.2 使用指定版本"
+                ]
+            }
+        ],
+        "src": "node/index",
+        "children": [
+            "/node/plugin",
+            "/node/framework",
+            "/node/package"
+        ],
+        "key": "node",
+        "title": "Node",
+        "path": "/node/"
+    },
+    "/node/README": {
+        "linkName": "Node",
+        "scene": [
+            {
+                "title": "Node版本管理",
+                "href": "/node",
+                "id": "版本管理"
+            }
+        ],
+        "usage": [
+            {
+                "title": "rvm",
+                "href": "/node",
+                "id": "版本管理",
+                "desc": [
+                    "nvm list 显示已安装的列表",
+                    "nvm list available 显示可安装的所有版本",
+                    "nvm install 12.18.2 安装特定版本",
+                    "nvm use 12.18.2 使用指定版本"
+                ]
+            }
+        ],
+        "src": "node/index",
+        "children": [
+            "/node/plugin",
+            "/node/framework",
+            "/node/package"
+        ],
+        "key": "node",
+        "title": "Node",
+        "path": "/node/"
+    },
+    "/node/plugin": {
+        "title": "插件",
+        "src": "node/plugin",
+        "parent": "/node/",
+        "key": "plugin",
+        "linkName": "插件",
+        "path": "/node/plugin"
+    },
+    "/node/framework": {
+        "title": "框架",
+        "src": "node-framework",
+        "parent": "/node/",
+        "key": "framework",
+        "linkName": "框架",
+        "path": "/node/framework"
+    },
+    "/node/package": {
+        "title": "描述文件package.json",
+        "src": "node/package",
+        "parent": "/node/",
+        "key": "package",
+        "linkName": "描述文件package.json",
+        "path": "/node/package"
+    },
+    "/html5": {
+        "title": "HTML5",
+        "src": "html5",
+        "parent": "/",
+        "key": "html5",
+        "linkName": "HTML5",
+        "path": "/html5"
+    },
+    "/javascript/": {
+        "title": "Javascript",
+        "src": "javascript",
+        "children": [
+            "/javascript/es6",
+            "/javascript/ecmascript"
+        ],
+        "key": "javascript",
+        "linkName": "Javascript",
+        "path": "/javascript/"
+    },
+    "/javascript/README": {
+        "title": "Javascript",
+        "src": "javascript",
+        "children": [
+            "/javascript/es6",
+            "/javascript/ecmascript"
+        ],
+        "key": "javascript",
+        "linkName": "Javascript",
+        "path": "/javascript/"
+    },
+    "/javascript/es6": {
+        "src": "js-es6",
+        "parent": "/javascript/",
+        "key": "es6",
+        "title": "es6",
+        "linkName": "es6",
+        "path": "/javascript/es6"
+    },
+    "/javascript/ecmascript": {
+        "title": "ECMAScript",
+        "src": "ecmascript",
+        "parent": "/javascript/",
+        "key": "ecmascript",
+        "linkName": "ECMAScript",
+        "path": "/javascript/ecmascript"
+    },
+    "/programmingLanguage/": {
+        "linkName": "编程语言",
+        "links": [
+            {
+                "name": "javascript",
+                "href": "/javascript"
+            }
+        ],
+        "children": [
+            "/programmingLanguage/matlab",
+            "/programmingLanguage/ruby",
+            "/programmingLanguage/wechat",
+            "/programmingLanguage/electron",
+            "/programmingLanguage/java",
+            "/programmingLanguage/plantuml",
+            "/programmingLanguage/python"
+        ],
+        "key": "programmingLanguage",
+        "title": "编程语言",
+        "path": "/programmingLanguage/"
+    },
+    "/programmingLanguage/README": {
+        "linkName": "编程语言",
+        "links": [
+            {
+                "name": "javascript",
+                "href": "/javascript"
+            }
+        ],
+        "children": [
+            "/programmingLanguage/matlab",
+            "/programmingLanguage/ruby",
+            "/programmingLanguage/wechat",
+            "/programmingLanguage/electron",
+            "/programmingLanguage/java",
+            "/programmingLanguage/plantuml",
+            "/programmingLanguage/python"
+        ],
+        "key": "programmingLanguage",
+        "title": "编程语言",
+        "path": "/programmingLanguage/"
+    },
+    "/programmingLanguage/matlab": {
+        "desc": "算法开发、数据可视化、数据分析、数值计算、信号处理和仿真建模的科学计算语言和编程环境",
+        "keyword": "软件/数据/图像/研发/控制/量化/测试/嵌入式/机器学习/仿真/通信",
+        "parent": "/programmingLanguage/",
+        "key": "matlab",
+        "title": "matlab",
+        "linkName": "matlab",
+        "path": "/programmingLanguage/matlab"
+    },
+    "/programmingLanguage/ruby": {
+        "src": "ruby",
+        "parent": "/programmingLanguage/",
+        "key": "ruby",
+        "title": "ruby",
+        "linkName": "ruby",
+        "path": "/programmingLanguage/ruby"
+    },
+    "/programmingLanguage/wechat": {
+        "linkName": "微信小程序",
+        "src": "wechat",
+        "parent": "/programmingLanguage/",
+        "key": "wechat",
+        "title": "微信小程序",
+        "path": "/programmingLanguage/wechat"
+    },
+    "/programmingLanguage/electron": {
+        "linkName": "Electron",
+        "src": "electron",
+        "parent": "/programmingLanguage/",
+        "key": "electron",
+        "title": "Electron",
+        "path": "/programmingLanguage/electron"
+    },
+    "/programmingLanguage/java": {
+        "title": "Java",
+        "src": "java",
+        "parent": "/programmingLanguage/",
+        "key": "java",
+        "linkName": "Java",
+        "path": "/programmingLanguage/java"
+    },
+    "/programmingLanguage/plantuml": {
+        "title": "PlantUML",
+        "src": "plantuml",
+        "parent": "/programmingLanguage/",
+        "key": "plantuml",
+        "linkName": "PlantUML",
+        "path": "/programmingLanguage/plantuml"
+    },
+    "/programmingLanguage/python": {
+        "title": "Python",
+        "src": "python",
+        "parent": "/programmingLanguage/",
+        "key": "python",
+        "linkName": "Python",
+        "path": "/programmingLanguage/python"
+    },
+    "/framework/": {
+        "title": "技术框架",
+        "children": [
+            "/framework/vuepress",
+            "/framework/docsify"
+        ],
+        "key": "framework",
+        "linkName": "技术框架",
+        "path": "/framework/"
+    },
+    "/framework/README": {
+        "title": "技术框架",
+        "children": [
+            "/framework/vuepress",
+            "/framework/docsify"
+        ],
+        "key": "framework",
+        "linkName": "技术框架",
+        "path": "/framework/"
+    },
+    "/framework/vuepress": {
+        "linkName": "Vuepress",
+        "scene": [
+            {
+                "title": "部署到一个非根路径",
+                "href": "/framework/vuepress",
+                "id": "部署到一个非根路径"
+            },
+            {
+                "title": "插入图片",
+                "href": "/framework/vuepress",
+                "id": "公共资源库"
+            }
+        ],
+        "usage": {
+            "title": "Vuepress",
+            "href": "/framework/vuepress",
+            "id": "使用指南",
+            "desc": [
+                "创建 docs 目录",
+                "复制 .usage 到 docs/",
+                "基础部署 node docs/.usage/deploy.js",
+                "地图创建 node docs/.usage/create.js",
+                "npm run docs:dev"
+            ]
+        },
+        "src": "vuepress",
+        "parent": "/framework/",
+        "key": "vuepress",
+        "title": "Vuepress",
+        "path": "/framework/vuepress"
+    },
+    "/framework/docsify": {
+        "linkName": "Docsify",
+        "usage": {
+            "desc": [
+                "$ sudo npm i docsify-cli -g",
+                "demo> docsify init ./docs",
+                "demo> docsify serve docs"
+            ]
+        },
+        "parent": "/framework/",
+        "key": "docsify",
+        "title": "Docsify",
+        "path": "/framework/docsify"
+    },
+    "/standard/": {
+        "title": "规范",
+        "src": "standard/index",
+        "children": [],
+        "key": "standard",
+        "linkName": "规范",
+        "path": "/standard/"
+    },
+    "/standard/README": {
+        "title": "规范",
+        "src": "standard/index",
+        "children": [],
+        "key": "standard",
+        "linkName": "规范",
+        "path": "/standard/"
+    },
+    "/frontend/": {
+        "title": "前端体系",
+        "src": "frontend/index",
+        "desc": "前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。",
+        "children": [
+            "/frontend/layerBusiness/",
+            "/frontend/layerSecurity/",
+            "/frontend/layerInfrastructure/",
+            "/frontend/layerOffline/"
+        ],
+        "links": [
+            {
+                "name": "规范",
+                "href": "/standard"
+            },
+            {
+                "name": "qiankun",
+                "href": "/tools/qiankun"
+            }
+        ],
+        "key": "frontend",
+        "linkName": "前端体系",
+        "path": "/frontend/"
+    },
+    "/frontend/README": {
+        "title": "前端体系",
+        "src": "frontend/index",
+        "desc": "前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。",
+        "children": [
+            "/frontend/layerBusiness/",
+            "/frontend/layerSecurity/",
+            "/frontend/layerInfrastructure/",
+            "/frontend/layerOffline/"
+        ],
+        "links": [
+            {
+                "name": "规范",
+                "href": "/standard"
+            },
+            {
+                "name": "qiankun",
+                "href": "/tools/qiankun"
+            }
+        ],
+        "key": "frontend",
+        "linkName": "前端体系",
+        "path": "/frontend/"
+    },
+    "/frontend/layerBusiness/": {
+        "title": "业务层",
+        "desc": "重点关注服务的全面性和可复用性",
+        "children": [
+            "/frontend/layerBusiness/systemAuthentication",
+            "/frontend/layerBusiness/systemConfiguration",
+            "/frontend/layerBusiness/systemMessage",
+            "/frontend/layerBusiness/systemBusiness/"
+        ],
+        "key": "layerBusiness",
+        "linkName": "业务层",
+        "path": "/frontend/layerBusiness/"
+    },
+    "/frontend/layerBusiness/README": {
+        "title": "业务层",
+        "desc": "重点关注服务的全面性和可复用性",
+        "children": [
+            "/frontend/layerBusiness/systemAuthentication",
+            "/frontend/layerBusiness/systemConfiguration",
+            "/frontend/layerBusiness/systemMessage",
+            "/frontend/layerBusiness/systemBusiness/"
+        ],
+        "key": "layerBusiness",
+        "linkName": "业务层",
+        "path": "/frontend/layerBusiness/"
+    },
+    "/frontend/layerBusiness/systemAuthentication": {
+        "title": "鉴权系统",
+        "desc": "集中处理登陆、支付等需要风险控制较高的公共业务",
+        "links": [
+            {
+                "name": "账号体系",
+                "href": "/solution"
+            },
+            {
+                "name": "登陆",
+                "href": "./systemBusiness/libraryPublic/function/login"
+            },
+            {
+                "name": "支付",
+                "href": "../systemBusiness/libraryPublic/function/payment"
+            }
+        ],
+        "src": "0001",
+        "parent": "/frontend/layerBusiness/",
+        "key": "systemAuthentication",
+        "linkName": "鉴权系统",
+        "path": "/frontend/layerBusiness/systemAuthentication"
+    },
+    "/frontend/layerBusiness/systemConfiguration": {
+        "title": "配置系统",
+        "desc": "集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。",
+        "linkName": "配置系统",
+        "parent": "/frontend/layerBusiness/",
+        "key": "systemConfiguration",
+        "path": "/frontend/layerBusiness/systemConfiguration"
+    },
+    "/frontend/layerBusiness/systemMessage": {
+        "title": "消息系统",
+        "desc": "通知发布 信息推送 客服等即时通讯场景",
+        "linkName": "消息系统",
+        "parent": "/frontend/layerBusiness/",
+        "key": "systemMessage",
+        "path": "/frontend/layerBusiness/systemMessage"
+    },
+    "/frontend/layerBusiness/systemBusiness/": {
+        "title": "业务系统",
+        "desc": "核心系统，其它系统是对它的支持或者控制",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/componentBusiness/",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/"
+        ],
+        "key": "systemBusiness",
+        "linkName": "业务系统",
+        "path": "/frontend/layerBusiness/systemBusiness/"
+    },
+    "/frontend/layerBusiness/systemBusiness/README": {
+        "title": "业务系统",
+        "desc": "核心系统，其它系统是对它的支持或者控制",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/componentBusiness/",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/"
+        ],
+        "key": "systemBusiness",
+        "linkName": "业务系统",
+        "path": "/frontend/layerBusiness/systemBusiness/"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/": {
+        "title": "业务组件",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/componentBusiness/ui",
+            "/frontend/layerBusiness/systemBusiness/componentBusiness/moduleFunction"
+        ],
+        "key": "componentBusiness",
+        "linkName": "业务组件",
+        "path": "/frontend/layerBusiness/systemBusiness/componentBusiness/"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/README": {
+        "title": "业务组件",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/componentBusiness/ui",
+            "/frontend/layerBusiness/systemBusiness/componentBusiness/moduleFunction"
+        ],
+        "key": "componentBusiness",
+        "linkName": "业务组件",
+        "path": "/frontend/layerBusiness/systemBusiness/componentBusiness/"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/ui": {
+        "title": "样式组件",
+        "linkName": "样式组件",
+        "parent": "/frontend/layerBusiness/systemBusiness/componentBusiness/",
+        "key": "ui",
+        "path": "/frontend/layerBusiness/systemBusiness/componentBusiness/ui"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/moduleFunction": {
+        "title": "功能模块",
+        "linkName": "功能模块",
+        "parent": "/frontend/layerBusiness/systemBusiness/componentBusiness/",
+        "key": "moduleFunction",
+        "path": "/frontend/layerBusiness/systemBusiness/componentBusiness/moduleFunction"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/": {
+        "title": "公共库",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/style",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/"
+        ],
+        "key": "libraryPublic",
+        "linkName": "公共库",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/README": {
+        "title": "公共库",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/style",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/"
+        ],
+        "key": "libraryPublic",
+        "linkName": "公共库",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/style": {
+        "title": "样式库",
+        "desc": "利于各业务线之间保持用户体验的一致性",
+        "linkName": "样式库",
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryPublic/",
+        "key": "style",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/style"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/": {
+        "title": "功能库",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/login",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/statistics"
+        ],
+        "key": "function",
+        "linkName": "功能库",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/README": {
+        "title": "功能库",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/login",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment",
+            "/frontend/layerBusiness/systemBusiness/libraryPublic/function/statistics"
+        ],
+        "key": "function",
+        "linkName": "功能库",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/login": {
+        "title": "登陆",
+        "links": [
+            {
+                "name": "账号体系",
+                "href": "/solution"
+            }
+        ],
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/",
+        "key": "login",
+        "linkName": "登陆",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/login"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment": {
+        "title": "支付",
+        "links": [
+            {
+                "name": "鉴权",
+                "href": "../../../../systemAuthentication"
+            },
+            {
+                "name": "支付场景",
+                "href": "/scene/payment"
+            }
+        ],
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/",
+        "key": "payment",
+        "linkName": "支付",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/statistics": {
+        "title": "数据统计",
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/",
+        "key": "statistics",
+        "linkName": "数据统计",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryPublic/function/statistics"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/": {
+        "title": "第三方库",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkStyle",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkUI",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/function",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/basic"
+        ],
+        "key": "libraryThird",
+        "linkName": "第三方库",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryThird/"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/README": {
+        "title": "第三方库",
+        "children": [
+            "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkStyle",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkUI",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/function",
+            "/frontend/layerBusiness/systemBusiness/libraryThird/basic"
+        ],
+        "key": "libraryThird",
+        "linkName": "第三方库",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryThird/"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkStyle": {
+        "title": "样式框架",
+        "links": [
+            {
+                "name": "Bootstrap"
+            },
+            {
+                "name": "Material"
+            },
+            {
+                "name": "design"
+            }
+        ],
+        "linkName": "公共样式框架",
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryThird/",
+        "key": "frameworkStyle",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkStyle"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkUI": {
+        "title": "UI框架",
+        "links": [
+            {
+                "name": "React"
+            },
+            {
+                "name": "Vue"
+            }
+        ],
+        "linkName": "公共UI框架",
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryThird/",
+        "key": "frameworkUI",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkUI"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/function": {
+        "title": "功能库",
+        "links": [
+            {
+                "name": "Fetch"
+            },
+            {
+                "name": "Modernizr"
+            },
+            {
+                "name": "Sentry"
+            },
+            {
+                "name": "Google Analytics"
+            }
+        ],
+        "linkName": "公共功能库",
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryThird/",
+        "key": "function",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryThird/function"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/basic": {
+        "title": "基础库",
+        "links": [
+            {
+                "nmae": "jQuery"
+            },
+            {
+                "nmae": "Zetpo"
+            },
+            {
+                "nmae": "Underscore"
+            },
+            {
+                "nmae": "Lodash"
+            }
+        ],
+        "linkName": "公共基础库",
+        "parent": "/frontend/layerBusiness/systemBusiness/libraryThird/",
+        "key": "basic",
+        "path": "/frontend/layerBusiness/systemBusiness/libraryThird/basic"
+    },
+    "/frontend/layerSecurity/": {
+        "title": "保障层",
+        "desc": "重点关注质量与可用性",
+        "children": [
+            "/frontend/layerSecurity/systemMonitor",
+            "/frontend/layerSecurity/systemStatistical/",
+            "/frontend/layerSecurity/systemTest/"
+        ],
+        "key": "layerSecurity",
+        "linkName": "保障层",
+        "path": "/frontend/layerSecurity/"
+    },
+    "/frontend/layerSecurity/README": {
+        "title": "保障层",
+        "desc": "重点关注质量与可用性",
+        "children": [
+            "/frontend/layerSecurity/systemMonitor",
+            "/frontend/layerSecurity/systemStatistical/",
+            "/frontend/layerSecurity/systemTest/"
+        ],
+        "key": "layerSecurity",
+        "linkName": "保障层",
+        "path": "/frontend/layerSecurity/"
+    },
+    "/frontend/layerSecurity/systemMonitor": {
+        "title": "监控系统",
+        "desc": "从用户的角度判断系统的可用性，关注的是实时数据，提高团队的故障响应能力",
+        "src": "system-monitor",
+        "parent": "/frontend/layerSecurity/",
+        "key": "systemMonitor",
+        "linkName": "监控系统",
+        "path": "/frontend/layerSecurity/systemMonitor"
+    },
+    "/frontend/layerSecurity/systemStatistical/": {
+        "title": "统计系统",
+        "desc": "关注的是全量数据，为产品与业务分析提供基础",
+        "children": [
+            "/frontend/layerSecurity/systemStatistical/performance",
+            "/frontend/layerSecurity/systemStatistical/pv",
+            "/frontend/layerSecurity/systemStatistical/behavior"
+        ],
+        "key": "systemStatistical",
+        "linkName": "统计系统",
+        "path": "/frontend/layerSecurity/systemStatistical/"
+    },
+    "/frontend/layerSecurity/systemStatistical/README": {
+        "title": "统计系统",
+        "desc": "关注的是全量数据，为产品与业务分析提供基础",
+        "children": [
+            "/frontend/layerSecurity/systemStatistical/performance",
+            "/frontend/layerSecurity/systemStatistical/pv",
+            "/frontend/layerSecurity/systemStatistical/behavior"
+        ],
+        "key": "systemStatistical",
+        "linkName": "统计系统",
+        "path": "/frontend/layerSecurity/systemStatistical/"
+    },
+    "/frontend/layerSecurity/systemStatistical/performance": {
+        "title": "性能统计",
+        "parent": "/frontend/layerSecurity/systemStatistical/",
+        "key": "performance",
+        "linkName": "性能统计",
+        "path": "/frontend/layerSecurity/systemStatistical/performance"
+    },
+    "/frontend/layerSecurity/systemStatistical/pv": {
+        "title": "访问量统计",
+        "parent": "/frontend/layerSecurity/systemStatistical/",
+        "key": "pv",
+        "linkName": "访问量统计",
+        "path": "/frontend/layerSecurity/systemStatistical/pv"
+    },
+    "/frontend/layerSecurity/systemStatistical/behavior": {
+        "title": "用户行为统计",
+        "parent": "/frontend/layerSecurity/systemStatistical/",
+        "key": "behavior",
+        "linkName": "用户行为统计",
+        "path": "/frontend/layerSecurity/systemStatistical/behavior"
+    },
+    "/frontend/layerSecurity/systemTest/": {
+        "title": "测试系统",
+        "src": "frontend/test",
+        "desc": "自动化测试是是一个锥形体系",
+        "children": [
+            "/frontend/layerSecurity/systemTest/static",
+            "/frontend/layerSecurity/systemTest/unit",
+            "/frontend/layerSecurity/systemTest/e2e",
+            "/frontend/layerSecurity/systemTest/ci"
+        ],
+        "key": "systemTest",
+        "linkName": "测试系统",
+        "path": "/frontend/layerSecurity/systemTest/"
+    },
+    "/frontend/layerSecurity/systemTest/README": {
+        "title": "测试系统",
+        "src": "frontend/test",
+        "desc": "自动化测试是是一个锥形体系",
+        "children": [
+            "/frontend/layerSecurity/systemTest/static",
+            "/frontend/layerSecurity/systemTest/unit",
+            "/frontend/layerSecurity/systemTest/e2e",
+            "/frontend/layerSecurity/systemTest/ci"
+        ],
+        "key": "systemTest",
+        "linkName": "测试系统",
+        "path": "/frontend/layerSecurity/systemTest/"
+    },
+    "/frontend/layerSecurity/systemTest/static": {
+        "title": "静态检查",
+        "links": [
+            {
+                "name": "Eslint",
+                "href": "tools/eslint"
+            },
+            {
+                "name": "JSCS"
+            }
+        ],
+        "parent": "/frontend/layerSecurity/systemTest/",
+        "key": "static",
+        "linkName": "静态检查",
+        "path": "/frontend/layerSecurity/systemTest/static"
+    },
+    "/frontend/layerSecurity/systemTest/unit": {
+        "title": "单元测试",
+        "src": "unit",
+        "links": [
+            {
+                "name": "Karma"
+            },
+            {
+                "name": "Jasmine"
+            },
+            {
+                "name": "Mocha"
+            }
+        ],
+        "parent": "/frontend/layerSecurity/systemTest/",
+        "key": "unit",
+        "linkName": "单元测试",
+        "path": "/frontend/layerSecurity/systemTest/unit"
+    },
+    "/frontend/layerSecurity/systemTest/e2e": {
+        "title": "端到端测试",
+        "desc": "从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景",
+        "links": [
+            {
+                "name": "Protractor"
+            },
+            {
+                "name": "Nightwatch"
+            },
+            {
+                "name": "Selenium"
+            }
+        ],
+        "parent": "/frontend/layerSecurity/systemTest/",
+        "key": "e2e",
+        "linkName": "端到端测试",
+        "path": "/frontend/layerSecurity/systemTest/e2e"
+    },
+    "/frontend/layerSecurity/systemTest/ci": {
+        "title": "持续集成(Continuous integration 简称CI)",
+        "desc": "一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入",
+        "src": "frontend/ci",
+        "parent": "/frontend/layerSecurity/systemTest/",
+        "key": "ci",
+        "linkName": "持续集成(Continuous integration 简称CI)",
+        "path": "/frontend/layerSecurity/systemTest/ci"
+    },
+    "/frontend/layerInfrastructure/": {
+        "title": "基础设施层",
+        "desc": "重点关注系统稳定性",
+        "children": [
+            "/frontend/layerInfrastructure/systemResourceManagement/",
+            "/frontend/layerInfrastructure/systemDataPersistence",
+            "/frontend/layerInfrastructure/systemOperationMaintenance"
+        ],
+        "key": "layerInfrastructure",
+        "linkName": "基础设施层",
+        "path": "/frontend/layerInfrastructure/"
+    },
+    "/frontend/layerInfrastructure/README": {
+        "title": "基础设施层",
+        "desc": "重点关注系统稳定性",
+        "children": [
+            "/frontend/layerInfrastructure/systemResourceManagement/",
+            "/frontend/layerInfrastructure/systemDataPersistence",
+            "/frontend/layerInfrastructure/systemOperationMaintenance"
+        ],
+        "key": "layerInfrastructure",
+        "linkName": "基础设施层",
+        "path": "/frontend/layerInfrastructure/"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/": {
+        "title": "资源管理系统",
+        "children": [
+            "/frontend/layerInfrastructure/systemResourceManagement/cdn",
+            "/frontend/layerInfrastructure/systemResourceManagement/image",
+            "/frontend/layerInfrastructure/systemResourceManagement/publishing",
+            "/frontend/layerInfrastructure/systemResourceManagement/offlinePackageManagement"
+        ],
+        "key": "systemResourceManagement",
+        "linkName": "资源管理系统",
+        "path": "/frontend/layerInfrastructure/systemResourceManagement/"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/README": {
+        "title": "资源管理系统",
+        "children": [
+            "/frontend/layerInfrastructure/systemResourceManagement/cdn",
+            "/frontend/layerInfrastructure/systemResourceManagement/image",
+            "/frontend/layerInfrastructure/systemResourceManagement/publishing",
+            "/frontend/layerInfrastructure/systemResourceManagement/offlinePackageManagement"
+        ],
+        "key": "systemResourceManagement",
+        "linkName": "资源管理系统",
+        "path": "/frontend/layerInfrastructure/systemResourceManagement/"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/cdn": {
+        "title": "CDN",
+        "parent": "/frontend/layerInfrastructure/systemResourceManagement/",
+        "key": "cdn",
+        "linkName": "CDN",
+        "path": "/frontend/layerInfrastructure/systemResourceManagement/cdn"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/image": {
+        "title": "图片管理",
+        "parent": "/frontend/layerInfrastructure/systemResourceManagement/",
+        "key": "image",
+        "linkName": "图片管理",
+        "path": "/frontend/layerInfrastructure/systemResourceManagement/image"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/publishing": {
+        "title": "发布工具",
+        "parent": "/frontend/layerInfrastructure/systemResourceManagement/",
+        "key": "publishing",
+        "linkName": "发布工具",
+        "path": "/frontend/layerInfrastructure/systemResourceManagement/publishing"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/offlinePackageManagement": {
+        "title": "离线包管理",
+        "parent": "/frontend/layerInfrastructure/systemResourceManagement/",
+        "key": "offlinePackageManagement",
+        "linkName": "离线包管理",
+        "path": "/frontend/layerInfrastructure/systemResourceManagement/offlinePackageManagement"
+    },
+    "/frontend/layerInfrastructure/systemDataPersistence": {
+        "title": "数据持久化系统",
+        "desc": "存储上层系统的非核心业务数据，比如错误数据或者用户行为数据",
+        "parent": "/frontend/layerInfrastructure/",
+        "key": "systemDataPersistence",
+        "linkName": "数据持久化系统",
+        "path": "/frontend/layerInfrastructure/systemDataPersistence"
+    },
+    "/frontend/layerInfrastructure/systemOperationMaintenance": {
+        "title": "运维系统",
+        "desc": "版本控制 发布脚本",
+        "parent": "/frontend/layerInfrastructure/",
+        "key": "systemOperationMaintenance",
+        "linkName": "运维系统",
+        "path": "/frontend/layerInfrastructure/systemOperationMaintenance"
+    },
+    "/frontend/layerOffline/": {
+        "title": "线下层",
+        "desc": "重点关注项目开发效率",
+        "children": [
+            "/frontend/layerOffline/tools/",
+            "/frontend/layerOffline/systemComponent"
+        ],
+        "key": "layerOffline",
+        "linkName": "线下层",
+        "path": "/frontend/layerOffline/"
+    },
+    "/frontend/layerOffline/README": {
+        "title": "线下层",
+        "desc": "重点关注项目开发效率",
+        "children": [
+            "/frontend/layerOffline/tools/",
+            "/frontend/layerOffline/systemComponent"
+        ],
+        "key": "layerOffline",
+        "linkName": "线下层",
+        "path": "/frontend/layerOffline/"
+    },
+    "/frontend/layerOffline/tools/": {
+        "title": "工具集",
+        "children": [
+            "/frontend/layerOffline/tools/codeManagement",
+            "/frontend/layerOffline/tools/packageManagement",
+            "/frontend/layerOffline/tools/buildTools",
+            "/frontend/layerOffline/tools/taskManagement",
+            "/frontend/layerOffline/tools/scaffolding"
+        ],
+        "key": "tools",
+        "linkName": "工具集",
+        "path": "/frontend/layerOffline/tools/"
+    },
+    "/frontend/layerOffline/tools/README": {
+        "title": "工具集",
+        "children": [
+            "/frontend/layerOffline/tools/codeManagement",
+            "/frontend/layerOffline/tools/packageManagement",
+            "/frontend/layerOffline/tools/buildTools",
+            "/frontend/layerOffline/tools/taskManagement",
+            "/frontend/layerOffline/tools/scaffolding"
+        ],
+        "key": "tools",
+        "linkName": "工具集",
+        "path": "/frontend/layerOffline/tools/"
+    },
+    "/frontend/layerOffline/tools/codeManagement": {
+        "title": "代码管理",
+        "links": [
+            {
+                "name": "Git Stash"
+            }
+        ],
+        "parent": "/frontend/layerOffline/tools/",
+        "key": "codeManagement",
+        "linkName": "代码管理",
+        "path": "/frontend/layerOffline/tools/codeManagement"
+    },
+    "/frontend/layerOffline/tools/packageManagement": {
+        "title": "包管理",
+        "links": [
+            {
+                "name": "NPM Bower Yarn"
+            }
+        ],
+        "parent": "/frontend/layerOffline/tools/",
+        "key": "packageManagement",
+        "linkName": "包管理",
+        "path": "/frontend/layerOffline/tools/packageManagement"
+    },
+    "/frontend/layerOffline/tools/buildTools": {
+        "title": "构建工具",
+        "links": [
+            {
+                "name": "Webpack"
+            }
+        ],
+        "parent": "/frontend/layerOffline/tools/",
+        "key": "buildTools",
+        "linkName": "构建工具",
+        "path": "/frontend/layerOffline/tools/buildTools"
+    },
+    "/frontend/layerOffline/tools/taskManagement": {
+        "title": "任务管理工具",
+        "links": [
+            {
+                "name": "Gulp Grunt"
+            }
+        ],
+        "parent": "/frontend/layerOffline/tools/",
+        "key": "taskManagement",
+        "linkName": "任务管理工具",
+        "path": "/frontend/layerOffline/tools/taskManagement"
+    },
+    "/frontend/layerOffline/tools/scaffolding": {
+        "title": "脚手架",
+        "links": [
+            {
+                "name": "Yeoman"
+            }
+        ],
+        "parent": "/frontend/layerOffline/tools/",
+        "key": "scaffolding",
+        "linkName": "脚手架",
+        "path": "/frontend/layerOffline/tools/scaffolding"
+    },
+    "/frontend/layerOffline/systemComponent": {
+        "title": "组件系统",
+        "desc": "作用在于集中管理可复用的开发资源,各业务线优先从系统中选取可复用的部分，同时向系统中沉淀组件",
+        "parent": "/frontend/layerOffline/",
+        "key": "systemComponent",
+        "linkName": "组件系统",
+        "path": "/frontend/layerOffline/systemComponent"
+    },
+    "/projects": {
+        "title": "项目",
+        "src": "projects",
+        "parent": "/",
+        "key": "projects",
+        "linkName": "项目",
+        "path": "/projects"
+    },
+    "/other": {
+        "linkName": "其它",
+        "src": "other",
+        "parent": "/",
+        "key": "other",
+        "title": "其它",
+        "path": "/other"
+    },
+    "/computer/": {
+        "title": "计算机",
+        "src": "computer/index",
+        "children": [
+            "/computer/dataStructure",
+            "/computer/computerNetworks",
+            "/computer/algorithm"
+        ],
+        "key": "computer",
+        "linkName": "计算机",
+        "path": "/computer/"
+    },
+    "/computer/README": {
+        "title": "计算机",
+        "src": "computer/index",
+        "children": [
+            "/computer/dataStructure",
+            "/computer/computerNetworks",
+            "/computer/algorithm"
+        ],
+        "key": "computer",
+        "linkName": "计算机",
+        "path": "/computer/"
+    },
+    "/computer/dataStructure": {
+        "title": "数据结构",
+        "src": "computer/data-structure",
+        "parent": "/computer/",
+        "key": "dataStructure",
+        "linkName": "数据结构",
+        "path": "/computer/dataStructure"
+    },
+    "/computer/computerNetworks": {
+        "title": "计算机网络",
+        "src": "computer/networks",
+        "parent": "/computer/",
+        "key": "computerNetworks",
+        "linkName": "计算机网络",
+        "path": "/computer/computerNetworks"
+    },
+    "/computer/algorithm": {
+        "title": "算法",
+        "src": "computer/algorithm",
+        "parent": "/computer/",
+        "key": "algorithm",
+        "linkName": "算法",
+        "path": "/computer/algorithm"
+    }
+}

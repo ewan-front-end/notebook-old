@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>Windows</h1><strong>Windows</strong>
 </div>
 <div class="static-content">
+
 ```
 NPM默认安装位置 C:\Users\new\AppData\Roaming
 C:\Users\new\AppData\Roaming\npm\docsify

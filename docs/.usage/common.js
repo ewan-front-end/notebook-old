@@ -1,5 +1,5 @@
 const Path = require('path')
-const {writeFile, writeFileSync} = require('../src/tools-fs')
+const {writeFile, writeFileSync} = require('./tools-fs')
 module.exports = {
     reWriteFile: (path, obj, isModul) => {
 

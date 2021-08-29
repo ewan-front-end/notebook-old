@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>Markdown</h1><strong>Markdown</strong>
 </div>
 <div class="static-content">
+
 [detail1](pages/system/index)
 
 ### ewan-layout

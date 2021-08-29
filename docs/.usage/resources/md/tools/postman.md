@@ -1,23 +1,26 @@
 
 ===+
-■⇤{padding-bottom: 10px; background-color:#fcf7ef}
-#### 新建一个目录(收藏){color:#e6b362}    
+■⇤{background-color:#fbf4e7}
+####  新建一个目录(收藏){color:#e6b362}
+■■{border:#f5e1c1 1px solid;padding:10px 0}
     [FORM_START]
-    [BTNbg6 cf|+ New Collection] ➤ ↴background-color:#fff; vertical-align:top; padding:10px↤名称▭{color:#ffaa22}collection-name▭ 说明▭说明文本▭↦ ➤ [BTNbg6 cf|Create]
+    [BTNbg6 cf|+ New Collection] ➤ ↴background-color:#fcf7ee; vertical-align:top; padding:10px↤名称▭{color:#ffaa22}collection-name▭ 说明▭说明文本▭↦ ➤ [BTNbg6 cf|Create]
     [FORM_END]
 ■
 
-■⇤{border:#60b491 0px solid; padding: 10px 0; background-color:#eff7f4}
-#### 新建一个请求{color:#60b491}     
+■⇤{background-color:#e7f4ef}
+####  新建一个请求{color:#60b491}
+■■{border:#c1e2d4 1px solid;padding:10px 0}     
     [FORM_START]
-    ▤collection-name{color:#ffaa22}(bd)▤  ➤ ▤Add Request▤ ➤ ↴background-color:#fff; vertical-align:top; padding:10px↤请求名称▭{color:#20b477}(bd)登录▭ 请求说明▭说明文本▭ 选择所属目录:▼collection-name{color:#ffaa22}(bd)▼↦ ➤ [BTNbg6 cf|Save to collection-name]
+    ▤collection-name{color:#ffaa22}(bd)▤  ➤ ▤Add Request▤ ➤ ↴background-color:#eef7f4; vertical-align:top; padding:10px↤请求名称▭{color:#20b477}(bd)登录▭ 请求说明▭说明文本▭ 选择所属目录:▼collection-name{color:#ffaa22}(bd)▼↦ ➤ [BTNbg6 cf|Save to collection-name]
     [FORM_END]
 ■
 
-■⇤{border:#b180eb 0px solid; padding: 10px 0; background-color:#f7f2fd}
-#### 新建一个环境{color:#b180eb}
+■⇤{background-color:#f3ecfc}
+####  新建一个环境{color:#b180eb}
+■■{border:#e0cdf7 1px solid;padding:10px 0}
     [FORM_START]
-    右上角 [BTNbg6 cf|Manage Environments] ➤ 弹窗 [BTNbg6 cf|Add] ➤ ↴background-color:#fff; vertical-align:top; padding:10px
+    右上角 [BTNbg6 cf|Manage Environments] ➤ 弹窗 [BTNbg6 cf|Add] ➤ ↴background-color:#f7f2fd; vertical-align:top; padding:10px
     ↤Environment Name▭{color:#8922ff}environment-name▭    
     ▦⇤VARIABLE(变量)        INITIAL VALUE(初始值)      CURRENT VALUE(当前值) 
         API{color:#26f}  https://api.com:4432  https://api.com:4432
@@ -27,7 +30,7 @@
 ■
 
 [###]  需要验证的请求 
-■⇤{border:#ccc 1px solid; padding: 10px 0}
+■⇤{border:#ddd 1px solid; padding: 10px 0}
     - 登录 
         [FORM_START]
         切换环境：▼environment-name{color:#8922ff}▼
@@ -41,8 +44,7 @@
             password   123456
         ▦↦ ➤ [BTNbg6 cf|Save] ➤ [BTNbg6 cf|Send] ➤ 得到：[{color:#f33}e4fc5eb9-316a-48e5-a970-dc116e7ab897]
         [FORM_END]
-■
-■⇤{border:#ccc 1px solid; padding: 10px 0}
+■■⇤{border:#ddd 1px solid; padding: 10px 0}
     - 需要验证的请求
         [FORM_START]
         切换环境：▼environment-name{color:#8922ff}▼

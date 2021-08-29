@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>Linux</h1><strong>Linux</strong>
 </div>
 <div class="static-content">
+
 Linux
 
 </div>

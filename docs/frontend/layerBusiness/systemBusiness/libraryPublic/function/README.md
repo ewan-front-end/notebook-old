@@ -11,11 +11,12 @@ pageClass: theme-item
             <span>M 0000.00.00 00:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/function/login">登陆</a></li><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment">支付</a></li><li><a href="/frontend/layerBusiness/systemBusiness/libraryPublic/function/statistics">数据统计</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>功能库</h1><strong>功能库</strong>
 </div>
 <div class="static-content">
+
 
 </div>

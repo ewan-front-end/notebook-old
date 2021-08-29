@@ -18,6 +18,7 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
 ## NPM安装插件的过程
 ① 发出 npm install 命令
 ② 查询node_modules目录之中是否已经存在指定模块，若存在，不再重新安装

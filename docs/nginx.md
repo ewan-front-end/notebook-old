@@ -19,6 +19,7 @@ pageClass: theme-item
 <div class="static-content">
 
 
+
 # nginx.conf
 
 <pre class="hljs nginx"><code><span class="hljs-attribute">location</span> / {  

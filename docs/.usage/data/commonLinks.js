@@ -5,7 +5,7 @@
 
 链接 LINK[1627821297226] 或 TITLE[1627821297226|重新命名]    【读】.COMMON_LINKS.json: 1627821297226:{path:"npm", name:"NPM帐户"}  【写】 [NPM帐户](npm)
 */
-const {reWriteFile} = require('./common')
+const {reWriteFile} = require('../common.js')
 const PATH = './.COMMON_LINKS.json'
 const DATA = require(PATH)
 const dataArr = []

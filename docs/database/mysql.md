@@ -19,6 +19,7 @@ pageClass: theme-item
 <div class="static-content">
 
 
+
 ```sql
 CREATE SCHEMA `node-blog`;
 

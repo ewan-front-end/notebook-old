@@ -20,8 +20,9 @@
     "scripts": {
         "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/createWatch.js\"",
         "docs:build": "vuepress build docs",
+        "data": "node docs/.usage/bin/handle-data.js",
         "deploy": "node docs/.usage/deploy.js",
-        "create": "node docs/.usage/create.js",
+        "create": "node docs/.usage/bin/create.js",
         "watch": "node docs/.usage/createWatch.js",
         "scene": "node docs/.usage/updateScene.js",
         "solution": "node docs/.usage/updateSolution.js",

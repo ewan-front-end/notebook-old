@@ -18,45 +18,36 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
 ## 文档vuepress
 
 <pre class="code-block">
-data = {
-    stack: {},<span class="comment"> // 条状图 多个legend 且某些legend要堆叠在一起</span>
-    legend: [],
-    dataAxis: []
-}
+<span class="h1 bg3 cf"> 匹配IP </span>
+    STYLE_BLOCK
+    ((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}
+    <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
+    <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
+    <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
+<span class="h1 bg3 cf"> 密码 </span>
+    <span>● ^(?=.*[a-z])              <span class="comment"> // 匹配行头 跟随内容包含小写字母</span></span>
+    <span>● ^(?=.*[A-Z])              <span class="comment"> // 匹配行头 跟随内容包含大写字母</span></span>
+    <span>● ^(?=.*\d)                 <span class="comment"> // 匹配行头 跟随内容包含数字</span></span>
+    <span>● ^(?=.*[@!%&\$\*\?])       <span class="comment"> // 匹配行头 跟随内容包含列举字符</span></span>
+    <span>● [a-zA-Z\d@!%&\$\*\?]{8,}  <span class="comment"> // 匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上</span></span>
 
-const seriesArr = []
-legend.forEach(e =&gt; {
-    seriesArr.push({
-        name: e.title,
-        data: e.data,
-        type: 'bar',
-        stack: 'area',
-        label: { show: true, position: 'insideTop' },
-        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 <img :src="$withBase('/images/db-brace-right.jpg')">}
-       <span class="comment"> // itemStyle: {</span>
-       <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
-       <span class="comment"> //     0, 0, 0, 1,</span>
-       <span class="comment"> //     [</span>
-       <span class="comment"> //       { offset: 0, color: '#bf88f2' },</span>
-       <span class="comment"> //       { offset: 1, color: '#3f39de' }</span>
-       <span class="comment"> //     ]</span>
-       <span class="comment"> //   )</span>
-       <span class="comment"> // }</span>
-    })
-})
-var options = {
-    tooltip: { trigger: 'axis' },
-    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
-    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 <img :src="$withBase('/images/db-brace-right.jpg')">,
-    yAxis: { type: 'value' },
-   <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
-    series: seriesArr
-}<span class="comment">
-// if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
-this.chart.setOption(options)
+   <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符</span>
+    ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])[A-Za-z\d@!%&\$\*\?]{8,}$ 
+
+<span class="h1 bg3 cf"> 密码2 </span>
+   <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含大写字母、小写字母、数字、特殊字符中三种类型</span>
+    <span class="h1">^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))|((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))|((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?]))[A-Za-z\d@!%&\$\*\?]</span>{8,}$
+    (?=.*[a-z])(?=.*[A-Z])(?=.*\d))|            <span class="comment"> // 包含 小字母、大字母、数字 三种</span>
+    ((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))| <span class="comment"> // 包含 小字母、大字母、特殊字符 三种</span>
+    ((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|    <span class="comment"> // 包含 小字母、数字、特殊字符 三种</span>
+    ((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])      <span class="comment"> // 包含 大字母、数字、特殊字符 三种</span>
+
+    
+    
 </pre>0
 
 
@@ -232,32 +223,92 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 匹配IP </span>
-    STYLE_BLOCK
-    ((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}
-    <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
-    <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
-    <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
-<span class="h1 bg3 cf"> 密码 </span>
-    <span>● ^(?=.*[a-z])              <span class="comment"> // 匹配行头 跟随内容包含小写字母</span></span>
-    <span>● ^(?=.*[A-Z])              <span class="comment"> // 匹配行头 跟随内容包含大写字母</span></span>
-    <span>● ^(?=.*\d)                 <span class="comment"> // 匹配行头 跟随内容包含数字</span></span>
-    <span>● ^(?=.*[@!%&\$\*\?])       <span class="comment"> // 匹配行头 跟随内容包含列举字符</span></span>
-    <span>● [a-zA-Z\d@!%&\$\*\?]{8,}  <span class="comment"> // 匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上</span></span>
+<span class="h1">匹配位置</span>
+    ^、$、\b、\B
+    每一行的开头: (?:^|\n)#{1,6}.+    
+    每一行的结尾: $ <span class="comment"> // 前提是开启多行模式</span>
 
-   <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符</span>
-    ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])[A-Za-z\d@!%&\$\*\?]{8,}$ 
+<span class="h1">字符范围</span>
+    任意字符 包括（换行符、回车符、行分隔符和段分隔符）    [\s\S]*    [\d\D]*    [\w\W]*
+    任意字符 排除（换行符、回车符、行分隔符和段分隔符）    .    [^\n\r\u2028\u2029]
+    缩进符   \t      <span class="comment"> // tab键</span>
+    换行符   \n      <span class="comment"> // Windows Linux</span>
+    回车符   \r      <span class="comment"> // Windows Mac</span>
+    行分隔符 \u2028
+    段分隔符 \u2029
+            \d  [0-9]              \D  [^0-9]                        匹配任意非数字的字符
+            \w  [0-9a-zA-Z_]       \W  [^0-9a-zA-Z_]                 匹配任意不是字母，数字，下划线，汉字的字符
+            \s  [ \t\v\n\r\f]      \S  [^ \t\v\n\r\f]                匹配任意不是空白符的字符
+                \x20                                                     匹配一个空格
+                \t                                                       匹配一个制表符。等价于 \x09 和 \cI。
+                \v                                                       匹配一个垂直制表符。等价于 \x0b 和 \cK
+                \f                                                       匹配一个换页符。等价于 \x0c 和 \cL。
+            \b  a\b \bnice         \B                                匹配不是单词开头或结束的位置(隐式位置)
+    中文     [0-9a-zA-Z\u4e00-\u9fa5_-]    [\w\u4e00-\u9fa5-]
 
-<span class="h1 bg3 cf"> 密码2 </span>
-   <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含大写字母、小写字母、数字、特殊字符中三种类型</span>
-    <span class="h1">^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))|((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))|((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?]))[A-Za-z\d@!%&\$\*\?]{8,}$</span>
-    (?=.*[a-z])(?=.*[A-Z])(?=.*\d))|            <span class="comment"> // 包含 小字母、大字母、数字 三种</span>
-    ((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\$\*\?]))| <span class="comment"> // 包含 小字母、大字母、特殊字符 三种</span>
-    ((?=.*[a-z])(?=.*\d)(?=.*[@!%&\$\*\?]))|    <span class="comment"> // 包含 小字母、数字、特殊字符 三种</span>
-    ((?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])      <span class="comment"> // 包含 大字母、数字、特殊字符 三种</span>
+<span class="h1">长度范围</span>
+    ?  {0,1}            +  {1,}           *  {0,}
 
-    
-    
+<span class="h1">全局范围</span>
+    /i  忽略大小写     /g  全局匹配       /m  多行匹配 
+
+<span class="h1">惰性匹配</span>
+    量词 + ?  
+    {m,n}?　　{m,}?　　??　　+?　　*?
+
+<span class="h1">取反   </span>
+    \W \S \D [^x]匹配除了x以外的任意字符 !(else|\s) [^aeiou]匹配除了aeiou这几个字母以外的任意字符
+
+<span class="h1">分组</span>
+顺序： ((A)(B(C))) 从左至右'('的顺序 ❶((A)(B(C))) ❷(A) ❸(B(C)) ❹(C)
+意议：
+    1. 向后引用 第i个分组匹配的字符串，可以在后续通过'\i'再次引用 例 (hello)\s(world)\s\1\2 匹配 hello world helloworld
+    2. 分组取值 可以matcher.group(i)等方式取值
+
+<span class="h1">复杂</span>
+(exp) 正常分组
+    目标/匹配/结果: exp 
+    保存：自命名组$1 引用：\i 访问：RegExp.$1
+
+(?:exp) 
+    目标/匹配/结果: exp              
+    保存：无分组不保存      <span class="comment"> // 与(exp)区别在于无分组保存</span>
+    实例：industr(?:y|ies) <span class="comment"> // 相当于 industry|industries</span>
+
+(?=exp) 预查跟随
+    目标：跟随  匹配：预查  结果：预查
+    保存：无分组不保存
+    'Windows3.1'.match(/Windows(?=95|98|NT|2000)/)   <span class="comment"><span class="comment"> // 预查'Windows' 跟随'95|98|NT|2000'  null</span></span>
+    'Windows2000'.match(/Windows(?=95|98|NT|2000)/)  <span class="comment"><span class="comment"> // 预查'Windows' 跟随'95|98|NT|2000'  ["Windows"...]</span></span>
+    'hello regular expression'.match(/^(?=hello)/)   <span class="comment"> // 预查行头 跟随'hello'               [""...]</span>
+    'hello regular expression'.match(/^(?=regular)/) <span class="comment"> // 预查行头 跟随'regular'              null</span>
+
+(?!exp) 预查跟随否定
+    目标：跟随非  匹配：预查  结果：预查
+    保存：无分组不保存
+    'Windows3.1'.match(/Windows(?!95|98|NT|2000)/)    // 预查'Windows' 跟随'95|98|NT|2000'  ["Windows"...]
+    'Windows2000'.match(/Windows(?!95|98|NT|2000)/)   // 预查'Windows' 跟随'95|98|NT|2000'  null
+
+(?&lt;=exp) 预查前置
+    目标：前置  匹配：预查  结果：预查
+    保存：无分组不保存
+    '3.1Windows'.match(/(?&lt;=95|98|NT|2000)Windows/)   <span class="comment"><span class="comment"> // 预查'Windows' 前置'95|98|NT|2000'  null</span></span>
+    '2000Windows'.match(/(?&lt;=95|98|NT|2000)Windows/)  <span class="comment"><span class="comment"> // 预查'Windows' 前置'95|98|NT|2000'  ["Windows"...] </span> </span>
+
+(?&lt;!exp) 预查前置否定
+    目标：前置非  匹配：预查  结果：预查
+    保存：无分组不保存
+    '3.1Windows'.match(/(?&lt;!95|98|NT|2000)Windows/)    // 预查'Windows' 前置'95|98|NT|2000'  ["Windows"...] 
+    '2000Windows'.match(/(?&lt;!95|98|NT|2000)Windows/)   // 预查'Windows' 前置'95|98|NT|2000'  null
+
+(?&lt;name&gt;exp) 或 (?'name'exp)
+    目标: exp 
+    保存：自命名组$1 / 用户变量xxx.groups['name']
+        let hre = 'hello regular expression'.match(/(?&lt;custom_name&gt;expres)/)
+        console.log(hre, RegExp.$1, hre.groups.custom_name)
+
+
+
 </pre>0
 
 </div>

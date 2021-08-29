@@ -11,11 +11,12 @@ pageClass: theme-item
             <span>M 0000.00.00 00:00</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerBusiness/systemBusiness/componentBusiness/ui">样式组件</a></li><li><a href="/frontend/layerBusiness/systemBusiness/componentBusiness/moduleFunction">功能模块</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>业务组件</h1><strong>业务组件</strong>
 </div>
 <div class="static-content">
+
 
 </div>

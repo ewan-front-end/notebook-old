@@ -8,10 +8,14 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.13 21:02</span>
+            <span>M 2021.08.27 16:22</span>
         </div>
     </div>
-    <div class="content"></div>
+    <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
+<ul class="desc">
+<li><a href="vue/vue-element-admin/index">vue-element-admin</a></li>
+</ul>
+</div></div>
 </div>
 <div class="content-header">
 <h1>Vue</h1><strong>Vue</strong>
@@ -19,14 +23,8 @@ pageClass: theme-item
 <div class="static-content">
 
 
-## vue-element-admin
 
-<pre class="code-block">
-<span>● 自定义ICON</span>
-    1. 准务svg图标 xiugaimima.svg https://www.iconfont.cn
-    2. 放入相关文件夹@/icons/svg/xiugaimima.svg 之后就会自动导入
-    3. 使用方式：&lt;svg-icon icon-class="xiugaimima" /&gt;<span class="comment"> // icon-class 为 icon 的名字</span>
-</pre>
+
 
 
 npm install -g @vue/cli
@@ -37,7 +35,8 @@ npm install -g vue-cli@2.x
 vue init webpack 项目名称
 
 
-- Vue 3.0不再支持filters过滤器
+# Vue 3.0
+- 不再支持filters过滤器
 ```vue
 <template><p>{{ accountBalance | currencyUSD }}</p> <p>{{ accountInUSD }}</p></template> 
 <script>

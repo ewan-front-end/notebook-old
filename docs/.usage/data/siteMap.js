@@ -1,4 +1,4 @@
-const {reWriteFile} = require('./common')
+const {reWriteFile} = require('../common.js')
 const PATH = './.SITE_MAP.js'
 const SITE_MAP = require(PATH)
 

@@ -18,6 +18,7 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
 基础类型 变量声明 接口 类 函数 泛型 类型推新 高级类型
 
 - 管理版本和发布：Semantic release

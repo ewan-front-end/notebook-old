@@ -19,4 +19,5 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
 </div>

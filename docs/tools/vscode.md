@@ -18,6 +18,7 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
 ::: details settings
 - 全新个性项目
 ```js

@@ -17,6 +17,7 @@ pageClass: theme-item
 <h1>ruby</h1><strong>ruby</strong>
 </div>
 <div class="static-content">
+
 # ruby
 ```
 [h3|安装brew]

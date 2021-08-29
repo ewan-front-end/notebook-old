@@ -4,11 +4,12 @@ const path= require("path")
 // 递归创建目录 同步方法
 function checkDirSync(dirname) {
     if (fs.existsSync(dirname)) {
+        console.log('目录已存在：' + dirname)
       return true
     } else {
       if (checkDirSync(path.dirname(dirname))) {
         fs.mkdirSync(dirname);
-        console.log('Created: ' + dirname)
+        console.log('已创新目录: ' + dirname)
         return true;
       }
     }

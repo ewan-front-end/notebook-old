@@ -30,54 +30,54 @@ http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 
 ```css
 .grid {
-  display: grid;                                  // inline-grid
+  display: grid;                                  /* inline-grid */
   
-  grid-template-columns: 100px 100px 100px;       // 每一列的列宽 重复值写法:repeat(3, 33.33%) 重复模式写法:repeat(2, 100px 20px 80px) 容纳尽可能多未知数量单元格：repeat(auto-fill, 100px) 比例关系：150px 1fr 2fr; 范围：1fr 1fr minmax(100px, 1fr); 其余：100px auto 100px 指定网格线的名字方便引用：[c1] 100px [c2] 100px [c3] auto [c4]
-  grid-template-rows: 100px 100px 100px;          // 每一行的行高 同上
-  grid-template-areas: "a b c"                    // 定义区域 网格线自动命名为 区域名-start 区域名-end
+  grid-template-columns: 100px 100px 100px;       /* 每一列的列宽 重复值写法:repeat(3, 33.33%) 重复模式写法:repeat(2, 100px 20px 80px) 容纳尽可能多未知数量单元格：repeat(auto-fill, 100px) 比例关系：150px 1fr 2fr; 范围：1fr 1fr minmax(100px, 1fr); 其余：100px auto 100px 指定网格线的名字方便引用：[c1] 100px [c2] 100px [c3] auto [c4] */
+  grid-template-rows: 100px 100px 100px;          /* 每一行的行高 同上 */
+  grid-template-areas: "a b c"                    /* 定义区域 网格线自动命名为 区域名-start 区域名-end */
                        "d e f"
                        "g h i";
-  grid-template-areas: "header header header"     // 合并区域
+  grid-template-areas: "header header header"     /* 合并区域 */
                        "main main sidebar"
                        "footer footer footer";
-  grid-template-areas: "a . c"                    // 某些区域不需要利用
+  grid-template-areas: "a . c"                    /* 某些区域不需要利用 */
                        "d . f"
                        "g . i";
 
-  grid-auto-columns   // 浏览器自动创建的多余网格的列宽和行高
+  grid-auto-columns   /* 浏览器自动创建的多余网格的列宽和行高 */
   grid-auto-rows 属性
-  grid-auto-flow: column;                         // cell流动方向: row/column 某些项目指定位置以后剩下的项目怎么自动放置: row dense/column dense
+  grid-auto-flow: column;                         /* cell流动方向: row/column 某些项目指定位置以后剩下的项目怎么自动放置: row dense/column dense */
   
   grid-template: <grid-template-columns><grid-template-rows><grid-template-areas>
   grid:          <grid-template-columns><grid-template-rows><grid-template-areas><grid-auto-columns><grid-auto-rows><grid-auto-flow>
 
 
-  row-gap: 20px;                                  // 行间距
-  column-gap: 20px;                               // 列间距
-  gap: 20px 20px;                                 // 行列简写 省略了第二个值，第二个值等于第一个值  
+  row-gap: 20px;                                  /* 行间距 */
+  column-gap: 20px;                               /* 列间距 */
+  gap: 20px 20px;                                 /* 行列简写 省略了第二个值，第二个值等于第一个值  */
 
-  align-items:   start | end | center | stretch;  // 单元格的内容上下对齐
-  justify-items: start | end | center | stretch;  // 单元格的内容左右对齐
+  align-items:   start | end | center | stretch;  /* 单元格的内容上下对齐 */
+  justify-items: start | end | center | stretch;  /* 单元格的内容左右对齐 */
   place-items: <align-items> <justify-items>;
   
-  align-content:   start | end | center | stretch | space-around | space-between | space-evenly;      // 行行之间的布局方式
-  justify-content: start | end | center | stretch | space-around | space-between | space-evenly;      // 列列之间的布局方式
+  align-content:   start | end | center | stretch | space-around | space-between | space-evenly;      /* 行行之间的布局方式 */
+  justify-content: start | end | center | stretch | space-around | space-between | space-evenly;      /* 列列之间的布局方式 */
   place-content: <align-content> <justify-content>
 }
 .grid .item{
-  grid-column-start: 1; 左边框所在的垂直网格线序号 网格线名字：header-start 跨越网格数：span 2
-  grid-column-end: 2;   右边框所在的垂直网格线序号 
-  grid-row-start: 3;    上边框所在的水平网格线序号
-  grid-row-end: 4;      下边框所在的水平网格线序号
+  grid-column-start: 1; /* 左边框所在的垂直网格线序号 网格线名字：header-start 跨越网格数：span 2 */
+  grid-column-end: 2;   /* 右边框所在的垂直网格线序号 */
+  grid-row-start: 3;    /* 上边框所在的水平网格线序号 */
+  grid-row-end: 4;      /* 下边框所在的水平网格线序号 */
 
   grid-column: <grid-column-start> / <grid-column-end>
   grid-row: <grid-row-start> / <grid-row-end>
-  grid-area: <grid-column-start> / <grid-column-end> / <grid-row-start> / <grid-row-end>   可直接指定区域名：grid-area: e;
+  grid-area: <grid-column-start> / <grid-column-end> / <grid-row-start> / <grid-row-end>   /* 可直接指定区域名：grid-area: e; */
 
-  z-index: 1;           项目的重叠顺序
+  z-index: 1;           /* 项目的重叠顺序 */
   
-  align-self: start | end | center | stretch;    单元格内容的水平位置 跟align-items  类似
-  justify-self: start | end | center | stretch;  单元格内容的水平位置 跟justify-items类似
+  align-self: start | end | center | stretch;    /* 单元格内容的水平位置 跟align-items  类似 */
+  justify-self: start | end | center | stretch;  /* 单元格内容的水平位置 跟justify-items类似 */
   place-self: <align-self> <justify-self>
 }
 ```
