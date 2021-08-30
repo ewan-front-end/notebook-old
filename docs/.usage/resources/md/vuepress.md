@@ -26,7 +26,9 @@ demo> npm install -D vuepress
 1. 创建 docs 目录
 2. 复制 .usage 到 docs/
 3. 基础部署 node docs/.usage/deploy.js
-4. npm run docs:dev
+4. docs/README.md
+    `# 文档部署`
+5. npm run docs:dev
 - 附 
 > 创建地图文件 node docs/.usage/create.js<br>
 > 创建指定文件 node docs/.usage/create.js /scene /tools/npm<br>

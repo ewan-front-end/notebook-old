@@ -8,10 +8,10 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00 00:00</span>
+            <span>N 2021.08.30 19:05</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerInfrastructure/systemResourceManagement/cdn">CDN</a></li><li><a href="/frontend/layerInfrastructure/systemResourceManagement/image">图片管理</a></li><li><a href="/frontend/layerInfrastructure/systemResourceManagement/publishing">发布工具</a></li><li><a href="/frontend/layerInfrastructure/systemResourceManagement/offlinePackageManagement">离线包管理</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>资源管理系统</h1><strong>资源管理系统</strong>

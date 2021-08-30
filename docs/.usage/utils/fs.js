@@ -4,43 +4,54 @@ const path= require("path")
 // 递归创建目录 同步方法
 function checkDirSync(dirname) {
     if (fs.existsSync(dirname)) {
-        console.log('目录已存在：' + dirname)
-      return true
+        // console.log('目录已存在：' + dirname)
+        return {message: "目录已存在", state: 1}
     } else {
-      if (checkDirSync(path.dirname(dirname))) {
-        fs.mkdirSync(dirname);
-        console.log('已创新目录: ' + dirname)
-        return true;
-      }
+        if (checkDirSync(path.dirname(dirname))) {
+            try {
+                fs.mkdirSync(dirname)                
+                return {message: "目录已创建", state: 2}
+            } catch (err) {
+                console.error(err)
+            }            
+            
+        }
     }
 }
 
-module.exports = {
-    readFile: (path) => {
-        return fs.readFileSync(path, 'utf8')
-    },
-    writeFileSync: (path, content) => {
+module.exports = {    
+    writeFileSync: (absPath, content, next) => {
+        typeof content !== "string" && (content = JSON.stringify(content, null, 4))
         try {
-            fs.writeFileSync(path, content)
+            fs.writeFileSync(absPath, content)
+            next && next()
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }        
     },
-    writeFile: (path, content) => {      
-        fs.writeFile(path, content, { encoding: 'utf8' }, err => { 
+    writeFile: (absPath, content, success) => { 
+        typeof content !== "string" && (content = JSON.stringify(content, null, 4))
+        fs.writeFile(absPath, content, { encoding: 'utf8' }, err => { 
             if(err){ 
                 console.log(err) 
             } else {
-                console.log('written: ' + path)
+                success && success()
+                !success && console.log('written: ' + absPath)
             } 
         })
+    },
+    readFile: (path) => {
+        return fs.readFileSync(path, 'utf8')
     },
     editWritCommonFile: (path, editHandler) => {
         const fileObj = require(path)
         const next = editHandler(fileObj)
         next && module.exports.writeFile(path, `module.exports = ${JSON.stringify(fileObj, null, 4)}`)
     },
-    mkdirSync: checkDirSync,
+    mkdirSync(absPath, next){
+        let res = checkDirSync(absPath)
+        next && next(res)
+    },
     saveFile(filePath, fileData) {
         return new Promise((resolve, reject) => {
             /*fs.createWriteStream(path,[options])

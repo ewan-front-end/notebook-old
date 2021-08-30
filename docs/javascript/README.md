@@ -8,10 +8,10 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.25 14:16</span>
+            <span>N 2021.08.30 19:05</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>Javascript</h1><strong>Javascript</strong>

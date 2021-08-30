@@ -3,6 +3,7 @@ const parseFlex = require('./parse/flex')
 const parseUML = require('./parse/uml')
 const parseCustomBlock = require('./parse/custom-block')
 const Anchor = require('./parse/anchor')
+const {debounce} = require('../utils/ewan')
 
 String.prototype.replaceAt=function(scope, replacement) {
     if (scope[0] > this.length) return this
@@ -78,7 +79,8 @@ module.exports = (code, PATH) => {
     code = parseUML(code)  // 图例 
 
     code = parseCustomBlock.end(code)
-    Anchor.save()
+    //Anchor.save()
+    debounce(Anchor.save, 500)
     
     return code        
 }

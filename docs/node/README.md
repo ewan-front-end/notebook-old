@@ -8,10 +8,10 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.04 21:00</span>
+            <span>N 2021.08.30 19:05</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>Node</h1><strong>Node</strong>
@@ -22,7 +22,7 @@ pageClass: theme-item
 
 module、exports、require、global、__filename、__dirname
 
-<a href="/node/plugin.html#1627821297227">node-inspect</a>
+<a href="node-inspect.html#1627821297227">node-inspect</a>
 
 ## node获取可用端口号
 ```
@@ -130,7 +130,7 @@ var options = {
 }<span class="comment">
 // if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
 this.chart.setOption(options)
-</pre>1
+</pre>3
 
 - 账户 
   u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com

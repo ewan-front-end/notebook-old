@@ -8,10 +8,10 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 0000.00.00 00:00</span>
+            <span>N 2021.08.30 19:05</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/frontend/layerOffline/tools/codeManagement">代码管理</a></li><li><a href="/frontend/layerOffline/tools/packageManagement">包管理</a></li><li><a href="/frontend/layerOffline/tools/buildTools">构建工具</a></li><li><a href="/frontend/layerOffline/tools/taskManagement">任务管理工具</a></li><li><a href="/frontend/layerOffline/tools/scaffolding">脚手架</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>工具集</h1><strong>工具集</strong>

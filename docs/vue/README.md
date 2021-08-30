@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.27 16:22</span>
+            <span>N 2021.08.30 19:05</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">

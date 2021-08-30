@@ -8,10 +8,10 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.27 17:52</span>
+            <span>N 2021.08.30 19:05</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="undefined">undefined</a></li><li><a href="undefined">undefined</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
 </div>
 <div class="content-header">
 <h1>CSS</h1><strong>CSS</strong>

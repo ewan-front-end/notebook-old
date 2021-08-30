@@ -1,9 +1,9 @@
-const {writeFile, readFile} = require('../tools-fs.js')
+const {writeFile, readFile} = require('../utils/fs')
 const PATH = require('path')
 
-const DATA_CONFIG = require('../data2/config')
-const SRC_UPDATETIME = require(DATA_CONFIG["src:updateTime"])
-const PATH_DATA = require(DATA_CONFIG["path:data"])
+const {dataPath} = require('../config')
+const SRC_UPDATETIME = require(dataPath["src:updateTime"])
+const PATH_DATA = require(dataPath["path:data"])
 const parseCode = require('./create-file-parse.js')
 
 module.exports = (ABSOLUTE_PATH, target, path) => {

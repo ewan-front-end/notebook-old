@@ -1,7 +1,7 @@
-const fs = require('fs')
+const {writeFileSync} = require('../../utils/fs')
 const dataArr = []
-const DATA_CONFIG = require('../../data2/config')
-const LINKS = require(DATA_CONFIG["stamp:link"])
+const {dataPath} = require('../../config')
+const LINKS = require(dataPath["stamp:link"])
 
 module.exports = {
     parseAnchor(code, filePath) {
@@ -23,12 +23,16 @@ module.exports = {
     },
     parseLink(code){
         let m
-        while ((m = /LINK\[(\d{13})\|?([^\]]*)\]/.exec(code)) !== null) {
-            let linkObj = LINKS[m[1]] 
-            let name = m[2] || linkObj.name
-            let path = ''
-            linkObj.path && (path = linkObj.path + '.html')
-            code = code.replace(m[0], `<a href="${path}#${m[1]}">${name}</a>`)      
+        while ((m = /LINK\[(\d{13})\|?([^\]]*)\]/.exec(code)) !== null) {            
+            let linkObj = LINKS[m[1]]
+            if (linkObj) {
+                let name = m[2] || linkObj.name, path = ''
+                linkObj.path && (path = linkObj.path + '.html')
+                code = code.replace(m[0], `<a href="${path}#${m[1]}">${name}</a>`)
+            } else {
+                console.log(m[0] +'处理失败，缺失锚点')
+                code = code.replace(m[0], m[2])
+            } 
         }        
         return code
     },
@@ -40,8 +44,8 @@ module.exports = {
                 LINKS[item.stamp] = item
             })
             try {
-                fs.writeFileSync(DATA_CONFIG["stamp:link"], JSON.stringify(LINKS, null, 4))
-                console.log('链接列表更新: ' + DATA_CONFIG["stamp:link"])
+                writeFileSync(dataPath["stamp:link"], LINKS)
+                console.log('链接列表更新: ' + dataPath["stamp:link"])
             } catch (err) {
                 console.log(err)
             }

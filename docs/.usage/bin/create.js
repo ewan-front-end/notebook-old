@@ -1,15 +1,11 @@
 const PATH = require('path')
 const ARG_ARR = process.argv.slice(2)                    // 命令参数
-
-const DATA_CONFIG = require('../data2/config')
-const SRC_UPDATETIME = require(DATA_CONFIG["src:updateTime"])
-const PATH_DATA = require(DATA_CONFIG["path:data"])
-const CREATOR = require(DATA_CONFIG["creator"])
-
-const { mkdirSync, writeFile, readFile } = require('../tools-fs')
+const {dataPath} = require('../config')
+const SRC_UPDATETIME = require(dataPath["src:updateTime"])
+const PATH_DATA = require(dataPath["path:data"])
+const CREATOR = require(dataPath["creator"])
+const { mkdirSync, writeFile, readFile } = require('../utils/fs')
 const createFile = require('./create-file')
-
-let updateItems = {}
 
 const handleCreator = (item, path) => {
     const ABSOLUTE_PATH = PATH.resolve(__dirname, '../../' + path)

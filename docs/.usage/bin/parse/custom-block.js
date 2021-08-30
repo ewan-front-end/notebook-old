@@ -24,7 +24,7 @@ function parseCustomBlock(block) {
         const content = block.match(new RegExp(`STYLE_BLOCK\s*[\r\n]+((^.*[\n\r\u2028\u2029]+){4})`, 'm'))
         const contentArr = content[1].split(/[\r\n]/)
         //console.log(content);
-        console.log(contentArr);
+        //console.log(contentArr);
     } 
 
     block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
