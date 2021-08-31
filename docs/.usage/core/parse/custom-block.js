@@ -1,34 +1,50 @@
+
 let TAG_MAP_BLOCK = {}, blockCount = 0
 
 function parseCustomBlock(block) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
 
-    /*
-    [STYLE_START]                            // 样式描述开始
-    1[2-4](bold red)                         // 行1 索引(2-4)   class
-    1/2/3[10-15]{color:#f00}                 // 行1、2、3 索引(10-15) style
-    [STYLE_END]                              // 样式描述结束
-    */
-    let styleBlock   
-    while ((styleBlock = /\[STYLE_START\]\s*[\r\n]+([\s\S]+?)\s*[\r\n]+\s*\[STYLE_END\]/.exec(block)) !== null) {
-        block = block.replace(styleBlock[0], 'STYLE_BLOCK') 
-        let maxLineNum = 0
-        const styleStrArr = styleBlock[1].trim().split(/\s*[\r\n]+\s*/)
-        const styleObjArr = styleStrArr.map(e => {
-            let m = e.match(/(\d+((\/\d+)*)?)\[(\d+)-(\d+)\]((\([\w\s-]+\))|(\{[\w\s-:#;]+\}))/)
-            let line = m[1].split('/')
-            line.forEach(item => { maxLineNum = Math.max(maxLineNum, item) })
-            return {line, index: [m[4], m[5]], style: m[6]}
-        })
-        // 截取要格式化的内容
-        const content = block.match(new RegExp(`STYLE_BLOCK\s*[\r\n]+((^.*[\n\r\u2028\u2029]+){4})`, 'm'))
-        const contentArr = content[1].split(/[\r\n]/)
-        //console.log(content);
-        //console.log(contentArr);
-    } 
-
+    // 模板符{{}}用图片表示
     block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
     block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
+    
+    /**
+     * 样式分离表示法
+     *  [STYLE_START]             样式描述开始
+        1[2-4](bold red)          行1 索引(2-4)   class
+        1/2/3[10-15]{color:#f00}  行1、2、3 索引(10-15) style
+        [STYLE_END]               样式描述结束
+     */
+    const styleMatch = block.match(/(\[STYLE_START\]\x20*[\r\n]+([\s\S]+?)\x20*[\r\n]+\x20*\[STYLE_END\])/g) || []
+    
+    styleMatch.forEach(styleBlock => {
+        
+    })
+    console.log(styleMatch);
+    // while (/(\[STYLE_START\]\x20*[\r\n]+([\s\S]+?)\x20*[\r\n]+\x20*\[STYLE_END\])/.exec(block) !== null) {
+    //     const $FORMAT = RegExp.$1, $STYLE_LIST = RegExp.$2        
+    //     block = block.replace($FORMAT, 'STYLE_BLOCK') 
+    //     // 解析样式格式
+    //     let maxLineNum = 0, styleArr = $STYLE_LIST.trim().split(/\x20*[\r\n]+\x20*/).map(e => {
+    //         const m = e.match(/(\d+((\/\d+)*)?)\[(\d+)-(\d+)\]((\([\w\s-]+\))|(\{[\w\s-:#;]+\}))+/), $LINE=m[1], $START = m[4], $END = m[5], $STYLE = m[6], styleMatch = $STYLE.match(/\{([^\}]+)\}/), classMatch = $STYLE.match(/\(([^\)]+)\)/)            
+    //         return {lines: $LINE.split('/').map(l => { maxLineNum = Math.max(maxLineNum, l); return l}), index: [parseInt($START), parseInt($END)], style_: styleMatch ? styleMatch[1] : null, class_: classMatch ? classMatch[1] : null}
+    //     })        
+    //     // 截取要格式化的内容
+    //     const content = block.match(new RegExp(`STYLE_BLOCK\x20*[\r\n]+((.*[\n\r]+[\n\r\x20\u2028\u2029]*){${maxLineNum + 1}})`))
+    //     const contentLineArr = content[1].trim().split(/[\n\r]+[\n\r\x20\u2028\u2029]*/)
+    //     // 格式化内容
+    //     let newContent = content[0]
+    //     styleArr.forEach(e => {
+    //         let {lines, index, style_, class_} = e
+    //         lines.forEach(line => {
+    //             let lineStr = contentLineArr[line], s = index[0], e = index[1] + 1, substr = lineStr.slice(s, e), styleStr = '', classStr = ''
+    //             style_ && (styleStr = ` style="${style_}"`)
+    //             class_ && (classStr = ` class="${class_}"`)
+    //             newContent = newContent.replace(lineStr, lineStr.replaceAt(index, `<span${styleStr}${classStr}>${substr}</span>`)) 
+    //         })
+    //     })
+    //     block = block.replace(content[0], newContent) 
+    // } 
     
     // - Markdown点列表
     while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`)} 
@@ -79,20 +95,7 @@ function parseCustomBlock(block) {
     matchImage.forEach(e => {
         const m = e.match(/\[img:(.+)?\]/)
         block = block.replace(e, `<img :src="${m[1]}">`)
-    })
-
-    // ↧Headers
-    const matchDown = block.match(/↧.?\b([\w-]+)\b/g) || [];
-    matchDown.forEach(e => {
-        const word = e.replace('↧', '')
-        block = block.replace(e, `<span class="cc">${word}</span>`)
-    })
-    // ↥Body
-    const matchUp = block.match(/↥.?\b([\w-]+)\b/g) || [];
-    matchUp.forEach(e => {
-        const word = e.replace('↥', '')
-        block = block.replace(e, `<strong class="c0">${word}</strong>`)
-    })      
+    })    
 
     // 表单元素[FORM_START][FORM_END] 
     // [FORM_START|vtop]
@@ -245,7 +248,7 @@ function parseCustomBlock(block) {
     block = block.replace('===+', '\n<pre class="code-block">').replace('===-', '</pre>')
 
     blockCount++
-    const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount
+    const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount + 'A'
     TAG_MAP_BLOCK[CUSTOM_BLOCK_NAME] = block
 
     return CUSTOM_BLOCK_NAME

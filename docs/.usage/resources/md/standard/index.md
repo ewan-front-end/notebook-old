@@ -1,13 +1,13 @@
 
 ## 文档vuepress
 ===+
-[##]  普通代码 
+[##]  普通33代码
 - Flex
-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8             // 小于等于10 flex-grow: 8
-col 01
-&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname  // 大于10 flex-basis: n  可注入自定义classname
-col 02
-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8             // 小于等于10 flex-grow: 8
+    col 01
+    &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname  // 大于10 flex-basis: n  可注入自定义classname
+    col 02
+    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
 [##]  自定义代码块 
 &#61;&#61;&#61;&#43; 
     &#45; Markdown点列表
@@ -26,10 +26,7 @@ col 02
     1/2/3[10-15]{color:#f00}                 // 行1、2、3 索引(10-15) style  索引计算：有效字符起始，首尾空格忽略
     &#91;STYLE_END&#93;                              // 样式描述结束
 
-    ↧Headers                                  // &#8615;Headers
-    ↥Body                                     // &#8613;Body
-
-    [FORM_START]
+    &#91;FORM_START&#93;
         [LIST|XX项目API集(*login  upload)] 
         [DROP_DOWN|POST] [INPUT|{{origin}}/api/login/]  [BTN|Send] [BTN|Save]
         [TAB]Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings
@@ -38,8 +35,8 @@ col 02
             username   ewan
             password   123456
         [TABLE_END]
-        [BTN>Save] > [BTN>Send]
-    [FORM_END]
+        [BTN&#62;Save] &#62; [BTN&#62;Send]
+    &#91;FORM_END&#93;
 
 &#61;&#61;&#61;&#45;
 预设className：

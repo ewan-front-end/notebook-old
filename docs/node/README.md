@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.08.30 19:05</span>
+            <span>N 2021.08.31 12:38</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -22,7 +22,7 @@ pageClass: theme-item
 
 module、exports、require、global、__filename、__dirname
 
-<a href="node-inspect.html#1627821297227">node-inspect</a>
+<a href="/node/plugin.html#1627821297227">node-inspect</a>
 
 ## node获取可用端口号
 ```
@@ -94,43 +94,25 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ## 插件开发
 
 <pre class="code-block">
-data = {
-    stack: {},<span class="comment"> // 条状图 多个legend 且某些legend要堆叠在一起</span>
-    legend: [],
-    dataAxis: []
-}
-
-const seriesArr = []
-legend.forEach(e =&gt; {
-    seriesArr.push({
-        name: e.title,
-        data: e.data,
-        type: 'bar',
-        stack: 'area',
-        label: { show: true, position: 'insideTop' },
-        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 <img :src="$withBase('/images/db-brace-right.png')">}
-       <span class="comment"> // itemStyle: {</span>
-       <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
-       <span class="comment"> //     0, 0, 0, 1,</span>
-       <span class="comment"> //     [</span>
-       <span class="comment"> //       { offset: 0, color: '#bf88f2' },</span>
-       <span class="comment"> //       { offset: 1, color: '#3f39de' }</span>
-       <span class="comment"> //     ]</span>
-       <span class="comment"> //   )</span>
-       <span class="comment"> // }</span>
-    })
-})
-var options = {
-    tooltip: { trigger: 'axis' },
-    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
-    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 <img :src="$withBase('/images/db-brace-right.png')">,
-    yAxis: { type: 'value' },
-   <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
-    series: seriesArr
-}<span class="comment">
-// if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
-this.chart.setOption(options)
-</pre>3
+├── bin                   <span class="comment"> // 运行目录</span>
+├── lib                   <span class="comment"> // 主代码目录</span>
+├── CHANGELOG.md          <span class="comment"><span class="comment"> // 版本更新说明</span></span>
+├── LICENSE               <span class="comment"> // 许可证书</span>
+├── package.json          <span class="comment"> // npm配置</span>
+├── README.md             <span class="comment"> // README</span>
+│
+├── docs                  <span class="comment"> // 使用文档</span>
+├── example               <span class="comment"> // 示例目录</span>
+│
+├── test                  <span class="comment"> // 测试目录，提供单元测试</span>
+├── .travis.yml           <span class="comment"> // 集成自动测试配置</span>
+│
+├── .npmignore            <span class="comment"> // npm发布时忽略的文件</span>
+│
+├── CHANGELOG.md           // 版本更新说明
+│
+├── package.json          <span class="comment"> // NPM配置</span>
+</pre>
 
 - 账户 
   u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com

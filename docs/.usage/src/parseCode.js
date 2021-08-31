@@ -174,19 +174,6 @@ function parseCustomBlock(block) {
         block = block.replace(e, `<img :src="${m[1]}">`)
     })
 
-    // ↧Headers
-    const matchDown = block.match(/↧.?\b([\w-]+)\b/g) || [];
-    matchDown.forEach(e => {
-        const word = e.replace('↧', '')
-        block = block.replace(e, `<span class="cc">${word}</span>`)
-    })
-    // ↥Body
-    const matchUp = block.match(/↥.?\b([\w-]+)\b/g) || [];
-    matchUp.forEach(e => {
-        const word = e.replace('↥', '')
-        block = block.replace(e, `<strong class="c0">${word}</strong>`)
-    })      
-
     // 表单元素[FORM_START][FORM_END] 
     // [FORM_START|vtop]
     const matchForm = block.match(/\s*\[FORM_START\][\s\S]+?\[FORM_END\]\s*[\r\n]+/g) || [];

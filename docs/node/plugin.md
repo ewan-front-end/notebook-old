@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.08.30 19:05</span>
+            <span>N 2021.08.31 12:38</span>
         </div>
     </div>
     <div class="content"></div>
@@ -24,43 +24,22 @@ pageClass: theme-item
 ::: details node-inspect node调试
 
 <pre class="code-block">
-data = {
-    stack: {},<span class="comment"> // 条状图 多个legend 且某些legend要堆叠在一起</span>
-    legend: [],
-    dataAxis: []
-}
-
-const seriesArr = []
-legend.forEach(e =&gt; {
-    seriesArr.push({
-        name: e.title,
-        data: e.data,
-        type: 'bar',
-        stack: 'area',
-        label: { show: true, position: 'insideTop' },
-        itemStyle: { normal: { color: e.color, lineStyle: { color: e.color, width: 2 <img :src="$withBase('/images/db-brace-right.png')">}
-       <span class="comment"> // itemStyle: {</span>
-       <span class="comment"> //   color: new echarts.graphic.LinearGradient(</span>
-       <span class="comment"> //     0, 0, 0, 1,</span>
-       <span class="comment"> //     [</span>
-       <span class="comment"> //       { offset: 0, color: '#bf88f2' },</span>
-       <span class="comment"> //       { offset: 1, color: '#3f39de' }</span>
-       <span class="comment"> //     ]</span>
-       <span class="comment"> //   )</span>
-       <span class="comment"> // }</span>
+全局安装 &gt; npm install -g node-inspect
+使用实例：
+demo/server.js
+    var http = require("http")
+    var app = http.createServer(function(req, res) {
+        res.writeHead(200, {"Content-Type": "text/plain"})
+        res.end("Hello world!")
     })
-})
-var options = {
-    tooltip: { trigger: 'axis' },
-    grid: { left: 10, right: 10, bottom: 20, top: 10, containLabel: true },
-    xAxis: { type: 'category', data: dataAxis, axisLabel: { interval: 0 <img :src="$withBase('/images/db-brace-right.png')">,
-    yAxis: { type: 'value' },
-   <span class="comment"> // legend: { data: legendData, right: 'center', bottom: 0 },</span>
-    series: seriesArr
-}<span class="comment">
-// if (dataVal.length &gt; 10) options.xAxis.axisLabel.rotate = -45</span>
-this.chart.setOption(options)
-</pre>4
+    app.listen(3000, "localhost")
+demo&gt; node --inspect server.js
+    Debugger listening on ws://127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e
+    For help, see: https://nodejs.org/en/docs/inspector
+浏览器输入 chrome://inspect
+    [Configure...] &gt; input[127.0.0.1:9229] [Done]
+    监听列表 [inspect] 弹出调试面板
+</pre>
 :::
 
 <div class="anchor" name="1627903874915" id="1627903874915"></div>

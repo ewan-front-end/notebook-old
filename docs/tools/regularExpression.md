@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.08.30 19:05</span>
+            <span>M 2021.08.31 20:45</span>
         </div>
     </div>
     <div class="content"></div>
@@ -96,7 +96,10 @@ arr.forEach((e) => {
 
 <pre class="code-block">
 <span class="h1 bg3 cf"> 匹配IP </span>
-    STYLE_BLOCK
+    [STYLE_START]
+    0[2-18](red)
+    0[21-33](red)
+    [STYLE_END]
     ((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}
     <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
     <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>

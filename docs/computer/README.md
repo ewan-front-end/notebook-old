@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.08.30 19:05</span>
+            <span>N 2021.08.31 12:38</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/computer/dataStructure">数据结构</a></li><li><a href="/computer/computerNetworks">计算机网络</a></li><li><a href="/computer/algorithm">算法</a></li></ul></div></div>
@@ -23,37 +23,54 @@ ACHOR[1628599921387|字符集]
 ::: details 字符集
 
 <pre class="code-block">
-<div style="background-color:#fbf4e7"><span class="h4" style="color:#e6b362"> 新建一个目录(收藏)</span>
-</div><div style="border:#f5e1c1 1px solid;padding:10px 0"><div class="form-elements">    <span class="button bg6 cf">+ New Collection</span> ➤ <span class="inline" style="background-color:#fcf7ee; vertical-align:top; padding:10px">名称<span class="input " style="color:#ffaa22">collection-name</span> 说明<span class="input ">说明文本</span></span> ➤ <span class="button bg6 cf">Create</span>
-</div></div>
+    ▮ ASCII(American Standard Code for Information Interchange) 1-127
+        Bin(二进制)   Oct(八进制)   Dec(十进制)   Hex(十六进制)   缩写/字符   解释
+        0000 0000    00            0            0x00           NUL(null)   空字符              NUL(null)  SOH(start of headline) STX (start of text) ...
+        0010 0000    040           32           0x20           (space)     空格
 
-<div style="background-color:#e7f4ef"><span class="h4" style="color:#60b491"> 新建一个请求</span>
-</div><div style="border:#c1e2d4 1px solid;padding:10px 0"><div class="form-elements">    <span class="list"><div class="list-wrapper"><span class="list-item"><span class="item-title bd" style="color:#ffaa22">collection-name</span></span></div></span>  ➤ <span class="list"><div class="list-wrapper"><span class="list-item"><span class="item-title">Add Request</span></span></div></span> ➤ <span class="inline" style="background-color:#eef7f4; vertical-align:top; padding:10px">请求名称<span class="input bd" style="color:#20b477">登录</span> 请求说明<span class="input ">说明文本</span> 选择所属目录:<span class="drop-down"><i class="bd" style="color:#ffaa22">collection-name</i></span></span> ➤ <span class="button bg6 cf">Save to collection-name</span>
-</div></div>
+        0011 0000    060           48           0x30           0           字符0               0 1 2 3 4 5 6 7 8 9    
+        0011 1001    071           57           0x39           9           字符9
 
-<div style="background-color:#f3ecfc"><span class="h4" style="color:#b180eb"> 新建一个环境</span>
-</div><div style="border:#e0cdf7 1px solid;padding:10px 0"><div class="form-elements">    右上角 <span class="button bg6 cf">Manage Environments</span> ➤ 弹窗 <span class="button bg6 cf">Add</span> ➤ <span class="inline" style="background-color:#f7f2fd; vertical-align:top; padding:10px">Environment Name<span class="input " style="color:#8922ff">environment-name</span>    
-<span class="table"><span class="col"><strong>VARIABLE(变量)</strong><i style="color:#26f">API</i><i style="color:#26f">RES</i></span><span class="col"><strong>INITIAL VALUE(初始值)</strong><i>https://api.com:4432</i><i>https://res.com:4433</i></span><span class="col"><strong>CURRENT VALUE(当前值)</strong><i>https://api.com:4432</i><i>https://res.com:4433</i></span></span></span> ➤ <span class="button bg6 cf">Add</span>
-</div></div>
+        0011 1010    072           58           0x3A           :           冒号                : ; &lt; = &gt; ? @
+        0100 0000    0100          64           0x40           @           电子邮件符号
 
-<span class="h3 bg3 cf"> 需要验证的请求 </span>
-<div style="border:#ddd 1px solid; padding: 10px 0">    <span>● 登录 </span><div class="form-elements">        切换环境：<span class="drop-down"><i style="color:#8922ff">environment-name</i></span>
-        <span class="list vtop"><div class="list-wrapper"><span class="list-item"><span class="item-title" style="color:#ffaa22">collection-name</span><span class="sub-box"><i class="active">登录</i><i>上传</i></span></span></div></span> ➤ <span class="inline" style="background-color:#f3f3f3; vertical-align:top; padding:10px"><span class="drop-down"><i>POST</i></span> <span class="input "><img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">/api/login/</span>  <span class="button">Send</span> <span class="button">Save</span>
-        
-<span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
-<span class="radio"><i>none</i><i>form-data</i><strong>x-www-form-urlencoded</strong><i>raw</i><i>binary</i><i>GraphQL</i></span>
-<span class="table"><span class="col"><strong>KEY</strong><i>username</i><i>password</i></span><span class="col"><strong>VALUE</strong><i>ewan</i><i>123456</i></span><span class="col"><strong>DESCRIPTION</strong><i></i><i></i></span></span></span> ➤ <span class="button bg6 cf">Save</span> ➤ <span class="button bg6 cf">Send</span> ➤ 得到：<span style="color:#f33">e4fc5eb9-316a-48e5-a970-dc116e7ab897</span>
-</div></div><div style="border:#ddd 1px solid; padding: 10px 0">    <span>● 需要验证的请求</span><div class="form-elements">        切换环境：<span class="drop-down"><i style="color:#8922ff">environment-name</i></span>
-        <span class="list vtop"><div class="list-wrapper"><span class="list-item"><span class="item-title" style="color:#ffaa22">collection-name</span><span class="sub-box"><i>登录</i><i class="active">上传</i></span></span></div></span> ➤ <span class="inline" style="background-color:#f3f3f3; vertical-align:top; padding:10px"><span class="drop-down"><i>POST</i></span> <span class="input "><img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">/api/cdn/UploadFile/</span>  <span class="button">Send</span> <span class="button">Save</span>
+        0100 0001    0101          65           0x41           A           大写字母A            A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+        0101 1010    0132          90           0x5A           Z           大写字母Z
 
-<span class="tab"><i>Params</i><i>Authorization</i><strong>Headers</strong><i>Body</i><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
-<span class="table"><span class="col"><strong>KEY</strong><i>authenticate</i></span><span class="col"><strong>VALUE</strong><i style="color:#f33">e4fc5eb9-316a-48e5-a970-dc116e7ab897</i></span><span class="col"><strong>DESCRIPTION</strong><i></i></span></span>
+        0101 1011    0133          91           0x5B           [           开方括号             [ \ ] ^ _ `
+        0110 0000    0140          96           0x60           `           开单引号
 
-<span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
-<span class="radio"><i>none</i><i>form-data</i><i>x-www-form-urlencoded</i><i>raw</i><strong>binary</strong><i>GraphQL</i></span>
-        <span class="button bg6 cf">Select File</span></span> ➤ <span class="button bg6 cf">Save</span> ➤ <span class="button bg6 cf">Send</span>
-</div></div>
-</pre>5
+        0110 0001    0141          97           0x61           a           小写字母a            a b c d e f g h i j k l m n o p q r s t u v w x y z
+        0111 1010    0172          122          0x7A           z           小写字母z
+
+        0111 1011    0173          123          0x7B           {           开花括号             { | } ~ DEL
+        0111 1111    0177          127          0x7F           DEL         删除
+
+    ▮ 计算机的世界化过程中，欧洲紧随其后，ASCII基础上，利用ASCII字节中闲置的最高位 扩展到了第255号字符
+
+    ▮ 亚洲象形文字，ASCII基础上，通过扩展字节表示更多的字符
+
+    ▮ 世界统一标准，Unicode规范出台，为世界上所有字符都分配了一个唯一的数字编号，从 0x000000 到 0x10FFFF 有 110 多万个
+
+    ▮ Unicode规范实现：规范编号对应到二进制表示方案主要有 UTF-8 UTF-16 UTF-32
+
+    ▮ UTF-8
+        使用的字节数可变
+        Unicode编号溢出255时 扩展字节 字节数1-4不等
+        入库规范：
+            二进制格式(X为Unicode编号占位符)                   十六进制编号范围      十进制编号范围
+            ──────────────────────────────────────────────┼────────────────────┼───────────────
+            单字节  0XXXXXXX                                 0x00-0x7F            0-127
+            二字节  110XXXXX 10XXXXXX                        0x80-0x7FF           128-2047
+            三字节  1110XXXX 10XXXXXX 10XXXXXX               0x800-0xFFFF         2048-65535
+            四字节  11110XXX 10XXXXXX 10XXXXXX 10XXXXXX      0x10000-0x10FFFF     65536-
+        入库流程：
+            例：'马'的Unicode编号是：0x9A6C，整数编号是 39532
+                1. 1110XXXX 10XXXXXX 10XXXXXX  <span class="comment"> // 找到Unicode编号范围对应的二进制格式</span>
+                2. 39532 &gt; 1001 1010 0110 1100 <span class="comment"> // Unicode编号转化为二进制数</span>
+                3. 111X1001 10101001 10101100  <span class="comment"> // 将二进制数从右&gt;左依次填入占位符</span>
+                4. 11101001 10101001 10101100  <span class="comment"> // 剩余占位符设为0</span>
+</pre>
 :::
 
 ::: details 字符集JS操作

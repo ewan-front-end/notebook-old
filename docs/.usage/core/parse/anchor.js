@@ -8,7 +8,7 @@ module.exports = {
         let matchAnchor
         while ((matchAnchor = /ANCHOR\[(\d{13})\|?([^\]]*)\]/.exec(code)) !== null) {
             code = code.replace(matchAnchor[0], `<div class="anchor" name="${matchAnchor[1]}" id="${matchAnchor[1]}"></div>\n`) 
-            dataArr.push({stamp:matchAnchor[1], path:matchAnchor[2], name:filePath})
+            dataArr.push({stamp:matchAnchor[1], path:filePath, name:matchAnchor[2]})
         }
         return code
     },
@@ -17,7 +17,7 @@ module.exports = {
         while ((m = /TITLE([1-6])\[(\d{13})\|?([^\]]*)\]/.exec(code)) !== null) {
             code = code.replace(m[0], `<h${m[1]} id="${m[2]}">${m[3]}</h${m[1]}>`) 
             Anchor.add(m[1], m[2], filePath)
-            dataArr.push({stamp:m[1], path:m[2], name:filePath})
+            dataArr.push({stamp:m[1], path:filePath, name:m[2]})
         }
         return code
     },

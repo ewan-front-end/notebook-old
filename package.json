@@ -18,15 +18,15 @@
         "vuepress": "^1.8.2"
     },
     "scripts": {
-        "docs:dev": "vuepress dev docs",
+        "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/core/watch.js\"",
         "docs:build": "vuepress build docs",
-        "data": "node docs/.usage/bin/handle-data.js",
-        "deploy": "node docs/.usage/bin/deploy.js",
-        "create": "node docs/.usage/bin/create.js",
-        "watch": "node docs/.usage/createWatch.js",
-        "scene": "node docs/.usage/updateScene.js",
-        "solution": "node docs/.usage/updateSolution.js",
-        "usage": "node docs/.usage/updateUsage.js"
+        "data": "node docs/.usage/core/handle-data.js",
+        "deploy": "node docs/.usage/core/deploy.js",
+        "create": "node docs/.usage/core/create.js",
+        "watch": "node docs/.usage/core/watch.js",
+        "scene": "node docs/.usage/core/scene.js",
+        "solution": "node docs/.usage/core/solution.js",
+        "usage": "node docs/.usage/core/usage.js"
     },
     "keywords": [],
     "author": "",
