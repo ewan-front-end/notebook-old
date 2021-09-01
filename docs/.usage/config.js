@@ -45,5 +45,9 @@ module.exports.dataPath = {
     "src:updateTime": path.resolve(__dirname, "data/.SRC_UPDATETIME.json"), // 用于：编辑资源文件时记录更新时间
     "path:data": path.resolve(__dirname, "data/.PATH_DATA.json"),           // 用于：编辑资源文件时记录更新时间     
     "creator": path.resolve(__dirname, "data/.CREATOR.json"),               // 用于：创建目录与文件的依据
-    "stamp:link": path.resolve(__dirname, "data/.STAMP_LINK.json")          // 解析内容时收集的链接表
+    "stamp:link": path.resolve(__dirname, "data/.STAMP_LINK.json"),         // 解析内容时收集的链接表
+    "scene": path.resolve(__dirname, "data/.SCENE.json"),                   // 场景
+    "usage": path.resolve(__dirname, "data/.USAGE.json"),                   // 攻略
+    "solution": path.resolve(__dirname, "data/.SOLUTION.json"),             // 方案
+    "standard": path.resolve(__dirname, "data/.STANDARD.json"),             // 标准
 }

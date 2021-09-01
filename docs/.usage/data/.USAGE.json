@@ -1,0 +1,105 @@
+[
+    {
+        "title": "NPM",
+        "scene": [
+            {
+                "title": "rvm",
+                "href": "/node",
+                "id": "版本管理",
+                "desc": "源于node版本改变的匹配"
+            }
+        ]
+    },
+    {
+        "title": "Nginx",
+        "scene": [
+            {
+                "title": "windows",
+                "desc": [
+                    {
+                        "title": "安装",
+                        "text": "http://nginx.org/en/download.html"
+                    },
+                    {
+                        "title": "配置",
+                        "text": "c:\\nginx\\conf\\nginx.conf"
+                    },
+                    {
+                        "title": "启动",
+                        "text": "c:\\server\\nginx-1.0.2 > start nginx 或 c:\\server\\nginx-1.0.2 > nginx.exe"
+                    },
+                    {
+                        "title": "重启",
+                        "text": "c:\\server\\nginx-1.0.2 > nginx.exe -s reload  "
+                    },
+                    {
+                        "title": "停止",
+                        "text": "c:\\server\\nginx-1.0.2 > nginx.exe -s stop 或 c:\\server\\nginx-1.0.2 > nginx.exe -s quit"
+                    }
+                ]
+            },
+            {
+                "title": "mac",
+                "desc": [
+                    {
+                        "title": "依赖ruby",
+                        "text": "ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\""
+                    },
+                    {
+                        "title": "安装",
+                        "text": "brew install nginx"
+                    },
+                    {
+                        "title": "配置",
+                        "text": "/usr/local/etc/nginx/nginx.conf"
+                    },
+                    {
+                        "title": "启动",
+                        "text": "nginx  重启: nginx -s reload  停止: nginx -s stop"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Node",
+        "scene": [
+            {
+                "title": "rvm",
+                "href": "/node",
+                "id": "版本管理",
+                "desc": [
+                    "nvm list 显示已安装的列表",
+                    "nvm list available 显示可安装的所有版本",
+                    "nvm install 12.18.2 安装特定版本",
+                    "nvm use 12.18.2 使用指定版本"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Vuepress",
+        "scene": {
+            "title": "Vuepress",
+            "href": "/framework/vuepress",
+            "id": "使用指南",
+            "desc": [
+                "创建 docs 目录",
+                "复制 .usage 到 docs/",
+                "基础部署 node docs/.usage/deploy.js",
+                "地图创建 node docs/.usage/create.js",
+                "npm run docs:dev"
+            ]
+        }
+    },
+    {
+        "title": "Docsify",
+        "scene": {
+            "desc": [
+                "$ sudo npm i docsify-cli -g",
+                "demo> docsify init ./docs",
+                "demo> docsify serve docs"
+            ]
+        }
+    }
+]

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.08.31 12:38</span>
+            <span>M 2021.09.01 18:33</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -128,9 +128,10 @@ Array.prototype.unique = function () {
 ::: details String
 [中文首字母及排序](/solution#中文获取拼音首字母及排序) - [正则匹配](/tools/regularExpression#字符串匹配方法)
 ```js
-String.prototype.replaceAt=function(scope, replacement) {
-    if (scope[0] > this.length) return this // 起始位置越界
-    return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
+String.prototype.replaceAt = function(start, len, replacement) {
+    let s = parseInt(start), l = parseInt(len)
+    if (s > this.length) return this
+    return this.substr(0, s) + replacement + this.substr(s + l)
 }
 //替换特定索引下的字符：console.log("Hello World".replaceAt([2,4], "!!"))
 

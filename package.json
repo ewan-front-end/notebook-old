@@ -20,13 +20,14 @@
     "scripts": {
         "docs:dev": "concurrently \"vuepress dev docs\" \"node docs/.usage/core/watch.js\"",
         "docs:build": "vuepress build docs",
-        "data": "node docs/.usage/core/handle-data.js",
+        "data": "node docs/.usage/core/data.js",
         "deploy": "node docs/.usage/core/deploy.js",
         "create": "node docs/.usage/core/create.js",
         "watch": "node docs/.usage/core/watch.js",
-        "scene": "node docs/.usage/core/scene.js",
+        "scene": "node docs/.usage/core/scene.js",        
+        "usage": "node docs/.usage/core/usage.js",
         "solution": "node docs/.usage/core/solution.js",
-        "usage": "node docs/.usage/core/usage.js"
+        "standard": "node docs/.usage/core/standard.js"
     },
     "keywords": [],
     "author": "",

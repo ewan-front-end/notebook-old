@@ -16,6 +16,10 @@ module.exports = {
             {
                 "text": "项目",
                 "link": "/projects/"
+            },
+            {
+                "text": "场景",
+                "link": "/scene"
             }
         ],
         "sidebarDepth": 2,

@@ -8,57 +8,11 @@ function parseCustomBlock(block) {
     block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
     block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
     
-    /**
-     * 样式分离表示法
-     *  [STYLE_START]             样式描述开始
-        1[2-4](bold red)          行1 索引(2-4)   class
-        1/2/3[10-15]{color:#f00}  行1、2、3 索引(10-15) style
-        [STYLE_END]               样式描述结束
-     */
-    const styleMatch = block.match(/(\[STYLE_START\]\x20*[\r\n]+([\s\S]+?)\x20*[\r\n]+\x20*\[STYLE_END\])/g) || []
-    
-    styleMatch.forEach(styleBlock => {
-        
-    })
-    console.log(styleMatch);
-    // while (/(\[STYLE_START\]\x20*[\r\n]+([\s\S]+?)\x20*[\r\n]+\x20*\[STYLE_END\])/.exec(block) !== null) {
-    //     const $FORMAT = RegExp.$1, $STYLE_LIST = RegExp.$2        
-    //     block = block.replace($FORMAT, 'STYLE_BLOCK') 
-    //     // 解析样式格式
-    //     let maxLineNum = 0, styleArr = $STYLE_LIST.trim().split(/\x20*[\r\n]+\x20*/).map(e => {
-    //         const m = e.match(/(\d+((\/\d+)*)?)\[(\d+)-(\d+)\]((\([\w\s-]+\))|(\{[\w\s-:#;]+\}))+/), $LINE=m[1], $START = m[4], $END = m[5], $STYLE = m[6], styleMatch = $STYLE.match(/\{([^\}]+)\}/), classMatch = $STYLE.match(/\(([^\)]+)\)/)            
-    //         return {lines: $LINE.split('/').map(l => { maxLineNum = Math.max(maxLineNum, l); return l}), index: [parseInt($START), parseInt($END)], style_: styleMatch ? styleMatch[1] : null, class_: classMatch ? classMatch[1] : null}
-    //     })        
-    //     // 截取要格式化的内容
-    //     const content = block.match(new RegExp(`STYLE_BLOCK\x20*[\r\n]+((.*[\n\r]+[\n\r\x20\u2028\u2029]*){${maxLineNum + 1}})`))
-    //     const contentLineArr = content[1].trim().split(/[\n\r]+[\n\r\x20\u2028\u2029]*/)
-    //     // 格式化内容
-    //     let newContent = content[0]
-    //     styleArr.forEach(e => {
-    //         let {lines, index, style_, class_} = e
-    //         lines.forEach(line => {
-    //             let lineStr = contentLineArr[line], s = index[0], e = index[1] + 1, substr = lineStr.slice(s, e), styleStr = '', classStr = ''
-    //             style_ && (styleStr = ` style="${style_}"`)
-    //             class_ && (classStr = ` class="${class_}"`)
-    //             newContent = newContent.replace(lineStr, lineStr.replaceAt(index, `<span${styleStr}${classStr}>${substr}</span>`)) 
-    //         })
-    //     })
-    //     block = block.replace(content[0], newContent) 
-    // } 
-    
     // - Markdown点列表
     while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`)} 
+
     // Markdown**局部加粗**
     while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)}
-
-    // 盒子：■⇤{}()content■
-    while (/(\x20*)(■(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)■)/.exec(block) !== null) {
-        const $INDENT = RegExp.$1, $FORMAT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CLASS = RegExp.$4 || RegExp.$6, $STYLE = RegExp.$5, $CONTENT = RegExp.$8
-        let str = ''        
-        $CLASS && (str += ` class=${$CLASS.replace('(','"').replace(')','"')}`)
-        $STYLE && (str += ` style=${$STYLE.replace('{','"').replace('}','"')}`)
-        block = block.replace($FORMAT, `<div${str}>${$CONTENT}</div>`)
-    }
 
     // 标题：# Title Text{color:red}    #个数(1-6)代表尺寸 [#] 反相标题  [] 可增加空格为标题作内边距
     while (/\x20*((\[?)(#{1,6})\]?\s([^\n\r\{]+)(\{([\w\s-;:'"#]+)\})?)/.exec(block) !== null) {
@@ -73,9 +27,6 @@ function parseCustomBlock(block) {
         block = block.replace($FORMAT, `<span ${str}>${content}</span>`)
     }
     
-    // * 行加粗 会和多行注释相冲突
-    //while (/^\s*(\*\s([^\n\r]+))/m.exec(block) !== null) {block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)} 
-    
     // // 注释
     const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
     matchComment.forEach(e => {
@@ -83,6 +34,7 @@ function parseCustomBlock(block) {
         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
     })
+
     // /* 注释 */
     const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
     matchComment2.forEach(e => {
@@ -90,6 +42,7 @@ function parseCustomBlock(block) {
         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
     })
+
     // [img:$withBase('/images/左移位运算符.jpg')]
     const matchImage = block.match(/\[img:(.+?)\]/g) || [];
     matchImage.forEach(e => {
@@ -233,17 +186,48 @@ function parseCustomBlock(block) {
         block = block.replace(e, `<div class="form-elements">${content}</div>`)
     })
 
-    // STYLE&CLASS:[{color:#f00}(bd)text content]
-    // STYLE=\{([\w\s-;:'"#]+)\} CLASS=\(([\w\s-]+)\) 内容=.+?
-    // ((STYLE)|(CLASS)){1,2}(内容)
-    const styleClassMatch = block.match(/\[((\{[\w\s-;:'"#]+\})|(\([\w\s-]+\))){1,2}.+?\]/g) || []
-    styleClassMatch.forEach(e => {
+    /**
+     * 行样式：[2,17{color:#f00}(bd)  19,13{color:#0f0}(bd)] 
+     * $1：$ALL=(FORMAT$SPACE$CONTENT)  FORMAT=\x20*\[SCOPES\]\x20*[\r\n]+  
+     * $2：$SCOPES = ((SCOPE)+)  SCOPE =\x20*\d+,\d+((\{[\w\x20-;:'"#]+\})|(\([\w\x20-]+\))){1,2}
+     * $7：$SPACE=(\x20*)
+     * $8：$CONTENT=(.+)
+     */
+     while(block.match(/(\x20*\[((\x20*\d+,\d+((\{[\w\x20-;:'"#]+\})|(\([\w\x20-]+\))){1,2})+)\]\x20*[\r\n]+(\x20*)(.+))/)){
+         const $ALL = RegExp.$1, $SCOPES = RegExp.$2, $SPACE = RegExp.$7
+         let content = RegExp.$8
+         $SCOPES.split(/\x20{2,}/).map(scope => scope.match(/(\d+),(\d+)(.+)/)).sort((a,b) => b[1] - a[1]).forEach(arr => {
+            const s = arr[1], l = arr[2], styleMatch = arr[3].match(/\{([\w\x20-;:'"#]+)\}/), classMatch = arr[3].match(/\(([\w\x20-]+)\)/)
+            let styleStr = '', classStr = '' 
+            styleMatch && (styleStr = ` style="${styleMatch[1]}"`)
+            classMatch && (classStr = ` class="${classMatch[1]}"`)
+            content = content.replaceAt(s, l, `<span${styleStr}${classStr}>${content.substr(s, l)}</span>`)
+         })
+         block = block.replace($ALL, $SPACE + content)
+     }     
+
+    /**
+     * 盒样式：[{color:#f00}(bd)CONTENT]
+     * 匹配 STYLE=\{([\w\s-;:'"#]+)\} CLASS=\(([\w\s-]+)\) 内容=.+?
+     * 匹配 ((STYLE)|(CLASS)){1,2}(内容)
+     */
+    const boxStyleMatch = block.match(/\[((\{[\w\s-;:'"#]+\})|(\([\w\s-]+\))){1,2}.+?\]/g) || []
+    boxStyleMatch.forEach(e => {
         const m = e.match(/\[(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)\]/), $STYLE = m[4] || '', $CLASS = m[2] || m[6] || '', $CONTENT = m[7]
         let str = ''
         $STYLE && (str += ` style="${$STYLE}"`)
         $CLASS && (str += ` class="${$CLASS}"`)
         block = block.replace(e, `<span${str}>${$CONTENT}</span>`)
     }) 
+
+    // 盒子：■⇤{}()content■
+    while (/(\x20*)(■(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)■)/.exec(block) !== null) {
+        const $INDENT = RegExp.$1, $FORMAT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CLASS = RegExp.$4 || RegExp.$6, $STYLE = RegExp.$5, $CONTENT = RegExp.$8
+        let str = ''        
+        $CLASS && (str += ` class=${$CLASS.replace('(','"').replace(')','"')}`)
+        $STYLE && (str += ` style=${$STYLE.replace('{','"').replace('}','"')}`)
+        block = block.replace($FORMAT, `<div${str}>${$CONTENT}</div>`)
+    }
 
     block = block.replace('===+', '\n<pre class="code-block">').replace('===-', '</pre>')
 

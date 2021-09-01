@@ -21,7 +21,7 @@
             "/javascript/",
             "/programmingLanguage/",
             "/framework/",
-            "/standard/",
+            "/biaozhun/",
             "/frontend/",
             "/projects",
             "/other",
@@ -52,7 +52,7 @@
             "/javascript/",
             "/programmingLanguage/",
             "/framework/",
-            "/standard/",
+            "/biaozhun/",
             "/frontend/",
             "/projects",
             "/other",
@@ -877,21 +877,21 @@
         "title": "Docsify",
         "path": "/framework/docsify"
     },
-    "/standard/": {
+    "/biaozhun/": {
         "title": "规范",
         "src": "standard/index",
         "children": [],
-        "key": "standard",
+        "key": "biaozhun",
         "linkName": "规范",
-        "path": "/standard/"
+        "path": "/biaozhun/"
     },
-    "/standard/README": {
+    "/biaozhun/README": {
         "title": "规范",
         "src": "standard/index",
         "children": [],
-        "key": "standard",
+        "key": "biaozhun",
         "linkName": "规范",
-        "path": "/standard/"
+        "path": "/biaozhun/"
     },
     "/frontend/": {
         "title": "前端体系",

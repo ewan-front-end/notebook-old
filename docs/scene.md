@@ -1,0 +1,1040 @@
+<strong>【NPM】 </strong> [NPM内网源搭建](/tools/npm.html#NPM内网源搭建)  [NPM版本管理](/node.html#版本管理) <br><strong>【VSCode】 </strong> [简化特定通用代码](/tools/vscode.html#自定义用户片段) <br><strong>【Node】 </strong> [Node版本管理](/node.html#版本管理) <br><strong>【Vuepress】 </strong> [部署到一个非根路径](/framework/vuepress.html#部署到一个非根路径)  [插入图片](/framework/vuepress.html#公共资源库) <br>
+
+
+
+npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
+代码覆盖率
+
+
+- 获取北京时间
+- 前端性能优化-通用的缓存SDK
+- NPM内网源搭建
+- 搭建websocket服务(/node/socket)
+- 搭建聊天室(/socket/)
+- Node测试方案
+- node插件开发(/node/plugin)
+- 打造一个Node命令行工具 https://www.imooc.com/article/3156
+- html模块化开发
+- 移动端web的调试
+- 为项目添加文档功能 [Vuepress最佳实践](/framework/vuepress.html#最佳完整实践) [Docsify](/framework/docsify)
+- 免费社工库机器人  @FreeSGKbot
+- Node中使用ES6模块化规范 [Node模块化ES6规范](/node/#es6模块化应用)
+- 地区限制 [地区限制方案](/solution#地区限制方案)
+- 流程图 跨职域流程图 数据结构表 顺序图 状态转换图 类图 [UML(Unified Modeling Language)](/tools/uml)
+- 业务模块进行归并、划分时的E—R图（实体关系法）以及连带的数据结构设计
+- OOA（面向对象分析） OOD（面向对象设计）
+- [设计模式(Design pattern)](/designPattern)
+- [node获取可用端口号](/node#node获取可用端口号)
+
+## 解决方案
+- [用户帐户体系](/solution.html#用户帐户体系sdk)
+- [微前端架构](/solution#微前端架构)
+- [浏览器静默与激活](/solution#浏览器静默与激活)
+
+
+## 项目
+
+
+
+## 环境搭建 
+[正则表达式测试页](/tools/regularExpression)
+
+::: details Node环境下ES6模块化开发
+http://www.ruanyifeng.com/blog/2020/08/how-nodejs-use-es6-module.html
+```
+■ 目录结构  
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ a.js
+    ┃   ┖ b.js
+    ┠ main.js 
+
+    demo/src/a.js
+        export default (a, b) => a + b
+    demo/src/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+    demo/main.js   
+        import add from './src/a'
+        import { pow, sqrt } from './src/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))  
+
+■ 目标
+    > deme> node main.js 运行不报错
+
+■ 技术部署
+    1. demo> npm init -y
+    2. demo> npm i babel-register babel-env --save-dev
+    3. 创建新入口如：demo/main-new.js
+        require('babel-register') ({ presets: [ 'env' ] })
+        module.exports = require('./main.js') // 在这里输出老入口
+    4. deme> node main-new.js 
+```
+:::
+
+
+::: details HTML+ES6模块化开发
+```
+■ 目标
+    > File协议浏览index.html
+    > 在静态页(index.html)中以script标签方式引入主入口(main.js)
+    > 将主入口(main.js)打包成 main-bundle.js
+
+■ 目录结构
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ a.js
+    ┃   ┖ b.js
+    ┠ main.js 
+    ┠ index.html
+
+    demo/src/a.js
+        export default (a, b) => a + b
+    demo/src/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+    demo/main.js   
+        import add from './src/a'
+        import { pow, sqrt } from './src/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))  
+    demo/index.html   
+        <h1>HTML+ES6模块化开发</h1>
+        <script src="main.js"></script>
+       
+■ 实现
+    demo> npm init -y
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
+
+    demo/webpack.config.js
+        module.exports = {
+            entry: './main.js',             // 入口 相对路径
+            output: {                       // 出口 绝对路径
+                filename: 'main-bundle.js',
+                path: __dirname
+            },
+            mode: 'development'             // 环境：production/development/none
+        }
+    demo> npx webpack 
+
+    调整 demo/index.html script src="main-bundle.js"></script>
+    打开 demo/index.html
+```
+:::
+
+::: details 命令行工具开发
+```
+目标：
+    - 可安装 npm i @angg/dict -g
+    - 可发布与升级
+    - 可使用 demo> hi
+核心
+    - package.name       安装 　　      名称           npm i ■■              
+    - package.version    安装 升级      版本           npm i @angg/dict@■■    发布之前修改■■
+    - package.bin        使用 　　      命令程序指向    demo> hi                      
+
+■ 简单的 
+    1. demo> npm init -y
+    2. demo/bin/hi.js
+        #! /usr/bin/env node
+        console.log("Node命令插件")
+    3. demo/package.json
+        "bin": {"hi": "bin/hi.js"}
+    4. demo> npm link
+    5. xxxx> hi
+
+■ 健壮的 
+    1. dict> npm init -y
+    2. dict> npm i commander update-notifier superagent xml2js --save-dev
+        commander        命令处理
+        update-notifier  以非侵入性方式通知你的更新软件包
+        superagent       轻量的渐进式的ajax api
+        xml2js           解析操作XML文件
+    3. 文件结结 
+    dict/bin/cli.js
+        #! /usr/bin/env node
+        const program = require('commander')
+        const updateNotifier = require('update-notifier')
+        const pkg = require('../package.json')
+        const translator = require('../lib/translator')
+        updateNotifier({ pkg }).notify()
+        program
+            .version(pkg.version)
+        program
+            .command('*')
+            .description('Query words')
+            .action(translator.query)
+        program
+            .command('query <words>')
+            .alias('q')
+            .description('Query words')
+            .action(translator.query)
+        program
+            .command('ls')
+            .description('List all the source')
+            .action(translator.onList)
+        program
+            .command('use <source>')
+            .description('Change source to source')
+            .action(translator.onUse)
+        program.parse(process.argv)
+        if (process.argv.length === 2) {program.outputHelp()}
+    dict/lib/api.json
+        {
+            "youdao": "http://fanyi.youdao.com/openapi.do?keyfrom=node-fanyi&key=110811608&type=data&doctype=json&version=1.1",
+            "iciba": "http://dict-co.iciba.com/api/dictionary.php?key=D191EBD014295E913574E1EAF8E06666"
+        }
+    dict/lib/translator.js
+        const request = require('superagent')
+        const xml2js = require('xml2js')
+        const chalk = require('chalk')
+        const Configstore = require('configstore')
+        const { URL } = require('url')
+        const log = console.log
+        const api = require('./api.json')
+        const pkg = require('../package.json')
+        const conf = new Configstore(pkg.name, {source: 'youdao'})
+        // 打印词典列表 并标示当前使用
+        exports.onList = function () { let current = getCurrentApi(); for (let key in api) { if (key === current) { log(chalk.blue('*  ' + key + '  -> ' + new URL(api[key]).origin)) } else { log('   ' + key + '  -> ' + new URL(api[key]).origin) } } }
+        // 设置当前使用词典
+        exports.onUse = function (source) { setCurrentApi(source) }
+        // 查词
+        exports.query = async function (query) {
+            let current = getCurrentApi(), source = api[current]
+            if (current === 'youdao') { const data = await request.get(source).query({ q: query }); const result = data.body; parseYoudao(result) } else if (current === 'iciba') { const data = await request.get(source).query({ w: query }); parseIciba(data.text) }
+        }
+        // 获取当前使用中词典
+        function getCurrentApi () { let source = conf.get('source'); return source}
+        // 设置当前使用词典
+        function setCurrentApi (source) { conf.set('source', source); log(chalk.cyan(`source has been set to: ${source}`))}
+        // 解析有道查询结果
+        function parseYoudao (data) {
+            let header = ''
+            header += data.query
+            if (data.basic && data.basic.phonetic) { header += chalk.magenta('  [ ' + data.basic.phonetic + ' ]') }
+            log(header + chalk.gray('    ~ fanyi.youdao.com'))
+            // explains
+            if (data.basic && data.basic.explains) { log(); data.basic.explains.forEach((item) => { log(chalk.gray('- ') + chalk.green(item)) }) }
+            // sentence
+            if (data.web && data.web.length) { log(); data.web.forEach((item, i) => { log(chalk.gray(i + 1 + '. ') + item.key); log(`     ${chalk.cyan(item.value.join(','))}\n`) }) }
+        }
+        // 解析Iciba查询结果
+        async function parseIciba (data) {
+            const _data = await parseString(data)
+            data = _data.dict
+            let header = ''
+            header += data.key + ' '
+            if (typeof data.ps === 'string') { data.ps = [data.ps] }
+            if (typeof data.pos === 'string') { data.pos = [data.pos] }
+            if (typeof data.acceptation === 'string') { data.acceptation = [data.acceptation] }
+            if (data.ps && data.ps.length) { var ps = ''; data.ps.forEach((item, i) => { header += chalk.magenta(' ' + (i === 0 ? '英' : '美') + '[ ' + item + ' ] ') }); header += ps }
+            log(header + chalk.gray('    ~ iciba.com'))
+            if (data.pos && data.pos.length) { log(); data.pos.forEach((item, i) => { if (typeof data.pos[i] !== 'string' || !data.pos[i]) { return }; log(chalk.gray('- ') + chalk.green(data.pos[i] + ' ' + data.acceptation[i].trim())) }) }
+            if (data.sent && data.sent.length) {
+                log()
+                data.sent.forEach((item, i) => { if (typeof item.orig !== 'string' && item.orig[0]) { item.orig = item.orig[0].trim() }; if (typeof item.trans !== 'string' && item.trans[0]) { item.trans = item.trans[0].trim() }; log(chalk.gray(i + 1 + '. ') + item.orig); log(`   ${chalk.cyan(item.trans)}\n`) })
+            }
+        }
+        function parseString (xml) { return new Promise(function (resolve, reject) { xml2js.parseString(xml, (err, result) => { if (err) { reject(err) }; resolve(result) }) }) }
+    4. dict/package.json
+        "name": "@angg/dict",            // xxxx> npm install -g @angg/dict
+        "version": "1.0.0",              // xxxx> npm install -g @angg/dict@1.0.0
+        "bin": {
+            "translator": "bin/cli.js",  // xxxx> translator
+            "fanyi": "bin/cli.js",       // xxxx> fanyi
+            "fy": "bin/cli.js"           // xxxx> fy
+        }
+    5. dict> npm link   // 链接到全局执行环境 解除链接：npm unlink
+    6. xxxx> translator
+       xxxx> fanyi
+       xxxx> fy 
+             fy query book  查词
+             fy ls          词典列表
+             fy use iciba   使用词典 
+
+    编写测试
+        dict> npm i mocha chai --save-dev
+
+        dict/test/index.test.js
+            const execa = require('execa')
+
+            test('Query words', async () => {
+                const word = 'test'
+                const ret = await execa('./bin/cli.js', ['query', word])
+                expect(ret.stdout).toMatch(new RegExp(word))
+            })
+
+            test('Change source to source', async () => {
+                const source = 'youdao'
+                const ret = await execa('./bin/cli.js', ['use', source])
+                expect(ret.stdout).toBe(`source has been set to: ${source}`)
+            })
+
+            test('List all the source', async () => {
+                const ret = await execa('./bin/cli.js', ['ls'])
+                expect(ret.stdout.replace('\n', '')).toMatch(/(?=.*youdao)(?=.*iciba)^.*$/)
+            })
+
+
+
+
+        dict/src/add.js
+            module.exports =  function add(a,b) { return a + b }
+        dict/test/add.js
+            const chai = require('chai')
+            const should = chai.should()
+            const add = require('../src/add')
+
+            describe("add func test",() => {
+                it('2 add 2 should equal 4',() => { add(2,2).should.equal(4) })
+            })
+
+    
+    ▇发布&升级▇  
+        1 package.version
+        2 dict> npm adduser                 LINK[npm_user_register|没有帐户&多人发布]
+        3 dict> npm publish --access public 
+    ▇安装▇ xxxx> npm i @angg/dict -g 
+    ▇使用▇ xxxx> translator
+            xxxx> fanyi
+            xxxx> fy 
+                  fy query book  查词
+                  fy ls          词典列表
+                  fy use iciba   使用词典   
+```
+:::
+
+::: details Node插件开发
+```
+目标：
+    - 可发布与升级
+    - 可安装 npm i @angg/tools --save
+    - 可使用 var tools = require('@angg/tools') 或 import tools from '@angg/tools'
+核心
+    - package.name       安装 使用      名称           npm i ■■              require('■■')      import myPlugin from '■■' 
+    - package.version    安装 升级      版本           npm i @angg/tools@■■    发布之前修改■■
+    - package.main            使用      内部程序指向                         require('@angg/tools')内部隐式指向■■
+
+部署
+    1. tools> npm init -y
+    2. tools/package.json
+        {
+            "name": "@angg/tools", 
+            "version": "1.0.0", 
+            "main": "src/main.js"
+        }
+    3. tools/src/main.js
+        module.exports = { 
+            sleep(long){
+                var start = Date.now()
+                while((Date.now() - start) < long){}
+            }
+        }
+    4. tools/test/main.js
+        var tools = require('../src/main.js')
+        tools.sleep(5000)
+        console.log('睡眠结束！')
+    5. tools> node test/main.js
+
+▇发布&升级▇  
+    1 package.version
+    2 tools> npm adduser                 LINK[npm_user_register|没有帐户&多人发布]
+    3 tools> npm publish --access public 
+▇安装▇ demo> npm i @angg/tools --save
+▇使用▇ demo/demo.js
+        var tools = require('@angg/tools')
+        tools.sleep(5000)
+        console.log('睡眠结束！')
+```
+:::
+
+
+::: details HTML+ES6模块化/热更新开发
+```
+■ 目标
+    > File协议浏览dist/index.html
+    > 在静态页(dist/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到dist/js/下
+    > 监控响应开发目录
+
+■ 目录结构
+    ┠ dist ---------------------------- 发布目录
+    ┃   ┖ index.html
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ main.js
+    ┃   ┖ modules
+    ┃       ┠ a.js
+    ┃       ┖ b.js    
+    
+    demo/dist/index.html   
+        <h1>HTML+ES6模块化/热更新开发</h1>     
+        <script src="js/main.js"></script>             
+    demo/src/main.js    
+        import add from './modules/a'
+        import { pow, sqrt } from './modules/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))    
+    demo/src/modules/a.js
+        export default (a, b) => a + b
+    demo/src/modules/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+       
+■ 实现
+    demo> npm init -y
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 nodemon-webpack-plugin --save-dev
+
+    demo/webpack.config.js
+        const path = require('path')
+        const NodemonPlugin = require('nodemon-webpack-plugin')
+        module.exports = {
+            mode: 'development',
+            entry: './src/main.js',
+            output: {
+                path: path.resolve(__dirname, 'dist/js'),
+                filename: '[name].js'
+            },
+            plugins: [new NodemonPlugin()]
+        }
+    如果主入口要暴露方法则需指定引用模式/访问前缀：
+        module.exports = {
+            output: {
+                library: 'lib', 
+                libraryTarget: 'umd'
+            }
+        }
+
+    demo> npx webpack --watch
+    部署完成 可以开发了    
+```
+:::
+
+::: details HTML+ES6模块化/热更新/服务预览
+```
+■ 目标
+    > Http协议浏览dist/index.html
+    > 在静态页(dist/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到dist/js/下
+    > 监控响应开发目录
+
+■ 目录结构
+    ┠ dist ---------------------------- 发布目录
+    ┃   ┖ index.html
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ main.js
+    ┃   ┖ modules
+    ┃       ┠ a.js
+    ┃       ┖ b.js    
+    
+    demo/dist/index.html   
+        <h1>HTML+ES6模块化/热更新/服务预览</h1>     
+        <script src="js/main.js"></script>  
+        <script>
+            console.log(lib.str)
+        </script>           
+    demo/src/main.js    
+        import add from './modules/a'
+        import { pow, sqrt } from './modules/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9)) 
+        export const str = '1234567890'   
+    demo/src/modules/a.js
+        export default (a, b) => a + b
+    demo/src/modules/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)    
+
+■ 搭建服务
+    demo> npm init -y
+    demo> npm i express@4.17.1 --save-dev 
+
+    demo/dist/server.js
+        const express = require('express')
+        const app = express()
+        const port = 3001
+        app.use(express.static(__dirname))
+        app.listen(port, ()=>{console.log('\nhttp://localhost:' + port + '\n')})
+    
+    demo> node dist/server.js
+
+■ 开发部署
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
+
+    demo/webpack.config.js
+        const path = require('path')        
+        module.exports = {
+            mode: 'development',
+            entry: {
+                main: './src/main.js',                     // 相对路径
+            },
+            output: {
+                path: path.resolve(__dirname, 'dist/js'),  // 绝对路径
+                filename: '[name].js'
+            }
+        } 
+    如果主入口要暴露方法则需指定引用模式/访问前缀：
+        module.exports = {
+            output: {
+                library: 'lib', 
+                libraryTarget: 'umd'
+            }
+        }
+    
+
+    为服务添加热更新
+        // 监控开发文件 webpack-dev-middleware
+        // 浏览器自刷新 webpack-hot-middleware
+        demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
+
+        调整服务器 demo/dist/server.js 在'const port = 3001'和'app.use(express.static(__dirname))'之间
+            const webpackDevMiddleware = require('webpack-dev-middleware')
+            const webpackHotMiddleware = require('webpack-hot-middleware')
+            const webpack = require('webpack')
+            const webpackConfig = require('../webpack.config.js')
+            const compiler = webpack(webpackConfig)            
+            app.use(webpackDevMiddleware(compiler))
+            app.use(webpackHotMiddleware(compiler))            
+        
+    demo> node dist/server.js
+    偿试编辑 src/main.js 再刷新浏览器查看
+    如果dist/js不生成则手动：npx webpack --config dist/webpack.config.js 
+```
+:::
+
+::: details 1111111111
+npm init -y
+npm i webpack webpack-cli webpack-hot-middleware --save-dev
+demo/src/main.js
+
+demo/webpack.config.js
+const path = require('path')
+const webpack = require('webpack')
+module.exports = {
+    mode: 'development',
+    entry: ['./src/main.js'],
+    output: {
+        path: path.resolve(__dirname, 'dist/'),
+        filename: '[name].[hash].js'
+    }
+}
+module.exports = {
+    mode: 'development',
+    entry: ['webpack-hot-middleware/client', './src/main.js'],
+    output: {
+        path: '/'
+    },
+    plugins: [
+        new webpack.optimize.OccurrenceOrderPlugin(), 
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ]
+}
+
+demo> npx webpack
+:::
+
+
+
+::: details 较完整项目
+```
+■ 目标
+    > Http协议浏览example/
+    > 在静态页(example/index.html)中以script标签方式引入主入口(src/main.js)    
+    > 发布主入口文件到example/js/下
+    > 监控响应开发目录
+    > 环境
+■ 目录结构
+    ┠ dist ---------------------------- 发布目录
+    ┠ src ----------------------------- 开发目录
+    ┃   ┠ main.js
+    ┃   ┖ modules
+    ┃       ┠ a.js
+    ┃       ┖ b.js   
+    ┠ examples ------------------------ 应用演示    
+    ┃   ┠ index.html
+    ┃   ┠ 001
+    ┃   ┃   ┠ app.js
+    ┃   ┃   ┠ index.html
+    ┠ plugin -------------------------- 独立插件 src/Element.js最终要独立开发
+
+    demo/src/Element.js
+        export class Element{  
+            constructor(type){
+                this.type = type
+                this.data = {a: 1}
+            }
+        }
+    demo/src/main.js    
+        import add from './modules/a'
+        import { pow, sqrt } from './modules/b'
+        console.log(add(1, 2))
+        console.log(pow(9))
+        console.log(sqrt(9))    
+    demo/src/modules/a.js
+        export default (a, b) => a + b
+    demo/src/modules/b.js
+        export const pow = x => x * x
+        export const sqrt = x => Math.sqrt(x)
+    demo/examples/index.html
+        <h1>应用实例</h1>
+        <a href="001/">001</a>
+    demo/examples/001/index.html
+        <script src="/static/Element.js"></script>   <!-- 开启服务 从跟目录读取资源 File协议浏览 "../static/Element.js" 从上一级目录读取资源 -->
+        <script>
+            var el = new lib.Element('Sprite')
+            console.log('el', el)
+        </script>
+
+■ 搭建服务
+    demo> npm init -y
+    demo> npm i express@4.17.1 --save-dev 
+
+    demo/examples/server.js
+        const express = require('express')
+        const app = express()
+        const port = 3001
+        app.use(express.static(__dirname))
+        app.listen(port, ()=>{console.log('Listen on '+port)})
+    
+    demo> node examples/server.js
+    搭建完成 服务根目录/static/Element.js还不存在：需发布打包
+
+■ 发布打包
+    demo> npm i webpack@5.42.0 webpack-cli@4.7.2 --save-dev
+
+    > demo/examples/webpack.config.js
+        const path = require('path')
+        module.exports = {
+            mode: 'development',
+            entry: {
+                Element: path.resolve(__dirname, '001/app.js') // 用绝对路径 突破服务限制
+            },
+            output: {
+                path: path.resolve(__dirname, 'static'),
+                filename: '[name].js',
+                publicPath: '/static/',
+                library: 'lib',
+                libraryTarget: 'umd'
+            }
+        }
+    > demo/examples/001/app.js
+        import {Element} from '../../src/Element'
+        export {Element}
+
+    demo> npx webpack --config examples/webpack.config.js
+    打包完成 http://localhost:3001
+
+■ 开发打包
+    1. 为服务添加热更新
+        demo> npm i webpack-dev-middleware@5.0.0 webpack-hot-middleware@2.25.0 --save-dev
+
+        调整服务器 demo/examples/server.js
+            const port = 3001
+            const webpackDevMiddleware = require('webpack-dev-middleware')
+            const webpackHotMiddleware = require('webpack-hot-middleware')
+            const webpack = require('webpack')
+            const webpackConfig = require('./webpack.config.js')
+            const compiler = webpack(webpackConfig)
+            
+            app.use(webpackDevMiddleware(compiler))
+            app.use(webpackHotMiddleware(compiler))
+            app.use(express.static(__dirname))
+        
+    2. demo> node examples/server.js
+    3. 偿试编辑 src/Element.js 再刷新浏览器查看
+    
+```
+:::
+
+::: details HTML+ES6模块化项目服务开发多入口服务器渲染
+aaaa
+:::
+
+::: details NPM内网源搭建
+```js
+// 源 : http://127.0.0.1:7001/  
+// WEB: http://127.0.0.1:7002/  
+
+1. CNPMJS
+    下载：git clone git://github.com/cnpm/cnpmjs.org.git 或 https://github.com/cnpm/cnpmjs.org/ 下载zip
+    安装：cd cnpmjs.org && npm install 或 npm install --registry=http://registry.npm.taobao.org
+    配置：cnpmjs.org/config/index.js 参考/* #CNPMCONFIG</strong> */
+
+2. MySQL
+    创建数据库:cnpmjs_test
+    创建表:将cnpmjs.org/doc/db.sql中的内容复制出来在mysql中执行一遍即可
+    $ cd /Users/xxxxxxxxxx/Project/cnpmjs.org
+    $ node dispatch.js // 启动成功后，即可看到内网源的web页面了，后台自动开始同步官方模块
+
+3. 内网源的使用
+    1 安装cnpm客户端: npm i cnpm -g
+    2 设置cnpm源为内网源: cnpm config set registry="http://127.0.0.1:7001"
+    3 cnpm install 模块名称 // 支持所有npm命令
+
+4. 模块发布
+    1 创建用户:cnpm adduser
+    2 登录:cnpm login
+    3 cd 模块目录 // 注意模块名称必须带前缀，如@xxx/name，与config中的scopes配置对应
+    4 cnpm publish
+
+/* #CNPMCONFIG</strong> */
+var config = {
+  bindingHost: '127.0.0.1',                     // #1设置指定外网IP,默认是127.0.0.1  
+                                                // #2注意，添加用户时，请添加该处配置的用户，不然不能发布模块的
+  admins: {     
+    fengmk2: 'fengmk2@gmail.com',
+    admin: 'xxxxxxxxxx@163.com',                // #3
+    dead_horse: 'dead_horse@qq.com',
+  },  
+  database: {      
+    dialect: 'mysql',                           // #4数据库类型,目前支持: 'mysql', 'sqlite', 'postgres', 'mariadb'
+  },
+  enablePrivate: true,                          // #5私库开关
+  scopes: ['@cnpm', '@cnpmtest', '@cnpm-test'], // #6指定私有包的前缀，避免与官方模块冲突  
+  syncModel: 'exist',                           // #7
+}
+```
+:::
+
+::: details 开发一个NPM插件
+```js
+账户 u:xxxxxxxxxx  p:xxxxxxxxxxew.. e:xxxxxxxxxx@163.com  组织：seahan、angg
+
+规范
+bin   可执行二进制文件
+lib   javascript代码
+doc   文档
+test  单元测试用例
+package.json  包描述
+    {
+        "name": "@angg/express"
+        "repository": { "type": "git", "url": "https://github.com/wmgcuan/express.git" },
+        "homepage": "https://github.com/wmgcuan/express",
+        "bugs": { "url": "https://github.com/wmgcuan/express/issues" }
+    }
+
+开发
+
+发布 https://segmentfault.com/a/1190000009315989
+1 $ npm adduser // 命令向导分别要求填入username/password/email,可通过 npm whoami 查看当前用户
+2 $ npm publish --access public // npm publish 默认发布私有，所以会导致失败，如果是二次发布，则需先迭代version
+
+多人发布
+npm owner add <user> [<@scope>/]<pkg> # 将用户添加到包的所有者列表,如 npm owner add xxxxxxxxxx @angg/express>
+npm owner rm <user> [<@scope>/]<pkg> # 从包的所有这列表中删除用户
+npm owner ls [<@scope>/]<pkg> # 列出包的所有者
+```
+:::
+
+
+## 工具
+表单验证 scripts/tools/form-validation
+验证滑块 scripts/tools/validation-slider
+
+
+
+### 分页
+<img src="assets/images/fa-page.jpg">
+
+
+
+### Enter提交表单
+```
+<input type="text" onchange="console.log(this.value);" />
+<input type="text" onkeydown="handleKeydown(event)" />
+function handleKeydown(e){ console.log(e.keyCode) }
+```
+
+
+
+
+
+
+
+
+
+
+
+#################### 运行时
+文件结构
+
+配置列表
+CONF_BW = {
+  THEME:     '主题站点',
+  SKIN:      '主题皮肤',
+  TITLE:     '站点标题',
+  COPYRIGHT: '备案信息',
+}
+RES_PUBLIC: 'static/'
+RES_PRIVATE: CONF_BW.THEME + '/'
+
+
+场景：
+新增一个主题站点
+新增一个主题皮肤
+主题皮肤变更指引：资源变迁 
+
+#### 构建时
+CONF_THEME = {
+  THEME: {
+    SKIN:      '主题皮肤',
+    // 私有资源注册Private Resource Registration
+    PRR:{
+      addr: THEME // 可自定义
+      res: []
+    }
+  }
+}
+打包指定站点
+打包配置列表
+生成场景引导 新成员
+开发规范说明 新成员
+公共私有目录查询
+
+初始：
+生成 THEME:配置 映射表  依据THEME快速查询
+
+解决方案：
+
+
+
+
+
+
+
+
+
+
+
+
+# 人机验证
+暴力破解密码  频繁操作导致服务器压力崩溃的恶意攻击
+数字、字母、中文的组合 缺点：用户需要在鼠标-键盘、中英文之间切换，不具备任何趣味性
+```
+
+
+
+
+
+### 前端工程搭建
+```
+npm install -g babel-cli
+babel --version
+demo> npm init -y 
+demo> npm install --save-dev babel-preset-es2015 babel-cli
+
+index.html    src         dist    .babelrc
+              index.js
+
+/index.html   
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6项目搭建</title>
+    <script src="dist/index.js"></script>
+</head>
+<body>
+    Hello ECMA Script2016
+</body>
+</html>
+```
+/src/index.js
+```js
+let a = 1
+console.log(a)
+
+const b = '测试ES6'
+console.log(b)
+```
+/.babelrc     
+```json
+{"presets":["es2015"], "plugins":[]}
+```
+/package.json
+```json
+{"scripts": {"build": "babel src/index.js -o dist/index.js"}}
+```
+demo> babel src/index.js -o dist/index.js  
+或  
+demo> npm run build
+浏览 /index.html
+```
+
+
+### 前端工程搭建-Babel7+
+```
+https://www.babeljs.cn/docs/usage
+
+|es6-babel7> npm init -y
+|es6-babel7> npm install --save-dev [b ch|@babel/core @babel/cli]
+
+[src[a.js], lib, package.json]
+[b-blue|/src/a.js] [DETAIL/es6-project-07]
+|es6-babel7> ./node_modules/.bin/babel src --out-dir lib [DETAIL/es6-project-05] 
+[b-blue|/lib/a.js] [DETAIL/es6-project-07]           
+
+[b3 cf| 指定代码转换功能 ] 箭头函数
+|es6-babel7> npm install --save-dev [b ch|@babel/plugin-transform-arrow-functions]
+|es6-babel7> ./node_modules/.bin/babel src --out-dir lib [b ch|--plugins=@babel/plugin-transform-arrow-functions]
+[b-green|/lib/a.js] [DETAIL/es6-project-06] 
+
+[b3 cf| 指定代码转换功能 ] 更多 避免添加很多插件 使用官方预设定(preset)
+|es6-babel7> npm install --save-dev [b ch|@babel/preset-env]
+|es6-babel7> ./node_modules/.bin/babel src --out-dir lib [b ch|--presets=@babel/env]
+[b-green|/lib/a.js] [DETAIL/es6-project-08]
+
+[b3 cf| 指定代码转换功能 ] 预设配置 
+/babel.config.json [DETAIL/es6-project-09]
+|es6-babel7> ./node_modules/.bin/babel src --out-dir lib 
+[b-green|/lib/a.js] 
+
+[b3 cf| 指定代码转换功能 ] 预设配置 Polyfill[DETAIL/es6-project-10] 
+|es6-babel7> npm install --save [b ch|@babel/polyfill]
+/babel.config.json [DETAIL/es6-project-11]
+|es6-babel7> ./node_modules/.bin/babel src --out-dir lib 
+[b-green|/lib/a.js] 
+
+
+
+总结：
+[@babel/core, @babel/cli, @babel/preset-env, @babel/polyfill]
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+npm install --save @babel/polyfill
+
+
+
+
+
+
+
+
+▉es6-project-11▉
+"useBuiltIns" 参数设置为 "usage" 时，Babel 将检查你的所有代码，以便查找目标环境中缺失的功能，然后只把必须的 polyfill 包含进来。
+否则，必须在所有代码之前通过 require 加载一次完整的 polyfill。
+
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "edge": "17",
+          "firefox": "60",
+          "chrome": "67",
+          "safari": "11.1",
+        },
+        [b ci|"useBuiltIns": "usage"],
+      }
+    ]
+  ]
+}
+▉
+▉es6-project-10▉
+@babel/polyfill 模块包含 core-js 和一个自定义的 regenerator runtime 来模拟完整的 ES2015+ 环境。
+
+这意味着你可以使用诸如 Promise 和 WeakMap 之类的新的内置组件、 Array.from 或 Object.assign 之类的静态方法、 Array.prototype.includes 之类的实例方法以及生成器函数（generator functions）（前提是你使用了 regenerator 插件）。为了添加这些功能，polyfill 将添加到全局范围（global scope）和类似 String 这样的原生原型（native prototypes）中。
+
+对于软件库/工具的作者来说，这可能太多了。如果你不需要类似 Array.prototype.includes 的实例方法，可以使用 transform runtime 插件而不是对全局范围（global scope）造成污染的 @babel/polyfill。
+
+更进一步，如果你确切地知道你所需要的 polyfills 功能，你可以直接从 core-js 获取它们。
+如：
+require("core-js/modules/es.promise.finally");
+Promise.resolve().finally();
+
+▉
+▉es6-project-09▉
+{
+  "presets": [
+    [
+    "@babel/env",
+      {
+        // 只为目标浏览器中没有的功能加载转换插件
+        "targets": {
+          "edge": "17",
+          "firefox": "60",
+          "chrome": "67",
+          "safari": "11.1"
+          }
+        }
+      ]
+    ]
+}
+▉
+▉es6-project-08▉
+"use strict";
+
+var a = 11;
+console.log(a);
+
+var fn = function fn() {
+  return 1;
+};
+▉
+▉es6-project-07▉
+const a = 11;
+console.log(a);
+
+const fn = () => 1;
+▉
+▉es6-project-06▉
+const a = 11;
+console.log(a);
+
+const fn = function () {
+  return 1;
+};
+▉
+▉es6-project-05▉
+将解析 src 目录下的所有 JavaScript 文件输出到 lib 目录下。由于还[b ci|没有指定任何代码转换功能]，所以输出的代码将[b ci|与输入的代码相同]。
+
+其它动行参数：
+  -o, --out-file [out]                        将所有输入文件编译成一个文件.
+  -d, --out-dir [out]                         将模块的输入目录编译成输出目录.
+  --relative                                  编译成相对于输入目录或文件的输出目录.
+  -D, --copy-files                            在非编译文件上编译目录副本时.
+  --include-dotfiles                          编译和复制非编译文件时包含点文件.
+  --no-copy-ignored                           在复制非编译文件时排除忽略的文件.
+  --verbose                                   记录一切。这个选项与——quiet相冲突.
+  --quiet                                     不记录任何东西。此选项与——verbose冲突.
+  --delete-dir-on-start                       在编译前删除out目录.
+  --out-file-extension [string]               对输出文件使用特定的扩展名.
+  -V, --version                               输出版本号.
+  -h, --help                                  输出使用信息.
+▉
+
+
+
+
+
+
+
+
+```
+
+```plantuml
+@startuml
+start
+:"获取网页";
+:"用户请求验证码";
+:"服务返回图形 设置cookie";
+:"用户提交 打码&cookie";
+:"服务对比 打码&cookie";
+
+if ("对比结果") then (相同)
+    :"验证成功";
+    stop
+else (异同)
+    :"验证失败";
+    stop
+endif
+@enduml
+```
+
+
+

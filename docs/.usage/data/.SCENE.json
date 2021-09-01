@@ -1,0 +1,52 @@
+[
+    {
+        "title": "NPM",
+        "scene": [
+            {
+                "title": "NPM内网源搭建",
+                "href": "/tools/npm",
+                "id": "NPM内网源搭建"
+            },
+            {
+                "title": "NPM版本管理",
+                "href": "/node",
+                "id": "版本管理"
+            }
+        ]
+    },
+    {
+        "title": "VSCode",
+        "scene": [
+            {
+                "title": "简化特定通用代码",
+                "href": "/tools/vscode",
+                "id": "自定义用户片段"
+            }
+        ]
+    },
+    {
+        "title": "Node",
+        "scene": [
+            {
+                "title": "Node版本管理",
+                "href": "/node",
+                "id": "版本管理"
+            }
+        ]
+    },
+    {
+        "title": "Vuepress",
+        "scene": [
+            {
+                "title": "部署到一个非根路径",
+                "href": "/framework/vuepress",
+                "id": "部署到一个非根路径"
+            },
+            {
+                "title": "插入图片",
+                "href": "/framework/vuepress",
+                "id": "公共资源库"
+            }
+        ]
+    }
+]

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.08.31 16:05</span>
+            <span>M 2021.09.01 19:12</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -18,18 +18,18 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
-
-## 文档vuepress
+::: details vuepress
 
 <pre class="code-block">
-<span class="h2 bg3 cf"> 普通33代码</span>
+<span class="h2 bg3 cf"> 自定义格式-普通区域</span>
 <span>● Flex</span>
     &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
     col 01
     &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname <span class="comment"> // 大于10 flex-basis: n  可注入自定义classname</span>
     col 02
     &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
-<span class="h2 bg3 cf"> 自定义代码块 </span>
+
+<span class="h2 bg3 cf"> 自定义格式-自定义代码块 </span>
 &#61;&#61;&#61;&#43; 
     &#45; Markdown点列表
     &#42;&#42;局部加粗&#42;&#42;
@@ -42,10 +42,9 @@ pageClass: theme-item
 
     &#91;img:$withBase('/images/插入图片.jpg')&#93;  <span class="comment"> // 插入图片</span>
 
-    &#91;STYLE_START&#93;                           <span class="comment"> // 样式描述开始</span>
-    1[2-4](bold red)                        <span class="comment"> // 行1 索引(2-4)   class        行数计算：有效行数，空行忽略</span>
-    1/2/3[10-15]{color:#f00}                <span class="comment"> // 行1、2、3 索引(10-15) style  索引计算：有效字符起始，首尾空格忽略</span>
-    &#91;STYLE_END&#93;                             <span class="comment"> // 样式描述结束</span>
+    行样式：[2,17&#123;color:#f00&#125;&#40;bd&#41;  19,13&#123;color:#0f0&#125;&#40;bd&#41;] <span class="comment"> // start,length{}()</span>
+    盒样式：[&#123;color:#f00&#125;&#40;bd&#41;CONTENT]
+    盒子：&#9632;⇤&#123;&#125;&#40;bd&#41;CONTENT&#9632; <span class="comment"> // ⇤为是否顶格</span>
 
     &#91;FORM_START&#93;
         [LIST|XX项目API集(*login  upload)] 
@@ -66,11 +65,13 @@ pageClass: theme-item
     标题 h1 h2 h3 h4 h5 h6
     注释 comment
 
-
-
+<span class="h2 bg3 cf"> 场景 </span>
+<span class="h2 bg3 cf"> 攻略 </span>
+<span class="h2 bg3 cf"> 方案 </span>
+<span class="h2 bg3 cf"> 规范 </span>
 <span class="h2 bg3 cf"> PlantUML </span>
 </pre>
-
+:::
 
 ::: details Javascript注释
 <div class="box-flex">

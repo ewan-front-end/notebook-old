@@ -1,6 +1,7 @@
-String.prototype.replaceAt = function(scope, replacement) {
-    if (scope[0] > this.length) return this
-    return this.substr(0, scope[0]) + replacement + this.substr(scope[0] + scope[1]);
+String.prototype.replaceAt = function(start, len, replacement) {
+    let s = parseInt(start), l = parseInt(len)
+    if (s > this.length) return this
+    return this.substr(0, s) + replacement + this.substr(s + l)
 }
 
 /**

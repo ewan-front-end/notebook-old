@@ -47,7 +47,7 @@
     "java": "/programmingLanguage/java",
     "python": "/programmingLanguage/python",
     "vuepress": "/framework/vuepress",
-    "standard/index": "/standard/",
+    "standard/index": "/biaozhun/",
     "0001": "/frontend/layerBusiness/systemAuthentication",
     "system-monitor": "/frontend/layerSecurity/systemMonitor",
     "unit": "/frontend/layerSecurity/systemTest/unit",
