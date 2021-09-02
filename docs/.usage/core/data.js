@@ -35,6 +35,9 @@ function handleItem(key, node, parent) {
     if (node.usage) USAGE.push({title: node.title, scene:node.usage}) 
     if (node.solution) SOLUTION.push({title: node.title, scene:node.solution})
     if (node.standard) STANDARD.push({title: node.title, scene:node.standard})    
+    if (node.peripheral) {
+        for (i in node.peripheral) { handleItem(i, node.peripheral[i], node) }        
+    }
 }
 handleItem('ROOT', {children: DATA, src: 'index', path: ''}, null)
 

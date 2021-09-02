@@ -24,7 +24,7 @@ sidebar: false
 - [︳Javascript](/javascript/)
 - [︳编程语言](/programmingLanguage/)
 - [︳技术框架](/framework/)
-- [︳规范](/standard/)
+- [︳规范](/biaozhun/)
 - [︳前端体系](/frontend/)
 - [︳项目](/projects)
 - [︳其它](/other)

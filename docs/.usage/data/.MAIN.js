@@ -2,6 +2,7 @@
  * == 结构属性 ===========================================================================
  * children       目录节点子类 
  * src            文件节点 资源引用 
+ * peripheral     周边的不适合纳入子节点的一些节点
  * 
  * == 内容属性 ===========================================================================
  * links          相关链接 1.'tools/qiankun' 2.{name:'乾坤', href:'tools/qiankun'} 3.'http...'   绝对路径:/tools/ 相对路径：./tools/ 或 tools/
@@ -32,7 +33,9 @@
  */
  
  module.exports = {
-    vue:{title:'Vue', src:'vue/index', links:[{name:'vue-element-admin',href:'vue/vue-element-admin/index'}], children:{}},
+    vue:{title:'Vue', src:'vue/index', links:[{name:'vue-element-admin',href:'vue/vue-element-admin/index'}], children:{}, peripheral:{
+        mvvm:{title:'MVVM模式', src:'vue/mvvm'}
+    }},
     docs:{title:'文档', src:'docs', links:[{name:'vuepress',href:'/framework/vuepress'}, {name:'docsify',href:'/framework/docsify'}]},
     timeline:{title:'时间线', src:'timeline'},
     database:{title:'数据库', children:{

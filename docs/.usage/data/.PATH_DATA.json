@@ -71,6 +71,16 @@
             }
         ],
         "children": [],
+        "peripheral": {
+            "mvvm": {
+                "title": "MVVM模式",
+                "src": "vue/mvvm",
+                "parent": "/vue/",
+                "key": "mvvm",
+                "linkName": "MVVM模式",
+                "path": "/vue/mvvm"
+            }
+        },
         "key": "vue",
         "linkName": "Vue",
         "path": "/vue/"
@@ -85,9 +95,27 @@
             }
         ],
         "children": [],
+        "peripheral": {
+            "mvvm": {
+                "title": "MVVM模式",
+                "src": "vue/mvvm",
+                "parent": "/vue/",
+                "key": "mvvm",
+                "linkName": "MVVM模式",
+                "path": "/vue/mvvm"
+            }
+        },
         "key": "vue",
         "linkName": "Vue",
         "path": "/vue/"
+    },
+    "/vue/mvvm": {
+        "title": "MVVM模式",
+        "src": "vue/mvvm",
+        "parent": "/vue/",
+        "key": "mvvm",
+        "linkName": "MVVM模式",
+        "path": "/vue/mvvm"
     },
     "/docs": {
         "title": "文档",
