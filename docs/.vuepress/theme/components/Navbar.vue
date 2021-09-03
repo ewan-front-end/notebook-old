@@ -26,6 +26,14 @@
         'max-width': linksWrapMaxWidth + 'px'
       } : {}"
     >
+      <div>
+          <input v-model="customSearch">
+          <div>
+              <ul>
+                  <li v-for="(item, index) in customSearchRes" :key="index"><a :href="item.path">[{{item.key}}]{{item.text}}</a></li>
+              </ul>
+          </div>
+      </div>
       <AlgoliaSearchBox
         v-if="isAlgoliaSearch"
         :options="algolia"
@@ -41,6 +49,7 @@ import AlgoliaSearchBox from '@AlgoliaSearchBox'
 import SearchBox from '@SearchBox'
 import SidebarButton from '@theme/components/SidebarButton.vue'
 import NavLinks from '@theme/components/NavLinks.vue'
+const PATH_KEYWORDS = require('../../../.usage/data/.SEARCH.json')
 
 export default {
   name: 'Navbar',
@@ -54,7 +63,9 @@ export default {
 
   data () {
     return {
-      linksWrapMaxWidth: null
+      linksWrapMaxWidth: null,
+      customSearch: '',
+      customSearchRes: []
     }
   },
 
@@ -66,6 +77,21 @@ export default {
     isAlgoliaSearch () {
       return this.algolia && this.algolia.apiKey && this.algolia.indexName
     }
+  },
+  watch: {
+      customSearch(val){
+          if (!val) return
+          this.customSearchRes.length = 0
+          for (let path in PATH_KEYWORDS) {
+              const {key, keywords} = PATH_KEYWORDS[path]
+              let value = val.split('').map(w => w.charCodeAt().toString(16)).join('')
+              let res = keywords.match(RegExp(`[^■]*${val}[^■]*`, 'g')) || []
+              res.forEach(item => {
+                  this.customSearchRes.push({path, key, text: item})
+              })
+              
+          }
+      }
   },
 
   mounted () {

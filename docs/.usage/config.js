@@ -50,4 +50,6 @@ module.exports.dataPath = {
     "usage": path.resolve(__dirname, "data/.USAGE.json"),                   // 攻略
     "solution": path.resolve(__dirname, "data/.SOLUTION.json"),             // 方案
     "standard": path.resolve(__dirname, "data/.STANDARD.json"),             // 标准
+    "path:keywords": path.resolve(__dirname, "data/.PATH_KEYWORDS.json"),   // 数据结构关键词
+    "path:search": path.resolve(__dirname, "data/.SEARCH.json"),            // 可用于搜索(数据结构和内容摘要)
 }

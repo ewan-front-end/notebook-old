@@ -2,6 +2,8 @@ const {writeFileSync} = require('../../utils/fs')
 const dataArr = []
 const {dataPath} = require('../../config')
 const LINKS = require(dataPath["stamp:link"])
+const Search = require('./search')
+let debounceTimer
 
 module.exports = {
     parseAnchor(code, filePath) {
@@ -9,6 +11,7 @@ module.exports = {
         while ((matchAnchor = /ANCHOR\[(\d{13})\|?([^\]]*)\]/.exec(code)) !== null) {
             code = code.replace(matchAnchor[0], `<div class="anchor" name="${matchAnchor[1]}" id="${matchAnchor[1]}"></div>\n`) 
             dataArr.push({stamp:matchAnchor[1], path:filePath, name:matchAnchor[2]})
+            Search.add(filePath, matchAnchor[2])
         }
         return code
     },
@@ -18,6 +21,7 @@ module.exports = {
             code = code.replace(m[0], `<h${m[1]} id="${m[2]}">${m[3]}</h${m[1]}>`) 
             Anchor.add(m[1], m[2], filePath)
             dataArr.push({stamp:m[1], path:filePath, name:m[2]})
+            Search.add(filePath, m[2])
         }
         return code
     },
@@ -39,16 +43,17 @@ module.exports = {
     add(stamp, name, path){ dataArr.push({stamp, path, name}) },
     read: stamp => LINKS[stamp],
     save(){
-        if (dataArr.length > 0) {
-            dataArr.forEach(item => {
-                LINKS[item.stamp] = item
-            })
+        clearTimeout(debounceTimer)
+        if (dataArr.length === 0) return
+        debounceTimer = setTimeout(function(){
+            dataArr.forEach(item => { LINKS[item.stamp] = item })
             try {
                 writeFileSync(dataPath["stamp:link"], LINKS)
                 console.log('链接列表更新: ' + dataPath["stamp:link"])
             } catch (err) {
                 console.log(err)
             }
-        }
+        }, 500)  
+        Search.save()
     }
 }

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.09.01 18:33</span>
+            <span>M 2021.09.03 18:19</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -17,6 +17,14 @@ pageClass: theme-item
 <h1>Javascript</h1><strong>Javascript</strong>
 </div>
 <div class="static-content">
+
+
+滚动穿透
+1. 弹层打开时 document.body.style.overflow = 'hidden'
+2. 弹层关闭时 document.body.style.overflow = 'auto'
+3. 弹层容器 overflow-y: scroll;
+
+
 
 
 函数柯理化
@@ -184,6 +192,10 @@ String.prototype.replaceAt = function(start, len, replacement) {
 
          String.fromCharCode(65)       "A"           // 转换 Unicode转字符
          String.fromCharCode(65,66,67) "ABC"         // 转换 Unicode转字符
+           'ab'.charAt(0)                            // 转换 'a'
+           'ab'.charAt(1)                            // 转换 'b'
+           'ab'.charCodeAt(0)                        // 转换 97
+           'ab'.charCodeAt(1)                        // 转换 98
 ```
 function string2unicode(str){
 　　var ret ="";

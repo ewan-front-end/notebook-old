@@ -1,0 +1,449 @@
+{
+    "/vue/mvvm": {
+        "keywords": "MVVM模式",
+        "key": "mvvm"
+    },
+    "/vue/": {
+        "keywords": "Vue",
+        "key": "vue"
+    },
+    "/docs": {
+        "keywords": "文档",
+        "key": "docs"
+    },
+    "/timeline": {
+        "keywords": "时间线",
+        "key": "timeline"
+    },
+    "/database/mysql": {
+        "keywords": "MySQL",
+        "key": "mysql"
+    },
+    "/database/mongodb": {
+        "keywords": "MongoDB",
+        "key": "mongodb"
+    },
+    "/database/": {
+        "keywords": "数据库",
+        "key": "database"
+    },
+    "/tools/git": {
+        "keywords": "Git",
+        "key": "git"
+    },
+    "/tools/npm": {
+        "keywords": "NPM",
+        "key": "npm"
+    },
+    "/tools/markdown": {
+        "keywords": "Markdown",
+        "key": "markdown"
+    },
+    "/tools/qiankun": {
+        "keywords": "乾坤微服务",
+        "key": "qiankun"
+    },
+    "/tools/charts": {
+        "keywords": "ECharts图表库",
+        "key": "charts"
+    },
+    "/tools/vscode": {
+        "keywords": "VSCode",
+        "key": "vscode"
+    },
+    "/tools/chromeTools": {
+        "keywords": "chromeTools",
+        "key": "chromeTools"
+    },
+    "/tools/uml": {
+        "keywords": "uml",
+        "key": "uml"
+    },
+    "/tools/regularExpression": {
+        "keywords": "正则表达式■2(5[0-5]|[0-4]\\d)匹配：200 ~ 255■[0-1]?\\d{1,2}匹配：0 ~ 199■(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3} 后三段重复3次■^(?=.*[a-z])匹配行头 跟随内容包含小写字母■^(?=.*[A-Z])匹配行头 跟随内容包含大写字母■^(?=.*\\d)匹配行头 跟随内容包含数字■^(?=.*[@!%&\\$\\*\\?])匹配行头 跟随内容包含列举字符■[a-zA-Z\\d@!%&\\$\\*\\?]{8,}匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上■ 匹配IP■ 密码 ■ 密码2 ■^((?=.*[a-z])(?=.*[A-Z])(?=.*\\d))|((?=.*[a-z])(?=.*[A-Z])(?=.*[@!%&\\$\\*\\?]))|((?=.*[a-z])(?=.*\\d)(?=.*[@!%&\\$\\*\\?]))|((?=.*[A-Z])(?=.*\\d)(?=.*[@!%&\\$\\*\\?]))[A-Za-z\\d@!%&\\$\\*\\?]■匹配位置■字符范围■长度范围■全局范围■惰性匹配■取反■分组■复杂",
+        "key": "regularExpression"
+    },
+    "/tools/eslint": {
+        "keywords": "ESLint",
+        "key": "eslint"
+    },
+    "/tools/htmlBundler": {
+        "keywords": "html-bundler",
+        "key": "htmlBundler"
+    },
+    "/tools/postman": {
+        "keywords": "PostMan■登录 ■需要验证的请求■ 新建一个目录(收藏)■ 新建一个请求■ 新建一个环境■ 需要验证的请求 ",
+        "key": "postman"
+    },
+    "/tools/": {
+        "keywords": "工具&资源",
+        "key": "tools"
+    },
+    "/css/preset": {
+        "keywords": "预处理",
+        "key": "preset"
+    },
+    "/css/variable": {
+        "keywords": "CSS变量",
+        "key": "variable"
+    },
+    "/css/": {
+        "keywords": "CSS",
+        "key": "css"
+    },
+    "/system/mac": {
+        "keywords": "MacBook",
+        "key": "mac"
+    },
+    "/system/linux": {
+        "keywords": "Linux",
+        "key": "linux"
+    },
+    "/system/windows": {
+        "keywords": "Windows",
+        "key": "windows"
+    },
+    "/system/ios": {
+        "keywords": "IOS",
+        "key": "ios"
+    },
+    "/system/android": {
+        "keywords": "Android",
+        "key": "android"
+    },
+    "/system/": {
+        "keywords": "操作系统",
+        "key": "system"
+    },
+    "/server": {
+        "keywords": "服务器",
+        "key": "server"
+    },
+    "/typescript": {
+        "keywords": "Typescript",
+        "key": "typescript"
+    },
+    "/designPattern": {
+        "keywords": "设计模式",
+        "key": "designPattern"
+    },
+    "/webpack": {
+        "keywords": "Webpack",
+        "key": "webpack"
+    },
+    "/nginx": {
+        "keywords": "Nginx",
+        "key": "nginx"
+    },
+    "/algorithm": {
+        "keywords": "算法■判断奇偶■整数平均数■不用**临时变量**交换两个数■临时变量■ 实际应用 ■规则■性质■实现：matrix(a, b)■实例：■规则■性质■例题■性质&规则■典型例题■ 加减运算 ■ 乘法:矩阵与数 ■ 乘法:矩阵与矩阵 ",
+        "key": "algorithm"
+    },
+    "/ecma": {
+        "keywords": "ECMAScript规范",
+        "key": "ecma"
+    },
+    "/socket": {
+        "keywords": "Socket",
+        "key": "socket"
+    },
+    "/node/plugin": {
+        "keywords": "插件■node-inspect■gulp■commander■chokidar■chalk■node-plantuml■uglify-js■child_process■nodemon■pm2■concurrently■node-cache■xxxx&gt; npm i -g nodemon 或 ■demo&gt; npm install --save-dev nodemon■demo&gt; nodemon main.js或相当于node main.js■demo&gt; nodemon main.js localhost 8080如果没有在应用中指定端口，可以在命令中指定",
+        "key": "plugin"
+    },
+    "/node/framework": {
+        "keywords": "框架",
+        "key": "framework"
+    },
+    "/node/package": {
+        "keywords": "描述文件package.json",
+        "key": "package"
+    },
+    "/node/": {
+        "keywords": "Node",
+        "key": "node"
+    },
+    "/html5": {
+        "keywords": "HTML5",
+        "key": "html5"
+    },
+    "/javascript/es6": {
+        "keywords": "es6",
+        "key": "es6"
+    },
+    "/javascript/ecmascript": {
+        "keywords": "ECMAScript",
+        "key": "ecmascript"
+    },
+    "/javascript/": {
+        "keywords": "Javascript",
+        "key": "javascript"
+    },
+    "/programmingLanguage/matlab": {
+        "keywords": "matlab",
+        "key": "matlab"
+    },
+    "/programmingLanguage/ruby": {
+        "keywords": "ruby",
+        "key": "ruby"
+    },
+    "/programmingLanguage/wechat": {
+        "keywords": "微信小程序",
+        "key": "wechat"
+    },
+    "/programmingLanguage/electron": {
+        "keywords": "Electron",
+        "key": "electron"
+    },
+    "/programmingLanguage/java": {
+        "keywords": "Java",
+        "key": "java"
+    },
+    "/programmingLanguage/plantuml": {
+        "keywords": "PlantUML",
+        "key": "plantuml"
+    },
+    "/programmingLanguage/python": {
+        "keywords": "Python",
+        "key": "python"
+    },
+    "/programmingLanguage/": {
+        "keywords": "编程语言",
+        "key": "programmingLanguage"
+    },
+    "/framework/vuepress": {
+        "keywords": "Vuepress■[icomoon](http://icomoon.io/app)■[JSRun](https://jsrun.net/new)■[GitHub](https://github.com/)",
+        "key": "vuepress"
+    },
+    "/framework/docsify": {
+        "keywords": "Docsify",
+        "key": "docsify"
+    },
+    "/framework/": {
+        "keywords": "技术框架",
+        "key": "framework"
+    },
+    "/biaozhun/": {
+        "keywords": "规范",
+        "key": "biaozhun"
+    },
+    "/frontend/layerBusiness/systemAuthentication": {
+        "keywords": "鉴权系统",
+        "key": "systemAuthentication"
+    },
+    "/frontend/layerBusiness/systemConfiguration": {
+        "keywords": "配置系统",
+        "key": "systemConfiguration"
+    },
+    "/frontend/layerBusiness/systemMessage": {
+        "keywords": "消息系统",
+        "key": "systemMessage"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/ui": {
+        "keywords": "样式组件",
+        "key": "ui"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/moduleFunction": {
+        "keywords": "功能模块",
+        "key": "moduleFunction"
+    },
+    "/frontend/layerBusiness/systemBusiness/componentBusiness/": {
+        "keywords": "业务组件",
+        "key": "componentBusiness"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/style": {
+        "keywords": "样式库",
+        "key": "style"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/login": {
+        "keywords": "登陆",
+        "key": "login"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/payment": {
+        "keywords": "支付",
+        "key": "payment"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/statistics": {
+        "keywords": "数据统计",
+        "key": "statistics"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/function/": {
+        "keywords": "功能库",
+        "key": "function"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryPublic/": {
+        "keywords": "公共库",
+        "key": "libraryPublic"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkStyle": {
+        "keywords": "样式框架",
+        "key": "frameworkStyle"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/frameworkUI": {
+        "keywords": "UI框架",
+        "key": "frameworkUI"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/function": {
+        "keywords": "功能库",
+        "key": "function"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/basic": {
+        "keywords": "基础库",
+        "key": "basic"
+    },
+    "/frontend/layerBusiness/systemBusiness/libraryThird/": {
+        "keywords": "第三方库",
+        "key": "libraryThird"
+    },
+    "/frontend/layerBusiness/systemBusiness/": {
+        "keywords": "业务系统",
+        "key": "systemBusiness"
+    },
+    "/frontend/layerBusiness/": {
+        "keywords": "业务层",
+        "key": "layerBusiness"
+    },
+    "/frontend/layerSecurity/systemMonitor": {
+        "keywords": "监控系统",
+        "key": "systemMonitor"
+    },
+    "/frontend/layerSecurity/systemStatistical/performance": {
+        "keywords": "性能统计",
+        "key": "performance"
+    },
+    "/frontend/layerSecurity/systemStatistical/pv": {
+        "keywords": "访问量统计",
+        "key": "pv"
+    },
+    "/frontend/layerSecurity/systemStatistical/behavior": {
+        "keywords": "用户行为统计",
+        "key": "behavior"
+    },
+    "/frontend/layerSecurity/systemStatistical/": {
+        "keywords": "统计系统",
+        "key": "systemStatistical"
+    },
+    "/frontend/layerSecurity/systemTest/static": {
+        "keywords": "静态检查",
+        "key": "static"
+    },
+    "/frontend/layerSecurity/systemTest/unit": {
+        "keywords": "单元测试",
+        "key": "unit"
+    },
+    "/frontend/layerSecurity/systemTest/e2e": {
+        "keywords": "端到端测试",
+        "key": "e2e"
+    },
+    "/frontend/layerSecurity/systemTest/ci": {
+        "keywords": "持续集成(Continuous integration 简称CI)",
+        "key": "ci"
+    },
+    "/frontend/layerSecurity/systemTest/": {
+        "keywords": "测试系统",
+        "key": "systemTest"
+    },
+    "/frontend/layerSecurity/": {
+        "keywords": "保障层",
+        "key": "layerSecurity"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/cdn": {
+        "keywords": "CDN",
+        "key": "cdn"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/image": {
+        "keywords": "图片管理",
+        "key": "image"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/publishing": {
+        "keywords": "发布工具",
+        "key": "publishing"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/offlinePackageManagement": {
+        "keywords": "离线包管理",
+        "key": "offlinePackageManagement"
+    },
+    "/frontend/layerInfrastructure/systemResourceManagement/": {
+        "keywords": "资源管理系统",
+        "key": "systemResourceManagement"
+    },
+    "/frontend/layerInfrastructure/systemDataPersistence": {
+        "keywords": "数据持久化系统",
+        "key": "systemDataPersistence"
+    },
+    "/frontend/layerInfrastructure/systemOperationMaintenance": {
+        "keywords": "运维系统",
+        "key": "systemOperationMaintenance"
+    },
+    "/frontend/layerInfrastructure/": {
+        "keywords": "基础设施层",
+        "key": "layerInfrastructure"
+    },
+    "/frontend/layerOffline/tools/codeManagement": {
+        "keywords": "代码管理",
+        "key": "codeManagement"
+    },
+    "/frontend/layerOffline/tools/packageManagement": {
+        "keywords": "包管理",
+        "key": "packageManagement"
+    },
+    "/frontend/layerOffline/tools/buildTools": {
+        "keywords": "构建工具",
+        "key": "buildTools"
+    },
+    "/frontend/layerOffline/tools/taskManagement": {
+        "keywords": "任务管理工具",
+        "key": "taskManagement"
+    },
+    "/frontend/layerOffline/tools/scaffolding": {
+        "keywords": "脚手架",
+        "key": "scaffolding"
+    },
+    "/frontend/layerOffline/tools/": {
+        "keywords": "工具集",
+        "key": "tools"
+    },
+    "/frontend/layerOffline/systemComponent": {
+        "keywords": "组件系统",
+        "key": "systemComponent"
+    },
+    "/frontend/layerOffline/": {
+        "keywords": "线下层",
+        "key": "layerOffline"
+    },
+    "/frontend/": {
+        "keywords": "前端体系",
+        "key": "frontend"
+    },
+    "/projects": {
+        "keywords": "项目",
+        "key": "projects"
+    },
+    "/other": {
+        "keywords": "其它",
+        "key": "other"
+    },
+    "/computer/dataStructure": {
+        "keywords": "数据结构",
+        "key": "dataStructure"
+    },
+    "/computer/computerNetworks": {
+        "keywords": "计算机网络■gulp■gulp■gulp",
+        "key": "computerNetworks"
+    },
+    "/computer/algorithm": {
+        "keywords": "算法",
+        "key": "algorithm"
+    },
+    "/computer/": {
+        "keywords": "计算机",
+        "key": "computer"
+    },
+    "/": {
+        "key": "ROOT"
+    },
+    "/biaozhun/README": {
+        "keywords": "Flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ PlantUML ■ 普通注释 ■ 文档注释 ■ 文件注释 ■Flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ PlantUML ■ 普通注释 ■ 文档注释 ■ 文件注释 ",
+        "key": "未知"
+    }
+}

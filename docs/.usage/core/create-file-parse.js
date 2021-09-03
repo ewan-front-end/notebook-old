@@ -3,7 +3,9 @@ const parseFlex = require('./parse/flex')
 const parseUML = require('./parse/uml')
 const parseCustomBlock = require('./parse/custom-block')
 const Anchor = require('./parse/anchor')
+const Search = require('./parse/search')
 const {debounce} = require('../utils/ewan')
+
 
 module.exports = (code, path) => {
     // 通用链接
@@ -11,14 +13,14 @@ module.exports = (code, path) => {
     code = Anchor.parseTitle(code, path)  // 标题
     code = Anchor.parseLink(code)
 
-    code = parseCustomBlock.start(code)
+    code = parseCustomBlock.start(code, path)
     
     code = parseFlex(code) // 弹性盒子        
     code = parseUML(code)  // 图例 
 
     code = parseCustomBlock.end(code)
-    //Anchor.save()
-    debounce(Anchor.save, 500) // 防抖
+
+    Anchor.save() // 保存链接数据
     
     return code        
 }

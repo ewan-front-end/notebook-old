@@ -1,4 +1,12 @@
 
+滚动穿透
+1. 弹层打开时 document.body.style.overflow = 'hidden'
+2. 弹层关闭时 document.body.style.overflow = 'auto'
+3. 弹层容器 overflow-y: scroll;
+
+
+
+
 函数柯理化
   参数复用 兼容性检测 延迟执行
 事件模型
@@ -164,6 +172,10 @@ String.prototype.replaceAt = function(start, len, replacement) {
 
          String.fromCharCode(65)       "A"           // 转换 Unicode转字符
          String.fromCharCode(65,66,67) "ABC"         // 转换 Unicode转字符
+           'ab'.charAt(0)                            // 转换 'a'
+           'ab'.charAt(1)                            // 转换 'b'
+           'ab'.charCodeAt(0)                        // 转换 97
+           'ab'.charCodeAt(1)                        // 转换 98
 ```
 function string2unicode(str){
 　　var ret ="";

@@ -7,7 +7,8 @@ const DATA = require(dataPath['main']),
     SCENE = [],
     USAGE = [],
     SOLUTION = [],
-    STANDARD = []
+    STANDARD = [],
+    KEYWORDS = {}
 
 // 递归数据结构
 function handleNodeIsFile(node) {
@@ -38,6 +39,7 @@ function handleItem(key, node, parent) {
     if (node.peripheral) {
         for (i in node.peripheral) { handleItem(i, node.peripheral[i], node) }        
     }
+    KEYWORDS[node.path] ? KEYWORDS[node.path].keywords += `■${node.title}` : KEYWORDS[node.path] = {keywords: node.title, key}
 }
 handleItem('ROOT', {children: DATA, src: 'index', path: ''}, null)
 
@@ -53,7 +55,7 @@ for (i in PATH_DATA) {
 }
 
 // 写文件
-let fullCreateFile = '▯▯▯▯▯▯▯ '
+let fullCreateFile = '▯▯▯▯▯▯▯▯ '
 fs.writeFile(dataPath["src:path"], SRC_PATH, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["src:path"]) })
 fs.writeFile(dataPath["path:data"], PATH_DATA, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["path:data"]) })
 fs.writeFile(dataPath["creator"], CREATOR, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["creator"]) })
@@ -62,3 +64,4 @@ fs.writeFile(dataPath["scene"], SCENE, () => { console.log(fullCreateFile = full
 fs.writeFile(dataPath["usage"], USAGE, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["usage"]) })
 fs.writeFile(dataPath["solution"], SOLUTION, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["solution"]) })
 fs.writeFile(dataPath["standard"], STANDARD, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["standard"]) })
+fs.writeFile(dataPath["path:keywords"], KEYWORDS, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["path:keywords"]) })

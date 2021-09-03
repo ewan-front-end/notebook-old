@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.02 14:29</span>
+            <span>N 2021.09.03 20:50</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/programmingLanguage/matlab">matlab</a></li><li><a href="/programmingLanguage/ruby">ruby</a></li><li><a href="/programmingLanguage/wechat">微信小程序</a></li><li><a href="/programmingLanguage/electron">Electron</a></li><li><a href="/programmingLanguage/java">Java</a></li><li><a href="/programmingLanguage/plantuml">PlantUML</a></li><li><a href="/programmingLanguage/python">Python</a></li></ul></div><div class="custom-block links">
