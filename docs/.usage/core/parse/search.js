@@ -5,7 +5,7 @@ let debounceTimer
 
 module.exports = {    
     add(path, keywords){ 
-        keywords = keywords.replace(/(\x20{2,})|(\/\/\x20)/g, '')
+        keywords = keywords.toLowerCase().replace(/(\x20{2,})|(\/\/\x20)/g, '')
         if (PATH_KEYWORDS[path]) {
             PATH_KEYWORDS[path].keywords += `■${keywords}`
         } else {

@@ -1,7 +1,7 @@
 [
     {
         "title": "NPM",
-        "scene": [
+        "data": [
             {
                 "title": "rvm",
                 "href": "/node",
@@ -12,7 +12,7 @@
     },
     {
         "title": "Nginx",
-        "scene": [
+        "data": [
             {
                 "title": "windows",
                 "desc": [
@@ -63,7 +63,7 @@
     },
     {
         "title": "Node",
-        "scene": [
+        "data": [
             {
                 "title": "rvm",
                 "href": "/node",
@@ -79,7 +79,7 @@
     },
     {
         "title": "Vuepress",
-        "scene": {
+        "data": {
             "title": "Vuepress",
             "href": "/framework/vuepress",
             "id": "使用指南",
@@ -94,7 +94,7 @@
     },
     {
         "title": "Docsify",
-        "scene": {
+        "data": {
             "desc": [
                 "$ sudo npm i docsify-cli -g",
                 "demo> docsify init ./docs",

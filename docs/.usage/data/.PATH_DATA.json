@@ -1,5 +1,8 @@
 {
     "/": {
+        "title": "Home",
+        "src": "index",
+        "path": "/",
         "children": [
             "/vue/",
             "/docs",
@@ -26,11 +29,12 @@
             "/projects",
             "/other",
             "/computer/"
-        ],
-        "src": "index",
-        "path": "/"
+        ]
     },
     "/README": {
+        "title": "Home",
+        "src": "index",
+        "path": "/",
         "children": [
             "/vue/",
             "/docs",
@@ -57,9 +61,7 @@
             "/projects",
             "/other",
             "/computer/"
-        ],
-        "src": "index",
-        "path": "/"
+        ]
     },
     "/vue/": {
         "title": "Vue",
@@ -1261,16 +1263,16 @@
         "title": "基础库",
         "links": [
             {
-                "nmae": "jQuery"
+                "name": "jQuery"
             },
             {
-                "nmae": "Zetpo"
+                "name": "Zetpo"
             },
             {
-                "nmae": "Underscore"
+                "name": "Underscore"
             },
             {
-                "nmae": "Lodash"
+                "name": "Lodash"
             }
         ],
         "linkName": "公共基础库",

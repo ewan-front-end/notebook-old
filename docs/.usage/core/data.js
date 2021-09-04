@@ -32,16 +32,29 @@ function handleItem(key, node, parent) {
         node.children ? handleNodeIsDirectory(node, node.children) : handleNodeIsFile(node)
         node.src && (SRC_PATH[node.src] = node.path)
     }
-    if (node.scene) SCENE.push({title: node.title, scene:node.scene}) 
-    if (node.usage) USAGE.push({title: node.title, scene:node.usage}) 
-    if (node.solution) SOLUTION.push({title: node.title, scene:node.solution})
-    if (node.standard) STANDARD.push({title: node.title, scene:node.standard})    
-    if (node.peripheral) {
-        for (i in node.peripheral) { handleItem(i, node.peripheral[i], node) }        
+    KEYWORDS[node.path] = {key, keywords: `${node.title.toLowerCase()}(${key.toLowerCase()})`}
+    if (node.usage) USAGE.push({title: node.title, data:node.usage}) 
+    if (node.standard) STANDARD.push({title: node.title, data:node.standard})
+    if (node.links) {
+        node.links.forEach(e => {KEYWORDS[node.path].keywords += `■${e.name.toLowerCase()}`})
     }
-    KEYWORDS[node.path] ? KEYWORDS[node.path].keywords += `■${node.title}` : KEYWORDS[node.path] = {keywords: node.title, key}
+    if (node.scene) {
+        SCENE.push({title: node.title, data:node.scene})
+        node.scene.forEach(e => {KEYWORDS[node.path].keywords += `■${e.title.toLowerCase()}`})
+    }
+    if (node.solution) {
+        SOLUTION.push({title: node.title, data:node.solution})
+        node.solution.forEach(e => {KEYWORDS[node.path].keywords += `■${e.title.toLowerCase()}`})
+    }    
+    if (node.peripheral) {
+        for (i in node.peripheral) { 
+            let item = node.peripheral[i]
+            handleItem(i, item, node) 
+            KEYWORDS[node.path].keywords += `■${item.title.toLowerCase()}(${i.toLowerCase()})`
+        }        
+    }    
 }
-handleItem('ROOT', {children: DATA, src: 'index', path: ''}, null)
+handleItem('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
 
 // 扁平化数据避免嵌套
 for (i in PATH_DATA) {

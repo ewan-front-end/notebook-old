@@ -29,7 +29,9 @@
  * scene:{} || []  
  *     title:'简化特定通用代码', 
  *     href:'/tools/vscode'  链接地址 
- *     id:'自定义用户片段'    锚链接ID     
+ *     id:'自定义用户片段'    锚链接ID    
+ * --------------------------------------------------------------------------------------解决方案
+ * solution [{title: ''}] 
  */
  
  module.exports = {
@@ -136,7 +138,7 @@
                     frameworkStyle: {title:'样式框架', links:[{name:'Bootstrap'}, {name:'Material'}, {name:'design'}], linkName: '公共样式框架'},
                     frameworkUI: {title:'UI框架', links:[{name:'React'}, {name:'Vue'}], linkName: '公共UI框架'},
                     function: {title:'功能库', links:[{name:'Fetch'}, {name:'Modernizr'}, {name:'Sentry'}, {name: 'Google Analytics'}], linkName: '公共功能库'},
-                    basic: {title:'基础库', links:[{nmae:'jQuery'}, {nmae:'Zetpo'}, {nmae:'Underscore'}, {nmae:'Lodash'}], linkName: '公共基础库'}
+                    basic: {title:'基础库', links:[{name:'jQuery'}, {name:'Zetpo'}, {name:'Underscore'}, {name:'Lodash'}], linkName: '公共基础库'}
                 }}
             }}
         }},

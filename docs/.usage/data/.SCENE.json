@@ -1,7 +1,7 @@
 [
     {
         "title": "NPM",
-        "scene": [
+        "data": [
             {
                 "title": "NPM内网源搭建",
                 "href": "/tools/npm",
@@ -16,7 +16,7 @@
     },
     {
         "title": "VSCode",
-        "scene": [
+        "data": [
             {
                 "title": "简化特定通用代码",
                 "href": "/tools/vscode",
@@ -26,7 +26,7 @@
     },
     {
         "title": "Node",
-        "scene": [
+        "data": [
             {
                 "title": "Node版本管理",
                 "href": "/node",
@@ -36,7 +36,7 @@
     },
     {
         "title": "Vuepress",
-        "scene": [
+        "data": [
             {
                 "title": "部署到一个非根路径",
                 "href": "/framework/vuepress",
