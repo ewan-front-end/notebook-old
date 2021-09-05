@@ -1,5 +1,5 @@
 var treeObj = {
-    TITLE: '浏览器对象模型',
+    TITLE: 'BOM(浏览器对象模型)',
     DESC: '根节点及基类均为Window对象，Window对象的创建依赖于<body>或<frameset>标签的出现',
     ATTRIBUTE: {
         window: {
@@ -13,7 +13,7 @@ var treeObj = {
                     SCENE: [{title:'监听键盘事件', href:'', id:''}] 
                 },
                 document: {
-                    TITLE: '文档对象',
+                    TITLE: 'DOM(文档对象模型)',
                     DESC: '窗口里的页面', 
                     ATTRIBUTE: {
                         title: "EWAN博客-CSDN博客",

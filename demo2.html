@@ -7,7 +7,7 @@
     <title>Document</title>
     <style>
         .obj-tree{
-            border: #f00 1px solid
+            font-size: 12px;
         }
         .obj-tree .node{ padding-left: 16px; border-left:#eee 1px solid}
         .obj-tree .node span{ }
@@ -24,6 +24,7 @@
 </head>
 <body>
     <div class="obj-tree"></div>
+    https://segmentfault.com/a/1190000014212576
     
 </body>
 </html>
@@ -48,7 +49,7 @@ function handleNode(key, node){
     return `<div class="${wrapperClass}">${TITLE}${ATTRIBUTE}</div>`
 }  
 
-let htmlStr = `<div class="obj-tree">${handleNode('root', treeObj)}</div>`
+let htmlStr = `<div class="obj-tree">${handleNode(treeObj.TITLE, treeObj.ATTRIBUTE.window)}</div>`
 document.querySelector('.obj-tree').innerHTML = htmlStr
  
 
