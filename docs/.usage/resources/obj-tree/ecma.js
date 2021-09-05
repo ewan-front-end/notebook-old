@@ -1,7 +1,9 @@
 module.exports = {
+    TITLE: '浏览器对象模型',
+    DESC: '根节点及基类均为Window对象，Window对象的创建依赖于<body>或<frameset>标签的出现',
     window: {
         TITLE: '窗口对象',
-        DESC: '浏览器中一个打开的窗口', 
+        DESC: '表示一个浏览器窗口或一个框架，window为Winddow对象引用，同时window指向Window对象', 
         TYPE: '', // 默认standard[non-standard(非标准) abandonment(弃用)]       
         ATTRIBUTE: {
             event: {
@@ -44,7 +46,7 @@ module.exports = {
                 SCENE: [{title:'浏览器静默与激活', href:'', id:''}]
             },
             location: {
-                TITLE: '描述文档位置息息',
+                TITLE: '当前网页文档的URL信息',
                 DESC: '描述文档位置息息', 
                 ATTRIBUTE: {
                     host:     "localhost:9527",
@@ -65,8 +67,16 @@ module.exports = {
                 LINKS_IN: ['url','encode'],
                 SCENE: []
             },
+            history: {
+                TITLE: '浏览器窗口访问过的URL信息',
+                DESC: '描述访问者信息'
+            },
+            screen: {
+                TITLE: '客户端屏幕信息',
+                DESC: '描述访问者信息'
+            },
             navigator: {
-                TITLE: '访问者的信息',
+                TITLE: '客户端浏览器信息',
                 DESC: '描述访问者信息'
             }
         },
