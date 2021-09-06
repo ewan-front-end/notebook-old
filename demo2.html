@@ -6,24 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .obj-tree{
+        .obj-tree{ color: #333;}
+        .obj-tree .node{ 
             font-size: 12px;
+            line-height: 16px;
+            padding-left: 18px; 
+            border-left:#eee 1px solid;
         }
-        .obj-tree .node{ padding-left: 16px; border-left:#eee 1px solid}
-        .obj-tree .node span{ }
-        .obj-tree .node span > i{color:#ccc; font-style: normal;}
-        .obj-tree .node span > i.string:before{content:' : "'}
-        .obj-tree .node span > i.string:after{content:'"'}
-        .obj-tree .node span > i.number{color:#e91; }
-        .obj-tree .node span > i.number:before{content:' : '}
-
-        .obj-tree .node > span:before, .obj-tree .node.mult > span:before{ content: ''; display: inline-block; width: 22px; height: 12px;}
-        .obj-tree .node > span:before{ background: url('./docs/.vuepress/public/images/tree-sh.png') left center no-repeat;}
-        .obj-tree .node.mult > span:before{ background: url('./docs/.vuepress/public/images/tree-an.png') left center no-repeat;}
+        .obj-tree .node span{ position: relative; z-index: 1; padding-left: 4px;}
+        .obj-tree .node span i{font-style: normal; vertical-align: bottom;}
+        /* 值类型 */
+        .obj-tree .node span i.string{color:#ccc}
+        .obj-tree .node span i.string:before{content:'"'}
+        .obj-tree .node span i.string:after{content:'"'}
+        .obj-tree .node span i.number{color:#e91; } 
+        .obj-tree .node span i.fn{  
+            width: 0; height: 16px; padding-left: 24px; margin-left: 3px; overflow: hidden; color:#999; display: inline-block; opacity: 0.4;
+            background: url('./docs/.usage/resources/images/obj-tree-12.png') left center no-repeat; cursor: pointer;
+        } 
+        .obj-tree .node span i.fn:hover{width: auto; padding-left: 0; overflow: auto; opacity: 1; background: none;}
+        /* 复合节点 */
+        .obj-tree .node.mult{}
+        .obj-tree .node.mult > span:before{ 
+            position: absolute; bottom: 0; left: -15px;
+            content: ''; display: inline-block; width: 16px; height: 16px;
+            background-image: url('./docs/.usage/resources/images/obj-tree-16.png');
+            background-repeat: no-repeat;
+            background-position: -12px 0;
+            background-color: #eee;  
+            background-position: -16px 0;          
+            vertical-align: middle;  
+            cursor: pointer;          
+        }
+        .obj-tree .node.pinch > span:before{background-position: 0 0;}
+        .obj-tree .node.pinch > div.children{height: 0; overflow: hidden;}
+        /* 类型：属性节点 */
+        .obj-tree .node.attr > span{
+            color: #999;
+        }
+        /* 类型：方法节点 */
+        .obj-tree .node.method > span{ color: #e91; }
+        /* .obj-tree .node.method > span:before{ content: 'ƒ ' } */
     </style>
 </head>
 <body>
-    <div class="obj-tree"></div>
+    <div class="wrapper"></div>
     https://segmentfault.com/a/1190000014212576
     
 </body>
@@ -31,27 +58,87 @@
 <script src="test.js"></script>
 <script>
 
-function handleNode(key, node){    
-    if (typeof node !== 'object') node = {TITLE: node, VALUE: node, TYPE: typeof node}
-    let value = node.VALUE ? `<i class="${node.TYPE}">${node.VALUE}</i>` : ''
-    let TITLE = `<span>${key}${value}</span>`
-    let ATTRIBUTE = ''
-    let wrapperClass = 'node'
+Element.prototype.addClass = function(cn) {
+    let className = this.className
+    if (className.indexOf(cn) > -1) return this
+    className = (className + ' ' + cn).replace(/\s+/g, ' ')
+    this.className = className
+    return this
+}
+Element.prototype.delClass = function(cn) {
+    let className = this.className
+    if (className.indexOf(cn) < 0) return this
+    className = className.replace(cn, '').replace(/\s{2,}/g, ' ')
+    this.className = className
+    return this
+}
+Element.prototype.hasClass = function(cn) {
+    return this.className.indexOf(cn) > -1
+}
+String.prototype.addClass = function(cn) {
+    if (this.indexOf(cn) > -1) return this
+    return (this + ' ' + cn).replace(/\s{2,}/g, ' ')
+}
+String.prototype.delClass = function(cn) {
+    if (this.indexOf(cn) < 0) return this
+    return this.replace(cn, '').replace(/\s{2,}/g, ' ')
+}
+
+function handleNode(key, node, type){
+    let nodeClass = 'node'
+    if (typeof node !== 'object') {
+        node = {TITLE: node, VALUE: node, TYPE: typeof node}
+        nodeClass += ' attr'
+    }
+    let value = ''
+    let fn =  ''
+    let title = ''
+    let children = ''
+    let isPinch = node.PINCH_CHILDREN || false
+    
+    type && (nodeClass += ' ' + type)
+    node.PINCH_ALL && (window.pinchAll = true)
+    node.VALUE && (value = ` : <i class="${node.TYPE}">${node.VALUE}</i>`) 
+    if (node.PARAMETERS || node.RETURNS) {
+        fn += node.PARAMETERS ? `(${node.PARAMETERS})` : '()'
+        fn += node.RETURNS ? `: ${node.RETURNS}` : `: void`
+        fn = `<i class="fn">${fn}</i>`
+    } 
+    title = `<span>${key}${value}${fn}</span>`
     if (node.ATTRIBUTE) {
-        let children = ''
-        wrapperClass += ` mult`
+        let attribute = ''
         for (let i in node.ATTRIBUTE) {
             let child = node.ATTRIBUTE[i]                        
-            children += `<div>${handleNode(i, child)}</div>`
+            attribute += `${handleNode(i, child)}`
         }
-        ATTRIBUTE += `<div>${children}</div>`
-    }    
-    return `<div class="${wrapperClass}">${TITLE}${ATTRIBUTE}</div>`
+        children += attribute
+    } 
+    if (node.METHODS) {
+        let methods = ''
+        for (let i in node.METHODS) {
+            let child = node.METHODS[i]                        
+            methods += `${handleNode(i, child, 'method')}`
+        }
+        children += methods
+    }
+    if (node.ATTRIBUTE || node.METHODS) {
+        nodeClass = nodeClass.addClass('mult')
+        if (window.pinchAll || isPinch) nodeClass = nodeClass.addClass('pinch')
+        children = `<div class="children">${children}</div>` 
+    }
+     
+    return `<div class="${nodeClass}">${title}${children}</div>`
 }  
 
-let htmlStr = `<div class="obj-tree">${handleNode(treeObj.TITLE, treeObj.ATTRIBUTE.window)}</div>`
-document.querySelector('.obj-tree').innerHTML = htmlStr
- 
+let htmlStr = `<div class="obj-tree">${handleNode(treeObj.TITLE, treeObj)}</div>`
+document.querySelector('.wrapper').innerHTML = htmlStr
+document.addEventListener('click', e => {
+    let parent = e.target.parentNode, parentClass = parent.className || ''
+    if (parentClass.includes('node mult')) {
+        parentClass = parentClass.includes('pinch') ? parentClass.delClass('pinch') : parentClass.addClass('pinch') 
+        parent.className = parentClass       
+    }
+}) 
 
 
 </script>

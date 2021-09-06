@@ -23,6 +23,8 @@ var treeObj = {
                         element: {
                             METHODS: {
                                 querySelector: {
+                                    PARAMETERS: 'CSSSelectors',
+                                    RETURNS: 'Element',
                                     LINKS: [{title:'深度优先和先序遍历', href:''}]
                                 }
                             },
@@ -63,11 +65,12 @@ var treeObj = {
                     },
                     METHODS: {
                         reload: {},
-                        replace: {}
+                        replace: {PARAMETERS: 'url'}
                     },
                     LINKS: [{title:'window.location与document.location的区别', href:''}],
                     LINKS_IN: ['url','encode'],
-                    SCENE: []
+                    SCENE: [],
+                    PINCH_CHILDREN: false
                 },
                 history: {
                     TITLE: '浏览器窗口访问过的URL信息',
@@ -88,5 +91,6 @@ var treeObj = {
             LINKS: [{title:'BOM规范', href:''}],
             SCENE: [{title:'浏览器静默与激活', href:'', id:''}]
         }
-    }
+    },
+    PINCH_ALL: false
 }
