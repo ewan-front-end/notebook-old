@@ -20,11 +20,35 @@
         .obj-tree .node span i.string:before{content:'"'}
         .obj-tree .node span i.string:after{content:'"'}
         .obj-tree .node span i.number{color:#e91; } 
-        .obj-tree .node span i.fn{  
-            width: 0; height: 16px; padding-left: 24px; margin-left: 3px; overflow: hidden; color:#999; display: inline-block; opacity: 0.4;
+        /* 详情 */
+        .obj-tree .node span i.parameter{  
+            width: 0; height: 16px; padding-left: 12px; margin-left: 5px; overflow: hidden; display: inline-block; 
             background: url('./docs/.usage/resources/images/obj-tree-12.png') left center no-repeat; cursor: pointer;
         } 
-        .obj-tree .node span i.fn:hover{width: auto; padding-left: 0; overflow: auto; opacity: 1; background: none;}
+        .obj-tree .node span i.parameter:hover{width: auto; padding-left: 0; overflow: auto; background: none;}
+
+        .obj-tree .node span i.desc{
+            width: 0; height: 16px; padding-left: 12px; margin-left: 5px; overflow: hidden; display: inline-block; color: #999; 
+            background: url('./docs/.usage/resources/images/obj-tree-12.png') -24px center no-repeat; cursor: pointer;
+        }
+        .obj-tree .node span i.desc:hover{width: auto; padding-left: 0; overflow: auto; background: none;}
+        .obj-tree .node span i.hard{
+            width: 0; height: 16px; padding-left: 12px; margin-left: 5px; overflow: hidden; display: inline-block; color: #cd8cff; 
+            background: url('./docs/.usage/resources/images/obj-tree-12.png') -36px center no-repeat; cursor: pointer;
+        }
+        .obj-tree .node span i.hard:hover{width: auto; padding-left: 0; overflow: auto; background: none;}
+        .obj-tree .node span i.warn{
+            width: 0; height: 16px; padding-left: 12px; margin-left: 5px; overflow: hidden; display: inline-block; color: #ffb863; 
+            background: url('./docs/.usage/resources/images/obj-tree-12.png') -48px center no-repeat; cursor: pointer;
+        }
+        .obj-tree .node span i.warn:hover{width: auto; padding-left: 0; overflow: auto; background: none;}
+        .obj-tree .node span i.link{
+            width: 0; height: 16px; padding-left: 12px; margin-left: 5px; overflow: hidden; display: inline-block; color: #ffb863; 
+            background: url('./docs/.usage/resources/images/obj-tree-12.png') -60px center no-repeat; cursor: pointer;
+        }
+        .obj-tree .node span i.link:hover{width: auto; padding-left: 0; overflow: visible; background: none;}
+
+
         /* 复合节点 */
         .obj-tree .node.mult{}
         .obj-tree .node.mult > span:before{ 
@@ -85,48 +109,57 @@ String.prototype.delClass = function(cn) {
 }
 
 function handleNode(key, node, type){
-    let nodeClass = 'node'
-    if (typeof node !== 'object') {
-        node = {TITLE: node, VALUE: node, TYPE: typeof node}
+    let nodeClass = 'node', title = '', value = '', detail =  '', children = ''
+    let isPinch = node.PINCH_CHILDREN || false
+    // 节点闭合    
+    node.PINCH_ALL && (window.pinchAll = true)
+    // Object / String Number
+    if (typeof node === 'object') {        
+        if (type === 'method') {
+            nodeClass += ' ' + type   
+            if (node.PARAMETERS || node.RETURNS) detail += `<i class="parameter">${ (node.PARAMETERS ? `(${node.PARAMETERS})` : '()') + (node.RETURNS ? `: ${node.RETURNS}` : `: void`)}</i>`
+        }
+        if (node.ATTRIBUTE) {
+            let attribute = ''
+            for (let i in node.ATTRIBUTE) {attribute += `${handleNode(i, node.ATTRIBUTE[i])}`}
+            children += attribute
+        } 
+        if (node.METHODS) {
+            let methods = ''
+            for (let i in node.METHODS) {methods += `${handleNode(i, node.METHODS[i], 'method')}`}
+            children += methods
+        }
+        if (node.ATTRIBUTE || node.METHODS) {
+            nodeClass = nodeClass.addClass('mult')
+            if (window.pinchAll || isPinch) nodeClass = nodeClass.addClass('pinch')
+            children = `<div class="children">${children}</div>` 
+        }
+        if (node.DESC) detail += `<i class="desc">${node.DESC}</i>`
+        if (node.LINK || node.LINK_IN) {
+            let links = ''
+            node.LINK && node.LINK.forEach(e => {links += `<a href="${e.href}">${e.title}</a>`})
+            node.LINK_IN && node.LINK_IN.forEach(e => {
+                links += `<a href="${e.href}">${e.title}</a>`
+            })
+            detail += `<i class="link">${links}</i>`
+        } 
+        if (node.HARD) {
+            let hards = ''
+            node.HARD.forEach(e => {hards += `<a href="${e.href}">${e.title}</a>`})
+            detail += `<i class="hard">${hards}</i>`
+        } 
+        if (node.WARN) {
+            let warns = ''
+            node.WARN.forEach(e => {warns += `<a href="${e.href}">${e.title}</a>`})
+            detail += `<i class="warn">${warns}</i>`
+        } 
+        
+    } else {
+        value = ` : <i class="${typeof node}">${node}</i>`
         nodeClass += ' attr'
     }
-    let value = ''
-    let fn =  ''
-    let title = ''
-    let children = ''
-    let isPinch = node.PINCH_CHILDREN || false
-    
-    type && (nodeClass += ' ' + type)
-    node.PINCH_ALL && (window.pinchAll = true)
-    node.VALUE && (value = ` : <i class="${node.TYPE}">${node.VALUE}</i>`) 
-    if (node.PARAMETERS || node.RETURNS) {
-        fn += node.PARAMETERS ? `(${node.PARAMETERS})` : '()'
-        fn += node.RETURNS ? `: ${node.RETURNS}` : `: void`
-        fn = `<i class="fn">${fn}</i>`
-    } 
-    title = `<span>${key}${value}${fn}</span>`
-    if (node.ATTRIBUTE) {
-        let attribute = ''
-        for (let i in node.ATTRIBUTE) {
-            let child = node.ATTRIBUTE[i]                        
-            attribute += `${handleNode(i, child)}`
-        }
-        children += attribute
-    } 
-    if (node.METHODS) {
-        let methods = ''
-        for (let i in node.METHODS) {
-            let child = node.METHODS[i]                        
-            methods += `${handleNode(i, child, 'method')}`
-        }
-        children += methods
-    }
-    if (node.ATTRIBUTE || node.METHODS) {
-        nodeClass = nodeClass.addClass('mult')
-        if (window.pinchAll || isPinch) nodeClass = nodeClass.addClass('pinch')
-        children = `<div class="children">${children}</div>` 
-    }
      
+    title = `<span>${key}${value}${detail}</span>`
     return `<div class="${nodeClass}">${title}${children}</div>`
 }  
 
