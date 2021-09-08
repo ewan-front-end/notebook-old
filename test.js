@@ -16,7 +16,7 @@ var treeObj = {
                     TITLE: 'DOM(文档对象模型)',
                     DESC: '窗口里的页面', 
                     ATTRIBUTE: {
-                        title: "EWAN博客-CSDN博客",
+                        title: {VALUE:"EWAN博客-CSDN博客", IMPORTANT:true},
                         cookie: "data1=1; data2=2; data3=3;",
                         charset: "UTF-8",
                         referrer: "http://www.baidu.com/link?url=73Jk",
@@ -28,8 +28,7 @@ var treeObj = {
                                     LINK: [{title:'深度优先和先序遍历', href:''}]
                                 }
                             },
-                            LINK: [{title:'Element对象', href:''}],
-                            WARN: []
+                            LINK: [{title:'Element对象', href:''}]
                         },
                         location: {
                             ATTRIBUTE: {
@@ -38,10 +37,10 @@ var treeObj = {
                                 href:     "http://localhost:9527/main#/minioninfo/minion?v=1",
                                 protocol: "http:",
                                 hostname: "localhost", 
-                                port:     9527,
+                                port:     "9527",
                                 pathname: "/main",
                                 hash:     "#/minioninfo/minion",
-                                search:   "?v=1▸parseSearch◂"
+                                search: {VALUE:"?v=1", LINK_IN:['parseSearch']}
                             },
                             LINK: [{title:'window.location与document.location的区别', href:''}],
                             HARD: [{title: 'window.location', href: ''}]
@@ -49,7 +48,8 @@ var treeObj = {
                     },
                     METHODS: {},
                     LINK: [{title:'Document对象', href:''}, {title:'DOM规', href:''}],
-                    SCENE: [{title:'浏览器静默与激活', href:'', id:''}]
+                    SCENE: [{title:'浏览器静默与激活', href:'', id:''}],
+                    IMPORTANT: true
                 },
                 location: {
                     TITLE: '当前网页文档的URL信息',
@@ -63,7 +63,7 @@ var treeObj = {
                         port:     "9527",
                         pathname: "/main",
                         hash:     "#/minioninfo/minion",
-                        search:   "?v=1▸parseSearch◂"
+                        search: {VALUE: "?v=1", LINK_IN:['parseSearch']}
                     },
                     METHODS: {
                         reload: {},
@@ -73,23 +73,33 @@ var treeObj = {
                     LINK_IN: ['url','encode'],
                     WARN: [{title: 'document.location', href: ''}],
                     SCENE: [],
-                    PINCH_CHILDREN: false
+                    PINCH_CHILDREN: false,
+                    IMPORTANT: true
                 },
                 history: {
                     TITLE: '浏览器窗口访问过的URL信息',
-                    DESC: '描述访问者信息'
+                    DESC: '描述访问者信息',
+                    IMPORTANT: true
                 },
                 screen: {
                     TITLE: '客户端屏幕信息',
-                    DESC: '描述访问者信息'
+                    DESC: '描述访问者信息',
+                    IMPORTANT: true
                 },
                 navigator: {
                     TITLE: '客户端浏览器信息',
-                    DESC: '描述访问者信息'
-                }
+                    DESC: '描述访问者信息',
+                    IMPORTANT: true
+                },
+                screenLeft: {VALUE:100, DESC:'窗口距屏幕左距离(IE/Safari/Chrome)', LIKENESS:[{screenTop:100}], LINK:[{title:'兼容获取窗口位置'}]},
+                screenX: {VALUE:100, DESC:'窗口距屏幕左距离(Firefox)', LIKENESS:[{screenY:100}]},
+                applicationCache: {DEPRECATED: true, VALUE:'', DESC: '返回该window中的应用缓存对象的一个引用'}
             },
             METHODS: {
-                
+                open: {DESC:"window.open('http://www.baidu.com','_blank','width=300,height=200,menubar=no,toolbar=no, status=no,scrollbars=yes')",PARAMETERS:'[URL], [窗口名称], [参数字符串]', IMPORTANT: true},
+                setTimeout: {LINK:[{title:"事件循理机制", href:''}], IMPORTANT: true},
+                setInterval: {},
+                alert: {DEPRECATED: true}
             },
             LINK: [{title:'BOM规范', href:''}],
             SCENE: [{title:'浏览器静默与激活', href:'', id:''}]
@@ -130,6 +140,7 @@ const  InternalLinks = {
         </table>`
     },
     parseSearch: {
-        title: '解析URL参数'
+        title: '解析URL参数',
+        content: `asdfgghjk`
     }
 }
