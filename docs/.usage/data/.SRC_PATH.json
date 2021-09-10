@@ -40,7 +40,7 @@
     "node/package": "/node/package",
     "node/index": "/node/",
     "html5": "/html5",
-    "js-es6": "/javascript/es6",
+    "es6": "/javascript/es6",
     "javascript": "/javascript/",
     "ruby": "/programmingLanguage/ruby",
     "wechat": "/programmingLanguage/wechat",

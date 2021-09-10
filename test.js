@@ -21,6 +21,13 @@ var treeObj = {
                         charset: "UTF-8",
                         referrer: "http://www.baidu.com/link?url=73Jk",
                         element: {
+                            ATTRIBUTE: {
+                                offsetLeft: {DESC:'相对父元素(有定位属性)左偏移量', VALUE: 100, LIKENESS:{offsetTop:100}, LINK:[{title:'详解',href:'https://www.jianshu.com/p/2bd00720e2de'}]},
+                                offsetWidth: {DESC:'偏移大小content + padding*2 + border*2', VALUE: 100, LIKENESS:{offsetHeight:100}},
+                                clientWidth: {DESC:'客户区大小content + padding*2', VALUE: 100, LIKENESS:{clientHeight:100}},
+                                scrollWidth: {DESC:'滚动大小content + padding*2', VALUE: 100, LIKENESS:{scrollHeight:100}},
+                                scrollLeft: {DESC:'被卷去宽度', VALUE: 100, LIKENESS:{scrollTop:100}},
+                            },
                             METHODS: {
                                 querySelector: {
                                     PARAMETERS: 'CSSSelectors',
@@ -91,8 +98,9 @@ var treeObj = {
                     DESC: '描述访问者信息',
                     IMPORTANT: true
                 },
-                screenLeft: {VALUE:100, DESC:'窗口距屏幕左距离(IE/Safari/Chrome)', LIKENESS:[{screenTop:100}], LINK:[{title:'兼容获取窗口位置'}]},
-                screenX: {VALUE:100, DESC:'窗口距屏幕左距离(Firefox)', LIKENESS:[{screenY:100}]},
+                innerWidth: {VALUE:100, DESC:'窗口宽(包括滚动条) 想获取不包括滚动条的纯视口宽请用html.clientWidth', LIKENESS:{innerHeight:100}},
+                screenLeft: {VALUE:100, DESC:'窗口距屏幕左距离(IE/Safari/Chrome)', LIKENESS:{screenTop:100}, LINK:[{title:'兼容获取窗口位置'}]},
+                screenX: {VALUE:100, DESC:'窗口距屏幕左距离(Firefox)', LIKENESS:{screenY:100}},
                 applicationCache: {DEPRECATED: true, VALUE:'', DESC: '返回该window中的应用缓存对象的一个引用'}
             },
             METHODS: {

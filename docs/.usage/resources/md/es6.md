@@ -45,6 +45,7 @@ console.log(counter); // 4 已经改变
 ## 类
 ```js
 class Demo {
+    #strategy 
     constructor(opts) { 
         this.opts = opts
         this.test = this.test.bind(this) // 当test方法赋值给外部变量时(如在类外部var a = demo.test)，this会丢失
@@ -53,6 +54,7 @@ class Demo {
     [render](opts) {}
     // 实例方法 demo.test()
     test() {
+        this.#strategy = '私有属性'
         console.log(Object.keys(this)) // ["opts", "test"] 
         console.log(Object.keys(this.__proto__)) // []
         console.log(Object.getOwnPropertyNames(this.__proto_)) // ["constructor", "test"] 

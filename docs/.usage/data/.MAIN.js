@@ -99,7 +99,7 @@
     }},
     html5: {title:'HTML5', src:'html5'},
     javascript:{title: 'Javascript', src:'javascript', children:{
-        es6:{src:'js-es6'},
+        es6:{src:'es6'},
         ecmascript:{title:'ECMAScript', src:'ecmascript'}
     }},
     programmingLanguage:{linkName:'编程语言', links:[{name:'javascript', href:'/javascript'}], children:{       

@@ -727,7 +727,7 @@
         "path": "/javascript/"
     },
     "/javascript/es6": {
-        "src": "js-es6",
+        "src": "es6",
         "parent": "/javascript/",
         "key": "es6",
         "title": "es6",

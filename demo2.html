@@ -10,8 +10,8 @@
 
         .obj-tree{ color: #333;}        
         .obj-tree .node{ font-size: 14px; line-height: 16px; padding-left: 18px; border-left:#eee 1px solid; }
-        .obj-tree .node .title{ position: relative; z-index: 1; padding-left: 4px;}
-        .obj-tree .node .title i{font-style: normal; vertical-align: bottom;}
+        .obj-tree .node .title{ position: relative; z-index: 1; padding-left: 4px; display: block;}        
+        .obj-tree .node .title i{font-style: normal; vertical-align: bottom;}        
         .obj-tree .node .title i.del{text-decoration: line-through}
         .obj-tree .node .title i.important{font-weight: bold;}
         /* 值类型 */
@@ -46,11 +46,11 @@
         /* 方参 */
         .obj-tree .node .title i.parm{color: #ccc; background-position:left center;} 
         .obj-tree .node .title i.parm:hover{width: auto; padding-left: 0; overflow: visible; background: none;}
-
+        
 
         /* 复合节点 */
         .obj-tree .node.mult{}
-        .obj-tree .node.mult > span:before{ 
+        .obj-tree .node.mult > .title:before{ 
             position: absolute; bottom: 0; left: -15px;
             content: ''; display: inline-block; width: 16px; height: 16px;
             background-image: url('./docs/.usage/resources/images/obj-tree-16.png');
@@ -68,6 +68,11 @@
         /* 类型：方法节点 */
         .obj-tree .node.method > .title{ color: #d98c8c; }
         /* .obj-tree .node.method > span:before{ content: 'ƒ ' } */
+
+        /* 类似节点 */
+        .obj-tree .node .likeness{background-color: #f9f9f9;}
+        .obj-tree .node .likeness:after{content: ''; clear: both;}
+        .obj-tree .node .likeness i.like{float: right;}
 
 
         body{position: relative; z-index: 1; padding: 0; margin: 0;}
@@ -105,42 +110,6 @@
 </html>
 <script src="test.js"></script>
 <script>
-class SnapWindows{    
-    constructor(options) {
-        const wrapper = document.createElement('div'), 
-            hiddContainer = document.createElement('div'),
-            htmlContainer = document.createElement('div'), 
-            codeContainer = document.createElement('pre')
-        const defaultOptions = {
-            where: 'right'
-        }
-        Object.assign(defaultOptions, options)
-                
-        wrapper.className = `snap-windows-wrapper snap-${defaultOptions.where}`
-        hiddContainer.className = 'hidd-container'
-        htmlContainer.className = 'html-container'
-        codeContainer.className = 'code-container'
-        hiddContainer.appendChild(htmlContainer)
-        hiddContainer.appendChild(codeContainer)   
-        wrapper.appendChild(hiddContainer)     
-        document.body.appendChild(wrapper)
-        this.htmlContainer = htmlContainer
-        this.codeContainer = codeContainer
-    }
-    setHTML(html) {
-        this.htmlContainer.innerHTML = html
-    }
-    setCode(code) {
-        this.codeContainer.innerHTML = code
-    }
-}
-const sideWin = new SnapWindows({
-    
-}) 
-//document.querySelector('#side-retractable-window').innerHTML = item.content
-
-</script>
-<script>
 
 Element.prototype.addClass = function(cn) {
     let className = this.className
@@ -169,7 +138,8 @@ String.prototype.delClass = function(cn) {
 }
 
 function handleNode(key, node, type){
-    let nodeClass = 'node', 
+    let nodeClass = 'node',
+        titClass = 'title', 
         title = key, 
         detail =  '',  
         children = ''
@@ -196,12 +166,16 @@ function handleNode(key, node, type){
         }
         if (node.DESC) detail += `<i class="desc">${node.DESC}</i>`
         if (node.LINK || node.LINK_IN) {
-            let links = node.LINK ? node.LINK.map(e => `<a href="${e.href}">${e.title}</a>`).join('') : ''
+            let links = node.LINK ? node.LINK.map(e => `<a href="${e.href}" target="_blank">${e.title}</a>`).join('') : ''
             node.LINK_IN && (links += node.LINK_IN.map(e => `<a href="javascript:linkInner('${e}')">${InternalLinks[e].title}</a>`).join(''))
             detail += `<i class="link">${links}</i>`
         } 
         if (node.HARD) detail += `<i class="hard">${node.HARD.map(e => `<a href="${e.href}">${e.title}</a>`).join('')}</i>`        
         if (node.WARN) detail += `<i class="warn">${node.WARN.map(e => `<a href="${e.href}">${e.title}</a>`).join('')}</i>`
+        if (node.LIKENESS) {
+            titClass += ' likeness'
+            detail += `<i class="like">${Object.keys(node.LIKENESS).join(',')}</i>`
+        }
     } else {
         nodeClass += ' attr'
         detail = ` : <i class="${typeof node}">${node}</i>` + detail
@@ -209,7 +183,7 @@ function handleNode(key, node, type){
 
     node.DEPRECATED && (title = `<i class="del">${title}</i>`)
     node.IMPORTANT && (title = `<i class="important">${title}</i>`)
-    title = `<span class="title">${title}${detail}</span>`
+    title = `<span class="${titClass}">${title}${detail}</span>`
     return `<div class="${nodeClass}">${title}${children}</div>`
 }  
 
@@ -224,8 +198,8 @@ document.addEventListener('click', e => {
 }) 
 function linkInner(key) {
     let item = InternalLinks[key]
-    sideWin.setCode(item.content)
+    //sideWin.setCode(item.content)
 }
-sideWin.setCode(InternalLinks['url'].content)
+
 
 </script>

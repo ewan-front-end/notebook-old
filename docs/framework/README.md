@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.04 13:07</span>
+            <span>N 2021.09.10 20:55</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/framework/vuepress">Vuepress</a></li><li><a href="/framework/docsify">Docsify</a></li></ul></div></div>
