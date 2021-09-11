@@ -61,7 +61,7 @@
     },
     "/tools/regularExpression": {
         "key": "regularExpression",
-        "keywords": "正则表达式(regularexpression)■2(5[0-5]|[0-4]\\d)匹配：200 ~ 255■[0-1]?\\d{1,2}匹配：0 ~ 199■(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3} 后三段重复3次■^(?=.*[a-z])匹配行头 跟随内容包含小写字母■^(?=.*[a-z])匹配行头 跟随内容包含大写字母■^(?=.*\\d)匹配行头 跟随内容包含数字■^(?=.*[@!%&\\$\\*\\?])匹配行头 跟随内容包含列举字符■[a-za-z\\d@!%&\\$\\*\\?]{8,}匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上■ 匹配ip■ 密码 ■ 密码2 ■^((?=.*[a-z])(?=.*[a-z])(?=.*\\d))|((?=.*[a-z])(?=.*[a-z])(?=.*[@!%&\\$\\*\\?]))|((?=.*[a-z])(?=.*\\d)(?=.*[@!%&\\$\\*\\?]))|((?=.*[a-z])(?=.*\\d)(?=.*[@!%&\\$\\*\\?]))[a-za-z\\d@!%&\\$\\*\\?]■匹配位置■字符范围■长度范围■全局范围■惰性匹配■取反■分组■复杂"
+        "keywords": "正则表达式(regularexpression)"
     },
     "/tools/eslint": {
         "key": "eslint",
@@ -73,7 +73,7 @@
     },
     "/tools/postman": {
         "key": "postman",
-        "keywords": "postman(postman)■登录 ■需要验证的请求■ 新建一个目录(收藏)■ 新建一个请求■ 新建一个环境■ 需要验证的请求 "
+        "keywords": "postman(postman)"
     },
     "/tools/": {
         "key": "tools",
@@ -137,7 +137,7 @@
     },
     "/algorithm": {
         "key": "algorithm",
-        "keywords": "算法(algorithm)■判断奇偶■整数平均数■不用**临时变量**交换两个数■临时变量■ 实际应用 ■规则■性质■实现：matrix(a, b)■实例：■规则■性质■例题■性质&规则■典型例题■ 加减运算 ■ 乘法:矩阵与数 ■ 乘法:矩阵与矩阵 "
+        "keywords": "算法(algorithm)"
     },
     "/ecma": {
         "key": "ecma",
@@ -149,7 +149,7 @@
     },
     "/node/plugin": {
         "key": "plugin",
-        "keywords": "插件(plugin)■node-inspect■gulp■commander■chokidar■chalk■node-plantuml■uglify-js■child_process■nodemon■pm2■concurrently■node-cache■xxxx&gt; npm i -g nodemon 或 ■demo&gt; npm install --save-dev nodemon■demo&gt; nodemon main.js或相当于node main.js■demo&gt; nodemon main.js localhost 8080如果没有在应用中指定端口，可以在命令中指定"
+        "keywords": "插件(plugin)"
     },
     "/node/framework": {
         "key": "framework",
@@ -213,7 +213,7 @@
     },
     "/framework/vuepress": {
         "key": "vuepress",
-        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片■[icomoon](http://icomoon.io/app)■[jsrun](https://jsrun.net/new)■[github](https://github.com/)"
+        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片"
     },
     "/framework/docsify": {
         "key": "docsify",
@@ -429,7 +429,7 @@
     },
     "/computer/computerNetworks": {
         "key": "computerNetworks",
-        "keywords": "计算机网络(computernetworks)■gulp■gulp■gulp"
+        "keywords": "计算机网络(computernetworks)"
     },
     "/computer/algorithm": {
         "key": "algorithm",
@@ -444,7 +444,7 @@
         "keywords": "home(root)"
     },
     "/biaozhun/README": {
-        "keywords": "flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ■ 普通注释 ■ 文档注释 ■ 文件注释 ■flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ■ 普通注释 ■ 文档注释 ■ 文件注释 ",
+        "keywords": "flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ■ 普通注释 ■ 文档注释 ■ 文件注释 ■ 块标签 ■对文件进行描述■标注js使用方法■开发者备注■文件详细结构",
         "key": "未知"
     }
 }

@@ -5,19 +5,22 @@
 <title>www.jb51.net js侧边栏</title>
 <style type="text/css">
 *{margin: 0;padding: 0;}
-.snap-windows-wrapper{ width: 0; height: 0; position: fixed; z-index: 1; background: #f9f9f9;}
+.snap-windows-wrapper{ width: 0; height: 0; position: fixed; z-index: 1; background: #f9f9f9; border-color: #eee; border-style: solid;}
 .hidd-container{ width: 100%; height: 100%; overflow: hidden; }
 .html-container{ border:#f00 0px solid; }
 .code-container{ border:#0f0 0px solid; }
+
 /* 按钮 */
 .snap-windows-wrapper .snap-windows-switch{ position: absolute; display: flex;}
 .snap-windows-wrapper .snap-windows-switch button{ display: block; border:#eee 1px solid; background-color: #f9f9f9; }
-
+/* 布局方式 */
+.layout-float{box-shadow: 2px 1px 5px rgba(100,100,100,.1);border-color: #fff;}
+.layout-float .snap-windows-switch button{box-shadow: 2px 1px 2px rgba(100,100,100,.1);border-color: #fff;}
 /* 包装 */
-.snap-left{border-right: #eee 1px solid}
-.snap-right{border-left: #eee 1px solid}
-.snap-top{border-bottom: #eee 1px solid}
-.snap-bottom{border-top: #eee 1px solid}
+.snap-left{border-width: 0 1px 0 0}
+.snap-right{border-width: 0 0 0 1px}
+.snap-top{border-width: 1px 0 0 0}
+.snap-bottom{border-width: 0 0 1px 0}
 /* 按钮 */
 .snap-right .snap-windows-switch, .snap-left .snap-windows-switch{width: 10px; height: 100%; top: 0; align-items: center;}
 .snap-right .snap-windows-switch{right: 100%;}
@@ -40,25 +43,13 @@
     <div id="app"></div>
 </body>
 </html>
-<script src="docs/.usage/utils/Pattern.js"></script>
-<script src="docs/.usage/utils/tweens.js"></script>
 <script src="test.js"></script>
-<script type="text/javascript">
+<script type="module">
+import data from './docs/.usage/scripts/utils/tweens/Tweens.js?v=7'
+const {tweens} = data
 
-function runTween(startNum, targetNum, duration, cb){
-    let startTime = new Date().getTime()
-    let timer = setInterval(function(){
-        let now = new Date().getTime();
-        if(now > startTime + duration){ 
-            clearInterval(timer)
-            cb(targetNum)
-        } else {
-            let currentNum = tweens.runState('strongEaseOut', now - startTime, startNum, targetNum, duration)
-            if(currentNum > targetNum) currentNum = targetNum
-            cb(currentNum)
-        }                   
-    },20)
-}
+
+
 class SnapWindows{    
     constructor(options) {
         const defaultOptions = {
@@ -66,12 +57,14 @@ class SnapWindows{
             containerWidth: window.innerWidth,
             containerHeight: window.innerHeight,
             maxExpandSize: 500,
-            snapTo : 'right'
+            snapTo : 'right',
+            layoutType: 'float',
+            initHidden: true
         }
         Object.assign(defaultOptions, options)
 
         
-        const {container, containerWidth, containerHeight, maxExpandSize, snapTo} = defaultOptions
+        const {container, containerWidth, containerHeight, maxExpandSize, snapTo, layoutType, initHidden} = defaultOptions
         const $container = document.querySelector(container), 
             $wrapper = document.createElement('div'), 
             $hiddContainer = document.createElement('div'),
@@ -85,9 +78,11 @@ class SnapWindows{
         let btnRoughness = 20, btnLength = 100
         // 包装尺寸
         let wrapperWidth = Math.min(winWidth, maxExpandSize), wrapperHeight = Math.min(winHeight, maxExpandSize)
+        // 开关状态
+        let switchState = !initHidden 
 
         console.log(winWidth, winHeight);        
-        $wrapper.className = `snap-windows-wrapper snap-${defaultOptions.snapTo}`
+        $wrapper.className = `snap-windows-wrapper snap-${defaultOptions.snapTo} layout-${layoutType}`
         $hiddContainer.className = 'hidd-container'
         $htmlContainer.className = 'html-container'
         $codeContainer.className = 'code-container'
@@ -101,19 +96,22 @@ class SnapWindows{
 
         if (snapTo === 'right' || snapTo === 'left') {
             $wrapper.style.height = winHeight + 'PX'
+            !initHidden && ($wrapper.style.width = '300PX') 
         }
         if (snapTo === 'top' || snapTo === 'bottom') {
             $wrapper.style.width = winWidth + 'PX'
+            !initHidden && ($wrapper.style.height = '200PX')
         }
        
         let timer;
+        const handleSize = val => {console.log(val); $wrapper.style.width = val + 'PX'}
         $switchBtn.addEventListener('click', e => {
             let target = Math.min($codeContainer.scrollWidth, maxExpandSize)
-            runTween(0, target, 500, num => {
-                $wrapper.style.width = num + 'PX'
-            })
+            switchState ? 
+                tweens.run(target, -target, 500, handleSize) :
+                tweens.run(0, target, 500, handleSize)
+            switchState = !switchState
         })
-
         
         this.$htmlContainer = $htmlContainer
         this.$codeContainer = $codeContainer
@@ -131,7 +129,8 @@ class SnapWindows{
 const sideWin = new SnapWindows({
     //container: '#app',
     maxExpandSize: 2000,
-    snapTo: 'left'
+    snapTo: 'left',
+    initHidden: false
 }) 
 setTimeout(()=>{
     sideWin.setCode(InternalLinks['url'].content, true)
