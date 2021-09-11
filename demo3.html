@@ -59,48 +59,43 @@ class SnapWindows{
             maxExpandSize: 500,
             snapTo : 'right',
             layoutType: 'float',
-            initHidden: true
+            switchState: false, // 开关状态
+            btnRoughness: 20,   // 按钮粗度
+            btnLength: 100,     // 按钮长度
         }
         Object.assign(defaultOptions, options)
-
         
-        const {container, containerWidth, containerHeight, maxExpandSize, snapTo, layoutType, initHidden} = defaultOptions
+        let {container, containerWidth, containerHeight, maxExpandSize, snapTo, layoutType, switchState} = defaultOptions
         const $container = document.querySelector(container), 
             $wrapper = document.createElement('div'), 
             $hiddContainer = document.createElement('div'),
             $htmlContainer = document.createElement('div'), $codeContainer = document.createElement('pre'),
             $switchBox = document.createElement('div'),
-            $switchBtn = document.createElement('button') 
-        // 视窗尺寸
-        let winWidth = container === 'body' ? document.querySelector('html').clientWidth : $container.clientWidth, 
-            winHeight = container === 'body' ? document.querySelector('html').clientHeight : $container.clientHeight
-        // 按钮尺寸
-        let btnRoughness = 20, btnLength = 100
-        // 包装尺寸
-        let wrapperWidth = Math.min(winWidth, maxExpandSize), wrapperHeight = Math.min(winHeight, maxExpandSize)
-        // 开关状态
-        let switchState = !initHidden 
-
-        console.log(winWidth, winHeight);        
+            $switchBtn = document.createElement('button')                
         $wrapper.className = `snap-windows-wrapper snap-${defaultOptions.snapTo} layout-${layoutType}`
         $hiddContainer.className = 'hidd-container'
         $htmlContainer.className = 'html-container'
         $codeContainer.className = 'code-container'
         $switchBox.className = 'snap-windows-switch'
-
         $hiddContainer.appendChild($htmlContainer).appendChild($codeContainer) 
         $switchBox.appendChild($switchBtn) 
         $wrapper.appendChild($hiddContainer)
         $wrapper.appendChild($switchBox)          
         $container.appendChild($wrapper)
+        
+        let winWidth = container === 'body' ? document.querySelector('html').clientWidth : $container.clientWidth, // 视窗尺寸 
+            winHeight = container === 'body' ? document.querySelector('html').clientHeight : $container.clientHeight,
+            expandSize = 0             // 展开尺寸
 
         if (snapTo === 'right' || snapTo === 'left') {
             $wrapper.style.height = winHeight + 'PX'
-            !initHidden && ($wrapper.style.width = '300PX') 
+            switchState && ($wrapper.style.width = expandSize + 'PX') 
+            expandSize = Math.min(maxExpandSize, winWidth/2) // 展开尺寸
         }
         if (snapTo === 'top' || snapTo === 'bottom') {
             $wrapper.style.width = winWidth + 'PX'
-            !initHidden && ($wrapper.style.height = '200PX')
+            switchState && ($wrapper.style.height = expandSize + 'PX')
+            expandSize = Math.min(maxExpandSize, winHeight/2) // 展开尺寸
         }
        
         let timer;
@@ -130,7 +125,6 @@ const sideWin = new SnapWindows({
     //container: '#app',
     maxExpandSize: 2000,
     snapTo: 'left',
-    initHidden: false
 }) 
 setTimeout(()=>{
     sideWin.setCode(InternalLinks['url'].content, true)
