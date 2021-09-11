@@ -17,10 +17,10 @@
 .layout-float{box-shadow: 2px 1px 5px rgba(100,100,100,.1);border-color: #fff;}
 .layout-float .snap-windows-switch button{box-shadow: 2px 1px 2px rgba(100,100,100,.1);border-color: #fff;}
 /* 包装 */
-.snap-left{border-width: 0 1px 0 0}
-.snap-right{border-width: 0 0 0 1px}
-.snap-top{border-width: 1px 0 0 0}
-.snap-bottom{border-width: 0 0 1px 0}
+.snap-left{border-width: 0 1px 0 0; left: 0; top: 0;}
+.snap-right{border-width: 0 0 0 1px; right: 0; top: 0;}
+.snap-top{border-width: 1px 0 0 0; top: 0; left: 0;}
+.snap-bottom{border-width: 0 0 1px 0; bottom: 0; left: 0;}
 /* 按钮 */
 .snap-right .snap-windows-switch, .snap-left .snap-windows-switch{width: 10px; height: 100%; top: 0; align-items: center;}
 .snap-right .snap-windows-switch{right: 100%;}
@@ -56,7 +56,7 @@ class SnapWindows{
             container: 'body',
             containerWidth: window.innerWidth,
             containerHeight: window.innerHeight,
-            maxExpandSize: 500,
+            maxExpandSize: 0,
             snapTo : 'right',
             layoutType: 'float',
             switchState: false, // 开关状态
@@ -84,46 +84,61 @@ class SnapWindows{
         $container.appendChild($wrapper)
         
         let winWidth = container === 'body' ? document.querySelector('html').clientWidth : $container.clientWidth, // 视窗尺寸 
-            winHeight = container === 'body' ? document.querySelector('html').clientHeight : $container.clientHeight,
-            expandSize = 0             // 展开尺寸
+            winHeight = container === 'body' ? document.querySelector('html').clientHeight : $container.clientHeight
+            
 
         if (snapTo === 'right' || snapTo === 'left') {
-            $wrapper.style.height = winHeight + 'PX'
-            switchState && ($wrapper.style.width = expandSize + 'PX') 
-            expandSize = Math.min(maxExpandSize, winWidth/2) // 展开尺寸
+            $wrapper.style.height = winHeight + 'PX'    
+            maxExpandSize === 0 && (maxExpandSize = winWidth/2)        
+            this.expandSize = Math.min(maxExpandSize, winWidth/2) // 展开尺寸
+            switchState && ($wrapper.style.width = this.expandSize + 'PX') 
         }
         if (snapTo === 'top' || snapTo === 'bottom') {
-            $wrapper.style.width = winWidth + 'PX'
-            switchState && ($wrapper.style.height = expandSize + 'PX')
-            expandSize = Math.min(maxExpandSize, winHeight/2) // 展开尺寸
+            $wrapper.style.width = winWidth + 'PX'          
+            maxExpandSize === 0 && (maxExpandSize = winHeight/2)  
+            this.expandSize = Math.min(maxExpandSize, winHeight/2) // 展开尺寸
+            switchState && ($wrapper.style.height = this.expandSize + 'PX')
         }
-       
-        let timer;
-        const handleSize = val => {console.log(val); $wrapper.style.width = val + 'PX'}
+                
         $switchBtn.addEventListener('click', e => {
-            let target = Math.min($codeContainer.scrollWidth, maxExpandSize)
-            switchState ? 
-                tweens.run(target, -target, 500, handleSize) :
-                tweens.run(0, target, 500, handleSize)
-            switchState = !switchState
+            this.switchState ? this.close() : this.open() 
         })
         
         this.$htmlContainer = $htmlContainer
         this.$codeContainer = $codeContainer
+        this.$wrapper = $wrapper
+        this.switchState = switchState
+        this.maxExpandSize = maxExpandSize
+        this.snapTo = snapTo
+    }
+    open(size){
+        if (this.switchState) return
+        let target = this.expandSize, handleSize = val => {this.$wrapper.style.width = val + 'PX'}
+        if (this.snapTo === 'top' || this.snapTo === 'bottom')  handleSize = val => {this.$wrapper.style.height = val + 'PX'}
+        if (size) target = this.expandSize = size
+        tweens.run(0, target, 500, handleSize, 'easeIn')
+        this.switchState = true
+    }
+    close(){ 
+        if (!this.switchState) return
+        let target = this.expandSize, handleSize = val => {this.$wrapper.style.width = val + 'PX'}
+        if (this.snapTo === 'top' || this.snapTo === 'bottom')  handleSize = val => {this.$wrapper.style.height = val + 'PX'}
+        tweens.run(target, -target, 500, handleSize, 'easeIn') 
+        this.switchState = false
     }
     setHTML(html) {
         this.$htmlContainer.innerHTML = html
     }
     setCode(code, isOpen) {
         this.$codeContainer.innerHTML = code
+        this.expandSize = Math.min(this.$codeContainer.scrollWidth, this.maxExpandSize)
         if (isOpen) {
-
+            this.open()
         }
     }
 }
 const sideWin = new SnapWindows({
     //container: '#app',
-    maxExpandSize: 2000,
     snapTo: 'left',
 }) 
 setTimeout(()=>{

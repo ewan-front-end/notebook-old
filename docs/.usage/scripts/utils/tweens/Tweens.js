@@ -50,7 +50,7 @@ class Tweens{
  */
 const tweens = new Tweens({
     linear: (t,b,c,d) => c * t / d + b, // 完成百分比=t/d  已完成目标=目标增量*完成百分比=c*t/d  结果=已完成目标+初始位置
-    easeIn: (t,b,c,d) => c * (t /= d) * t + b,
+    easeIn: (t,b,c,d) => c * (t /= d) * t + b, // 入慢出快
     strongEaseIn: (t,b,c,d) => c * (t /= d) * t * t * t * t + b,
     strongEaseOut: (t,b,c,d) => c * ((t = t / d - 1) * t * t * t * t + 1) + b,
     sineaseIn: (t,b,c,d) => c * (t /= d) * t * t + b,
