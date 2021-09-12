@@ -6,9 +6,8 @@
 <style type="text/css">
 *{margin: 0;padding: 0;}
 .snap-windows-wrapper{ width: 0; height: 0; position: fixed; z-index: 1; background: #f9f9f9; border-color: #eee; border-style: solid;}
-.hidd-container{ width: 100%; height: 100%; overflow: hidden; }
-.html-container{ border:#f00 0px solid; }
-.code-container{ border:#0f0 0px solid; }
+.hidd-container{ width: 100%; height: 100%; overflow: auto; }
+.content-container{ border:#f00 0px solid; display: inline-block; padding: 10px;}
 
 /* 按钮 */
 .snap-windows-wrapper .snap-windows-switch{ position: absolute; display: flex;}
@@ -51,105 +50,21 @@
 </html>
 <script src="test.js"></script>
 <script type="module">
-import data from './docs/.usage/scripts/utils/tweens/Tweens.js?v=7'
-const {tweens} = data
+import SnapWindows from './docs/.usage/scripts/snap-windows/SnapWindows.js'
 
-
-
-class SnapWindows{    
-    constructor(options) {
-        const defaultOptions = {
-            container: 'body',
-            containerWidth: window.innerWidth,
-            containerHeight: window.innerHeight,
-            maxExpandSize: 0,
-            snapTo : 'right',
-            layoutType: 'float',
-            switchState: false, // 开关状态
-            btnRoughness: 20,   // 按钮粗度
-            btnLength: 100,     // 按钮长度
-        }
-        Object.assign(defaultOptions, options)
-        
-        let {container, containerWidth, containerHeight, maxExpandSize, snapTo, layoutType, switchState} = defaultOptions
-        const $container = document.querySelector(container), 
-            $wrapper = document.createElement('div'), 
-            $hiddContainer = document.createElement('div'),
-            $htmlContainer = document.createElement('div'), $codeContainer = document.createElement('pre'),
-            $switchBox = document.createElement('div'),
-            $switchBtn = document.createElement('button')                
-        $wrapper.className = `snap-windows-wrapper snap-${defaultOptions.snapTo} layout-${layoutType}`
-        $hiddContainer.className = 'hidd-container'
-        $htmlContainer.className = 'html-container'
-        $codeContainer.className = 'code-container'
-        $switchBox.className = 'snap-windows-switch'
-        $hiddContainer.appendChild($htmlContainer).appendChild($codeContainer) 
-        $switchBox.appendChild($switchBtn) 
-        $wrapper.appendChild($hiddContainer)
-        $wrapper.appendChild($switchBox)          
-        $container.appendChild($wrapper)
-        
-        let winWidth = container === 'body' ? document.querySelector('html').clientWidth : $container.clientWidth, // 视窗尺寸 
-            winHeight = container === 'body' ? document.querySelector('html').clientHeight : $container.clientHeight
-            
-
-        if (snapTo === 'right' || snapTo === 'left') {
-            $wrapper.style.height = winHeight + 'PX'    
-            maxExpandSize === 0 && (maxExpandSize = winWidth/2)        
-            this.expandSize = Math.min(maxExpandSize, winWidth/2) // 展开尺寸
-            switchState && ($wrapper.style.width = this.expandSize + 'PX') 
-        }
-        if (snapTo === 'top' || snapTo === 'bottom') {
-            $wrapper.style.width = winWidth + 'PX'          
-            maxExpandSize === 0 && (maxExpandSize = winHeight/2)  
-            this.expandSize = Math.min(maxExpandSize, winHeight/2) // 展开尺寸
-            switchState && ($wrapper.style.height = this.expandSize + 'PX')
-        }
-                
-        $switchBtn.addEventListener('click', e => {
-            this.switchState ? this.close() : this.open() 
-        })
-        
-        this.$htmlContainer = $htmlContainer
-        this.$codeContainer = $codeContainer
-        this.$wrapper = $wrapper
-        this.switchState = switchState
-        this.maxExpandSize = maxExpandSize
-        this.snapTo = snapTo
-    }
-    open(size){
-        if (this.switchState) return
-        let target = this.expandSize, handleSize = val => {this.$wrapper.style.width = val + 'PX'}
-        if (this.snapTo === 'top' || this.snapTo === 'bottom')  handleSize = val => {this.$wrapper.style.height = val + 'PX'}
-        if (size) target = this.expandSize = size
-        tweens.run(0, target, 500, handleSize, 'easeIn')
-        this.switchState = true
-    }
-    close(){ 
-        if (!this.switchState) return
-        let target = this.expandSize, handleSize = val => {this.$wrapper.style.width = val + 'PX'}
-        if (this.snapTo === 'top' || this.snapTo === 'bottom')  handleSize = val => {this.$wrapper.style.height = val + 'PX'}
-        tweens.run(target, -target, 500, handleSize, 'easeIn') 
-        this.switchState = false
-    }
-    setHTML(html) {
-        this.$htmlContainer.innerHTML = html
-    }
-    setCode(code, isOpen) {
-        this.$codeContainer.innerHTML = code
-        this.expandSize = Math.min(this.$codeContainer.scrollWidth, this.maxExpandSize)
-        if (isOpen) {
-            this.open()
-        }
-    }
-}
 const sideWin = new SnapWindows({
     //container: '#app',
     snapTo: 'top',
 }) 
 setTimeout(()=>{
     sideWin.setCode(InternalLinks['url'].content, true)
-}, 2000)
+}, 1000)
+setTimeout(()=>{
+    sideWin.setHTML(InternalLinks['encode'].content)
+}, 5000)
+setTimeout(()=>{
+    sideWin.setHTML(InternalLinks['parseSearch'].content, true)
+}, 10000)
 
 
 

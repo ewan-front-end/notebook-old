@@ -57,7 +57,7 @@ const tweens = new Tweens({
     sineaseOut: (t,b,c,d) => c * ((t = t / d - 1) * t * t + 1) + b
 }, 'linear')
 
-export default {
+export {
     Tweens,
     tweens
 }
