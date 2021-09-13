@@ -1,4 +1,4 @@
-const {writeFile, readFile} = require('../utils/fs')
+const {writeFile, readFile} = require('../scripts/utils/fs')
 const PATH = require('path')
 
 const {dataPath} = require('../config')

@@ -1,6 +1,10 @@
 
 
 
+
+
+input自动填充样式设置
+
 npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
 代码覆盖率
 

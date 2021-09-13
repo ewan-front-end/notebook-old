@@ -1,4 +1,4 @@
-const fs = require('../utils/fs')
+const fs = require('../scripts/utils/fs')
 const {dataPath} = require('../config')
 const DATA = require(dataPath['main']), 
     SRC_PATH = {}, 

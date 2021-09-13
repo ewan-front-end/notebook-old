@@ -1,6 +1,11 @@
 
 
-
+## input输入框自动填充样式丢失
+```css
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #f8f8f8 inset !important;
+}
+```
 
 ::: details Flex 轴线一维布局 弹性盒子
 <img :src="$withBase('/images/flex.jpg')"><br>

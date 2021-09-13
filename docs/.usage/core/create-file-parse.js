@@ -4,7 +4,7 @@ const parseUML = require('./parse/uml')
 const parseCustomBlock = require('./parse/custom-block')
 const Anchor = require('./parse/anchor')
 const Search = require('./parse/search')
-const {debounce} = require('../utils/ewan')
+const {debounce} = require('../scripts/utils/ewan')
 
 
 module.exports = (code, path) => {

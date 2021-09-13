@@ -1,4 +1,4 @@
-const {writeFileSync} = require('../../utils/fs')
+const {writeFileSync} = require('../../scripts/utils/fs')
 const dataArr = []
 const {dataPath} = require('../../config')
 const LINKS = require(dataPath["stamp:link"])

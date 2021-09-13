@@ -4,7 +4,7 @@ const {dataPath} = require('../config')
 const SRC_UPDATETIME = require(dataPath["src:updateTime"])
 const PATH_DATA = require(dataPath["path:data"])
 const CREATOR = require(dataPath["creator"])
-const { mkdirSync, writeFile, readFile } = require('../utils/fs')
+const { mkdirSync, writeFile, readFile } = require('../scripts/utils/fs')
 const createFile = require('./create-file')
 
 const handleCreator = (item, path) => {

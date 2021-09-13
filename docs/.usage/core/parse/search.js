@@ -1,4 +1,4 @@
-const {writeFileSync} = require('../../utils/fs')
+const {writeFileSync} = require('../../scripts/utils/fs')
 const {dataPath} = require('../../config')
 const PATH_KEYWORDS = require(dataPath["path:keywords"])
 let debounceTimer
