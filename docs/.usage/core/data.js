@@ -1,6 +1,6 @@
-const fs = require('../scripts/utils/fs')
-const {dataPath} = require('../config')
-const DATA = require(dataPath['main']), 
+const {fetch, fetchPath} = require('../center')
+const fs = fetch('UTILS|fs')
+const DATA = fetch('DATA|main'), 
     SRC_PATH = {}, 
     PATH_DATA = {}, 
     CREATOR = [],
@@ -69,12 +69,12 @@ for (i in PATH_DATA) {
 
 // 写文件
 let fullCreateFile = '▯▯▯▯▯▯▯▯ '
-fs.writeFile(dataPath["src:path"], SRC_PATH, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["src:path"]) })
-fs.writeFile(dataPath["path:data"], PATH_DATA, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["path:data"]) })
-fs.writeFile(dataPath["creator"], CREATOR, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["creator"]) })
+fs.writeFile(fetchPath("DATA|src:path"), SRC_PATH, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|src:path")) })
+fs.writeFile(fetchPath("DATA|path:data"), PATH_DATA, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|path:data")) })
+fs.writeFile(fetchPath("DATA|creator"), CREATOR, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|creator")) })
 
-fs.writeFile(dataPath["scene"], SCENE, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["scene"]) })
-fs.writeFile(dataPath["usage"], USAGE, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["usage"]) })
-fs.writeFile(dataPath["solution"], SOLUTION, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["solution"]) })
-fs.writeFile(dataPath["standard"], STANDARD, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["standard"]) })
-fs.writeFile(dataPath["path:keywords"], KEYWORDS, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), dataPath["path:keywords"]) })
+fs.writeFile(fetchPath("DATA|scene"), SCENE, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|scene")) })
+fs.writeFile(fetchPath("DATA|usage"), USAGE, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|usage")) })
+fs.writeFile(fetchPath("DATA|solution"), SOLUTION, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|solution")) })
+fs.writeFile(fetchPath("DATA|standard"), STANDARD, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|standard")) })
+fs.writeFile(fetchPath("DATA|path:keywords"), KEYWORDS, () => { console.log(fullCreateFile = fullCreateFile.replace('▯', '▮'), fetchPath("DATA|path:keywords")) })
