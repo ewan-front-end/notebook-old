@@ -23,6 +23,7 @@ export default class SnapWindows{
             $switchBox = document.createElement('div'),
             $switchBtn = document.createElement('button')                
         $wrapper.className = `snap-windows-wrapper snap-${defaultOptions.snapTo} layout-${layoutType}`
+        $wrapper.style.position = container === 'body' ? 'fixed' : 'absolute'
         $hiddContainer.className = 'hidd-container'
         $contentContainer.className = 'content-container'
         $switchBox.className = 'snap-windows-switch' 
@@ -35,7 +36,7 @@ export default class SnapWindows{
         let winWidth = container === 'body' ? document.querySelector('html').clientWidth : $container.clientWidth, // 视窗尺寸 
             winHeight = container === 'body' ? document.querySelector('html').clientHeight : $container.clientHeight
             
-
+        if (!$container.style.position) $container.style.position = 'relative'
         if (snapTo === 'right' || snapTo === 'left') {
             $wrapper.style.height = winHeight + 'PX'    
             maxExpandSize === 0 && (maxExpandSize = winWidth/2)        

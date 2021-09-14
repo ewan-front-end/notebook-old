@@ -45,7 +45,7 @@
 </style>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app" style="border:#f00 1px solid; width: 1200px; height: 600px"></div>
 </body>
 </html>
 <script src="test.js"></script>
@@ -53,8 +53,8 @@
 import SnapWindows from './docs/.usage/scripts/snap-windows/SnapWindows.js'
 
 const sideWin = new SnapWindows({
-    //container: '#app',
-    snapTo: 'top',
+    container: '#app',
+    snapTo: 'right',
 }) 
 setTimeout(()=>{
     sideWin.setCode(InternalLinks['url'].content, true)
