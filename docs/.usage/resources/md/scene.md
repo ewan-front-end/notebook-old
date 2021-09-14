@@ -1,11 +1,8 @@
 
-
-
-
-
+===+
 input自动填充样式设置
 
-npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
+`npm install --save-dev eslint` 辅助编码规范的执行，有效控制项目代码的质量
 代码覆盖率
 
 
@@ -28,6 +25,7 @@ npm install --save-dev eslint辅助编码规范的执行，有效控制项目代
 - OOA（面向对象分析） OOD（面向对象设计）
 - [设计模式(Design pattern)](/designPattern)
 - [node获取可用端口号](/node#node获取可用端口号)
+===-
 
 ## 解决方案
 - [用户帐户体系](/solution.html#用户帐户体系sdk)

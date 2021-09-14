@@ -1,6 +1,6 @@
-const {writeFileSync} = require('../../scripts/utils/fs')
-const {dataPath} = require('../../config')
-const PATH_KEYWORDS = require(dataPath["path:keywords"])
+const {fetch, fetchPath} = require('../../center')
+const {writeFileSync} = fetch('UTILS|fs')
+const PATH_KEYWORDS = fetch("DATA|path:keywords")
 let debounceTimer
 
 module.exports = {    
@@ -15,7 +15,7 @@ module.exports = {
     save(){    
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(function(){
-            writeFileSync(dataPath["path:search"], PATH_KEYWORDS, () => {console.log('搜索数据创建: ' + dataPath["path:keywords"])})
+            writeFileSync(fetchPath("DATA|path:search"), PATH_KEYWORDS, () => {console.log('搜索数据创建: ' + fetchPath("DATA|path:keywords"))})
         }, 500)  
     }
 }

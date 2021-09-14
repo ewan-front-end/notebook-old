@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.09.11 13:03</span>
+            <span>M 2021.09.14 19:52</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -17,6 +17,76 @@ pageClass: theme-item
 <h1>规范</h1><strong>规范</strong>
 </div>
 <div class="static-content">
+
+::: details Ewan
+
+- 全局配置 center.js
+- 资源统筹(应对架构变化资源调配) center.js
+
+center.js
+```js
+const PATH = require('path')
+const {readFile} = require('./scripts/utils/fs')
+
+// 系统配置
+module.exports.config = { title: '标题文本' }
+
+// 资源中枢
+const MAP_DIR =   { ".usage": "../.usage"}
+const MAP_FILE =  { "package": "../../package.json" }
+const MAP_RES =   { "logo": "resources/images/logo.png" }
+const MAP_DATA =  { "main": "data/.MAIN.js" }
+const MAP_UTILS = { "ewan": "scripts/utils/ewan.js" }
+const MAP_CORE =  { "create": "core/create.js" }
+const MAP_PARSE = { "search": "core/parse/search.js" }
+const requireFile = relativePath => require(PATH.resolve(__dirname, relativePath))
+const readFileFn = relativePath => readFile(PATH.resolve(__dirname, relativePath))
+const fetchFileByType = {
+    "DATA":  key => requireFile(MAP_DATA[key]),
+    "UTILS": key => requireFile(MAP_UTILS[key]),
+    "CORE":  key => requireFile(MAP_CORE[key]),
+    "PARSE": key => requireFile(MAP_PARSE[key]),
+    "FILE":  key => requireFile(MAP_FILE[key]),
+    "RES":   key => requireFile(MAP_RES[key])
+}
+const fetchPathByType = {
+    "DATA":  key => PATH.resolve(__dirname, MAP_DATA[key]),
+    "UTILS": key => PATH.resolve(__dirname, MAP_UTILS[key]),
+    "CORE":  key => PATH.resolve(__dirname, MAP_CORE[key]),
+    "PARSE": key => PATH.resolve(__dirname, MAP_PARSE[key]),
+    "DIR":   key => PATH.resolve(__dirname, MAP_DIR[key]),
+    "FILE":  key => PATH.resolve(__dirname, MAP_FILE[key]),
+    "RES":   key => PATH.resolve(__dirname, MAP_RES[key])
+}
+const readFileByType = {
+    "DATA":  key => readFileFn(MAP_DATA[key]),
+    "UTILS": key => readFileFn(MAP_UTILS[key]),
+    "CORE":  key => readFileFn(MAP_CORE[key]),
+    "PARSE": key => readFileFn(MAP_PARSE[key]),
+    "FILE":  key => readFileFn(MAP_FILE[key]),
+    "RES":   key => readFileFn(MAP_RES[key])
+}
+module.exports.fetch = identifier => {
+    const [type, key] = identifier.split('|')
+    return fetchFileByType[type](key)
+}
+module.exports.fetchPath = identifier => {
+    const [type, key] = identifier.split('|')
+    return fetchPathByType[type](key)
+}
+module.exports.read = identifier => {
+    const [type, key] = identifier.split('|')
+    return readFileByType[type](key)
+}
+```
+
+<pre class="code-block">
+const { config, fetch, fetchPath } = require('../center')
+const {writeFileSync} = fetch('UTILS|fs')
+const src = fetchPath("DATA|src:updateTime")
+read('RES|markdown.scene')
+</pre>
+:::
 
 ::: details vuepress
 

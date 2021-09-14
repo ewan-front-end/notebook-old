@@ -24,7 +24,7 @@
         "deploy": "node docs/.usage/core/deploy.js",
         "create": "node docs/.usage/core/create.js",
         "watch": "node docs/.usage/core/watch.js",
-        "scene": "node docs/.usage/core/scene.js",        
+        "scene": "node docs/.usage/core/scene.js",
         "usage": "node docs/.usage/core/usage.js",
         "solution": "node docs/.usage/core/solution.js",
         "standard": "node docs/.usage/core/standard.js"

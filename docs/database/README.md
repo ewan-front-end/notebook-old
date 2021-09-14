@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.10 20:55</span>
+            <span>N 2021.09.14 19:27</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/database/mysql">MySQL</a></li><li><a href="/database/mongodb">MongoDB</a></li></ul></div></div>

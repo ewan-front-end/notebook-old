@@ -1,8 +1,9 @@
-<strong>【NPM】 </strong> [NPM内网源搭建](/tools/npm.html#NPM内网源搭建)  [NPM版本管理](/node.html#版本管理) <br><strong>【VSCode】 </strong> [简化特定通用代码](/tools/vscode.html#自定义用户片段) <br><strong>【Node】 </strong> [Node版本管理](/node.html#版本管理) <br><strong>【Vuepress】 </strong> [部署到一个非根路径](/framework/vuepress.html#部署到一个非根路径)  [插入图片](/framework/vuepress.html#公共资源库) <br>
+<strong>【NPM】 </strong><strong>【VSCode】 </strong><strong>【Node】 </strong><strong>【Vuepress】 </strong>
 
+===+
+input自动填充样式设置
 
-
-npm install --save-dev eslint辅助编码规范的执行，有效控制项目代码的质量
+`npm install --save-dev eslint` 辅助编码规范的执行，有效控制项目代码的质量
 代码覆盖率
 
 
@@ -25,6 +26,7 @@ npm install --save-dev eslint辅助编码规范的执行，有效控制项目代
 - OOA（面向对象分析） OOD（面向对象设计）
 - [设计模式(Design pattern)](/designPattern)
 - [node获取可用端口号](/node#node获取可用端口号)
+===-
 
 ## 解决方案
 - [用户帐户体系](/solution.html#用户帐户体系sdk)

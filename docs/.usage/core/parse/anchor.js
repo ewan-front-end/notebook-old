@@ -1,9 +1,8 @@
-const {writeFileSync} = require('../../scripts/utils/fs')
-const dataArr = []
-const {dataPath} = require('../../config')
-const LINKS = require(dataPath["stamp:link"])
-const Search = require('./search')
-let debounceTimer
+const {fetch, fetchPath} = require('../../center')
+const {writeFileSync} = fetch('UTILS|fs')
+const LINKS = fetch("DATA|stamp:link")
+const Search = fetch('PARSE|search')
+let dataArr = [], debounceTimer
 
 module.exports = {
     parseAnchor(code, filePath) {
@@ -48,8 +47,8 @@ module.exports = {
         debounceTimer = setTimeout(function(){
             dataArr.forEach(item => { LINKS[item.stamp] = item })
             try {
-                writeFileSync(dataPath["stamp:link"], LINKS)
-                console.log('链接列表更新: ' + dataPath["stamp:link"])
+                writeFileSync(fetchPath("DATA|stamp:link"), LINKS)
+                console.log('链接列表更新: ' + fetchPath("DATA|stamp:link"))
             } catch (err) {
                 console.log(err)
             }

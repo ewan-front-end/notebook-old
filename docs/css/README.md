@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.10 20:55</span>
+            <span>N 2021.09.14 19:27</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
@@ -21,7 +21,12 @@ pageClass: theme-item
 
 
 
-
+## input输入框自动填充样式丢失
+```css
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #f8f8f8 inset !important;
+}
+```
 
 ::: details Flex 轴线一维布局 弹性盒子
 <img :src="$withBase('/images/flex.jpg')"><br>

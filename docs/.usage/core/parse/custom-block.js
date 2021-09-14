@@ -1,6 +1,6 @@
-
+const {fetch} = require('../../center')
+const Search = fetch('PARSE|search')
 let TAG_MAP_BLOCK = {}, blockCount = 0
-const Search = require('./search')
 
 function parseCustomBlock(block, path) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")

@@ -1,10 +1,9 @@
-const {writeFile, readFile} = require('../scripts/utils/fs')
 const PATH = require('path')
-
-const {dataPath} = require('../config')
-const SRC_UPDATETIME = require(dataPath["src:updateTime"])
-const PATH_DATA = require(dataPath["path:data"])
-const parseCode = require('./create-file-parse.js')
+const {fetch} = require('../center')
+const {writeFile, readFile} = fetch('UTILS|fs')
+const SRC_UPDATETIME = fetch("DATA|src:updateTime")
+const PATH_DATA = fetch("DATA|path:data")
+const parseCode = fetch('CORE|create-file-parse.js')
 
 module.exports = (ABSOLUTE_PATH, target, path) => {
     let content

@@ -77,6 +77,12 @@ module.exports = {
             wstream.on('error', (err) => { reject(err) })
             wstream.on('finish', () => { resolve(true) })
         })
+    },
+    copyFileSync(from, to){
+        fs.copyFileSync(from, to)
+    },
+    existsSync(path) {
+        return fs.existsSync(path)
     }
 }
 

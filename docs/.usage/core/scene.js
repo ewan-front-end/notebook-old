@@ -1,11 +1,12 @@
-const path = require('path')
-const {readFile, writeFile, editWritCommonFile} = require('../utils/fs')
-const {dataPath} = require('../config')
-const SCENE = require(dataPath['scene'])
+const PATH = require('path')
+const {fetch, read, fetchPath} = require('../center')
+const {readFile, writeFile, editWritCommonFile} = fetch('UTILS|fs')
+const SCENE = fetch('DATA|scene')
 
 let sceneContent = ''
     
 SCENE.forEach(({title, scene}) => { 
+    console.log('title:', title);
     const sceneType = Object.prototype.toString.call(scene)
     let html = `<strong>【${title}】 </strong>`
     if (sceneType === '[object Object]') {
@@ -23,11 +24,11 @@ SCENE.forEach(({title, scene}) => {
 })
 
 // 输出文档
-sceneContent += '\n' + readFile(path.resolve(__dirname, '../resources/md/scene.md'))
-writeFile(path.resolve(__dirname, '../../scene.md'), sceneContent)
+sceneContent += '\n' + read('RES|markdown.scene')
+writeFile(fetchPath('FILE|doc.scene'), sceneContent)
 
 // 导航菜单写入链接
-editWritCommonFile(path.resolve(__dirname, '../../.vuepress/config.js'), fileObj => {
+editWritCommonFile(fetchPath('FILE|.vuepress/config'), fileObj => {
     let nav = fileObj.themeConfig.nav
     let navCreated = false
     nav.forEach(e => { e.link === '/scene' && (navCreated = true) })

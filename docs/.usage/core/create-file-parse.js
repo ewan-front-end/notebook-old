@@ -1,10 +1,11 @@
 
-const parseFlex = require('./parse/flex')
-const parseUML = require('./parse/uml')
-const parseCustomBlock = require('./parse/custom-block')
-const Anchor = require('./parse/anchor')
-const Search = require('./parse/search')
-const {debounce} = require('../scripts/utils/ewan')
+const {fetch} = require('../center')
+const parseFlex = fetch('PARSE|flex')
+const parseUML = fetch('PARSE|uml')
+const parseCustomBlock = fetch('PARSE|custom-block')
+const Anchor = fetch('PARSE|anchor')
+const Search = fetch('PARSE|search')
+const {debounce} = fetch('UTILS|ewan')
 
 
 module.exports = (code, path) => {
