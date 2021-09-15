@@ -1,5 +1,4 @@
-import data from '../pattern/Pattern.js'
-const {StrategyAndState} = data
+import {StrategyAndState} from './pattern/Pattern.js'
 
 /**
  * 缓动类   
@@ -23,7 +22,10 @@ class Tweens{
         this.#tweens = tweens      
     }
     use(key){this.#tweens.use(key)}
-    run(initValue, totalIncrement, duration, callback, state){
+    run(t, initValue, totalIncrement, duration){
+        return this.#tweens.runStrategy(t, initValue, totalIncrement, duration)
+    }
+    runAuto(initValue, totalIncrement, duration, callback, state){
         let startTime = new Date().getTime()
         let timer = setInterval(() => {
             let now = new Date().getTime();

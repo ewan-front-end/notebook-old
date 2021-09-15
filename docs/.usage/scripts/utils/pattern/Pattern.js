@@ -60,7 +60,7 @@ class StrategyAndState{
     get(key){return this.#OBJ[key || this.#KEY]}    
 }
 
-export default {
+export {
     StrategyPattern,
     StatePattern,
     StrategyAndState
