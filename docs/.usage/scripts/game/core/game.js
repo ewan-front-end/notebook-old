@@ -103,7 +103,6 @@ export default class Game {
         // 2.公共设施
         showGrid && stage.showGrid()
         showRuler && stage.showRuler()
-        console.log(this.#CURRENT_SCENE);
         scene.children.forEach(e => {
             e.type === 'Sprite' && e.update()
             stage.draw(e)

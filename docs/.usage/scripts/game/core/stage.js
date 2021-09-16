@@ -1,85 +1,85 @@
-export default class Stage{
+export default class Stage {
     #canvas
     #context
     #width
     #height
     #scale = [1, 1]
-    constructor(canvas, width, height){
-      if (canvas) {
+    constructor(canvas, width, height) {
+        if (canvas) {
+            this.#canvas = canvas
+            this.#context = canvas.getContext("2d")
+        }
+        if (width && height) {
+            this.#width = width
+            this.#height = height
+            if (canvas) {
+                canvas.width = width
+                canvas.height = height
+            }
+        }
+
+    }
+    beginPath() { this.#context.beginPath() }
+    moveTo(x, y) { this.#context.moveTo(x, y) }
+    save() { this.#context.save() }
+    restore() { this.#context.restore() }
+    clean() { this.#context.clearRect(0, 0, this.#width, this.#height) }
+
+    setCanvas(canvas) {
         this.#canvas = canvas
         this.#context = canvas.getContext("2d")
-      }
-      if (width && height) {
+    }
+    setStageSize(width, height, styleWidth, styleHeight) {
         this.#width = width
         this.#height = height
-        if (canvas) {
-          canvas.width = width
-          canvas.height = height
+        this.#canvas.width = width
+        this.#canvas.height = height
+        if (styleWidth && styleHeight) {
+            this.#canvas.style.width = styleWidth + 'px'
+            this.#canvas.style.height = styleHeight + 'px'
         }
-      }
-      
+        //let style = tool.getStyle(this.#canvas)
     }
-    beginPath(){this.#context.beginPath()}
-    moveTo(x, y){this.#context.moveTo(x, y)}
-    save(){this.#context.save()}
-    restore(){this.#context.restore()}
-    clean(){ this.#context .clearRect(0, 0, this.#width, this.#height) }
-  
-    setCanvas(canvas){
-      this.#canvas = canvas
-      this.#context = canvas.getContext("2d")
-    }
-    setStageSize(width, height, styleWidth, styleHeight){
-      this.#width = width
-      this.#height = height
-      this.#canvas.width = width
-      this.#canvas.height = height
-      if (styleWidth && styleHeight) {
-        this.#canvas.style.width = styleWidth + 'px'
-        this.#canvas.style.height= styleHeight + 'px'
-      }
-      //let style = tool.getStyle(this.#canvas)
-    }
-    showRuler(){
-      let w = this.#width, h = this.#height, ctx = this.#context
-      ctx.save()
-      ctx.strokeStyle = '#ccc'
-      ctx.lineWidth = '1px'
-      ctx.beginPath()
-      for(let i = 10; i < w; i += 10){ ctx.moveTo(i+0.5, 1); ctx.lineTo(i+0.5, 3) }
-      for(let i = 10; i < h; i += 10){ ctx.moveTo(1, i+0.5); ctx.lineTo(3, i+0.5) }
-      ctx.moveTo(0.5, h)
-      ctx.lineTo(0.5, 0.5)
-      ctx.lineTo(w, 0.5)
-      ctx.stroke()
-      ctx.beginPath()
-      ctx.lineWidth = 2
-      for(let i = 100; i < w; i += 100){ ctx.moveTo(i, 0); ctx.lineTo(i, 6) }
-      for(let i = 100; i < h; i += 100){ ctx.moveTo(0, i); ctx.lineTo(6, i) }
-      ctx.stroke()
-      ctx.restore()
-      ctx.beginPath()
+    showRuler() {
+        let w = this.#width, h = this.#height, ctx = this.#context
+        ctx.save()
+        ctx.strokeStyle = '#ccc'
+        ctx.lineWidth = '1px'
+        ctx.beginPath()
+        for (let i = 10; i < w; i += 10) { ctx.moveTo(i + 0.5, 1); ctx.lineTo(i + 0.5, 3) }
+        for (let i = 10; i < h; i += 10) { ctx.moveTo(1, i + 0.5); ctx.lineTo(3, i + 0.5) }
+        ctx.moveTo(0.5, h)
+        ctx.lineTo(0.5, 0.5)
+        ctx.lineTo(w, 0.5)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.lineWidth = 2
+        for (let i = 100; i < w; i += 100) { ctx.moveTo(i, 0); ctx.lineTo(i, 6) }
+        for (let i = 100; i < h; i += 100) { ctx.moveTo(0, i); ctx.lineTo(6, i) }
+        ctx.stroke()
+        ctx.restore()
+        ctx.beginPath()
     }
     // config{cellSize: 10}
-    showGrid(config){
-      let w = this.#width, h = this.#height, size = 20, color = '#eee', lineWidth = '1px', ctx = this.#context
-      if(config) {
-        config.cellSize && (size = config.cellSize)
-        config.strokeStyle && (color = config.strokeStyle)
-        config.lineWidth && (lineWidth = config.lineWidth)
-      }
-      ctx.save()
-      ctx.strokeStyle = color
-      ctx.lineWidth = lineWidth
-      ctx.beginPath()
-      for(let i = 0; i < w; i += size){ ctx.moveTo(i+0.5, 0); ctx.lineTo(i+0.5, h) }
-      for(let i = 0; i < h; i += size){ ctx.moveTo(0, i+0.5); ctx.lineTo(w, i+0.5) }
-      ctx.moveTo(w, 0)
-      ctx.lineTo(w, h)
-      ctx.lineTo(0, h)
-      ctx.stroke()
-      ctx.restore()
-      ctx.beginPath()
+    showGrid(config) {
+        let w = this.#width, h = this.#height, size = 20, color = '#eee', lineWidth = '1px', ctx = this.#context
+        if (config) {
+            config.cellSize && (size = config.cellSize)
+            config.strokeStyle && (color = config.strokeStyle)
+            config.lineWidth && (lineWidth = config.lineWidth)
+        }
+        ctx.save()
+        ctx.strokeStyle = color
+        ctx.lineWidth = lineWidth
+        ctx.beginPath()
+        for (let i = 0; i < w; i += size) { ctx.moveTo(i + 0.5, 0); ctx.lineTo(i + 0.5, h) }
+        for (let i = 0; i < h; i += size) { ctx.moveTo(0, i + 0.5); ctx.lineTo(w, i + 0.5) }
+        ctx.moveTo(w, 0)
+        ctx.lineTo(w, h)
+        ctx.lineTo(0, h)
+        ctx.stroke()
+        ctx.restore()
+        ctx.beginPath()
     }
     /* 
       ▇▇▇▇▇▇▇▇▇▇▇▇▇ options ▇▇▇▇▇▇▇▇▇▇▇▇▇
@@ -118,146 +118,147 @@ export default class Stage{
        缩放 ctx.transform([a],b,c,[d],e,f)
                                    
     */
-    draw({type, data, config}){ 
-      this.#context.beginPath()
-      if (config) {
-        if (config.save || config.clip) {
-          this.#context.save()
+    draw({ type, data, config }) {
+        this.#context.beginPath()
+        if (config) {
+            if (config.save || config.clip) {
+                this.#context.save()
+            }
         }
-      }
-      this['draw'+type](data)
-      if (config) {
-        config.clip && this.#context.clip()
-        if (config.restore || config.unclip) {
-          this.#context.restore()
+        this['draw' + type](data)
+        if (config) {
+            config.clip && this.#context.clip()
+            if (config.restore || config.unclip) {
+                this.#context.restore()
+            }
         }
-      }
     }
-    drawSprite({x, y, width, height, options, children, transform, config}){
-      children = children || []
-      options = options || {}
-      let startX = 0, startY = 0
-      
-      if (transform) {
-        let {translateX, translateY, scaleX, scaleY, skewX, skewY, rotate, alpha, origin} = transform, deg = Math.PI/180, ctx = this.#context
-        let a = 1, d = 1, b = 0, c = 0, e = x, f = y 
-  
-        if (Object.prototype.toString.call(origin) === '[object Array]') { startX = -origin[0]; startY = -origin[1]; e += origin[0]; f += origin[1] }
-        if (Object.prototype.toString.call(origin) === '[object Number]') {
-          switch(origin){
-            case 2: startX = -width/2; e += width/2; break
-            case 3: startX = -width; e += width; break
-            case 4: startY = -height/2; f += height/2; break
-            case 5: startX = -width/2; startY = -height/2; e += width/2; f += height/2; break
-            case 6: startX = -width; startY = -height/2; e += width; f += height/2; break
-            case 7: startY = -height; f += height; break
-            case 8: startX = -width/2; startY = -height; e += width/2; f += height; break
-            case 9: startX = -width; startY = -height; e += width; f += height; break
-            default: startX = 0; startY = 0
-          }
+    drawSprite({ x, y, width, height, options, children, transform, config }) {
+        children = children || []
+        options = options || {}
+        let startX = 0, startY = 0
+
+        if (transform) {
+            let { translateX, translateY, scaleX, scaleY, skewX, skewY, rotate, alpha, origin } = transform, deg = Math.PI / 180, ctx = this.#context
+            let a = 1, d = 1, b = 0, c = 0, e = x, f = y
+
+            if (Object.prototype.toString.call(origin) === '[object Array]') { startX = -origin[0]; startY = -origin[1]; e += origin[0]; f += origin[1] }
+            if (Object.prototype.toString.call(origin) === '[object Number]') {
+                switch (origin) {
+                    case 2: startX = -width / 2; e += width / 2; break
+                    case 3: startX = -width; e += width; break
+                    case 4: startY = -height / 2; f += height / 2; break
+                    case 5: startX = -width / 2; startY = -height / 2; e += width / 2; f += height / 2; break
+                    case 6: startX = -width; startY = -height / 2; e += width; f += height / 2; break
+                    case 7: startY = -height; f += height; break
+                    case 8: startX = -width / 2; startY = -height; e += width / 2; f += height; break
+                    case 9: startX = -width; startY = -height; e += width; f += height; break
+                    default: startX = 0; startY = 0
+                }
+            }
+            ctx.save()
+            ctx.globalAlpha = alpha
+            if (rotate) { a = Math.cos(deg * rotate); d = Math.cos(deg * rotate); b = Math.sin(deg * rotate); c = -Math.sin(deg * rotate) }
+            if (scaleX) { a *= scaleX; c *= scaleX }
+            if (scaleY) { d *= scaleY; b *= scaleY }
+            if (skewX) { c += skewX }
+            if (skewY) { b += skewY }
+
+            if (translateX) { e += translateX }
+            if (translateY) { f += translateY }
+
+            ctx.transform(a, b, c, d, e, f)
         }
-        ctx.save()
-        ctx.globalAlpha = alpha
-        if (rotate){ a = Math.cos(deg*rotate); d = Math.cos(deg*rotate); b = Math.sin(deg*rotate); c = -Math.sin(deg*rotate) }
-        if (scaleX){ a *= scaleX; c *= scaleX }   
-        if (scaleY){ d *= scaleY; b *= scaleY }
-        if (skewX) { c += skewX }  
-        if (skewY) { b += skewY }
-  
-        if (translateX) { e += translateX }
-        if (translateY) { f += translateY }
-        
-        ctx.transform(a, b, c, d, e, f)
-      }
-      children.forEach(({type, data, parent, config}) => { 
-        !data.options && (data.options = options)
-        let e = {type, data: {...data}, parent, config}
-        if (startX || startY) {
-          if (e.type === 'Polygon') {
-            e.data.points.forEach(point => {
-              point[0] += startX
-              point[1] += startY
-            })
-          } else {
-            e.data.x += startX
-            e.data.y += startY
-          }
+        children.forEach(({ type, data, parent, config }) => {
+            !data.options && (data.options = options)
+            let e = { type, data: { ...data }, parent, config }
+            if (startX || startY) {
+                if (e.type === 'Polygon') {
+                    e.data.points.forEach(point => {
+                        point[0] += startX
+                        point[1] += startY
+                    })
+                } else {
+                    e.data.x += startX
+                    e.data.y += startY
+                }
+            }
+
+            this.draw(e)
+        })
+        transform && this.#context.restore()
+        if (config && config.showRange) {
+            let fillStyle = config.rangeColor || '#000'
+            this.draw({ type: 'Rect', data: { x: x - 2, y: y - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x + width / 2 - 2, y: y - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x + width - 2, y: y - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x - 2, y: y + height / 2 - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x + width / 2 - 2, y: y + height / 2 - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x + width - 2, y: y + height / 2 - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x - 2, y: y + height - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x + width / 2 - 2, y: y + height - 2, width: 4, height: 4, options: { fillStyle } } })
+            this.draw({ type: 'Rect', data: { x: x + width - 2, y: y + height - 2, width: 4, height: 4, options: { fillStyle } } })
         }
-        
-        this.draw(e) 
-      })
-      transform && this.#context.restore()
-      if (config && config.showRange) {
-        let fillStyle = config.rangeColor || '#000'
-        this.draw({type: 'Rect', data: {x:x-2, y:y-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x+width/2-2, y:y-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x+width-2, y:y-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x-2, y:y+height/2-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x+width/2-2, y:y+height/2-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x+width-2, y:y+height/2-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x-2, y:y+height-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x+width/2-2, y:y+height-2, width:4, height:4, options:{fillStyle}}})
-        this.draw({type: 'Rect', data: {x:x+width-2, y:y+height-2, width:4, height:4, options:{fillStyle}}})
-      }
     }
     /**
      * drawRect(x, y, width, height, options)
-     */    
-    drawRect({x, y, width, height, options}){ 
-      options = options || {}
-      Object.assign(this.#context, options)
-      this.#context.rect(x, y, width, height)
-      options.fillStyle && this.#context.fill()
-      options.strokeStyle && this.#context.stroke()
+     */
+    drawRect({ x, y, width, height, options }) {
+        options = options || {}
+        Object.assign(this.#context, options)
+        console.log(options.fillStyle, this.#context.fillStyle);
+        this.#context.rect(x, y, width, height)
+        options.fillStyle && this.#context.fill()
+        //options.strokeStyle && this.#context.stroke()
     }
-    drawCircle({x, y, r, options}){
-      options = options || {}
-      Object.assign(this.#context, options)
-      this.#context.arc(x, y, r, 0, 2*Math.PI, false);
-      this.#context.closePath();
-      options.fillStyle && this.#context.fill();
-      options.strokeStyle && this.#context.stroke();
+    drawCircle({ x, y, r, options }) {
+        options = options || {}
+        Object.assign(this.#context, options)
+        this.#context.arc(x, y, r, 0, 2 * Math.PI, false);
+        this.#context.closePath();
+        options.fillStyle && this.#context.fill();
+        options.strokeStyle && this.#context.stroke();
     }
-    drawText({text, x, y, options}){
-      options = options || {}
-      Object.assign(this.#context, options)
-      let maxWidth = options.maxWidth || this.#context.measureText(text).width
-      this.#context.beginPath()
-      options.fillStyle && this.#context.fillText(text, x, y, maxWidth)
-      options.strokeStyle && this.#context.strokeText(text, x, y, maxWidth)
+    drawText({ text, x, y, options }) {
+        options = options || {}
+        Object.assign(this.#context, options)
+        let maxWidth = options.maxWidth || this.#context.measureText(text).width
+        this.#context.beginPath()
+        options.fillStyle && this.#context.fillText(text, x, y, maxWidth)
+        options.strokeStyle && this.#context.strokeText(text, x, y, maxWidth)
     }
-    drawLine({start, end, options}){
-      options = options || {}
-      Object.assign(this.#context, options)
-      this.#context.beginPath();
-      this.#context.lineTo(start[0], start[1]);
-      this.#context.lineTo(end[0], end[1]);
-      options.strokeStyle && this.#context.stroke();
+    drawLine({ start, end, options }) {
+        options = options || {}
+        Object.assign(this.#context, options)
+        this.#context.beginPath();
+        this.#context.lineTo(start[0], start[1]);
+        this.#context.lineTo(end[0], end[1]);
+        options.strokeStyle && this.#context.stroke();
     }
-  
+
     /**
      * 多边形
      * [[0,0], [50,0]]
      * options{fillStyle:'#ccc', strokeStyle:'#000', lineWidth:5, lineCap:'round'}
      * config{closePath: true, startPosition: [0, 0]}
      */
-    drawPolygon({points, options, config}){
-      //console.log('11',points, options, config);
-      
-      options = options || {}
-      config = config || {}
-      let xPos = 0, yPos = 0, ctx = this.#context      
-      Object.assign(ctx, options)
-      ctx.beginPath()
-      if (config && config.startPosition) {xPos = config.startPosition[0], yPos = config.startPosition[1]} 
-      for(let i = 0, len = points.length; i < len - 1; i++){
-        let start=points[i], end=points[i+1]
-        ctx.lineTo(start[0] + xPos, start[1] + yPos)
-        ctx.lineTo(end[0] + xPos, end[1] + yPos)
-      }
-      (options.fillStyle || config.closePath) && ctx.closePath()
-      options.fillStyle && ctx.fill()
-      options.strokeStyle && ctx.stroke()
+    drawPolygon({ points, options, config }) {
+        //console.log('11',points, options, config);
+
+        options = options || {}
+        config = config || {}
+        let xPos = 0, yPos = 0, ctx = this.#context
+        Object.assign(ctx, options)
+        ctx.beginPath()
+        if (config && config.startPosition) { xPos = config.startPosition[0], yPos = config.startPosition[1] }
+        for (let i = 0, len = points.length; i < len - 1; i++) {
+            let start = points[i], end = points[i + 1]
+            ctx.lineTo(start[0] + xPos, start[1] + yPos)
+            ctx.lineTo(end[0] + xPos, end[1] + yPos)
+        }
+        (options.fillStyle || config.closePath) && ctx.closePath()
+        options.fillStyle && ctx.fill()
+        options.strokeStyle && ctx.stroke()
     }
     /**
      * 绘制图片
@@ -267,9 +268,9 @@ export default class Stage{
        x y	          在画布上放置图像的 xy 坐标位置(画布定位)
        width height	  可选。要使用的图像的宽度高度。（伸展或缩小图像）
      */
-    drawImagee({img, sx, sy, swidth, sheight, x, y, width, height}){
-      let ctx = this.#context;
-      ctx.drawImage(img, sx, sy, swidth, sheight, x, y, width, height)
+    drawImagee({ img, sx, sy, swidth, sheight, x, y, width, height }) {
+        let ctx = this.#context;
+        ctx.drawImage(img, sx, sy, swidth, sheight, x, y, width, height)
     }
     /**
      * [
@@ -278,10 +279,10 @@ export default class Stage{
          {name:'scale', props:[scalewidth,scaleheight]}
      * ]
      */
-    transform(arr){
-      let ctx = this.#context
-      arr.forEach(item => {
-        ctx[item.name].apply(ctx, item.props)
-      })
+    transform(arr) {
+        let ctx = this.#context
+        arr.forEach(item => {
+            ctx[item.name].apply(ctx, item.props)
+        })
     }
-  }
+}

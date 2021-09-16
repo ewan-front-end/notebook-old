@@ -38,6 +38,12 @@
 <script type="module">
 import Game from './core/game.js'
 import {Sprite, SpriteSheet, Rect} from './core/element.js'
+var asdf = {strokeStyle: '#111'}
+function addd({fillStyle, strokeStyle}) {
+    Object.assign(asdf, {fillStyle, strokeStyle})
+}
+addd({fillStyle: '#ff0'})
+console.log('asdf:', asdf);
 
 // 游戏(自建默认场景)
 let game = new Game({
