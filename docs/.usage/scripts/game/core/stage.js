@@ -206,10 +206,9 @@ export default class Stage {
     drawRect({ x, y, width, height, options }) {
         options = options || {}
         Object.assign(this.#context, options)
-        console.log(options.fillStyle, this.#context.fillStyle);
         this.#context.rect(x, y, width, height)
         options.fillStyle && this.#context.fill()
-        //options.strokeStyle && this.#context.stroke()
+        options.strokeStyle && this.#context.stroke()
     }
     drawCircle({ x, y, r, options }) {
         options = options || {}

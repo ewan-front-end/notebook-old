@@ -146,11 +146,11 @@ export class Sprite extends Element {
         }
         // 透明度
         if (transform.alpha < tween.alpha) {
-            transform.alpha = tweens.run(now - timerA, _transform.alpha, tween.alpha, 2000)
+            transform.alpha = tweens.run(now - timerA, _transform.alpha, tween.alpha - _transform.alpha, 2000)
             transform.alpha > tween.alpha && (_transform.alpha = transform.alpha = tween.alpha)
         }
         if (transform.alpha > tween.alpha) {
-            transform.alpha = tweens.run(now - timerA, _transform.alpha, tween.alpha, 2000)
+            transform.alpha = tweens.run(now - timerA, _transform.alpha, tween.alpha - _transform.alpha, 2000)
             transform.alpha < tween.alpha && (_transform.alpha = transform.alpha = tween.alpha)
         }
     }

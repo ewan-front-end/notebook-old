@@ -23,6 +23,7 @@ class Tweens{
     }
     use(key){this.#tweens.use(key)}
     run(t, initValue, totalIncrement, duration){
+        console.log(t, initValue, totalIncrement, duration);
         return this.#tweens.runStrategy(t, initValue, totalIncrement, duration)
     }
     runAuto(initValue, totalIncrement, duration, callback, state){
