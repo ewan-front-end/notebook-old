@@ -1,4 +1,4 @@
-import Stage from './stage.js'
+import Stage from './canvas.js'
 import {Scene, Sprite, SpriteSheet, Rect} from './element.js'
 import Timer from './timer.js'
 

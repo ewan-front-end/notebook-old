@@ -7,7 +7,14 @@
     constructor(type, parent) {
         this.type = type        
         this.parent = parent || null
-        this.data = {}
+        this.data = {
+            opacity: 1, 
+            x: 0,
+            y: 0,
+            scale_x: 1, 
+            scale_y: 1,
+            rotate: 0
+        }
         this.children = []
     }
     addChild(child) {
@@ -21,6 +28,11 @@
     appendTo(parent) {
         this.parent = parent
         parent.children.push(this)
+    }
+    update() {
+        this.children.forEach(child => {
+            child.update()
+        })
     }
 }
 
