@@ -5,7 +5,7 @@ import Element from './element.js'
  * @extends Element
  * @constructor
  */
- export class Stage extends Element {
+ export default class Stage extends Element {
     constructor() {
         super('STAGE')
         delete this.appendTo // 舞台为最顶层元素
