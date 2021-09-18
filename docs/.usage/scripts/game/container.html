@@ -12,8 +12,34 @@
 </html>
 <script type="module">
     import Stage from './core/stage.js'
+    import {Scene, scenes} from './core/scene.js'
+    import Layer from './core/layer.js'
+    import Group from './core/group.js'
+    import Rect from './core/rect.js'
+    
+    console.log('场景数：', scenes.length);
 
     var stage = new Stage()
-    console.log(stage);
+    var scene = new Scene('SCENE_1')
+    var layer = new Layer('LAYER_1')
+    var group = new Group('GROUP_1')
+    var rect = new Rect('RECT_1')
+    
+    stage.addScene(scene)
+    stage.addScene(layer)
+    stage.addScene(group)
+    stage.addScene(rect)
+    scene.addChild(layer)
+    layer.appendTo(group)
+    group.appendTo(scene)
+    rect.appendTo(stage)
 
+    console.log(stage);
+    console.log(scene);
+    console.log(layer);
+    console.log(group)
+    console.log(rect)
+    console.log('场景：', scenes);
+    console.log(scenes[0].name);
+    console.log(scenes['SCENE_1'].name);
 </script>

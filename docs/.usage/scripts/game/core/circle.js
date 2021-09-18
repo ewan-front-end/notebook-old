@@ -12,7 +12,7 @@ import Element from './element.js'
  */
  export default class Circle extends Element {
     constructor(x, y, r, options, config) {
-        super('Circle')
+        super('Circle', 3)
         delete this.children
         delete this.addChild
         this.data = { x, y, r, options }

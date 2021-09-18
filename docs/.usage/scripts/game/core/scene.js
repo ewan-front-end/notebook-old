@@ -9,23 +9,28 @@ import Element from './element.js'
  * @method in 入场 
  * @method out 出场
  */
- export class Scene extends Element {
+const scenes = {
+    length: 0
+}
+class Scene extends Element {
     constructor(name) {
-        super('SCENE')
-        this.name = name
+        super('SCENE', 1)
         this.data.background_color = '#FFF' 
         this.data.background_image = null
-    }
-    addChild(child) {
-        if (child instanceof Element && child.type !== 'STAGE' && child.type !== 'SCENE') {
-            child.parent = this
-            this.children.push(child)
-        } else {
-            console.error(' 添加到场景的元素是不被允许的')
-        }
+        if (name) {
+            this.name = name
+            scenes[name] ? console.error(`命名为 ${name} 的场景已经存在`) : scenes[name] = this
+        }        
+        scenes[scenes.length] = this
+        scenes.length ++        
     }
     in() { }
     out() { }
+}
+
+export {
+    Scene,
+    scenes
 }
 
 

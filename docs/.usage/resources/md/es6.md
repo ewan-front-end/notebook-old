@@ -44,9 +44,10 @@ console.log(counter); // 4 已经改变
 
 ## 类
 ```js
-class Demo {
+class Demo extends Element {
     #strategy 
-    constructor(opts) { 
+    constructor(opts=默认值) { 
+        super() // 运行父类构造函数
         this.opts = opts
         this.test = this.test.bind(this) // 当test方法赋值给外部变量时(如在类外部var a = demo.test)，this会丢失
     }    

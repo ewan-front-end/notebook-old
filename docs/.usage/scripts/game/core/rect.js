@@ -13,10 +13,10 @@ import Element from './element.js'
  */
  export default class Rect extends Element {
     constructor(x, y, width, height, options, config) {
-        super('Rect')
-        delete this.children
-        delete this.addChild
-        this.data = { x, y, width, height, options }
+        super('Rect', 3, {
+            addFnName: null
+        })
+        Object.assign(this.data, { x, y, width, height, options })
         this.config = config
     }
 }

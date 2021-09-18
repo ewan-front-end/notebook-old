@@ -9,17 +9,9 @@ import Element from './element.js'
  * @method in 入场 
  * @method out 出场
  */
- export class Layer extends Element {
+ export default class Layer extends Element {
     constructor(name) {
-        super('LAYER')
+        super('LAYER', 2)
         this.name = name
-    }
-    addChild(child) {
-        if (child instanceof Element && child.type !== 'STAGE' && child.type !== 'SCENE' && child.type !== 'LAYER') {
-            child.parent = this
-            this.children.push(child)
-        } else {
-            console.error(' 添加到层的元素是不被允许的')
-        }
     }
 }

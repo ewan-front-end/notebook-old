@@ -10,7 +10,7 @@ import Element from './element.js'
  */
  export default class Polygon extends Element {
     constructor(points, options, config) {
-        super('Polygon')
+        super('Polygon', 3)
         delete this.children
         delete this.addChild
         this.data = { points, options, config }

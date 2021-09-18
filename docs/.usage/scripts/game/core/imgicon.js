@@ -16,7 +16,7 @@ import Element from './element.js'
  */
  export default class Imgicon extends Element {
     constructor(img, sx, sy, swidth, sheight, x, y, width, height) {
-        super('Imagee')
+        super('Imagee', 3)
         delete this.children
         delete this.addChild
         this.data = { img, sx, sy, swidth, sheight, x, y, width, height }

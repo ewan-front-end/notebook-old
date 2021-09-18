@@ -7,19 +7,15 @@ import Element from './element.js'
  */
  export default class Stage extends Element {
     constructor() {
-        super('STAGE')
-        delete this.appendTo // 舞台为最顶层元素
+        super('STAGE', 0, {
+            beforeAdd: function(child) {console.log('111222333',child.type)},
+            addFnName: 'addScene', 
+            appendFnName: null
+        })
+        this.scenes = []
         this.name = 'STAGE'
         this.data = {
             // todo
-        }
-    }
-    addChild(child) {
-        if (child instanceof Element && child.type === 'SCENE') {
-            child.parent = this
-            this.children.push(child)
-        } else {
-            console.error(' 舞台仅开放添加场景元素')
         }
     }
 }
