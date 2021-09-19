@@ -1,21 +1,15 @@
-import Element from './element.js'
+import ElementAdd from './element/element-add.js'
 
 /**
  * 舞台元素
- * @extends Element
+ * @extends ElementAdd
  * @constructor
  */
- export default class Stage extends Element {
+ export default class Stage extends ElementAdd {
     constructor() {
-        super('STAGE', 0, {
-            beforeAdd: function(child) {console.log('111222333',child.type)},
-            addFnName: 'addScene', 
-            appendFnName: null
+        super('STAGE', 0, 'CLASS_STAGE', {
+            includeChild: ['CLASS_SCENE']
         })
-        this.scenes = []
         this.name = 'STAGE'
-        this.data = {
-            // todo
-        }
     }
 }

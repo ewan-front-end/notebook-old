@@ -1,8 +1,8 @@
-import Element from './element.js'
+import ElementAppend from './element/element-append.js'
 
 /**
  * 图像
- * @extends Element
+ * @extends ElementAppend
  * @constructor
  * @param <Number> img     图像、画布或视频
  * @param [Number] sx      开始剪切的x坐标位置
@@ -14,11 +14,9 @@ import Element from './element.js'
  * @param [Number] width   要使用的图像的宽度(伸展或缩小图像)
  * @param [Number] height  要使用的图像的高度(伸展或缩小图像)
  */
- export default class Imgicon extends Element {
+ export default class Imgicon extends ElementAppend {
     constructor(img, sx, sy, swidth, sheight, x, y, width, height) {
-        super('Imagee', 3)
-        delete this.children
-        delete this.addChild
+        super('Imagee', 5, 'CLASS_SHAPE')
         this.data = { img, sx, sy, swidth, sheight, x, y, width, height }
     }
 }

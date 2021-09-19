@@ -16,6 +16,7 @@
     import Layer from './core/layer.js'
     import Group from './core/group.js'
     import Rect from './core/rect.js'
+    import Circle from './core/circle.js'
     
     console.log('场景数：', scenes.length);
 
@@ -24,22 +25,39 @@
     var layer = new Layer('LAYER_1')
     var group = new Group('GROUP_1')
     var rect = new Rect('RECT_1')
+    var circle = new Circle('CIRCLE_1')
     
-    stage.addScene(scene)
-    stage.addScene(layer)
-    stage.addScene(group)
-    stage.addScene(rect)
+    stage.addChild('stage')
+    stage.addChild(stage)
+    stage.addChild(scene)
+    stage.addChild(layer)
+    stage.addChild(group)
+    stage.addChild(rect)
+    stage.addChild(scene)
+
+    
+    scene.addChild(stage)
+    scene.addChild(scene)
     scene.addChild(layer)
-    layer.appendTo(group)
-    group.appendTo(scene)
-    rect.appendTo(stage)
+    scene.addChild(group)
+    scene.addChild(rect)
+    scene.addChild(circle)
+
+    
+    scene.appendTo(stage)
+    scene.appendTo(scene)
+    scene.appendTo(layer)
+    scene.appendTo(group)
+    scene.appendTo(rect)
+
+    
 
     console.log(stage);
     console.log(scene);
     console.log(layer);
     console.log(group)
     console.log(rect)
+    console.log(circle)
+
     console.log('场景：', scenes);
-    console.log(scenes[0].name);
-    console.log(scenes['SCENE_1'].name);
 </script>

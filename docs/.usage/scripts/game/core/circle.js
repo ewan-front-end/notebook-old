@@ -1,8 +1,8 @@
-import Element from './element.js'
+import ElementAppend from './element/element-append.js'
 
 /**
  * 圆形
- * @extends Element
+ * @extends ElementAppend
  * @constructor
  * @param {Number} x 座标X
  * @param {Number} y 座标Y
@@ -10,12 +10,10 @@ import Element from './element.js'
  * @param {Object} options 选项
  * @param {Object} config 配置
  */
- export default class Circle extends Element {
+ export default class Circle extends ElementAppend {
     constructor(x, y, r, options, config) {
-        super('Circle', 3)
-        delete this.children
-        delete this.addChild
-        this.data = { x, y, r, options }
+        super('Circle', 5, 'CLASS_SHAPE')
+        //this.data = { x, y, r, options }
         this.config = config
     }
 }

@@ -1,9 +1,9 @@
-import Element from './element.js'
+import ElementAll from './element/element-all.js'
 import {tweens} from '../../utils/tweens.js'
 
 /**
  * 精灵元素
- * @extends Element
+ * @extends ElementAll
  * @constructor
  * @param {Number} x 座标X
  * @param {Number} y 座标Y
@@ -13,9 +13,11 @@ import {tweens} from '../../utils/tweens.js'
  * @param {Number} transform 变换
  * @param {Number} config 配置
  */
- export default class Sprite extends Element {
+ export default class Sprite extends ElementAll {
     constructor(x, y, width, height, options, transform, config) {
-        super('Sprite')
+        super('Sprite', 4, {
+            classType: 'CLASS_SPRITE'
+        })
         transform = Object.assign({ x, y, translateX: 0, translateY: 0, scaleX: 1, scaleY: 1, rotate: 0, alpha: 1, origin: 1 }, transform || {})
         console.log('transform', transform);
 
