@@ -8,7 +8,7 @@ var circle = new Circle('CIRCLE_1')
 
 console.error = function(){}
         
-var expect = require('C:/Users/new/AppData/Roaming/npm/node_modules/chai').expect 
+var expect = require('chai').expect 
 describe('容器类', function() {
     describe('舞台(Stage)', function() {
         it('stage是Element的实例', function() {expect(stage).to.be.an.instanceof(Element)})
@@ -75,18 +75,23 @@ describe('容器类', function() {
     describe('矩形(Rect)', function() {
         it('rect是Element的实例', function() {expect(rect).to.be.an.instanceof(Element)})
         it('rect实例没有addChild方法', function() {expect(rect.addChild).to.not.exist})
-        it('rect实例有appendTo方法', function() {expect(group.appendTo).to.exist})
-        it('group添加stage失败', function() {expect(group.addChild(stage)).to.be.false})
-        it('group添加scene失败', function() {expect(group.addChild(scene)).to.be.false})
-        it('group添加layer失败', function() {expect(group.addChild(layer)).to.be.false})
-        it('group添加group失败', function() {expect(group.addChild(group)).to.be.false})
-        it('group添加rect成功', function() {expect(group.addChild(rect)).to.be.true})
-        it('group添加circle成功', function() {expect(group.addChild(circle)).to.be.true})
-        it('group添加到stage失败', function() {expect(group.appendTo(stage)).to.be.false})
-        it('group添加到scene失败(重复)', function() {expect(group.appendTo(scene)).to.be.false})
-        it('group添加到layer失败(重复)', function() {expect(group.appendTo(layer)).to.be.false})
-        it('group添加到group失败', function() {expect(group.appendTo(group)).to.be.false})
-        it('group添加到rect失败', function() {expect(group.appendTo(rect)).to.be.false})
-        it('group添加到circle失败', function() {expect(group.appendTo(circle)).to.be.false})
+        it('rect实例有appendTo方法', function() {expect(rect.appendTo).to.exist})
+        it('rect添加到stage失败', function() {expect(rect.appendTo(stage)).to.be.false})
+        it('rect添加到scene失败(重复)', function() {expect(rect.appendTo(scene)).to.be.false})
+        it('rect添加到layer失败(重复)', function() {expect(rect.appendTo(layer)).to.be.false})
+        it('rect添加到group失败(重复)', function() {expect(rect.appendTo(group)).to.be.false})
+        it('rect添加到rect失败', function() {expect(rect.appendTo(rect)).to.be.false})
+        it('rect添加到circle失败', function() {expect(rect.appendTo(circle)).to.be.false})
+    })
+    describe('圆形(Circle)', function() {
+        it('circle是Element的实例', function() {expect(circle).to.be.an.instanceof(Element)})
+        it('circle实例没有addChild方法', function() {expect(circle.addChild).to.not.exist})
+        it('circle实例有appendTo方法', function() {expect(circle.appendTo).to.exist})
+        it('circle添加到stage失败', function() {expect(circle.appendTo(stage)).to.be.false})
+        it('circle添加到scene失败(重复)', function() {expect(circle.appendTo(scene)).to.be.false})
+        it('circle添加到layer失败(重复)', function() {expect(circle.appendTo(layer)).to.be.false})
+        it('circle添加到group失败(重复)', function() {expect(circle.appendTo(group)).to.be.false})
+        it('circle添加到rect失败', function() {expect(circle.appendTo(rect)).to.be.false})
+        it('circle添加到circle失败', function() {expect(circle.appendTo(circle)).to.be.false})
     })
 })
