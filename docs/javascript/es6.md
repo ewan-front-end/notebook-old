@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.14 19:27</span>
+            <span>N 2021.09.20 12:29</span>
         </div>
     </div>
     <div class="content"></div>
@@ -64,9 +64,10 @@ console.log(counter); // 4 已经改变
 
 ## 类
 ```js
-class Demo {
+class Demo extends Element {
     #strategy 
-    constructor(opts) { 
+    constructor(opts=默认值) { 
+        super() // 运行父类构造函数
         this.opts = opts
         this.test = this.test.bind(this) // 当test方法赋值给外部变量时(如在类外部var a = demo.test)，this会丢失
     }    

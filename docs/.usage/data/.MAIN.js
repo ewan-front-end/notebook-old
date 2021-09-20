@@ -151,7 +151,7 @@
             }},
             systemTest: {title:'测试系统', src:'frontend/test', desc:'自动化测试是是一个锥形体系', children: {
                 static:{title: '静态检查', links:[{name:'Eslint', href:'tools/eslint'},{name:'JSCS'}]},
-                unit:{title: '单元测试', src:'unit', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}]},
+                unit:{title: '单元测试', src:'unit', desc:'单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}, {name:'性能测试，安全测试和功能测试'}]},
                 e2e:{title: '端到端测试', desc:'从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景', links:[{name:'Protractor'},{name:'Nightwatch'},{name:'Selenium'}]},
                 ci:{title: '持续集成(Continuous integration 简称CI)', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入', src:'frontend/ci'},
             }}

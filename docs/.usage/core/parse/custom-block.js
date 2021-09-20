@@ -11,7 +11,7 @@ function parseCustomBlock(block, path) {
     
     // - Markdown点列表
     while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {
-        block = block.replace(RegExp.$1, `<span>● ${RegExp.$2}</span>`);
+        block = block.replace(RegExp.$1, `● <strong>${RegExp.$2}</strong>`);
         Search.add(path, RegExp.$2)
     } 
 
@@ -195,7 +195,7 @@ function parseCustomBlock(block, path) {
     })
 
     /**
-     * 行样式：[2,17{color:#f00}(bd)  19,13{color:#0f0}(bd)] 
+     * 行样式：[2,17{color:#f00}(bd)  19,13{color:#0f0}(bd)]  适合于单行点缀
      * $1：$ALL=(FORMAT$SPACE$CONTENT)  FORMAT=\x20*\[SCOPES\]\x20*[\r\n]+  
      * $2：$SCOPES = ((SCOPE)+)  SCOPE =\x20*\d+,\d+((\{[\w\x20-;:'"#]+\})|(\([\w\x20-]+\))){1,2}
      * $7：$SPACE=(\x20*)
@@ -215,7 +215,7 @@ function parseCustomBlock(block, path) {
      }     
 
     /**
-     * 盒样式：[{color:#f00}(bd)CONTENT]
+     * 盒样式：[{color:#f00}(bd)CONTENT] 适合单行行内点缀
      * 匹配 STYLE=\{([\w\s-;:'"#]+)\} CLASS=\(([\w\s-]+)\) 内容=.+?
      * 匹配 ((STYLE)|(CLASS)){1,2}(内容)
      */
