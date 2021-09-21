@@ -3,7 +3,7 @@
  * @constructor
  * @param {String} 元素类型 参数说明
  */
-let elementsLen = 0
+let elementsLen = 0 // 元素创建计数(id)
 export default class Element {
     constructor(type, level, classType) {
         this.parent = null
@@ -12,6 +12,7 @@ export default class Element {
         this.classType = classType,  // 被父容器审查的添加依据
         this.id = 'id_' + elementsLen + '_element'
         this.data = {opacity: 1, x: 0, y: 0, scale: [1, 1], rotate: 0}
+        let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
         elementsLen++
     }
     translate(x, y) {

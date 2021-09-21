@@ -15,11 +15,9 @@ import {tweens} from '../../utils/tweens.js'
  */
  export default class Sprite extends ElementAll {
     constructor(x, y, width, height, options, transform, config) {
-        super('Sprite', 4, {
-            classType: 'CLASS_SPRITE'
-        })
+        super('Sprite', 4, 'CLASS_SPRITE')
         transform = Object.assign({ x, y, translateX: 0, translateY: 0, scaleX: 1, scaleY: 1, rotate: 0, alpha: 1, origin: 1 }, transform || {})
-        console.log('transform', transform);
+        
 
         this.data = { x, y, width, height, options, transform, config }
         this.data.children = this.children
