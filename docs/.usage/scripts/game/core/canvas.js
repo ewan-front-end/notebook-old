@@ -1,4 +1,9 @@
-export default class Stage {
+/**
+ * 画布类
+ * @constructor
+ * @param {参数类型} 参数名 参数说明
+ */
+export default class Canvas {
     #canvas
     #context
     #width
@@ -119,13 +124,14 @@ export default class Stage {
                                    
     */
     draw({ type, data, config }) {
+        console.log(type, data, config);
         this.#context.beginPath()
         if (config) {
             if (config.save || config.clip) {
                 this.#context.save()
             }
         }
-        this['draw' + type](data)
+        this['draw' + type] && this['draw' + type](data)
         if (config) {
             config.clip && this.#context.clip()
             if (config.restore || config.unclip) {

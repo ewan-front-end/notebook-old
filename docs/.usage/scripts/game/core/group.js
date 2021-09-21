@@ -12,5 +12,4 @@ import ElementAll from './element/element-all.js'
         this.name = name
             
     }
-    
 }

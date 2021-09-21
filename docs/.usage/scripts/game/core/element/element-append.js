@@ -1,5 +1,4 @@
 import Element from "./element.js"
-import { appendTo } from './methodes.js'
 
 /**
  * Element元素装饰
@@ -12,29 +11,14 @@ export default class ElementAppend extends Element {
         super(type, level, classType)
     }
     appendTo(parent) {
-        if (!(parent instanceof Element)) {
-            console.error(`元素 ${this.type} 添加到容器 [未知]，容器非 Element 实例`)
-            return false
-        }
-        if (!parent.children) {
-            console.error(`元素 ${this.type} 添加到容器 ${parent.type}，容器无效`)
-            return false
-        }
-        if (parent.children.includes(this)) return false
-        if (parent.includeChild && !parent.includeChild.includes(this.classType)) {
-            console.error(`只有 classType 属性为 ${parent.includeChild.join('、')} 的元素可添加到目标容器 ${parent.type}`)
-            return false
-        }
-        if (parent.excludeChild && parent.excludeChild.includes(this.classType)) {
-            console.error(`禁止 classType 属性为 ${parent.excludeChild.join('、')} 的元素添加到目标容器 ${parent.type}`)
-            return false
-        }
-        if (parent.level >= this.level) {
-            console.error(`元素 ${this.type} 添加到容器 ${parent.type}，容器的 level 值为 ${parent.level}, 应小于 ${this.level}`)
-            return false
-        }        
+        if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
+        if (parent.level >= this.level) return {state: 2, type: 2, message: '越权添加'}
+        if (parent.children.includes(this)) return {state: 1, type: 3, message: '已经存在'}
+        if (parent.includeChild && !parent.includeChild.includes(this.classType)) return {state: 2, type: 4, message: `目标元素允许添加 classType 属性为 ${parent.includeChild.join('、')} 的元素`}
+        if (parent.excludeChild && parent.excludeChild.includes(this.classType)) return {state: 2, type: 5, message: `目标元素禁止添加 classType 属性为 ${parent.excludeChild.join('、')} 的元素`}
+        if (!parent.children) return {state: 2, type: 6, message: '目标元素非有效容器'}
         this.parent = parent
         parent.children.push(this) 
-        return true      
+        return {state: 0, type: 0, message: null}      
     }
 }

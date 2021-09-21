@@ -1,5 +1,4 @@
 import Element from "./element.js";
-import { addChild } from './methodes.js'
 
 /**
  * Element元素装饰
@@ -16,25 +15,13 @@ export default class ElementAdd extends Element {
         options.excludeChild && (this.excludeChild = options.excludeChild) // 作为容器排除子类类型 即child.classType
     }
     addChild(child) {
-        if (!(child instanceof Element)) {
-            console.error(`容器 ${this.type} 添加子元素 [未知]，子元素非 Element 实例`)
-            return false
-        }
-        if (this.children.includes(child))  return
-        if (this.includeChild && !this.includeChild.includes(child.classType)) {
-            console.error(`容器 ${this.type} 只能添加 classType 属性为 ${this.includeChild.join('、')} 的子类`)
-            return false
-        }
-        if (this.excludeChild && this.excludeChild.includes(child.classType)) {
-            console.error(`容器 ${this.type} 禁止添加 classType 属性为 ${this.excludeChild.join('、')} 的子类`)
-            return false
-        }
-        if (child.level <= this.level) {
-            console.error(`容器 ${this.type} 添加子元素 ${child.type}，子元素的 level 值为 ${child.level}, 应大于 ${this.level}`)
-            return false
-        }        
+        if (!(child instanceof Element)) return {state: 2, type: 1, message: '子元素非 Element 实例'}
+        if (child.level <= this.level) return {state: 2, type: 2, message: '越权添加'}
+        if (this.children.includes(child))  return {state: 1, type: 3, message: '重复添加'}        
+        if (this.includeChild && !this.includeChild.includes(child.classType)) return {state: 2, type: 4, message: `允许添加 classType 属性为 ${this.includeChild.join('、')} 的元素`}
+        if (this.excludeChild && this.excludeChild.includes(child.classType)) return {state: 2, type: 5, message: `禁止添加 classType 属性为 ${this.excludeChild.join('、')} 的元素`}        
         child.parent = this
         this.children.push(child)      
-        return true 
+        return {state: 0, type: 0, message: null}
     }
 }

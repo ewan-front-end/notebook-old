@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script type="module">
+    import Game from './core/game.js'
+    import Layer from './core/layer.js'
+    import Group from './core/group.js'
+    import Rect from './core/rect.js'
+    import Circle from './core/circle.js'
+
+    // 舞台&设施
+    let canvas = document.getElementById("myCanvas")
+    
+    var layer = new Layer('LAYER_1')
+    var group = new Group('GROUP_1')
+    var rect = new Rect(10, 10, 100, 50, {fillStyle: '#f00', opacity: 0.5})
+    var circle = new Circle('CIRCLE_1')
+    console.log(layer);
+    rect.translate(100, 50)
+    
+    let game = new Game(canvas, 1000, 400)
+    game.addChild(layer)
+    game.addChild(group)
+    game.addChild(rect)
+    game.addChild()
+    game.update()
+
+</script>
