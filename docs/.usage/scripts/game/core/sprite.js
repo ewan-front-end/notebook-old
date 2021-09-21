@@ -42,7 +42,7 @@ import {tweens} from '../../utils/tweens.js'
     }
     translateX(x) { let T = this.TRANSFORM, { transform, _transform, tween } = T; if (x) { tween.translateX += x; T.timerX = new Date().getTime(); _transform.translateX = transform.translateX } }
     translateY(y) { let T = this.TRANSFORM, { transform, _transform, tween } = T; if (y) { tween.translateY += y; T.timerY = new Date().getTime(); _transform.translateY = transform.translateY } }
-    translateTo(x, y) { let { transform, _transform, tween } = this.TRANSFORM; x && (_transform.translateX = transform.translateX = tween.translateX = x); y && (_transform.translateY = transform.translateY = tween.translateY = y) }
+    
 
 
     scale(x, y) {
