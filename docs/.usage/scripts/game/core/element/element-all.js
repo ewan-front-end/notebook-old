@@ -18,23 +18,39 @@ export default class ElementAll extends Element {
     setData(data){
         super.setData(data)
     } 
-    addChild(child) {        
+    addChild(child, forced) {        
         if (!(child instanceof Element)) return {state: 2, type: 1, message: '子元素非 Element 实例'}
         if (child.level <= this.level) return {state: 2, type: 2, message: '越权添加'}
-        if (this.children.includes(child))  return {state: 1, type: 3, message: '重复添加'}        
+        if (this.children.includes(child))  return {state: 1, type: 3, message: '重复添加'}
         if (this.includeChild && !this.includeChild.includes(child.classType)) return {state: 2, type: 4, message: `允许添加 classType 属性为 ${this.includeChild.join('、')} 的元素`}
         if (this.excludeChild && this.excludeChild.includes(child.classType)) return {state: 2, type: 5, message: `禁止添加 classType 属性为 ${this.excludeChild.join('、')} 的元素`}        
+        if (child.parent) {
+            if (forced) {
+                child.parent.delChild(child.id)
+            } else {
+                return {state: 1, type: 6, message: '子元素已添加过其它容器'}
+            }
+        }  
         child.parent = this
         this.children.push(child) 
         return {state: 0, type: 0, message: null}
     }
-    appendTo(parent) {
+    delChild(id){
+        this.children = this.children.filter(child => child.id !== id)
+    }
+    appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
         if (parent.level >= this.level) return {state: 2, type: 2, message: '越权添加'}
-        if (parent.children.includes(this)) return {state: 1, type: 3, message: '已经存在'}
+        if (parent.children.includes(this)) return {state: 1, type: 3, message: '已经存在'}        
         if (parent.includeChild && !parent.includeChild.includes(this.classType)) return {state: 2, type: 4, message: `目标元素允许添加 classType 属性为 ${parent.includeChild.join('、')} 的元素`}
         if (parent.excludeChild && parent.excludeChild.includes(this.classType)) return {state: 2, type: 5, message: `目标元素禁止添加 classType 属性为 ${parent.excludeChild.join('、')} 的元素`}
-        if (!parent.children) return {state: 2, type: 6, message: '目标元素非有效容器'}
+        if (this.parent) {
+            if (forced) {
+                this.parent.delChild(this.id)
+            } else {
+                return {state: 1, type: 6, message: '不能添加到第二个容器'}
+            }
+        } 
         this.parent = parent
         parent.children.push(this) 
         return {state: 0, type: 0, message: null}      

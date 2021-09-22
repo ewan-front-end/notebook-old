@@ -126,8 +126,7 @@ export default class Canvas {
 
 
     
-    draw({type, data}) {       
-        console.log('*****', data); 
+    draw({type, data}) {   
         this.#context.beginPath()
         const {transform, config} = data
         
