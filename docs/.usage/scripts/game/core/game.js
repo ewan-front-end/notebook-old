@@ -14,11 +14,15 @@ export default class Game{
         new Scene(this.#currentSceneName) 
     }
     addChild(child) {
+        
         return scenes[this.#currentSceneName].addChild(child)
+        
     }
     update() {
         const arr = []
         Array.from(this.#scenes).forEach(scene => scene.update(arr))
+        console.log('scene0',this.#scenes[0]);
+        console.log('arr',arr);
         arr.forEach(e => {
             this.#canvas.draw(e)
         })

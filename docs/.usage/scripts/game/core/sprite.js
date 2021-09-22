@@ -14,13 +14,18 @@ import {tweens} from '../../utils/tweens.js'
  * @param {Number} config 配置
  */
  export default class Sprite extends ElementAll {
-    constructor(x, y, width, height, options, transform, config) {
+    constructor(x, y, width, height, options, config) {
         super('Sprite', 4, 'CLASS_SPRITE')
-        transform = Object.assign({ x, y, translateX: 0, translateY: 0, scaleX: 1, scaleY: 1, rotate: 0, alpha: 1, origin: 1 }, transform || {})
+        Object.assign(this.data, {x, y, width, height})
+        options && Object.assign(this.data, options)
+         
+        this.tweenTranslate = {time: null, x: 0, y: 0, initX: null, initY: null}
+        this.tweenScale = {time: null, x: 0, y: 0, initX: null, initY: null}
+        this.tweenRotate = {time: null, deg: 0, init: null}
+        this.tweenAlpha = {time: null, opacity: 0, init: null}
+        this.twweenSkew = {time: null, x: 0, y: 0, initX: null, initY: null}
         
-
-        this.data = { x, y, width, height, options, transform, config }
-        this.data.children = this.children
+        let transform = {}
         this.TRANSFORM = {
             transform,
             _transform: JSON.parse(JSON.stringify(transform)),
@@ -33,6 +38,14 @@ import {tweens} from '../../utils/tweens.js'
             timerA: 0
         }
     }
+    // 补间
+    tween({translate, scale, rotate, alpha, opacity}) {
+        translate && 1
+    }
+    tweenTo({translate, scale, rotate, alpha, opacity}) {
+
+    }
+
     translate(x, y) {
         let T = this.TRANSFORM, { transform, _transform, tween } = T;
         if (x) { tween.translateX += x; T.timerX = new Date().getTime(); _transform.translateX = transform.translateX }
@@ -58,7 +71,7 @@ import {tweens} from '../../utils/tweens.js'
     rotate(deg) { let T = this.TRANSFORM, { transform, _transform, tween, timerR } = T; tween.rotate += deg; T.timerR = new Date().getTime(); _transform.rotate = transform.rotate }
     rotateTo(deg) { let { transform, _transform, tween } = this.TRANSFORM; deg && (_transform.rotate = transform.rotate = tween.rotate = deg) }
 
-    update() {
+    update(arr) {
         let T = this.TRANSFORM, { transform, _transform, tween, timerX, timerY, timerR, timerSX, timerSY, timerA } = T, now = new Date().getTime();
         // 缩放
         if (transform.scaleX < tween.scaleX) {
@@ -112,5 +125,7 @@ import {tweens} from '../../utils/tweens.js'
             transform.alpha = tweens.run(now - timerA, _transform.alpha, tween.alpha - _transform.alpha, 2000)
             transform.alpha < tween.alpha && (_transform.alpha = transform.alpha = tween.alpha)
         }
+
+        super.update(arr)
     }
 }

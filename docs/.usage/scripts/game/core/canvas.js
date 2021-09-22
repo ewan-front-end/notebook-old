@@ -123,93 +123,39 @@ export default class Canvas {
        缩放 ctx.transform([a],b,c,[d],e,f)
                                    
     */
-    draw({ type, data, config }) {
-        console.log(type, data, config);
+
+
+    
+    draw({type, data}) {       
+        console.log('*****', data); 
         this.#context.beginPath()
-        if (config) {
-            if (config.save || config.clip) {
-                this.#context.save()
-            }
-        }
+        const {transform, config} = data
+        
+        if (config.save || config.clip) this.#context.save()
+        
         this['draw' + type] && this['draw' + type](data)
-        if (config) {
-            config.clip && this.#context.clip()
-            if (config.restore || config.unclip) {
-                this.#context.restore()
-            }
-        }
+
+        config.clip && this.#context.clip()
+        if (config.restore || config.unclip) this.#context.restore()
     }
-    drawSprite({ x, y, width, height, options, children, transform, config }) {
-        children = children || []
-        options = options || {}
+    
+    drawSprite({ x, y, opacity, width, height, transform, config }) {
+        const {save, restore, clip, unclip} = config
         let startX = 0, startY = 0
-
-        if (transform) {
-            let { translateX, translateY, scaleX, scaleY, skewX, skewY, rotate, alpha, origin } = transform, deg = Math.PI / 180, ctx = this.#context
-            let a = 1, d = 1, b = 0, c = 0, e = x, f = y
-
-            if (Object.prototype.toString.call(origin) === '[object Array]') { startX = -origin[0]; startY = -origin[1]; e += origin[0]; f += origin[1] }
-            if (Object.prototype.toString.call(origin) === '[object Number]') {
-                switch (origin) {
-                    case 2: startX = -width / 2; e += width / 2; break
-                    case 3: startX = -width; e += width; break
-                    case 4: startY = -height / 2; f += height / 2; break
-                    case 5: startX = -width / 2; startY = -height / 2; e += width / 2; f += height / 2; break
-                    case 6: startX = -width; startY = -height / 2; e += width; f += height / 2; break
-                    case 7: startY = -height; f += height; break
-                    case 8: startX = -width / 2; startY = -height; e += width / 2; f += height; break
-                    case 9: startX = -width; startY = -height; e += width; f += height; break
-                    default: startX = 0; startY = 0
-                }
-            }
-            ctx.save()
-            ctx.globalAlpha = alpha
-            if (rotate) { a = Math.cos(deg * rotate); d = Math.cos(deg * rotate); b = Math.sin(deg * rotate); c = -Math.sin(deg * rotate) }
-            if (scaleX) { a *= scaleX; c *= scaleX }
-            if (scaleY) { d *= scaleY; b *= scaleY }
-            if (skewX) { c += skewX }
-            if (skewY) { b += skewY }
-
-            if (translateX) { e += translateX }
-            if (translateY) { f += translateY }
-
-            ctx.transform(a, b, c, d, e, f)
-        }
-        children.forEach(({ type, data, parent, config }) => {
-            !data.options && (data.options = options)
-            let e = { type, data: { ...data }, parent, config }
-            if (startX || startY) {
-                if (e.type === 'Polygon') {
-                    e.data.points.forEach(point => {
-                        point[0] += startX
-                        point[1] += startY
-                    })
-                } else {
-                    e.data.x += startX
-                    e.data.y += startY
-                }
-            }
-
-            this.draw(e)
-        })
+        
+        this.#context.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
+        
+        
         transform && this.#context.restore()
-        if (config && config.showRange) {
-            let fillStyle = config.rangeColor || '#000'
-            this.draw({ type: 'Rect', data: { x: x - 2, y: y - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x + width / 2 - 2, y: y - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x + width - 2, y: y - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x - 2, y: y + height / 2 - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x + width / 2 - 2, y: y + height / 2 - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x + width - 2, y: y + height / 2 - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x - 2, y: y + height - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x + width / 2 - 2, y: y + height - 2, width: 4, height: 4, options: { fillStyle } } })
-            this.draw({ type: 'Rect', data: { x: x + width - 2, y: y + height - 2, width: 4, height: 4, options: { fillStyle } } })
-        }
+        
     }
     /**
      * drawRect(x, y, width, height, options)
      */
-    drawRect({ x, y, width, height, options }) {
+    drawRect({ x, y, opacity, width, height, options, transform }) {
+        let ctx = this.#context
+        console.log('=====',options);
+        ctx.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
         options = options || {}
         Object.assign(this.#context, options)
         this.#context.rect(x, y, width, height)

@@ -18,14 +18,14 @@ export default class ElementAll extends Element {
     setData(data){
         super.setData(data)
     } 
-    addChild(child) {
+    addChild(child) {        
         if (!(child instanceof Element)) return {state: 2, type: 1, message: '子元素非 Element 实例'}
         if (child.level <= this.level) return {state: 2, type: 2, message: '越权添加'}
         if (this.children.includes(child))  return {state: 1, type: 3, message: '重复添加'}        
         if (this.includeChild && !this.includeChild.includes(child.classType)) return {state: 2, type: 4, message: `允许添加 classType 属性为 ${this.includeChild.join('、')} 的元素`}
         if (this.excludeChild && this.excludeChild.includes(child.classType)) return {state: 2, type: 5, message: `禁止添加 classType 属性为 ${this.excludeChild.join('、')} 的元素`}        
         child.parent = this
-        this.children.push(child)      
+        this.children.push(child) 
         return {state: 0, type: 0, message: null}
     }
     appendTo(parent) {
