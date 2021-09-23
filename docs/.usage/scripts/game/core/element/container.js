@@ -7,13 +7,27 @@ import Element from "./element.js"
  * @method addChild 添加子元素
  * @method appendTo 添加到容器
  */
-export default class ElementAll extends Element {
-    constructor (type, level, classType, options = {}) {
-        super(type, level, classType)
+export default class Container extends Element {
+    constructor (type, level) {        
+        super(type, level, 'CLASS_CONTAINER')
+        // 专有属性
         this.children = []
-        if (options.includeChild && options.excludeChild) console.warn('includeChild 和 excludeChild 不要同时配置')
         options.includeChild && (this.includeChild = options.includeChild) // 作为容器接受子类类型 即child.classType
         options.excludeChild && (this.excludeChild = options.excludeChild) // 作为容器排除子类类型 即child.classType
+
+        this.backgroundColor = null
+        this.backgroundImage = null
+        if (options.backgroundImage) {
+            const bgc = new Rect(x, y, width, height, {fillStyle: options.backgroundColor})
+            this.addChild(bgc)
+            this.backgroundColor = bgc
+        }
+        if (options.backgroundImage) {
+            const img = options.backgroundImage
+            const bgi = new Imgicon(img, 0, 0, img.width, img.height, x, y, width, height)
+            this.addChild(bgi)
+            this.backgroundColor = bgi
+        }
     }
     setData(data){
         super.setData(data)
@@ -35,9 +49,6 @@ export default class ElementAll extends Element {
         this.children.push(child) 
         return {state: 0, type: 0, message: null}
     }
-    delChild(id){
-        this.children = this.children.filter(child => child.id !== id)
-    }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
         if (parent.level >= this.level) return {state: 2, type: 2, message: '越权添加'}
@@ -54,5 +65,13 @@ export default class ElementAll extends Element {
         this.parent = parent
         parent.children.push(this) 
         return {state: 0, type: 0, message: null}      
+    }
+    delChild(id){
+        this.children = this.children.filter(child => child.id !== id)
+    }
+    update(arr) {
+        this.backgroundColor && arr.push(backgroundColor)
+        this.backgroundImage && arr.push(this.backgroundImage)
+        this.children.forEach(child => {child.update(arr)})
     }
 }

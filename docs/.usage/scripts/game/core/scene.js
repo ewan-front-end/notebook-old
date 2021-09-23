@@ -1,10 +1,15 @@
-import ElementAll from './element/element-all.js'
+import Container from './element/container.js'
 
 /**
  * 场景元素
- * @extends ElementAll
+ * @extends Container
  * @constructor
- * @param {String} name 场景命名 可作访问场景的key值
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} width
+ * @param {Number} height
+ * @param {Number} options
+ *   backgroundColor:'#000'   
  * 
  * @method in 入场 
  * @method out 出场
@@ -12,11 +17,9 @@ import ElementAll from './element/element-all.js'
 const scenes = {
     length: 0
 }
-class Scene extends ElementAll {
-    constructor(name) {
-        super('SCENE', 1, 'CLASS_SCENE')
-        this.data.background_color = '#FFF' 
-        this.data.background_image = null
+class Scene extends Container {
+    constructor(name, x, y, width, height, options, config, transform) {
+        super({type: 'SCENE', level: 1}, {x, y, width, height, options, config, transform})
         if (name) {
             this.name = name
             if (scenes[name]) {
@@ -29,8 +32,7 @@ class Scene extends ElementAll {
         } else {
             scenes[scenes.length] = this
             scenes.length ++
-        }      
-                
+        }  
     }
     in() { }
     out() { }

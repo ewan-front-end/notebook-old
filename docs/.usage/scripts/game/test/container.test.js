@@ -6,7 +6,7 @@ var group = new Group('GROUP_1')
 var rect = new Rect('RECT_1')
 var circle = new Circle('CIRCLE_1')   
 
-console.error = function(){}
+//console.error = function(){}
         
 var expect = require('chai').expect 
 describe('容器类', function() {
@@ -49,9 +49,12 @@ describe('容器类', function() {
         it('layer添加stage 越权添加', function() {expect(layer.addChild(stage)).to.have.property('type', 2)})
         it('layer添加scene 越权添加', function() {expect(layer.addChild(scene)).to.have.property('type', 2)})
         it('layer添加layer 越权添加', function() {expect(layer.addChild(layer)).to.have.property('type', 2)})
-        it('layer添加group 成功', function() {expect(layer.addChild(group)).to.have.property('state', 0)})
-        it('layer添加rect 成功', function() {expect(layer.addChild(rect)).to.have.property('state', 0)})
-        it('layer添加circle 成功', function() {expect(layer.addChild(circle)).to.have.property('state', 0)})
+        it('layer添加group 子元素已添加过其它容器', function() {expect(layer.addChild(group)).to.have.property('type', 6)})
+        it('layer强行添加group 成功', function() {expect(layer.addChild(group,true)).to.have.property('state', 0)})
+        it('layer添加rect 子元素已添加过其它容器', function() {expect(layer.addChild(rect)).to.have.property('type', 6)})
+        it('layer强行添加rect 成功', function() {expect(layer.addChild(rect, true)).to.have.property('state', 0)})
+        it('layer添加circle 子元素已添加过其它容器', function() {expect(layer.addChild(circle)).to.have.property('type', 6)})
+        it('layer强行添加circle 成功', function() {expect(layer.addChild(circle, true)).to.have.property('state', 0)})
 
         it('layer添加到stage 指定添加类型之外', function() {expect(layer.appendTo(stage)).to.have.property('type', 4)})
         it('layer添加到scene 已经存在', function() {expect(layer.appendTo(scene)).to.have.property('type', 3)})
@@ -69,12 +72,15 @@ describe('容器类', function() {
         it('group添加scene 越权添加', function() {expect(group.addChild(scene)).to.have.property('type', 2)})
         it('group添加layer 越权添加', function() {expect(group.addChild(layer)).to.have.property('type', 2)})
         it('group添加group 越权添加', function() {expect(group.addChild(group)).to.have.property('type', 2)})
-        it('group添加rect 成功', function() {expect(group.addChild(rect)).to.have.property('state', 0)})
-        it('group添加circle 成功', function() {expect(group.addChild(circle)).to.have.property('state', 0)})
+        it('group添加rect 子元素已添加过其它容器', function() {expect(group.addChild(rect)).to.have.property('type', 6)})
+        it('group强行添加rect 成功', function() {expect(group.addChild(rect, true)).to.have.property('state', 0)})
+        it('group添加circle 子元素已添加过其它容器', function() {expect(group.addChild(circle)).to.have.property('type', 6)})
+        it('group强行添加circle 成功', function() {expect(group.addChild(circle, true)).to.have.property('state', 0)})
 
         it('group添加到stage 指定添加类型之外', function() {expect(group.appendTo(stage)).to.have.property('type', 4)})
-        it('group添加到scene 已经存在', function() {expect(group.appendTo(scene)).to.have.property('type', 3)})
+        it('group添加到scene 不能添加到第二个容器', function() {expect(group.appendTo(scene)).to.have.property('type', 6)})
         it('group添加到layer 已经存在', function() {expect(group.appendTo(layer)).to.have.property('type', 3)})
+        it('group强行添加到layer 已经存在', function() {expect(group.appendTo(layer, true)).to.have.property('type', 3)})
         it('group添加到group 越权添加', function() {expect(group.appendTo(group)).to.have.property('type', 2)})
         it('group添加到rect 越权添加', function() {expect(group.appendTo(rect)).to.have.property('type', 2)})
         it('group添加到circle 越权添加', function() {expect(group.appendTo(circle)).to.have.property('type', 2)})
@@ -85,8 +91,8 @@ describe('容器类', function() {
         it('rect实例有appendTo方法', function() {expect(rect.appendTo).to.exist})
 
         it('rect添加到stage 指定添加类型之外', function() {expect(rect.appendTo(stage)).to.have.property('type', 4)})
-        it('rect添加到scene 已经存在', function() {expect(rect.appendTo(scene)).to.have.property('type', 3)})
-        it('rect添加到layer 已经存在', function() {expect(rect.appendTo(layer)).to.have.property('type', 3)})
+        it('rect添加到scene 不能添加到第二个容器', function() {expect(rect.appendTo(scene)).to.have.property('type', 6)})
+        it('rect添加到layer 不能添加到第二个容器', function() {expect(rect.appendTo(layer)).to.have.property('type', 6)})
         it('rect添加到group 已经存在', function() {expect(rect.appendTo(group)).to.have.property('type', 3)})
         it('rect添加到rect 越权添加', function() {expect(rect.appendTo(rect)).to.have.property('type', 2)})
         it('rect添加到circle 越权添加', function() {expect(rect.appendTo(circle)).to.have.property('type', 2)})
@@ -97,8 +103,8 @@ describe('容器类', function() {
         it('circle实例有appendTo方法', function() {expect(circle.appendTo).to.exist})
 
         it('circle添加到stage 指定添加类型之外', function() {expect(circle.appendTo(stage)).to.have.property('type', 4)})
-        it('circle添加到scene 已经存在', function() {expect(circle.appendTo(scene)).to.have.property('type', 3)})
-        it('circle添加到layer 已经存在', function() {expect(circle.appendTo(layer)).to.have.property('type', 3)})
+        it('circle添加到scene 不能添加到第二个容器', function() {expect(circle.appendTo(scene)).to.have.property('type', 6)})
+        it('circle添加到layer 不能添加到第二个容器', function() {expect(circle.appendTo(layer)).to.have.property('type', 6)})
         it('circle添加到group 已经存在', function() {expect(circle.appendTo(group)).to.have.property('type', 3)})
         it('circle添加到rect 越权添加', function() {expect(circle.appendTo(rect)).to.have.property('type', 2)})
         it('circle添加到circle 越权添加', function() {expect(circle.appendTo(circle)).to.have.property('type', 2)})

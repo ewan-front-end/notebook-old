@@ -11,11 +11,16 @@ export default class Game{
     #currentSceneName = 'SCENE_DEFAULT' 
     constructor(canvas, width, height) {
         this.#canvas = new Canvas(canvas, width, height)
-        new Scene(this.#currentSceneName) 
+
+        // 默认场景
+        new Scene(0, 0, width, height, this.#currentSceneName, {
+            backgroundColor: '#f00',
+            backgroundImage: null
+        }) 
     }
     addChild(child) {
         
-        return scenes[this.#currentSceneName].addChild(child)
+        scenes[this.#currentSceneName].addChild(child)
         
     }
     update() {

@@ -1,4 +1,4 @@
-import ElementAppend from './element/element-append.js'
+import Shape from './element/shape.js'
 
 /**
  * 矩形
@@ -12,9 +12,11 @@ import ElementAppend from './element/element-append.js'
  * @param {Object} config 配置
  */
  export default class Rect extends ElementAppend {
-    constructor(x, y, width, height, options, config) {
+    constructor(x, y, width, height, options, config, transform) {
         super('Rect', 5, 'CLASS_SHAPE')
-        Object.assign(this.data, { x, y, width, height, options })
+        this.width = width || 0
+        this.height = height || 0
+        Object.assign(this.data, { x, y})
         this.config = config
     }
 }

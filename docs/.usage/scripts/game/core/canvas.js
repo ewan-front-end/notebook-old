@@ -13,6 +13,7 @@ export default class Canvas {
         if (canvas) {
             this.#canvas = canvas
             this.#context = canvas.getContext("2d")
+            console.log('CONTEXT', this.#context);
         }
         if (width && height) {
             this.#width = width
@@ -87,55 +88,60 @@ export default class Canvas {
         ctx.beginPath()
     }
     /* 
-      ▇▇▇▇▇▇▇▇▇▇▇▇▇ options ▇▇▇▇▇▇▇▇▇▇▇▇▇
-      ▯fillStyle                填充颜色、模式或渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
-      ▯strokeStyle              描边颜色、模式和渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
-      ▮lineCap                  线条末端形状：butt  round/square (平直/圆形/夌形)
-      ▮lineJoin                 线条连接形式：miter round/bevel
-      ▮miterLimit               当lineJoin 为miter时，这个属性指定斜连接长度和线条宽度的最大比率
-      ▮lineWidth                线条宽度：1.0 及大于0.0 线条在路径上居中 每边有线条宽的一半
-      ▯shadowBlur               指定羽化阴影的程度。默认值是 0
-      ▯shadowColor              把阴影颜色指定为CSS字符串或Web样式字符串，且可包含alpha部分来表示透明度。默认值是 black
-      ▯shadowOffsetX            指定阴影水平和垂直偏移。较大值使得阴影化对象漂浮在背景较高位置上。 默认值是 0
-      ▯shadowOffsetY  
-      ▮font
-      ▮textBaseline             文本基线：alphabetic top/middle/bottom/hanging/ideographic 普通的字母基线/em方框的顶端/em方框的正中/em方框的底端/悬挂基线/表意基线
-      ▮textAlign                文本对齐：start end/center/left/right
-      ▮maxWidth                 文本域宽
-      ▯globalAlpha              不透明度 1.0 及0.0-1.0
-      ▯globalCompositeOperation 新图像如何覆盖旧图像
-      ▇▇▇▇▇▇▇▇▇▇▇▇▇ config  ▇▇▇▇▇▇▇▇▇▇▇▇▇
-       save              缓存options
-       restore           释放缓存
-       beginPath         开启新路径
-       clip: true,       通过save/restore做到撤消的效果
-       showRange: true   显示范围
-       rangeColor:'#0f0' 范围颜色 默认黑色
-       ▇▇▇▇▇▇▇▇▇▇▇ transform ▇▇▇▇▇▇▇▇▇▇▇▇
-       rotate: 45
-       translate: [10, 10]
-       scale: [2, 1.5]
-       skew: [1, 1] [1=45度,直角锐角邻边与对边之比]
-       origin: 5    [1/2/3/4/5/6/7/8/9]
-  
-       位移 ctx.transform(a,b,c,d,[e],[f])
-       旋转 ctx.transform([a],[b],[c],[d],e,f)
-       缩放 ctx.transform([a],b,c,[d],e,f)
-                                   
+    ▇▇▇▇▇▇▇▇▇▇▇▇▇ options ▇▇▇▇▇▇▇▇▇▇▇▇▇
+    ▯fillStyle: "#000000"    ctx.fill()      填充颜色、模式或渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
+    ▯strokeStyle: "#000000"  ctx.stroke()    描边颜色、模式和渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
+    ▮lineCap: "butt"                         线条末端形状：butt  round/square (平直/圆形/夌形)
+    ▮lineJoin: "miter"                       线条连接形式：miter round/bevel
+    ▮miterLimit: 10                          当lineJoin 为miter时，这个属性指定斜连接长度和线条宽度的最大比率
+    ▮lineWidth: 1                            线条宽度：1.0 及大于0.0 线条在路径上居中 每边有线条宽的一半
+    ▯shadowBlur: 0                           指定羽化阴影的程度。默认值是 0
+    ▯shadowColor: "#f00"                     把阴影颜色指定为CSS字符串或Web样式字符串，且可包含alpha部分来表示透明度。默认值是 black
+    ▯shadowOffsetX: 0                        指定阴影水平和垂直偏移。较大值使得阴影化对象漂浮在背景较高位置上。 默认值是 0
+    ▯shadowOffsetY: 0
+    ▮font: "10px sans-serif"
+    ▮textBaseline: "alphabetic"              文本基线：alphabetic top/middle/bottom/hanging/ideographic 普通的字母基线/em方框的顶端/em方框的正中/em方框的底端/悬挂基线/表意基线
+    ▮textAlign: "start"                      文本对齐：start end/center/left/right
+    ▮direction: "ltr"                        绘制方向: ltr(left to right)
+    ▮maxWidth: 100                           文本域宽
+    ▯globalAlpha: 1                          不透明度 1.0 及0.0-1.0
+    ▯globalCompositeOperation: "source-over" 新图像如何覆盖旧图像    
+    ▮filter: "none"
+    ▮imageSmoothingEnabled: true
+    ▮imageSmoothingQuality: "low"
+    ▮lineDashOffset: 0
+    ▇▇▇▇▇▇▇▇▇▇▇▇▇ config  ▇▇▇▇▇▇▇▇▇▇▇▇▇
+    ▯save                      缓存options
+    ▯restore                   释放缓存
+    clip: true,                 通过save/restore做到撤消的效果
+    unclip: false, 
+    closePath: false            闭合路径
+    showRange: {color:'#000'}   显示范围
+    ▇▇▇▇▇▇▇▇▇▇▇ transform ▇▇▇▇▇▇▇▇▇▇▇▇
+    位移 ctx.transform(a,b,c,d,[e],[f])
+    旋转 ctx.transform([a],[b],[c],[d],e,f)
+    缩放 ctx.transform([a],b,c,[d],e,f)
+    斜切 ctx.transform(a,[b],[c],d,e,f)
+    rotate: 45
+    translate: [10, 10]
+    scale: [2, 1.5]
+    skew: [1, 1] [1=45度,直角锐角邻边与对边之比]
+    origin: 5    [1/2/3/4/5/6/7/8/9]
     */
-
-
-    
     draw({type, data}) {   
         this.#context.beginPath()
-        const {transform, config} = data
-        
-        if (config.save || config.clip) this.#context.save()
+        const {options, transform, config} = data
+        Object.assign(this.#context, options)
+
+        config.save || config.clip && this.#context.save()
         
         this['draw' + type] && this['draw' + type](data)
 
+        options.fillStyle && this.#context.fill()
+        options.strokeStyle && this.#context.stroke()
         config.clip && this.#context.clip()
-        if (config.restore || config.unclip) this.#context.restore()
+        config.closePath && this.#context.closePath()
+        config.restore || config.unclip && this.#context.restore()
     }
     
     drawSprite({ x, y, opacity, width, height, transform, config }) {
@@ -153,13 +159,10 @@ export default class Canvas {
      */
     drawRect({ x, y, opacity, width, height, options, transform }) {
         let ctx = this.#context
-        console.log('=====',options);
         ctx.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
         options = options || {}
-        Object.assign(this.#context, options)
+        
         this.#context.rect(x, y, width, height)
-        options.fillStyle && this.#context.fill()
-        options.strokeStyle && this.#context.stroke()
     }
     drawCircle({ x, y, r, options }) {
         options = options || {}

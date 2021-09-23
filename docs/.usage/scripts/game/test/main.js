@@ -6,11 +6,11 @@ const Layer = require('../core/layer').default
 const Group = require('../core/group').default
 const Rect = require('../core/rect').default
 const Circle = require('../core/circle').default
-const Game = require('../core/game').default
+//const Game = require('../core/game').default
 module.exports = {
     Element,
     Stage,
     Scene, scenes,
     Layer, Group, Rect, Circle,
-    Game
+    //Game
 }
