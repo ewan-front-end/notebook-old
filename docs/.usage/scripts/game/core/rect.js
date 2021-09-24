@@ -2,7 +2,7 @@ import Shape from './element/shape.js'
 
 /**
  * 矩形
- * @extends ElementAppend
+ * @extends Shape
  * @constructor
  * @param {Number} x 座标X
  * @param {Number} y 座标Y
@@ -11,7 +11,7 @@ import Shape from './element/shape.js'
  * @param {Object} options 选项
  * @param {Object} config 配置
  */
- export default class Rect extends ElementAppend {
+ export default class Rect extends Shape {
     constructor(x, y, width, height, options, config, transform) {
         super('Rect', 5, 'CLASS_SHAPE')
         this.width = width || 0

@@ -4,8 +4,29 @@
  * @param {String} 元素类型 参数说明
  */
 let elementsLen = 0 // 元素创建计数(id)
+const rate = Math.PI / 180
+const parseTransform = ({translateX = 0, translateY = 0, scaleX = 1, scaleY = 1, rotate = 0}) => [
+    1 * scaleX * Math.cos(rotate * rate) + 0 * scaleY * Math.sin(rotate * rate), 
+    0 * scaleX * Math.cos(rotate * rate) + 1 * scaleY * Math.sin(rotate * rate),  
+    0 * scaleY * Math.cos(rotate * rate) - (1 * scaleX * Math.cos(rotate * rate) + 0 * scaleY * Math.sin(rotate * rate)) * Math.sin(rotate * rate), 
+    1 * scaleY * Math.cos(rotate * rate) - (0 * scaleX * Math.cos(rotate * rate) + 1 * scaleY * Math.sin(rotate * rate)) * Math.sin(rotate * rate), 
+    0 + 1 * translateX + 0 * translateY,
+    0 + 0 * translateX + 1 * translateY
+]
+const computed = (e, p, t) => {
+    let res
+    if (t === 'ADD') {
+        res = 0
+        e.parent && (res += computed(e.parent, p, t))
+    } else {
+        res = 1
+        e.parent && (res *= computed(e.parent, p))
+    }
+    return res
+}
+    
 export default class Element {
-    constructor(type, level, classType, x, y, width, height, options, config, transform) {
+    constructor(type, level, classType, x = 0, y = 0, width = 0, height = 0, options = null, config = null, transform = {}) {
         // 元素信息
         this.parent = null           // 数据链、单一容器、
         this.type = type             // 元素类型识别
@@ -13,46 +34,50 @@ export default class Element {
         this.classType = classType,  // 被父容器审查的添加依据
         this.id = classType + '_' + type + '_' + elementsLen
         // 基础属性
-        this.x = x || 0
-        this.y = y || 0
-        this.width = width || 0
-        this.height = height || 0
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+        this.opacity = 1
         // 输出
-        this.data = null    // {x, y, width, height}
-        this.options = options || null // {fillStyle, strokeStyle}
-        this.config = config || null  // {save, restore, clip, unclip, closePath, showRange}
-        this.transform = {a: 1, d: 1, b: 0, c: 0, e: 0, f: 0}
+        this.data = {x, y, width, height}
+        this.options = options // {fillStyle, strokeStyle}
+        this.config = config  // {save, restore, clip, unclip, closePath, showRange}
+        this.transform = parseTransform(transform)
 
         elementsLen++
-        //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
-    }    
-    
-    rotate(v) {Object.assign(this.data.transform, {a: Math.cos(0.01745 * v), d: Math.cos(0.01745 * v), b: Math.sin(0.01745 * v), c: -Math.sin(0.01745 * v)})}    
-    translate(x, y) {
-        x && (this.transform.e = x)
-        y && (this.transform.f = y)
-    }
-    scale(x, y) {
-        if (x) {
-            this.transform.a *= x
-            this.transform.c *= x
-        } 
-        if (y) {
-            this.transform.d *= y
-            this.transform.b *= y
+
+        if (options) {
+            this.opacity = this.data.opacity = options.globalAlpha || 1
         }
+        //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
-    skew(x, y) {
-        x && (this.transform.c = x)
-        y && (this.transform.b = y)
+    rotate(deg = 0) {
+        const t = this.transform, cos = Math.cos(deg), sin = Math.sin(deg)        
+        t[0] = t[0] * cos + t[2] * sin
+        t[1] = t[1] * cos + t[3] * sin
+        t[2] = t[2] * cos - t[0] * sin
+        t[3] = t[3] * cos - t[1] * sin        
+    }    
+    translate(x = 0, y = 0) {
+        const t = this.transform
+        t[4] += t[0] * x + t[2] * y
+        t[5] += t[1] * x + t[3] * y
     }
-    alpha(opacity) {this.data.opacity = opacity}
-    update(arr) {
-        const {type, data, options, transform, config} = this
-        // todo 输出过滤
-        this.backgroundColor && arr.push(backgroundColor)
-        this.backgroundImage && arr.push(this.backgroundImage)
-        this.classType === 'CLASS_SHAPE' && arr.push({type, data, options, transform, config})
-        this.children && this.children.forEach(child => {child.update(arr)})
+    scale(x = 1, y = 1) {
+        const t = this.transform
+        t[0] *= x
+        t[1] *= x
+        t[2] *= y
+        t[3] *= y
+    }
+    skew(x = 0, y = 0) {
+        const t = this.transform
+        t[2] = x
+        t[1] = y
+    }
+    alpha(opacity) {
+        this.opacity = opacity
+        this.data.opacity = opacity * computed(this, 'opacity')
     }
 }

@@ -12,8 +12,8 @@ import Element from "./element.js"
  * @param {Object} config 配置
  */
  export default class Shape extends Element {
-    constructor(x, y, width, height, options, config, transform) {
-        super('Shape', 5, 'CLASS_SHAPE', x, y, width, height, options, config, transform)
+    constructor(type, x, y, width, height, options, config, transform) {
+        super(type, 5, 'CLASS_SHAPE', x, y, width, height, options, config, transform)
         Object.assign(this.data, { x, y, width, height, options })
     }
     appendTo(parent, forced) {
