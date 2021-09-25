@@ -26,30 +26,24 @@ const computed = (e, p, t) => {
 }
     
 export default class Element {
-    constructor(type, level, classType, x = 0, y = 0, width = 0, height = 0, options = null, config = null, transform = {}) {
+    constructor(type, level, classType, assignment, config, transform) {
         // 元素信息
         this.parent = null           // 数据链、单一容器、
         this.type = type             // 元素类型识别
         this.level = level           // 层级包含关系        
         this.classType = classType,  // 被父容器审查的添加依据
         this.id = classType + '_' + type + '_' + elementsLen
-        // 基础属性
-        this.x = x
-        this.y = y
-        this.width = width
-        this.height = height
-        this.opacity = 1
-        // 输出
-        this.data = {x, y, width, height}
-        this.options = options // {fillStyle, strokeStyle}
-        this.config = config  // {save, restore, clip, unclip, closePath, showRange}
-        this.transform = parseTransform(transform)
+
+        // 基础属性:x, y, width, height, opacity
+
+        // 输出:
+        // data = {x, y, width, height}
+        assignment && (this.assignment = assignment) // {fillStyle, strokeStyle, globalAlpha}
+        config && (this.config = config) // {save, restore, clip, unclip, closePath, showRange}
+        transform && (this.transform = parseTransform(transform)) // [1, 0, 0, 1, 0, 0]
 
         elementsLen++
-
-        if (options) {
-            this.opacity = this.data.opacity = options.globalAlpha || 1
-        }
+        
         //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
     rotate(deg = 0) {

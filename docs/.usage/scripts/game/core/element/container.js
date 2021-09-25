@@ -1,4 +1,5 @@
 import Element from "./element.js"
+import Rect from "../rect.js"
 
 /**
  * Element元素装饰
@@ -9,25 +10,9 @@ import Element from "./element.js"
  */
 export default class Container extends Element {
     constructor (type, level) {        
-        super(type, level, 'CLASS_CONTAINER')
-        // 专有属性
-        this.children = []
-        options.includeChild && (this.includeChild = options.includeChild) // 作为容器接受子类类型 即child.classType
-        options.excludeChild && (this.excludeChild = options.excludeChild) // 作为容器排除子类类型 即child.classType
-
-        this.backgroundColor = null
-        this.backgroundImage = null
-        if (options.backgroundImage) {
-            const bgc = new Rect(x, y, width, height, {fillStyle: options.backgroundColor})
-            this.addChild(bgc)
-            this.backgroundColor = bgc
-        }
-        if (options.backgroundImage) {
-            const img = options.backgroundImage
-            const bgi = new Imgicon(img, 0, 0, img.width, img.height, x, y, width, height)
-            this.addChild(bgi)
-            this.backgroundColor = bgi
-        }
+        super(type, level, 'CLASS_CONTAINER', null, null, null)
+        // 输出:
+        this.data =  this.assignment = this.config = this.transform = null
     }
     setData(data){
         super.setData(data)

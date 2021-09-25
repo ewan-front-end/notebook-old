@@ -88,7 +88,7 @@ export default class Canvas {
         ctx.beginPath()
     }
     /* 
-    ▇▇▇▇▇▇▇▇▇▇▇▇▇ options ▇▇▇▇▇▇▇▇▇▇▇▇▇
+    ▇▇▇▇▇▇▇▇▇▇▇▇▇ assignment ▇▇▇▇▇▇▇▇▇▇▇▇▇
     ▯fillStyle: "#000000"    ctx.fill()      填充颜色、模式或渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
     ▯strokeStyle: "#000000"  ctx.stroke()    描边颜色、模式和渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
     ▮lineCap: "butt"                         线条末端形状：butt  round/square (平直/圆形/夌形)

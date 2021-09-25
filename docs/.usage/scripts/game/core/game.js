@@ -13,7 +13,7 @@ export default class Game{
         this.#canvas = new Canvas(canvas, width, height)
 
         // 默认场景
-        new Scene(0, 0, width, height, this.#currentSceneName, {
+        new Scene(0, 0, width, height, {
             backgroundColor: '#f00',
             backgroundImage: null
         }) 
