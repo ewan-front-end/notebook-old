@@ -16,8 +16,8 @@ import {tweens} from '../../utils/tweens.js'
  export default class Sprite extends Container {
     constructor(x, y, width, height, options, config) {
         super('Sprite', 4, 'CLASS_SPRITE')
-        Object.assign(this.data, {x, y, width, height})
-        options && Object.assign(this.data, options)
+        Object.assign(this, {x, y, width, height})
+        options && Object.assign(this, options)
          
         this.tweenTranslate = {time: null, x: 0, y: 0, initX: null, initY: null}
         this.tweenScale = {time: null, x: 0, y: 0, initX: null, initY: null}

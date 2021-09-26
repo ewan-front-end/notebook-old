@@ -21,9 +21,9 @@
     // 舞台&设施
     let canvas = document.getElementById("myCanvas")
     
-    var layer = new Layer('LAYER_1')
+    var layer = new Layer(0, 0, 100, 100)
     var group = new Group('GROUP_1')
-    var rect = new Rect(10, 10, 100, 50, {fillStyle: '#f00', opacity: 0.5})
+    var rect = new Rect(10, 10, 100, 50, {}, {fillStyle: '#f00', globalAlpha: 0.5})
     var circle = new Circle('CIRCLE_1')
     var sprite = new Sprite(100, 200, 200, 100, {fillStyle:'#0f0'})
     
@@ -32,7 +32,7 @@
     // rect.rotate(45)
     // rect.scale(3, 3)
     rect.skew(0.5)
-    rect.alpha(0.5)
+    //rect.alpha(0.5)
     
     
     let game = new Game(canvas, 1000, 400)

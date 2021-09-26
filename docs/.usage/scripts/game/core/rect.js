@@ -12,11 +12,10 @@ import Shape from './element/shape.js'
  * @param {Object} config 配置
  */
  export default class Rect extends Shape {
-    constructor(x, y, width, height, options, config, transform) {
-        super('Rect', 5, 'CLASS_SHAPE')
-        this.width = width || 0
-        this.height = height || 0
-        Object.assign(this.data, { x, y})
-        this.config = config
+    constructor(x, y, width, height, options = {}, assignment, config, transform) {
+        super('Rect', assignment, config, transform)
+        // 基础属性
+        Object.assign(this, {x, y, width, height})
+        Object.assign(this, options)
     }
 }

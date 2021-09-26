@@ -8,19 +8,19 @@ import { Scene, scenes } from "./scene.js";
 export default class Game{
     #canvas = null  
     #scenes = scenes
-    #currentSceneName = 'SCENE_DEFAULT' 
+    #currentSceneId = '' 
     constructor(canvas, width, height) {
         this.#canvas = new Canvas(canvas, width, height)
 
         // 默认场景
-        new Scene(0, 0, width, height, {
+        const defaultScene = new Scene(0, 0, width, height, {
             backgroundColor: '#f00',
             backgroundImage: null
         }) 
+        this.#currentSceneId = defaultScene.id
     }
     addChild(child) {
-        
-        scenes[this.#currentSceneName].addChild(child)
+        scenes[this.#currentSceneId].addChild(child)
         
     }
     update() {

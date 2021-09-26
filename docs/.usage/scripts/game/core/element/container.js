@@ -10,9 +10,8 @@ import Rect from "../rect.js"
  */
 export default class Container extends Element {
     constructor (type, level) {        
-        super(type, level, 'CLASS_CONTAINER', null, null, null)
-        // 输出:
-        this.data =  this.assignment = this.config = this.transform = null
+        super(type, level, 'CLASS_CONTAINER')
+        this.children = []
     }
     setData(data){
         super.setData(data)
@@ -32,6 +31,7 @@ export default class Container extends Element {
         }  
         child.parent = this
         this.children.push(child) 
+        child.classType === 'CLASS_SHAPE' && child.setData()
         return {state: 0, type: 0, message: null}
     }
     appendTo(parent, forced) {
@@ -55,8 +55,7 @@ export default class Container extends Element {
         this.children = this.children.filter(child => child.id !== id)
     }
     update(arr) {
-        this.backgroundColor && arr.push(backgroundColor)
-        this.backgroundImage && arr.push(this.backgroundImage)
+        //super.update(arr)
         this.children.forEach(child => {child.update(arr)})
     }
 }

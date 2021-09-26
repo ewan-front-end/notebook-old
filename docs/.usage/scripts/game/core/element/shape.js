@@ -12,9 +12,8 @@ import Element from "./element.js"
  * @param {Object} config 配置
  */
  export default class Shape extends Element {
-    constructor(type, x, y, width, height, options, config, transform) {
-        super(type, 5, 'CLASS_SHAPE', x, y, width, height, options, config, transform)
-        Object.assign(this.data, { x, y, width, height, options })
+    constructor(type, assignment, config, transform) {
+        super(type, 5, 'CLASS_SHAPE', assignment, config, transform)
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
@@ -31,13 +30,11 @@ import Element from "./element.js"
         } 
         this.parent = parent
         parent.children.push(this) 
+        this.setData()
         return {state: 0, type: 0, message: null}      
     }
     update(arr) {
-        const {type, data, options, transform, config} = this
-        
-        this.classType === 'CLASS_SHAPE' && arr.push({type, data, options, transform, config})
-        children.forEach(child => {child.update(arr)})
+        super.update(arr)
     }
 }
 

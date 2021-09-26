@@ -1,4 +1,5 @@
 import Container from './element/container.js'
+import Rect from './rect.js'
 
 /**
  * 场景元素
@@ -18,25 +19,21 @@ const scenes = {
     length: 0
 }
 class Scene extends Container {
-    constructor(x, y, width, height, {
-        opacity = 1, 
-        includeChild = null, 
-        excludeChild = null, 
-        backgroundColor = null, 
-        backgroundImage = null
-    }) {
+    constructor(x, y, width, height, options = {}) {
         super('SCENE', 1)
+        const {opacity = 1, includeChild = null, excludeChild = null, backgroundColor = null, backgroundImage = null} = options
+
         // 基础属性
         Object.assign(this, {x, y, width, height, opacity})
+        
         // 专有属性
-        this.children = []
         this.includeChild = includeChild 
         this.excludeChild = excludeChild
 
         if (backgroundColor) this.children.push(new Rect(x, y, width, height, {fillStyle: backgroundColor}))
         if (backgroundImage) this.children.push(new Imgicon(backgroundImage, 0, 0, img.width, img.height, x, y, width, height))
         
-        scenes[scenes.length] = scenes[scenes.id] = this        
+        scenes[scenes.length] = scenes[this.id] = this  
         scenes.length ++         
     }
     in() { }

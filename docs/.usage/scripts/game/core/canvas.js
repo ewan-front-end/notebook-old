@@ -128,17 +128,17 @@ export default class Canvas {
     skew: [1, 1] [1=45度,直角锐角邻边与对边之比]
     origin: 5    [1/2/3/4/5/6/7/8/9]
     */
-    draw({type, data}) {   
+    draw({type, data, assignment, config, transform}) {   
         this.#context.beginPath()
-        const {options, transform, config} = data
-        Object.assign(this.#context, options)
+        
+        Object.assign(this.#context, assignment)
 
         config.save || config.clip && this.#context.save()
         
-        this['draw' + type] && this['draw' + type](data)
+        this['draw' + type] && this['draw' + type](data, transform)
 
-        options.fillStyle && this.#context.fill()
-        options.strokeStyle && this.#context.stroke()
+        assignment.fillStyle && this.#context.fill()
+        assignment.strokeStyle && this.#context.stroke()
         config.clip && this.#context.clip()
         config.closePath && this.#context.closePath()
         config.restore || config.unclip && this.#context.restore()
@@ -157,10 +157,10 @@ export default class Canvas {
     /**
      * drawRect(x, y, width, height, options)
      */
-    drawRect({ x, y, opacity, width, height, options, transform }) {
+    drawRect({ x, y, opacity, width, height }, transform) {
         let ctx = this.#context
-        ctx.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
-        options = options || {}
+        ctx.transform(...transform)
+        
         
         this.#context.rect(x, y, width, height)
     }
