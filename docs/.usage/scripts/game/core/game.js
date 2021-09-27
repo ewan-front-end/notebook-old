@@ -12,11 +12,11 @@ export default class Game{
     constructor(canvas, width, height) {
         this.#canvas = new Canvas(canvas, width, height)
 
+        // 舞台
+        this.stage = new Stage()
+
         // 默认场景
-        const defaultScene = new Scene(0, 0, width, height, {
-            backgroundColor: '#f00',
-            backgroundImage: null
-        }) 
+        const defaultScene = new Scene() 
         this.#currentSceneId = defaultScene.id
     }
     addChild(child) {

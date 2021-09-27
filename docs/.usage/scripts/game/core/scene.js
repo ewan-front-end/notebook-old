@@ -19,7 +19,7 @@ const scenes = {
     length: 0
 }
 class Scene extends Container {
-    constructor(x, y, width, height, options = {}) {
+    constructor(x = 0, y = 0, width = 0, height = 0, options = {}) {
         super('SCENE', 1)
         const {opacity = 1, includeChild = null, excludeChild = null, backgroundColor = null, backgroundImage = null} = options
 
