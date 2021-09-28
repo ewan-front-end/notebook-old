@@ -1,5 +1,26 @@
 # Android开发环境搭建
 
+1. https://developer.android.com/studio?gclid=EAIaIQobChMIj9Hivamh8wIVBQyRCh1aXwdOEAAYASAAEgJyDPD_BwE&gclsrc=aw.ds  [Download Android Studio] > 
+
+2. shell安装(Cordova)
+- 依赖node/git
+- npm install -g cordova
+
+3. 创建App
+    cordova> cordova create demo com.example.hello HelloWorld
+
+
+
+
+
+
+
+
+
+
+
+
+
 JDK安装包 | Android SDK
 Eclipse 或 Android Studio
 

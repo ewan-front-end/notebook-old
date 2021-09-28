@@ -33,24 +33,7 @@ export default class Container extends Element {
         this.children.push(child) 
         child.classType === 'CLASS_SHAPE' && child.setData()
         return {state: 0, type: 0, message: null}
-    }
-    appendTo(parent, forced) {
-        if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
-        if (parent.level >= this.level) return {state: 2, type: 2, message: '越权添加'}
-        if (parent.children.includes(this)) return {state: 1, type: 3, message: '已经存在'}        
-        if (parent.includeChild && !parent.includeChild.includes(this.classType)) return {state: 2, type: 4, message: `目标元素允许添加 classType 属性为 ${parent.includeChild.join('、')} 的元素`}
-        if (parent.excludeChild && parent.excludeChild.includes(this.classType)) return {state: 2, type: 5, message: `目标元素禁止添加 classType 属性为 ${parent.excludeChild.join('、')} 的元素`}
-        if (this.parent) {
-            if (forced) {
-                this.parent.delChild(this.id)
-            } else {
-                return {state: 1, type: 6, message: '不能添加到第二个容器'}
-            }
-        } 
-        this.parent = parent
-        parent.children.push(this) 
-        return {state: 0, type: 0, message: null}      
-    }
+    }    
     delChild(id){
         this.children = this.children.filter(child => child.id !== id)
     }
