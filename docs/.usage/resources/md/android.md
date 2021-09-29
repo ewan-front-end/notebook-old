@@ -1,20 +1,79 @@
+
+
 # Android开发环境搭建
+1. https://developer.android.com/studio?gclid=EAIaIQobChMIj9Hivamh8wIVBQyRCh1aXwdOEAAYASAAEgJyDPD_BwE&gclsrc=aw.ds  
+    - [Download Android Studio] > 
+    - android-studio-2020.3.1.24-windows.exe   
 
-1. https://developer.android.com/studio?gclid=EAIaIQobChMIj9Hivamh8wIVBQyRCh1aXwdOEAAYASAAEgJyDPD_BwE&gclsrc=aw.ds  [Download Android Studio] > 
+2. 安装 Android SDK
+    Android Studio 默认会安装最新版本的 Android SDK。目前需要的是Android 10 (Q)版本的 SDK
 
-2. shell安装(Cordova)
-- 依赖node/git
-- npm install -g cordova
+    Android Studio > Tools > SDK Manager > SDK Platforms > 
 
-3. 创建App
-    cordova> cordova create demo com.example.hello HelloWorld
+    右下角勾选"Show Package Details"
+    展开Android 10 (Q)选项 确保勾选了下面这些组件（使用稳定的代理软件，否则可能都看不到这个界面）：
+    - Android SDK Platform 29
+    - Intel x86 Atom_64 System Image（官方模拟器镜像文件，使用非官方模拟器不需要安装此组件
+
+    > Apply 下载和安装选取的组件
+
+    配置 ANDROID_HOME 环境变量
+        ANDROID_HOME: ...
+    把一些工具目录添加到环境变量 Path
+        %ANDROID_HOME%\platform-tools
+        %ANDROID_HOME%\emulator
+        %ANDROID_HOME%\tools
+        %ANDROID_HOME%\tools\bin
 
 
 
 
 
+2. 创建JS/HTMLCordova应用
+    - 安装Cordova(依赖node/git) `$ npm install -g cordova`
+    - cordova> cordova create demo com.example.hello HelloWorld
+        项目开始页面: www/index.html
+        项目初始化: www/js/index.js 中 deviceready 事件
 
+3. 添加平台
+    cordova> cd demo
+    demo> cordova platform add ios --save
+    demo> cordova platform add android --save
+    demo> cordova platform add browser --save
 
+    demo> cordova platform ls  // 检查你当前平台设置状况
+        已安装平台:
+          android 9.1.0
+          ios 6.2.0
+        可用的平台:
+          browser ^6.0.0
+          electron ^1.0.0
+          windows ^7.0.0
+
+    demo> cordova requirements // 检测你是否满足构建平台的要求
+
+4. 启动/构建/测试APP
+    demo> cordova run browser     // 启动 
+    demo> cordova build           // 构建所有添加的平台
+    demo> cordova build ios    
+
+5. 移动平台环境搭建
+    JDK 1.8.x  
+        https://www.oracle.com/java/technologies/downloads/#java8-windows  jdk-8u301-windows-x64.exe  或
+        https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot      OpenJDK8U-jdk_x64_windows_hotspot_8u302b08.msi
+        环境变量 JAVA_HOME  C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot
+        检测 $ jave -version
+
+    Android软件开发工具包(SDK)
+        环境变量 ANDROID_HOME tools(可选) platform-tools(可选)
+
+    Gradle https://gradle.org/install/  gradle-6.9.1-bin.zip
+    windows: https://gradle.org/install/
+    
+    demo> cordova emulate android // 模拟器启动APP
+    demo> cordova run android     // 手机插入电脑 真机上测试APP
+
+6. 添加API级别的SDK包
 
 
 
