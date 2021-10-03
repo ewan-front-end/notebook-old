@@ -33,9 +33,6 @@ import Element from "./element.js"
         this.setData()
         return {state: 0, type: 0, message: null}      
     }
-    update(arr) {
-        super.update(arr)
-    }
 }
 
 

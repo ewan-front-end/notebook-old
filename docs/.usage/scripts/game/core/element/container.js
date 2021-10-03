@@ -67,8 +67,8 @@ export default class Container extends Element {
         let id = typeof child === 'string' ? child : child.id
         this.children = this.children.filter(child => child.id !== id)
     }
-    update(arr) {
+    update(draw) {
         //super.update(arr)
-        this.children.forEach(child => {child.update(arr)})
+        this.children.forEach(child => {child.update(draw)})
     }
 }

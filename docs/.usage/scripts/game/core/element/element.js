@@ -52,7 +52,6 @@ export default class Element {
         //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
     setData() {
-        console.log(this.type);
         const x = computedProperty(this, 'x', 'ADD')
         const y = computedProperty(this, 'y', 'ADD')
         Object.assign(this.data, {x, y, width: this.width, height: this.height})
@@ -104,9 +103,8 @@ export default class Element {
         this.opacity = opacity
         this.assignment.globalAlpha = computedProperty(this, 'opacity')
     }
-    update(arr) {
+    update(draw) {
         const {type, data, assignment, transform, config} = this
-        console.log('*****', data);
-        arr.push({type, data, assignment, transform, config})
+        draw({type, data, assignment, transform, config})
     }
 }

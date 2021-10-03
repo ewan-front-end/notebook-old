@@ -23,10 +23,11 @@ const setCanvas = (o, {canvas, width, height, styleWidth, styleHeight}) => {
 export default class Canvas {
     constructor(options) {
         setCanvas(this, options)
+        this.draw = this.draw.bind(this)
     }
     set(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
-    draw({type, data, assignment, config, transform}) {   
+    draw({type, data, assignment, config, transform}) {
         let ctx = this.context
         ctx.beginPath()
         

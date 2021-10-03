@@ -19,13 +19,6 @@ export default class Game{
         this.defaultScene.addChild(child)
     }
     update() {
-        const arr = [], stage = this.stage
-        this.defaultScene.update(arr)
-        console.log('当前场景：', this.defaultScene);
-        console.log('arr',arr);
-        arr.forEach(e => {
-            stage.draw(e)
-        })
-        
+        this.defaultScene.update(this.stage.draw)
     }
 }
