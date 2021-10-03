@@ -1,27 +1,31 @@
 import Stage from "./stage.js";
-import { scenes } from "./scene.js";
-
-const currentScene = id => id ? scenes[id] : scenes[stageCurrentSceneID]
-
+import { Scene, scenes } from "./scene.js";
 
 /**
  * 游戏类
  * @constructor
  * @param {参数类型} 参数名 参数说明
  */
-export default class Game{
-    #currentAddElement
-    constructor(canvas, width, height) {
-        // 舞台
-        this.stage = new Stage(canvas, width, height)
+export default class Game{    
+    constructor(options = {}) {
+        const {canvas, width, height} = options
+        // 舞台        
+        this.stage = new Stage({canvas, width, height})
+        // 默认场景
+        this.defaultScene = new Scene(0, 0, width, height)
         
     }
-    add(element) { 
-        this.#currentAddElement = element
-        return this 
+    addChild(child) {
+        this.defaultScene.addChild(child)
     }
-    to(parent) {this.#currentAddElement.appendTo(parent)}
     update() {
-        this.stage.update()
+        const arr = [], stage = this.stage
+        this.defaultScene.update(arr)
+        console.log('当前场景：', this.defaultScene);
+        console.log('arr',arr);
+        arr.forEach(e => {
+            stage.draw(e)
+        })
+        
     }
 }

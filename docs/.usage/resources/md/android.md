@@ -13,6 +13,7 @@
     检测 $ jave -version
 
 3. Android SDK
+
     Android Sdk
     ├ build-tools
     ├ emulator
@@ -36,8 +37,7 @@
     方法一: 手动下载安装 
         百度：Software/android/SDK/SDK.zip 下载解压到任何位置如：D:\AndroidSDK
         百度：Software/android/模拟器/x86-30_r09-windows.zip 下载解压 x86 文件夹拷贝到 D:\AndroidSDK\system-images\android-30\
-        环境变量 ANDROID_HOME  D:\AndroidSDK     
-        ？？ANDROID_SDK_ROOT  D:\AndroidSDK   
+        环境变量 ANDROID_HOME  D:\AndroidSDK 
 
     方法二: AndroidStudio里SDK Manager安装
         Android Studio > Tools > SDK Manager > SDK Platforms > 【如下】 > Apply
@@ -47,15 +47,15 @@
         - Android SDK Platform 29
         - Intel x86 Atom_64 System Image (官方模拟器镜像文件，使用非官方模拟器不需要安装此组件)
 
-        配置 ANDROID_HOME 环境变量       配置 Path 环境变量                   ANDROID_SDK_ROOT C:\Users\new\AppData\Local\Android\Sdk      %ANDROID_SDK_ROOT%\tools\bin
-                                        %ANDROID_HOME%\platform-tools
-                                        %ANDROID_HOME%\emulator
-                                        %ANDROID_HOME%\tools
-                                        %ANDROID_HOME%\tools\bin
+        配置 ANDROID_HOME 环境变量                   配置 Path 环境变量                   ANDROID_SDK_ROOT C:\Users\new\AppData\Local\Android\Sdk      %ANDROID_SDK_ROOT%\tools\bin
+                                                    %ANDROID_HOME%\platform-tools
+                                                    %ANDROID_HOME%\emulator
+                                                    %ANDROID_HOME%\tools
+                                                    %ANDROID_HOME%\tools\bin
         更换完 ANDROID_HOME 环境变量要重新添加平台
         cordova platform remove android
 
-    Could not determine the dependencies of task ':app:compileDebugJavaWithJavac'.
+    Error: Could not determine the dependencies of task ':app:compileDebugJavaWithJavac'.
     > Installed Build Tools revision 31.0.0 is corrupted. Remove and install again using the SDK Manager. // 31版本构建工具已损坏
     原因：SDK构建工具31中缺少的两个文件：dx.bat、dx.jar
     解决：
@@ -68,13 +68,13 @@
         会自动安装到：C:\Users\xxx\AppData\Local\Android\Sdk\system-images\android-30\google_apis_playstore\
     手动安装：
         如下载：https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86-30_r09-windows.zip
-        x86-30_r09-windows.zip 解压 x86-30_r09-windows\x86 拷贝到 D:\AndroidSDK\system-images\android-30\google_apis_playstore\
+        x86-30_r09-windows.zip 解压 x86 拷贝到 D:\AndroidSDK\system-images\android-30\google_apis_playstore\
+
         如下载：百度/Software/android/模拟器/x86_64-29_r08-windows.zip
         解压 x86_64 拷贝到 D:\AndroidSDK\system-images\android-29\default\
-        如下载：百度/Software/android/模拟器/x86-30_r10.zip
-        解压x86 拷贝到 D:\AndroidSDK\system-images\android-30\google_apis\
 
-    
+        如下载：百度/Software/android/模拟器/x86-30_r10.zip  
+        解压x86 拷贝到 D:\AndroidSDK\system-images\android-30\google_apis\
 
 
 # 创建JS/HTMLCordova应用
@@ -102,7 +102,7 @@
 
     - 启动/构建/测试APP
         demo> cordova run browser     // 启动 
-        demo> cordova build           // 构建所有添加的平台
+        demo> cordova build           // 构建所有添加的平台 build包含同步(prepare)动作和打包(compile)动作
         demo> cordova build ios   
 
     - 移动平台环境搭建
@@ -113,10 +113,20 @@
         环境变量：Path编辑添加 D:\xxx\gradle-6.9.1-bin\gradle-6.9.1\bin
         重启电脑
        
-        demo> cordova requirements // 检测你是否满足构建平台的要求
+        demo> cordova requirements    // 检测你是否满足构建平台的要求
         demo> cordova emulate android // 模拟器启动APP
-        demo> cordova run android     // 手机插入电脑 真机上测试APP
+        demo> cordova run android     // 真机上测试APP
 
+    - 调试
+        chrome://inspect/#devices
+
+    - 同步公共(/www)代码到平台
+        demo> cordova prepare android
+        demo> cordova prepare ios
+
+    - 编译打包到平台
+        demo> cordova compile android
+        demo> cordova prepare ios
 
 
 

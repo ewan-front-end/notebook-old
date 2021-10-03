@@ -19,7 +19,6 @@
     import Sprite from './core/sprite.js'
 
     // 舞台&设施
-    let canvas = document.getElementById("myCanvas")
     
     var layer = new Layer(0, 0, 100, 100)
     var group = new Group('GROUP_1')
@@ -35,7 +34,11 @@
     //rect.alpha(0.5)
     
     
-    let game = new Game(canvas, 1000, 400)
+    let game = new Game({
+        canvas: document.getElementById("myCanvas"), 
+        width: 800, 
+        height: 500
+    })
     game.addChild(layer)
     game.addChild(group)
     game.addChild(rect)
