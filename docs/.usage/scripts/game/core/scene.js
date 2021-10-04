@@ -31,9 +31,9 @@ class Scene extends Container {
         this.includeChild = includeChild 
         this.excludeChild = excludeChild
 
-        if (backgroundColor) this.children.push(new Rect(x, y, width, height, {fillStyle: backgroundColor}))
+        if (backgroundColor) this.addChild(new Rect(0, 0, 800, 500, {}, {fillStyle: backgroundColor}))
         
-        if (backgroundImage) this.children.push(new Imgicon(backgroundImage, 0, 0, this.width, this.height, x, y, width, height))
+        if (backgroundImage) this.addChild(new Imgicon(backgroundImage, 0, 0, this.width, this.height, x, y, width, height))
         
         scenes[scenes.length] = scenes[this.id] = this  
         scenes.length ++         

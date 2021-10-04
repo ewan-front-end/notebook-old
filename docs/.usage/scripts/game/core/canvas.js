@@ -28,7 +28,7 @@ export default class Canvas {
     set(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
     draw({type, data, assignment, config, transform}, id) {
-        console.log(id, type, data);
+        console.log(type, data);
         let ctx = this.context
         ctx.beginPath()
         Object.assign(ctx, assignment)

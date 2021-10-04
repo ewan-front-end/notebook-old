@@ -15,12 +15,11 @@ export default class Game{
         // 默认场景
         sceneBackgroundImage && (scene.backgroundImage = sceneBackgroundImage)
         this.defaultScene = new Scene(0, 0, width, height, scene)
-        
+        console.log(this.defaultScene);
         showGrid && this.stage.showGrid()
         showRuler && this.stage.showRuler()
 
         resouceReady(() => {
-            console.log(22222)
             this.readyHandler()
         })
         
