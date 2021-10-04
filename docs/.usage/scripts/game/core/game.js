@@ -1,5 +1,6 @@
-import Stage from "./stage.js";
-import { Scene, scenes } from "./scene.js";
+import Stage from "./stage.js"
+import { Scene, scenes } from "./scene.js"
+import {resouceReady} from "./resouce.js" 
 
 /**
  * 游戏类
@@ -8,11 +9,20 @@ import { Scene, scenes } from "./scene.js";
  */
 export default class Game{    
     constructor(options = {}) {
-        const {canvas, width, height} = options
+        const {canvas, width, height, showGrid, showRuler, scene = {}, sceneBackgroundImage} = options
         // 舞台        
         this.stage = new Stage({canvas, width, height})
         // 默认场景
-        this.defaultScene = new Scene(0, 0, width, height)
+        sceneBackgroundImage && (scene.backgroundImage = sceneBackgroundImage)
+        this.defaultScene = new Scene(0, 0, width, height, scene)
+        
+        showGrid && this.stage.showGrid()
+        showRuler && this.stage.showRuler()
+
+        resouceReady(() => {
+            console.log(22222)
+            this.readyHandler()
+        })
         
     }
     addChild(child) {
@@ -20,5 +30,8 @@ export default class Game{
     }
     update() {
         this.defaultScene.update(this.stage.draw)
+    }
+    ready(fn){
+        this.readyHandler = fn
     }
 }

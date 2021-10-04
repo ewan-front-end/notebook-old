@@ -27,21 +27,26 @@ export default class Canvas {
     }
     set(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
-    draw({type, data, assignment, config, transform}) {
+    draw({type, data, assignment, config, transform}, id) {
+        console.log(id, type, data);
         let ctx = this.context
         ctx.beginPath()
-        
         Object.assign(ctx, assignment)
 
-        config.save || config.clip && ctx.save()
-        
+        config.save && ctx.save()
+        config.clip && ctx.save()
+        transform && ctx.save()
+
         this['draw' + type] && this['draw' + type](data, transform)
 
         assignment.fillStyle && ctx.fill()
         assignment.strokeStyle && ctx.stroke()
         config.clip && ctx.clip()
         config.closePath && ctx.closePath()
-        config.restore || config.unclip && ctx.restore()
+
+        transform && ctx.restore()
+        config.unclip && ctx.restore()
+        config.restore && ctx.restore()
     }
     
     drawSprite({ x, y, opacity, width, height, transform, config }) {
@@ -110,15 +115,20 @@ export default class Canvas {
         options.fillStyle && ctx.fill()
         options.strokeStyle && ctx.stroke()
     }
+       
     /**
-     * 绘制图片
-     * img	          规定要使用的图像、画布或视频。
-       sx	sy	        可选。开始剪切的 xy 坐标位置(图片定位)
-       swidth sheight	可选。被剪切图像的宽度高度。
-       x y	          在画布上放置图像的 xy 坐标位置(画布定位)
-       width height	  可选。要使用的图像的宽度高度。（伸展或缩小图像）
+     * @param <Image> img 图像、画布或视频
+     * @param [Number] sx 开始剪切的x坐标位置
+     * @param [Number] sy 开始剪切的y坐标位置
+     * @param [Number] swidth 被剪切图像的宽度
+     * @param [Number] sheight 被剪切图像的高度
+     * @param <Number> x 在画布上放置图像的x坐标位置
+     * @param <Number> y 在画布上放置图像的y坐标位置
+     * @param [Number] width 要使用的图像的宽度(可缩放)
+     * @param [Number] height 要使用的图像的高度(可缩放)
      */
-    drawImagee({ img, sx, sy, swidth, sheight, x, y, width, height }) {
+    drawImage({img, sx, sy, swidth, sheight, x, y, width, height}) {
+        console.log(img, sx, sy, swidth, sheight, x, y, width, height);
         this.context.drawImage(img, sx, sy, swidth, sheight, x, y, width, height)
     }
     /**

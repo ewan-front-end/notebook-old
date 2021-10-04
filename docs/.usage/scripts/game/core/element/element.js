@@ -105,6 +105,6 @@ export default class Element {
     }
     update(draw) {
         const {type, data, assignment, transform, config} = this
-        draw({type, data, assignment, transform, config})
+        draw({type, data, assignment, transform, config}, this.id)
     }
 }

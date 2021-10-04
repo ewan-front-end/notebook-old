@@ -17,6 +17,7 @@
     import Rect from './core/rect.js'
     import Circle from './core/circle.js'
     import Sprite from './core/sprite.js'
+    import Imgicon from './core/imgicon.js'
 
     // 舞台&设施
     
@@ -25,6 +26,11 @@
     var rect = new Rect(10, 10, 100, 50, {}, {fillStyle: '#f00', globalAlpha: 0.5})
     var circle = new Circle('CIRCLE_1')
     var sprite = new Sprite(100, 200, 200, 100, {fillStyle:'#0f0'})
+    var image = new Imgicon('./images/marry.png', 200, 300)
+
+    
+    
+    
     
     //rect.translate(100, 50)
     // rect.translate(100, 100)
@@ -36,13 +42,21 @@
     
     let game = new Game({
         canvas: document.getElementById("myCanvas"), 
-        width: 800, 
-        height: 500
+        width: 1200, 
+        height: 800,
+        scene: {
+            backgroundImage: './images/bg.jpg'
+        },
+        showGrid: true
     })
     game.addChild(layer)
     game.addChild(group)
     game.addChild(rect)
     game.addChild(sprite)
-    game.update()
+    game.addChild(image)
+    game.ready(() => {
+        game.update()
+    })
+    
 
 </script>
