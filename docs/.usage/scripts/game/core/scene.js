@@ -1,6 +1,5 @@
 import Container from './element/container.js'
-import Rect from './rect.js'
-import Imgicon from './imgicon.js'
+import Background from './background.js'
 
 /**
  * 场景元素
@@ -22,7 +21,7 @@ const scenes = {
 class Scene extends Container {
     constructor(x = 0, y = 0, width = 0, height = 0, options = {}) {
         super('Scene', 1)
-        const {opacity = 1, includeChild = null, excludeChild = null, backgroundColor = null, backgroundImage = null} = options
+        const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options
 
         // 基础属性
         Object.assign(this, {x, y, width, height, opacity})
@@ -31,9 +30,7 @@ class Scene extends Container {
         this.includeChild = includeChild 
         this.excludeChild = excludeChild
 
-        if (backgroundColor) this.addChild(new Rect(0, 0, 800, 500, {}, {fillStyle: backgroundColor}))
-        
-        if (backgroundImage) this.addChild(new Imgicon(backgroundImage, 0, 0, this.width, this.height, x, y, width, height))
+        if (background) new Background(background, this)
         
         scenes[scenes.length] = scenes[this.id] = this  
         scenes.length ++         

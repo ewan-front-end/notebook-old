@@ -45,8 +45,16 @@
         width: 800, 
         height: 500,
         scene: {
-            backgroundColor: '#f00',
-            backgroundImage: './images/bg.jpg'
+            background: {
+                color: '#f00',
+                image: './images/bg.jpg',
+                position: [0, 100],
+                size: ['100%', '100%'],
+                repeat: 'no-repeat',
+                origin: [0, 0],
+                clip: null,
+                attachment: null
+            }
         },
         showGrid: true
     })
