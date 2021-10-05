@@ -33,20 +33,24 @@ export default class Sprite extends Container {
         this.skew = getTransformProperty(options, 'skew', [0, 0], 'skewX', 'skewY')
 
         this.tween = {
-            translate: {time: null, value: [x, y], timerX: null, timerY: null},
-            scale: {time: null, value: scale, timerX: null, timerY: null},
-            rotate: {time: null, value: rotate, timer: null},
-            alpha: {time: null, value: this.opacity, timer: null},
-            Skew: {time: null, value: skew, timerX: null, timerY: null}
+            translate: {value: [x, y], timeX: 0, timeY: 0},
+            scale: {value: scale, timeX: 0, timeY: 0},
+            rotate: {value: rotate, time: 0},
+            alpha: {value: this.opacity, time: 0},
+            Skew: {value: skew, timeX: 0, timeY: 0}
         }
     }
     translate(x, y) {
-        let T = this.TRANSFORM, { transform, _transform, tween } = T;
-        if (x) { tween.translateX += x; T.timerX = new Date().getTime(); _transform.translateX = transform.translateX }
-        if (y) { tween.translateY += y; T.timerY = new Date().getTime(); _transform.translateY = transform.translateY }
+        let {translate} = this.tween
+        if (x) {translate.value[0] += x; translate.timeX = new Date().getTime()}
+        if (y) {translate.value[1] += y; translate.timeY = new Date().getTime()}
     }
-    translateX(x) { let T = this.TRANSFORM, { transform, _transform, tween } = T; if (x) { tween.translateX += x; T.timerX = new Date().getTime(); _transform.translateX = transform.translateX } }
-    translateY(y) { let T = this.TRANSFORM, { transform, _transform, tween } = T; if (y) { tween.translateY += y; T.timerY = new Date().getTime(); _transform.translateY = transform.translateY } }
+    translateX(x) {  
+        if (x) {this.tween.translate.value[0] += x; this.tween.translate.timeX = new Date().getTime()} 
+    }
+    translateY(y) { 
+        if (y) {this.tween.translate.value[1] += y; this.tween.translate.timeY = new Date().getTime()} 
+    }
     
 
 
