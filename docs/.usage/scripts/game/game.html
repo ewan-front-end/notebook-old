@@ -18,16 +18,32 @@
     import Circle from './core/circle.js'
     import Sprite from './core/sprite.js'
     import Imgicon from './core/imgicon.js'
+    import Text from './core/text.js'
+    import Polygon from './core/polygon.js'
 
     // 舞台&设施
     
-    var layer = new Layer(0, 0, 100, 100)
-    var group = new Group('GROUP_1')
-    var rect = new Rect(10, 10, 100, 50, {}, {fillStyle: '#f00', globalAlpha: 0.5})
-    var circle = new Circle('CIRCLE_1')
+    //var layer = new Layer(0, 0, 100, 100)
+    //var group = new Group('GROUP_1')
+    var rect = new Rect(10, 10, 100, 50, {fill: '#f00', opacity: 0.5})
+    var circle = new Circle(500, 300, 100, {fill:'#000'})
     var sprite = new Sprite(100, 200, 200, 100, {fillStyle:'#0f0'})
     var image = new Imgicon('./images/marry.png', 200, 300)
-
+    var text = new Text('元素信息', 300, 100, {fill:'#f00', stroke:'#00f', font: "60px sans-serif", lineWidth:3})
+    var poly = new Polygon(50, 100, [
+        [10,10],
+        [100,50],
+        [200,200],
+        [150,300],
+        [50,250],
+        [10,100]
+    ], {
+        stroke: '#0f0',
+        fill:'#f90',
+        config: {
+            closePath: true
+        }
+    })
     
     
     
@@ -44,9 +60,9 @@
         canvas: document.getElementById("myCanvas"), 
         width: 800, 
         height: 500,
-        scene: {
+        defaultScene: {
             background: {
-                color: '#f00',
+                color: '#eee',
                 image: './images/bg.jpg',
                 position: [0, 100],
                 size: ['100%', '100%'],
@@ -56,13 +72,16 @@
                 attachment: null
             }
         },
-        showGrid: true
+        showGrid: false
     })
-    game.addChild(layer)
-    game.addChild(group)
+    //game.addChild(layer)
+    //game.addChild(group)
     game.addChild(rect)
     game.addChild(sprite)
     game.addChild(image)
+    game.addChild(text)
+    game.addChild(circle)
+    game.addChild(poly)
     game.ready(() => {
         game.update()
     })

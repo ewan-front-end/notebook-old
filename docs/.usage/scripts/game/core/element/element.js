@@ -26,25 +26,29 @@ const computedProperty = (e, p, t) => {
  * @param {String} 元素类型 参数说明
  */    
 export default class Element {
-    constructor(type, level, classType, assignment = {}, config = {}, transform = {}) {
+    constructor(type, level, classType, data, assignment, config = {}, transform = {}) {
         // 元素信息
         this.parent = null           // 数据链、单一容器、
         this.type = type             // 元素类型识别
         this.level = level           // 层级包含关系        
         this.classType = classType,  // 被父容器审查的添加依据
+        this.state = 0               // 存储(激活、删除、隐藏等)状态
         this.id = classType + '_' + type + '_' + elementsLen
 
-        // 基础属性:
-        this.x = 0
-        this.y = 0
-        this.width = 0
-        this.height = 0
+        // 静态基础属性
+        this.x = data.x || 0
+        this.y = data.y || 0
+        this.width = data.width || 0
+        this.height = data.height || 0
         this.opacity = assignment.globalAlpha || 1
 
-        // 输出
-        this.data = {} // x, y, width, height
-        this.assignment = assignment // {fillStyle, strokeStyle, globalAlpha}
-        this.config = config // {save, restore, clip, unclip, closePath, showRange}
+        // 动态绘制属性(x, y, width, height)
+        this.data = data 
+        // 动态绘图环境(fillStyle, strokeStyle, globalAlpha)
+        this.assignment = assignment
+        // 策略配置(save, restore, clip, unclip, closePath, showRange)
+        this.config = config
+        // 变换
         this.transform = parseTransform(transform) // [1, 0, 0, 1, 0, 0]
 
         elementsLen++
@@ -52,9 +56,8 @@ export default class Element {
         //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
     setData() {
-        const x = computedProperty(this, 'x', 'ADD')
-        const y = computedProperty(this, 'y', 'ADD')
-        Object.assign(this.data, {x, y, width: this.width, height: this.height})
+        this.data.x = computedProperty(this, 'x', 'ADD')
+        this.data.y = computedProperty(this, 'y', 'ADD')
         this.assignment.globalAlpha = computedProperty(this, 'opacity')
     }
     appendTo(parent, forced) {

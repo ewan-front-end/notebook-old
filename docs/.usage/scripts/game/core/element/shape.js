@@ -1,19 +1,18 @@
 import Element from "./element.js"
 
 /**
- * 矩形
+ * 形状
  * @extends Element
  * @constructor
- * @param {Number} x 座标X
- * @param {Number} y 座标Y
- * @param {Number} width 图形宽
- * @param {Number} height 图形高
- * @param {Object} options 选项
- * @param {Object} config 配置
+ * @param {String} type 类型
+ * @param {Object} data 绘制属性
+ * @param {Object} assignment 绘制环境
+ * @param {Object} config 策略配置
+ * @param {Object} transform 变换
  */
  export default class Shape extends Element {
-    constructor(type, assignment, config, transform) {
-        super(type, 5, 'CLASS_SHAPE', assignment, config, transform)
+    constructor(type, data, assignment, config, transform) {
+        super(type, 5, 'CLASS_SHAPE', data, assignment, config, transform)
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   

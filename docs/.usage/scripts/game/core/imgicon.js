@@ -16,17 +16,18 @@ import {asyncImage} from "./resouce.js"
  * @param [Number] height 要使用的图像的高度(可缩放)
  */
  export default class Imgicon extends Shape {
-    constructor(img, x = 0, y = 0, width, height, sx=0, sy=0, swidth, sheight, assignment) {
-        super('Image')
-
+    constructor(img, x = 0, y = 0, width, height, sx=0, sy=0, swidth, sheight, options) {
+        const data = {img, sx, sy, swidth, sheight, x, y, width, height}
+        const assignment = {}
+        super('Image', data, assignment)
+        
         // 基础属性
         const initData = image => {
-            !width && (width = image.width)
-            !height && (height = image.height)
-            !swidth && (swidth = width)
-            !sheight && (sheight = height)
-            Object.assign(this, {img: image, sx, sy, swidth, sheight, x, y, width, height})
-            Object.assign(this.data, {img: image, sx, sy, swidth, sheight, x, y, width, height})
+            !width && (this.width = this.data.width = image.width)
+            !height && (this.height = this.data.height = image.height)
+            !swidth && (this.swidth = this.data.swidth = image.width)
+            !sheight && (this.sheight = this.data.sheight = image.height)
+            this.img = this.data.img = image 
         }
         
         if (typeof img === 'string') {
@@ -36,5 +37,7 @@ import {asyncImage} from "./resouce.js"
         } else {
             initData(img)
         }
+
+        
     }
 }

@@ -19,8 +19,11 @@ const scenes = {
     length: 0
 }
 class Scene extends Container {
-    constructor(x = 0, y = 0, width = 0, height = 0, options = {}) {
-        super('Scene', 1)
+    constructor(x = 0, y = 0, width = 500, height = 200, options = {}) {
+        const data = {x, y, width, height}
+        const assignment = {}
+        
+        super('Scene', 1, data, assignment)
         const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options
 
         // 基础属性

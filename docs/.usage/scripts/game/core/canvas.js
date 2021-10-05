@@ -27,22 +27,25 @@ export default class Canvas {
     }
     set(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
-    draw({type, data, assignment, config, transform}, id) {
-        console.log(type, data);
+    draw({type, data, assignment, config = {}, transform}, id) {        
         let ctx = this.context
         ctx.beginPath()
         Object.assign(ctx, assignment)
 
         config.save && ctx.save()
         config.clip && ctx.save()
-        transform && ctx.save()
+        if (transform) {
+            ctx.save()
+            ctx.transform(...transform)
+        } 
 
-        this['draw' + type] && this['draw' + type](data, transform)
+        this['draw' + type] && this['draw' + type](data, assignment)
 
         assignment.fillStyle && ctx.fill()
-        assignment.strokeStyle && ctx.stroke()
-        config.clip && ctx.clip()
         config.closePath && ctx.closePath()
+        assignment.strokeStyle && ctx.stroke()
+        
+        config.clip && ctx.clip()
 
         transform && ctx.restore()
         config.unclip && ctx.restore()
@@ -59,27 +62,20 @@ export default class Canvas {
     /**
      * drawRect(x, y, width, height, options)
      */
-    drawRect({ x, y, opacity, width, height }, transform) {
-        this.context.transform(...transform)
+    drawRect({ x, y, opacity, width, height }) {
         this.context.rect(x, y, width, height)
     }
-    drawCircle({ x, y, r, options }) {
+    drawCircle({ x, y, r}) {
         let ctx = this.context
-        options = options || {}
-        Object.assign(ctx, options)
-        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        options.fillStyle && ctx.fill();
-        options.strokeStyle && ctx.stroke();
+        ctx.arc(x, y, r, 0, 2 * Math.PI, false)
+        ctx.closePath()
     }
-    drawText({ text, x, y, options }) {
+    drawText({text, x, y, maxWidth}, assignment) {
         let ctx = this.context
-        options = options || {}
-        Object.assign(ctx, options)
-        let maxWidth = options.maxWidth || ctx.measureText(text).width
-        ctx.beginPath()
-        options.fillStyle && ctx.fillText(text, x, y, maxWidth)
-        options.strokeStyle && ctx.strokeText(text, x, y, maxWidth)
+        !maxWidth && (maxWidth = ctx.measureText(text).width)
+        console.log(text, x, y, maxWidth, assignment.fillStyle, assignment.strokeStyle);
+        assignment.fillStyle && ctx.fillText(text, x, y, maxWidth)
+        assignment.strokeStyle && ctx.strokeText(text, x, y, maxWidth)
     }
     drawLine({ start, end, options }) {
         let ctx = this.context
@@ -97,23 +93,13 @@ export default class Canvas {
      * options{fillStyle:'#ccc', strokeStyle:'#000', lineWidth:5, lineCap:'round'}
      * config{closePath: true, startPosition: [0, 0]}
      */
-    drawPolygon({ points, options, config }) {
-        //console.log('11',points, options, config);
-
-        options = options || {}
-        config = config || {}
-        let ctx = this.context, xPos = 0, yPos = 0
-        Object.assign(ctx, options)
-        ctx.beginPath()
-        if (config && config.startPosition) { xPos = config.startPosition[0], yPos = config.startPosition[1] }
+    drawPolygon({x = 0, y = 0, points = [] }) {        
+        let ctx = this.context
         for (let i = 0, len = points.length; i < len - 1; i++) {
             let start = points[i], end = points[i + 1]
-            ctx.lineTo(start[0] + xPos, start[1] + yPos)
-            ctx.lineTo(end[0] + xPos, end[1] + yPos)
+            ctx.lineTo(start[0] + x, start[1] + y)
+            ctx.lineTo(end[0] + x, end[1] + y)
         }
-        (options.fillStyle || config.closePath) && ctx.closePath()
-        options.fillStyle && ctx.fill()
-        options.strokeStyle && ctx.stroke()
     }
        
     /**
@@ -158,16 +144,16 @@ export default class Canvas {
     ▯shadowOffsetX: 0                        指定阴影水平和垂直偏移。较大值使得阴影化对象漂浮在背景较高位置上。 默认值是 0
     ▯shadowOffsetY: 0
     ▮font: "10px sans-serif"
-    ▮textBaseline: "alphabetic"              文本基线：alphabetic top/middle/bottom/hanging/ideographic 普通的字母基线/em方框的顶端/em方框的正中/em方框的底端/悬挂基线/表意基线
-    ▮textAlign: "start"                      文本对齐：start end/center/left/right
-    ▮direction: "ltr"                        绘制方向: ltr(left to right)
+    ▮textBaseline: "alphabetic"              文本基线[alphabetic](top/middle/bottom/hanging/ideographic) 普通的字母基线/em方框的顶端/em方框的正中/em方框的底端/悬挂基线/表意基线
+    ▮textAlign: "start"                      文本对齐[start](end/center/left/right)
+    ▮direction: "ltr"                        绘制方向[ltr(left to right)]()
     ▮maxWidth: 100                           文本域宽
-    ▯globalAlpha: 1                          不透明度 1.0 及0.0-1.0
-    ▯globalCompositeOperation: "source-over" 新图像如何覆盖旧图像    
+    ▯globalAlpha: 1                          不透明度[1](0.0-1.0)
+    ▯globalCompositeOperation: "source-over" 新图像如何覆盖旧图像[source-over](destination-over)    
     ▮filter: "none"
     ▮imageSmoothingEnabled: true
-    ▮imageSmoothingQuality: "low"
-    ▮lineDashOffset: 0
+    ▮imageSmoothingQuality: "low"            控制图片质量[low]()
+    ▮lineDashOffset: 0                       设置虚线偏移量[0]
     ▇▇▇▇▇▇▇▇▇▇▇▇▇ config  ▇▇▇▇▇▇▇▇▇▇▇▇▇
     ▯save                      缓存options
     ▯restore                   释放缓存
@@ -186,3 +172,12 @@ export default class Canvas {
     skew: [1, 1] [1=45度,直角锐角邻边与对边之比]
     origin: 5    [1/2/3/4/5/6/7/8/9]
     */
+
+    // {
+    //     save: false,                     
+    //     restore: false,                  
+    //     clip: false,                 
+    //     unclip: false, 
+    //     closePath: false,            
+    //     showRange: null
+    // }

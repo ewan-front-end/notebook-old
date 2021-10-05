@@ -10,42 +10,36 @@ import {tweens} from '../../utils/tweens.js'
  * @param {Number} width 元素宽
  * @param {Number} height 元素高
  * @param {Number} options 选项
- * @param {Number} transform 变换
- * @param {Number} config 配置
  */
- export default class Sprite extends Container {
-    constructor(x, y, width, height, options, config) {
-        super('Sprite', 4, 'CLASS_SPRITE')
-        Object.assign(this, {x, y, width, height})
-        options && Object.assign(this, options)
+function getTransformProperty(options, property, defaultValue, index1, index2) {
+    let res = options[property] || defaultValue
+    index1 && options[index1] && (res[0] = options[index1])
+    index2 && options[index2] && (res[1] = options[index1])
+    return res
+}
+export default class Sprite extends Container {
+    constructor(x, y, width, height, options) {
+        const {config, transform} = options
+        const data = {x, y, width, height}
+        const assignment = {}
+
+        !isNaN(options.opacity) && (assignment.globalAlpha = options.opacity)
+        !isNaN(options.globalAlpha) && (assignment.globalAlpha = options.globalAlpha)
+
+        super('Sprite', 4, data, assignment, config, transform)
          
-        this.tweenTranslate = {time: null, x: 0, y: 0, initX: null, initY: null}
-        this.tweenScale = {time: null, x: 0, y: 0, initX: null, initY: null}
-        this.tweenRotate = {time: null, deg: 0, init: null}
-        this.tweenAlpha = {time: null, opacity: 0, init: null}
-        this.twweenSkew = {time: null, x: 0, y: 0, initX: null, initY: null}
-        
-        let transform = {}
-        this.TRANSFORM = {
-            transform,
-            _transform: JSON.parse(JSON.stringify(transform)),
-            tween: JSON.parse(JSON.stringify(transform)),
-            timerX: 0,
-            timerY: 0,
-            timerR: 0,
-            timerSX: 0,
-            timerSY: 0,
-            timerA: 0
+        this.scale = getTransformProperty(options, 'scale', [1, 1], 'scaleX', 'scaleY')
+        this.rotate = options.rotate || 0
+        this.skew = getTransformProperty(options, 'skew', [0, 0], 'skewX', 'skewY')
+
+        this.tween = {
+            translate: {time: null, value: [x, y], timerX: null, timerY: null},
+            scale: {time: null, value: scale, timerX: null, timerY: null},
+            rotate: {time: null, value: rotate, timer: null},
+            alpha: {time: null, value: this.opacity, timer: null},
+            Skew: {time: null, value: skew, timerX: null, timerY: null}
         }
     }
-    // 补间
-    tween({translate, scale, rotate, alpha, opacity}) {
-        translate && 1
-    }
-    tweenTo({translate, scale, rotate, alpha, opacity}) {
-
-    }
-
     translate(x, y) {
         let T = this.TRANSFORM, { transform, _transform, tween } = T;
         if (x) { tween.translateX += x; T.timerX = new Date().getTime(); _transform.translateX = transform.translateX }

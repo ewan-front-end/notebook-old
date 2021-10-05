@@ -9,13 +9,12 @@ import {resouceReady} from "./resouce.js"
  */
 export default class Game{    
     constructor(options = {}) {
-        const {canvas, width, height, showGrid, showRuler, scene = {}, sceneBackgroundImage} = options
+        const {canvas, width, height, showGrid, showRuler, defaultScene = {}} = options
         // 舞台        
         this.stage = new Stage({canvas, width, height})
         // 默认场景
-        sceneBackgroundImage && (scene.backgroundImage = sceneBackgroundImage)
-        this.defaultScene = new Scene(0, 0, width, height, scene)
-        console.log(this.defaultScene);
+        this.defaultScene = new Scene(0, 0, width, height, defaultScene)
+        // 网格与标尺
         showGrid && this.stage.showGrid()
         showRuler && this.stage.showRuler()
 
