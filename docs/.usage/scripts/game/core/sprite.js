@@ -34,10 +34,10 @@ export default class Sprite extends Container {
 
         this.tween = {
             translate: {value: [x, y], timeX: 0, timeY: 0},
-            scale: {value: scale, timeX: 0, timeY: 0},
-            rotate: {value: rotate, time: 0},
+            scale: {value: this.scale, timeX: 0, timeY: 0},
+            rotate: {value: this.rotate, time: 0},
             alpha: {value: this.opacity, time: 0},
-            Skew: {value: skew, timeX: 0, timeY: 0}
+            skew: {value: this.skew, timeX: 0, timeY: 0}
         }
     }
     translate(x, y) {
@@ -69,11 +69,11 @@ export default class Sprite extends Container {
     rotate(deg) { let T = this.TRANSFORM, { transform, _transform, tween, timerR } = T; tween.rotate += deg; T.timerR = new Date().getTime(); _transform.rotate = transform.rotate }
     rotateTo(deg) { let { transform, _transform, tween } = this.TRANSFORM; deg && (_transform.rotate = transform.rotate = tween.rotate = deg) }
 
-    update(arr) {
-        let T = this.TRANSFORM, { transform, _transform, tween, timerX, timerY, timerR, timerSX, timerSY, timerA } = T, now = new Date().getTime();
+    update(draw) {
+        let {translate, scale, rotate, alpha, skew} = this.tween, now = new Date().getTime()
         // 缩放
-        if (transform.scaleX < tween.scaleX) {
-            transform.scaleX = tweens.run(now - timerSX, _transform.scaleX, tween.scaleX, 2000)
+        if (this.scale[0] < scale.value[0]) {
+            this.scale[0] = tweens.run(now - timerSX, _transform.scaleX, tween.scaleX, 2000)
             transform.scaleX > tween.scaleX && (_transform.scaleX = transform.scaleX = tween.scaleX)
         }
         if (transform.scaleX > tween.scaleX) {
