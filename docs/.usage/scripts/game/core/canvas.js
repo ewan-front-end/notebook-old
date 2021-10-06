@@ -52,12 +52,20 @@ export default class Canvas {
         config.restore && ctx.restore()
     }
     
-    drawSprite({ x, y, opacity, width, height, transform, config }) {
-        const {save, restore, clip, unclip} = config
-        let startX = 0, startY = 0
+    drawSprite({ x, y, width, height, children}) {
+        let ctx = this.context
+        ctx.save()
+        console.log(x, y, width, height, children);
+        // const {save, restore, clip, unclip} = config
+        // let startX = 0, startY = 0
         
-        this.context.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
-        transform && this.context.restore()
+        // this.context.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
+        // transform && this.context.restore()
+        children.forEach(child => {
+            const {type, data, assignment, transform, config, id} = child
+            this.draw({type, data, assignment, transform, config}, id)
+        })
+        ctx.restore()
     }
     /**
      * drawRect(x, y, width, height, options)

@@ -1,9 +1,9 @@
-import Shape from './element/shape.js'
+import Media from './element/media.js'
 import {asyncImage} from "./resouce.js"
 
 /**
  * 图像元素
- * @extends Shape
+ * @extends Imgicon
  * @constructor
  * @param <Image> img 图像、画布或视频
  * @param [Number] sx 开始剪切的x坐标位置
@@ -15,7 +15,7 @@ import {asyncImage} from "./resouce.js"
  * @param [Number] width 要使用的图像的宽度(可缩放)
  * @param [Number] height 要使用的图像的高度(可缩放)
  */
- export default class Imgicon extends Shape {
+ export default class Img extends Media {
     constructor(img, x = 0, y = 0, width, height, sx=0, sy=0, swidth, sheight, options) {
         const data = {img, sx, sy, swidth, sheight, x, y, width, height}
         const assignment = {}

@@ -1,4 +1,4 @@
-import Imgicon from "./imgicon.js"
+import Img from "./image.js"
 import Rect from './rect.js'
 
 export default class Background {
@@ -14,7 +14,7 @@ export default class Background {
     }, container) {
         const {x, y, width, height} = container
         if (color) container.addChild(new Rect(0, 0, 800, 500, {fill: color}))        
-        if (image) container.addChild(new Imgicon(image, 0, 0, width, height, x, y, width, height))
+        if (image) container.addChild(new Img(image, 0, 0, width, height, x, y, width, height))
         
     }
 }

@@ -1,6 +1,7 @@
 import Stage from "./stage.js"
 import { Scene, scenes } from "./scene.js"
 import {resouceReady} from "./resouce.js" 
+import Timeline from './timer/timeline.js'
 
 /**
  * 游戏类

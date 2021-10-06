@@ -1,12 +1,10 @@
 import Element from "./element.js"
-import Rect from "../rect.js"
 
 /**
  * Element元素装饰
  * @extends Element
  * @constructor
  * @method addChild 添加子元素
- * @method appendTo 添加到容器
  */
 const deepAddChild = (children, child) => {
     children.sort((a, b) => a.level - b.level)    

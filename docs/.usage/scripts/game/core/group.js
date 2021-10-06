@@ -1,4 +1,5 @@
 import Container from './element/container.js'
+import {elementLevel} from './config/index.js'
 
 /**
  * 群组元素
@@ -8,7 +9,7 @@ import Container from './element/container.js'
  */
  export default class Group extends Container {
     constructor(name) {
-        super('GROUP', 3, 'CLASS_GROUP')
+        super('GROUP', elementLevel.group)
         this.name = name
             
     }

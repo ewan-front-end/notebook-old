@@ -2,7 +2,7 @@ import Element from "./element.js"
 import {elementLevel} from '../config/index.js'
 
 /**
- * 形状
+ * 媒体
  * @extends Element
  * @constructor
  * @param {String} type 类型
@@ -11,9 +11,9 @@ import {elementLevel} from '../config/index.js'
  * @param {Object} config 策略配置
  * @param {Object} transform 变换
  */
- export default class Shape extends Element {
+ export default class Media extends Element {
     constructor(type, data, assignment, config, transform) {
-        super(type, elementLevel.shape, 'CLASS_SHAPE', data, assignment, config, transform)
+        super(type, elementLevel.media, 'CLASS_IMAGE', data, assignment, config, transform)
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
@@ -33,16 +33,4 @@ import {elementLevel} from '../config/index.js'
         this.setData()
         return {state: 0, type: 0, message: null}      
     }
-    // 应用材质
-    useTexture(texture) {
-        // todo
-    }
 }
-
-
-
-
-
-
-
-

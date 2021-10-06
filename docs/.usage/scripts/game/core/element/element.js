@@ -23,7 +23,16 @@ const computedProperty = (e, p, t) => {
 /**
  * 元素基类
  * @constructor
- * @param {String} 元素类型 参数说明
+ * @param <String> type 元素类型 
+ * @param <Number> level 元素层级
+ * @param <String> classType 元素分类
+ * @param [Object] data 绘制属性
+ * @param [Object] assignment 绘制环境
+ * @param [Object] config 绘制策略
+ * @param [Object] transform 变换
+ * @method setData 添加到容器
+ * @method appendTo 添加到容器
+ * @method update 更新绘制
  */    
 export default class Element {
     constructor(type, level, classType, data, assignment, config = {}, transform = {}) {
@@ -40,7 +49,6 @@ export default class Element {
         this.y = data.y || 0
         this.width = data.width || 0
         this.height = data.height || 0
-        this.opacity = assignment.globalAlpha || 1
 
         // 动态绘制属性(x, y, width, height)
         this.data = data 

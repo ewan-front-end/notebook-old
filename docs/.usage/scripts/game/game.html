@@ -17,7 +17,7 @@
     import Rect from './core/rect.js'
     import Circle from './core/circle.js'
     import Sprite from './core/sprite.js'
-    import Imgicon from './core/imgicon.js'
+    import Img from './core/image.js'
     import Text from './core/text.js'
     import Polygon from './core/polygon.js'
 
@@ -28,8 +28,11 @@
     var rect = new Rect(10, 10, 100, 50, {fill: '#f00', opacity: 0.5})
     var circle = new Circle(500, 300, 100, {fill:'#000'})
     var sprite = new Sprite(100, 200, 200, 100, {fillStyle:'#0f0'})
-    var image = new Imgicon('./images/marry.png', 200, 300)
+    var image = new Img('./images/marry.png', 200, 300)
     var text = new Text('元素信息', 300, 100, {fill:'#f00', stroke:'#00f', font: "60px sans-serif", lineWidth:3})
+    sprite.skew(0.5)
+    sprite.addChild(rect)
+
     var poly = new Polygon(50, 100, [
         [10,10],
         [100,50],
@@ -52,7 +55,7 @@
     // rect.translate(100, 100)
     // rect.rotate(45)
     // rect.scale(3, 3)
-    rect.skew(0.5)
+    //rect.skew(0.5)
     //rect.alpha(0.5)
     
     
@@ -76,7 +79,7 @@
     })
     //game.addChild(layer)
     //game.addChild(group)
-    game.addChild(rect)
+    //game.addChild(rect)
     game.addChild(sprite)
     game.addChild(image)
     game.addChild(text)
