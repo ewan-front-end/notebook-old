@@ -35,7 +35,7 @@ const computedProperty = (e, p, t) => {
  * @method update 更新绘制
  */    
 export default class Element {
-    constructor(type, level, classType, data, assignment, config = {}, transform = {}) {
+    constructor(type, level, classType, options, data, assignment, config = {}, transform = {}) {
         // 元素信息
         this.parent = null           // 数据链、单一容器、
         this.type = type             // 元素类型识别
@@ -45,10 +45,11 @@ export default class Element {
         this.id = classType + '_' + type + '_' + elementsLen
 
         // 静态基础属性
-        this.x = data.x || 0
-        this.y = data.y || 0
-        this.width = data.width || 0
-        this.height = data.height || 0
+        this.x = data.x || options.x || 0
+        this.y = data.y || options.y || 0
+        this.width = data.width || options.width || 0
+        this.height = data.height || options.width || 0
+        this.origin = options.origin || [0, 0]
 
         // 动态绘制属性(x, y, width, height)
         this.data = data 

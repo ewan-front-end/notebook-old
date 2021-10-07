@@ -35,11 +35,10 @@ import Shape from './element/shape.js'
         options.shadowOffsetX && (assignment.shadowOffsetX = options.shadowOffsetX)
         options.shadowOffsetY && (assignment.shadowOffsetY = options.shadowOffsetY)
 
-        options.font && (assignment.font = options.font)
+        options.font && (assignment.font = options.font.length < 5 ? options.font + ' sans-serif' : options.font)
         options.textBaseline && (assignment.textBaseline = options.textBaseline)
         options.textAlign && (assignment.textAlign = options.textAlign)
         options.direction && (assignment.direction = options.direction)
-        options.maxWidth && (assignment.maxWidth = options.maxWidth)
 
         super('Text', data, assignment, config, transform)
     }

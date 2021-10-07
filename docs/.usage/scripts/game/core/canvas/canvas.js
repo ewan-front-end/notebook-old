@@ -27,7 +27,8 @@ export default class Canvas {
     }
     set(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
-    draw({type, data, assignment, config = {}, transform}, id) {        
+    draw({type, data, assignment, config = {}, transform}, id) {   
+        //console.log(type, data);     
         let ctx = this.context
         ctx.beginPath()
         Object.assign(ctx, assignment)
@@ -55,7 +56,6 @@ export default class Canvas {
     drawSprite({ x, y, width, height, children}) {
         let ctx = this.context
         ctx.save()
-        console.log(x, y, width, height, children);
         // const {save, restore, clip, unclip} = config
         // let startX = 0, startY = 0
         
@@ -81,8 +81,8 @@ export default class Canvas {
     drawText({text, x, y, maxWidth}, assignment) {
         let ctx = this.context
         !maxWidth && (maxWidth = ctx.measureText(text).width)
-        console.log(text, x, y, maxWidth, assignment.fillStyle, assignment.strokeStyle);
-        assignment.fillStyle && ctx.fillText(text, x, y, maxWidth)
+        ctx.lineHeight = '200px'
+        ctx.fillText(text, x, y, maxWidth)
         assignment.strokeStyle && ctx.strokeText(text, x, y, maxWidth)
     }
     drawLine({ start, end, options }) {
@@ -122,7 +122,6 @@ export default class Canvas {
      * @param [Number] height 要使用的图像的高度(可缩放)
      */
     drawImage({img, sx, sy, swidth, sheight, x, y, width, height}) {
-        console.log(img, sx, sy, swidth, sheight, x, y, width, height);
         this.context.drawImage(img, sx, sy, swidth, sheight, x, y, width, height)
     }
     /**

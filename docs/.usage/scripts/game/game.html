@@ -20,6 +20,20 @@
     import Img from './core/image.js'
     import Text from './core/text.js'
     import Polygon from './core/polygon.js'
+    import {timerController} from './core/controls.js'
+
+const elementArea = [[100,700,460,475]]
+function checkAreaX(x, y, arr, i) {
+    if (arr.length === 0) return arr
+    return checkAreaX(x, y, arr.filter(e => {
+        if (i === 0) return e[i] <= x
+        if (i === 1) return e[i] >= x
+        if (i === 2) return e[i] <= y
+        if (i === 3) return e[i] >= y
+    }), i + 1) 
+}
+let arr = checkAreaX(110, 470, elementArea, 0)
+console.log(arr)
 
     // 舞台&设施
     
@@ -30,6 +44,7 @@
     var sprite = new Sprite(100, 200, 200, 100, {fillStyle:'#0f0'})
     var image = new Img('./images/marry.png', 200, 300)
     var text = new Text('元素信息', 300, 100, {fill:'#f00', stroke:'#00f', font: "60px sans-serif", lineWidth:3})
+    var timeline = new timerController(100, 460)
     sprite.skew(0.5)
     sprite.addChild(rect)
 
@@ -85,6 +100,7 @@
     game.addChild(text)
     game.addChild(circle)
     game.addChild(poly)
+    game.addChild(timeline)
     game.ready(() => {
         game.update()
     })

@@ -1,5 +1,6 @@
 
-import Canvas from "./canvas.js";
+import Canvas from "./canvas.js"
+import Event from "./event.js"
 
 /**
  * 舞台类
@@ -9,6 +10,7 @@ import Canvas from "./canvas.js";
 export default class Stage extends Canvas {
     constructor(options) {
         super(options)
+        new Event(options.canvas)
     }
     showRuler() {
         let ctx = this.context, w = this.width, h = this.height

@@ -13,7 +13,7 @@ export default class Background {
         attachment
     }, container) {
         const {x, y, width, height} = container
-        if (color) container.addChild(new Rect(0, 0, 800, 500, {fill: color}))        
+        if (color) container.addChild(new Rect(0, 0, width, height, {fill: color}))        
         if (image) container.addChild(new Img(image, 0, 0, width, height, x, y, width, height))
         
     }

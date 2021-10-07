@@ -13,7 +13,7 @@ import {elementLevel} from '../config/index.js'
  */
  export default class Shape extends Element {
     constructor(type, data, assignment, config, transform) {
-        super(type, elementLevel.shape, 'CLASS_SHAPE', data, assignment, config, transform)
+        super(type, elementLevel.shape, 'CLASS_SHAPE', {}, data, assignment, config, transform)
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
