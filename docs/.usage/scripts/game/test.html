@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script type="module">
+// import Octree from './core/structure/octree.js'
+import {MultiwayTree} from './core/structure/octree.js'
+
+var tree = new MultiwayTree();
+tree.add('a')
+    .add('b', 'a', tree.traverseBF)
+    .add('c', 'a', tree.traverseBF)
+    .add('d', 'a', tree.traverseBF)
+    .add('e', 'b', tree.traverseBF)
+    .add('f', 'b', tree.traverseBF)
+    .add('g', 'c', tree.traverseBF)
+    .add('h', 'c', tree.traverseBF)
+    .add('i', 'd', tree.traverseBF);
+
+console.group('traverseDF 深度优先遍历');
+tree.traverseDF(function(node) {
+    console.log(node.data);
+});
+console.groupEnd('traverseDF');
+
+console.group('traverseBF 广度优先遍历');
+tree.traverseBF(function(node) {
+    console.log(node.data);
+});
+console.groupEnd('traverseBF');
+
+
+console.group('contains1 深度优先查找');
+tree.contains(function(node) {
+    console.log(node.data);
+    if (node.data === 'f') {
+        return true;
+    }
+}, tree.traverseDF);
+console.groupEnd('contains1')
+
+
+console.group('contains2 广度优先查找');
+tree.contains(function(node) {
+    console.log(node.data);
+    if (node.data === 'f') {
+        return true;
+    }
+}, tree.traverseBF);
+console.groupEnd('contains2');
+
+tree.remove('g', 'c', tree.traverseBF);
+
+
+</script>
