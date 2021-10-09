@@ -1,11 +1,5 @@
 
-class Node {
-    constructor(key) {
-        this.key = key
-        this.left = null
-        this.right = null
-    }
-}
+
 
 function insertNode(node, newNode) {
     if(newNode.key < node.key){
@@ -22,11 +16,37 @@ function insertNode(node, newNode) {
       }
     }
 }
+function arrayAllot(arr) {
+    if (arr.length < 3) return arr
+    return [
+        arr.splice(0, arr.length/2),
+        arr.shift(),
+        arr
+    ]
+}
 
+class Node {
+    constructor(key) {
+        this.key = key
+        this.left = null
+        this.right = null
+    }
+}
 class BinaryTree {
-    constructor() {
-        this.keys = []
+    constructor(keys = [], isBalance) {
+        this.keys = keys
         this.root = null
+        if (isBalance) {
+            this.balance()
+        } else {
+            keys.forEach(key => {
+                this.insert(key)
+            })
+        }
+    }
+    add(key) {
+        this.keys.push(key)
+        this.insert(key)
     }
     insert(key) {
         let node = new Node(key)
@@ -40,26 +60,29 @@ class BinaryTree {
         this.root = null
         let keys = this.keys
         keys.sort((a, b) => a - b)
-        let halfArr = parseInt(keys.length/2)
-        keys.splice(0, keys.length/2)
-
+        const balanceCreate = (left, center, right) => {
+            this.insert(center)
+            if (left.length > 2) {
+                let [l, c, r] = arrayAllot(left)
+                balanceCreate(l, c, r)
+            } else {
+                left.forEach(key => {
+                    this.insert(key)
+                })
+            }
+            if (right.length > 2) {
+                let [l, c, r] = arrayAllot(right)
+                balanceCreate(l, c, r)
+            } else {
+                right.forEach(key => {
+                    this.insert(key)
+                })
+            }
+        }
+        let [l, c, r] = arrayAllot(keys)
+        balanceCreate(l, c, r)
     }
 }
 
-function BinaryTree(keys){
-    //Node构造函数
-    let Node = function (key){
-       this.key = key
-       this.left = null
-       this.right = null
-    }
-    let root = null
-    
-    
-    keys.forEach((key)=>{
-     this.insert(key)
-    })
-    return root
-  }
-  const keys = [8,3,10,1,6,14,4,7,13]
-  BinaryTree(keys)
+const keys = [8,3,10,1,6,14,4,7,13]
+let binTree = new BinaryTree(keys)
