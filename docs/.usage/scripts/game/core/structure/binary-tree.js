@@ -15,10 +15,10 @@ function insertNode(node, newNode) {
         insertNode(node.right, newNode)
       }
     }
+    newNode.parent = node
 }
 function arrayAllot(arr) {
-    if (arr.length < 3) return arr
-    return [
+    if (arr.length > 2) return [
         arr.splice(0, arr.length/2),
         arr.shift(),
         arr
@@ -30,9 +30,12 @@ class Node {
         this.key = key
         this.left = null
         this.right = null
+        this.parent = null
+        this.deep = 0
     }
 }
-class BinaryTree {
+
+export default class BinaryTree {
     constructor(keys = [], isBalance) {
         this.keys = keys
         this.root = null
@@ -54,6 +57,38 @@ class BinaryTree {
             insertNode(this.root, node)
         } else {
             this.root = node
+        }
+    }
+    // 深度优先遍历
+    traverseDF(callback) {
+        let stack = [], stop = false        
+        stack.unshift(this.root)
+        let currentNode = stack.shift();
+        while(!stop && currentNode) {
+            // 根据回调函数返回值决定是否在找到第一个后继续查找
+            stop = callback(currentNode) === true ? true : false
+            if (!stop) {
+                // 每次把子节点置于堆栈最前头，下次查找就会先查找子节点
+                currentNode.right && stack.unshift(currentNode.right)
+                currentNode.left && stack.unshift(currentNode.left)
+                currentNode = stack.shift();
+            }
+        }
+    }
+    // 广度优先遍历
+    traverseBF(callback) {
+        let queue = [], stop = false;
+        queue.push(this.root)
+        let currentNode = queue.shift()
+        while(!stop && currentNode) {
+            // 根据回调函数返回值决定是否在找到第一个后继续查找
+            stop = callback(currentNode) === true ? true : false
+            if (!stop) {
+                // 每次把子节点置于队列最后，下次查找就会先查找兄弟节点
+                currentNode.left && queue.push(currentNode.left)
+                currentNode.right && queue.push(currentNode.right)
+                currentNode = queue.shift()
+            }
         }
     }
     balance() {
@@ -83,6 +118,3 @@ class BinaryTree {
         balanceCreate(l, c, r)
     }
 }
-
-const keys = [8,3,10,1,6,14,4,7,13]
-let binTree = new BinaryTree(keys)

@@ -31,27 +31,27 @@ export default class Event {
     constructor(canvas) {
         canvas.style.cursor = 'pointer'
         addEvent('mouseover', canvas, e => {
-            console.log('-----', e)
-            this.style.cursor = 'hand'
+            //console.log('-----', e)
+            //this.style.cursor = 'hand'
         })
         addEvent('mousedown', canvas, e => {
-            console.log('-----', e.offsetX, e.offsetY)
+            //console.log('-----', e.offsetX, e.offsetY)
         })
         addEvent('mousemove', canvas, e => {
-            console.log('-----', e.offsetX, e.offsetY)
+            //console.log('-----', e.offsetX, e.offsetY)
         })
         addEvent('mouseup', canvas, e => {
-            console.log('-----', e)
+            //console.log('-----', e)
         })
 
         addEvent('touchstart', canvas, e => {
-            console.log('-----', e)
+            //console.log('-----', e)
         })
         addEvent('touchmove', canvas, e => {
-            console.log('-----')
+            //console.log('-----')
         })
         addEvent('touchend', canvas, e => {
-            console.log('-----', e)
+            //console.log('-----', e)
         })
         
         /*
