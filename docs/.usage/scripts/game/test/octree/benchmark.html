@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>octree.js Benchmark</title>
+    <script type="text/javascript" src="octree.js"></script>
+    <script type="text/javascript" src="benchmark.js"></script>
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .benchmark-result {
+        border: 1px solid #000;
+      }
+      .benchmark-title {
+      }
+      .benchmark-time {
+      }
+      #benchmarks {
+        width: 700px;
+        margin: auto;
+        border: 1px solid #000;
+      }
+      #benchmarks-headers {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="benchmarks">
+      <tr id="benchmarks-headers" class="benchmark-result">
+        <td class="benchmark-title">Title</td>
+        <td class="benchmark-time">Times (ms)</td>
+        <td class="benchmark-average">Average (ms)</td>
+      </tr>
+    </table>
+  </body>
+</html>
+<script>
+    var listContainer = document.querySelector('#benchmarks')
+    var insertOptions = {
+        skip: false,
+        repeat: 6,
+        setupFunc: function (options) {
+            var octree = new Octree({ size: 1000, depth: 4}), 
+                nodes = []
+            for (var i = 0; i < 1000; ++i) {
+                var min = [-1000 + Math.random() * 1500, -1000 + Math.random() * 1500, -1000 + Math.random() * 1500], max = [min[0] + Math.random() * 500, min[1] + Math.random() * 500, min[2] + Math.random() * 500]
+                var node = new Octree.Node({ object: { foo: "bar" }, aabb: [min, max], inserted: function (subtree) {} })
+                //console.log(node);
+                nodes.push(node);
+            }
+            options.octree = octree
+            options.nodes = nodes
+        },
+        benchFunc: function (options) {
+            var octree = options.octree, 
+                nodes = options.nodes
+            for (var i = 0, l = nodes.length; i < l; ++i) { octree.insert(nodes[i]) }
+        }
+    }
+    var adjustOptions = {
+        repeat: 6,
+        setupFunc: function (options) {
+            var octree = new Octree({ size: 1000, depth: 4}), 
+                nodes = []
+            for (var i = 0; i < 100; ++i) {
+                var min = [-1000 + Math.random() * 1500, -1000 + Math.random() * 1500, -1000 + Math.random() * 1500], 
+                    max = [min[0] + Math.random() * 500, min[1] + Math.random() * 500, min[2] + Math.random() * 500];
+                var node = new Octree.Node({ 
+                  object: { foo: "bar" }, 
+                  aabb: [min, max], 
+                  inserted: function (subtree) { } 
+                })
+                //console.log(node);
+                nodes.push(node);
+                octree.insert(node)
+            }
+            
+            var positions = []
+            for (var i = 0, l = nodes.length * 6; i < l; ++i) {
+                var min = [-1000 + Math.random() * 1500, -1000 + Math.random() * 1500, -1000 + Math.random() * 1500], 
+                    max = [min[0] + Math.random() * 500, min[1] + Math.random() * 500, min[2] + Math.random() * 500]
+                positions.push([min, max])
+            }
+            options.octree = octree;
+            options.nodes = nodes;
+            options.positions = positions;
+        },
+        benchFunc: function (options) {
+            var octree = options.octree, 
+                nodes = options.nodes, 
+                positions = options.positions
+            for (var i = 0, l = nodes.length; i < l; ++i) { nodes[i].aabb = positions.pop(); nodes[i].adjust() }
+        }
+    }
+    // 基准池
+    var pool = new BenchmarkPool()
+    var insert = new Benchmark("Insert Node", insertOptions)
+    var adjust = new Benchmark("Adjust Node", adjustOptions)
+
+    pool.add(insert)
+    pool.add(adjust)
+    pool.run(benchmarks => {
+      var resultRow = document.createElement( 'tr' ), title = document.createElement( 'td' ), time = document.createElement( 'td' ), average = document.createElement( 'td' );
+      title.appendChild( document.createTextNode( benchmarks.name ) ); title.className = "benchmark-title";
+      time.appendChild( document.createTextNode( benchmarks.times ) ); time.className = "benchmark-time";
+      average.appendChild( document.createTextNode( benchmarks.average ) ); average.className = "benchmark-average";
+      resultRow.appendChild( title );
+      resultRow.appendChild( time );
+      resultRow.appendChild( average );
+      resultRow.className = "benchmark-result";
+      listContainer.appendChild( resultRow );
+    });
+</script>
