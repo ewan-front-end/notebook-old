@@ -10,7 +10,7 @@ import Event from "./event.js"
 export default class Stage extends Canvas {
     constructor(options) {
         super(options)
-        new Event(options.canvas)
+        new Event(this)
     }
     showRuler() {
         let ctx = this.context, w = this.width, h = this.height

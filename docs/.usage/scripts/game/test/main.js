@@ -9,6 +9,7 @@ const Circle = require('../core/circle').default
 //const Game = require('../core/game').default
 
 const BinaryTree = require('../core/structure/binary-tree').default
+const QuadTree = require('../core/structure/quad-tree').default
 
 module.exports = {
     Element,
@@ -17,5 +18,6 @@ module.exports = {
     Layer, Group, Rect, Circle,
     //Game
     // 数据结构
-    BinaryTree
+    BinaryTree,
+    QuadTree
 }

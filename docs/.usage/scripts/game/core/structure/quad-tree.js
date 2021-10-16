@@ -12,27 +12,6 @@ export default class QuadTree {
         this.nodes = []       // 项限 
         this.bounds = boundBox || {x: 0, y: 0, width: 0, height: 0} // 当前节点区域范围
     }
-    clear() {
-        this.objects = []
-        this.nodes.forEach(node => {node.clear()})
-        this.nodes = []
-    }
-    getAllObjects(returnedObjects) {
-        this.nodes.forEach(node => {node.getAllObjects(returnedObjects)})
-        this.objects.forEach(node => {returnedObjects.push(node)})
-        return returnedObjects
-    }
-    // 返回该对象可能碰撞的所有对象
-    findObjects(returnedObjects, obj) {
-        if (typeof obj === "undefined") {
-            console.log("UNDEFINED OBJECT")
-            return
-        }
-        let index = this.getIndex(obj) 
-        if (index != -1 && this.nodes.length) this.nodes[index].findObjects(returnedObjects, obj)
-        this.objects.forEach(node => { returnedObjects.push(node) })
-        return returnedObjects;
-    }
     insert(obj) {
         if (typeof obj === "undefined") return
         if (obj instanceof Array) {
@@ -59,6 +38,36 @@ export default class QuadTree {
                 index === -1 ? i++ : this.nodes[index].insert((objects.splice(i,1))[0])
             }
         }
+    }
+    pointCollision(x, y) {
+        console.log(x, y);
+        for (let i = 0, l = this.objects.length; i < l; i++) {
+            let data = this.objects[i]
+            if (x > data.x && x < data.x + data.width && y > data.y && y < data.y + data.height) return true
+        }
+        
+        return false
+    }
+    clear() {
+        this.objects = []
+        this.nodes.forEach(node => {node.clear()})
+        this.nodes = []
+    }
+    getAllObjects(returnedObjects) {
+        this.nodes.forEach(node => {node.getAllObjects(returnedObjects)})
+        this.objects.forEach(node => {returnedObjects.push(node)})
+        return returnedObjects
+    }
+    // 返回该对象可能碰撞的所有对象
+    findObjects(returnedObjects, obj) {
+        if (typeof obj === "undefined") {
+            console.log("UNDEFINED OBJECT")
+            return
+        }
+        let index = this.getIndex(obj) 
+        if (index != -1 && this.nodes.length) this.nodes[index].findObjects(returnedObjects, obj)
+        this.objects.forEach(node => { returnedObjects.push(node) })
+        return returnedObjects;
     }
     // 确定对象属于哪个节点 -1表示对象不完全属于一个项限 只是当前项限的一部分
     getIndex(obj) {
@@ -91,6 +100,7 @@ export default class QuadTree {
         this.nodes[3] = new QuadTree({x: x + subWidth, y: y + subHeight, width: subWidth, height: subHeight}, level + 1)
     }
     draw(draw) {
+        console.log(11111);
         draw({type: 'Rect', data:this.bounds, assignment:{strokeStyle: '#ccc', lineWidth:1}})
         this.objects.forEach(data => {
             draw({type: 'Rect', data, assignment:{strokeStyle: '#f00'}})

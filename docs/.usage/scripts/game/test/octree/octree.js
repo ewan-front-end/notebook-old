@@ -1,3 +1,7 @@
+
+
+
+
 var planeMath = {
     classifyPoint: function (plane, pt) {
         var dist = (plane[0] * pt[0]) + (plane[1] * pt[1]) + (plane[2] * pt[2]) + (plane[3]);
@@ -89,18 +93,23 @@ var tools = {
     },
     // 检测重叠
     overlaps: function (aabb1, aabb2) {
-        for (var axis = 0; axis < 3; ++axis) {
-            var t = dot(aabb1[0], bases[axis]), tmin = 1000000000000000000, tmax = -1000000000000000
-            //unrolled
-            t = dot([aabb2[0][0], aabb2[0][1], aabb2[0][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[1][0], aabb2[0][1], aabb2[0][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[0][0], aabb2[1][1], aabb2[0][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[1][0], aabb2[1][1], aabb2[0][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[0][0], aabb2[0][1], aabb2[1][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[1][0], aabb2[0][1], aabb2[1][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[0][0], aabb2[1][1], aabb2[1][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            t = dot([aabb2[1][0], aabb2[1][1], aabb2[1][2]], bases[axis]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
-            var origin1 = dot(aabb1[0], bases[axis]), origin2 = dot(aabb1[1], bases[axis]);
+        // [[-1,0,0], [0, 1, 1]]  [[0,0,0], [1,1,1]]
+        // bases = [[1, 0, 0], [0, 1, 0], [0, 0, 1],]
+        // function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] }
+        for (var i = 0; i < 3; ++i) {
+            // [-1,0,0]  [0,0,0] = 0 
+            var t = dot(aabb1[0], bases[i]), tmin = 1000000000000000000, tmax = -1000000000000000
+            //[0,0,0] [1, 0, 0] = 0    tmin = 0  tmax = 0
+            t = dot([aabb2[0][0], aabb2[0][1], aabb2[0][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            //[1,0,0] [1, 0, 0] = 0    tmin = 0  tmax = 0
+            t = dot([aabb2[1][0], aabb2[0][1], aabb2[0][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            t = dot([aabb2[0][0], aabb2[1][1], aabb2[0][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            t = dot([aabb2[1][0], aabb2[1][1], aabb2[0][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            t = dot([aabb2[0][0], aabb2[0][1], aabb2[1][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            t = dot([aabb2[1][0], aabb2[0][1], aabb2[1][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            t = dot([aabb2[0][0], aabb2[1][1], aabb2[1][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            t = dot([aabb2[1][0], aabb2[1][1], aabb2[1][2]], bases[i]); tmin = t < tmin ? t : tmin; tmax = t > tmax ? t : tmax
+            var origin1 = dot(aabb1[0], bases[i]), origin2 = dot(aabb1[1], bases[i]);
             if ((tmin > origin2) || tmax < origin1) { return false }
         }
         return true;
@@ -203,7 +212,7 @@ var Node = function (options) {
                 oldRootTree.insert(that);
             }
         }
-    };
+    }
 }
 
 var Octree = window.Octree = function (options) {

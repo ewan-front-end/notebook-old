@@ -1,4 +1,6 @@
 
+import QuadTree from "../structure/quad-tree.js"
+
 function addEvent(type, element, fun) {
     if (element.addEventListener) {
         addEvent = function (type, element, fun) {
@@ -28,16 +30,39 @@ function addEvent(type, element, fun) {
 
 
 export default class Event {
-    constructor(canvas) {
-        canvas.style.cursor = 'pointer'
+    constructor({canvas, draw}) {
+        const quadTree = new QuadTree({x: 0, y:0,  width:800, height:500}, 0)
+        quadTree.insert({x: 100, y:460, width:600, height:15})
+        quadTree.insert({x: 100, y:50, width:20, height:20})
+        quadTree.insert({x: 500, y:300, width:40, height:20})
+        quadTree.insert({x: 470, y:330, width:20, height:20})
+        quadTree.insert({x: 550, y:350, width:50, height:50})
+        quadTree.insert({x: 600, y:320, width:10, height:10})
+        quadTree.insert({x: 640, y:390, width:20, height:20})
+        quadTree.insert({x: 680, y:370, width:10, height:10})
+        quadTree.insert({x: 690, y:385, width:10, height:10})
+        setTimeout(()=>{
+            quadTree.draw(draw)
+        }, 2000)
+        // setTimeout(()=>{
+        //     quadTree.draw(this.stage.draw)
+        // }, 2000)
+        //canvas.style.cursor = 'pointer'
         addEvent('mouseover', canvas, e => {
             //console.log('-----', e)
             //this.style.cursor = 'hand'
         })
         addEvent('mousedown', canvas, e => {
+            
             //console.log('-----', e.offsetX, e.offsetY)
         })
         addEvent('mousemove', canvas, e => {
+            let res = quadTree.pointCollision(e.offsetX, e.offsetY)
+            if (res) {
+                canvas.style.cursor = 'pointer'
+            } else {
+                canvas.style.cursor = 'default'
+            }
             //console.log('-----', e.offsetX, e.offsetY)
         })
         addEvent('mouseup', canvas, e => {
