@@ -1,41 +1,18 @@
 function getOriginFromBound(bound) {
-    let origin = Array(3), {min, max} = bound
-        origin[0] = (min[0] + max[0]) * 0.5
-        origin[1] = (min[1] + max[1]) * 0.5
-        origin[2] = (min[2] + max[2]) * 0.5
-    return origin
+    let [min, max] = bound
+    return min.map((val, i) => (val + max[i]) * 0.5)
 }
-function createBoundByPosition({start, size}, aabb) {
-    aabb.min = start
-    aabb.max = start
-    start.forEach((val, i) => {
-        
-    })
-    if (position.length === 4) {
-        let {x, y, w, h} = position
-        
-        aabb.max = [x + w, y + h]
-        aabb.origin = [x + w/2, y + h/2]
-        aabb.size = [w, h]
-        aabb.veidoo = 2
-    }
-    if (position.length === 6) {
-        let {x, y, z, w, h, d} = position
-        
-        aabb.max = [x + w, y + h, z + d]
-        aabb.origin = [x + w/2, y + h/2, z + d/2]
-        aabb.size = [w, h, z]
-        aabb.veidoo = 3
-    }
+function createBoundByPosition({position, size}, aabb) {
+    aabb.min = position
+    aabb.max = position.map((val, i) => val + size[i])
+    aabb.origin = position.map((val, i) => val + size[i]/2)
+    aabb.size = size
+    aabb.veidoo = position.length
 }
 function getSizeFromBound(bound) {
-    let size = Array(3), {min, max} = bound
-    size[0] = max[0]-min[0]
-    size[1] = max[1]-min[1]
-    size[2] = max[2]-min[2]
-    return size
+    let [min, max] = bound
+    return min.map((val, i) => max[i] - val)
 }
-
 
 /**
  * 包围球
@@ -46,39 +23,22 @@ export class Sphere {
 
 /**
  * 轴对齐包围盒(Axis-Aligned Bounding Box)
- * @nature
- *   origin: [X, Y, Z]
- *   Pmin = [Xmin Ymin Zmin]，Pmax = [ Xmax Ymax Zmax]
- *   Xmin <= X <= Xmax
- *   Ymin <= Y <= Ymax
- *   Zmin <= Z <= Zmax
  * @example
- *   let aabb = new AABB({min: [0,0], max: [0,0]})
- *   let aabb = new AABB({min: [0,0,0], max: [0,0,0]})
- *   let aabb = new AABB({
- *       position: {
- *           start: [0, 0]
- *           size: [100, 100]
- *       }
- *   })
- *   let aabb = new AABB({
- *       position: {
- *           start: [0, 0, 0]
- *           size: [100, 100, 100]
- *       } 
- *   })
+ * let aabb = new AABB([[0,0], [0,0]])
+ * let aabb = new AABB([[0,0,0], [0,0,0]])
+ * let aabb = new AABB({position: [0, 0], size: [100, 100]})
+ * let aabb = new AABB({position: [0, 0, 0], size: [100, 100, 100]})
  */
 export class AABB {
-    constructor(options = {}) {
-        let {min, max, position} = options
-        if (min && max) {
-            this.min = min 
-            this.max = max
-            this.origin = getOriginFromBound({min, max})
-            this.size = getSizeFromBound({min, max})
-            this.veidoo = min.length
+    constructor(options) {
+        if (Object.prototype.toString.call(options) === '[object Array]') {
+            this.min = options[0] 
+            this.max = options[1]
+            this.origin = getOriginFromBound(options)
+            this.size = getSizeFromBound(options)
+            this.veidoo = options[0].length
         } else {
-            position && createBoundByPosition(position, this)
+            createBoundByPosition(options, this)
         }
     }
     // 通过添加一个有效顶点调整扩张包围盒
