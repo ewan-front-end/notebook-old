@@ -1,10 +1,22 @@
+import {AABB} from './bound.js'
+
 /**
  * 四叉树
  * @param {*} boundBox 边界盒
  * @param {Number} lvl 层级
  */
+class Node {
+    constructor(width, height) {
+        this.width = width
+        this.height = height
+        this.subdivision = null // 细分
+        this.bounds = [] // 子元素
+    }
+}
+
 export default class QuadTree {
     constructor(boundBox, lvl) {
+        this.root = new Node()
         this.maxObjects = 2  // 子类数量阈值
         this.maxLevels = 5    // 层级深度阈值         
         this.level = lvl || 0 // 层级        
@@ -12,8 +24,8 @@ export default class QuadTree {
         this.nodes = []       // 项限 
         this.bounds = boundBox || {x: 0, y: 0, width: 0, height: 0} // 当前节点区域范围
     }
-    insert(obj) {
-        if (typeof obj === "undefined") return
+    insert(bound) {
+        if (bound instanceof Bound) return
         if (obj instanceof Array) {
             for (var i = 0, len = obj.length; i < len; i++) { this.insert(obj[i]) }
             return
@@ -39,7 +51,8 @@ export default class QuadTree {
             }
         }
     }
-    pointCollision(x, y) {
+
+    pointInWhere(x, y) {
         console.log(x, y);
         for (let i = 0, l = this.objects.length; i < l; i++) {
             let data = this.objects[i]
