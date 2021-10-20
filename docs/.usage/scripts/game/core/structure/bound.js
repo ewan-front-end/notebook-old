@@ -18,7 +18,7 @@ function getSizeFromBound(bound) {
  * 包围球
  */
 export class Sphere {
-
+    // todo
 }
 
 /**
@@ -76,12 +76,12 @@ export class AABB {
  * 方向包围盒(Oriented Bounding Box)
  */
  export class OBB {
-
+    // todo
 }
 
 /**
  * 固定方向凸包(Fixed Directions Hulls或k-DOP)
  */
  export class FDH {
-
+    // todo
 }

@@ -14,22 +14,17 @@ class Node {
     }
 }
 
-export default class QuadTree {
+export class QuadTree {
     constructor(boundBox, lvl) {
         this.root = new Node()
-        this.maxObjects = 2  // 子类数量阈值
+        this.maxObjects = 5   // 子类数量阈值
         this.maxLevels = 5    // 层级深度阈值         
         this.level = lvl || 0 // 层级        
         this.objects = []     // 跨项限或未分裂
         this.nodes = []       // 项限 
         this.bounds = boundBox || {x: 0, y: 0, width: 0, height: 0} // 当前节点区域范围
     }
-    insert(bound) {
-        if (bound instanceof Bound) return
-        if (obj instanceof Array) {
-            for (var i = 0, len = obj.length; i < len; i++) { this.insert(obj[i]) }
-            return
-        }
+    insert(obj) {
         if (this.nodes.length) {
             var index = this.getIndex(obj)
             if (index != -1) {
@@ -51,14 +46,14 @@ export default class QuadTree {
             }
         }
     }
-
-    pointInWhere(x, y) {
-        console.log(x, y);
+    intersectByPoint(x, y) {
+        return this.objects.filter(e => x > e.x && x < e.x + e.width && y > e.y && y < e.y + e.height)
+    }
+    isIntersectByPoint(x, y) {
         for (let i = 0, l = this.objects.length; i < l; i++) {
             let data = this.objects[i]
             if (x > data.x && x < data.x + data.width && y > data.y && y < data.y + data.height) return true
         }
-        
         return false
     }
     clear() {
@@ -114,7 +109,7 @@ export default class QuadTree {
     }
     draw(draw) {
         console.log(11111);
-        draw({type: 'Rect', data:this.bounds, assignment:{strokeStyle: '#ccc', lineWidth:1}})
+        draw({type: 'Rect', data:this.bounds, assignment:{strokeStyle: '#00f', lineWidth:1}})
         this.objects.forEach(data => {
             draw({type: 'Rect', data, assignment:{strokeStyle: '#f00'}})
         })
@@ -124,3 +119,18 @@ export default class QuadTree {
         })
     }
 }
+
+const nameMapQuadTree = {}
+class QuadTreeManager {
+    create(name, startBound) {
+        if (nameMapQuadTree[name]) return
+        const quadTree = new QuadTree(startBound)
+        nameMapQuadTree[name] = quadTree
+        return quadTree
+    }
+    getData(name) {
+        return nameMapQuadTree[name]
+    }
+}
+
+export const quadTreeManager = new QuadTreeManager()

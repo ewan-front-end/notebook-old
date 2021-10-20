@@ -44,6 +44,9 @@ export default class Element {
         this.state = 0               // 存储(激活、删除、隐藏等)状态
         this.id = classType + '_' + type + '_' + elementsLen
 
+        // 事件
+        this.event = options.event || null
+
         // 静态基础属性
         this.x = data.x || options.x || 0
         this.y = data.y || options.y || 0
