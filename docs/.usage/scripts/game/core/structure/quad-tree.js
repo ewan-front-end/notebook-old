@@ -59,8 +59,14 @@ export default class QuadTree {
             }
         }
     }
-    intersectByPoint(x, y) {
-        return this.children.filter(e => x > e.x && x < e.x + e.width && y > e.y && y < e.y + e.height)
+    intersectByPoint(x, y, intersect, isolate) {
+        let res = this.children.filter(e => x > e.x && x < e.x + e.width && y > e.y && y < e.y + e.height)
+        if (res.length) {
+            res.sort((a, b) => b - a)
+            intersect(res[0]._data)
+        } else {
+            isolate()
+        }
     }
     isIntersectByPoint(x, y) {
         for (let i = 0, l = this.children.length; i < l; i++) {

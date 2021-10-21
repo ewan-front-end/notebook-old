@@ -1,64 +1,52 @@
-
-import {eventData} from "../structure/data.js"
 import QuadTree from '../structure/quad-tree.js'
+import Interface from '../standard/interface.js'
 
 function addEvent(type, element, fun) {
     if (element.addEventListener) {
-        addEvent = function (type, element, fun) {
-            element.addEventListener(type, fun, false)
-        }
+        addEvent = function (type, element, fun) { element.addEventListener(type, fun, false) }
     } else if(element.attachEvent){
-        addEvent = function (type, element, fun) {
-            element.attachEvent('on' + type, fun)
-        }
+        addEvent = function (type, element, fun) { element.attachEvent('on' + type, fun) }
     } else{
-        addEvent = function (type, element, fun) {
-            element['on' + type] = fun
-        }
+        addEvent = function (type, element, fun) { element['on' + type] = fun }
     }
     return addEvent(type, element, fun)
 }
 function delEvent(type, element, fun) {
     if (element.addEventListener) {
-        delEvent = function (type, element, fun) {
-            element.removeEventListener(type, fun, false)
-        }
+        delEvent = function (type, element, fun) { element.removeEventListener(type, fun, false) }
     } else if(element.detachEvent){
-        delEvent = function (type, element, fun) {
-            element.detachEvent('on' + type, fun)
-        }
+        delEvent = function (type, element, fun) { element.detachEvent('on' + type, fun) }
     } else{
-        delEvent = function (type, element, fun) {
-            element['on' + type] = null
-        }
+        delEvent = function (type, element, fun) { element['on' + type] = null }
     }
     return delEvent(type, element, fun)
 }
 
-function handleMouseover() {}
-function handleMousedown() {}
-function handleMousemove(e) {
-    eventData.mouseMove(e.offsetX, e.offsetY, e => {
-        let {type, state, handler} = e
-        switch(type) {
-            case 'MOVE': element.style.cursor = 'move'; break;
-            case 'MOVE_X': element.style.cursor = 'col-resize'; break;
-            case 'MOVE_Y': element.style.cursor = 'row-resize'; break;
-            case 'INPUT': element.style.cursor = 'text'; break;
-            default: element.style.cursor = 'pointer'
-        }
-        state === 'busyness' && (element.style.cursor = 'wait')
-        handler && handler(e.target)
-    }, () => {
-        element.style.cursor = 'default'
-    })
-}
-function handleMouseup() {}
-function handleTouchstart() {}
-function handleTouchmove() {}
-function handleTouchend() {}
 
-function initEvent(element) {
+
+function initEvent(element, data) {
+    function handleMouseover() {}
+    function handleMousedown() {}
+    function handleMousemove(e) {
+        data.intersectByPoint(e.offsetX, e.offsetY, e => {
+            let {type, state, handler} = e
+            switch(type) {
+                case 'MOVE': element.style.cursor = 'move'; break;
+                case 'MOVE_X': element.style.cursor = 'col-resize'; break;
+                case 'MOVE_Y': element.style.cursor = 'row-resize'; break;
+                case 'INPUT': element.style.cursor = 'text'; break;
+                default: element.style.cursor = 'pointer'
+            }
+            state === 'busyness' && (element.style.cursor = 'wait')
+            handler && handler(e)
+        }, () => {
+            element.style.cursor = 'default'
+        })
+    }
+    function handleMouseup() {}
+    function handleTouchstart() {}
+    function handleTouchmove() {}
+    function handleTouchend() {}
     addEvent('mouseover', element, handleMouseover)
     addEvent('mousedown', element, handleMousedown)
     addEvent('mousemove', element, handleMousemove)
@@ -70,13 +58,17 @@ function initEvent(element) {
 
 class Event {
     constructor(element) {
-        element && initEvent(element)
+        this.data = new QuadTree()
+        element && initEvent(element, this.data)
     }
-    init(element) {
-        element && initEvent(element)
+    init(element, options) {
+        element && initEvent(element, this.data)
+        const quadtreeOptions = Interface.match(options, 'quadtree')
+        this.data.init(quadtreeOptions)
     }
     addEvent(event) {
-        eventData.insert(event)
+        const bound = Interface.match(event, 'bound')
+        this.data.insert(bound)
     }
 }
 

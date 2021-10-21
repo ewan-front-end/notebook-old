@@ -1,7 +1,6 @@
 
 import Canvas from "./canvas.js"
 import {canvasEvent} from "./event.js"
-import {eventData} from "../structure/data.js"
 
 /**
  * 舞台类
@@ -16,7 +15,7 @@ export default class Stage extends Canvas {
         super({canvas, width, height})
 
         const {event} = options
-        event && canvasEvent.init(canvas) // 创建事件
+        event && canvasEvent.init(canvas, {startBound : {x: 0, y: 0, width, height} }) 
     }
     showRuler() {
         let ctx = this.context, w = this.width, h = this.height
