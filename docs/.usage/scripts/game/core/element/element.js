@@ -1,3 +1,5 @@
+import {canvasEvent} from "../canvas/event.js"
+
 let elementsLen = 0 // 元素创建计数(id)
 const rate = Math.PI / 180
 const parseTransform = ({translateX = 0, translateY = 0, scaleX = 1, scaleY = 1, rotate = 0}) => [
@@ -45,7 +47,7 @@ export default class Element {
         this.id = classType + '_' + type + '_' + elementsLen
 
         // 事件
-        this.event = options.event || null
+        options.event && this.addEvent(options.event) 
 
         // 静态基础属性
         this.x = data.x || options.x || 0
@@ -71,6 +73,19 @@ export default class Element {
         this.data.x = computedProperty(this, 'x', 'ADD')
         this.data.y = computedProperty(this, 'y', 'ADD')
         this.assignment.globalAlpha = computedProperty(this, 'opacity')
+    }
+    // 添加事件
+    addEvent(type, handler) {
+        let {x, y, width, height} = this
+        if (typeof type === 'string') {
+            this.event = {type, handler: handler || function() {}, state: 0, target: this, x, y, width, height}
+            canvasEvent.addEvent(this.event)
+        } else if(Object.prototype.toString.call(type) === '[object Object]') {
+            console.log(22222);
+            const {type = 'CLICK', handler = function() {}} = type
+            this.event = {type, handler, state: 0, target: this, x, y, width, height}
+            canvasEvent.addEvent(this.event)
+        }
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   

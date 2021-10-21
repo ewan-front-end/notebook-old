@@ -1,16 +1,22 @@
 
 import Canvas from "./canvas.js"
-import Event from "./event.js"
+import {canvasEvent} from "./event.js"
+import {eventData} from "../structure/data.js"
 
 /**
  * 舞台类
  * @extends Canvas
  * @constructor
+ * @param {Element String} canvas
+ * @param {Number} width
+ * @param {height} height
  */
 export default class Stage extends Canvas {
-    constructor(options) {
-        super(options)
-        new Event(this)
+    constructor(canvas, width, height, options = {}) {
+        super({canvas, width, height})
+
+        const {event} = options
+        event && canvasEvent.init(canvas) // 创建事件
     }
     showRuler() {
         let ctx = this.context, w = this.width, h = this.height

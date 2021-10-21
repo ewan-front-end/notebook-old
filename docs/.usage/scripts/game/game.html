@@ -22,30 +22,18 @@
     import Polygon from './core/polygon.js'
     import {timerController} from './core/controls.js'
 
-    const quadtree = {
-        query(x, y, x1, y1) {
+    
 
-        }
-    }
 
-const elementArea = [[100,700,460,475]]
-function checkAreaX(x, y, arr, i) {
-    if (arr.length === 0) return arr
-    return checkAreaX(x, y, arr.filter(e => {
-        if (i === 0) return e[i] <= x
-        if (i === 1) return e[i] >= x
-        if (i === 2) return e[i] <= y
-        if (i === 3) return e[i] >= y
-    }), i + 1) 
-}
-let arr = quadtree.query(100, 460, 700, 475)
-console.log(arr)
 
     // 舞台&设施
     
     //var layer = new Layer(0, 0, 100, 100)
     //var group = new Group('GROUP_1')
     var rect = new Rect(10, 10, 100, 50, {fill: '#f00', opacity: 0.5})
+    rect.addEvent('click', e => {
+        console.log(e.type, e);
+    })
     var circle = new Circle(500, 300, 100, {fill:'#000'})
     var sprite = new Sprite(100, 200, 200, 100, {fillStyle:'#0f0'})
     var image = new Img('./images/marry.png', 200, 300)
