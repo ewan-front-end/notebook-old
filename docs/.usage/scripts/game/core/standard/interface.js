@@ -6,18 +6,13 @@ export default {
         height: 0,
         target: null
     },
-    quadtree: {
-        maxChildrenNum: 5,         // 子类数量阈值
-        maxLevels: 5,              // 最大细分层级
-        level: 0,                  // 手动设置层级
-        startBound : {x: 0, y: 0, width: 0, height: 0} 
-    },
     event: {
         type: 'click', 
-        handler: function() {}, // 事件句柄
         state: 0,               // 事件状态0初始1触发2完成 
         target: null,           // 元素 
-        bound: null             // 元素包围盒
+        bound: null,            // 元素包围盒
+        click: [],
+        mousemove: []
     },
     QuadTreeOptions: {
         maxChildrenNum: 5,         // 子类数量阈值

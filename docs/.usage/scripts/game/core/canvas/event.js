@@ -29,7 +29,7 @@ function initEvent(element, data) {
     function handleMousedown() {}
     function handleMousemove(e) {
         data.intersectByPoint(e.offsetX, e.offsetY, e => {
-            let {type, state, handler} = e
+            let {type, state, mousemove} = e.event
             switch(type) {
                 case 'MOVE': element.style.cursor = 'move'; break;
                 case 'MOVE_X': element.style.cursor = 'col-resize'; break;
@@ -38,7 +38,9 @@ function initEvent(element, data) {
                 default: element.style.cursor = 'pointer'
             }
             state === 'busyness' && (element.style.cursor = 'wait')
-            handler && handler(e)
+            mousemove.forEach(fn => {
+                fn()
+            });
         }, () => {
             element.style.cursor = 'default'
         })
@@ -63,7 +65,7 @@ class Event {
     }
     init(element, options) {
         element && initEvent(element, this.data)
-        const quadtreeOptions = Interface.match(options, 'quadtree')
+        const quadtreeOptions = Interface.match(options, 'QuadTreeOptions')
         this.data.init(quadtreeOptions)
     }
     addEvent(event = Interface.event) {

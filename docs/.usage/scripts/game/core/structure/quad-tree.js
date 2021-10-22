@@ -16,7 +16,7 @@ class Cell {
     }
     insertBound(bound = Interface.bound) {
         if (this.cells) {
-            var index = this.checkQuadrantIndex(bound)
+            const index = this.checkQuadrantIndex(bound)
             if (index != -1) {
                 this.cells[index].insertBound(bound)
                 return
@@ -25,14 +25,16 @@ class Cell {
         this.children.push(bound)
 
         // 超过容量阈值时 分裂并添加(防止无限分裂)
-        const {children,  level, maxLevels, cells} = this
-        const {maxChildrenNum,} = this.root
+        const {children, level, cells} = this
+        const {maxChildrenNum, maxLevels} = this.root
         if (children.length > maxChildrenNum && level < maxLevels) {
             if (cells === null) this.subdivide()
             let i = 0
             while (i < children.length) {
-                let index = this.getIndex(children[i].bound)
-                index === -1 ? i++ : this.cells[index].insert((children.splice(i,1))[0])
+                const bound = children[i]
+                const index = this.checkQuadrantIndex(bound)
+                const cell = cells[index]
+                index === -1 ? i++ : cell.insertBound((children.splice(i,1))[0])
             }
         }
     }
@@ -58,14 +60,24 @@ class Cell {
     }
     // 细分为四项限
     subdivide() {
-        const {level} = this
-        const {x, y, width, height} = this.bounds
+        const {level, root} = this
+        const {x, y, width, height} = this.range
         
-        let subWidth = width / 2 | 0, subHeight = height / 2 | 0
-        this.cells[0] = new QuadTree({x: x + subWidth, y, width: subWidth, height: subHeight}, level + 1)
-        this.cells[1] = new QuadTree({x, y, width: subWidth, height: subHeight}, level + 1)
-        this.cells[2] = new QuadTree({x, y: y + subHeight, width: subWidth, height: subHeight}, level + 1)
-        this.cells[3] = new QuadTree({x: x + subWidth, y: y + subHeight, width: subWidth, height: subHeight}, level + 1)
+        const subWidth = width / 2 | 0, subHeight = height / 2 | 0
+        this.cells = Array(4)
+        this.cells[0] = new Cell({x: x + subWidth, y, width: subWidth, height: subHeight}, level + 1, root)
+        this.cells[1] = new Cell({x, y, width: subWidth, height: subHeight}, level + 1, root)
+        this.cells[2] = new Cell({x, y: y + subHeight, width: subWidth, height: subHeight}, level + 1, root)
+        this.cells[3] = new Cell({x: x + subWidth, y: y + subHeight, width: subWidth, height: subHeight}, level + 1, root)
+    }
+    intersectByPoint(x, y, intersect, isolate) {
+        let res = this.children.filter(e => x > e.x && x < e.x + e.width && y > e.y && y < e.y + e.height)
+        if (res.length) {
+            res.sort((a, b) => b - a)
+            intersect(res[0].target)
+        } else {
+            isolate()
+        }
     }
 }
 
@@ -75,21 +87,25 @@ export default class QuadTree {
             Object.assign(this, options)
             this.root = new Cell(option.startBound, 0, this)
         }
+        this.childrenBeforeCreateRoot = []
     }
     init(options = Interface.QuadTreeOptions) {
+        console.log(options)
         Object.assign(this, options)
+        this.root = new Cell(options.startBound, 0, this)
+        this.childrenBeforeCreateRoot.forEach(bound => {
+            this.root.insertBound(bound)
+        })
     }
     addBound(bound = Interface.bound) {
-        this.root.insertBound(bound)
+        if (!this.root) {
+            this.childrenBeforeCreateRoot.push(bound)
+        } else {
+            this.root.insertBound(bound)
+        }
     }
     intersectByPoint(x, y, intersect, isolate) {
-        let res = this.children.filter(e => x > e.x && x < e.x + e.width && y > e.y && y < e.y + e.height)
-        if (res.length) {
-            res.sort((a, b) => b - a)
-            intersect(res[0].data)
-        } else {
-            isolate()
-        }
+        this.root.intersectByPoint(x, y, intersect, isolate)
     }
     isIntersectByPoint(x, y) {
         for (let i = 0, l = this.children.length; i < l; i++) {

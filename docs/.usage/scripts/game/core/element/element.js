@@ -81,10 +81,10 @@ export default class Element {
         if (typeof type === 'string') {
             this.event = Interface.match({
                 type, 
-                handler,
                 target: this, 
                 bound: {x, y, width, height, target: this}
             }, 'event')
+            this.event[type].push(handler)
             canvasEvent.addEvent(this.event)
         } else if(Object.prototype.toString.call(type) === '[object Object]') {
             const {type = 'CLICK', handler = function() {}} = type
