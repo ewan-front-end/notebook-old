@@ -1,4 +1,5 @@
 import {canvasEvent} from "../canvas/event.js"
+import Interface from '../standard/interface.js'
 
 let elementsLen = 0 // 元素创建计数(id)
 const rate = Math.PI / 180
@@ -78,12 +79,21 @@ export default class Element {
     addEvent(type, handler) {
         let {x, y, width, height} = this
         if (typeof type === 'string') {
-            this.event = {type, handler: handler || function() {}, state: 0, target: this, x, y, width, height}
+            this.event = Interface.match({
+                type, 
+                handler,
+                target: this, 
+                bound: {x, y, width, height, target: this}
+            }, 'event')
             canvasEvent.addEvent(this.event)
         } else if(Object.prototype.toString.call(type) === '[object Object]') {
-            console.log(22222);
             const {type = 'CLICK', handler = function() {}} = type
-            this.event = {type, handler, state: 0, target: this, x, y, width, height}
+            this.event = Interface.match({
+                type, 
+                handler,
+                target: this, 
+                bound: {x, y, width, height, target: this}
+            }, 'event')
             canvasEvent.addEvent(this.event)
         }
     }

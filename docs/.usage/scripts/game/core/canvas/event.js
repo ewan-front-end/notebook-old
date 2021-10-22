@@ -66,9 +66,8 @@ class Event {
         const quadtreeOptions = Interface.match(options, 'quadtree')
         this.data.init(quadtreeOptions)
     }
-    addEvent(event) {
-        const bound = Interface.match(event, 'bound')
-        this.data.insert(bound)
+    addEvent(event = Interface.event) {
+        this.data.addBound(event.bound)
     }
 }
 

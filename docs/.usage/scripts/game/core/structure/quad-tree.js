@@ -6,64 +6,87 @@ import Interface from '../standard/interface.js'
  * @param {*} boundBox 边界盒
  * @param {Number} lvl 层级
  */
-class Node {
-    constructor(width, height) {
-        this.width = width
-        this.height = height
-        this.subdivision = null // 细分
-        this.bounds = [] // 子元素
+class Cell {
+    constructor(range = Interface.bound, level, root) {
+        this.level = level || 0
+        this.root = root
+        this.range = range      // 范围
+        this.children = []      // 跨项限或未分裂
+        this.cells = null       // 细分项限
     }
-}
-
-function initQuadTree(tree, options) {
-    tree.maxChildrenNum = options.maxChildrenNum || 5   
-    tree.maxLevels = options.maxLevels || 5             
-    tree.level = options.level || 0       
-    tree.bounds = options.startBound || {x: 0, y: 0, width: 0, height: 0} // 当前节点区域范围
-}
-
-export default class QuadTree {
-    constructor(options = {
-        //maxChildrenNum: 5,         // 子类数量阈值
-        //maxLevels: 5,              // 最大细分层级
-        //level: 0,                  // 手动设置层级
-        //startBound : {x: 0, y: 0, width: 0, height: 0} 
-    }) {
-        this.root = new Node()
-        this.children = []   // 跨项限或未分裂
-        this.cells = []      // 项限
-        initQuadTree(this, options)
-    }
-    init(options) {
-        initQuadTree(this, options)
-    }
-    insert(bound = Interface.bound) {
-        if (this.cells.length) {
-            var index = this.getIndex(bound)
+    insertBound(bound = Interface.bound) {
+        if (this.cells) {
+            var index = this.checkQuadrantIndex(bound)
             if (index != -1) {
-                this.cells[index].insert(bound)
+                this.cells[index].insertBound(bound)
                 return
             }
         }
-
-        const {children, maxChildrenNum, level, maxLevels} = this
-        children.push(bound)
+        this.children.push(bound)
 
         // 超过容量阈值时 分裂并添加(防止无限分裂)
+        const {children,  level, maxLevels, cells} = this
+        const {maxChildrenNum,} = this.root
         if (children.length > maxChildrenNum && level < maxLevels) {
-            if (this.cells[0] == null) this.split()
+            if (cells === null) this.subdivide()
             let i = 0
             while (i < children.length) {
-                let index = this.getIndex(children[i])
+                let index = this.getIndex(children[i].bound)
                 index === -1 ? i++ : this.cells[index].insert((children.splice(i,1))[0])
             }
         }
+    }
+    // 检测元素在当前单元所属的细分项限
+    checkQuadrantIndex(bound) {
+        let index = -1
+        let {x: x1, y: y1, width: width1, height: height1} = this.range, 
+            {x: x2, y: y2, width: width2, height: height2} = bound
+        let midH = x1 + width1 / 2, 
+            midV = y1 + height1 / 2 
+        let withinTopQuadrant = (y2 < midV && y2 + height2 < midH), 
+            withinBomQuadrant = (y2 > midV) 
+        // 左右细分
+        if (x2 < midH && x2 + width2 < midH) {
+            withinTopQuadrant && (index = 1)
+            withinBomQuadrant && (index = 2)
+        }
+        if (x2 > midH) {
+            withinTopQuadrant && (index = 0)
+            withinBomQuadrant && (index = 3)
+        }
+        return index
+    }
+    // 细分为四项限
+    subdivide() {
+        const {level} = this
+        const {x, y, width, height} = this.bounds
+        
+        let subWidth = width / 2 | 0, subHeight = height / 2 | 0
+        this.cells[0] = new QuadTree({x: x + subWidth, y, width: subWidth, height: subHeight}, level + 1)
+        this.cells[1] = new QuadTree({x, y, width: subWidth, height: subHeight}, level + 1)
+        this.cells[2] = new QuadTree({x, y: y + subHeight, width: subWidth, height: subHeight}, level + 1)
+        this.cells[3] = new QuadTree({x: x + subWidth, y: y + subHeight, width: subWidth, height: subHeight}, level + 1)
+    }
+}
+
+export default class QuadTree {
+    constructor(options) {
+        if (options) {
+            Object.assign(this, options)
+            this.root = new Cell(option.startBound, 0, this)
+        }
+    }
+    init(options = Interface.QuadTreeOptions) {
+        Object.assign(this, options)
+    }
+    addBound(bound = Interface.bound) {
+        this.root.insertBound(bound)
     }
     intersectByPoint(x, y, intersect, isolate) {
         let res = this.children.filter(e => x > e.x && x < e.x + e.width && y > e.y && y < e.y + e.height)
         if (res.length) {
             res.sort((a, b) => b - a)
-            intersect(res[0]._data)
+            intersect(res[0].data)
         } else {
             isolate()
         }
@@ -116,7 +139,7 @@ export default class QuadTree {
         return index;
     }
     // 切割区域为四项限
-    split() {
+    subdivide() {
         const {level} = this
         const {x, y, width, height} = this.bounds
         
