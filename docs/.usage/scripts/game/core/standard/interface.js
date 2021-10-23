@@ -1,4 +1,42 @@
 export default {
+    GameOptions: {
+        canvas: null, // 必选 类型String/Element
+        width: 300,          // 可选 缺失时会从canvas属性获取 
+        height: 150,         // 可选 同上
+        // 默认场景设置
+        defaultSceneConfig: { 
+            background: {
+                color: '#eee',
+                image: {
+                    src: '',
+                    position: [0, 0],
+                    size: ['100%', '100%'],
+                    repeat: 'no-repeat',
+                    origin: [0, 0],
+                },
+                clip: null,
+                attachment: null
+            }
+        },
+        showGrid: false,       // 网格背景
+        showRuler: false,      // 标尺
+        allowEvent: false      // 允许创建事件
+    },
+    StageOptions: {
+        canvas: null, 
+        width: 0, 
+        height: 0,
+        showGrid: false,
+        showRuler: false,
+        allowEvent: false
+    },
+    SceneOptions: {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        defaultSceneConfig: null
+    },
     bound: {
         x: 0,
         y: 0,
@@ -20,17 +58,17 @@ export default {
         maxLevels: 5,              // 最大细分层级
         startBound : {x: 0, y: 0, width: 0, height: 0, target: null}
     },
-    match(data, target) {
+    match(target, options) {
         target = this[target]
         if (Object.prototype.toString.call(target) === '[object Object]') {
             const obj = {}
-            for(let i in target) {obj[i] = data[i] || target[i]}
+            for(let i in target) {obj[i] = options[i] || target[i]}
             return obj
         }
         if (Object.prototype.toString.call(target) === '[object Array]') {
             const arr = target.slice()
             arr.forEach((e,i) => {
-                if (data.length > i) arr[i] = data[i]
+                if (options.length > i) arr[i] = options[i]
             })
             return arr
         }

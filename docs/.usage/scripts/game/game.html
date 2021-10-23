@@ -70,10 +70,10 @@
     
     
     let game = new Game({
-        canvas: document.getElementById("myCanvas"), 
+        canvas: "#myCanvas", 
         width: 800, 
         height: 500,
-        defaultScene: {
+        defaultSceneConfig: {
             background: {
                 color: '#eee',
                 image: './images/bg.jpg',
@@ -85,7 +85,9 @@
                 attachment: null
             }
         },
-        showGrid: false
+        showGrid: true,
+        showRuler: true,
+        allowEvent: true
     })
     //game.addChild(layer)
     //game.addChild(group)

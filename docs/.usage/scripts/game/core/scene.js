@@ -1,6 +1,7 @@
 import Container from './element/container.js'
 import Background from './background.js'
 import {elementLevel} from './config/index.js'
+import Interface from './standard/interface.js'
 
 /**
  * 场景元素
@@ -20,11 +21,10 @@ const scenes = {
     length: 0
 }
 class Scene extends Container {
-    constructor(x = 0, y = 0, width = 500, height = 200, options = {}) {
-        const data = {x, y, width, height}
-        const assignment = {}
+    constructor(options = Interface.SceneOptions) {
+        const {x, y, width, height} = options
 
-        super('Scene', elementLevel.scene, data, assignment)
+        super('Scene', elementLevel.scene, {x, y, width, height}, {})
         const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options
 
         // 基础属性

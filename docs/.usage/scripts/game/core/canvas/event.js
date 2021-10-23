@@ -23,27 +23,25 @@ function delEvent(type, element, fun) {
 }
 
 class Event {
-    constructor(element, options) {        
+    constructor(element) {   
         if (element) {
             this.element = element
             this.addListener()
-        }
-        if (options) {
-            const quadtreeOptions = Interface.match(options, 'QuadTreeOptions')
+            let startBound = {x: 0, y: 0, width: element.width, height: element.height}
+            const quadtreeOptions = Interface.match('QuadTreeOptions', {startBound})
             this.data = new QuadTree(quadtreeOptions)
         } else {
             this.data = new QuadTree()
         } 
     }
-    init(element, options) {
+    init(element) {
         if (element) {
             this.element = element
             this.addListener()
-        }
-        if (options) {
-            const quadtreeOptions = Interface.match(options, 'QuadTreeOptions')
+            let startBound = {x: 0, y: 0, width: element.width, height: element.height}
+            const quadtreeOptions = Interface.match('QuadTreeOptions', {startBound})
             this.data.init(quadtreeOptions)
-        }        
+        }    
     }
     addListener() {
         const {element, data} = this
@@ -104,7 +102,7 @@ class Event {
         addEvent('touchend', element, handleTouchend)
     }
     subscribe(event = Interface.event) {
-        this.data.addBound(event.bound)
+        this.data.insertBound(event.bound)
     }
 }
 

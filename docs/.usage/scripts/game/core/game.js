@@ -2,6 +2,7 @@ import Stage from "./canvas/stage.js"
 import { Scene, scenes } from "./scene.js"
 import {resouceReady} from "./resouce.js" 
 import Timeline from './timer/timeline.js'
+import Interface from './standard/interface.js'
 
 
 /**
@@ -11,14 +12,13 @@ import Timeline from './timer/timeline.js'
  */
 export default class Game{    
     constructor(options = {}) {
-        const {canvas, width, height, showGrid, showRuler, defaultScene = {}} = options
+        const {canvas, width, height, showGrid, showRuler, allowEvent, defaultSceneConfig = {}} = options
+       
         // 舞台        
-        this.stage = new Stage(canvas, width, height, {event: true})
+        this.stage = new Stage(Interface.match('StageOptions', options))
+
         // 默认场景
-        this.defaultScene = new Scene(0, 0, width, height, defaultScene)
-        // 网格与标尺
-        showGrid && this.stage.showGrid()
-        showRuler && this.stage.showRuler()
+        this.defaultScene = new Scene('SceneOptions', options)
 
         resouceReady(() => {
             this.readyHandler()
