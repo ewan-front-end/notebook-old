@@ -22,53 +22,88 @@ function delEvent(type, element, fun) {
     return delEvent(type, element, fun)
 }
 
-
-
-function initEvent(element, data) {
-    function handleMouseover() {}
-    function handleMousedown() {}
-    function handleMousemove(e) {
-        data.intersectByPoint(e.offsetX, e.offsetY, e => {
-            let {type, state, mousemove} = e.event
-            switch(type) {
-                case 'MOVE': element.style.cursor = 'move'; break;
-                case 'MOVE_X': element.style.cursor = 'col-resize'; break;
-                case 'MOVE_Y': element.style.cursor = 'row-resize'; break;
-                case 'INPUT': element.style.cursor = 'text'; break;
-                default: element.style.cursor = 'pointer'
-            }
-            state === 'busyness' && (element.style.cursor = 'wait')
-            mousemove.forEach(fn => {
-                fn()
-            });
-        }, () => {
-            element.style.cursor = 'default'
-        })
-    }
-    function handleMouseup() {}
-    function handleTouchstart() {}
-    function handleTouchmove() {}
-    function handleTouchend() {}
-    addEvent('mouseover', element, handleMouseover)
-    addEvent('mousedown', element, handleMousedown)
-    addEvent('mousemove', element, handleMousemove)
-    addEvent('mouseup', element, handleMouseup)
-    addEvent('touchstart', element, handleTouchstart)
-    addEvent('touchmove', element, handleTouchmove)
-    addEvent('touchend', element, handleTouchend)
-}
-
 class Event {
-    constructor(element) {
-        this.data = new QuadTree()
-        element && initEvent(element, this.data)
+    constructor(element, options) {        
+        if (element) {
+            this.element = element
+            this.addListener()
+        }
+        if (options) {
+            const quadtreeOptions = Interface.match(options, 'QuadTreeOptions')
+            this.data = new QuadTree(quadtreeOptions)
+        } else {
+            this.data = new QuadTree()
+        } 
     }
     init(element, options) {
-        element && initEvent(element, this.data)
-        const quadtreeOptions = Interface.match(options, 'QuadTreeOptions')
-        this.data.init(quadtreeOptions)
+        if (element) {
+            this.element = element
+            this.addListener()
+        }
+        if (options) {
+            const quadtreeOptions = Interface.match(options, 'QuadTreeOptions')
+            this.data.init(quadtreeOptions)
+        }        
     }
-    addEvent(event = Interface.event) {
+    addListener() {
+        const {element, data} = this
+        let currentElement = null
+        let eventStart = null
+        function handleMousedown(e) {
+            if (currentElement) {
+                eventStart = {
+                    x: e.offsetX, 
+                    y:e.offsetY,
+                    target: currentElement,
+                    time: Date.now()
+                }
+                currentElement.event.MOUSEDOWN_FN.forEach(fn => {
+                    fn(currentElement)
+                })
+            } 
+        }
+        function handleMousemove(e) {
+            data.intersectByPoint(e.offsetX, e.offsetY, e => {
+                currentElement = e
+                let {type, state, MOUSEMOVE_FN, target} = e.event
+                switch(type) {
+                    case 'MOVE': element.style.cursor = 'move'; break;
+                    case 'MOVE_X': element.style.cursor = 'col-resize'; break;
+                    case 'MOVE_Y': element.style.cursor = 'row-resize'; break;
+                    case 'INPUT': element.style.cursor = 'text'; break;
+                    default: element.style.cursor = 'pointer'
+                }
+                state === 'busyness' && (element.style.cursor = 'wait')
+                MOUSEMOVE_FN.forEach(fn => {
+                    fn(target)
+                });
+            }, () => {
+                element.style.cursor = 'default'
+                currentElement = null
+            })
+        }
+        function handleMouseup(e) {
+            if (currentElement && eventStart) {
+                const {x, y, target, time} = eventStart, xOffset = e.offsetX - x, yOffset = e.offsetY - y
+                if (xOffset > -10 && xOffset < 10 && yOffset > -10 && yOffset < 10 && currentElement === target && Date.now() - time < 500) {
+                    target.event.CLICK_FN.forEach(fn => {
+                        fn(target)
+                    })
+                }
+            }
+            eventStart = null
+        }
+        function handleTouchstart() {}
+        function handleTouchmove() {}
+        function handleTouchend() {}
+        addEvent('mousedown', element, handleMousedown)
+        addEvent('mousemove', element, handleMousemove)
+        addEvent('mouseup', element, handleMouseup)
+        addEvent('touchstart', element, handleTouchstart)
+        addEvent('touchmove', element, handleTouchmove)
+        addEvent('touchend', element, handleTouchend)
+    }
+    subscribe(event = Interface.event) {
         this.data.addBound(event.bound)
     }
 }

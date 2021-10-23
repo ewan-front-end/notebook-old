@@ -90,7 +90,6 @@ export default class QuadTree {
         this.childrenBeforeCreateRoot = []
     }
     init(options = Interface.QuadTreeOptions) {
-        console.log(options)
         Object.assign(this, options)
         this.root = new Cell(options.startBound, 0, this)
         this.childrenBeforeCreateRoot.forEach(bound => {

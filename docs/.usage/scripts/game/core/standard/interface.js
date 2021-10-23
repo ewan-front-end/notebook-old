@@ -11,8 +11,9 @@ export default {
         state: 0,               // 事件状态0初始1触发2完成 
         target: null,           // 元素 
         bound: null,            // 元素包围盒
-        click: [],
-        mousemove: []
+        CLICK_FN: [],
+        MOUSEMOVE_FN: [],
+        MOUSEDOWN_FN: []
     },
     QuadTreeOptions: {
         maxChildrenNum: 5,         // 子类数量阈值

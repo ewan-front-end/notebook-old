@@ -84,17 +84,17 @@ export default class Element {
                 target: this, 
                 bound: {x, y, width, height, target: this}
             }, 'event')
-            this.event[type].push(handler)
-            canvasEvent.addEvent(this.event)
+            this.event[type.toUpperCase() + '_FN'].push(handler)
+            canvasEvent.subscribe(this.event)
         } else if(Object.prototype.toString.call(type) === '[object Object]') {
             const {type = 'CLICK', handler = function() {}} = type
             this.event = Interface.match({
                 type, 
-                handler,
                 target: this, 
                 bound: {x, y, width, height, target: this}
             }, 'event')
-            canvasEvent.addEvent(this.event)
+            this.event[type.toUpperCase() + '_FN'].push(handler)
+            canvasEvent.subscribe(this.event)
         }
     }
     appendTo(parent, forced) {

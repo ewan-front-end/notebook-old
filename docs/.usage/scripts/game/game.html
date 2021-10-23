@@ -31,7 +31,8 @@
     //var layer = new Layer(0, 0, 100, 100)
     //var group = new Group('GROUP_1')
     var rect = new Rect(10, 10, 100, 50, {fill: '#f00', opacity: 0.5})
-    rect.addEvent('mousemove', e => {
+    rect.addEvent('click', e => {
+        console.log(e);
         console.log(e.type, '点击事件');
     })
     var circle = new Circle(500, 300, 100, {fill:'#000'})
