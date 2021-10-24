@@ -12,7 +12,8 @@ import Interface from './standard/interface.js'
  */
 export default class Game{    
     constructor(options = {}) {
-        const {canvas, width, height, showGrid, showRuler, allowEvent, defaultSceneConfig = {}} = options
+        Interface.check('GameOptions', options, '初始化游戏的参数错误:')
+        typeof options.canvas === 'string' && (options.canvas = document.querySelector(options.canvas))
        
         // 舞台        
         this.stage = new Stage(Interface.match('StageOptions', options))

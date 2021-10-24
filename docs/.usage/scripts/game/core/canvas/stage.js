@@ -64,9 +64,7 @@ function drawGrid(root, config) {
 export default class Stage extends Canvas {
     constructor(options = Interface.StageOptions) {
         let {canvas, width, height, showGrid, showRuler, allowEvent} = options
-        typeof canvas === 'string' && (canvas = document.querySelector(canvas))
-        width = width || canvas.width
-        height = height || canvas.height
+        
 
         super({canvas, width, height})
         

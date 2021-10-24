@@ -1,26 +1,8 @@
 export default {
     GameOptions: {
         canvas: null, // 必选 类型String/Element
-        width: 300,          // 可选 缺失时会从canvas属性获取 
-        height: 150,         // 可选 同上
-        // 默认场景设置
-        defaultSceneConfig: { 
-            background: {
-                color: '#eee',
-                image: {
-                    src: '',
-                    position: [0, 0],
-                    size: ['100%', '100%'],
-                    repeat: 'no-repeat',
-                    origin: [0, 0],
-                },
-                clip: null,
-                attachment: null
-            }
-        },
-        showGrid: false,       // 网格背景
-        showRuler: false,      // 标尺
-        allowEvent: false      // 允许创建事件
+        width: 300,   // 可选 缺失时会从canvas属性获取 
+        height: 150   // 可选 同上
     },
     StageOptions: {
         canvas: null, 
@@ -36,6 +18,18 @@ export default {
         width: 0,
         height: 0,
         defaultSceneConfig: null
+    },
+    background: {
+        color: '#eee',
+        image: {
+            src: '',
+            position: [0, 0],
+            size: ['100%', '100%'],
+            repeat: 'no-repeat',
+            origin: [0, 0],
+        },
+        clip: null,
+        attachment: null
     },
     bound: {
         x: 0,
@@ -71,6 +65,12 @@ export default {
                 if (options.length > i) arr[i] = options[i]
             })
             return arr
+        }
+    },
+    check(target, options, errMsg) {
+        target = this[target]
+        for(let i in target) {
+            if (!options[i]) throw(errMsg)
         }
     }
 }
