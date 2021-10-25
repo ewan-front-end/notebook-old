@@ -23,7 +23,26 @@
     import {timerController} from './core/controls.js'
 
     
-
+    let game = new Game({
+        canvas: "#myCanvas", 
+        width: 800, 
+        height: 500,
+        defaultSceneConfig: {
+            background: {
+                color: '#eee',
+                image: './images/bg.jpg',
+                position: [0, 100],
+                size: ['100%', '100%'],
+                repeat: 'no-repeat',
+                origin: [0, 0],
+                clip: null,
+                attachment: null
+            }
+        },
+        showGrid: true,
+        showRuler: true,
+        allowEvent: true
+    })
 
 
     // 舞台&设施
@@ -69,26 +88,7 @@
     //rect.alpha(0.5)
     
     
-    let game = new Game({
-        canvas: "#myCanvas", 
-        width: 800, 
-        height: 0,
-        defaultSceneConfig: {
-            background: {
-                color: '#eee',
-                image: './images/bg.jpg',
-                position: [0, 100],
-                size: ['100%', '100%'],
-                repeat: 'no-repeat',
-                origin: [0, 0],
-                clip: null,
-                attachment: null
-            }
-        },
-        showGrid: true,
-        showRuler: true,
-        allowEvent: true
-    })
+    
     //game.addChild(layer)
     //game.addChild(group)
     //game.addChild(rect)

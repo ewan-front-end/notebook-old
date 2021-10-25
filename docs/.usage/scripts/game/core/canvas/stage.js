@@ -65,7 +65,6 @@ export default class Stage extends Canvas {
     constructor(options = Interface.StageOptions) {
         let {canvas, width, height, showGrid, showRuler, allowEvent} = options
         
-
         super({canvas, width, height})
         
         // 网格与标尺

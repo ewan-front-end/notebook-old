@@ -1,8 +1,8 @@
 export default {
     GameOptions: {
         canvas: null, // 必选 类型String/Element
-        width: 300,   // 可选 缺失时会从canvas属性获取 
-        height: 150   // 可选 同上
+        width: 0,     // 必选  
+        height: 0     // 必选 
     },
     StageOptions: {
         canvas: null, 
@@ -70,7 +70,7 @@ export default {
     check(target, options, errMsg) {
         target = this[target]
         for(let i in target) {
-            if (!options[i]) throw(errMsg)
+            if (!options[i]) throw(errMsg + i)
         }
     }
 }
