@@ -15,11 +15,18 @@ export default class Game{
         Interface.check('GameOptions', options, '初始化游戏的参数错误:')
         typeof options.canvas === 'string' && (options.canvas = document.querySelector(options.canvas))
        
-        // 舞台        
-        this.stage = new Stage(Interface.match('StageOptions', options))
+        // 舞台 
+        const stageOptions = Interface.match('StageOptions', options)      
+        this.stage = new Stage(stageOptions)
 
         // 默认场景
-        this.defaultScene = new Scene('SceneOptions', options)
+        const sceneOptions = Interface.match('SceneOptions', options)
+        if (sceneOptions.defaultSceneConfig) {
+            for(let i in sceneOptions.defaultSceneConfig) {
+                sceneOptions[i] = sceneOptions.defaultSceneConfig[i]
+            }
+        }
+        this.defaultScene = new Scene(sceneOptions)
 
         resouceReady(() => {
             this.readyHandler()
