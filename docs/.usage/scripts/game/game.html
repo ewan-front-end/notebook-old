@@ -59,8 +59,8 @@
     var image = new Img('./images/marry.png', 200, 300)
     var text = new Text('元素信息', 300, 100, {fill:'#f00', stroke:'#00f', font: "60px sans-serif", lineWidth:3})
     var timeline = new timerController(100, 460)
-    sprite.skew(0.5)
-    sprite.addChild(rect)
+    //sprite.skew(0.5)
+    //sprite.addChild(rect)
 
     var poly = new Polygon(50, 100, [
         [10,10],
@@ -91,7 +91,7 @@
     
     //game.addChild(layer)
     //game.addChild(group)
-    //game.addChild(rect)
+    game.addChild(rect)
     game.addChild(sprite)
     game.addChild(image)
     game.addChild(text)

@@ -1,8 +1,28 @@
 export default {
+    ElementOptions: {
+        parent: null,  // 由父容器创建时有值，通常是由addChild/appendTo方法产生此值，用于数据链、单一容器
+        type: '',      // 元素类型识别 RECT CIRCLE
+        level: 0,      // 层级包含关系
+        classType: '', // 被父容器审查的添加依据
+        options: null, 
+        
+        event: null,     // 事件
+
+        data: null,       // 绘制 方法参数
+        context: null, // 绘制 上下文环境
+        config: null,     // 绘制 策略 
+        transform: null,  // 绘制 变形
+
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        origin: [0, 0]
+    },
     GameOptions: {
-        canvas: null, // 必选 类型String/Element
-        width: 0,     // 必选  
-        height: 0     // 必选 
+        canvas: null,  // 必选 类型String/Element
+        width: 0,      // 必选  
+        height: 0      // 必选 
     },
     StageOptions: {
         canvas: null, 

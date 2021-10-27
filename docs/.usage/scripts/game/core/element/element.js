@@ -30,7 +30,7 @@ const computedProperty = (e, p, t) => {
  * @param <Number> level 元素层级
  * @param <String> classType 元素分类
  * @param [Object] data 绘制属性
- * @param [Object] assignment 绘制环境
+ * @param [Object] contextConfig 绘制环境
  * @param [Object] config 绘制策略
  * @param [Object] transform 变换
  * @method setData 添加到容器
@@ -38,9 +38,10 @@ const computedProperty = (e, p, t) => {
  * @method update 更新绘制
  */    
 export default class Element {
-    constructor(type, level, classType, options, data, assignment, config = {}, transform = {}) {
+    constructor(elementOptions = Interface.ElementOptions) {
+        const {parent, type, level, classType, options, data, contextConfig, config = {}, transform = {}, event} = elementOptions
         // 元素信息
-        this.parent = null           // 数据链、单一容器、
+        this.parent = parent || null           // 数据链、单一容器、
         this.type = type             // 元素类型识别
         this.level = level           // 层级包含关系        
         this.classType = classType,  // 被父容器审查的添加依据
@@ -48,7 +49,7 @@ export default class Element {
         this.id = classType + '_' + type + '_' + elementsLen
 
         // 事件
-        options.event && this.addEvent(options.event) 
+        event && this.addEvent(event) 
 
         // 静态基础属性
         this.x = data.x || options.x || 0
@@ -60,7 +61,7 @@ export default class Element {
         // 动态绘制属性(x, y, width, height)
         this.data = data 
         // 动态绘图环境(fillStyle, strokeStyle, globalAlpha)
-        this.assignment = assignment
+        this.contextConfig = contextConfig
         // 策略配置(save, restore, clip, unclip, closePath, showRange)
         this.config = config
         // 变换
@@ -73,7 +74,7 @@ export default class Element {
     setData() {
         this.data.x = computedProperty(this, 'x', 'ADD')
         this.data.y = computedProperty(this, 'y', 'ADD')
-        this.assignment.globalAlpha = computedProperty(this, 'opacity')
+        this.contextConfig.globalAlpha = computedProperty(this, 'opacity')
     }
     // 添加事件
     addEvent(type, handler) {
@@ -141,10 +142,10 @@ export default class Element {
     }
     alpha(opacity) {
         this.opacity = opacity
-        this.assignment.globalAlpha = computedProperty(this, 'opacity')
+        this.contextConfig.globalAlpha = computedProperty(this, 'opacity')
     }
     update(draw) {
-        const {type, data, assignment, transform, config} = this
-        draw({type, data, assignment, transform, config}, this.id)
+        const {type, data, contextConfig, transform, config} = this
+        draw({type, data, contextConfig, transform, config}, this.id)
     }
 }

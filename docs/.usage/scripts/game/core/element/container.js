@@ -16,8 +16,15 @@ const deepAddChild = (children, child) => {
     }
 }
 export default class Container extends Element {
-    constructor (type, level, data, assignment) {
-        super(type, level, 'CLASS_CONTAINER', {}, data, assignment)
+    constructor (type, level, data, contextConfig) {
+        super({
+            type, 
+            level, 
+            classType: 'CLASS_CONTAINER', 
+            options: {}, 
+            data, 
+            contextConfig
+        })
         this.children = []
     }
     setData(data){

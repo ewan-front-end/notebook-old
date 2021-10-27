@@ -7,13 +7,22 @@ import {elementLevel} from '../config/index.js'
  * @constructor
  * @param {String} type 类型
  * @param {Object} data 绘制属性
- * @param {Object} assignment 绘制环境
+ * @param {Object} contextConfig 绘制环境
  * @param {Object} config 策略配置
  * @param {Object} transform 变换
  */
  export default class Media extends Element {
-    constructor(type, data, assignment, config, transform) {
-        super(type, elementLevel.media, 'CLASS_IMAGE', {}, data, assignment, config, transform)
+    constructor(type, data, contextConfig, config, transform) {
+        super({
+            type, 
+            level: elementLevel.media, 
+            classType: 'CLASS_IMAGE', 
+            options: {}, 
+            data, 
+            contextConfig, 
+            config, 
+            transform
+        })
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   
