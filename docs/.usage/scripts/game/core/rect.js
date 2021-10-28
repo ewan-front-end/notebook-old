@@ -15,33 +15,42 @@ import Shape from './element/shape.js'
     constructor(x, y, width, height, options = {}) {
         const {config, transform} = options
         const data = {x, y, width, height}
-        const assignment = {}
+        const contextConfig = {}
 
-        !isNaN(options.opacity) && (assignment.globalAlpha = options.opacity)
-        !isNaN(options.globalAlpha) && (assignment.globalAlpha = options.globalAlpha)
+        !isNaN(options.opacity) && (contextConfig.globalAlpha = options.opacity)
+        !isNaN(options.globalAlpha) && (contextConfig.globalAlpha = options.globalAlpha)
 
-        options.fill && (assignment.fillStyle = options.fill)
-        options.fillStyle && (assignment.fillStyle = options.fillStyle)
+        options.fill && (contextConfig.fillStyle = options.fill)
+        options.fillStyle && (contextConfig.fillStyle = options.fillStyle)
 
-        options.stroke && (assignment.strokeStyle = options.stroke)
-        options.strokeStyle && (assignment.strokeStyle = options.strokeStyle)
-        options.lineWidth && (assignment.lineWidth = options.lineWidth)
-        options.lineCap && (assignment.lineCap = options.lineCap)
-        options.lineJoin && (assignment.lineJoin = options.lineJoin)
-        options.miterLimit && (assignment.miterLimit = options.miterLimit)
+        options.stroke && (contextConfig.strokeStyle = options.stroke)
+        options.strokeStyle && (contextConfig.strokeStyle = options.strokeStyle)
+        options.lineWidth && (contextConfig.lineWidth = options.lineWidth)
+        options.lineCap && (contextConfig.lineCap = options.lineCap)
+        options.lineJoin && (contextConfig.lineJoin = options.lineJoin)
+        options.miterLimit && (contextConfig.miterLimit = options.miterLimit)
 
-        options.shadowBlur && (assignment.shadowBlur = options.shadowBlur)
-        options.shadowColor && (assignment.shadowColor = options.shadowColor)
-        options.shadowOffsetX && (assignment.shadowOffsetX = options.shadowOffsetX)
-        options.shadowOffsetY && (assignment.shadowOffsetY = options.shadowOffsetY)
+        options.shadowBlur && (contextConfig.shadowBlur = options.shadowBlur)
+        options.shadowColor && (contextConfig.shadowColor = options.shadowColor)
+        options.shadowOffsetX && (contextConfig.shadowOffsetX = options.shadowOffsetX)
+        options.shadowOffsetY && (contextConfig.shadowOffsetY = options.shadowOffsetY)
 
-        options.globalCompositeOperation && (assignment.globalCompositeOperation = options.globalCompositeOperation)
-        options.filter && (assignment.filter = options.filter)
-        options.imageSmoothingEnabled && (assignment.imageSmoothingEnabled = options.imageSmoothingEnabled)
-        options.imageSmoothingQuality && (assignment.imageSmoothingQuality = options.imageSmoothingQuality)
-        options.lineDashOffset && (assignment.lineDashOffset = options.lineDashOffset)
+        options.globalCompositeOperation && (contextConfig.globalCompositeOperation = options.globalCompositeOperation)
+        options.filter && (contextConfig.filter = options.filter)
+        options.imageSmoothingEnabled && (contextConfig.imageSmoothingEnabled = options.imageSmoothingEnabled)
+        options.imageSmoothingQuality && (contextConfig.imageSmoothingQuality = options.imageSmoothingQuality)
+        options.lineDashOffset && (contextConfig.lineDashOffset = options.lineDashOffset)
 
-        super('Rect', data, assignment, config, transform)
+        const painter = {
+            data, 
+            contextConfig, 
+            config, 
+            transform
+        }
+        super({
+            type: 'Rect', 
+            painter
+        })
         
     }
 }

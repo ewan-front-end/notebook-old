@@ -24,7 +24,14 @@ class Scene extends Container {
     constructor(options = Interface.SceneOptions) {
         const {x, y, width, height} = options
 
-        super('Scene', elementLevel.scene, {x, y, width, height}, {})
+        super({
+            type: 'Scene', 
+            level: elementLevel.scene, 
+            painter: {
+                data: {x, y, width, height}, 
+                contextConfig: {}
+            }
+        })
         const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options
 
         // 基础属性

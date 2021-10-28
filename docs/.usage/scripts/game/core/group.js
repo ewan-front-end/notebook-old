@@ -9,7 +9,10 @@ import {elementLevel} from './config/index.js'
  */
  export default class Group extends Container {
     constructor(name) {
-        super('GROUP', elementLevel.group)
+        super({
+            type: 'GROUP', 
+            level: elementLevel.group
+        })
         this.name = name
             
     }

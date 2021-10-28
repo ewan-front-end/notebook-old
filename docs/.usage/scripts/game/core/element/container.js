@@ -1,4 +1,5 @@
 import Element from "./element.js"
+import Interface from '../standard/interface.js'
 
 /**
  * Element元素装饰
@@ -16,14 +17,14 @@ const deepAddChild = (children, child) => {
     }
 }
 export default class Container extends Element {
-    constructor (type, level, data, contextConfig) {
+    constructor (elementOptions = Interface.ElementOptions) {
+        const {type, level, painter} = elementOptions
         super({
             type, 
             level, 
             classType: 'CLASS_CONTAINER', 
             options: {}, 
-            data, 
-            contextConfig
+            painter
         })
         this.children = []
     }

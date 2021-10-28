@@ -18,16 +18,22 @@ import {asyncImage} from "./resouce.js"
  export default class Img extends Media {
     constructor(img, x = 0, y = 0, width, height, sx=0, sy=0, swidth, sheight, options) {
         const data = {img, sx, sy, swidth, sheight, x, y, width, height}
-        const assignment = {}
-        super('Image', data, assignment)
+        const contextConfig = {}
+        super({
+            type: 'Image', 
+            painter: {
+                data, 
+                contextConfig
+            }
+        })
         
         // 基础属性
         const initData = image => {
-            !width && (this.width = this.data.width = image.width)
-            !height && (this.height = this.data.height = image.height)
-            !swidth && (this.swidth = this.data.swidth = image.width)
-            !sheight && (this.sheight = this.data.sheight = image.height)
-            this.img = this.data.img = image 
+            !width && (this.width = this.painter.data.width = image.width)
+            !height && (this.height = this.painter.data.height = image.height)
+            !swidth && (this.swidth = this.painter.data.swidth = image.width)
+            !sheight && (this.sheight = this.painter.data.sheight = image.height)
+            this.img = this.painter.data.img = image 
         }
         
         if (typeof img === 'string') {

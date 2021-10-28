@@ -8,16 +8,20 @@ export default {
         
         event: null,     // 事件
 
-        data: null,       // 绘制 方法参数
-        context: null, // 绘制 上下文环境
-        config: null,     // 绘制 策略 
-        transform: null,  // 绘制 变形
+        painter: null,
+        
 
         x: 0,
         y: 0,
         width: 0,
         height: 0,
         origin: [0, 0]
+    },
+    Painter: {
+        data: null,       // 绘制 方法参数
+        contextConfig: null,    // 绘制 上下文环境
+        config: null,     // 绘制 策略 
+        transform: null,  // 绘制 变形
     },
     GameOptions: {
         canvas: null,  // 必选 类型String/Element

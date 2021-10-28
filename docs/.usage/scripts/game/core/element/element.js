@@ -39,42 +39,36 @@ const computedProperty = (e, p, t) => {
  */    
 export default class Element {
     constructor(elementOptions = Interface.ElementOptions) {
-        const {parent, type, level, classType, options, data, contextConfig, config = {}, transform = {}, event} = elementOptions
-        // 元素信息
-        this.parent = parent || null           // 数据链、单一容器、
-        this.type = type             // 元素类型识别
-        this.level = level           // 层级包含关系        
-        this.classType = classType,  // 被父容器审查的添加依据
+        const {painter, event} = elementOptions
+        const {data, contextConfig, config = {}, transform = {}} = painter
+        
+        // 静态基础属性
+        const {parent, type, level, classType, x, y, width, height, origin} = elementOptions
+        Object.assign(this, {parent, type, level, classType, x, y, width, height, origin})
+        
+        
+        
         this.state = 0               // 存储(激活、删除、隐藏等)状态
         this.id = classType + '_' + type + '_' + elementsLen
 
         // 事件
         event && this.addEvent(event) 
-
-        // 静态基础属性
-        this.x = data.x || options.x || 0
-        this.y = data.y || options.y || 0
-        this.width = data.width || options.width || 0
-        this.height = data.height || options.width || 0
-        this.origin = options.origin || [0, 0]
+        
+        
 
         // 动态绘制属性(x, y, width, height)
-        this.data = data 
-        // 动态绘图环境(fillStyle, strokeStyle, globalAlpha)
-        this.contextConfig = contextConfig
-        // 策略配置(save, restore, clip, unclip, closePath, showRange)
-        this.config = config
-        // 变换
-        this.transform = parseTransform(transform) // [1, 0, 0, 1, 0, 0]
+        painter.type = this.type
+        painter.id = this.id
+        this.painter = painter 
 
         elementsLen++
         
         //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
     setData() {
-        this.data.x = computedProperty(this, 'x', 'ADD')
-        this.data.y = computedProperty(this, 'y', 'ADD')
-        this.contextConfig.globalAlpha = computedProperty(this, 'opacity')
+        this.painter.data.x = computedProperty(this, 'x', 'ADD')
+        this.painter.data.y = computedProperty(this, 'y', 'ADD')
+        this.painter.contextConfig.globalAlpha = computedProperty(this, 'opacity')
     }
     // 添加事件
     addEvent(type, handler) {
@@ -145,7 +139,6 @@ export default class Element {
         this.contextConfig.globalAlpha = computedProperty(this, 'opacity')
     }
     update(draw) {
-        const {type, data, contextConfig, transform, config} = this
-        draw({type, data, contextConfig, transform, config}, this.id)
+        draw(this.painter)
     }
 }

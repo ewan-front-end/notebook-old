@@ -1,5 +1,6 @@
 import Element from "./element.js"
 import {elementLevel} from '../config/index.js'
+import Interface from '../standard/interface.js'
 
 /**
  * 媒体
@@ -12,16 +13,14 @@ import {elementLevel} from '../config/index.js'
  * @param {Object} transform 变换
  */
  export default class Media extends Element {
-    constructor(type, data, contextConfig, config, transform) {
+    constructor(elementOptions = Interface.ElementOptions) {
+        let {type, painter} = elementOptions
         super({
             type, 
             level: elementLevel.media, 
             classType: 'CLASS_IMAGE', 
             options: {}, 
-            data, 
-            contextConfig, 
-            config, 
-            transform
+            painter
         })
     }
     appendTo(parent, forced) {

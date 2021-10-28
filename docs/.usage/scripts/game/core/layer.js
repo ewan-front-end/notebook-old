@@ -12,7 +12,10 @@ import {elementLevel} from './config/index.js'
  */
  export default class Layer extends Container {
     constructor(x, y, width, height, options = {}) {
-        super('LAYER', elementLevel.layer)
+        super({
+            type: 'LAYER', 
+            level: elementLevel.layer
+        })
         const {opacity = 1, includeChild = null, excludeChild = null, backgroundColor = null, backgroundImage = null} = options
 
         // 基础属性

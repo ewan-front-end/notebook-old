@@ -1,3 +1,5 @@
+import Interface from '../standard/interface.js'
+
 /**
  * 画布类
  * @constructor
@@ -27,15 +29,12 @@ export default class Canvas {
     }
     init(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
-    draw({type, data, contextConfig = {}, config = {}, transform}, id) {  
-
-        //console.log(type, data);     
-        let ctx = this.context
+    draw(options = Interface.Painter) { 
+        let ctx = this.context, {type, data, contextConfig, config, transform} = options
         ctx.beginPath()
         Object.assign(ctx, contextConfig)
-
-        config.save && ctx.save()
-        config.clip && ctx.save()
+        config && config.save && ctx.save()
+        config && config.clip && ctx.save()
         if (transform) {
             ctx.save()
             ctx.transform(...transform)
@@ -44,14 +43,14 @@ export default class Canvas {
         this['draw' + type] && this['draw' + type](data, contextConfig)
 
         contextConfig.fillStyle && ctx.fill()
-        config.closePath && ctx.closePath()
+        config && config.closePath && ctx.closePath()
         contextConfig.strokeStyle && ctx.stroke()
         
-        config.clip && ctx.clip()
+        config && config.clip && ctx.clip()
 
         transform && ctx.restore()
-        config.unclip && ctx.restore()
-        config.restore && ctx.restore()
+        config && config.unclip && ctx.restore()
+        config && config.restore && ctx.restore()
     }
     
     drawSprite({ x, y, width, height, children}) {
