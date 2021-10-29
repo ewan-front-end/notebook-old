@@ -27,9 +27,9 @@ class Scene extends Container {
         super({
             type: 'Scene', 
             level: elementLevel.scene, 
-            painter: {
+            canvas: {
                 data: {x, y, width, height}, 
-                contextConfig: {}
+                context: {}
             }
         })
         const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options

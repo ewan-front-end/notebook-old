@@ -39,17 +39,17 @@ export default class Sprite extends Container {
     constructor(x, y, width, height, options) {
         const {config, transform} = options
         const data = {x, y, width, height}
-        const contextConfig = {}
+        const context = {}
 
-        !isNaN(options.opacity) && (contextConfig.globalAlpha = options.opacity)
-        !isNaN(options.globalAlpha) && (contextConfig.globalAlpha = options.globalAlpha)
+        !isNaN(options.opacity) && (context.globalAlpha = options.opacity)
+        !isNaN(options.globalAlpha) && (context.globalAlpha = options.globalAlpha)
 
         super({
             type: 'Sprite', 
             level: 4, 
-            painter: {
+            canvas: {
                 data, 
-                contextConfig, 
+                context, 
                 config, 
                 transform
             }
@@ -69,7 +69,7 @@ export default class Sprite extends Container {
             skewX: {value: skew[0], current: skew[0], target: skew[0], time: 0},
             skewY: {value: skew[1], current: skew[1], target: skew[1], time: 0}
         }
-        this.painter.data.children = this.children
+        this.canvas.data.children = this.children
     }
     translate(x, y) {
         setTransformTarget(this.tweenTransform.translateX, x)
@@ -114,7 +114,7 @@ export default class Sprite extends Container {
         skewX.value !== skewX.target && tweenTransform(skewX, nowtime)        
         skewY.value !== skewY.target && tweenTransform(skewY, nowtime)            
 
-        draw(this.painter)
+        draw(this.canvas)
     }
 }
 

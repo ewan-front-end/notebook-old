@@ -30,9 +30,9 @@ export default class Canvas {
     init(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
     draw(options = Interface.Painter) { 
-        let ctx = this.context, {type, data, contextConfig, config, transform} = options
+        let ctx = this.context, {type, data, context, config, transform} = options
         ctx.beginPath()
-        Object.assign(ctx, contextConfig)
+        Object.assign(ctx, context)
         config && config.save && ctx.save()
         config && config.clip && ctx.save()
         if (transform) {
@@ -40,11 +40,10 @@ export default class Canvas {
             ctx.transform(...transform)
         } 
 
-        this['draw' + type] && this['draw' + type](data, contextConfig)
-
-        contextConfig.fillStyle && ctx.fill()
+        this['draw' + type] && this['draw' + type](data, context)
+        context.fillStyle && ctx.fill()
         config && config.closePath && ctx.closePath()
-        contextConfig.strokeStyle && ctx.stroke()
+        context.strokeStyle && ctx.stroke()
         
         config && config.clip && ctx.clip()
 
@@ -62,8 +61,8 @@ export default class Canvas {
         // this.context.transform(transform.a, transform.b, transform.c, transform.d, transform.e, transform.f)
         // transform && this.context.restore()
         children.forEach(child => {
-            const {type, data, contextConfig, transform, config, id} = child
-            this.draw({type, data, contextConfig, transform, config}, id)
+            const {type, data, context, transform, config, id} = child
+            this.draw({type, data, context, transform, config}, id)
         })
         ctx.restore()
     }
@@ -78,12 +77,12 @@ export default class Canvas {
         ctx.arc(x, y, r, 0, 2 * Math.PI, false)
         ctx.closePath()
     }
-    drawText({text, x, y, maxWidth}, contextConfig) {
+    drawText({text, x, y, maxWidth}, context) {
         let ctx = this.context
         !maxWidth && (maxWidth = ctx.measureText(text).width)
         ctx.lineHeight = '200px'
         ctx.fillText(text, x, y, maxWidth)
-        contextConfig.strokeStyle && ctx.strokeText(text, x, y, maxWidth)
+        context.strokeStyle && ctx.strokeText(text, x, y, maxWidth)
     }
     drawLine({ start, end, options }) {
         let ctx = this.context
@@ -139,7 +138,7 @@ export default class Canvas {
 }
 
 /* 
-    ▇▇▇▇▇▇▇▇▇▇▇▇▇ contextConfig ▇▇▇▇▇▇▇▇▇▇▇▇▇
+    ▇▇▇▇▇▇▇▇▇▇▇▇▇ context ▇▇▇▇▇▇▇▇▇▇▇▇▇
     ▯fillStyle: "#000000"    ctx.fill()      填充颜色、模式或渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
     ▯strokeStyle: "#000000"  ctx.stroke()    描边颜色、模式和渐变。值：字符串、CanvasGradient 对象或 CanvasPattern 对象
     ▮lineCap: "butt"                         线条末端形状：butt  round/square (平直/圆形/夌形)

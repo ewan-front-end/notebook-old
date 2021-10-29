@@ -1,4 +1,18 @@
 export default {
+    canvasContextOptions: {
+        globalAlpha: 1,
+        fillStyle: '#333',
+        strokeStyle: '#333',
+        lineWidth: 1,
+        lineCap: 'butt',      // 线条末端样式:butt(平直)、round(圆形)、square(夌形)，默认butt
+        lineJoin: 'miter',    // 两条线条如何连接:round、bevel、miter，默认miter
+        miterLimit: 1,        // 当lineJoin:'miter'时，斜连接长度和线条宽度的最大比率
+        shadowBlur: 0,        // 羽化阴影的程度。默认0
+        shadowColor: 'black', // 可指定为CSS字符串或Web样式字符串，且可包含alpha部分来表示透明度。默认black
+        shadowOffsetX: 0,
+        shadowOffsetY: 0, 
+        globalCompositeOperation: 'source-over'
+    },
     ElementOptions: {
         parent: null,  // 由父容器创建时有值，通常是由addChild/appendTo方法产生此值，用于数据链、单一容器
         type: '',      // 元素类型识别 RECT CIRCLE
@@ -8,7 +22,7 @@ export default {
         
         event: null,     // 事件
 
-        painter: null,
+        canvas: null,
         
 
         x: 0,
@@ -19,7 +33,7 @@ export default {
     },
     Painter: {
         data: null,       // 绘制 方法参数
-        contextConfig: null,    // 绘制 上下文环境
+        context: null,    // 绘制 上下文环境
         config: null,     // 绘制 策略 
         transform: null,  // 绘制 变形
     },
@@ -96,5 +110,14 @@ export default {
         for(let i in target) {
             if (!options[i]) throw(errMsg + i)
         }
+    },
+    min(target, options) {
+        if (!options) return options
+        target = this[target]
+        let obj = {}
+        for(let key in target) {
+            if (options[key]) obj[key] = options[key]
+        }
+        return obj
     }
 }

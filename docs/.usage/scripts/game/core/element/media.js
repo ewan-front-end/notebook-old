@@ -8,19 +8,19 @@ import Interface from '../standard/interface.js'
  * @constructor
  * @param {String} type 类型
  * @param {Object} data 绘制属性
- * @param {Object} contextConfig 绘制环境
+ * @param {Object} context 绘制环境
  * @param {Object} config 策略配置
  * @param {Object} transform 变换
  */
  export default class Media extends Element {
     constructor(elementOptions = Interface.ElementOptions) {
-        let {type, painter} = elementOptions
+        let {type, canvas} = elementOptions
         super({
             type, 
             level: elementLevel.media, 
             classType: 'CLASS_IMAGE', 
             options: {}, 
-            painter
+            canvas
         })
     }
     appendTo(parent, forced) {

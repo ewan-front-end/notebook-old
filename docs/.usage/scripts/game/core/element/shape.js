@@ -8,20 +8,15 @@ import Interface from '../standard/interface.js'
  * @constructor
  * @param {String} type 类型
  * @param {Object} data 绘制属性
- * @param {Object} contextConfig 绘制环境
+ * @param {Object} context 绘制环境
  * @param {Object} config 策略配置
  * @param {Object} transform 变换
  */
  export default class Shape extends Element {
-    constructor(elementOptions = Interface.ElementOptions) {
-        let {type, painter} = elementOptions
-        super({
-            type, 
-            level: elementLevel.shape, 
-            classType: 'CLASS_SHAPE', 
-            options: {}, 
-            painter
-        })
+    constructor(elementOptions) {
+        elementOptions.level = elementLevel.shape
+        elementOptions.classType = 'CLASS_SHAPE'
+        super(elementOptions)
     }
     appendTo(parent, forced) {
         if (!(parent instanceof Element)) return {state: 2, type: 1, message: '目标元素非 Element 实例'}   

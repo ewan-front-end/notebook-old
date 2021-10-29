@@ -18,13 +18,13 @@ const deepAddChild = (children, child) => {
 }
 export default class Container extends Element {
     constructor (elementOptions = Interface.ElementOptions) {
-        const {type, level, painter} = elementOptions
+        const {type, level, canvas} = elementOptions
         super({
             type, 
             level, 
             classType: 'CLASS_CONTAINER', 
             options: {}, 
-            painter
+            canvas
         })
         this.children = []
     }

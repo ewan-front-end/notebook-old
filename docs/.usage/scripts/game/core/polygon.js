@@ -11,31 +11,31 @@ import Shape from './element/shape.js'
     constructor(x, y, points, options = {}) {
         const {config, transform} = options
         const data = {x, y, points}
-        const contextConfig = {}
+        const context = {}
 
-        !isNaN(options.opacity) && (contextConfig.globalAlpha = options.opacity)
-        !isNaN(options.globalAlpha) && (contextConfig.globalAlpha = options.globalAlpha)
+        !isNaN(options.opacity) && (context.globalAlpha = options.opacity)
+        !isNaN(options.globalAlpha) && (context.globalAlpha = options.globalAlpha)
 
-        options.fill && (contextConfig.fillStyle = options.fill)
-        options.fillStyle && (contextConfig.fillStyle = options.fillStyle)
+        options.fill && (context.fillStyle = options.fill)
+        options.fillStyle && (context.fillStyle = options.fillStyle)
 
-        options.stroke && (contextConfig.strokeStyle = options.stroke)
-        options.strokeStyle && (contextConfig.strokeStyle = options.strokeStyle)
-        options.lineWidth && (contextConfig.lineWidth = options.lineWidth)
-        options.lineCap && (contextConfig.lineCap = options.lineCap)
-        options.lineJoin && (contextConfig.lineJoin = options.lineJoin)
-        options.miterLimit && (contextConfig.miterLimit = options.miterLimit)
+        options.stroke && (context.strokeStyle = options.stroke)
+        options.strokeStyle && (context.strokeStyle = options.strokeStyle)
+        options.lineWidth && (context.lineWidth = options.lineWidth)
+        options.lineCap && (context.lineCap = options.lineCap)
+        options.lineJoin && (context.lineJoin = options.lineJoin)
+        options.miterLimit && (context.miterLimit = options.miterLimit)
 
-        options.shadowBlur && (contextConfig.shadowBlur = options.shadowBlur)
-        options.shadowColor && (contextConfig.shadowColor = options.shadowColor)
-        options.shadowOffsetX && (contextConfig.shadowOffsetX = options.shadowOffsetX)
-        options.shadowOffsetY && (contextConfig.shadowOffsetY = options.shadowOffsetY)
+        options.shadowBlur && (context.shadowBlur = options.shadowBlur)
+        options.shadowColor && (context.shadowColor = options.shadowColor)
+        options.shadowOffsetX && (context.shadowOffsetX = options.shadowOffsetX)
+        options.shadowOffsetY && (context.shadowOffsetY = options.shadowOffsetY)
 
         super({
             type: 'Polygon', 
-            painter: {
+            canvas: {
                 data, 
-                contextConfig, 
+                context, 
                 config, 
                 transform
             }

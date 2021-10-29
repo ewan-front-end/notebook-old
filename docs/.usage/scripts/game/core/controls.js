@@ -8,7 +8,7 @@ import Polygon from './polygon.js'
 
 export class timerController extends Container {
     constructor(x = 0, y = 0, width = 600, height = 15, options = {}) {
-        const contextConfig = {}
+        const context = {}
         const infoWidth = 50
         const infoHeight = 3
         const sliderWidth = 10
@@ -20,15 +20,15 @@ export class timerController extends Container {
         const pauseWidth = 8
         const pauseHeight = 9
 
-        !isNaN(options.opacity) && (contextConfig.globalAlpha = options.opacity)
-        !isNaN(options.globalAlpha) && (contextConfig.globalAlpha = options.globalAlpha)
+        !isNaN(options.opacity) && (context.globalAlpha = options.opacity)
+        !isNaN(options.globalAlpha) && (context.globalAlpha = options.globalAlpha)
 
         super({
             type: 'Controller', 
             level: elementLevel.controller,
-            painter: {
+            canvas: {
                 data: {x, y, width, height}, 
-                contextConfig
+                context
             }
         })
         const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options

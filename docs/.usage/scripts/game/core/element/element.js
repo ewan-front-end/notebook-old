@@ -30,7 +30,7 @@ const computedProperty = (e, p, t) => {
  * @param <Number> level 元素层级
  * @param <String> classType 元素分类
  * @param [Object] data 绘制属性
- * @param [Object] contextConfig 绘制环境
+ * @param [Object] context 绘制环境
  * @param [Object] config 绘制策略
  * @param [Object] transform 变换
  * @method setData 添加到容器
@@ -39,8 +39,8 @@ const computedProperty = (e, p, t) => {
  */    
 export default class Element {
     constructor(elementOptions = Interface.ElementOptions) {
-        const {painter, event} = elementOptions
-        const {data, contextConfig, config = {}, transform = {}} = painter
+        const {canvas, event} = elementOptions
+        const {data, context, config = {}, transform = {}} = canvas
         
         // 静态基础属性
         const {parent, type, level, classType, x, y, width, height, origin} = elementOptions
@@ -57,18 +57,18 @@ export default class Element {
         
 
         // 动态绘制属性(x, y, width, height)
-        painter.type = this.type
-        painter.id = this.id
-        this.painter = painter 
+        canvas.type = this.type
+        canvas.id = this.id
+        this.canvas = canvas 
 
         elementsLen++
         
         //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
     setData() {
-        this.painter.data.x = computedProperty(this, 'x', 'ADD')
-        this.painter.data.y = computedProperty(this, 'y', 'ADD')
-        this.painter.contextConfig.globalAlpha = computedProperty(this, 'opacity')
+        this.canvas.data.x = computedProperty(this, 'x', 'ADD')
+        this.canvas.data.y = computedProperty(this, 'y', 'ADD')
+        this.canvas.context.globalAlpha = computedProperty(this, 'opacity')
     }
     // 添加事件
     addEvent(type, handler) {
@@ -136,9 +136,9 @@ export default class Element {
     }
     alpha(opacity) {
         this.opacity = opacity
-        this.contextConfig.globalAlpha = computedProperty(this, 'opacity')
+        this.context.globalAlpha = computedProperty(this, 'opacity')
     }
     update(draw) {
-        draw(this.painter)
+        draw(this.canvas)
     }
 }
