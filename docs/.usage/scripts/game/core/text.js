@@ -42,7 +42,7 @@ import Shape from './element/shape.js'
 
         super({
             type: 'Text', 
-            canvas: {
+            drawing: {
                 data, 
                 context, 
                 config, 

@@ -27,7 +27,7 @@ class Scene extends Container {
         super({
             type: 'Scene', 
             level: elementLevel.scene, 
-            canvas: {
+            drawing: {
                 data: {x, y, width, height}, 
                 context: {}
             }

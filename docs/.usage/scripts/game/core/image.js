@@ -21,7 +21,7 @@ import {asyncImage} from "./resouce.js"
         const context = {}
         super({
             type: 'Image', 
-            canvas: {
+            drawing: {
                 data, 
                 context
             }
@@ -29,11 +29,11 @@ import {asyncImage} from "./resouce.js"
         
         // 基础属性
         const initData = image => {
-            !width && (this.width = this.canvas.data.width = image.width)
-            !height && (this.height = this.canvas.data.height = image.height)
-            !swidth && (this.swidth = this.canvas.data.swidth = image.width)
-            !sheight && (this.sheight = this.canvas.data.sheight = image.height)
-            this.img = this.canvas.data.img = image 
+            !width && (this.width = this.drawing.data.width = image.width)
+            !height && (this.height = this.drawing.data.height = image.height)
+            !swidth && (this.swidth = this.drawing.data.swidth = image.width)
+            !sheight && (this.sheight = this.drawing.data.sheight = image.height)
+            this.img = this.drawing.data.img = image 
         }
         
         if (typeof img === 'string') {

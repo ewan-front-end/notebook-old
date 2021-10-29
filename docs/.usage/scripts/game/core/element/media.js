@@ -14,13 +14,13 @@ import Interface from '../standard/interface.js'
  */
  export default class Media extends Element {
     constructor(elementOptions = Interface.ElementOptions) {
-        let {type, canvas} = elementOptions
+        let {type, drawing} = elementOptions
         super({
             type, 
             level: elementLevel.media, 
             classType: 'CLASS_IMAGE', 
             options: {}, 
-            canvas
+            drawing
         })
     }
     appendTo(parent, forced) {

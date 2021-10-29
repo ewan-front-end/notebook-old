@@ -47,7 +47,7 @@ export default class Sprite extends Container {
         super({
             type: 'Sprite', 
             level: 4, 
-            canvas: {
+            drawing: {
                 data, 
                 context, 
                 config, 
@@ -69,7 +69,7 @@ export default class Sprite extends Container {
             skewX: {value: skew[0], current: skew[0], target: skew[0], time: 0},
             skewY: {value: skew[1], current: skew[1], target: skew[1], time: 0}
         }
-        this.canvas.data.children = this.children
+        this.drawing.data.children = this.children
     }
     translate(x, y) {
         setTransformTarget(this.tweenTransform.translateX, x)
@@ -114,7 +114,7 @@ export default class Sprite extends Container {
         skewX.value !== skewX.target && tweenTransform(skewX, nowtime)        
         skewY.value !== skewY.target && tweenTransform(skewY, nowtime)            
 
-        draw(this.canvas)
+        draw(this.drawing)
     }
 }
 

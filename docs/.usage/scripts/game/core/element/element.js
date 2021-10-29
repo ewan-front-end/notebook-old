@@ -39,8 +39,9 @@ const computedProperty = (e, p, t) => {
  */    
 export default class Element {
     constructor(elementOptions = Interface.ElementOptions) {
-        const {canvas, event} = elementOptions
-        const {data, context, config = {}, transform = {}} = canvas
+        const {drawing, event} = elementOptions
+        
+       
         
         // 静态基础属性
         const {parent, type, level, classType, x, y, width, height, origin} = elementOptions
@@ -54,21 +55,21 @@ export default class Element {
         // 事件
         event && this.addEvent(event) 
         
-        
+        console.log(this.type);
 
         // 动态绘制属性(x, y, width, height)
-        canvas.type = this.type
-        canvas.id = this.id
-        this.canvas = canvas 
+        drawing.type = this.type
+        drawing.id = this.id
+        this.drawing = drawing 
 
         elementsLen++
         
         //todo: let locked = false // 锁定时不作输出(透明度为零/已输出为静态图片/已超出画布边界)
     }
     setData() {
-        this.canvas.data.x = computedProperty(this, 'x', 'ADD')
-        this.canvas.data.y = computedProperty(this, 'y', 'ADD')
-        this.canvas.context.globalAlpha = computedProperty(this, 'opacity')
+        this.drawing.data.x = computedProperty(this, 'x', 'ADD')
+        this.drawing.data.y = computedProperty(this, 'y', 'ADD')
+        this.drawing.context.globalAlpha = computedProperty(this, 'opacity')
     }
     // 添加事件
     addEvent(type, handler) {
@@ -139,6 +140,6 @@ export default class Element {
         this.context.globalAlpha = computedProperty(this, 'opacity')
     }
     update(draw) {
-        draw(this.canvas)
+        draw(this.drawing)
     }
 }

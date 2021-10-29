@@ -33,7 +33,7 @@ import Shape from './element/shape.js'
 
         super({
             type: 'Polygon', 
-            canvas: {
+            drawing: {
                 data, 
                 context, 
                 config, 

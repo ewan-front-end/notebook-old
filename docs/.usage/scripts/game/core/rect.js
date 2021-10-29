@@ -16,21 +16,21 @@ import Interface from './standard/interface.js'
  */
  export default class Rect extends Shape {
     constructor(x, y, width, height, options) {
-        const canvas = {
+        const drawing = {
             data: {x, y, width, height}
         }
         const elementOptions = {
             type: 'Rect',
-            canvas 
+            drawing 
         }
         if (options) {
-            options.config && (canvas.config = config)
-            options.transform && (canvas.transform = transform)
+            options.config && (drawing.config = config)
+            options.transform && (drawing.transform = transform)
 
             (options.opacity || options.alpha) && !options.globalAlpha && (options.globalAlpha = options.opacity || options.alpha)
             options.fill && !options.fillStyle && (options.fillStyle = options.fill)
             options.stroke && !options.strokeStyle && (options.strokeStyle = options.stroke)
-            canvas.context = Interface.min('canvasContextOptions', options)
+            drawing.context = Interface.min('canvasContextOptions', options)
 
         }
         super(elementOptions)

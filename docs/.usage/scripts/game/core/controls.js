@@ -26,7 +26,7 @@ export class timerController extends Container {
         super({
             type: 'Controller', 
             level: elementLevel.controller,
-            canvas: {
+            drawing: {
                 data: {x, y, width, height}, 
                 context
             }

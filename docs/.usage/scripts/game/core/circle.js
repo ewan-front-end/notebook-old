@@ -35,7 +35,7 @@ import Shape from './element/shape.js'
 
         super({
             type: 'Circle', 
-            canvas: {
+            drawing: {
                 data, 
                 context, 
                 config, 
