@@ -33,7 +33,7 @@ export default class Canvas {
     static createData(elementOptions, options) {
         if (options) {
             let {opacity, alpha, globalAlpha, fill, fillStyle, stroke, strokeStyle, lineWidth, lineCap, lineJoin, miterLimit, shadowBlur, shadowColor, shadowOffsetX, shadowOffsetY} = options, 
-            context = {}    
+                context = {}    
         
             !isNaN(alpha) && (context.globalAlpha = alpha)
             !isNaN(opacity) && (context.globalAlpha = opacity)

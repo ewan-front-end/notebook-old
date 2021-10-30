@@ -2,6 +2,7 @@ import Container from './element/container.js'
 import Background from './background.js'
 import {elementLevel} from './config/index.js'
 import Interface from './standard/interface.js'
+import Canvas from './canvas/canvas.js'
 
 /**
  * 场景元素
@@ -23,15 +24,16 @@ const scenes = {
 class Scene extends Container {
     constructor(options = Interface.SceneOptions) {
         const {x, y, width, height} = options
-
-        super({
+        const elementOptions = {
             type: 'Scene', 
             level: elementLevel.scene, 
             drawing: {
-                data: {x, y, width, height}, 
-                context: {}
+                data: {x, y, width, height}
             }
-        })
+        }
+        Canvas.createData(elementOptions, options)
+
+        super(elementOptions)
         const {opacity = 1, includeChild = null, excludeChild = null, background = null} = options
 
         // 基础属性
