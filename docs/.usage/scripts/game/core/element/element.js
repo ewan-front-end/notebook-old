@@ -54,8 +54,6 @@ export default class Element {
 
         // 事件
         event && this.addEvent(event) 
-        
-        console.log(this.type);
 
         // 动态绘制属性(x, y, width, height)
         drawing.type = this.type

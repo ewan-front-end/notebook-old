@@ -29,6 +29,35 @@ export default class Canvas {
     }
     init(options){setCanvas(this, options)}
     clean() {this.context.clearRect(0, 0, W, H)}
+    // 数据规范
+    static createData(elementOptions, options) {
+        if (options) {
+            let {opacity, alpha, globalAlpha, fill, fillStyle, stroke, strokeStyle, lineWidth, lineCap, lineJoin, miterLimit, shadowBlur, shadowColor, shadowOffsetX, shadowOffsetY} = options, 
+            context = {}    
+        
+            !isNaN(alpha) && (context.globalAlpha = alpha)
+            !isNaN(opacity) && (context.globalAlpha = opacity)
+            !isNaN(globalAlpha) && (context.globalAlpha = globalAlpha)
+    
+            fill && (context.fillStyle = fill)
+            fillStyle && (context.fillStyle = fillStyle)
+            stroke && (context.strokeStyle = stroke)
+            strokeStyle && (context.strokeStyle = strokeStyle)
+    
+            lineWidth && (context.lineWidth = lineWidth)
+            lineCap && (context.lineCap = lineCap)
+            lineJoin && (context.lineJoin = lineJoin)
+            miterLimit && (context.miterLimit = miterLimit)
+            shadowBlur && (context.shadowBlur = shadowBlur)
+            shadowColor && (context.shadowColor = shadowColor)
+            shadowOffsetX && (context.shadowOffsetX = shadowOffsetX)
+            shadowOffsetY && (context.shadowOffsetY = shadowOffsetY)
+    
+            elementOptions.drawing.context = context
+            options.config && (elementOptions.drawing.config = options.config)
+            options.transform && (elementOptions.drawing.transform = options.transform)
+        }
+    }
     draw(options = Interface.Painter) { 
         let ctx = this.context, {type, data, context, config, transform} = options
         ctx.beginPath()
@@ -41,6 +70,7 @@ export default class Canvas {
         } 
 
         this['draw' + type] && this['draw' + type](data, context)
+
         context.fillStyle && ctx.fill()
         config && config.closePath && ctx.closePath()
         context.strokeStyle && ctx.stroke()
