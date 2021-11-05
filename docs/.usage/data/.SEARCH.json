@@ -329,7 +329,7 @@
     },
     "/frontend/layerSecurity/systemTest/unit": {
         "key": "unit",
-        "keywords": "单元测试(unit)■karma■jasmine■mocha■实例(mocha+chai)■demo/src/calculate.js■demo/test/calculate.test.js■game&gt; npm i babel-register babel-env --save-dev■game/test/main.js■game/test/container.test.js■game&gt; mocha"
+        "keywords": "单元测试(unit)■karma■jasmine■mocha"
     },
     "/frontend/layerSecurity/systemTest/e2e": {
         "key": "e2e",
