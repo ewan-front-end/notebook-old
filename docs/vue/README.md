@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.05 10:28</span>
+            <span>M 2021.11.07 20:57</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -35,11 +35,165 @@ vue init webpack 项目名称
 # Vue 3.0
 [迁移指南](https://v3.cn.vuejs.org/guide/migration/introduction.html#%E6%A6%82%E8%A7%88)
 
+
 <pre class="code-block">
-npm install -g @vue/cli
-npm uninstall -g @vue/cli
-vue create 项目名称<span class="comment color1"> // 选择 vue 3 preset</span>
+hello&gt; 
+<span class="bd fs20">vue create demo</span>     
+    npm uninstall -g vue-cli 卸载旧版本
+    npm install -g @vue/cli 安装新版本  卸载新版本 npm uninstall -g @vue/cli
+
+    按向导 选取 
+        Default (Vue 3) ([Vue 3] babel, eslint) 
+        Manually select features<span class="comment"> // 推荐</span>
+            (*) Choose Vue version
+                  2.x
+                &gt; 3.x
+            (*) Babel
+            ( ) TypeScript
+            ( ) Progressive Web App (PWA) Support
+            ( ) Router
+            ( ) Vuex
+            ( ) CSS Pre-processors
+            ( ) Linter / Formatter
+            ( ) Unit Testing
+            ( ) E2E Testing
+    hello&gt; cd vue3
+    demo&gt; npm run serve
 </pre>
+::: details 路由部署
+
+<pre class="code-block">
+<span class="h1">demo/package.json </span>
+    { "dependencies": { "vue-router": "^4.0.0-0" }, "devDependencies": { "@vue/cli-plugin-router": "~4.5.0" } }
+<span class="h1">demo/src/main.js</span>
+    import router from './router'
+   <span class="comment"> // createApp(App).mount('#app')</span>
+    createApp(App).use(router).mount('#app')
+<span class="h1">demo/src/router/index.js</span>
+    import { createRouter, createWebHistory } from 'vue-router'
+    import Home from '../views/Home.vue'
+    const routes = [
+        { path: '/', name: 'Home', component: Home },
+        { path: '/about', name: 'About', component: () =&gt; import(<span class="comment">/* webpackChunkName: "about" */</span> '../views/About.vue') }
+    ]
+    const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
+    export default router
+<span class="h1">demo/src/views/Home.vue</span>
+    &lt;template&gt;&lt;div class="home"&gt;&lt;h1&gt;首页&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;
+<span class="h1">demo/src/views/About.vue</span>
+    &lt;template&gt;&lt;div class="about"&gt;&lt;h1&gt;关于我们&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;
+<span class="h1">demo/src/App.vue</span>
+    &lt;template&gt;
+        &lt;div id="nav"&gt;&lt;router-link to="/"&gt;Home&lt;/router-link&gt; | &lt;router-link to="/about"&gt;About&lt;/router-link&gt;&lt;/div&gt;
+        &lt;router-view/&gt;
+    &lt;/template&gt;
+</pre>
+:::
+
+::: details 状态管理
+
+<pre class="code-block">
+<span class="h1">demo/package.json </span>
+    { "dependencies": { "vuex": "^4.0.0-0" }, "devDependencies": { "@vue/cli-plugin-vuex": "~4.5.0" } }
+<span class="h1">demo/src/main.js</span>
+    import store from './store'
+    app.use(store)
+<span class="h1">demo/src/store/index.js</span>
+    import { createStore } from 'vuex'
+    import { GetUserInfo } from '@/api'
+    const USERINFO = 'UserInfo'<span class="comment"> // 入库到Config</span>
+
+    export default createStore({
+        state: {
+            userInfo: localStorage.getItem(USERINFO) ? JSON.parse(localStorage.getItem(USERINFO)) : {}
+        },
+        mutations: {
+            setUserInfo(state, info) { state.userInfo = info }
+        },
+        actions: {
+            async getUserInfo(ctx) {
+                const local_userInfo = localStorage.getItem(USERINFO)
+                if (local_userInfo) {
+                    ctx.commit('setUserInfo', local_userInfo)
+                } else {
+                    const { data } = await GetUserInfo()
+                    ctx.commit('setUserInfo', data)
+                    localStorage.setItem(USERINFO, JSON.stringify(data))
+                }
+            }
+        }
+    })
+<span class="h1">demo/src/App.vue</span>
+    &lt;script&gt;
+    import { computed } from 'vue'
+    import { useStore } from 'vuex'
+    export default {
+        setup() {
+            const store = useStore()
+            return { userInfo: computed(() =&gt; store.state.userInfo) }
+        },
+        created() {
+            setTimeout(() =&gt; { console.log(this.userInfo) }, 1000)        
+        }
+    }
+    &lt;/script&gt;
+</pre>
+:::
+::: details 使用Vant
+
+<pre class="code-block">
+<span class="h1">demo/package.json </span>
+    { "dependencies": { "vant": "^3.0.12" } }
+<span class="h1">demo/src/main.js</span>
+    import Vant from 'vant'
+    import 'vant/lib/index.css'
+    app.use(Vant)
+<span class="h1">demo/src/App.vue</span>
+    &lt;script&gt;
+        import { Dialog } from 'vant'
+        export default {
+            created() {
+                Dialog.alert({
+                    title: '1',
+                    message: '2',
+                    showConfirmButton: '3',
+                    showCancelButton: '4',
+                    confirmButtonText: '5',
+                    cancelButtonText: '6'
+                })
+            }
+        }
+    &lt;/script&gt;
+
+</pre>
+:::
+::: details Lint规范
+
+<pre class="code-block">
+demo/package.json
+{
+    "scripts": { "lint": "vue-cli-service lint" },
+    "devDependencies": {
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-vue": "^7.0.0"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": { "node": true },
+        "extends": [
+            "plugin:vue/vue3-essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": { "parser": "babel-eslint" },
+        "rules": {}
+    }
+}
+</pre>
+:::
+
+
 - 新功能
 ::: details 组合式 API
 

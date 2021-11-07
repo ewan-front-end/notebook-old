@@ -442,5 +442,9 @@
     "/": {
         "key": "ROOT",
         "keywords": "home(root)"
+    },
+    "/vue/README": {
+        "keywords": "demo/package.json ■demo/src/main.js■demo/src/router/index.js■demo/src/views/home.vue■demo/src/views/about.vue■demo/src/app.vue■demo/package.json ■demo/src/main.js■demo/src/store/index.js■demo/src/app.vue■demo/package.json ■demo/src/main.js■demo/src/app.vue",
+        "key": "未知"
     }
 }

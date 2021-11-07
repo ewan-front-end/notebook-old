@@ -9,11 +9,161 @@ vue init webpack 项目名称
 
 # Vue 3.0
 [迁移指南](https://v3.cn.vuejs.org/guide/migration/introduction.html#%E6%A6%82%E8%A7%88)
+
 ===+
-npm install -g @vue/cli
-npm uninstall -g @vue/cli
-vue create 项目名称 1// 选择 vue 3 preset
+hello> 
+[(bd fs20)vue create demo]     
+    npm uninstall -g vue-cli 卸载旧版本
+    npm install -g @vue/cli 安装新版本  卸载新版本 npm uninstall -g @vue/cli
+
+    按向导 选取 
+        Default (Vue 3) ([Vue 3] babel, eslint) 
+        Manually select features // 推荐
+            (*) Choose Vue version
+                  2.x
+                > 3.x
+            (*) Babel
+            ( ) TypeScript
+            ( ) Progressive Web App (PWA) Support
+            ( ) Router
+            ( ) Vuex
+            ( ) CSS Pre-processors
+            ( ) Linter / Formatter
+            ( ) Unit Testing
+            ( ) E2E Testing
+    hello> cd vue3
+    demo> npm run serve
 ===-
+::: details 路由部署
+===+
+# demo/package.json 
+    { "dependencies": { "vue-router": "^4.0.0-0" }, "devDependencies": { "@vue/cli-plugin-router": "~4.5.0" } }
+# demo/src/main.js
+    import router from './router'
+    // createApp(App).mount('#app')
+    createApp(App).use(router).mount('#app')
+# demo/src/router/index.js
+    import { createRouter, createWebHistory } from 'vue-router'
+    import Home from '../views/Home.vue'
+    const routes = [
+        { path: '/', name: 'Home', component: Home },
+        { path: '/about', name: 'About', component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') }
+    ]
+    const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
+    export default router
+# demo/src/views/Home.vue
+    <template><div class="home"><h1>首页</h1></div></template>
+# demo/src/views/About.vue
+    <template><div class="about"><h1>关于我们</h1></div></template>
+# demo/src/App.vue
+    <template>
+        <div id="nav"><router-link to="/">Home</router-link> | <router-link to="/about">About</router-link></div>
+        <router-view/>
+    </template>
+===-
+:::
+
+::: details 状态管理
+===+
+# demo/package.json 
+    { "dependencies": { "vuex": "^4.0.0-0" }, "devDependencies": { "@vue/cli-plugin-vuex": "~4.5.0" } }
+# demo/src/main.js
+    import store from './store'
+    app.use(store)
+# demo/src/store/index.js
+    import { createStore } from 'vuex'
+    import { GetUserInfo } from '@/api'
+    const USERINFO = 'UserInfo' // 入库到Config
+
+    export default createStore({
+        state: {
+            userInfo: localStorage.getItem(USERINFO) ? JSON.parse(localStorage.getItem(USERINFO)) : {}
+        },
+        mutations: {
+            setUserInfo(state, info) { state.userInfo = info }
+        },
+        actions: {
+            async getUserInfo(ctx) {
+                const local_userInfo = localStorage.getItem(USERINFO)
+                if (local_userInfo) {
+                    ctx.commit('setUserInfo', local_userInfo)
+                } else {
+                    const { data } = await GetUserInfo()
+                    ctx.commit('setUserInfo', data)
+                    localStorage.setItem(USERINFO, JSON.stringify(data))
+                }
+            }
+        }
+    })
+# demo/src/App.vue
+    <script>
+    import { computed } from 'vue'
+    import { useStore } from 'vuex'
+    export default {
+        setup() {
+            const store = useStore()
+            return { userInfo: computed(() => store.state.userInfo) }
+        },
+        created() {
+            setTimeout(() => { console.log(this.userInfo) }, 1000)        
+        }
+    }
+    </script>
+===-
+:::
+::: details 使用Vant
+===+
+# demo/package.json 
+    { "dependencies": { "vant": "^3.0.12" } }
+# demo/src/main.js
+    import Vant from 'vant'
+    import 'vant/lib/index.css'
+    app.use(Vant)
+# demo/src/App.vue
+    <script>
+        import { Dialog } from 'vant'
+        export default {
+            created() {
+                Dialog.alert({
+                    title: '1',
+                    message: '2',
+                    showConfirmButton: '3',
+                    showCancelButton: '4',
+                    confirmButtonText: '5',
+                    cancelButtonText: '6'
+                })
+            }
+        }
+    </script>
+
+===-
+:::
+::: details Lint规范
+===+
+demo/package.json
+{
+    "scripts": { "lint": "vue-cli-service lint" },
+    "devDependencies": {
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-vue": "^7.0.0"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": { "node": true },
+        "extends": [
+            "plugin:vue/vue3-essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": { "parser": "babel-eslint" },
+        "rules": {}
+    }
+}
+===-
+:::
+
+
 - 新功能
 ::: details 组合式 API
 ===+

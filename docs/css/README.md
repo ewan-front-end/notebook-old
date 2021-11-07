@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.11.05 20:54</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
@@ -161,6 +161,9 @@ elem[ attr*= value]　匹配附带attr属性的elem元素，并且该属性值�
 
 ::: details 备忘
 ```css
+/* 移动端字号变大 */
+-webkit-text-size-adjust: none;
+
 /* 自动填充背景修改 */
 input:-webkit-autofill{
 	box-shadow:0 0 0 1000px #f00 inset !important;
