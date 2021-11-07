@@ -46,8 +46,10 @@ hello>
     import { createRouter, createWebHistory } from 'vue-router'
     import Home from '../views/Home.vue'
     const routes = [
-        { path: '/', name: 'Home', component: Home },
-        { path: '/about', name: 'About', component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') }
+        { path: '/', redirect: '/login' },
+        { path: '/home', name: 'Home', component: Home },
+        { path: '/about', name: 'About', component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') },
+        { path: '/login', name: 'Login', component: () => import('@/views/Login.vue'), meta: { index: 1 } }
     ]
     const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
     export default router
@@ -55,9 +57,13 @@ hello>
     <template><div class="home"><h1>首页</h1></div></template>
 # demo/src/views/About.vue
     <template><div class="about"><h1>关于我们</h1></div></template>
+# demo/src/views/Login.vue
+    <template><div class="login"><h1>登录</h1></div></template>
 # demo/src/App.vue
     <template>
-        <div id="nav"><router-link to="/">Home</router-link> | <router-link to="/about">About</router-link></div>
+        <div>
+            <router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> | <router-link to="/login">Login</router-link>
+        </div>
         <router-view/>
     </template>
 ===-
