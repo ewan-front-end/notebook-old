@@ -1,3 +1,6 @@
+https://www.bilibili.com/video/av76485104
+
+
 
 ::: details Vue 2.0
 [文档](https://v3.cn.vuejs.org/guide/introduction.html)
@@ -19,18 +22,10 @@ hello>
     按向导 选取 
         Default (Vue 3) ([Vue 3] babel, eslint) 
         Manually select features // 推荐
-            (*) Choose Vue version
+            (*) Choose V V  (*) Babel  ( ) TS  ( ) PWA  ( ) Router  ( ) Vuex  ( ) CSS P  ( ) Linter/Formatter  ( ) Unit Testing  ( ) E2E Testing
                   2.x
                 > 3.x
-            (*) Babel
-            ( ) TypeScript
-            ( ) Progressive Web App (PWA) Support
-            ( ) Router
-            ( ) Vuex
-            ( ) CSS Pre-processors
-            ( ) Linter / Formatter
-            ( ) Unit Testing
-            ( ) E2E Testing
+            
     hello> cd vue3
     demo> npm run serve
 ===-

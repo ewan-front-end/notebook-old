@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.07 20:57</span>
+            <span>M 2021.11.08 14:55</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -21,6 +21,9 @@ pageClass: theme-item
 <h1>Vue</h1><strong>Vue</strong>
 </div>
 <div class="static-content">
+
+https://www.bilibili.com/video/av76485104
+
 
 
 ::: details Vue 2.0
@@ -45,18 +48,10 @@ hello&gt;
     按向导 选取 
         Default (Vue 3) ([Vue 3] babel, eslint) 
         Manually select features<span class="comment"> // 推荐</span>
-            (*) Choose Vue version
+            (*) Choose V V  (*) Babel  ( ) TS  ( ) PWA  ( ) Router  ( ) Vuex  ( ) CSS P  ( ) Linter/Formatter  ( ) Unit Testing  ( ) E2E Testing
                   2.x
                 &gt; 3.x
-            (*) Babel
-            ( ) TypeScript
-            ( ) Progressive Web App (PWA) Support
-            ( ) Router
-            ( ) Vuex
-            ( ) CSS Pre-processors
-            ( ) Linter / Formatter
-            ( ) Unit Testing
-            ( ) E2E Testing
+            
     hello&gt; cd vue3
     demo&gt; npm run serve
 </pre>
@@ -71,23 +66,68 @@ hello&gt;
     createApp(App).use(router).mount('#app')
 <span class="h1">demo/src/router/index.js</span>
     import { createRouter, createWebHistory } from 'vue-router'
+    import { TOKEN, USER_INFO } from '@/config/global-naming.js'
+    import routes from './routes.js'
+    const noLoginWhiteList = ['/login', '/register']
+    const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
+    router.beforeEach((to, from, next) =&gt; {
+        const isLogin = localStorage.getItem(TOKEN) ? true : false,
+            toPath = to.path.toLocaleLowerCase()        
+        if (isLogin) {
+            toPath === '/login' ? next('/home') : next()
+        } else {
+            noLoginWhiteList.includes(toPath) ? next() : next('/login')
+        }
+    })
+    export default router
+<span class="h1">demo/src/config/global-naming.js</span>
+    export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }
+<span class="h1">demo/src/router/routes.js</span>
     import Home from '../views/Home.vue'
     const routes = [
-        { path: '/', name: 'Home', component: Home },
-        { path: '/about', name: 'About', component: () =&gt; import(<span class="comment">/* webpackChunkName: "about" */</span> '../views/About.vue') }
+        { path: '/', redirect: '/login' },
+        { path: '/home', name: 'Home', component: Home },
+        { path: '/about', name: 'About', component: () =&gt; import(<span class="comment">/* webpackChunkName: "about" */</span> '../views/About.vue') },
+        { path: '/login', name: 'Login', component: () =&gt; import('@/views/Login.vue'), meta: { index: 1 } }
     ]
-    const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
-    export default router
+    export default routes
 <span class="h1">demo/src/views/Home.vue</span>
     &lt;template&gt;&lt;div class="home"&gt;&lt;h1&gt;首页&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;
 <span class="h1">demo/src/views/About.vue</span>
     &lt;template&gt;&lt;div class="about"&gt;&lt;h1&gt;关于我们&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;
+<span class="h1">demo/src/views/Login.vue</span>
+    &lt;template&gt;&lt;div class="login"&gt;&lt;h1&gt;登录&lt;/h1&gt;&lt;button @click="login"&gt;登录&lt;/button&gt;&lt;/div&gt;&lt;/template&gt;
+    &lt;script&gt;
+    import { TOKEN } from '@/config/global-naming.js'
+    export default {
+        setup() {
+            const login = () =&gt; { localStorage.setItem(TOKEN, '123456789') }
+            return { login }
+        }
+    }
+    &lt;/script&gt;
 <span class="h1">demo/src/App.vue</span>
     &lt;template&gt;
-        &lt;div id="nav"&gt;&lt;router-link to="/"&gt;Home&lt;/router-link&gt; | &lt;router-link to="/about"&gt;About&lt;/router-link&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;router-link to="/"&gt;Home&lt;/router-link&gt; | &lt;router-link to="/about"&gt;About&lt;/router-link&gt; | &lt;router-link to="/login"&gt;Login&lt;/router-link&gt; &lt;button @click="logout"&gt;logout&lt;/button&gt;
+        &lt;/div&gt;
         &lt;router-view/&gt;
     &lt;/template&gt;
+    &lt;script&gt;
+    import { TOKEN } from '@/config/global-naming.js'
+    export default {
+        setup() {
+            const logout = () =&gt; { localStorage.setItem(TOKEN, '') }
+            return { logout }
+        }
+    }
+    &lt;/script&gt;
 </pre>
+import { 
+    createRouter, 
+    createWebHistory, 
+    createWebHashHistory 
+} from 'vue-router'
 :::
 
 ::: details 状态管理
