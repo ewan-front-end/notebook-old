@@ -81,10 +81,15 @@ hello>
     </script>
 # demo/src/App.vue
     <template>
-        <div>
-            <router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> | <router-link to="/login">Login</router-link> <button @click="logout">logout</button>
+        <div class="app-container">
+            <div>
+                <router-link to="/">Home</router-link> | 
+                <router-link to="/about">About</router-link> | 
+                <router-link to="/login">Login</router-link> 
+                <button @click="logout">logout</button>
+            </div>
+            <router-view/>
         </div>
-        <router-view/>
     </template>
     <script>
     import { TOKEN } from '@/config/global-naming.js'
@@ -95,6 +100,9 @@ hello>
         }
     }
     </script>
+    <style>
+    .app-container{}
+    </style>
 ===-
 import { 
     createRouter, 

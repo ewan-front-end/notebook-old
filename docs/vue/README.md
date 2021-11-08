@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.08 14:55</span>
+            <span>M 2021.11.08 20:59</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -108,10 +108,15 @@ hello&gt;
     &lt;/script&gt;
 <span class="h1">demo/src/App.vue</span>
     &lt;template&gt;
-        &lt;div&gt;
-            &lt;router-link to="/"&gt;Home&lt;/router-link&gt; | &lt;router-link to="/about"&gt;About&lt;/router-link&gt; | &lt;router-link to="/login"&gt;Login&lt;/router-link&gt; &lt;button @click="logout"&gt;logout&lt;/button&gt;
+        &lt;div class="app-container"&gt;
+            &lt;div&gt;
+                &lt;router-link to="/"&gt;Home&lt;/router-link&gt; | 
+                &lt;router-link to="/about"&gt;About&lt;/router-link&gt; | 
+                &lt;router-link to="/login"&gt;Login&lt;/router-link&gt; 
+                &lt;button @click="logout"&gt;logout&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;router-view/&gt;
         &lt;/div&gt;
-        &lt;router-view/&gt;
     &lt;/template&gt;
     &lt;script&gt;
     import { TOKEN } from '@/config/global-naming.js'
@@ -122,6 +127,9 @@ hello&gt;
         }
     }
     &lt;/script&gt;
+    &lt;style&gt;
+    .app-container{}
+    &lt;/style&gt;
 </pre>
 import { 
     createRouter, 
