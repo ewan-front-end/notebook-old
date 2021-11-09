@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.05 20:54</span>
+            <span>M 2021.11.09 14:34</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/css/preset">预处理</a></li><li><a href="/css/variable">CSS变量</a></li></ul></div></div>
@@ -18,6 +18,14 @@ pageClass: theme-item
 <summary class="desc">层叠样式表(Cascading Style Sheets)</summary>
 </div>
 <div class="static-content">
+
+
+<pre class="code-block">
+SCSS
+    calc(100% - 60px)
+
+
+</pre>
 
 
 

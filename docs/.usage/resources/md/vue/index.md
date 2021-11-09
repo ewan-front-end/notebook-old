@@ -172,7 +172,7 @@ import {
     <template>
         <div class="about">
             <h1>关于我们</h1>
-            <ul class="menu-list">
+            <ul class="features">
                 <li><van-icon name="like" size="18px" /><span>我的最爱</span><van-icon name="arrow" size="16px" /></li>
                 <li><van-icon name="star" size="18px" /><span>关注收藏</span><van-icon name="arrow" size="16px" /></li>
                 <li><van-icon name="setting" size="18px" /><span>会员设置</span><van-icon name="arrow" size="16px" /></li>
@@ -181,9 +181,9 @@ import {
         </div>
     </template>
     <style>
-        .menu-list{border-top:#eee 1px solid}
-        .menu-list li{padding:10px 10px; border-bottom:#eee 1px solid}
-        .menu-list li span{display:inline-block; padding:10px 10px}
+        .features{border-top:#eee 1px solid}
+        .features li{padding:10px 10px; border-bottom:#eee 1px solid}
+        .features li span{display:inline-block; padding:10px 10px}
     </style>
 # demo/src/App.vue
     <script>

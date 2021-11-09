@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.08 20:59</span>
+            <span>M 2021.11.09 11:06</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -187,6 +187,7 @@ import {
     &lt;/script&gt;
 </pre>
 :::
+
 ::: details 使用Vant
 
 <pre class="code-block">
@@ -196,6 +197,23 @@ import {
     import Vant from 'vant'
     import 'vant/lib/index.css'
     app.use(Vant)
+<span class="h1">demo/src/views/About.vue</span>
+    &lt;template&gt;
+        &lt;div class="about"&gt;
+            &lt;h1&gt;关于我们&lt;/h1&gt;
+            &lt;ul class="features"&gt;
+                &lt;li&gt;&lt;van-icon name="like" size="18px" /&gt;&lt;span&gt;我的最爱&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;van-icon name="star" size="18px" /&gt;&lt;span&gt;关注收藏&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;van-icon name="setting" size="18px" /&gt;&lt;span&gt;会员设置&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;van-icon name="location" size="18px" /&gt;&lt;span&gt;地理位置&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+    &lt;style&gt;
+        .features{border-top:#eee 1px solid}
+        .features li{padding:10px 10px; border-bottom:#eee 1px solid}
+        .features li span{display:inline-block; padding:10px 10px}
+    &lt;/style&gt;
 <span class="h1">demo/src/App.vue</span>
     &lt;script&gt;
         import { Dialog } from 'vant'
