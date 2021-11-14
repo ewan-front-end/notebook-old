@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.11.13 12:25</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">ECharts图表库</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li><li><a href="/tools/postman">PostMan</a></li></ul></div><div class="custom-block links">
@@ -22,6 +22,20 @@ pageClass: theme-item
 <h1>工具&资源</h1><strong>工具&资源</strong>
 </div>
 <div class="static-content">
+
+
+
+创建您的 Google 帐号
+ewan9297161244@gmail.com
+
+Google帐号 > 安全性 > 登录Google > 两步验证 > 开始
+
+
+# 极验验证
+
+
+
+
 
 
 <div class="box-flex">
@@ -52,6 +66,13 @@ pageClass: theme-item
 
 <strong>■ 常用工具</strong>
 - [模拟短信验证](https://www.yinsiduanxin.com/)
+- [超级云短信](https://www.bfkdim.com/)
+- [在线短信接收](https://www.materialtools.com/)
+- [Z-SMS](http://www.z-sms.com/)
+- [在线接收短信验证码](https://www.zusms.com/phone/china)
+- [在线接收短信](https://jieduanxin.com/China-Phone-Number/)
+- [接码号](https://jiemahao.com/)
+- [SMS](https://sms-receive.net/)
 - [API模拟](http://myjson.com/)
 - [图片压缩](https://tinypng.com/)
 - [favicon.ico在线制作](http://www.bitbug.net/)

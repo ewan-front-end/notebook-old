@@ -100,7 +100,11 @@ read('RES|markdown.scene')
     盒子：&#9632;⇤&#123;&#125;&#40;bd&#41;CONTENT&#9632;  // ⇤为是否顶格
 
     &#91;FORM_START&#93;
-        [LIST|XX项目API集(*login  upload)] 
+        ▤collection-name[登录(active),上传]▤                        列表菜单
+        ▤(vtop)collection-name{color:#ffaa22}[登录(active),上传]▤
+        切换环境：▼environment-name{color:#8922ff}▼                   下拉选项
+
+         
         [DROP_DOWN|POST] [INPUT|{{origin}}/api/login/]  [BTN|Send] [BTN|Save]
         [TAB]Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings
         [RADIO]none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL        

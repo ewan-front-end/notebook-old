@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.09.20 13:06</span>
+            <span>M 2021.11.14 19:47</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -93,7 +93,7 @@ read('RES|markdown.scene')
 <pre class="code-block">
 <span class="h2 bg3 cf"> 自定义格式 </span>
 普通区域
-<span>● Flex</span>
+● <strong>Flex</strong>
     &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
     col 01
     &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname <span class="comment"> // 大于10 flex-basis: n  可注入自定义classname</span>
@@ -122,7 +122,11 @@ read('RES|markdown.scene')
     盒子：&#9632;⇤&#123;&#125;&#40;bd&#41;CONTENT&#9632; <span class="comment"> // ⇤为是否顶格</span>
 
     &#91;FORM_START&#93;
-        [LIST|XX项目API集(*login  upload)] 
+        ▤collection-name[登录(active),上传]▤                        列表菜单
+        ▤(vtop)collection-name{color:#ffaa22}[登录(active),上传]▤
+        切换环境：▼environment-name{color:#8922ff}▼                   下拉选项
+
+         
         [DROP_DOWN|POST] [INPUT|<img :src="$withBase('/images/db-brace-left.png')">origin<img :src="$withBase('/images/db-brace-right.png')">/api/login/]  [BTN|Send] [BTN|Save]
         [TAB]Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings
         [RADIO]none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL        

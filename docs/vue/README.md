@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.09 11:06</span>
+            <span>M 2021.11.14 20:58</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -58,13 +58,13 @@ hello&gt;
 ::: details 路由部署
 
 <pre class="code-block">
-<span class="h1">demo/package.json </span>
+<span class="h1 bg3 cf">demo/package.json</span>
     { "dependencies": { "vue-router": "^4.0.0-0" }, "devDependencies": { "@vue/cli-plugin-router": "~4.5.0" } }
-<span class="h1">demo/src/main.js</span>
+<span class="h1 bg3 cf">demo/src/main.js</span>
     import router from './router'
    <span class="comment"> // createApp(App).mount('#app')</span>
     createApp(App).use(router).mount('#app')
-<span class="h1">demo/src/router/index.js</span>
+<span class="h1 bg3 cf">demo/src/router/index.js</span>
     import { createRouter, createWebHistory } from 'vue-router'
     import { TOKEN, USER_INFO } from '@/config/global-naming.js'
     import routes from './routes.js'
@@ -80,9 +80,9 @@ hello&gt;
         }
     })
     export default router
-<span class="h1">demo/src/config/global-naming.js</span>
+<span class="h1 bg3 cf">demo/src/config/global-naming.js</span>
     export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }
-<span class="h1">demo/src/router/routes.js</span>
+<span class="h1 bg3 cf">demo/src/router/routes.js</span>
     import Home from '../views/Home.vue'
     const routes = [
         { path: '/', redirect: '/login' },
@@ -91,11 +91,11 @@ hello&gt;
         { path: '/login', name: 'Login', component: () =&gt; import('@/views/Login.vue'), meta: { index: 1 } }
     ]
     export default routes
-<span class="h1">demo/src/views/Home.vue</span>
+<span class="h1 bg3 cf">demo/src/views/Home.vue</span>
     &lt;template&gt;&lt;div class="home"&gt;&lt;h1&gt;首页&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;
-<span class="h1">demo/src/views/About.vue</span>
+<span class="h1 bg3 cf">demo/src/views/About.vue</span>
     &lt;template&gt;&lt;div class="about"&gt;&lt;h1&gt;关于我们&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;
-<span class="h1">demo/src/views/Login.vue</span>
+<span class="h1 bg3 cf">demo/src/views/Login.vue</span>
     &lt;template&gt;&lt;div class="login"&gt;&lt;h1&gt;登录&lt;/h1&gt;&lt;button @click="login"&gt;登录&lt;/button&gt;&lt;/div&gt;&lt;/template&gt;
     &lt;script&gt;
     import { TOKEN } from '@/config/global-naming.js'
@@ -106,7 +106,7 @@ hello&gt;
         }
     }
     &lt;/script&gt;
-<span class="h1">demo/src/App.vue</span>
+<span class="h1 bg3 cf">demo/src/App.vue</span>
     &lt;template&gt;
         &lt;div class="app-container"&gt;
             &lt;div&gt;
@@ -141,12 +141,12 @@ import {
 ::: details 状态管理
 
 <pre class="code-block">
-<span class="h1">demo/package.json </span>
+<span class="h1 bg3 cf">demo/package.json</span>
     { "dependencies": { "vuex": "^4.0.0-0" }, "devDependencies": { "@vue/cli-plugin-vuex": "~4.5.0" } }
-<span class="h1">demo/src/main.js</span>
+<span class="h1 bg3 cf">demo/src/main.js</span>
     import store from './store'
     app.use(store)
-<span class="h1">demo/src/store/index.js</span>
+<span class="h1 bg3 cf">demo/src/store/index.js</span>
     import { createStore } from 'vuex'
     import { GetUserInfo } from '@/api'
     const USERINFO = 'UserInfo'<span class="comment"> // 入库到Config</span>
@@ -171,7 +171,7 @@ import {
             }
         }
     })
-<span class="h1">demo/src/App.vue</span>
+<span class="h1 bg3 cf">demo/src/App.vue</span>
     &lt;script&gt;
     import { computed } from 'vue'
     import { useStore } from 'vuex'
@@ -188,24 +188,58 @@ import {
 </pre>
 :::
 
-::: details 使用Vant
+::: details ICONFont
 
 <pre class="code-block">
-<span class="h1">demo/package.json </span>
+<span class="h1 bg3 cf">https://www.iconfont.cn/</span>
+资源管理 &gt; 我的项目 
+新建项目 名称【demo】 FontClass/Symbol前缀【ewan-】 Font Family【ewanfont】
+上传图标至项目 
+下载至本地
+    demo.css
+    demo_index.html
+    iconfont.css
+    iconfont.js
+    iconfont.json
+    iconfont.ttf
+    iconfont.woff
+    iconfont.woff2
+部署到demo/src/assets/font/
+
+<span class="h1 bg3 cf">demo/src/main.js</span>
+import '@/assets/font/iconfont.css'
+<span class="h1 bg3 cf">demo/src/views/Home.vue</span>
+&lt;template&gt;
+    &lt;div class="home"&gt;
+        &lt;h1&gt;ICON Font&lt;/h1&gt;
+        &lt;p&gt;
+            <span style="color:#b845ff" class="bd">&lt;span class="iconfont"&gt;&amp;#xe601;&lt;/span&gt;</span>
+            <span style="color:#4589ff" class="bd">&lt;span class="iconfont ewan-xiugaimima"&gt;&lt;/span&gt;</span>
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</pre>
+:::
+
+::: details UI Vant
+
+<pre class="code-block">
+<span class="h1 bg3 cf">demo/package.json </span>
     { "dependencies": { "vant": "^3.0.12" } }
-<span class="h1">demo/src/main.js</span>
+<span class="h1 bg3 cf">demo/src/main.js</span>
     import Vant from 'vant'
     import 'vant/lib/index.css'
     app.use(Vant)
-<span class="h1">demo/src/views/About.vue</span>
+<span class="h1 bg3 cf">demo/src/views/About.vue</span>
     &lt;template&gt;
         &lt;div class="about"&gt;
             &lt;h1&gt;关于我们&lt;/h1&gt;
             &lt;ul class="features"&gt;
-                &lt;li&gt;&lt;van-icon name="like" size="18px" /&gt;&lt;span&gt;我的最爱&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;van-icon name="star" size="18px" /&gt;&lt;span&gt;关注收藏&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;van-icon name="setting" size="18px" /&gt;&lt;span&gt;会员设置&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;van-icon name="location" size="18px" /&gt;&lt;span&gt;地理位置&lt;/span&gt;&lt;van-icon name="arrow" size="16px" /&gt;&lt;/li&gt;
+                &lt;li&gt;
+                    &lt;van-icon name="like" size="18px" /&gt;
+                    &lt;span&gt;我的最爱&lt;/span&gt;
+                    &lt;van-icon name="arrow" size="16px" /&gt;
+                &lt;/li&gt;
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/template&gt;
@@ -214,25 +248,18 @@ import {
         .features li{padding:10px 10px; border-bottom:#eee 1px solid}
         .features li span{display:inline-block; padding:10px 10px}
     &lt;/style&gt;
-<span class="h1">demo/src/App.vue</span>
+<span class="h1 bg3 cf">demo/src/App.vue</span>
     &lt;script&gt;
         import { Dialog } from 'vant'
         export default {
             created() {
-                Dialog.alert({
-                    title: '1',
-                    message: '2',
-                    showConfirmButton: '3',
-                    showCancelButton: '4',
-                    confirmButtonText: '5',
-                    cancelButtonText: '6'
-                })
+                Dialog.alert({ title: '标题', message: '弹窗内容' })
             }
         }
     &lt;/script&gt;
-
 </pre>
 :::
+
 ::: details Lint规范
 
 <pre class="code-block">
@@ -259,6 +286,124 @@ demo/package.json
 </pre>
 :::
 
+::: details cordova
+[Cordova](http://cordova.axuer.com/#getstarted)
+
+<pre class="code-block">
+demo/package.json
+{
+    "scripts": {
+       <span class="comment"> // vue3项目打包到demo/www</span>
+       <span class="comment"> // cordova打包代码到demo/platforms\android\app\src\main\assets\www</span>
+       <span class="comment"> // 运行App</span>
+        "build:cordova": "vue-cli-service build && cordova build android && cordova run android" 
+    },
+    "dependencies": {
+        "cordova-lib": "^10.0.0"
+    },
+    "devDependencies": {
+        "cordova-android": "^9.0.0",
+        "cordova-plugin-customurlscheme": "^5.0.2",<span class="comment"> // 获取url参数</span>
+        "cordova-plugin-battery-status": "^2.0.3",<span class="comment"> // 监视设备的电池状态</span>
+        "cordova-plugin-camera": "^5.0.1",<span class="comment"> // 提供照相机API与设备相机进行交互</span>
+        "cordova-plugin-geolocation": "^4.1.0",<span class="comment"> // GPS地理定位，经度、纬度、海拔等</span>
+        "cordova-plugin-globalization": "^1.11.0",
+        "cordova-plugin-inappbrowser": "^5.0.0",
+        "cordova-plugin-network-information": "^2.0.2",
+        "cordova-plugin-qrscanner": "^3.0.1",
+        "cordova-plugin-splashscreen": "^6.0.0",
+        "cordova-plugin-statusbar": "^2.4.3",
+        "cordova-plugin-whitelist": "^1.3.3"
+    },
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-geolocation": {
+                "GPS_REQUIRED": "true"
+            },
+            "cordova-plugin-camera": {
+                "ANDROID_SUPPORT_V4_VERSION": "27.+"
+            },
+            "cordova-plugin-qrscanner": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-globalization": {},
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-network-information": {},
+            "cordova-plugin-battery-status": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-customurlscheme": {
+                "URL_SCHEME": "kpay",
+                "ANDROID_SCHEME": " ",
+                "ANDROID_HOST": " ",
+                "ANDROID_PATHPREFIX": "/"
+            }
+        }
+    },
+    "vuePlugins": {
+        "service": [
+            "cdva.js"
+        ]
+    }
+}
+
+<span class="h1 bg3 cf">添加cordova</span>
+    1. 创建一个空项目 xxx&gt; cordova create demo<span class="comment"> // 依赖全局安装：npm install -g cordova  命令选项：cordova help create</span>
+    2. 拷贝 xxx/www 到 demo/www; 拷贝 xxx/config.xml 到 demo/config.xml
+    3. 添加一个平台 demo&gt; cordova platform add android<span class="comment"> // 可以添加平台查看：cordova platform  4. 运行App demo&gt; cordova run android</span>
+
+<span class="h1 bg3 cf">修改VUE3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/</span>
+    方法一：demo/vue.config.js                 方法二：demo/package.json 中的 vue
+    module.exports = { outputDir: 'www' }     { "vue": { "outputDir": "www" } }
+
+<span class="h1 bg3 cf">demo&gt; npm run build:cordova</span>
+    error: No emulator specified
+
+<span class="h1 bg3 cf">Android Studio打开项目</span><div class="form-elements">Android Studio &gt; File &gt; Open &gt; ...\Hello\demo\platforms\android\app
+<span class="button">Add Configuration...</span>
+<span class="drop-down"><i>app</i></span> <span class="drop-down"><i class="Edited">Nexus 6 </i></span>  ▶
+</div></pre>
+:::
+
+- 项目配置
+
+<pre class="code-block">
+<span class="h1 bg3 cf">vue.config.js</span>
+const path = require('path')
+module.exports = {
+    publicPath: './',<span class="comment"><span class="comment"> // </span>部署应用包时的基本URL,和webpack本身的output.publicPath一致; 也可设为空字符串('')或是相对路径('./')，这样打出来的包可以被部署在任意路径</span>
+    outputDir: 'www',<span class="comment"> // 输出文件目录(vue-cli-service build时)</span>
+    assetsDir: '', // 
+    productionSourceMap: true,
+    lintOnSave: false,
+    chainWebpack: config =&gt; {
+        config.plugin('html').tap(args =&gt; {
+            args[0].title = 'K宝'
+            return args
+        })
+    },
+    pluginOptions: {
+        'style-resources-loader': {
+            preProcessor: 'scss',
+            patterns: [path.resolve(__dirname, 'src/assets/css/common.scss')]
+        }
+    },
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://kpay-api-pre.n-b-e-t.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        },
+        public: '10.10.115.154:4014'
+    }
+}
+</pre>
 
 - 新功能
 ::: details 组合式 API

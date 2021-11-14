@@ -1,6 +1,9 @@
 
 
+创建您的 Google 帐号
+ewan9297161244@gmail.com
 
+Google帐号 > 安全性 > 登录Google > 两步验证 > 开始
 
 
 # 极验验证
@@ -33,6 +36,13 @@
 ==================== 1
 <strong>■ 常用工具</strong>
 - [模拟短信验证](https://www.yinsiduanxin.com/)
+- [超级云短信](https://www.bfkdim.com/)
+- [在线短信接收](https://www.materialtools.com/)
+- [Z-SMS](http://www.z-sms.com/)
+- [在线接收短信验证码](https://www.zusms.com/phone/china)
+- [在线接收短信](https://jieduanxin.com/China-Phone-Number/)
+- [接码号](https://jiemahao.com/)
+- [SMS](https://sms-receive.net/)
 - [API模拟](http://myjson.com/)
 - [图片压缩](https://tinypng.com/)
 - [favicon.ico在线制作](http://www.bitbug.net/)

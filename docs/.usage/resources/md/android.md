@@ -78,6 +78,8 @@
 
 
 # 创建JS/HTMLCordova应用
+[Cordova](http://cordova.axuer.com/#getstarted)
+
     - 安装Cordova(依赖node/git) `$ npm install -g cordova`
     - 创建项目
         某目录> cordova create demo com.example.hello HelloWorld
@@ -128,6 +130,20 @@
         demo> cordova compile android
         demo> cordova prepare ios
 
+
+# vue3部署cordova
+1. xxx> npm install -g cordova
+2. 创建一个空项目 hello> cordova create demo // 命令选项：cordova help create
+3. 添加一个平台 demo> cordova platform add android // 可以添加平台查看：cordova platform  
+4. 运行App demo> cordova run android
+
+# 打开项目
+===+
+[FORM_START]
+Android Studio > File > Open > D:\Ewan\Hello\cordova\demo\platforms\android\app
+▼app▼ ▼Nexus 6 (Edited) API 30▼  ▶
+[FORM_END]
+===-
 
 
 
