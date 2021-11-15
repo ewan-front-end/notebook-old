@@ -443,8 +443,8 @@
         "key": "ROOT",
         "keywords": "home(root)"
     },
-    "/vue/README": {
-        "keywords": "demo/package.json■demo/src/main.js■demo/src/router/index.js■demo/src/config/global-naming.js■demo/src/router/routes.js■demo/src/views/home.vue■demo/src/views/about.vue■demo/src/views/login.vue■demo/src/app.vue■demo/package.json■demo/src/main.js■demo/src/store/index.js■demo/src/app.vue■https://www.iconfont.cn/■demo/src/main.js■demo/src/views/home.vue■demo/package.json ■demo/src/main.js■demo/src/views/about.vue■demo/src/app.vue■添加cordova■修改vue3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/■demo&gt; npm run build:cordova■android studio打开项目■vue.config.js",
+    "/biaozhun/README": {
+        "keywords": "flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ■ 普通注释 ■ 文档注释 ■ 文件注释 ■ 块标签 ■对文件进行描述■标注js使用方法■开发者备注■文件详细结构",
         "key": "未知"
     }
 }

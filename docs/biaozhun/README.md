@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.15 19:07</span>
+            <span>M 2021.11.15 20:59</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -92,6 +92,13 @@ read('RES|markdown.scene')
 
 <pre class="code-block">
 <span class="h2 bg3 cf"> 自定义格式 </span>
+
+预设className：
+    颜色 c0 c3 c6 c9 cc cf
+    背景 bg0 bg3 bg6 bg9 bgc bgf
+    标题 h1 h2 h3 h4 h5 h6
+    注释 comment
+
 普通区域
 ● <strong>Flex</strong>
     &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
@@ -102,9 +109,32 @@ read('RES|markdown.scene')
 
 自定义代码块 
 &#61;&#61;&#61;&#43; 
-    ANCHOR&#91;1627821297227|node-inspect&#93;
+    ANCHOR&#91;1627821297227|node-inspect&#93;  &gt; 
+    ANCHOR&#91;npm_user_register|npm#NPM帐户|NPM帐户&#93;
+    ANCHOR&#91;1123403874911|gulp&#93;                        &lt;div class="anchor" name="1123403874911" id="1123403874911"&gt;&lt;/div&gt;
+    ANCHOR&#91;1123403874915|gulp&#93;
+    ANCHOR&#91;1123403874919|gulp&#93;
+    ANCHOR&#91;1627903874915|gulp&#93;
+    ANCHOR&#91;1627903874915|gulp&#93;
+    ANCHOR&#91;1627908583281|commander&#93;
+    ANCHOR&#91;1627905586210|chokidar&#93;
+    ANCHOR&#91;1627905787356|chalk&#93;
+    ANCHOR&#91;1627966781710|node-plantuml&#93;
+    ANCHOR&#91;1627970757090|uglify-js&#93;
+    ANCHOR&#91;1627970949874|child_process&#93;
+    ANCHOR&#91;1627971037955|nodemon&#93;
+    ANCHOR&#91;1628080742911|pm2&#93; 
+    ANCHOR&#91;1628080758946|concurrently&#93; 
+    ANCHOR&#91;1628080852157|node-cache&#93; 
+
+    TITLE2&#91;npm_user_register|npm#NPM帐户|NPM帐户&#93;
+    TITLE2&#91;npm_user_register|npm#NPM帐户|NPM帐户&#93;
+    
     LINK&#91;1627821297227|自命名&#93;  LINK&#91;1627821297227&#93;
-    TITLE2&#91;npm_user_register|npm#NPM帐户|NPM帐户&#93;    
+    LINK&#91;npm_user_register|没有帐户&多人发布&#93;
+    LINK&#91;npm_user_register|没有帐户&多人发布&#93;
+    LINK&#91;1627821297227|node-inspect&#93;
+        
 
     &#45; Markdown点列表
     &#42;&#42;局部加粗&#42;&#42;
@@ -192,12 +222,26 @@ read('RES|markdown.scene')
         
     &#91;FORM_END&#93;
 
+    表单重构：
+    ﹃
+        ◉ Radio
+        ▣ Checkbox
+        ▭ Input
+        ▯ Textarea
+        ▢ Button
+        ▼ Select
+        ▦ Table
+        ☰ List
+        ∏ Tab
+        ▥ TreeSelect
+        ↦ ↔ → ↣ Step
+        ❏ Alert
+
+    ﹄
+
+
 &#61;&#61;&#61;&#45;
-预设className：
-    颜色 c0 c3 c6 c9 cc cf
-    背景 bg0 bg3 bg6 bg9 bgc bgf
-    标题 h1 h2 h3 h4 h5 h6
-    注释 comment
+
 
 <span class="h2 bg3 cf"> 场景 </span>
 <span class="h2 bg3 cf"> 攻略 </span>
