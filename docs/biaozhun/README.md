@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.14 19:47</span>
+            <span>M 2021.11.15 19:07</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -122,19 +122,74 @@ read('RES|markdown.scene')
     盒子：&#9632;⇤&#123;&#125;&#40;bd&#41;CONTENT&#9632; <span class="comment"> // ⇤为是否顶格</span>
 
     &#91;FORM_START&#93;
-        ▤collection-name[登录(active),上传]▤                        列表菜单
-        ▤(vtop)collection-name{color:#ffaa22}[登录(active),上传]▤
-        切换环境：▼environment-name{color:#8922ff}▼                   下拉选项
 
-         
-        [DROP_DOWN|POST] [INPUT|<img :src="$withBase('/images/db-brace-left.png')">origin<img :src="$withBase('/images/db-brace-right.png')">/api/login/]  [BTN|Send] [BTN|Save]
-        [TAB]Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings
-        [RADIO]none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL        
-        [TABLE]KEY        VALUE      DESCRIPTION  
+        <span style="color:#f33">e4fc5eb9-316a-48e5-a970-dc116e7ab897</span>
+        <img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">
+        <img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">
+
+        按钮： 
+        [BTNbg6 cf|+ New Collection]
+        [BTNbg6 cf|Save to collection-name]
+        [BTNbg6 cf|Manage Environments]
+        [BTNbg6 cf|Add]
+        [BTNbg6 cf|Add] 
+        [BTN|Send] 
+        [BTN|Save]
+        [BTNbg6 cf|Save]
+        [BTNbg6 cf|Send]
+        [BTN|Send] [BTN|Save]
+        [BTNbg6 cf|Select File]
+        [BTNbg6 cf|Save]
+        [BTNbg6 cf|Send]
+
+        INPUT: 
+        ▭说明文本▭
+        ▭{color:#ffaa22}collection-name▭
+        ▭{color:#20b477}(bd)登录▭
+        ▭{color:#8922ff}environment-name▭
+        ▭<img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">/api/login/▭
+        ▭<img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">/api/cdn/UploadFile/▭
+
+        选项卡：
+        ▥⇤Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings▥
+        ▥⇤Params  Authorization  [Headers]  Body  Pre-request Script  Tests  Settings▥
+        ▥⇤Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings▥
+        单选：
+        ◉⇤none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL◉
+        ◉⇤none  form-data  x-www-form-urlencoded  raw  [binary]  GraphQL◉
+
+        列表菜单： 
+        ▤collection-name[登录(active),上传]▤                       
+        ▤(vtop)collection-name{color:#ffaa22}[登录(active),上传]▤
+        ▤collection-name{color:#ffaa22}(bd)▤
+        ▤Add Request▤
+        ▤(vtop)collection-name{color:#ffaa22}[登录(active),上传]▤
+        ▤(vtop)collection-name{color:#ffaa22}[登录,上传(active)]▤
+
+        下拉选项：
+        ▼POST▼ 
+        ▼environment-name{color:#8922ff}▼ 
+        ▼collection-name{color:#ffaa22}(bd)▼
+        ▼environment-name{color:#8922ff}▼
+        ▼environment-name{color:#8922ff}▼
+
+        表格：
+        ▦⇤VARIABLE(变量)        INITIAL VALUE(初始值)      CURRENT VALUE(当前值) 
+        API{color:#26f}  https://api.com:4432  https://api.com:4432
+        RES{color:#26f}  https://res.com:4433  https://res.com:4433
+        ▦
+        ▦⇤KEY        VALUE      DESCRIPTION  
             username   ewan
             password   123456
-        [TABLE_END]
-        [BTN&#62;Save] &#62; [BTN&#62;Send]
+        ▦
+        ▦⇤KEY        VALUE      DESCRIPTION  
+            authenticate  e4fc5eb9-316a-48e5-a970-dc116e7ab897{color:#f33}
+        ▦
+
+        连接格式：
+        ↴background-color:#eef7f4; vertical-align:top; padding:10px↤ ↦       
+
+        
     &#91;FORM_END&#93;
 
 &#61;&#61;&#61;&#45;

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.14 20:58</span>
+            <span>M 2021.11.15 19:07</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -364,6 +364,64 @@ demo/package.json
 <span class="h1 bg3 cf">Android Studio打开项目</span><div class="form-elements">Android Studio &gt; File &gt; Open &gt; ...\Hello\demo\platforms\android\app
 <span class="button">Add Configuration...</span>
 <span class="drop-down"><i>app</i></span> <span class="drop-down"><i class="Edited">Nexus 6 </i></span>  ▶
+
+<span style="color:#f33">e4fc5eb9-316a-48e5-a970-dc116e7ab897</span>
+        <img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">
+        <img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">
+
+        按钮： 
+        <span class="button bg6 cf">+ New Collection</span>
+        <span class="button bg6 cf">Save to collection-name</span>
+        <span class="button bg6 cf">Manage Environments</span>
+        <span class="button bg6 cf">Add</span>
+        <span class="button bg6 cf">Add</span> 
+        <span class="button">Send</span> 
+        <span class="button">Save</span>
+        <span class="button bg6 cf">Save</span>
+        <span class="button bg6 cf">Send</span>
+        <span class="button">Send</span> <span class="button">Save</span>
+        <span class="button bg6 cf">Select File</span>
+        <span class="button bg6 cf">Save</span>
+        <span class="button bg6 cf">Send</span>
+
+        INPUT: 
+        <span class="input ">说明文本</span>
+        <span class="input " style="color:#ffaa22">collection-name</span>
+        <span class="input bd" style="color:#20b477">登录</span>
+        <span class="input " style="color:#8922ff">environment-name</span>
+        <span class="input "><img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">/api/login/</span>
+        <span class="input "><img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">/api/cdn/UploadFile/</span>
+
+        选项卡：
+<span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
+<span class="tab"><i>Params</i><i>Authorization</i><strong>Headers</strong><i>Body</i><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
+<span class="tab"><i>Params</i><i>Authorization</i><i>Headers</i><strong>Body</strong><i>Pre-request Script</i><i>Tests</i><i>Settings</i></span>
+        单选：
+<span class="radio"><i>none</i><i>form-data</i><strong>x-www-form-urlencoded</strong><i>raw</i><i>binary</i><i>GraphQL</i></span>
+<span class="radio"><i>none</i><i>form-data</i><i>x-www-form-urlencoded</i><i>raw</i><strong>binary</strong><i>GraphQL</i></span>
+
+        列表菜单： 
+        <span class="list"><div class="list-wrapper"><span class="list-item"><span class="item-title">collection-name</span><span class="sub-box"><i class="active">登录</i><i>上传</i></span></span></div></span>                       
+        <span class="list vtop"><div class="list-wrapper"><span class="list-item"><span class="item-title" style="color:#ffaa22">collection-name</span><span class="sub-box"><i class="active">登录</i><i>上传</i></span></span></div></span>
+        <span class="list"><div class="list-wrapper"><span class="list-item"><span class="item-title bd" style="color:#ffaa22">collection-name</span></span></div></span>
+        <span class="list"><div class="list-wrapper"><span class="list-item"><span class="item-title">Add Request</span></span></div></span>
+        <span class="list vtop"><div class="list-wrapper"><span class="list-item"><span class="item-title" style="color:#ffaa22">collection-name</span><span class="sub-box"><i class="active">登录</i><i>上传</i></span></span></div></span>
+        <span class="list vtop"><div class="list-wrapper"><span class="list-item"><span class="item-title" style="color:#ffaa22">collection-name</span><span class="sub-box"><i>登录</i><i class="active">上传</i></span></span></div></span>
+
+        下拉选项：
+        <span class="drop-down"><i>POST</i></span> 
+        <span class="drop-down"><i style="color:#8922ff">environment-name</i></span> 
+        <span class="drop-down"><i class="bd" style="color:#ffaa22">collection-name</i></span>
+        <span class="drop-down"><i style="color:#8922ff">environment-name</i></span>
+        <span class="drop-down"><i style="color:#8922ff">environment-name</i></span>
+
+        表格：
+<span class="table"><span class="col"><strong>VARIABLE(变量)</strong><i style="color:#26f">API</i><i style="color:#26f">RES</i></span><span class="col"><strong>INITIAL VALUE(初始值)</strong><i>https://api.com:4432</i><i>https://res.com:4433</i></span><span class="col"><strong>CURRENT VALUE(当前值)</strong><i>https://api.com:4432</i><i>https://res.com:4433</i></span></span>
+<span class="table"><span class="col"><strong>KEY</strong><i>username</i><i>password</i></span><span class="col"><strong>VALUE</strong><i>ewan</i><i>123456</i></span><span class="col"><strong>DESCRIPTION</strong><i></i><i></i></span></span>
+<span class="table"><span class="col"><strong>KEY</strong><i>authenticate</i></span><span class="col"><strong>VALUE</strong><i style="color:#f33">e4fc5eb9-316a-48e5-a970-dc116e7ab897</i></span><span class="col"><strong>DESCRIPTION</strong><i></i></span></span>
+
+        连接格式：
+        <span class="inline" style="background-color:#eef7f4; vertical-align:top; padding:10px"> </span>
 </div></pre>
 :::
 
