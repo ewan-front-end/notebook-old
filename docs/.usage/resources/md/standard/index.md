@@ -202,18 +202,18 @@ read('RES|markdown.scene')
 
     表单重构：
     ﹃
-        ◉ Radio
-        ▣ Checkbox
-        ▭ Input
-        ▯ Textarea
-        ▢ Button
+        ⊙Radio◉
+        ☐Checkbox▣
+        ⅠInput▏
+        ▎Textarea▎
+        ▭ Button▭ ▬ ▭
         ▼ Select
-        ▦ Table
-        ☰ List
-        ∏ Tab
-        ▥ TreeSelect
-        ↦ ↔ → ↣ Step
-        ❏ Alert
+        ▤Table▥
+        ☰List☷
+        ▮Tab▯
+        TreeSelect
+        ↦ ↔ → ⇥ Step
+        ⚠Alert⊗
 
     ﹄
 

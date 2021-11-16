@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.15 20:59</span>
+            <span>M 2021.11.16 13:23</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -224,18 +224,18 @@ read('RES|markdown.scene')
 
     表单重构：
     ﹃
-        ◉ Radio
-        ▣ Checkbox
-        ▭ Input
-        ▯ Textarea
-        ▢ Button
+        ⊙Radio◉
+        ☐Checkbox▣
+        ⅠInput▏
+        ▎Textarea▎
+        ▭ Button▭ ▬ ▭
         ▼ Select
-        ▦ Table
-        ☰ List
-        ∏ Tab
-        ▥ TreeSelect
-        ↦ ↔ → ↣ Step
-        ❏ Alert
+        ▤Table▥
+        ☰List☷
+        ▮Tab▯
+        TreeSelect
+        ↦ ↔ → ⇥ Step
+        ⚠Alert⊗
 
     ﹄
 
