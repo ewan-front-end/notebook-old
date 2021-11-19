@@ -1,5 +1,19 @@
 :::2021.06.27:::
 
+===+
+[#] 入门部署
+> notebook
+notebook> npm init -y
+notebook> npm install vuepress --save-dev
+notebook/docs/
+notebook/docs/README.md 
+    # Hello VuePress
+notebook> vuepress dev docs
+    http://localhost:8080
+
+
+===-
+
 
 [官网](https://vuepress.vuejs.org/zh/guide/)
 
@@ -11,7 +25,7 @@
 ```
 :::
 
-## 入门部署
+## 
 ::: details
 demo> npm init -y<br>
 demo> npm install -D vuepress

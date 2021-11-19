@@ -137,6 +137,9 @@
 3. 添加一个平台 demo> cordova platform add android // 可以添加平台查看：cordova platform  
 4. 运行App demo> cordova run android
 
+# cordova真机运行vue项目出现空白页
+
+
 # 打开项目
 ===+
 [FORM_START]

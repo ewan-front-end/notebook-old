@@ -192,9 +192,10 @@ require()
 
 global（全局变量）
 ```
-process                                //提供了有关当前Node.js进程的信息并对其进行控制
-  env                                  //process.env    返回一个包含用户环境信息的对象
-  cwd                                  //process.cwd()  当前 用户环境 node命令运行的文件夹目录名
+process                                // 提供了有关当前Node.js进程的信息并对其进行控制
+  env                                  // process.env    返回一个包含用户环境信息的对象 
+    NODE_ENV                           // 设置：set NODE_ENV=production
+  cwd                                  // process.cwd()  当前 用户环境 node命令运行的文件夹目录名
 Buffer 类      //用于处理二进制数据
 clearImmediate(immediateObject)
 clearInterval(intervalObject)

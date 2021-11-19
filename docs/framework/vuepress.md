@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.11.19 15:50</span>
         </div>
     </div>
     <div class="content"></div>
@@ -21,6 +21,21 @@ pageClass: theme-item
 :::2021.06.27:::
 
 
+<pre class="code-block">
+<span class="h1 bg3 cf">入门部署</span>
+&gt; notebook
+notebook&gt; npm init -y
+notebook&gt; npm install vuepress --save-dev
+notebook/docs/
+notebook/docs/README.md 
+    <span class="h1">Hello VuePress</span>
+notebook&gt; vuepress dev docs
+    http://localhost:8080
+
+
+</pre>
+
+
 [官网](https://vuepress.vuejs.org/zh/guide/)
 
 ::: details Q&A
@@ -31,7 +46,7 @@ pageClass: theme-item
 ```
 :::
 
-## 入门部署
+## 
 ::: details
 demo> npm init -y<br>
 demo> npm install -D vuepress
@@ -472,15 +487,15 @@ layout: SpecialLayout
 :::FLEX
 +++ 1
 &lt;strong&gt;<div> 资源&lt;/strong&gt;
-<span>● [icomoon](http://icomoon.io/app)</span>
+● <strong>[icomoon](http://icomoon.io/app)</strong>
 +++
 +++ 2
 &lt;strong&gt;</div> 常用工具&lt;/strong&gt;
-<span>● [JSRun](https://jsrun.net/new)</span>
+● <strong>[JSRun](https://jsrun.net/new)</strong>
 +++
 +++ 1
 &lt;strong&gt;■ 平台&文档&lt;/strong&gt;
-<span>● [GitHub](https://github.com/)</span>
+● <strong>[GitHub](https://github.com/)</strong>
 +++
 FLEX:::
 </pre>

@@ -213,7 +213,7 @@
     },
     "/framework/vuepress": {
         "key": "vuepress",
-        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片"
+        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片■入门部署■hello vuepress■[icomoon](http://icomoon.io/app)■[jsrun](https://jsrun.net/new)■[github](https://github.com/)"
     },
     "/framework/docsify": {
         "key": "docsify",
@@ -442,9 +442,5 @@
     "/": {
         "key": "ROOT",
         "keywords": "home(root)"
-    },
-    "/biaozhun/README": {
-        "keywords": "flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ■ 普通注释 ■ 文档注释 ■ 文件注释 ■ 块标签 ■对文件进行描述■标注js使用方法■开发者备注■文件详细结构",
-        "key": "未知"
     }
 }

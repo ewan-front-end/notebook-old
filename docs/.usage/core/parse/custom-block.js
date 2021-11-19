@@ -20,8 +20,29 @@ function parseCustomBlock(block, path) {
         block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)
         Search.add(path, RegExp.$2)
     }
+    
+    /**
+     * 标题
+     * # Title Text{color:red}    
+     * #个数(1-6)代表尺寸 
+     * [#] 反相标题  
+     * [] 可增加空格为标题作内边距
+     * 
+     */
+    let REG_STYLE = `\{[\w\s-;:'"#]+\}` // color: #f00; font-size: 14px
+    let REG_CLASS = `\([\w\s-]+\)`      // bd sz-16 c-0
 
-    // 标题：# Title Text{color:red}    #个数(1-6)代表尺寸 [#] 反相标题  [] 可增加空格为标题作内边距
+    let REG_TIT = '\x20*'   // 任意空格
+        REG_TIT += '\[?'    // 反相开始
+        REG_TIT += '#{1,6}' // 六级标题 由小到大
+        REG_TIT += '\]?'    // 反相结束
+        REG_TIT += '\s'     // 空格
+        REG_TIT += '[^\n\r\{]+'     // 标题内容
+        REG_TIT += `(${REG_STYLE})?`     // 样式
+        REG_TIT += `(${REG_CLASS})?`     // 类表
+    // \x20*\[?#{1,6}\]?\s[^\n\r\{]+(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?
+
+
     while (/\x20*((\[?)(#{1,6})\]?\s([^\n\r\{]+)(\{([\w\s-;:'"#]+)\})?)/.exec(block) !== null) {
         const $FORMAT = RegExp.$1, $NVERT = RegExp.$2, $LEVEL = RegExp.$3, $CONTENT = RegExp.$4, $STYLE = RegExp.$6        
         let classStr = `h${$LEVEL.length}`

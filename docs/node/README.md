@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.11.19 14:59</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/node/plugin">插件</a></li><li><a href="/node/framework">框架</a></li><li><a href="/node/package">描述文件package.json</a></li></ul></div></div>
@@ -213,9 +213,10 @@ require()
 
 global（全局变量）
 ```
-process                                //提供了有关当前Node.js进程的信息并对其进行控制
-  env                                  //process.env    返回一个包含用户环境信息的对象
-  cwd                                  //process.cwd()  当前 用户环境 node命令运行的文件夹目录名
+process                                // 提供了有关当前Node.js进程的信息并对其进行控制
+  env                                  // process.env    返回一个包含用户环境信息的对象 
+    NODE_ENV                           // 设置：set NODE_ENV=production
+  cwd                                  // process.cwd()  当前 用户环境 node命令运行的文件夹目录名
 Buffer 类      //用于处理二进制数据
 clearImmediate(immediateObject)
 clearInterval(intervalObject)

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    let block = `
+    :::2021.06.27:::
+
+===+
+[####](bd) 入门部署
+> notebook
+notebook> npm init -y
+notebook> npm install vuepress --save-dev
+notebook/docs/
+notebook/docs/README.md 
+    #{color: #f00; font-size: 14px}(bd) Hello VuePress
+notebook> vuepress dev docs
+    http://localhost:8080
+
+
+===-
+    `
+    
+
+    const REG_STYLE = `\\{[\\w\\s-;:'"#]+\\}` // color: #f00; font-size: 14px
+    const REG_CLASS = `\\([\\w\\s-]+\\)`      // bd sz-16 c-0
+    
+    
+    function arrayToRegExp(arr) {
+        function handleKey(e) {
+            if (typeof e === 'string') return e
+            let str = ``
+            if (Object.prototype.toString.call(e) === '[object Array]') {
+                e.forEach(o => {
+                    if (typeof o === 'string') {
+                        str += o
+                    } else {
+                        str += handleKey(o)
+                    }
+                })
+            } else {
+                for (let i in e) {
+                    str += `(?<${i}>`
+                    if (typeof e[i] === 'string') {
+                        str += e[i]
+                    } else {
+                        str += handleKey(e[i])
+                    }
+                    str += `)`
+                }
+            } 
+            return `(${str})`           
+        }
+        let regStr = ``
+        arr.forEach(item => { regStr += handleKey(item) })
+        return regStr        
+    }
+
+    const arr = [
+        `\\x20*`,          // 0任意空格
+        {format: [
+            {isInvert: `\\[?`}, // 是否反相
+            [`#{1,6}`],
+            `\\]?`,
+            [`(${REG_STYLE})?`], // (
+            [`(${REG_CLASS})`],
+            `\\s`,
+            [`[^\\n\\r\\{]+`]
+        ]}
+    ]
+    const regStr = arrayToRegExp(arr)
+    console.log('regStr', regStr);
+    
+    REG_TIT = new RegExp(regStr)
+    // `\\x20*((\\[?)(#{1,6})\\]?\\s([^\\n\\r\\{]+)((\\{[\\w\\s-;:'"#]+\\})?)((\\([\\w\\s-]+\\))?))`
+    // `(\\x20*((\\[?)(#{1,6})\\]?\\s([^\\n\\r\\{]+)((\\{[\\w\\s-;:'"#]+\\})?)((\\([\\w\\s-]+\\))?)))`
+    //  `\\x20*\\[?#{1,6}\\]?\\s[^\\n\\r\\{]+\\{[\\w\\s-;:'"#]+\\}\\([\\w\\s-]+\\)`
+    //  `\\x20*\\[?#{1,6}\\]?\\s[^\\n\\r\\{]+(\\{[\\w\\s-;:'"#]+\\})?(\\([\\w\\s-]+\\))?`
+
+    
+    let listMatch    
+    while ((listMatch = REG_TIT.exec(block)) !== null) {
+        const $FORMAT = RegExp.$1, $NVERT = RegExp.$2, $LEVEL = RegExp.$3, $CONTENT = RegExp.$4, $STYLE = RegExp.$6       
+        console.log('$1:', RegExp.$1); 
+        console.log('$2:', RegExp.$2);
+        console.log('$3:', RegExp.$3);
+        console.log('$4:', RegExp.$4);
+        console.log('$5:', RegExp.$5);
+        console.log('$6:', RegExp.$6);
+        console.log('$7:', RegExp.$7);
+        console.log('$8:', RegExp.$8);
+        console.log('format', listMatch.groups.format);
+        console.log('style', listMatch.groups.style);
+        console.log('class', listMatch.groups.class);
+        
+        let classStr = `h${$LEVEL.length}`
+        $NVERT && (classStr += ' bg3 cf')
+        let str = `class="${classStr}"`, content = $CONTENT
+        if ($STYLE) {
+            str += ` style="${$STYLE}"`
+            content = content.replace(/\{([\w\s-;:'"#]+)\}/, '')
+        }        
+        block = block.replace($FORMAT, `<span ${str}>${content}</span>`)
+    }
+    console.log(block);
+
+</script>

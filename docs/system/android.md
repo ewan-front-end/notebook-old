@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.14 20:51</span>
+            <span>M 2021.11.19 15:34</span>
         </div>
     </div>
     <div class="content"></div>
@@ -156,6 +156,9 @@ pageClass: theme-item
 2. 创建一个空项目 hello> cordova create demo // 命令选项：cordova help create
 3. 添加一个平台 demo> cordova platform add android // 可以添加平台查看：cordova platform  
 4. 运行App demo> cordova run android
+
+# cordova真机运行vue项目出现空白页
+
 
 # 打开项目
 
