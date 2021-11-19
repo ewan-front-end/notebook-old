@@ -21,7 +21,7 @@ notebook> npm init -y
 notebook> npm install vuepress --save-dev
 notebook/docs/
 notebook/docs/README.md 
-    #{color: #f00; font-size: 14px}(bd) Hello VuePress
+    [#]{color: #f00; font-size: 14px}(bd) Hello VuePress
 notebook> vuepress dev docs
     http://localhost:8080
 
@@ -30,15 +30,16 @@ notebook> vuepress dev docs
     `
     
 
-    const REG_STYLE = `\\{[\\w\\s-;:'"#]+\\}` // color: #f00; font-size: 14px
-    const REG_CLASS = `\\([\\w\\s-]+\\)`      // bd sz-16 c-0
+    const REG_STYLE = `(\\{(?<style>[\\w\\s-;:'"#]+)\\})?` // color: #f00; font-size: 14px
+    const REG_CLASS = `(\\((?<className>[\\w\\s-]+)\\))?`  // bd sz-16 c-0
     
-    
+
     function arrayToRegExp(arr) {
         function handleKey(e) {
             if (typeof e === 'string') return e
-            let str = ``
+            
             if (Object.prototype.toString.call(e) === '[object Array]') {
+                let str = ``
                 e.forEach(o => {
                     if (typeof o === 'string') {
                         str += o
@@ -46,69 +47,62 @@ notebook> vuepress dev docs
                         str += handleKey(o)
                     }
                 })
+                return `(${str})` 
             } else {
+                let str = `(?`
                 for (let i in e) {
-                    str += `(?<${i}>`
+                    str += `<${i}>`
                     if (typeof e[i] === 'string') {
                         str += e[i]
                     } else {
-                        str += handleKey(e[i])
+                        str += arrayToRegExp(e[i])
                     }
-                    str += `)`
                 }
-            } 
-            return `(${str})`           
+                return str + `)`
+            }        
         }
         let regStr = ``
         arr.forEach(item => { regStr += handleKey(item) })
         return regStr        
     }
 
-    const arr = [
+  
+    REG_TIT = new RegExp(arrayToRegExp([
         `\\x20*`,          // 0任意空格
         {format: [
             {isInvert: `\\[?`}, // 是否反相
-            [`#{1,6}`],
+            {level: `#{1,6}`},
             `\\]?`,
-            [`(${REG_STYLE})?`], // (
-            [`(${REG_CLASS})`],
+            REG_STYLE,
+            REG_CLASS,
             `\\s`,
-            [`[^\\n\\r\\{]+`]
+            {text: `[^\\n\\r\\{]+`}
         ]}
-    ]
-    const regStr = arrayToRegExp(arr)
-    console.log('regStr', regStr);
-    
-    REG_TIT = new RegExp(regStr)
-    // `\\x20*((\\[?)(#{1,6})\\]?\\s([^\\n\\r\\{]+)((\\{[\\w\\s-;:'"#]+\\})?)((\\([\\w\\s-]+\\))?))`
-    // `(\\x20*((\\[?)(#{1,6})\\]?\\s([^\\n\\r\\{]+)((\\{[\\w\\s-;:'"#]+\\})?)((\\([\\w\\s-]+\\))?)))`
-    //  `\\x20*\\[?#{1,6}\\]?\\s[^\\n\\r\\{]+\\{[\\w\\s-;:'"#]+\\}\\([\\w\\s-]+\\)`
-    //  `\\x20*\\[?#{1,6}\\]?\\s[^\\n\\r\\{]+(\\{[\\w\\s-;:'"#]+\\})?(\\([\\w\\s-]+\\))?`
+    ]))
 
     
     let listMatch    
     while ((listMatch = REG_TIT.exec(block)) !== null) {
-        const $FORMAT = RegExp.$1, $NVERT = RegExp.$2, $LEVEL = RegExp.$3, $CONTENT = RegExp.$4, $STYLE = RegExp.$6       
-        console.log('$1:', RegExp.$1); 
-        console.log('$2:', RegExp.$2);
-        console.log('$3:', RegExp.$3);
-        console.log('$4:', RegExp.$4);
-        console.log('$5:', RegExp.$5);
-        console.log('$6:', RegExp.$6);
-        console.log('$7:', RegExp.$7);
-        console.log('$8:', RegExp.$8);
-        console.log('format', listMatch.groups.format);
-        console.log('style', listMatch.groups.style);
-        console.log('class', listMatch.groups.class);
+        let {format, isInvert, level, style, className, text} =  listMatch.groups   
+        console.log('format', format);
+        console.log('isInvert', isInvert);
+        console.log('level', level);
+        console.log('style', style);
+        console.log('className', className);
+        console.log('text', text);
         
-        let classStr = `h${$LEVEL.length}`
-        $NVERT && (classStr += ' bg3 cf')
-        let str = `class="${classStr}"`, content = $CONTENT
-        if ($STYLE) {
-            str += ` style="${$STYLE}"`
+        let classStr = `h${level.length}`
+        if (isInvert) {
+            classStr += ' bg3 cf'
+            if (text[0] !== ' ') text = ' ' + text
+            if (text[text.length-1] !== ' ') text = text + ' '
+        } 
+        let str = `class="${classStr}"`, content = text
+        if (style) {
+            str += ` style="${style}"`
             content = content.replace(/\{([\w\s-;:'"#]+)\}/, '')
         }        
-        block = block.replace($FORMAT, `<span ${str}>${content}</span>`)
+        block = block.replace(format, `<span ${str}>${content}</span>`)
     }
     console.log(block);
 
