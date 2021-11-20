@@ -1,5 +1,5 @@
 const PATH = require('path')
-const {fetch} = require('../center')
+const {fetch} = require('../config')
 const {writeFile, editWritCommonFile} = fetch('UTILS|fs')
 const siteMapCollect = require('./data/siteMapCollect')
 const handleUsageContent = require('./src/handleUsageContent')

@@ -1,5 +1,5 @@
 const PATH = require('path')
-const {fetch, read, fetchPath} = require('../center')
+const {fetch, read, fetchPath} = require('../config')
 const {readFile, writeFile, editWritCommonFile} = fetch('UTILS|fs')
 const SCENE = fetch('DATA|scene')
 

@@ -1,5 +1,5 @@
 
-const {fetch} = require('../center')
+const {fetch} = require('../config')
 const parseFlex = fetch('PARSE|flex')
 const parseUML = fetch('PARSE|uml')
 const parseCustomBlock = fetch('PARSE|custom-block')

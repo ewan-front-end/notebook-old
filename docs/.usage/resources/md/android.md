@@ -139,6 +139,9 @@
 
 # cordova真机运行vue项目出现空白页
 
+# 打包APK
+D:\SVN\_____base\GoPay\v3_gopay\platforms\android\app\build\outputs\apk\debug
+
 
 # 打开项目
 ===+

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.19 15:50</span>
+            <span>M 2021.11.20 20:45</span>
         </div>
     </div>
     <div class="content"></div>
@@ -22,7 +22,7 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf">入门部署</span>
+<span class="h1 bg3 cf"> 入门部署 </span>
 &gt; notebook
 notebook&gt; npm init -y
 notebook&gt; npm install vuepress --save-dev

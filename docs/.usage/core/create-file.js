@@ -1,5 +1,5 @@
 const PATH = require('path')
-const {fetch} = require('../center')
+const {fetch} = require('../config')
 const {writeFile, readFile} = fetch('UTILS|fs')
 const SRC_UPDATETIME = fetch("DATA|src:updateTime")
 const PATH_DATA = fetch("DATA|path:data")

@@ -1,4 +1,4 @@
-const {fetch, fetchPath} = require('../center')
+const {fetch, fetchPath} = require('../config')
 const fs = fetch('UTILS|fs')
 const DATA = fetch('DATA|main'), 
     SRC_PATH = {}, 

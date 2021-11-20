@@ -1,5 +1,7 @@
-const {fetch} = require('../../center')
+const {fetch} = require('../../config')
 const Search = fetch('PARSE|search')
+const reg = fetch('UTILS|regexp')
+
 let TAG_MAP_BLOCK = {}, blockCount = 0
 
 function parseCustomBlock(block, path) {
@@ -29,31 +31,35 @@ function parseCustomBlock(block, path) {
      * [] 可增加空格为标题作内边距
      * 
      */
-    let REG_STYLE = `\{[\w\s-;:'"#]+\}` // color: #f00; font-size: 14px
-    let REG_CLASS = `\([\w\s-]+\)`      // bd sz-16 c-0
-
-    let REG_TIT = '\x20*'   // 任意空格
-        REG_TIT += '\[?'    // 反相开始
-        REG_TIT += '#{1,6}' // 六级标题 由小到大
-        REG_TIT += '\]?'    // 反相结束
-        REG_TIT += '\s'     // 空格
-        REG_TIT += '[^\n\r\{]+'     // 标题内容
-        REG_TIT += `(${REG_STYLE})?`     // 样式
-        REG_TIT += `(${REG_CLASS})?`     // 类表
-    // \x20*\[?#{1,6}\]?\s[^\n\r\{]+(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?
-
-
-    while (/\x20*((\[?)(#{1,6})\]?\s([^\n\r\{]+)(\{([\w\s-;:'"#]+)\})?)/.exec(block) !== null) {
-        const $FORMAT = RegExp.$1, $NVERT = RegExp.$2, $LEVEL = RegExp.$3, $CONTENT = RegExp.$4, $STYLE = RegExp.$6        
-        let classStr = `h${$LEVEL.length}`
-        $NVERT && (classStr += ' bg3 cf')
-        let str = `class="${classStr}"`, content = $CONTENT
-        if ($STYLE) {
-            str += ` style="${$STYLE}"`
-            content = content.replace(/\{([\w\s-;:'"#]+)\}/, '')
-        }        
-        block = block.replace($FORMAT, `<span ${str}>${content}</span>`)
-        Search.add(path, content)
+    const REG_STYLE = {STYLE: `(\\{[\\w\\s-;:'"#]+\\})?`} // color: #f00; font-size: 14px
+    const REG_CLASS = {CLASS: `(\\([\\w\\s-]+\\))?`} // bd sz-16 c-0
+    const REG_TIT_STR = reg.regExpParse([
+        `\\x20*`,          // 0任意空格
+        {FORMAT: [
+            {INVERT: `\\[?`}, // 是否反相
+            {LEVEL: `#{1,6}`},
+            `\\]?`,
+            REG_STYLE, 
+            REG_CLASS,
+            `\\s`,
+            {TEXT: `[^\\n\\r\\{]+`}
+        ]}
+    ])
+    const REG_TIT = new RegExp(REG_TIT_STR.value) 
+    let titMatch
+    while ((titMatch = REG_TIT.exec(block)) !== null) {   
+        let {FORMAT, INVERT, LEVEL, STYLE, CLASS, TEXT} =  titMatch.groups    
+        let classStr = `h${LEVEL.length}`
+        if (INVERT) {
+            classStr += ' bg3 cf'
+            if (TEXT[0] !== ' ') TEXT = ' ' + TEXT
+            if (TEXT[TEXT.length-1] !== ' ') TEXT = TEXT + ' '
+        }
+        CLASS && (classStr += ' ' + CLASS.replace('(', '').replace(')', ''))
+        let str = `class="${classStr}"`, content = TEXT
+        STYLE && (str += ` style="${STYLE.replace('{', '').replace('}', '')}"`)
+        block = block.replace(FORMAT, `<span ${str}>${TEXT}</span>`)
+        Search.add(path, TEXT)
     }
     
     // // 注释

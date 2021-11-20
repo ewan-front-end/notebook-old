@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.19 15:34</span>
+            <span>M 2021.11.20 13:21</span>
         </div>
     </div>
     <div class="content"></div>
@@ -158,6 +158,9 @@ pageClass: theme-item
 4. 运行App demo> cordova run android
 
 # cordova真机运行vue项目出现空白页
+
+# 打包APK
+D:\SVN\_____base\GoPay\v3_gopay\platforms\android\app\build\outputs\apk\debug
 
 
 # 打开项目

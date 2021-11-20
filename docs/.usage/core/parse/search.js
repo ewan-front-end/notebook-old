@@ -1,4 +1,4 @@
-const {fetch, fetchPath} = require('../../center')
+const {fetch, fetchPath} = require('../../config')
 const {writeFileSync} = fetch('UTILS|fs')
 const PATH_KEYWORDS = fetch("DATA|path:keywords")
 let debounceTimer

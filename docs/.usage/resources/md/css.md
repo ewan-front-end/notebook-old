@@ -1,4 +1,11 @@
 ===+
+js设置操作标签伪元素before、after的值
+<div data-add="abc"></div>
+#regexp:before{content:attr(data-add);}
+document.querySelector('#regexp').setAttribute("data-add", "abc")  
+
+
+
 SCSS
     calc(100% - 60px)
 

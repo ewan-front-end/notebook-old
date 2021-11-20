@@ -60,7 +60,7 @@ module.exports.read = identifier => {
 }
 ```
 ===+
-const { config, fetch, fetchPath } = require('../center')
+const { config, fetch, fetchPath } = require('../config')
 const {writeFileSync} = fetch('UTILS|fs')
 const src = fetchPath("DATA|src:updateTime")
 read('RES|markdown.scene')

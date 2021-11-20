@@ -81,7 +81,7 @@ module.exports.read = identifier => {
 ```
 
 <pre class="code-block">
-const { config, fetch, fetchPath } = require('../center')
+const { config, fetch, fetchPath } = require('../config')
 const {writeFileSync} = fetch('UTILS|fs')
 const src = fetchPath("DATA|src:updateTime")
 read('RES|markdown.scene')
@@ -289,7 +289,8 @@ read('RES|markdown.scene')
 <span class="comment color1">/* 不要在此书写
                              
    不要在此书写 */</span>
-<span class="comment color1">
+
+<span class="comment color1">
 // 声明变量value(无意义)</span>
 </pre>
 
@@ -298,7 +299,8 @@ read('RES|markdown.scene')
 
 <strong>■ TODO</strong>
 
-<pre class="code-block"><span class="comment">
+<pre class="code-block">
+<span class="comment">
 // TODO 未处理IE6-8的兼容性</span>
 function setOpacity(node, val) {
     node.style.opacity = val;

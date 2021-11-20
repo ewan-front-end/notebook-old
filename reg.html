@@ -5,14 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .regexp { font-size: 20px; font-weight: bold; background-color: #333; color: #777; display: block; padding: 5px;}
+        .regexp i{ font-style: normal; display: inline-block; padding: 12px 2px 5px 2px; background-color: #555; color: #999; position: relative; margin: 0 2px;}
+        .regexp i:before{position:absolute; top: -2px; left: 1px; content:attr(data-add); font-size: 10px; font-weight: normal;}
+        .regexp i > i {background-color: #777; color: #bbb;}
+        .regexp i > i > i {background-color: #999; color: #ddd;}
+        .regexp i > i > i > i {background-color: #bbb; color: #fff;}
+    </style>
 </head>
 <body>
     <div id="app"></div>
-    <span style="color:#eee">\x20*</span>
-    <span style="color:#00f">(?&lt;format&gt;(?&lt;isInvert&gt;\[?)(?&lt;level&gt;#{1,6})\]?(\{(?&lt;style&gt;[\w\s-;:'"#]+)\})?(\((?&lt;className&gt;[\w\s-]+)\))?\s(?&lt;text&gt;[^\n\r\{]+))</span>
 </body>
 </html>
-<script>
+<script type="module">
+    import regExpParse from './docs/.usage/scripts/utils/regexp.js'
+
     let block = `
     :::2021.06.27:::
 
@@ -32,104 +40,49 @@ notebook> vuepress dev docs
     `
     
     
-    const REG_STYLE = `(\\{(?<style>[\\w\\s-;:'"#]+)\\})?` // color: #f00; font-size: 14px
-    const REG_CLASS = `(\\((?<className>[\\w\\s-]+)\\))?`  // bd sz-16 c-0
+    const REG_STYLE = {STYLE: `(\\{[\\w\\s-;:'"#]+\\})?`} // color: #f00; font-size: 14px
+    const REG_CLASS = {CLASS: `(\\([\\w\\s-]+\\))?`} // bd sz-16 c-0
     
-    function htmlEscape(content) {
-        return content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    }
-    function arrayToRegExp(arr) {
-        function handleKey(e) {
-            if (typeof e === 'string') {
-                //console.log('%c ' + e,'color:#ccc')
-                return {
-                    value: e,
-                    html: `【span style="color:#eee"】${e}【/span】`
-                }
-            }
-            
-            if (Object.prototype.toString.call(e) === '[object Array]') {
-                let str = ``
-                e.forEach(o => {
-                    if (typeof o === 'string') {
-                        str += o
-                    } else {
-                        str += handleKey(o)
-                    }
-                })
-                return {
-                    value: `(${str})`,
-                    html: `【span style="color:#0f0"】(${str})【/span】`
-                } 
-            } else {
-                let str = `(?`
-                for (let i in e) {
-                    str += `<${i}>`
-                    if (typeof e[i] === 'string') {
-                        str += e[i]
-                    } else {
-                        str += arrayToRegExp(e[i]).value
-                    }
-                }
-                str += `)`
-                console.log(str);
-                return {
-                    value: str,
-                    html: `【span style="color:#00f"】${str}【/span】`
-                }
-            }        
-        }
-        let value = ``, html = ``
-        arr.forEach(item => { 
-            let res = handleKey(item)
-            value += res.value 
-            html += res.html
-        })
-        return {
-            value,
-            html: htmlEscape(html).replace(/【/g, '<').replace(/】/g, '>')
-        }       
-    }
-    const regStr = arrayToRegExp([
+    
+
+    const regStr = regExpParse([
         `\\x20*`,          // 0任意空格
-        {format: [
-            {isInvert: `\\[?`}, // 是否反相
-            {level: `#{1,6}`},
+        {FORMAT: [
+            {INVERT: `\\[?`}, // 是否反相
+            {LEVEL: `#{1,6}`},
             `\\]?`,
-            REG_STYLE,
+            REG_STYLE, 
             REG_CLASS,
             `\\s`,
-            {text: `[^\\n\\r\\{]+`}
+            {TEXT: `[^\\n\\r\\{]+`}
         ]}
     ])
-    console.log(regStr.html);
+    console.log('**',regStr.html);
     document.querySelector('#app').innerHTML = regStr.html
   
-    REG_TIT = new RegExp(regStr.value)
-// (\{(?<style>[\w\s-;:'"#]+)\})?(\
-    
+    let REG_TIT = new RegExp(regStr.value)    
     let listMatch    
     while ((listMatch = REG_TIT.exec(block)) !== null) {
-        let {format, isInvert, level, style, className, text} =  listMatch.groups   
-        console.log('format', format);
-        console.log('isInvert', isInvert);
-        console.log('level', level);
-        console.log('style', style);
-        console.log('className', className);
-        console.log('text', text);
+        let {FORMAT, INVERT, LEVEL, STYLE, CLASS, TEXT} =  listMatch.groups   
+        console.log('FORMAT', FORMAT);
+        console.log('INVERT', INVERT);
+        console.log('LEVEL', LEVEL);
+        console.log('STYLE', STYLE);
+        console.log('CLASS', CLASS);
+        console.log('TEXT', TEXT);
         
-        let classStr = `h${level.length}`
-        if (isInvert) {
+        let classStr = `h${LEVEL.length}`
+        if (INVERT) {
             classStr += ' bg3 cf'
-            if (text[0] !== ' ') text = ' ' + text
-            if (text[text.length-1] !== ' ') text = text + ' '
+            if (TEXT[0] !== ' ') TEXT = ' ' + TEXT
+            if (TEXT[TEXT.length-1] !== ' ') TEXT = TEXT + ' '
         } 
-        let str = `class="${classStr}"`, content = text
-        if (style) {
-            str += ` style="${style}"`
+        let str = `class="${classStr}"`, content = TEXT
+        if (STYLE) {
+            str += ` style="${STYLE}"`
             content = content.replace(/\{([\w\s-;:'"#]+)\}/, '')
         }        
-        block = block.replace(format, `<span ${str}>${content}</span>`)
+        block = block.replace(FORMAT, `<span ${str}>${content}</span>`)
     }
     console.log(block);
 

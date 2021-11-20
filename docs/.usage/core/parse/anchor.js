@@ -1,4 +1,4 @@
-const {fetch, fetchPath} = require('../../center')
+const {fetch, fetchPath} = require('../../config')
 const {writeFileSync} = fetch('UTILS|fs')
 const LINKS = fetch("DATA|stamp:link")
 const Search = fetch('PARSE|search')

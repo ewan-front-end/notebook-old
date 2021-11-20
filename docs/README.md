@@ -33,4 +33,13 @@ sidebar: false
 </div>
 
 ## 文档地图
-首页静态内容
+
+===+
+自动化部署
+1. 构建部署到Github Page
+
+2. 部署到NPM库
+333ggggfffffff44441111
+            ddddd
+
+===-

@@ -1,5 +1,5 @@
 const PATH = require('path')
-const {fetch, fetchPath, config, dependencies, aliasCommand} = require('../center')
+const {fetch, fetchPath, config, dependencies, aliasCommand} = require('../config')
 const {existsSync, mkdirSync, writeFile, writeFileSync,copyFileSync} = fetch('UTILS|fs')
 const runCommand = (c, a) => {
     const cp = require("child_process"); 
