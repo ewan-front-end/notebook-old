@@ -1,6 +1,6 @@
 const PATH = require('path')
 const ARG_ARR = process.argv.slice(2)                    // 命令参数
-const {fetch} = require('../center')
+const {fetch} = require('../config')
 const PATH_DATA = fetch("DATA|path:data")
 const CREATOR = fetch("DATA|creator")
 const { mkdirSync, writeFile, readFile } = fetch('UTILS|fs')

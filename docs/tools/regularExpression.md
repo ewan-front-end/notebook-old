@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.09.01 18:47</span>
+            <span>M 2021.11.21 10:03</span>
         </div>
     </div>
     <div class="content"></div>
@@ -18,6 +18,8 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
+自定义组合与解析工具：docs/.usage/scripts/utils/regexp.js
 
 ::: details 测试用例
 ```html
@@ -95,17 +97,17 @@ arr.forEach((e) => {
 ## 匹配实例
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 匹配IP</span>
+<span class="h1 bg3 cf"> 匹配IP </span>
     <div style="font-size:18px;line-height:18px">    ((<span class="bd green">2(5[0-5]|[0-4]\d)</span>)|<span class="bd red">[0-1]?\d{1,2}</span>)<span class="bd blue">(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}</span></div>
-    <span>● 2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</span></span>
-    <span>● [0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</span></span>
-    <span>● (\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</span></span>
+    ● <strong>2(5[0-5]|[0-4]\d)                         <span class="comment"> // 匹配：200 ~ 255</strong></span>
+    ● <strong>[0-1]?\d{1,2}                             <span class="comment"> // 匹配：0 ~ 199</strong></span>
+    ● <strong>(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}<span class="comment"> // 后三段重复3次</strong></span>
 <span class="h1 bg3 cf"> 密码 </span>
-    <span>● ^(?=.*[a-z])              <span class="comment"> // 匹配行头 跟随内容包含小写字母</span></span>
-    <span>● ^(?=.*[A-Z])              <span class="comment"> // 匹配行头 跟随内容包含大写字母</span></span>
-    <span>● ^(?=.*\d)                 <span class="comment"> // 匹配行头 跟随内容包含数字</span></span>
-    <span>● ^(?=.*[@!%&\$\*\?])       <span class="comment"> // 匹配行头 跟随内容包含列举字符</span></span>
-    <span>● [a-zA-Z\d@!%&\$\*\?]{8,}  <span class="comment"> // 匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上</span></span>
+    ● <strong>^(?=.*[a-z])              <span class="comment"> // 匹配行头 跟随内容包含小写字母</strong></span>
+    ● <strong>^(?=.*[A-Z])              <span class="comment"> // 匹配行头 跟随内容包含大写字母</strong></span>
+    ● <strong>^(?=.*\d)                 <span class="comment"> // 匹配行头 跟随内容包含数字</strong></span>
+    ● <strong>^(?=.*[@!%&\$\*\?])       <span class="comment"> // 匹配行头 跟随内容包含列举字符</strong></span>
+    ● <strong>[a-zA-Z\d@!%&\$\*\?]{8,}  <span class="comment"> // 匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上</strong></span>
 
    <span class="comment"> // 大小写字母、数字、@!%&$*?组成8位以上 必须至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符</span>
     ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!%&\$\*\?])[A-Za-z\d@!%&\$\*\?]{8,}$ 

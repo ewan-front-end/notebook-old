@@ -11,7 +11,70 @@ notebook/docs/README.md
 notebook> vuepress dev docs
     http://localhost:8080
 
-
+[######] 配置与调度
+docs/.usage/config.js
+{
+    "DATA": {
+        "main": "data/.MAIN.js",                       // 主数据
+        "src:path": "data/.SRC_PATH.json",             // 用于：编辑资源文件时查找主数据路径
+        "src:updateTime": "data/.SRC_UPDATETIME.json", // 用于：编辑资源文件时记录更新时间
+        "path:data": "data/.PATH_DATA.json",           // 用于：编辑资源文件时记录更新时间     
+        "creator": "data/.CREATOR.json",               // 用于：创建目录与文件的依据
+        "stamp:link": "data/.STAMP_LINK.json",         // 解析内容时收集的链接表
+        "scene": "data/.SCENE.json",                   // 场景
+        "usage": "data/.USAGE.json",                   // 攻略
+        "solution": "data/.SOLUTION.json",             // 方案
+        "standard": "data/.STANDARD.json",             // 标准
+        "path:keywords": "data/.PATH_KEYWORDS.json",   // 数据结构关键词
+        "path:search": "data/.SEARCH.json",            // 可用于搜索(数据结构和内容摘要)
+    },
+    "UTILS": {
+        "fs": "scripts/utils/fs",
+        "ewan": "scripts/utils/ewan.js",
+        "regexp": "scripts/utils/regexp.js"
+    },
+    "CORE": {
+        "create": "core/create.js",
+        "create-file": "core/create-file.js",
+        "create-file-parse.js": "core/create-file-parse.js"
+    },
+    "PARSE": {
+        "flex": "core/parse/flex.js",
+        "uml": "core/parse/uml.js",
+        "custom-block": "core/parse/custom-block.js",
+        "anchor": "core/parse/anchor.js",
+        "search": "core/parse/search.js"
+    },
+    "FILE": {
+        "package": "../../package.json",
+        ".vuepress/config": "../.vuepress/config.js",
+        "logo": "../.vuepress/public/logo.png",
+        "doc.scene": "../scene.md",
+        "doc.usage": "../usage.md",
+        "doc.solution": "../solution.md",
+        "doc.standard": "../standard.md"
+    },
+    "RES": {
+        "logo": "resources/images/logo.png",
+        "markdown.scene": "resources/md/scene.md",
+        "markdown.usage": "resources/md/usage.md",
+        "markdown.solution": "resources/md/solution.md",
+        "markdown.standard": "resources/md/standard.md"
+    }
+}
+{
+    config: {},
+    dependencies: [],
+    aliasCommand: {},
+    fetch = identifier => { const [type, key] = identifier.split('|'); return fetchFileByType[type](key) },
+    fetchPath = identifier => { const [type, key] = identifier.split('|'); return fetchPathByType[type](key) },
+    read = identifier => { const [type, key] = identifier.split('|'); return readFileByType[type](key) }
+}
+用法：
+    const {fetch} = require('../config')
+    fetch('UTILS|fs')
+    fetch("DATA|creator")
+    fetch('CORE|create-file')
 ===-
 
 

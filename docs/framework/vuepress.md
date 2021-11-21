@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.20 20:45</span>
+            <span>M 2021.11.21 10:01</span>
         </div>
     </div>
     <div class="content"></div>
@@ -32,7 +32,70 @@ notebook/docs/README.md
 notebook&gt; vuepress dev docs
     http://localhost:8080
 
-
+<span class="h6 bg3 cf"> 配置与调度 </span>
+docs/.usage/config.js
+{
+    "DATA": {
+        "main": "data/.MAIN.js",                      <span class="comment"> // 主数据</span>
+        "src:path": "data/.SRC_PATH.json",            <span class="comment"> // 用于：编辑资源文件时查找主数据路径</span>
+        "src:updateTime": "data/.SRC_UPDATETIME.json",<span class="comment"> // 用于：编辑资源文件时记录更新时间</span>
+        "path:data": "data/.PATH_DATA.json",          <span class="comment"> // 用于：编辑资源文件时记录更新时间     </span>
+        "creator": "data/.CREATOR.json",              <span class="comment"> // 用于：创建目录与文件的依据</span>
+        "stamp:link": "data/.STAMP_LINK.json",        <span class="comment"> // 解析内容时收集的链接表</span>
+        "scene": "data/.SCENE.json",                  <span class="comment"> // 场景</span>
+        "usage": "data/.USAGE.json",                  <span class="comment"> // 攻略</span>
+        "solution": "data/.SOLUTION.json",            <span class="comment"> // 方案</span>
+        "standard": "data/.STANDARD.json",            <span class="comment"> // 标准</span>
+        "path:keywords": "data/.PATH_KEYWORDS.json",  <span class="comment"> // 数据结构关键词</span>
+        "path:search": "data/.SEARCH.json",           <span class="comment"> // 可用于搜索(数据结构和内容摘要)</span>
+    },
+    "UTILS": {
+        "fs": "scripts/utils/fs",
+        "ewan": "scripts/utils/ewan.js",
+        "regexp": "scripts/utils/regexp.js"
+    },
+    "CORE": {
+        "create": "core/create.js",
+        "create-file": "core/create-file.js",
+        "create-file-parse.js": "core/create-file-parse.js"
+    },
+    "PARSE": {
+        "flex": "core/parse/flex.js",
+        "uml": "core/parse/uml.js",
+        "custom-block": "core/parse/custom-block.js",
+        "anchor": "core/parse/anchor.js",
+        "search": "core/parse/search.js"
+    },
+    "FILE": {
+        "package": "../../package.json",
+        ".vuepress/config": "../.vuepress/config.js",
+        "logo": "../.vuepress/public/logo.png",
+        "doc.scene": "../scene.md",
+        "doc.usage": "../usage.md",
+        "doc.solution": "../solution.md",
+        "doc.standard": "../standard.md"
+    },
+    "RES": {
+        "logo": "resources/images/logo.png",
+        "markdown.scene": "resources/md/scene.md",
+        "markdown.usage": "resources/md/usage.md",
+        "markdown.solution": "resources/md/solution.md",
+        "markdown.standard": "resources/md/standard.md"
+    }
+}
+{
+    config: {},
+    dependencies: [],
+    aliasCommand: {},
+    fetch = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchFileByType[type](key) },
+    fetchPath = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchPathByType[type](key) },
+    read = identifier =&gt; { const [type, key] = identifier.split('|'); return readFileByType[type](key) }
+}
+用法：
+    const {fetch} = require('../config')
+    fetch('UTILS|fs')
+    fetch("DATA|creator")
+    fetch('CORE|create-file')
 </pre>
 
 

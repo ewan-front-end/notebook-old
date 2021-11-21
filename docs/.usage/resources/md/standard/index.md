@@ -1,9 +1,9 @@
 ::: details Ewan
 
-- 全局配置 center.js
-- 资源统筹(应对架构变化资源调配) center.js
+- 全局配置 config.js
+- 资源统筹(应对架构变化资源调配) config.js
 
-center.js
+config.js
 ```js
 const PATH = require('path')
 const {readFile} = require('./scripts/utils/fs')

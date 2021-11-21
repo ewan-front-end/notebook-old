@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.16 13:23</span>
+            <span>M 2021.11.21 09:36</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -20,10 +20,10 @@ pageClass: theme-item
 
 ::: details Ewan
 
-- 全局配置 center.js
-- 资源统筹(应对架构变化资源调配) center.js
+- 全局配置 config.js
+- 资源统筹(应对架构变化资源调配) config.js
 
-center.js
+config.js
 ```js
 const PATH = require('path')
 const {readFile} = require('./scripts/utils/fs')
@@ -289,8 +289,7 @@ read('RES|markdown.scene')
 <span class="comment color1">/* 不要在此书写
                              
    不要在此书写 */</span>
-
-<span class="comment color1">
+<span class="comment color1">
 // 声明变量value(无意义)</span>
 </pre>
 
@@ -299,8 +298,7 @@ read('RES|markdown.scene')
 
 <strong>■ TODO</strong>
 
-<pre class="code-block">
-<span class="comment">
+<pre class="code-block"><span class="comment">
 // TODO 未处理IE6-8的兼容性</span>
 function setOpacity(node, val) {
     node.style.opacity = val;

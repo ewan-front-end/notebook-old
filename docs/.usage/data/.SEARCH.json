@@ -61,7 +61,7 @@
     },
     "/tools/regularExpression": {
         "key": "regularExpression",
-        "keywords": "正则表达式(regularexpression)"
+        "keywords": "正则表达式(regularexpression)■2(5[0-5]|[0-4]\\d)匹配：200 ~ 255■[0-1]?\\d{1,2}匹配：0 ~ 199■(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3} 后三段重复3次■^(?=.*[a-z])匹配行头 跟随内容包含小写字母■^(?=.*[a-z])匹配行头 跟随内容包含大写字母■^(?=.*\\d)匹配行头 跟随内容包含数字■^(?=.*[@!%&\\$\\*\\?])匹配行头 跟随内容包含列举字符■[a-za-z\\d@!%&\\$\\*\\?]{8,}匹配内容 大小写字母、数字、@!%&$*? 任意组合 8位以上■ 匹配ip ■ 密码 ■ 密码2 ■^((?=.*[a-z])(?=.*[a-z])(?=.*\\d))|((?=.*[a-z])(?=.*[a-z])(?=.*[@!%&\\$\\*\\?]))|((?=.*[a-z])(?=.*\\d)(?=.*[@!%&\\$\\*\\?]))|((?=.*[a-z])(?=.*\\d)(?=.*[@!%&\\$\\*\\?]))[a-za-z\\d@!%&\\$\\*\\?]■匹配位置■字符范围■长度范围■全局范围■惰性匹配■取反■分组■复杂"
     },
     "/tools/eslint": {
         "key": "eslint",
@@ -213,7 +213,7 @@
     },
     "/framework/vuepress": {
         "key": "vuepress",
-        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片■ 入门部署 ■hello vuepress■[icomoon](http://icomoon.io/app)■[jsrun](https://jsrun.net/new)■[github](https://github.com/)"
+        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片"
     },
     "/framework/docsify": {
         "key": "docsify",
