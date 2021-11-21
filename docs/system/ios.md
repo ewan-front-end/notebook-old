@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.11.21 18:57</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,28 @@ pageClass: theme-item
 <h1>IOS</h1><strong>IOS</strong>
 </div>
 <div class="static-content">
+
+
+
+<pre class="code-block">
+<span class="h2 bg3 cf"> cordova项目IOS端运行 </span>
+依赖：百度云/Mac/cordova-ios-shell.zip
+1 demo/
+2 demo/iOS
+3 demo/www
+4 解压 cordova-ios-shell.zip 到 demo/ios/ 
+5 把h5项目打包人代码放置 demo/www/
+6 vscode 打开 demo
+7 demo/www/index.html 插入 &lt;script src=“cordova.js”&gt;&lt;/script&gt;
+8 demo/ios&gt; cordova build ios
+9 Xcode &gt; open a project &gt; 
+	demo/ios/platforms/ios
+	选择设备
+	run &gt;
+</pre>
+
+
+
 
 创建AppID(应用ID非AStoreID)
 

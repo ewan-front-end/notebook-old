@@ -2,10 +2,30 @@ const {fetch} = require('../../config')
 const Search = fetch('PARSE|search')
 const reg = fetch('UTILS|regexp')
 
+const REG_STYLE = {STYLE: `(\\{[\\w\\s-;:'"#]+\\})?`} // color: #f00; font-size: 14px
+const REG_CLASS = {CLASS: `(\\([\\w\\s-]+\\))?`}      // bd sz-16 c-0
+
 let TAG_MAP_BLOCK = {}, blockCount = 0
 
 function parseCustomBlock(block, path) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+
+    // 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符
+    // // 行注释
+     const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
+     matchComment.forEach(e => {
+         let firstWord = e.substr(1,1), colorClass = '', _e = e
+         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
+         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
+     })
+ 
+     // /* 注释 */
+     const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
+     matchComment2.forEach(e => {
+         let firstWord = e.substr(0,1), colorClass = '', _e = e
+         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
+         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
+     })
 
     // 模板符{{}}用图片表示
     block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
@@ -25,24 +45,25 @@ function parseCustomBlock(block, path) {
     
     /**
      * 标题
-     * # Title Text{color:red}    
-     * #个数(1-6)代表尺寸 
-     * [#] 反相标题  
-     * [] 可增加空格为标题作内边距
-     * 
-     */
-    const REG_STYLE = {STYLE: `(\\{[\\w\\s-;:'"#]+\\})?`} // color: #f00; font-size: 14px
-    const REG_CLASS = {CLASS: `(\\([\\w\\s-]+\\))?`} // bd sz-16 c-0
-    const REG_TIT_STR = reg.regExpParse([
-        `\\x20*`,          // 0任意空格
+     * # TITLE TEXT
+     * ## TITLE TEXT
+     * ### TITLE TEXT
+     * #### TITLE TEXT
+     * ##### TITLE TEXT
+     * ###### TITLE TEXT  
+     * [####]{color:#fff}(bd) Title Text
+     * 应用环境：独占一行
+     */    
+    const REG_TIT_STR = reg.nameRegExpParse([
+        `\\x20*`,                   // 0任意空格
         {FORMAT: [
-            {INVERT: `\\[?`}, // 是否反相
-            {LEVEL: `#{1,6}`},
-            `\\]?`,
-            REG_STYLE, 
-            REG_CLASS,
-            `\\s`,
-            {TEXT: `[^\\n\\r\\{]+`}
+            {INVERT: `\\[?`},       // 反相开始 [
+            {LEVEL: `#{1,6}`},      // 标题字号 #-###### 
+            `\\]?`,                 // 反相结束 ]
+            REG_STYLE,              // 区配样式 {color: #fff} 
+            REG_CLASS,              // 匹配类名 (bd)
+            `\\s`,                  // 一个空格
+            {TEXT: `[^\\n\\r\\{]+`} // 标题文本
         ]}
     ])
     const REG_TIT = new RegExp(REG_TIT_STR.value) 
@@ -62,21 +83,8 @@ function parseCustomBlock(block, path) {
         Search.add(path, TEXT)
     }
     
-    // // 注释
-    const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
-    matchComment.forEach(e => {
-        let firstWord = e.substr(1,1), colorClass = '', _e = e
-        if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
-        block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
-    })
-
-    // /* 注释 */
-    const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
-    matchComment2.forEach(e => {
-        let firstWord = e.substr(0,1), colorClass = '', _e = e
-        if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
-        block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
-    })
+    
+    
 
     // [img:$withBase('/images/左移位运算符.jpg')]
     const matchImage = block.match(/\[img:(.+?)\]/g) || [];

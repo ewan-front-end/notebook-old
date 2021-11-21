@@ -1,3 +1,24 @@
+
+===+
+[##] cordova项目IOS端运行
+依赖：百度云/Mac/cordova-ios-shell.zip
+1 demo/
+2 demo/iOS
+3 demo/www
+4 解压 cordova-ios-shell.zip 到 demo/ios/ 
+5 把h5项目打包人代码放置 demo/www/
+6 vscode 打开 demo
+7 demo/www/index.html 插入 <script src=“cordova.js”></script>
+8 demo/ios> cordova build ios
+9 Xcode > open a project > 
+	demo/ios/platforms/ios
+	选择设备
+	run >
+===-
+
+
+
+
 创建AppID(应用ID非AStoreID)
 
 开发者账号

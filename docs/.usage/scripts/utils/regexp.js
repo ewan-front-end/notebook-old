@@ -46,7 +46,7 @@ function objToRegStr(e) {
     }       
 }
 
-module.exports.regExpParse = arr => {
+module.exports.nameRegExpParse = arr => {
     let value = ``, html = ``
     arr.forEach(item => { 
         let res = objToRegStr(item)
