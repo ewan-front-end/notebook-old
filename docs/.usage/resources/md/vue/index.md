@@ -255,36 +255,48 @@ demo/package.json
 ===-
 :::
 
-::: details cordova
-[Cordova](http://cordova.axuer.com/#getstarted)
+::: details cordova项目
 ===+
-[#] 修改VUE3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/
+[##] 环境部署
+- 修改VUE3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/
     方法一：demo/vue.config.js                   方法二：demo/package.json 中的 vue
     module.exports = { outputDir: 'www' }       { "vue": { "outputDir": "www" } }
+- 添加[Cordova](http://cordova.axuer.com/#getstarted)
+    创建一个空项目 xxx> cordova create demo // 依赖全局安装：npm install -g cordova  命令选项：cordova help create
+    拷贝 xxx/www 到 demo/www; 拷贝 xxx/config.xml 到 demo/config.xml    
 
-[#] 添加cordova
-    1. 创建一个空项目 xxx> cordova create demo // 依赖全局安装：npm install -g cordova  命令选项：cordova help create
-    2. 拷贝 xxx/www 到 demo/www; 拷贝 xxx/config.xml 到 demo/config.xml
-    3. 添加一个平台 demo> cordova platform add android // 可以添加平台查看：cordova platform  
-    4. 运行App demo> cordova run android
+[######]{background-color:#2b2} Android
+- 添加平台 demo> cordova platform add android                   // 查看已添加平台 cordova platform
+- 开发流程
+    1. 构建项目 demo> npm run build
+    2. 构建平台 demo> cordova build android
+    3. 运行平台 demo> cordova run android  // 依赖[安卓环境](ANDROID:EnvironmentSetup)
+- 发布流程
+ 
+[######]{background-color:#27d} IOS
+- 添加平台 demo> cordova platform add ios                       // 查看已添加平台 cordova platform
+- 开发流程
+    1. 构建代码 demo> npm run build                           // src > demo/www/ 
+    2. 修改代码 demo/www/index.html 插入 <script src=“cordova.js”></script>
+    3. 构建平台
+        WINDOWS demo> cordova build ios // 依赖[Xcodebuild](#)
+        MAC 
+            依赖：百度云/Mac/cordova-ios-shell.zip
+            1 demo/
+            2 demo/iOS
+            3 demo/www
+            4 解压 cordova-ios-shell.zip 到 demo/ios/ 
+            5 把h5项目打包人代码放置 demo/www/
+            6 vscode 打开 demo
+            7 demo/www/index.html 插入 <script src=“cordova.js”></script>
+            8 demo/ios> cordova build ios            
+    4. 运行平台 Xcode IDE > open a project > 
+        demo/platforms/ios
+        选择设备
+        run >
+- 发布流程
 
-[#] 打包 VUE3 代码到: demo/www/
-    demo> npm run build 
-
-[#] 打包 demo/www/ 代码到 android 
-    demo> cordova build android
-
-[#] 运行 android 代码
-    demo> cordova run android
-
-如果异常，可删除平台重装
-1. platforms下，删除android
-2. demo> cordova platform add android
-3. demo> cordova build android
-4. demo> cordova run android
-
-
-
+[######] Cordova API
 ===-
 :::
 

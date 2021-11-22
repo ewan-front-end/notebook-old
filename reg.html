@@ -19,7 +19,7 @@
 </body>
 </html>
 <script type="module">
-    import regExpParse from './docs/.usage/scripts/utils/regexp.js'
+    import nameRegExpParse from './docs/.usage/scripts/utils/regexp.js'
 
     let block = `
     :::2021.06.27:::
@@ -45,7 +45,7 @@ notebook> vuepress dev docs
     
     
 
-    const regStr = regExpParse([
+    const regStr = nameRegExpParse([
         `\\x20*`,          // 0任意空格
         {FORMAT: [
             {INVERT: `\\[?`}, // 是否反相

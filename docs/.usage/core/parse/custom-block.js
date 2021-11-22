@@ -1,6 +1,6 @@
 const {fetch} = require('../../config')
 const Search = fetch('PARSE|search')
-const reg = fetch('UTILS|regexp')
+const {nameRegExpParse} = fetch('UTILS|regexp')
 
 const REG_STYLE = {STYLE: `(\\{[\\w\\s-;:'"#]+\\})?`} // color: #f00; font-size: 14px
 const REG_CLASS = {CLASS: `(\\([\\w\\s-]+\\))?`}      // bd sz-16 c-0
@@ -10,22 +10,32 @@ let TAG_MAP_BLOCK = {}, blockCount = 0
 function parseCustomBlock(block, path) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
 
-    // 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符
-    // // 行注释
-     const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
-     matchComment.forEach(e => {
-         let firstWord = e.substr(1,1), colorClass = '', _e = e
-         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
-         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
-     })
- 
-     // /* 注释 */
-     const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
-     matchComment2.forEach(e => {
-         let firstWord = e.substr(0,1), colorClass = '', _e = e
-         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
-         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
-     })
+    ////////////////////////////////// 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符
+    /**
+     * 行注释
+     * 多匹配一个前置空格 替换时空格移到标签 防止被全等注释二次替换
+     * 如：// 注释 // 注释  解析成：
+     * 错误：<span class="comment"><span class="comment"> // 注释</span></span> // 注释
+     * 正确： <span class="comment">// 注释</span></span> <span class="comment">// 注释</span></span>
+     */
+    const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
+    matchComment.forEach(e => {
+        let colorClass = '', _e = e.trim(), firstWord = _e.substr(0,1)
+        if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
+        block = block.replace(e, ` <span class="comment${colorClass}">${_e}</span>`)
+    }) 
+    // /* 注释 */
+    const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
+    matchComment2.forEach(e => {
+        let firstWord = e.substr(0,1), colorClass = '', _e = e
+        if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
+        block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
+    })
+
+    ////////////////////////////////// Markdown格式   
+    while (/(\[([^\]\r\n]+)\]\(([^\)\r\n]+)\))/.exec(block) !== null) { 
+        block = block.replace(RegExp.$1, `<a href="${RegExp.$3}" target="_blank">${RegExp.$2}</a>`) 
+    }
 
     // 模板符{{}}用图片表示
     block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
@@ -54,7 +64,7 @@ function parseCustomBlock(block, path) {
      * [####]{color:#fff}(bd) Title Text
      * 应用环境：独占一行
      */    
-    const REG_TIT_STR = reg.nameRegExpParse([
+    const REG_TIT_STR = nameRegExpParse([
         `\\x20*`,                   // 0任意空格
         {FORMAT: [
             {INVERT: `\\[?`},       // 反相开始 [

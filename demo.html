@@ -14,24 +14,25 @@
     
 </body>
 </html>
-<script type="module">
-import MVVM from './docs/.usage/scripts/utils/mvvm/index.js'
+<script>
+    var block = `
+    [##] 环境部署
+修改VUE3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/
+    方法一：demo/vue.config.js                   方法二：demo/package.json 中的 vue
+    module.exports = { outputDir: 'www' }       { "vue": { "outputDir": "www" } }
 
-var vm = new MVVM({
-    el:'#app',
-    data: {
-        message: {
-            text: '信息数据',
-            data: {
-                a: '11111',
-                b: '22222'
-            }
-        }
-    },
-    created(){
-        setTimeout(() => {
-            this.message.data.a = '123456789'
-        }, 5000)
+添加[Cordova](http://cordova.axuer.com/#getstarted)
+    1. 创建一个空项目 xxx> cordova create demo // 依赖全局安装：npm install -g cordova  命令选项：cordova help create
+    2. 拷贝 xxx/www 到 demo/www; 拷贝 xxx/config.xml 到 demo/config.xml
+    3. 添加一个平台 demo> cordova platform add android // **可以添加平台查看**：cordova platform  
+    4. 运行App demo> cordova run android[baidu](baidu.com)
+
+[#] 打包 VUE3 代码到: demo/www/
+    `
+    while (/(\[([^\]\r\n]+)\]\(([^\)\r\n]+)\))/.exec(block) !== null) {
+        console.log(RegExp.$1, RegExp.$2, RegExp.$3);
+        block = block.replace(RegExp.$1, `<a href="${RegExp.$3}">${RegExp.$2}</s>`)
     }
-})
+
+    console.log(block);  
 </script>

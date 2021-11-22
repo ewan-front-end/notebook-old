@@ -1,7 +1,10 @@
-:::2021.06.27:::
+{
+    namespace: 'VUEPRESS',
+    links: []
+}
 
 ===+
-[#] 入门部署
+[##] 入门部署
 > notebook
 notebook> npm init -y
 notebook> npm install vuepress --save-dev
@@ -10,6 +13,19 @@ notebook/docs/README.md
     # Hello VuePress
 notebook> vuepress dev docs
     http://localhost:8080
+
+[######] 链接方案
+- 目标
+    1. 格式 &#91;链接名&#93;&#40;url&#41; 面临链接地址变更的问题
+    2. 链接数可自动提取
+    3. 可扩展
+- 场景
+    【内容】里需要外链的【数据块】做【标识】
+    解析内容时提取【标识】入库【】
+    在需要插入链接的地方插入【链接】引用【标识】从【】
+标识基于文件名 避免目录变更引起的资源丢失
+
+
 
 [######] 配置与调度
 docs/.usage/config.js

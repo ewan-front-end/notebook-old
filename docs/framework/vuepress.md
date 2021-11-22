@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.21 13:20</span>
+            <span>M 2021.11.22 20:59</span>
         </div>
     </div>
     <div class="content"></div>
@@ -18,11 +18,14 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
-:::2021.06.27:::
+{
+    namespace: 'VUEPRESS',
+    links: []
+}
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 入门部署 </span>
+<span class="h2 bg3 cf"> 入门部署 </span>
 &gt; notebook
 notebook&gt; npm init -y
 notebook&gt; npm install vuepress --save-dev
@@ -32,22 +35,35 @@ notebook/docs/README.md
 notebook&gt; vuepress dev docs
     http://localhost:8080
 
+<span class="h6 bg3 cf"> 链接方案 </span>
+● <strong>目标</strong>
+    1. 格式 &#91;链接名&#93;&#40;url&#41; 面临链接地址变更的问题
+    2. 链接数可自动提取
+    3. 可扩展
+● <strong>场景</strong>
+    【内容】里需要外链的【数据块】做【标识】
+    解析内容时提取【标识】入库【】
+    在需要插入链接的地方插入【链接】引用【标识】从【】
+标识基于文件名 避免目录变更引起的资源丢失
+
+
+
 <span class="h6 bg3 cf"> 配置与调度 </span>
 docs/.usage/config.js
 {
     "DATA": {
-        "main": "data/.MAIN.js",                      <span class="comment"> // 主数据</span>
-        "src:path": "data/.SRC_PATH.json",            <span class="comment"> // 用于：编辑资源文件时查找主数据路径</span>
-        "src:updateTime": "data/.SRC_UPDATETIME.json",<span class="comment"> // 用于：编辑资源文件时记录更新时间</span>
-        "path:data": "data/.PATH_DATA.json",          <span class="comment"> // 用于：编辑资源文件时记录更新时间     </span>
-        "creator": "data/.CREATOR.json",              <span class="comment"> // 用于：创建目录与文件的依据</span>
-        "stamp:link": "data/.STAMP_LINK.json",        <span class="comment"> // 解析内容时收集的链接表</span>
-        "scene": "data/.SCENE.json",                  <span class="comment"> // 场景</span>
-        "usage": "data/.USAGE.json",                  <span class="comment"> // 攻略</span>
-        "solution": "data/.SOLUTION.json",            <span class="comment"> // 方案</span>
-        "standard": "data/.STANDARD.json",            <span class="comment"> // 标准</span>
-        "path:keywords": "data/.PATH_KEYWORDS.json",  <span class="comment"> // 数据结构关键词</span>
-        "path:search": "data/.SEARCH.json",           <span class="comment"> // 可用于搜索(数据结构和内容摘要)</span>
+        "main": "data/.MAIN.js",                       <span class="comment">// 主数据</span>
+        "src:path": "data/.SRC_PATH.json",             <span class="comment">// 用于：编辑资源文件时查找主数据路径</span>
+        "src:updateTime": "data/.SRC_UPDATETIME.json", <span class="comment">// 用于：编辑资源文件时记录更新时间</span>
+        "path:data": "data/.PATH_DATA.json",           <span class="comment">// 用于：编辑资源文件时记录更新时间</span>
+        "creator": "data/.CREATOR.json",               <span class="comment">// 用于：创建目录与文件的依据</span>
+        "stamp:link": "data/.STAMP_LINK.json",         <span class="comment">// 解析内容时收集的链接表</span>
+        "scene": "data/.SCENE.json",                   <span class="comment">// 场景</span>
+        "usage": "data/.USAGE.json",                   <span class="comment">// 攻略</span>
+        "solution": "data/.SOLUTION.json",             <span class="comment">// 方案</span>
+        "standard": "data/.STANDARD.json",             <span class="comment">// 标准</span>
+        "path:keywords": "data/.PATH_KEYWORDS.json",   <span class="comment">// 数据结构关键词</span>
+        "path:search": "data/.SEARCH.json",            <span class="comment">// 可用于搜索(数据结构和内容摘要)</span>
     },
     "UTILS": {
         "fs": "scripts/utils/fs",
@@ -87,9 +103,9 @@ docs/.usage/config.js
     config: {},
     dependencies: [],
     aliasCommand: {},
-    fetch = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchFileByType[type](key) },
-    fetchPath = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchPathByType[type](key) },
-    read = identifier =&gt; { const [type, key] = identifier.split('|'); return readFileByType[type](key) }
+    fetch = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchFileByType<a href="key" target="_blank">type</a> },
+    fetchPath = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchPathByType<a href="key" target="_blank">type</a> },
+    read = identifier =&gt; { const [type, key] = identifier.split('|'); return readFileByType<a href="key" target="_blank">type</a> }
 }
 用法：
     const {fetch} = require('../config')
@@ -550,15 +566,15 @@ layout: SpecialLayout
 :::FLEX
 +++ 1
 &lt;strong&gt;<div> 资源&lt;/strong&gt;
-● <strong>[icomoon](http://icomoon.io/app)</strong>
+● <strong><a href="http://icomoon.io/app" target="_blank">icomoon</a></strong>
 +++
 +++ 2
 &lt;strong&gt;</div> 常用工具&lt;/strong&gt;
-● <strong>[JSRun](https://jsrun.net/new)</strong>
+● <strong><a href="https://jsrun.net/new" target="_blank">JSRun</a></strong>
 +++
 +++ 1
 &lt;strong&gt;■ 平台&文档&lt;/strong&gt;
-● <strong>[GitHub](https://github.com/)</strong>
+● <strong><a href="https://github.com/" target="_blank">GitHub</a></strong>
 +++
 FLEX:::
 </pre>
