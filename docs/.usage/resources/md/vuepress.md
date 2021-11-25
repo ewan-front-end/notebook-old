@@ -4,17 +4,53 @@
 }
 
 ===+
-[##] 入门部署
+[##] 入门使用
 > notebook
 notebook> npm init -y
 notebook> npm install vuepress --save-dev
 notebook/docs/
 notebook/docs/README.md 
     # Hello VuePress
-notebook> vuepress dev docs
+notebook/package.json
+    {"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"}}
+notebook> npm run docs:dev
     http://localhost:8080
 
+[##] 部署功能
+notebook/package.json
+    {"scripts": {"deploy": "node docs/.deploy/index.js"}}
+notebook/docs/.deploy/config.js
+    const PATH = require('path')
+    const MAP_UTILS = {
+        "fs": "../.utils/fs"
+    }
+    const MAP_DIR = {
+        ".vuepress": "../.vuepress"
+    }
+
+    module.exports.utils = key => {
+        return require(PATH.resolve(__dirname, MAP_UTILS[key]))
+    }
+    module.exports.dir = key => {
+        return PATH.resolve(__dirname, MAP_DIR[key])
+    }
+notebook/docs/.deploy/index.js
+    const {utils, dir} = require('./config')
+    const { mkdirSync } = utils('fs')
+
+    mkdirSync(dir('.vuepress'), res => {
+        console.log('创建目录：docs/.vuepress', res.message)
+    })
+notebook> npm run deploy 
+
+[######] config.js    
+    资源调度 // 应对重构导至的工具、插件等变更
+
+[######] MD文件的命名规范
+- 扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引
+
 [######] 链接方案
+依赖md文件的命名规范
 - 目标
     1. 格式 &#91;链接名&#93;&#40;url&#41; 面临链接地址变更的问题
     2. 链接数可自动提取
@@ -24,6 +60,24 @@ notebook> vuepress dev docs
     解析内容时提取【标识】入库【】
     在需要插入链接的地方插入【链接】引用【标识】从【】
 标识基于文件名 避免目录变更引起的资源丢失
+"1627903874915": {
+    "stamp": "1627903874915",
+    "path": "/biaozhun/README",
+    "name": "gulp"
+}
+
+create-resource.js
+vuepress: {
+    path: '/framework/vuepress' // 资源树路径    
+}
+create-links.js
+目标 [######] 链接方案
+
+{
+    vuepress: {
+        "链接方案": {href:}
+    }
+}
 
 
 

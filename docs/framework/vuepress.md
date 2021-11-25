@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.22 20:59</span>
+            <span>M 2021.11.25 20:59</span>
         </div>
     </div>
     <div class="content"></div>
@@ -25,17 +25,53 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="h2 bg3 cf"> 入门部署 </span>
+<span class="h2 bg3 cf"> 入门使用 </span>
 &gt; notebook
 notebook&gt; npm init -y
 notebook&gt; npm install vuepress --save-dev
 notebook/docs/
 notebook/docs/README.md 
     <span class="h1">Hello VuePress</span>
-notebook&gt; vuepress dev docs
+notebook/package.json
+    {"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"<img :src="$withBase('/images/db-brace-right.png')">
+notebook&gt; npm run docs:dev
     http://localhost:8080
 
+<span class="h2 bg3 cf"> 部署功能 </span>
+notebook/package.json
+    {"scripts": {"deploy": "node docs/.deploy/index.js"<img :src="$withBase('/images/db-brace-right.png')">
+notebook/docs/.deploy/config.js
+    const PATH = require('path')
+    const MAP_UTILS = {
+        "fs": "../.utils/fs"
+    }
+    const MAP_DIR = {
+        ".vuepress": "../.vuepress"
+    }
+
+    module.exports.utils = key =&gt; {
+        return require(PATH.resolve(__dirname, MAP_UTILS[key]))
+    }
+    module.exports.dir = key =&gt; {
+        return PATH.resolve(__dirname, MAP_DIR[key])
+    }
+notebook/docs/.deploy/index.js
+    const {utils, dir} = require('./config')
+    const { mkdirSync } = utils('fs')
+
+    mkdirSync(dir('.vuepress'), res =&gt; {
+        console.log('创建目录：docs/.vuepress', res.message)
+    })
+notebook&gt; npm run deploy 
+
+<span class="h6 bg3 cf"> config.js    </span>
+    资源调度 <span class="comment">// 应对重构导至的工具、插件等变更</span>
+
+<span class="h6 bg3 cf"> MD文件的命名规范 </span>
+● <strong>扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引</strong>
+
 <span class="h6 bg3 cf"> 链接方案 </span>
+依赖md文件的命名规范
 ● <strong>目标</strong>
     1. 格式 &#91;链接名&#93;&#40;url&#41; 面临链接地址变更的问题
     2. 链接数可自动提取
@@ -45,6 +81,24 @@ notebook&gt; vuepress dev docs
     解析内容时提取【标识】入库【】
     在需要插入链接的地方插入【链接】引用【标识】从【】
 标识基于文件名 避免目录变更引起的资源丢失
+"1627903874915": {
+    "stamp": "1627903874915",
+    "path": "/biaozhun/README",
+    "name": "gulp"
+}
+
+create-resource.js
+vuepress: {
+    path: '/framework/vuepress' <span class="comment">// 资源树路径</span>
+}
+create-links.js
+目标 <span class="h6 bg3 cf"> 链接方案 </span>
+
+{
+    vuepress: {
+        "链接方案": {href:}
+    }
+}
 
 
 
