@@ -62,7 +62,7 @@ notebook/docs/.doctree/tree.js ▾
 notebook/docs/.doctree/create.js ▾
     ↧{
         vue: {
-            title: 'Vue', src: 'vue/index', 
+            title: 'Vue', src: 'vue_index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
             children: {}, 
             peripheral: {
@@ -70,8 +70,6 @@ notebook/docs/.doctree/create.js ▾
             }
         }    
     }↥
-notebook/docs/.doctree/data/
-notebook/docs/.doctree/data/RES_TREE.json  // create时tree信息映射到资源名(资源扁平唯一)
 notebook/package.json ▾
     ↧"scripts": {
         "create": "node docs/.doctree/create.js"
@@ -79,6 +77,7 @@ notebook/package.json ▾
     }↥
 notebook> npm run create     // 依据体系树创建初级文档
 notebook> npm run watch:tree // 监控tree树变化
+notebook/docs/.doctree/data/RES_DATA.json  // create时tree数据映射到资源名(资源扁平唯一) 
 
 资源库
 notebook/docs/.doctree/markdown/
@@ -91,6 +90,7 @@ notebook/package.json ▾
 notebook/docs/.doctree/watch-res.js ▾
     ↧{}↥
 notebook> npm run watch:res  // 监控资源变化
+notebook/docs/.doctree/data/RES_TIME.json  // 更新编辑时间 
 
 
 
