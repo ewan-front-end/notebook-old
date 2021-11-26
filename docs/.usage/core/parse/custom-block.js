@@ -52,7 +52,43 @@ function parseCustomBlock(block, path) {
         block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)
         Search.add(path, RegExp.$2)
     }
+
+    // 命令行示意
+    while (/^\x20*(([\w-\/]+)\&gt;)\s[^\r\n]+/m.exec(block) !== null) {
+        block = block.replace(RegExp.$1, `<span class="block-command">${RegExp.$2}</span>`)
+    }
     
+    /**
+     * Detail
+     * .vuepress/theme/layouts/Layout.vue
+        mounted () {    
+            const $details = document.querySelectorAll('.block-detail')
+            $details.forEach(dom => {
+                dom.addEventListener('click', e => {
+                    let tar = e.currentTarget
+                    tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
+                })
+            })
+        }
+     */
+    const REG_DETAIL_STR = nameRegExpParse([        
+        {DETAIL_FORMAT: [
+            {DETAIL_INDENT: `\\x20*`},
+            {TITLE: `.+`},
+            `\\s▾\\s*[\\r\\n]`,
+            {CONTENT_INDENT: `\\s*`},
+            `↧`,
+            {CONTENT: `[^↥]+`},
+            `↥`
+        ]}
+    ])
+    const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
+    let detailMatch
+    while ((detailMatch = REG_DETAIL.exec(block)) !== null) {
+        let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, CONTENT_INDENT, CONTENT} =  detailMatch.groups
+        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span class="detail-desc">${TITLE}</span><div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
+    }
+
     /**
      * 标题
      * # TITLE TEXT

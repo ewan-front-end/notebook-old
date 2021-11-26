@@ -210,7 +210,7 @@ th, td
   padding 10px 20px
   position relative
 
-.desc
+.desc2
   position relative  
   border-style solid
   border-width 0 0 0 6px 
@@ -372,6 +372,40 @@ th, td
         background-color #3eaf7c
         color #fff
         text-decoration none !important
+.block-command
+  background-color #ccc
+  color #fff
+  display inline-block
+  padding-right 2px
+  line-height 13px
+  &:after
+    content '>'
+.block-detail
+  display inline-block
+  .detail-desc
+    background-color #eee
+    cursor pointer
+    padding-right 5px
+    font-weight bold
+    &:after
+      content ''
+      display inline-block
+      margin-left 8px
+      width 0
+      height 0    
+      border-width 6px 4px 0px 4px
+      border-style solid
+      border-color #666 transparent transparent transparent
+  .detail-content
+    border #f00 0px solid
+    display none
+  &.active .detail-content
+    display block
+  &.active .detail-desc:after
+    border-width 0px 4px 6px 4px
+    border-color transparent transparent #666 transparent
+  
+
 .box-flex 
   display flex
   .box-flex-item 

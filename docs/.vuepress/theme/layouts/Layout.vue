@@ -119,6 +119,15 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })
+    const $details = document.querySelectorAll('.detail-desc')
+    $details.forEach(dom => {
+        dom.addEventListener('click', e => {
+            let tar = e.currentTarget.parentNode
+            tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
+        })
+    })
+    
+    
   },
 
   methods: {

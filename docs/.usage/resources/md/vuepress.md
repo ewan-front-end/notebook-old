@@ -5,22 +5,21 @@
 
 ===+
 [##] 入门使用
-> notebook
+notebook/
 notebook> npm init -y
 notebook> npm install vuepress --save-dev
 notebook/docs/
-notebook/docs/README.md 
-    # Hello VuePress
-notebook/package.json
-    {"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"}}
+notebook/docs/README.md ▾ 
+    ↧Hello VuePress↥
+notebook/package.json ▾
+    ↧{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"}}↥
 notebook> npm run docs:dev
     http://localhost:8080
 
-[##] 部署功能
-notebook/package.json
-    {"scripts": {"deploy": "node docs/.deploy/index.js"}}
-notebook/docs/.deploy/config.js
-    const PATH = require('path')
+[##] 部署基础功能
+notebook/docs/.deploy/
+notebook/docs/.deploy/config.js ▾
+    ↧const PATH = require('path')
     const MAP_UTILS = {
         "fs": "../.utils/fs"
     }
@@ -33,19 +32,111 @@ notebook/docs/.deploy/config.js
     }
     module.exports.dir = key => {
         return PATH.resolve(__dirname, MAP_DIR[key])
-    }
-notebook/docs/.deploy/index.js
-    const {utils, dir} = require('./config')
+    }↥
+notebook/docs/.deploy/index.js ▾
+    ↧const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
     mkdirSync(dir('.vuepress'), res => {
         console.log('创建目录：docs/.vuepress', res.message)
-    })
+    })↥
+notebook/package.json ▾
+    ↧"scripts": {
+        "deploy": "node docs/.deploy/index.js"        
+    }↥
 notebook> npm run deploy 
 
+[##] 建立文档体系
+notebook/docs/.doctree/
+notebook/docs/.doctree/tree.js ▾
+    ↧{
+        vue: {
+            title: 'Vue', src: 'vue/index', 
+            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
+            children: {}, 
+            peripheral: {
+                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
+            }
+        }    
+    }↥
+notebook/docs/.doctree/create.js ▾
+    ↧{
+        vue: {
+            title: 'Vue', src: 'vue/index', 
+            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
+            children: {}, 
+            peripheral: {
+                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
+            }
+        }    
+    }↥
+notebook/docs/.doctree/data/
+notebook/docs/.doctree/data/RES_TREE.json  // create时tree信息映射到资源名(资源扁平唯一)
+notebook/package.json ▾
+    ↧"scripts": {
+        "create": "node docs/.doctree/create.js"
+        "watch:tree": "node docs/.doctree/watch-tree.js"      
+    }↥
+notebook> npm run create     // 依据体系树创建初级文档
+notebook> npm run watch:tree // 监控tree树变化
+
+资源库
+notebook/docs/.doctree/markdown/
+notebook/docs/.doctree/markdown/vuepress.md
+notebook/docs/.doctree/data/RES_TREE.json
+notebook/package.json ▾
+    ↧"scripts": {
+        "watch:res": "node docs/.doctree/watch-res.js"      
+    }↥
+notebook/docs/.doctree/watch-res.js ▾
+    ↧{}↥
+notebook> npm run watch:res  // 监控资源变化
+
+
+
+[######] 自定义内容块格式
+    主次与层次：
+        &#35; 标题文本
+        [&#35;] 反相标题
+        &#42;*局部加粗*&#42;
+        // 单行注释给你
+        /* 多行注释 */
+        Description Of Detail &#9662;
+        &#8615;Detail Content&#8613;
+
+    表单:
+    ﹃
+        ⊙Radio◉
+        ☐Checkbox▣
+        ⅠInput▏
+        ▎Textarea▎
+        ▭ Button▭
+        ▼ Select
+        ▤Table▥
+        ☰List☷
+        ▮Tab▯
+        TreeSelect
+        ↦ ↔ → ⇥ Step
+        ⚠Alert⊗
+    ﹄
+    相关事件.vuepress/theme/layouts/Layout.vue ▾
+        ↧mounted () {    
+            const $details = document.querySelectorAll('.detail-desc')
+            $details.forEach(dom => {
+                dom.addEventListener('click', e => {
+                    let tar = e.currentTarget.parentNode
+                    tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
+                })
+            })
+        }↥
 [######] config.js    
     资源调度 // 应对重构导至的工具、插件等变更
-
+[######] 文档体系
+    结构：树形        
+    作用：生成成体系的文档系统，可扩展、重构、穿插、链接、特种图形图表、层次表达、主次表达等
+    目标：响应变动，包括增删改，搜索
+    实现：响应增删改：watch-tree.js
+         搜索：依赖资源收集的数据：SEARCH_KEY.js、SEARCH_TITLE.js等
 [######] MD文件的命名规范
 - 扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引
 

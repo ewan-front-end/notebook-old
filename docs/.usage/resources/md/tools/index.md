@@ -33,6 +33,7 @@ Google帐号 > 安全性 > 登录Google > 两步验证 > 开始
 - [自助建站国际](https://www.wix.com)
 - [自助建站国内](https://www.strikingly.com/)
 - [plantuml](https://plantuml.com/zh/)
+- [特殊字符转Unicode编码](http://tool.chinaz.com/tools/unicode.aspx)
 ==================== 1
 <strong>■ 常用工具</strong>
 - [模拟短信验证](https://www.yinsiduanxin.com/)

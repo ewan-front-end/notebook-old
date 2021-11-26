@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.25 20:59</span>
+            <span>M 2021.11.26 20:59</span>
         </div>
     </div>
     <div class="content"></div>
@@ -26,22 +26,18 @@ pageClass: theme-item
 
 <pre class="code-block">
 <span class="h2 bg3 cf"> 入门使用 </span>
-&gt; notebook
-notebook&gt; npm init -y
-notebook&gt; npm install vuepress --save-dev
+notebook/
+<span class="block-command">notebook</span> npm init -y
+<span class="block-command">notebook</span> npm install vuepress --save-dev
 notebook/docs/
-notebook/docs/README.md 
-    <span class="h1">Hello VuePress</span>
-notebook/package.json
-    {"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"<img :src="$withBase('/images/db-brace-right.png')">
-notebook&gt; npm run docs:dev
+<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><div class="detail-content">    <span>Hello VuePress</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"<img :src="$withBase('/images/db-brace-right.png')"></span></div></div>
+<span class="block-command">notebook</span> npm run docs:dev
     http://localhost:8080
 
-<span class="h2 bg3 cf"> 部署功能 </span>
-notebook/package.json
-    {"scripts": {"deploy": "node docs/.deploy/index.js"<img :src="$withBase('/images/db-brace-right.png')">
-notebook/docs/.deploy/config.js
-    const PATH = require('path')
+<span class="h2 bg3 cf"> 部署基础功能 </span>
+notebook/docs/.deploy/
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_UTILS = {
         "fs": "../.utils/fs"
     }
@@ -54,19 +50,103 @@ notebook/docs/.deploy/config.js
     }
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
-    }
-notebook/docs/.deploy/index.js
-    const {utils, dir} = require('./config')
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/index.js</span><div class="detail-content">    <span>const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
-    })
-notebook&gt; npm run deploy 
+    })</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+        "deploy": "node docs/.deploy/index.js"        
+    }</span></div></div>
+<span class="block-command">notebook</span> npm run deploy 
 
+<span class="h2 bg3 cf"> 建立文档体系 </span>
+notebook/docs/.doctree/
+<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/tree.js</span><div class="detail-content">    <span>{
+        vue: {
+            title: 'Vue', src: 'vue/index', 
+            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
+            children: {}, 
+            peripheral: {
+                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
+            }
+        }    
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/create.js</span><div class="detail-content">    <span>{
+        vue: {
+            title: 'Vue', src: 'vue/index', 
+            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
+            children: {}, 
+            peripheral: {
+                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
+            }
+        }    
+    }</span></div></div>
+notebook/docs/.doctree/data/
+notebook/docs/.doctree/data/RES_TREE.json  <span class="comment">// create时tree信息映射到资源名(资源扁平唯一)</span>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+        "create": "node docs/.doctree/create.js"
+        "watch:tree": "node docs/.doctree/watch-tree.js"      
+    }</span></div></div>
+<span class="block-command">notebook</span> npm run create     <span class="comment">// 依据体系树创建初级文档</span>
+<span class="block-command">notebook</span> npm run watch:tree <span class="comment">// 监控tree树变化</span>
+
+资源库
+notebook/docs/.doctree/markdown/
+notebook/docs/.doctree/markdown/vuepress.md
+notebook/docs/.doctree/data/RES_TREE.json
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+        "watch:res": "node docs/.doctree/watch-res.js"      
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/watch-res.js</span><div class="detail-content">    <span>{}</span></div></div>
+<span class="block-command">notebook</span> npm run watch:res  <span class="comment">// 监控资源变化</span>
+
+
+
+<span class="h6 bg3 cf"> 自定义内容块格式 </span>
+    主次与层次：
+        &#35; 标题文本
+        [&#35;] 反相标题
+        &#42;*局部加粗*&#42;
+        <span class="comment">// 单行注释给你</span>
+        <span class="comment">/* 多行注释 */</span>
+        Description Of Detail &#9662;
+        &#8615;Detail Content&#8613;
+
+    表单:
+    ﹃
+        ⊙Radio◉
+        ☐Checkbox▣
+        ⅠInput▏
+        ▎Textarea▎
+        ▭ Button▭
+        ▼ Select
+        ▤Table▥
+        ☰List☷
+        ▮Tab▯
+        TreeSelect
+        ↦ ↔ → ⇥ Step
+        ⚠Alert⊗
+    ﹄
+<div class="block-detail">    <span class="detail-desc">相关事件.vuepress/theme/layouts/Layout.vue</span><div class="detail-content">        <span>mounted () {    
+            const $details = document.querySelectorAll('.detail-desc')
+            $details.forEach(dom =&gt; {
+                dom.addEventListener('click', e =&gt; {
+                    let tar = e.currentTarget.parentNode
+                    tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
+                })
+            })
+        }</span></div></div>
 <span class="h6 bg3 cf"> config.js    </span>
     资源调度 <span class="comment">// 应对重构导至的工具、插件等变更</span>
-
+<span class="h6 bg3 cf"> 文档体系 </span>
+    结构：树形        
+    作用：生成成体系的文档系统，可扩展、重构、穿插、链接、特种图形图表、层次表达、主次表达等
+    目标：响应变动，包括增删改，搜索
+    实现：响应增删改：watch-tree.js
+         搜索：依赖资源收集的数据：SEARCH_KEY.js、SEARCH_TITLE.js等
 <span class="h6 bg3 cf"> MD文件的命名规范 </span>
 ● <strong>扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引</strong>
 
