@@ -33,7 +33,7 @@ notebook/docs/.deploy/config.js ▾
     module.exports.dir = key => {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }↥
-notebook/docs/.deploy/index.js ▾
+notebook/docs/.deploy/index.js ▾{background-color:#6d6;color:#fff}
     ↧const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
@@ -44,7 +44,7 @@ notebook/package.json ▾
     ↧"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }↥
-notebook> npm run deploy 
+notebook> npm run [deploy{color:#0c0}] 
 
 [##] 建立文档体系
 notebook/docs/.doctree/
@@ -59,7 +59,7 @@ notebook/docs/.doctree/tree.js ▾
             }
         }    
     }↥
-notebook/docs/.doctree/create.js ▾
+notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
     ↧{
         vue: {
             title: 'Vue', src: 'vue_index', 
@@ -70,39 +70,50 @@ notebook/docs/.doctree/create.js ▾
             }
         }    
     }↥
+notebook/docs/.doctree/watch-tree.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
 notebook/package.json ▾
     ↧"scripts": {
         "create": "node docs/.doctree/create.js"
         "watch:tree": "node docs/.doctree/watch-tree.js"      
     }↥
-notebook> npm run create     // 依据体系树创建初级文档
-notebook> npm run watch:tree // 监控tree树变化
-notebook/docs/.doctree/data/RES_DATA.json  // create时tree数据映射到资源名(资源扁平唯一) 
+notebook> npm run [create{color:#0c0}]     // 依据体系树创建初级文档
+notebook> npm run [watch:tree{color:#0c0}] // 监控tree树变化
+notebook/docs/.doctree/data/RES_DATA.json[{color:#3ac}]  // create时tree数据映射到资源名(资源扁平唯一) 
 
-资源库
+- 资源库
 notebook/docs/.doctree/markdown/
 notebook/docs/.doctree/markdown/vuepress.md
-notebook/docs/.doctree/data/RES_TREE.json
 notebook/package.json ▾
     ↧"scripts": {
         "watch:res": "node docs/.doctree/watch-res.js"      
     }↥
-notebook/docs/.doctree/watch-res.js ▾
+notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
-notebook> npm run watch:res  // 监控资源变化
-notebook/docs/.doctree/data/RES_TIME.json  // 更新编辑时间 
+notebook> npm run [watch:res{color:#0c0}]  // 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
+notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间 
+notebook/docs/.doctree/data/KEY_RES.json[{color:#3ac}]       // 索引关键词
+notebook/docs/.doctree/data/TIT_RES.json[{color:#3ac}]       // 索引标题
+notebook/docs/.doctree/data/RES_LINK.json[{color:#3ac}]      // 暴露的链接
+notebook/docs/.doctree/data/RES_SCENE.json[{color:#3ac}]     // 暴露的场景 
+notebook/docs/.doctree/data/RES_USAGE.json[{color:#3ac}]     // 暴露的攻略
+notebook/docs/.doctree/data/RES_SOLUTION.json[{color:#3ac}]  // 暴露的方案
+notebook/docs/.doctree/data/RES_STANDARD.json[{color:#3ac}]  // 暴露的标准
 
+[##] 统筹文档体系
 
+[######] 开发规范
+    &#35; 标题文本
+    [&#35;] 反相标题
+    &#42;*局部加粗*&#42;
+    // 单行注释给你
+    /* 多行注释 */
 
-[######] 自定义内容块格式
-    主次与层次：
-        &#35; 标题文本
-        [&#35;] 反相标题
-        &#42;*局部加粗*&#42;
-        // 单行注释给你
-        /* 多行注释 */
-        Description Of Detail &#9662;
-        &#8615;Detail Content&#8613;
+    行样式&#91;{color:#f00}(bd)&#93;    
+    &#91;盒样式{color:#f00}(bd)&#93;
+
+    Description Of Detail &#9662;{color:#3ac}
+    &#8615;Detail Content&#8613;
 
     表单:
     ﹃
@@ -119,16 +130,13 @@ notebook/docs/.doctree/data/RES_TIME.json  // 更新编辑时间
         ↦ ↔ → ⇥ Step
         ⚠Alert⊗
     ﹄
-    相关事件.vuepress/theme/layouts/Layout.vue ▾
-        ↧mounted () {    
-            const $details = document.querySelectorAll('.detail-desc')
-            $details.forEach(dom => {
-                dom.addEventListener('click', e => {
-                    let tar = e.currentTarget.parentNode
-                    tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
-                })
-            })
-        }↥
+[######] 内容规范
+    链接
+    场景 
+    攻略
+    方案
+    标准
+
 [######] config.js    
     资源调度 // 应对重构导至的工具、插件等变更
 [######] 文档体系

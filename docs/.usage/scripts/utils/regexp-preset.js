@@ -46,15 +46,23 @@ function objToRegStr(e) {
     }       
 }
 
-module.exports.nameRegExpParse = arr => {
-    let value = ``, html = ``
-    arr.forEach(item => { 
-        let res = objToRegStr(item)
-        value += res.value 
-        html += res.html
-    })
-    return {
-        value,
-        html: `<span class="regexp">${htmlEscape(html).replace(/【/g, '<').replace(/】/g, '>')}</span>`
-    }       
+module.exports = {
+    regexpPresetParse: arr => {
+        let value = ``, html = ``
+        arr.forEach(item => { 
+            let res = objToRegStr(item)
+            value += res.value 
+            html += res.html
+        })
+        return {
+            value,
+            html: `<span class="regexp">${htmlEscape(html).replace(/【/g, '<').replace(/】/g, '>')}</span>`
+        }       
+    },
+    PRESET_CSS: {
+        CSS: [
+            {CSS_1: `\\{[\\w\\s-;:'"#]+\}|\\([\\w\\s-]+\\)`},
+            {CSS_2: `(\\{[\\w\\s-;:'"#]+\\})?(\\([\\w\\s-]+\\))?`}
+        ]
+    }
 }

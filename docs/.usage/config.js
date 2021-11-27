@@ -81,7 +81,7 @@ const MAP_DATA = {
 const MAP_UTILS = {
     "fs": "scripts/utils/fs",
     "ewan": "scripts/utils/ewan.js",
-    "regexp": "scripts/utils/regexp.js"
+    "regexp-preset": "scripts/utils/regexp-preset.js"
 }
 const MAP_CORE = {
     "create": "core/create.js",

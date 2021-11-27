@@ -1,11 +1,10 @@
-const {fetch} = require('../../config')
+const { fetch } = require('../../config')
 const Search = fetch('PARSE|search')
-const {nameRegExpParse} = fetch('UTILS|regexp')
-
-const REG_STYLE = {STYLE: `(\\{[\\w\\s-;:'"#]+\\})?`} // color: #f00; font-size: 14px
-const REG_CLASS = {CLASS: `(\\([\\w\\s-]+\\))?`}      // bd sz-16 c-0
+const { regexpPresetParse, PRESET_CSS } = fetch('UTILS|regexp-preset')
 
 let TAG_MAP_BLOCK = {}, blockCount = 0
+const REG_STYLE_STR = `(\\{[\\w\\s-;:'"#]+\\})?` // color: #f00; font-size: 14px
+const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      // bd sz-16 c-0
 
 function parseCustomBlock(block, path) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
@@ -32,26 +31,22 @@ function parseCustomBlock(block, path) {
         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
     })
 
-    ////////////////////////////////// Markdown格式   
+    // Markdown格式 [链接](#)、- 点列表、**局部加粗**   
     while (/(\[([^\]\r\n]+)\]\(([^\)\r\n]+)\))/.exec(block) !== null) { 
         block = block.replace(RegExp.$1, `<a href="${RegExp.$3}" target="_blank">${RegExp.$2}</a>`) 
     }
+    while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {
+        block = block.replace(RegExp.$1, `● <strong>${RegExp.$2}</strong>`);
+        Search.add(path, RegExp.$2)
+    }
+    while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {
+        block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)
+        Search.add(path, RegExp.$2)
+    } 
 
     // 模板符{{}}用图片表示
     block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
     block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
-    
-    // - Markdown点列表
-    while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {
-        block = block.replace(RegExp.$1, `● <strong>${RegExp.$2}</strong>`);
-        Search.add(path, RegExp.$2)
-    } 
-
-    // Markdown**局部加粗**
-    while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {
-        block = block.replace(RegExp.$1, `<strong>${RegExp.$2}</strong>`)
-        Search.add(path, RegExp.$2)
-    }
 
     // 命令行示意
     while (/^\x20*(([\w-\/]+)\&gt;)\s[^\r\n]+/m.exec(block) !== null) {
@@ -71,11 +66,13 @@ function parseCustomBlock(block, path) {
             })
         }
      */
-    const REG_DETAIL_STR = nameRegExpParse([        
+    const REG_DETAIL_STR = regexpPresetParse([        
         {DETAIL_FORMAT: [
             {DETAIL_INDENT: `\\x20*`},
             {TITLE: `.+`},
-            `\\s▾\\s*[\\r\\n]`,
+            `\\s▾`,
+            {STYLE: REG_STYLE_STR},
+            `\\s*[\\r\\n]`,
             {CONTENT_INDENT: `\\s*`},
             `↧`,
             {CONTENT: `[^↥]+`},
@@ -85,8 +82,9 @@ function parseCustomBlock(block, path) {
     const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
     let detailMatch
     while ((detailMatch = REG_DETAIL.exec(block)) !== null) {
-        let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, CONTENT_INDENT, CONTENT} =  detailMatch.groups
-        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span class="detail-desc">${TITLE}</span><div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
+        let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, CONTENT_INDENT, CONTENT} =  detailMatch.groups, descStyle = 'class="detail-desc"'
+        if (STYLE) descStyle += ` style="${STYLE.replace('{', '').replace('}', '')}"`
+        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span ${descStyle}>${TITLE}</span><div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
     }
 
     /**
@@ -100,14 +98,14 @@ function parseCustomBlock(block, path) {
      * [####]{color:#fff}(bd) Title Text
      * 应用环境：独占一行
      */    
-    const REG_TIT_STR = nameRegExpParse([
+    const REG_TIT_STR = regexpPresetParse([
         `\\x20*`,                   // 0任意空格
         {FORMAT: [
             {INVERT: `\\[?`},       // 反相开始 [
             {LEVEL: `#{1,6}`},      // 标题字号 #-###### 
             `\\]?`,                 // 反相结束 ]
-            REG_STYLE,              // 区配样式 {color: #fff} 
-            REG_CLASS,              // 匹配类名 (bd)
+            {STYLE: REG_STYLE_STR},              // 区配样式 {color: #fff} 
+            {CLASS: REG_CLASS_STR},              // 匹配类名 (bd)
             `\\s`,                  // 一个空格
             {TEXT: `[^\\n\\r\\{]+`} // 标题文本
         ]}
@@ -132,7 +130,7 @@ function parseCustomBlock(block, path) {
     
     
 
-    // [img:$withBase('/images/左移位运算符.jpg')]
+    // 图片 [img:$withBase('/images/左移位运算符.jpg')]
     const matchImage = block.match(/\[img:(.+?)\]/g) || [];
     matchImage.forEach(e => {
         const m = e.match(/\[img:(.+)?\]/)
@@ -275,39 +273,47 @@ function parseCustomBlock(block, path) {
         block = block.replace(e, `<div class="form-elements">${content}</div>`)
     })
 
-    /**
-     * 行样式：[2,17{color:#f00}(bd)  19,13{color:#0f0}(bd)]  适合于单行点缀
-     * $1：$ALL=(FORMAT$SPACE$CONTENT)  FORMAT=\x20*\[SCOPES\]\x20*[\r\n]+  
-     * $2：$SCOPES = ((SCOPE)+)  SCOPE =\x20*\d+,\d+((\{[\w\x20-;:'"#]+\})|(\([\w\x20-]+\))){1,2}
-     * $7：$SPACE=(\x20*)
-     * $8：$CONTENT=(.+)
-     */
-     while(block.match(/(\x20*\[((\x20*\d+,\d+((\{[\w\x20-;:'"#]+\})|(\([\w\x20-]+\))){1,2})+)\]\x20*[\r\n]+(\x20*)(.+))/)){
-         const $ALL = RegExp.$1, $SCOPES = RegExp.$2, $SPACE = RegExp.$7
-         let content = RegExp.$8
-         $SCOPES.split(/\x20{2,}/).map(scope => scope.match(/(\d+),(\d+)(.+)/)).sort((a,b) => b[1] - a[1]).forEach(arr => {
-            const s = arr[1], l = arr[2], styleMatch = arr[3].match(/\{([\w\x20-;:'"#]+)\}/), classMatch = arr[3].match(/\(([\w\x20-]+)\)/)
-            let styleStr = '', classStr = '' 
-            styleMatch && (styleStr = ` style="${styleMatch[1]}"`)
-            classMatch && (classStr = ` class="${classMatch[1]}"`)
-            content = content.replaceAt(s, l, `<span${styleStr}${classStr}>${content.substr(s, l)}</span>`)
-         })
-         block = block.replace($ALL, $SPACE + content)
-     }     
+    // 行样式[{color:#f00}(bd)]
+    const REG_LINE_STYLE_STR = regexpPresetParse([
+        `^\\x20*`,           // 行缩进 
+        {CONTENT_FORMAT: [
+            {CONTENT: `.+`}, // 格式内容       
+            {STYLE_FORMAT: [`\\[`, PRESET_CSS, `\\]`]}
+        ]}
+    ])
+    const REG_LINE_STYLE = new RegExp(REG_LINE_STYLE_STR.value, 'gm') 
+    let lineStyleMatch
+    while ((lineStyleMatch = REG_LINE_STYLE.exec(block)) !== null) {   
+        let {CONTENT_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = lineStyleMatch.groups, cssStr = ''
+        if (CSS_1) {
+            console.log('===', CSS_1.includes('{'), CSS_1);
+            let text = CSS_1.substr(1, CSS_1.length - 2)
+            cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
+        }
+        if (CSS_2) {
+            let text = CSS_2.substr(1, CSS_2.length - 2)
+            cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
+        }       
+        block = block.replace(CONTENT_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
+    }    
 
-    /**
-     * 盒样式：[{color:#f00}(bd)CONTENT] 适合单行行内点缀
-     * 匹配 STYLE=\{([\w\s-;:'"#]+)\} CLASS=\(([\w\s-]+)\) 内容=.+?
-     * 匹配 ((STYLE)|(CLASS)){1,2}(内容)
-     */
-    const boxStyleMatch = block.match(/\[((\{[\w\s-;:'"#]+\})|(\([\w\s-]+\))){1,2}.+?\]/g) || []
-    boxStyleMatch.forEach(e => {
-        const m = e.match(/\[(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)\]/), $STYLE = m[4] || '', $CLASS = m[2] || m[6] || '', $CONTENT = m[7]
-        let str = ''
-        $STYLE && (str += ` style="${$STYLE}"`)
-        $CLASS && (str += ` class="${$CLASS}"`)
-        block = block.replace(e, `<span${str}>${$CONTENT}</span>`)
-    }) 
+    // [盒样式{color:#f00}(bd)] 适合单行行内点缀
+     const REG_BOX_STYLE_STR = regexpPresetParse([{BOX_FORMAT: [`\\[`, {CONTENT: `[^\\{\\}\\[\\]\\(\\)]+`}, PRESET_CSS, `\\]` ]}])
+     const REG_BOX_STYLE = new RegExp(REG_BOX_STYLE_STR.value, 'gm') 
+     let boxStyleMatch
+     while ((boxStyleMatch = REG_BOX_STYLE.exec(block)) !== null) {   
+         let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch.groups, cssStr = ''
+         if (CSS_1) {
+             console.log('===', CSS_1.includes('{'), CSS_1);
+             let text = CSS_1.substr(1, CSS_1.length - 2)
+             cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
+         }
+         if (CSS_2) {
+             let text = CSS_2.substr(1, CSS_2.length - 2)
+             cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
+         }
+         block = block.replace(BOX_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
+     }
 
     // 盒子：■⇤{}()content■
     while (/(\x20*)(■(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)■)/.exec(block) !== null) {

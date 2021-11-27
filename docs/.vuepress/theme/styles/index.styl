@@ -387,23 +387,20 @@ th, td
     cursor pointer
     padding-right 5px
     font-weight bold
+    display inline-block
+    line-height 13px
     &:after
-      content ''
+      content '▼'
       display inline-block
       margin-left 8px
-      width 0
-      height 0    
-      border-width 6px 4px 0px 4px
-      border-style solid
-      border-color #666 transparent transparent transparent
+      transform: scaleX(1.2) scaleY(0.7);
   .detail-content
     border #f00 0px solid
     display none
   &.active .detail-content
     display block
   &.active .detail-desc:after
-    border-width 0px 4px 6px 4px
-    border-color transparent transparent #666 transparent
+    content '▲'
   
 
 .box-flex 
