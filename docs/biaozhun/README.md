@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.21 13:20</span>
+            <span>M 2021.11.28 11:24</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -101,9 +101,9 @@ read('RES|markdown.scene')
 
 普通区域
 ● <strong>Flex</strong>
-    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8            <span class="comment"> // 小于等于10 flex-grow: 8</span>
+    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; 8             <span class="comment">// 小于等于10 flex-grow: 8</span>
     col 01
-    &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname <span class="comment"> // 大于10 flex-basis: n  可注入自定义classname</span>
+    &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61; 100classname  <span class="comment">// 大于10 flex-basis: n  可注入自定义classname</span>
     col 02
     &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
 
@@ -136,26 +136,16 @@ read('RES|markdown.scene')
     LINK&#91;1627821297227|node-inspect&#93;
         
 
-    &#45; Markdown点列表
-    &#42;&#42;局部加粗&#42;&#42;
+    
+    
 
-    &#35; 标题文本                               <span class="comment"> // #个数(1-6)代表尺寸</span>
-    &#91;&#35;&#93; 反相标题                             <span class="comment"> // 可增加空格为标题作内边距</span>
-
-    &#47;&#47; 单行注释
-    &#47;&#42; 多行注释 &#42;&#47;
-
-    &#91;img:$withBase('/images/插入图片.jpg')&#93;  <span class="comment"> // 插入图片</span>
-
-    行样式：[2,17&#123;color:#f00&#125;&#40;bd&#41;  19,13&#123;color:#0f0&#125;&#40;bd&#41;] <span class="comment"> // start,length{}()</span>
-    盒样式：[&#123;color:#f00&#125;&#40;bd&#41;CONTENT]
-    盒子：&#9632;⇤&#123;&#125;&#40;bd&#41;CONTENT&#9632; <span class="comment"> // ⇤为是否顶格</span>
+    
 
     &#91;FORM_START&#93;
 
-        <span style="color:#f33">e4fc5eb9-316a-48e5-a970-dc116e7ab897</span>
-        <img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">
-        <img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">
+        [{color:#f33}e4fc5eb9-316a-48e5-a970-dc116e7ab897]
+        <img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}API]<img :src="$withBase('/images/db-brace-right.png')">
+        <img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}RES]<img :src="$withBase('/images/db-brace-right.png')">
 
         按钮： 
         [BTNbg6 cf|+ New Collection]
@@ -177,8 +167,8 @@ read('RES|markdown.scene')
         ▭{color:#ffaa22}collection-name▭
         ▭{color:#20b477}(bd)登录▭
         ▭{color:#8922ff}environment-name▭
-        ▭<img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">API</span><img :src="$withBase('/images/db-brace-right.png')">/api/login/▭
-        ▭<img :src="$withBase('/images/db-brace-left.png')"><span style="color:#26f">RES</span><img :src="$withBase('/images/db-brace-right.png')">/api/cdn/UploadFile/▭
+        ▭<img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}API]<img :src="$withBase('/images/db-brace-right.png')">/api/login/▭
+        ▭<img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}RES]<img :src="$withBase('/images/db-brace-right.png')">/api/cdn/UploadFile/▭
 
         选项卡：
         ▥⇤Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings▥
@@ -194,7 +184,7 @@ read('RES|markdown.scene')
         ▤collection-name{color:#ffaa22}(bd)▤
         ▤Add Request▤
         ▤(vtop)collection-name{color:#ffaa22}[登录(active),上传]▤
-        ▤(vtop)collection-name{color:#ffaa22}[登录,上传(active)]▤
+        ▤(vtop)collection-name{color:#ffaa22}<span class="active">登录,上传</span>▤
 
         下拉选项：
         ▼POST▼ 
@@ -272,7 +262,7 @@ read('RES|markdown.scene')
 
 <pre class="code-block">
 
-&nbsp;<span class="comment color5"> // 正确的单行注释</span>
+&nbsp; <span class="comment color5">// 正确的单行注释</span>
 &nbsp; 
 &nbsp; <span class="comment color5">/*
 &nbsp; 正确的多行注释
@@ -289,8 +279,7 @@ read('RES|markdown.scene')
 <span class="comment color1">/* 不要在此书写
                              
    不要在此书写 */</span>
-<span class="comment color1">
-// 声明变量value(无意义)</span>
+ <span class="comment color1">// 声明变量value(无意义)</span>
 </pre>
 
 </div>
@@ -298,8 +287,7 @@ read('RES|markdown.scene')
 
 <strong>■ TODO</strong>
 
-<pre class="code-block"><span class="comment">
-// TODO 未处理IE6-8的兼容性</span>
+<pre class="code-block"> <span class="comment">// TODO 未处理IE6-8的兼容性</span>
 function setOpacity(node, val) {
     node.style.opacity = val;
 }
@@ -401,17 +389,17 @@ function setOpacity(node, val) {
 
 
 
-&nbsp;<span class="comment"> // 必须搭配@constructor或@static使用，分别标记非静态类与静态类</span>
+&nbsp; <span class="comment">// 必须搭配@constructor或@static使用，分别标记非静态类与静态类</span>
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;<span class="comment"> // 没有指定@for时，表示此函数为全局或模块顶层函数</span>
-&nbsp;<span class="comment"> // 当函数有参数时</span>
-&nbsp;<span class="comment"> // 当函数有返回值时</span>
-&nbsp;<span class="comment"> // 当函数为静态函数时</span>
+&nbsp; <span class="comment">// 没有指定@for时，表示此函数为全局或模块顶层函数</span>
+&nbsp; <span class="comment">// 当函数有参数时</span>
+&nbsp; <span class="comment">// 当函数有返回值时</span>
+&nbsp; <span class="comment">// 当函数为静态函数时</span>
 
 </pre>
 
@@ -430,11 +418,11 @@ function setOpacity(node, val) {
 
 <span class="comment color3">/*!
  * jRaiser 2 Javascript Library
- * kan.56.com - v1.0.0 (2013-03-15T14:55:51+0800)     <span class="comment"> // 概要说明及版本(必须) 修改时间(必须)以ISO格式表示</span>
- * http://jraiser.org/ | Released under MIT license   <span class="comment"> // 项目地址(开源组件必须) 开源协议(开源组件必须)</span>
- * Copyright 2005-2013 56.com                         <span class="comment"> // 版权声明(必须)</span>
+ * kan.56.com - v1.0.0 (2013-03-15T14:55:51+0800)      <span class="comment">// 概要说明及版本(必须) 修改时间(必须)以ISO格式表示</span>
+ * http://jraiser.org/ | Released under MIT license    <span class="comment">// 项目地址(开源组件必须) 开源协议(开源组件必须)</span>
+ * Copyright 2005-2013 56.com                          <span class="comment">// 版权声明(必须)</span>
  *
- * Include sizzle (http://sizzlejs.com/)              <span class="comment"> // 如果文件内包含开源组件 则必须在文件注释中进行说明</span>
+ * Include sizzle (http://sizzlejs.com/)               <span class="comment">// 如果文件内包含开源组件 则必须在文件注释中进行说明</span>
  */</span>
 </pre>
 

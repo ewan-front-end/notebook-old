@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.27 20:58</span>
+            <span>M 2021.11.28 15:53</span>
         </div>
     </div>
     <div class="content"></div>
@@ -22,6 +22,7 @@ pageClass: theme-item
     namespace: 'VUEPRESS',
     links: []
 }
+
 
 
 <pre class="code-block">
@@ -74,6 +75,11 @@ notebook/docs/.doctree/
             }
         }    
     }</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+        "create": "node docs/.doctree/create.js"
+        "watch:tree": "node docs/.doctree/watch-tree.js"      
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/create.js</span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue_index', 
@@ -84,11 +90,6 @@ notebook/docs/.doctree/
             }
         }    
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
-        "create": "node docs/.doctree/create.js"
-        "watch:tree": "node docs/.doctree/watch-tree.js"      
-    }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">create</span>     <span class="comment">// 依据体系树创建初级文档</span>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:tree</span> <span class="comment">// 监控tree树变化</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_DATA.json</span>  <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span>
@@ -96,34 +97,47 @@ notebook/docs/.doctree/
 ● <strong>资源库</strong>
 notebook/docs/.doctree/markdown/
 notebook/docs/.doctree/markdown/vuepress.md
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
-        "watch:res": "node docs/.doctree/watch-res.js"      
-    }</span></div></div>
+notebook/package.json ▾ <span class="comment">// 设置scripts</span>
+    ↧"scripts": {
+        "watch:res": "node docs/.doctree/watch-res.js",
+        "gather": "node docs/.doctree/gather.js"  
+    }↥
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><div class="detail-content">    <span>{}</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:res</span>  <span class="comment">// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_TIME.json</span>      <span class="comment">// 更新编辑时间</span>
+notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff} <span class="comment">// 抓取数据</span>
+    ↧{}↥
 <span style="color:#3ac">notebook/docs/.doctree/data/KEY_RES.json</span>       <span class="comment">// 索引关键词</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/TIT_RES.json</span>       <span class="comment">// 索引标题</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 暴露的链接</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_SCENE.json</span>     <span class="comment">// 暴露的场景</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_USAGE.json</span>     <span class="comment">// 暴露的攻略</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_SOLUTION.json</span>  <span class="comment">// 暴露的方案</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_STANDARD.json</span>  <span class="comment">// 暴露的标准</span>
+<span style="color:#3ac">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接</span>
 
 <span class="h2 bg3 cf"> 统筹文档体系 </span>
 
 <span class="h6 bg3 cf"> 开发规范 </span>
+    &#45; Markdown点列表
+    &#42;*行内加粗*&#42;
+
     &#35; 标题文本
     [&#35;] 反相标题
-    &#42;*局部加粗*&#42;
+    
     <span class="comment">// 单行注释给你</span>
     <span class="comment">/* 多行注释 */</span>
+
+    &#91;img:$withBase('/images/插入图片.jpg')&#93; 
 
     行样式&#91;{color:#f00}(bd)&#93;    
     &#91;盒样式{color:#f00}(bd)&#93;
 
     Description Of Detail &#9662;{color:#3ac}
     &#8615;Detail Content&#8613;
+
+    &#9632;⇤&#123;&#125;&#40;bd&#41;盒子：包装一个块级元素&#9632;  <span class="comment">// ⇤为是否顶格</span>
+    <div>{}(bd)CONTENT</div>
+    ↴background-color:#eef7f4; vertical-align:top; padding:10px↤包装一个行级元素↦
 
     表单:
     ﹃
@@ -142,10 +156,69 @@ notebook/docs/.doctree/markdown/vuepress.md
     ﹄
 <span class="h6 bg3 cf"> 内容规范 </span>
     链接
-    场景 
+        引入：[优先标题:vuepress#id]
+        埋码：[ANCHOR#id:入库标题]
+<div class="block-detail">        <span class="detail-desc">收集：</span><div class="detail-content">            <span>vuepress:{
+                path:'', 
+                links: {
+                    usage: '入库标题'
+                }
+            }</span></div></div>
+    场景
+        ★ Identity:场景名称
+        
+        ☆ 
+        数据：[
+            {Identity:{
+                title:'场景名称',
+                res: 'reskey'
+            <img :src="$withBase('/images/db-brace-right.png')">
+        ]
     攻略
+        
+        ◒ Identity:攻略名称
+        第一点
+        第二点
+        第三点
+        ◓
+        数据：[
+            {Identity:{
+                title:'攻略名称',
+                res: 'reskey',
+                steps: ['第一点','第二点','第三点']
+            <img :src="$withBase('/images/db-brace-right.png')">
+        ]
     方案
+        ✿ Identity:方案名称
+        ❀
+        数据：[
+            {Identity:{
+                title:'方案名称',
+                res: 'reskey',
+                "需求分析": {
+                    1: '产品需要什么样的内容和效果'
+                    2: '技术上需要做哪些工作才能达到产品要求'
+                    3: '技术上有哪些指标'
+                },
+                "产品要求": {},
+                "技术应对": {},
+                "技术指标": {},
+                "架构设计": {}
+            <img :src="$withBase('/images/db-brace-right.png')">
+        ]
     标准
+        ◐ Identity:标准名称
+        ◑
+        数据：[
+            {Identity:{
+                title:'标准名称',
+                res: 'reskey',
+                list: [
+                    {"标准一": "标准一文案"}
+                    {"标准二": "标准二文案"}
+                ]
+            <img :src="$withBase('/images/db-brace-right.png')">
+        ]
 
 <span class="h6 bg3 cf"> config.js    </span>
     资源调度 <span class="comment">// 应对重构导至的工具、插件等变更</span>

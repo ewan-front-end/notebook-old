@@ -3,6 +3,7 @@
     links: []
 }
 
+
 ===+
 [##] 入门使用
 notebook/
@@ -59,6 +60,13 @@ notebook/docs/.doctree/tree.js ▾
             }
         }    
     }↥
+notebook/package.json ▾
+    ↧"scripts": {
+        "create": "node docs/.doctree/create.js"
+        "watch:tree": "node docs/.doctree/watch-tree.js"      
+    }↥
+notebook/docs/.doctree/watch-tree.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
 notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
     ↧{
         vue: {
@@ -70,13 +78,6 @@ notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
             }
         }    
     }↥
-notebook/docs/.doctree/watch-tree.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook/package.json ▾
-    ↧"scripts": {
-        "create": "node docs/.doctree/create.js"
-        "watch:tree": "node docs/.doctree/watch-tree.js"      
-    }↥
 notebook> npm run [create{color:#0c0}]     // 依据体系树创建初级文档
 notebook> npm run [watch:tree{color:#0c0}] // 监控tree树变化
 notebook/docs/.doctree/data/RES_DATA.json[{color:#3ac}]  // create时tree数据映射到资源名(资源扁平唯一) 
@@ -84,36 +85,48 @@ notebook/docs/.doctree/data/RES_DATA.json[{color:#3ac}]  // create时tree数据�
 - 资源库
 notebook/docs/.doctree/markdown/
 notebook/docs/.doctree/markdown/vuepress.md
-notebook/package.json ▾
+notebook/package.json ▾ // 设置scripts
     ↧"scripts": {
-        "watch:res": "node docs/.doctree/watch-res.js"      
+        "watch:res": "node docs/.doctree/watch-res.js",
+        "gather": "node docs/.doctree/gather.js"  
     }↥
 notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 notebook> npm run [watch:res{color:#0c0}]  // 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
 notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间 
+notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff} // 抓取数据
+    ↧{}↥
 notebook/docs/.doctree/data/KEY_RES.json[{color:#3ac}]       // 索引关键词
 notebook/docs/.doctree/data/TIT_RES.json[{color:#3ac}]       // 索引标题
-notebook/docs/.doctree/data/RES_LINK.json[{color:#3ac}]      // 暴露的链接
 notebook/docs/.doctree/data/RES_SCENE.json[{color:#3ac}]     // 暴露的场景 
 notebook/docs/.doctree/data/RES_USAGE.json[{color:#3ac}]     // 暴露的攻略
 notebook/docs/.doctree/data/RES_SOLUTION.json[{color:#3ac}]  // 暴露的方案
 notebook/docs/.doctree/data/RES_STANDARD.json[{color:#3ac}]  // 暴露的标准
+notebook/docs/.doctree/data/RES_LINK.json[{color:#3ac}]      // 采集链接
 
 [##] 统筹文档体系
 
 [######] 开发规范
+    &#45; Markdown点列表
+    &#42;*行内加粗*&#42;
+
     &#35; 标题文本
     [&#35;] 反相标题
-    &#42;*局部加粗*&#42;
+    
     // 单行注释给你
     /* 多行注释 */
+
+    &#91;img:$withBase('/images/插入图片.jpg')&#93; 
 
     行样式&#91;{color:#f00}(bd)&#93;    
     &#91;盒样式{color:#f00}(bd)&#93;
 
     Description Of Detail &#9662;{color:#3ac}
     &#8615;Detail Content&#8613;
+
+    &#9632;⇤&#123;&#125;&#40;bd&#41;盒子：包装一个块级元素&#9632;  // ⇤为是否顶格
+    ■⇤{}(bd)CONTENT■
+    ↴background-color:#eef7f4; vertical-align:top; padding:10px↤包装一个行级元素↦
 
     表单:
     ﹃
@@ -131,11 +144,76 @@ notebook/docs/.doctree/data/RES_STANDARD.json[{color:#3ac}]  // 暴露的标准
         ⚠Alert⊗
     ﹄
 [######] 内容规范
+    搜索
+        埋码：1.[KEY#id:KEY1KEY2KEY3] 2.# 标题 
+        数据：
+        "KEY1KEY2KEY3":filename#id
+
     链接
-    场景 
+        引入：[优先标题:vuepress#id]
+        埋码：[ANCHOR#id:入库标题]
+        数据： ▾
+            ↧vuepress:{
+                path:'', 
+                links: {
+                    usage: '入库标题'
+                }
+            }↥
+    场景
+        ★ Identity:场景名称
+        
+        ☆ 
+        数据：[
+            {Identity:{
+                title:'场景名称',
+                res: 'reskey'
+            }}
+        ]
     攻略
+        
+        ◒ Identity:攻略名称
+        第一点
+        第二点
+        第三点
+        ◓
+        数据：[
+            {Identity:{
+                title:'攻略名称',
+                res: 'reskey',
+                steps: ['第一点','第二点','第三点']
+            }}
+        ]
     方案
+        ✿ Identity:方案名称
+        ❀
+        数据：[
+            {Identity:{
+                title:'方案名称',
+                res: 'reskey',
+                "需求分析": {
+                    1: '产品需要什么样的内容和效果'
+                    2: '技术上需要做哪些工作才能达到产品要求'
+                    3: '技术上有哪些指标'
+                },
+                "产品要求": {},
+                "技术应对": {},
+                "技术指标": {},
+                "架构设计": {}
+            }}
+        ]
     标准
+        ◐ Identity:标准名称
+        ◑
+        数据：[
+            {Identity:{
+                title:'标准名称',
+                res: 'reskey',
+                list: [
+                    {"标准一": "标准一文案"}
+                    {"标准二": "标准二文案"}
+                ]
+            }}
+        ]
 
 [######] config.js    
     资源调度 // 应对重构导至的工具、插件等变更

@@ -55,6 +55,7 @@ function parseCustomBlock(block, path) {
     
     /**
      * Detail
+     * 突出简介隐藏详情
      * .vuepress/theme/layouts/Layout.vue
         mounted () {    
             const $details = document.querySelectorAll('.block-detail')
@@ -67,17 +68,7 @@ function parseCustomBlock(block, path) {
         }
      */
     const REG_DETAIL_STR = regexpPresetParse([        
-        {DETAIL_FORMAT: [
-            {DETAIL_INDENT: `\\x20*`},
-            {TITLE: `.+`},
-            `\\s▾`,
-            {STYLE: REG_STYLE_STR},
-            `\\s*[\\r\\n]`,
-            {CONTENT_INDENT: `\\s*`},
-            `↧`,
-            {CONTENT: `[^↥]+`},
-            `↥`
-        ]}
+        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, `\\s*[\\r\\n]`, {CONTENT_INDENT: `\\s*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
     ])
     const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
     let detailMatch
@@ -89,13 +80,13 @@ function parseCustomBlock(block, path) {
 
     /**
      * 标题
-     * # TITLE TEXT
-     * ## TITLE TEXT
-     * ### TITLE TEXT
-     * #### TITLE TEXT
-     * ##### TITLE TEXT
-     * ###### TITLE TEXT  
-     * [####]{color:#fff}(bd) Title Text
+     * # TITLE H1 12
+     * ## TITLE H2 14
+     * ### TITLE H3 16
+     * #### TITLE H4 18
+     * ##### TITLE H5 20
+     * ###### TITLE H6 22  
+     * [####]{color:#fff}(bd) TITLE INVERT
      * 应用环境：独占一行
      */    
     const REG_TIT_STR = regexpPresetParse([
@@ -104,8 +95,8 @@ function parseCustomBlock(block, path) {
             {INVERT: `\\[?`},       // 反相开始 [
             {LEVEL: `#{1,6}`},      // 标题字号 #-###### 
             `\\]?`,                 // 反相结束 ]
-            {STYLE: REG_STYLE_STR},              // 区配样式 {color: #fff} 
-            {CLASS: REG_CLASS_STR},              // 匹配类名 (bd)
+            {STYLE: REG_STYLE_STR}, // 区配样式 {color: #fff} 
+            {CLASS: REG_CLASS_STR}, // 匹配类名 (bd)
             `\\s`,                  // 一个空格
             {TEXT: `[^\\n\\r\\{]+`} // 标题文本
         ]}
@@ -315,7 +306,10 @@ function parseCustomBlock(block, path) {
          block = block.replace(BOX_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
      }
 
-    // 盒子：■⇤{}()content■
+    /**
+     * 盒子：■⇤{}()content■
+     * 一个纯粹的块级元素包装
+     */
     while (/(\x20*)(■(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)■)/.exec(block) !== null) {
         const $INDENT = RegExp.$1, $FORMAT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CLASS = RegExp.$4 || RegExp.$6, $STYLE = RegExp.$5, $CONTENT = RegExp.$8
         let str = ''        
