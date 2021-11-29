@@ -68,14 +68,14 @@ function parseCustomBlock(block, path) {
         }
      */
     const REG_DETAIL_STR = regexpPresetParse([        
-        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, `\\s*[\\r\\n]`, {CONTENT_INDENT: `\\s*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
+        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`\\s*(.+)?`}, `[\\r\\n]`, {CONTENT_INDENT: `\\s*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
     ])
     const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
     let detailMatch
     while ((detailMatch = REG_DETAIL.exec(block)) !== null) {
-        let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, CONTENT_INDENT, CONTENT} =  detailMatch.groups, descStyle = 'class="detail-desc"'
+        let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, COMMENT, CONTENT_INDENT, CONTENT} =  detailMatch.groups, descStyle = 'class="detail-desc"'
         if (STYLE) descStyle += ` style="${STYLE.replace('{', '').replace('}', '')}"`
-        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span ${descStyle}>${TITLE}</span><div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
+        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span ${descStyle}>${TITLE}</span>${COMMENT}<div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
     }
 
     /**
@@ -277,7 +277,6 @@ function parseCustomBlock(block, path) {
     while ((lineStyleMatch = REG_LINE_STYLE.exec(block)) !== null) {   
         let {CONTENT_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = lineStyleMatch.groups, cssStr = ''
         if (CSS_1) {
-            console.log('===', CSS_1.includes('{'), CSS_1);
             let text = CSS_1.substr(1, CSS_1.length - 2)
             cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
         }
@@ -295,7 +294,6 @@ function parseCustomBlock(block, path) {
      while ((boxStyleMatch = REG_BOX_STYLE.exec(block)) !== null) {   
          let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch.groups, cssStr = ''
          if (CSS_1) {
-             console.log('===', CSS_1.includes('{'), CSS_1);
              let text = CSS_1.substr(1, CSS_1.length - 2)
              cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
          }

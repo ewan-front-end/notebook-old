@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.28 15:53</span>
+            <span>M 2021.11.29 20:58</span>
         </div>
     </div>
     <div class="content"></div>
@@ -31,14 +31,14 @@ notebook/
 <span class="block-command">notebook</span> npm init -y
 <span class="block-command">notebook</span> npm install vuepress --save-dev
 notebook/docs/
-<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><div class="detail-content">    <span>Hello VuePress</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"<img :src="$withBase('/images/db-brace-right.png')"></span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span> <div class="detail-content">    <span>Hello VuePress</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"<img :src="$withBase('/images/db-brace-right.png')"></span></div></div>
 <span class="block-command">notebook</span> npm run docs:dev
     http://localhost:8080
 
 <span class="h2 bg3 cf"> 部署基础功能 </span>
 notebook/docs/.deploy/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><div class="detail-content">    <span>const PATH = require('path')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_UTILS = {
         "fs": "../.utils/fs"
     }
@@ -52,20 +52,20 @@ notebook/docs/.deploy/
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><div class="detail-content">    <span>const {utils, dir} = require('./config')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><div class="detail-content">    <span>const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
     })</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">deploy</span> 
 
 <span class="h2 bg3 cf"> 建立文档体系 </span>
 notebook/docs/.doctree/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/tree.js</span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/tree.js</span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue/index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
@@ -75,12 +75,12 @@ notebook/docs/.doctree/
             }
         }    
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
         "create": "node docs/.doctree/create.js"
         "watch:tree": "node docs/.doctree/watch-tree.js"      
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/create.js</span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/create.js</span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue_index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
@@ -90,32 +90,39 @@ notebook/docs/.doctree/
             }
         }    
     }</span></div></div>
-<span class="block-command">notebook</span> npm run <span style="color:#0c0">create</span>     <span class="comment">// 依据体系树创建初级文档</span>
-<span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:tree</span> <span class="comment">// 监控tree树变化</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_DATA.json</span>  <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span>
+<span class="block-command">notebook</span> npm run <span style="color:#0c0">create</span>                       <span class="comment color4">// 依据体系树创建初级文档</span>
+<span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:tree</span>                   <span class="comment color4">// 监控tree树变化</span>
+<div class="block-detail"><span class="detail-desc" style="color:#ccc;background-color:transparent">notebook/docs/.doctree/data/RES_DATA.json</span>   <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span><div class="detail-content">
+    <span>vuepress_index: {
+        path: '', <span class="comment">// 链接、文件结构</span>
+    }</span></div></div>
 
 ● <strong>资源库</strong>
 notebook/docs/.doctree/markdown/
 notebook/docs/.doctree/markdown/vuepress.md
-notebook/package.json ▾ <span class="comment">// 设置scripts</span>
-    ↧"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span> <span class="comment">// 设置scripts</span><div class="detail-content">
+    <span>"scripts": {
         "watch:res": "node docs/.doctree/watch-res.js",
         "gather": "node docs/.doctree/gather.js"  
-    }↥
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><div class="detail-content">    <span>{}</span></div></div>
-<span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:res</span>  <span class="comment">// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)</span>
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><div class="detail-content">    <span>{}</span></div></div>
+<span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:res</span>                    <span class="comment color4">// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_TIME.json</span>      <span class="comment">// 更新编辑时间</span>
-notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff} <span class="comment">// 抓取数据</span>
-    ↧{}↥
-<span style="color:#3ac">notebook/docs/.doctree/data/KEY_RES.json</span>       <span class="comment">// 索引关键词</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/TIT_RES.json</span>       <span class="comment">// 索引标题</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_SCENE.json</span>     <span class="comment">// 暴露的场景</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_USAGE.json</span>     <span class="comment">// 暴露的攻略</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_SOLUTION.json</span>  <span class="comment">// 暴露的方案</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_STANDARD.json</span>  <span class="comment">// 暴露的标准</span>
-<span style="color:#3ac">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接</span>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/gather.js</span>            <span class="comment color4">// 抓取数据</span><div class="detail-content">
+    <span>{}</span></div></div>
+<span class="cc">notebook/docs/.doctree/data/KEY_RES.json</span>       <span class="comment">// 索引关键词  搜索 下拉</span>
+<span class="cc">notebook/docs/.doctree/data/TIT_RES.json</span>       <span class="comment">// 索引标题    搜索 下拉</span>
+<span class="cc">notebook/docs/.doctree/data/RES_SCENE.json</span>     <span class="comment">// 暴露的场景  主题</span>
+<span class="cc">notebook/docs/.doctree/data/RES_USAGE.json</span>     <span class="comment">// 暴露的攻略  主题</span>
+<span class="cc">notebook/docs/.doctree/data/RES_SOLUTION.json</span>  <span class="comment">// 暴露的方案  主题</span>
+<span class="cc">notebook/docs/.doctree/data/RES_STANDARD.json</span>  <span class="comment">// 暴露的标准  主题</span>
+<span class="cc">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接    外链</span>
 
-<span class="h2 bg3 cf"> 统筹文档体系 </span>
+● <strong>统筹</strong>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/scene.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/usage.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/solution.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/standard.js</span><div class="detail-content">    <span>{}</span></div></div>
 
 <span class="h6 bg3 cf"> 开发规范 </span>
     &#45; Markdown点列表
@@ -155,10 +162,15 @@ notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff} <span cla
         ⚠Alert⊗
     ﹄
 <span class="h6 bg3 cf"> 内容规范 </span>
+    搜索
+        埋码：1.[KEY#id:KEY1KEY2KEY3] 2.<span class="h1">标题 </span>
+        数据：
+        "KEY1KEY2KEY3":filename#id
+
     链接
         引入：[优先标题:vuepress#id]
         埋码：[ANCHOR#id:入库标题]
-<div class="block-detail">        <span class="detail-desc">收集：</span><div class="detail-content">            <span>vuepress:{
+<div class="block-detail">        <span class="detail-desc">数据：</span><div class="detail-content">            <span>vuepress:{
                 path:'', 
                 links: {
                     usage: '入库标题'

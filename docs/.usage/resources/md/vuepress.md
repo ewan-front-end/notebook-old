@@ -78,9 +78,12 @@ notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
             }
         }    
     }↥
-notebook> npm run [create{color:#0c0}]     // 依据体系树创建初级文档
-notebook> npm run [watch:tree{color:#0c0}] // 监控tree树变化
-notebook/docs/.doctree/data/RES_DATA.json[{color:#3ac}]  // create时tree数据映射到资源名(资源扁平唯一) 
+notebook> npm run [create{color:#0c0}]                       4// 依据体系树创建初级文档
+notebook> npm run [watch:tree{color:#0c0}]                   4// 监控tree树变化
+notebook/docs/.doctree/data/RES_DATA.json ▾{color:#ccc;background-color:transparent}   // create时tree数据映射到资源名(资源扁平唯一)
+    ↧vuepress_index: {
+        path: '', // 链接、文件结构
+    }↥
 
 - 资源库
 notebook/docs/.doctree/markdown/
@@ -92,19 +95,27 @@ notebook/package.json ▾ // 设置scripts
     }↥
 notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
-notebook> npm run [watch:res{color:#0c0}]  // 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
+notebook> npm run [watch:res{color:#0c0}]                    4// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
 notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间 
-notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff} // 抓取数据
+notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff}            4// 抓取数据
     ↧{}↥
-notebook/docs/.doctree/data/KEY_RES.json[{color:#3ac}]       // 索引关键词
-notebook/docs/.doctree/data/TIT_RES.json[{color:#3ac}]       // 索引标题
-notebook/docs/.doctree/data/RES_SCENE.json[{color:#3ac}]     // 暴露的场景 
-notebook/docs/.doctree/data/RES_USAGE.json[{color:#3ac}]     // 暴露的攻略
-notebook/docs/.doctree/data/RES_SOLUTION.json[{color:#3ac}]  // 暴露的方案
-notebook/docs/.doctree/data/RES_STANDARD.json[{color:#3ac}]  // 暴露的标准
-notebook/docs/.doctree/data/RES_LINK.json[{color:#3ac}]      // 采集链接
+notebook/docs/.doctree/data/KEY_RES.json[(cc)]       // 索引关键词  搜索 下拉
+notebook/docs/.doctree/data/TIT_RES.json[(cc)]       // 索引标题    搜索 下拉
+notebook/docs/.doctree/data/RES_SCENE.json[(cc)]     // 暴露的场景  主题 
+notebook/docs/.doctree/data/RES_USAGE.json[(cc)]     // 暴露的攻略  主题
+notebook/docs/.doctree/data/RES_SOLUTION.json[(cc)]  // 暴露的方案  主题
+notebook/docs/.doctree/data/RES_STANDARD.json[(cc)]  // 暴露的标准  主题
+notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
 
-[##] 统筹文档体系
+- 统筹
+notebook/docs/.doctree/scene.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
+notebook/docs/.doctree/usage.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
+notebook/docs/.doctree/solution.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
+notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
 
 [######] 开发规范
     &#45; Markdown点列表
