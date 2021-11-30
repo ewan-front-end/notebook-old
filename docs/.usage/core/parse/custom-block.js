@@ -288,21 +288,37 @@ function parseCustomBlock(block, path) {
     }    
 
     // [盒样式{color:#f00}(bd)] 适合单行行内点缀
-     const REG_BOX_STYLE_STR = regexpPresetParse([{BOX_FORMAT: [`\\[`, {CONTENT: `[^\\{\\}\\[\\]\\(\\)]+`}, PRESET_CSS, `\\]` ]}])
-     const REG_BOX_STYLE = new RegExp(REG_BOX_STYLE_STR.value, 'gm') 
-     let boxStyleMatch
-     while ((boxStyleMatch = REG_BOX_STYLE.exec(block)) !== null) {   
-         let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch.groups, cssStr = ''
-         if (CSS_1) {
-             let text = CSS_1.substr(1, CSS_1.length - 2)
-             cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
-         }
-         if (CSS_2) {
-             let text = CSS_2.substr(1, CSS_2.length - 2)
-             cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
-         }
-         block = block.replace(BOX_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
-     }
+    const REG_BOX_STYLE_STR = regexpPresetParse([{BOX_FORMAT: [`\\[`, {CONTENT: `[^\\{\\}\\[\\]\\(\\)]+`}, PRESET_CSS, `\\]` ]}])
+    const REG_BOX_STYLE = new RegExp(REG_BOX_STYLE_STR.value, 'gm') 
+    let boxStyleMatch
+    while ((boxStyleMatch = REG_BOX_STYLE.exec(block)) !== null) {   
+        let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch.groups, cssStr = ''
+        if (CSS_1) {
+            let text = CSS_1.substr(1, CSS_1.length - 2)
+            cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
+        }
+        if (CSS_2) {
+            let text = CSS_2.substr(1, CSS_2.length - 2)
+            cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
+        }
+        block = block.replace(BOX_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
+    }
+    // 【盒样式】{color:#f00}(bd) 适合多行大段格式化
+    const REG_BOX_STYLE_STR2 = regexpPresetParse([{BOX_FORMAT: [`【`, {CONTENT: `[^】]+`}, `】`, PRESET_CSS]}])
+    const REG_BOX_STYLE2 = new RegExp(REG_BOX_STYLE_STR2.value, 'gm') 
+    let boxStyleMatch2
+    while ((boxStyleMatch2 = REG_BOX_STYLE2.exec(block)) !== null) {   
+        let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch2.groups, cssStr = ''
+        if (CSS_1) {
+            let text = CSS_1.substr(1, CSS_1.length - 2)
+            cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
+        }
+        if (CSS_2) {
+            let text = CSS_2.substr(1, CSS_2.length - 2)
+            cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
+        }
+        block = block.replace(BOX_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
+    }
 
     /**
      * 盒子：■⇤{}()content■
