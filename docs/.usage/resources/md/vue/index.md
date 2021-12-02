@@ -48,7 +48,7 @@ hello/
             createRouter, 
             // createWebHashHistory,
             createWebHistory } from 'vue-router'
-        import { TOKEN, USER_INFO } from '@/config/global-naming.js'
+        import { TOKEN, USER_INFO } from '@/config/namespace.js'
         import routes from './routes.js'
         const noLoginWhiteList = ['/login', '/register']
         const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
@@ -62,7 +62,7 @@ hello/
             }
         })
         export default router↥
-    demo/src/config/global-naming.js ▾
+    demo/src/config/namespace.js ▾
         ↧export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }↥
     demo/src/router/routes.js ▾
         ↧import Home from '../views/Home.vue'
@@ -80,7 +80,7 @@ hello/
     demo/src/views/Login.vue ▾
         ↧<template><div class="login"><h1>登录</h1><button @click="login">登录</button></div></template>
         <script>
-            import { TOKEN } from '@/config/global-naming.js'
+            import { TOKEN } from '@/config/namespace.js'
             export default {
                 setup() {
                     const login = () => { localStorage.setItem(TOKEN, '123456789') }
@@ -101,7 +101,7 @@ hello/
             </div>
         </template>
         <script>
-            import { TOKEN } from '@/config/global-naming.js'
+            import { TOKEN } from '@/config/namespace.js'
             export default {
                 setup() {
                     const logout = () => { localStorage.setItem(TOKEN, '') }
@@ -115,7 +115,7 @@ hello/
 [#] 状态管理
     demo/package.json ▾
         ↧{ 
-            "dependencies": { "vuex": "^4.0.0-0" }, 
+            "dependencies": { "vuex": "^4.0.0" }, 
             "devDependencies": { "@vue/cli-plugin-vuex": "~4.5.0" } 
         }↥
     demo/src/main.js ▾
@@ -123,7 +123,7 @@ hello/
         app.use(store)↥
     demo/src/store/index.js ▾
         ↧import { createStore } from 'vuex'
-        import { GetUserInfo } from '@/api'
+        import { GetUserInfo } from '@/api/user.js'
         const USERINFO = 'UserInfo' // 入库到Config
 
         export default createStore({
@@ -146,6 +146,10 @@ hello/
                 }
             }
         })↥
+    demo/src/api/user.js ▾
+        ↧export const GetUserInfo = () => {
+            return {data: {}}
+        }↥
     demo/src/App.vue ▾
         ↧<script>
             import { computed } from 'vue'
@@ -279,6 +283,56 @@ hello/
         }
     }↥
 
+[######] 开发
+    【demo/src/components/Component.vue
+    <template>
+        <div>
+            {{message}}
+            <slot></slot>
+        </div>
+    </template>
+    <script>
+    export default {
+        import { reactive, toRefs } from 'vue'
+        setup(props) {
+            const state = reactive({ message: 'Child Component' })
+            const run = () => {console.log('子组件方法')}
+            return {...toRefs(state), run}
+        }
+    }
+    </script>
+    <style lang="scss" scoped></style>】{color:#48cb80}
+
+    demo/src/Page.vue
+    <template>
+        <div>
+            【<Component ref="childRef"></Component>】{color:#48cb80}
+            <button @click="【runChildFn】{color:#48cb80}">运行子组件方法</button>
+        </div>     
+    </template>
+    <script>
+    import { reactive, toRefs } from 'vue'
+    【import Component from '@/components/Component.vue'】{color:#48cb80}
+    export default {        
+        components: { 【Component】{color:#48cb80} },
+        setup() {
+            const state = reactive({ count: 0 })
+            【const childRef = ref(null)】{color:#48cb80}
+            const runChildFn = () => {
+                【childRef.value.run()】{color:#48cb80}
+            }
+            return {
+                ...toRefs(state),
+                【childRef】{color:#48cb80},
+                runChildFn
+            }
+        }
+    }
+    <style lang="scss" scoped>
+    </style>
+
+
+
 [######] 环境管理
 模式：mode(development/production) VUE3概念
 环境变量：只有以VUE_APP_开头的变量会被webpack.DefinePlugin静态嵌入到客户端侧的包中 从而在 Vue 的项目中使用
@@ -307,7 +361,8 @@ demo/.env.development
         VUE_APP_ENV = dev //自定义的环境变量
     使用：const a = process.env.VUE_APP_ENV  // 因运行了dev模式 会从.env.dev中读取VUE_APP_ENV变量
 
-
+[######] 多端
+    API 
 
 
 

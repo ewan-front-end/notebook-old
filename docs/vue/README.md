@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.30 20:51</span>
+            <span>M 2021.12.02 20:31</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -71,7 +71,7 @@ hello/
             createRouter, 
             <span class="comment">// createWebHashHistory,</span>
             createWebHistory } from 'vue-router'
-        import { TOKEN, USER_INFO } from '@/config/global-naming.js'
+        import { TOKEN, USER_INFO } from '@/config/namespace.js'
         import routes from './routes.js'
         const noLoginWhiteList = ['/login', '/register']
         const router = createRouter({ history: createWebHistory(process.env.BASE_URL), routes })
@@ -85,7 +85,7 @@ hello/
             }
         })
         export default router</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/config/global-naming.js</span><div class="detail-content">        <span>export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/config/namespace.js</span><div class="detail-content">        <span>export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }</span></div></div>
 <div class="block-detail">    <span class="detail-desc">demo/src/router/routes.js</span><div class="detail-content">        <span>import Home from '../views/Home.vue'
         const routes = [
             { path: '/', redirect: '/login' },
@@ -98,7 +98,7 @@ hello/
 <div class="block-detail">    <span class="detail-desc">demo/src/views/About.vue</span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="about"&gt;&lt;h1&gt;关于我们&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;</span></div></div>
 <div class="block-detail">    <span class="detail-desc">demo/src/views/Login.vue</span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="login"&gt;&lt;h1&gt;登录&lt;/h1&gt;&lt;button @click="login"&gt;登录&lt;/button&gt;&lt;/div&gt;&lt;/template&gt;
         &lt;script&gt;
-            import { TOKEN } from '@/config/global-naming.js'
+            import { TOKEN } from '@/config/namespace.js'
             export default {
                 setup() {
                     const login = () =&gt; { localStorage.setItem(TOKEN, '123456789') }
@@ -118,7 +118,7 @@ hello/
             &lt;/div&gt;
         &lt;/template&gt;
         &lt;script&gt;
-            import { TOKEN } from '@/config/global-naming.js'
+            import { TOKEN } from '@/config/namespace.js'
             export default {
                 setup() {
                     const logout = () =&gt; { localStorage.setItem(TOKEN, '') }
@@ -131,13 +131,13 @@ hello/
         &lt;/style&gt;</span></div></div>
 <span class="h1 bg3 cf"> 状态管理 </span>
 <div class="block-detail">    <span class="detail-desc">demo/package.json</span><div class="detail-content">        <span>{ 
-            "dependencies": { "vuex": "^4.0.0-0" }, 
+            "dependencies": { "vuex": "^4.0.0" }, 
             "devDependencies": { "@vue/cli-plugin-vuex": "~4.5.0" } 
         }</span></div></div>
 <div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><div class="detail-content">        <span>import store from './store'
         app.use(store)</span></div></div>
 <div class="block-detail">    <span class="detail-desc">demo/src/store/index.js</span><div class="detail-content">        <span>import { createStore } from 'vuex'
-        import { GetUserInfo } from '@/api'
+        import { GetUserInfo } from '@/api/user.js'
         const USERINFO = 'UserInfo' <span class="comment">// 入库到Config</span>
 
         export default createStore({
@@ -160,6 +160,9 @@ hello/
                 }
             }
         })</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/api/user.js</span><div class="detail-content">        <span>export const GetUserInfo = () =&gt; {
+            return {data: {<img :src="$withBase('/images/db-brace-right.png')">
+        }</span></div></div>
 <div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><div class="detail-content">        <span>&lt;script&gt;
             import { computed } from 'vue'
             import { useStore } from 'vuex'
@@ -280,6 +283,56 @@ hello/
         }
     }</span></div></div>
 
+<span class="h6 bg3 cf"> 开发 </span>
+    <span style="color:#48cb80">demo/src/components/Component.vue
+    &lt;template&gt;
+        &lt;div&gt;
+            <img :src="$withBase('/images/db-brace-left.png')">message<img :src="$withBase('/images/db-brace-right.png')">
+            &lt;slot&gt;&lt;/slot&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+    &lt;script&gt;
+    export default {
+        import { reactive, toRefs } from 'vue'
+        setup(props) {
+            const state = reactive({ message: 'Child Component' })
+            const run = () =&gt; {console.log('子组件方法')}
+            return {...toRefs(state), run}
+        }
+    }
+    &lt;/script&gt;
+    &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span>
+
+    demo/src/Page.vue
+    &lt;template&gt;
+        &lt;div&gt;
+            <span style="color:#48cb80">&lt;Component ref="childRef"&gt;&lt;/Component&gt;</span>
+            &lt;button @click="<span style="color:#48cb80">runChildFn</span>"&gt;运行子组件方法&lt;/button&gt;
+        &lt;/div&gt;     
+    &lt;/template&gt;
+    &lt;script&gt;
+    import { reactive, toRefs } from 'vue'
+    <span style="color:#48cb80">import Component from '@/components/Component.vue'</span>
+    export default {        
+        components: { <span style="color:#48cb80">Component</span> },
+        setup() {
+            const state = reactive({ count: 0 })
+            <span style="color:#48cb80">const childRef = ref(null)</span>
+            const runChildFn = () =&gt; {
+                <span style="color:#48cb80">childRef.value.run()</span>
+            }
+            return {
+                ...toRefs(state),
+                <span style="color:#48cb80">childRef</span>,
+                runChildFn
+            }
+        }
+    }
+    &lt;style lang="scss" scoped&gt;
+    &lt;/style&gt;
+
+
+
 <span class="h6 bg3 cf"> 环境管理 </span>
 模式：mode(development/production) VUE3概念
 环境变量：只有以VUE_APP_开头的变量会被webpack.DefinePlugin静态嵌入到客户端侧的包中 从而在 Vue 的项目中使用
@@ -308,7 +361,8 @@ demo/.env.development
         VUE_APP_ENV = dev <span class="comment">//自定义的环境变量</span>
     使用：const a = process.env.VUE_APP_ENV  <span class="comment">// 因运行了dev模式 会从.env.dev中读取VUE_APP_ENV变量</span>
 
-
+<span class="h6 bg3 cf"> 多端 </span>
+    API 
 
 
 
