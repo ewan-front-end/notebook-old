@@ -77,6 +77,8 @@ const MAP_DATA = {
     "standard": "data/.STANDARD.json",             // 标准
     "path:keywords": "data/.PATH_KEYWORDS.json",   // 数据结构关键词
     "path:search": "data/.SEARCH.json",            // 可用于搜索(数据结构和内容摘要)
+
+    "res:data": "data/.RES_DATA.json",            // 可用于搜索(数据结构和内容摘要)
 }
 const MAP_UTILS = {
     "fs": "scripts/utils/fs",
@@ -91,9 +93,10 @@ const MAP_CORE = {
 const MAP_PARSE = {
     "flex": "core/parse/flex.js",
     "uml": "core/parse/uml.js",
-    "custom-block": "core/parse/custom-block.js",
+    "custom-block": "core/parse/custom-block.js", // 自定义代码块解析
     "anchor": "core/parse/anchor.js",
-    "search": "core/parse/search.js"
+    "search": "core/parse/search.js",
+    "extract": "core/parse/extract.js"
 }
 const requireFile = relativePath => require(PATH.resolve(__dirname, relativePath))
 const readFileFn = relativePath => readFile(PATH.resolve(__dirname, relativePath))

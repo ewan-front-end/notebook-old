@@ -162,7 +162,7 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
 
     链接
         引入：[优先标题:vuepress#id]
-        埋码：[ANCHOR#id:入库标题]
+        埋码：[ANCHOR#id:入库标题] 
         数据： ▾
             ↧vuepress:{
                 path:'', 
@@ -170,7 +170,7 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
                     usage: '入库标题'
                 }
             }↥
-    场景
+    场景Scene
         ★ Identity:场景名称
         
         ☆ 
@@ -180,7 +180,7 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
                 res: 'reskey'
             }}
         ]
-    攻略
+    攻略Usage
         
         ◒ Identity:攻略名称
         第一点
@@ -194,25 +194,29 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
                 steps: ['第一点','第二点','第三点']
             }}
         ]
-    方案
+    方案Solution
         ✿ Identity:方案名称
+        去问问在
         ❀
         数据：[
-            {Identity:{
-                title:'方案名称',
-                res: 'reskey',
-                "需求分析": {
-                    1: '产品需要什么样的内容和效果'
-                    2: '技术上需要做哪些工作才能达到产品要求'
-                    3: '技术上有哪些指标'
-                },
-                "产品要求": {},
-                "技术应对": {},
-                "技术指标": {},
-                "架构设计": {}
-            }}
+            {filename: [
+                {
+                    id: '',
+                    title:'方案名称',
+                    "需求分析": {
+                        1: '产品需要什么样的内容和效果'
+                        2: '技术上需要做哪些工作才能达到产品要求'
+                        3: '技术上有哪些指标'
+                    },
+                    "产品要求": {},
+                    "技术应对": {},
+                    "技术指标": {},
+                    "架构设计": {}
+                }
+            ]}
         ]
-    标准
+        展示：<a href="path#id">&#91;方案名称:solution#filename-id&#93;</a>
+    标准Standard
         ◐ Identity:标准名称
         ◑
         数据：[

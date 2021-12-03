@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.02 20:31</span>
+            <span>M 2021.12.03 20:54</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -262,7 +262,16 @@ hello/
                 选择设备
                 run &gt;</span></div></div>
     发布流程
-<span class="h1 bg3 cf"> Lint规范 </span>
+<span class="h1 bg3 cf"> 项目规范 </span>
+    11111111114 codingSpecification:代码编写规范
+    团队代码需要统一，有了规则不执行或忘记执行
+    代码格式统一
+    提交检测
+    ❀
+    1111111111 gitCommitSpecification:Git提交规范
+    团队需要一个统一的提交规范，以更准确描述提交说明；有了规范不执行或忘记执行
+    提交流程 提交检测
+    ❀
 <div class="block-detail">    <span class="detail-desc">demo/package.json</span><div class="detail-content">    <span>{
         "scripts": { "lint": "vue-cli-service lint" },
         "devDependencies": {

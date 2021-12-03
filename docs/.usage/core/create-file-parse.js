@@ -2,6 +2,7 @@
 const {fetch} = require('../config')
 const parseFlex = fetch('PARSE|flex')
 const parseUML = fetch('PARSE|uml')
+const parseExtract = fetch('PARSE|extract')
 const parseCustomBlock = fetch('PARSE|custom-block')
 const Anchor = fetch('PARSE|anchor')
 const Search = fetch('PARSE|search')
@@ -14,6 +15,7 @@ module.exports = (code, path) => {
     code = Anchor.parseTitle(code, path)  // 标题
     code = Anchor.parseLink(code)
 
+    //code = parseExtract(code, path)
     code = parseCustomBlock.start(code, path)
     
     code = parseFlex(code) // 弹性盒子        

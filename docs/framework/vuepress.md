@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.29 20:58</span>
+            <span>M 2021.12.03 20:30</span>
         </div>
     </div>
     <div class="content"></div>
@@ -169,14 +169,14 @@ notebook/docs/.doctree/markdown/vuepress.md
 
     链接
         引入：[优先标题:vuepress#id]
-        埋码：[ANCHOR#id:入库标题]
+        埋码：[ANCHOR#id:入库标题] 
 <div class="block-detail">        <span class="detail-desc">数据：</span><div class="detail-content">            <span>vuepress:{
                 path:'', 
                 links: {
                     usage: '入库标题'
                 }
             }</span></div></div>
-    场景
+    场景Scene
         ★ Identity:场景名称
         
         ☆ 
@@ -186,7 +186,7 @@ notebook/docs/.doctree/markdown/vuepress.md
                 res: 'reskey'
             <img :src="$withBase('/images/db-brace-right.png')">
         ]
-    攻略
+    攻略Usage
         
         ◒ Identity:攻略名称
         第一点
@@ -200,25 +200,29 @@ notebook/docs/.doctree/markdown/vuepress.md
                 steps: ['第一点','第二点','第三点']
             <img :src="$withBase('/images/db-brace-right.png')">
         ]
-    方案
+    方案Solution
         ✿ Identity:方案名称
+        去问问在
         ❀
         数据：[
-            {Identity:{
-                title:'方案名称',
-                res: 'reskey',
-                "需求分析": {
-                    1: '产品需要什么样的内容和效果'
-                    2: '技术上需要做哪些工作才能达到产品要求'
-                    3: '技术上有哪些指标'
-                },
-                "产品要求": {},
-                "技术应对": {},
-                "技术指标": {},
-                "架构设计": {}
-            <img :src="$withBase('/images/db-brace-right.png')">
+            {filename: [
+                {
+                    id: '',
+                    title:'方案名称',
+                    "需求分析": {
+                        1: '产品需要什么样的内容和效果'
+                        2: '技术上需要做哪些工作才能达到产品要求'
+                        3: '技术上有哪些指标'
+                    },
+                    "产品要求": {},
+                    "技术应对": {},
+                    "技术指标": {},
+                    "架构设计": {}
+                }
+            ]}
         ]
-    标准
+        展示：&lt;a href="path#id"&gt;&#91;方案名称:solution#filename-id&#93;&lt;/a&gt;
+    标准Standard
         ◐ Identity:标准名称
         ◑
         数据：[

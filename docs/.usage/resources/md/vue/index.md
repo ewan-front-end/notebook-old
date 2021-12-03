@@ -261,7 +261,16 @@ hello/
                 选择设备
                 run >↥
     发布流程
-[#] Lint规范
+[#] 项目规范
+    ✿ codingSpecification:代码编写规范
+    团队代码需要统一，有了规则不执行或忘记执行
+    代码格式统一
+    提交检测
+    ❀
+    ✿ gitCommitSpecification:Git提交规范
+    团队需要一个统一的提交规范，以更准确描述提交说明；有了规范不执行或忘记执行
+    提交流程 提交检测
+    ❀
     demo/package.json ▾
     ↧{
         "scripts": { "lint": "vue-cli-service lint" },
