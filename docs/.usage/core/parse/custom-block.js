@@ -7,13 +7,7 @@ const REG_STYLE_STR = `(\\{[\\w\\s-;:'"#]+\\})?` // color: #f00; font-size: 14px
 const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      // bd sz-16 c-0
 
 function parseCustomBlock(block, path) {
-    while (/(✿\s([\w]+):(.+)\s*[\n\r](\x20*)[^❀]+❀)/gm.test(block) !== null) {
-        console.log(RegExp.$1);
-        const FORMAT = RegExp.$1, ID = RegExp.$2, TITLE = RegExp.$3, INDENT = RegExp.$4, CONTENT = RegExp.$5
-        block = block.replace(FORMAT, `&lt;a href="solution#filename_${ID}"&gt;&lt;/a&gt;`)
-    }
-
-    block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+    block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")    
     
     ////////////////////////////////// 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符
     /**

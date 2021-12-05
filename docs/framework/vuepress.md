@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.03 20:30</span>
+            <span>M 2021.12.05 20:53</span>
         </div>
     </div>
     <div class="content"></div>
@@ -103,12 +103,12 @@ notebook/docs/.doctree/markdown/vuepress.md
 <div class="block-detail"><span class="detail-desc">notebook/package.json</span> <span class="comment">// 设置scripts</span><div class="detail-content">
     <span>"scripts": {
         "watch:res": "node docs/.doctree/watch-res.js",
-        "gather": "node docs/.doctree/gather.js"  
+        "aggregate": "node docs/.doctree/aggregate.js"  <span class="comment">// 聚合</span>
     }</span></div></div>
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><div class="detail-content">    <span>{}</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:res</span>                    <span class="comment color4">// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_TIME.json</span>      <span class="comment">// 更新编辑时间</span>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/gather.js</span>            <span class="comment color4">// 抓取数据</span><div class="detail-content">
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/aggregate.js</span>            <span class="comment color4">// 聚合</span><div class="detail-content">
     <span>{}</span></div></div>
 <span class="cc">notebook/docs/.doctree/data/KEY_RES.json</span>       <span class="comment">// 索引关键词  搜索 下拉</span>
 <span class="cc">notebook/docs/.doctree/data/TIT_RES.json</span>       <span class="comment">// 索引标题    搜索 下拉</span>
@@ -201,9 +201,7 @@ notebook/docs/.doctree/markdown/vuepress.md
             <img :src="$withBase('/images/db-brace-right.png')">
         ]
     方案Solution
-        ✿ Identity:方案名称
-        去问问在
-        ❀
+        <a href="/solution#filename_Identity">方案名称2</a>
         数据：[
             {filename: [
                 {

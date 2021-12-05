@@ -8,56 +8,27 @@
 </head>
 <body>
     <div id="app">
-        <span>{{message.text}}</span>
-        <span>{{message.data.a}}</span>
+        <label v-else>123456</label>
+        <marquee><font size=+3 color=red>Hello, World</font></marquee>
     </div>
     
 </body>
 </html>
-<script type="module">
-    import {regexpPresetParse, PRESET_CSS} from './docs/.usage/scripts/utils/regexp-preset.es.js'
-    var block = `
-    # 标题文本
-    [#] 反相标题
-    **局部加粗**
-    // 单行注释给你
-    /* 多行注释 */
-
-    行样式[{color:#f00}(bd)]  
-行样式[(bd)]
-行样式[(bd){color:#f00}] 
-行样式[] 
-    [盒样式{color:#f00}(bd)]
-    [盒样式(bd)]
-    [盒样式]
-    [盒样式{color:#f00}]
-    [盒样式(bd){color:#f00}]
-
-    Description Of Detail ▾
-    ↧Detail Content↥
-    `
+<script>
+    var block = `方案Solution
+        ✿ Identity:方案名称22
+        去问问在
+        ❀
+        数据：[`
+       
     
-    
-    
-    
-    const REG_BOX_STYLE_STR = regexpPresetParse([{BOX_FORMAT: [`\\[`, {CONTENT: `[^\\{\\}\\[\\]\\(\\)]+`}, PRESET_CSS, `\\]` ]}])
-    const REG_BOX_STYLE = new RegExp(REG_BOX_STYLE_STR.value, 'gm') 
-    let boxStyleMatch
-    while ((boxStyleMatch = REG_BOX_STYLE.exec(block)) !== null) {   
-        let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch.groups, cssStr = ''
-        if (CSS_1) {
-            console.log('===', CSS_1.includes('{'), CSS_1);
-            let text = CSS_1.substr(1, CSS_1.length - 2)
-            cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
-        }
-        if (CSS_2) {
-            let text = CSS_2.substr(1, CSS_2.length - 2)
-            cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
-        }
-        block = block.replace(BOX_FORMAT, `<span${cssStr}>${CONTENT}</span>`)
+    while (/(✿\s([\w]+):(.+)\s*[\n\r](\x20*)[^❀]+❀)/gm.exec(block) !== null) {
+        
+        const FORMAT = RegExp.$1, ID = RegExp.$2, TITLE = RegExp.$3, INDENT = RegExp.$4, CONTENT = RegExp.$5
+        
+        block = block.replace(FORMAT, `-----`)
+        console.log(FORMAT);
+        console.log(ID,TITLE);
     }
-
-   
-    
-    console.log(block);
+    console.log('----',block);
 </script>

@@ -91,13 +91,13 @@ notebook/docs/.doctree/markdown/vuepress.md
 notebook/package.json ▾ // 设置scripts
     ↧"scripts": {
         "watch:res": "node docs/.doctree/watch-res.js",
-        "gather": "node docs/.doctree/gather.js"  
+        "aggregate": "node docs/.doctree/aggregate.js"  // 聚合  
     }↥
 notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 notebook> npm run [watch:res{color:#0c0}]                    4// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
 notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间 
-notebook/docs/.doctree/gather.js ▾{background-color:#6d6;color:#fff}            4// 抓取数据
+notebook/docs/.doctree/aggregate.js ▾{background-color:#6d6;color:#fff}            4// 聚合
     ↧{}↥
 notebook/docs/.doctree/data/KEY_RES.json[(cc)]       // 索引关键词  搜索 下拉
 notebook/docs/.doctree/data/TIT_RES.json[(cc)]       // 索引标题    搜索 下拉
@@ -195,7 +195,7 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
             }}
         ]
     方案Solution
-        ✿ Identity:方案名称
+        ✿ Identity:方案名称2
         去问问在
         ❀
         数据：[
