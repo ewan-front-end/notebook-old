@@ -89,15 +89,16 @@ notebook/docs/.doctree/data/RES_DATA.json ▾{color:#ccc;background-color:transp
 notebook/docs/.doctree/markdown/
 notebook/docs/.doctree/markdown/vuepress.md
 notebook/package.json ▾ // 设置scripts
-    ↧"scripts": {
-        "watch:res": "node docs/.doctree/watch-res.js",
-        "aggregate": "node docs/.doctree/aggregate.js"  // 聚合  
-    }↥
+    ↧"scripts": { "watch:res": "node docs/.doctree/watch-res.js" }↥
 notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 notebook> npm run [watch:res{color:#0c0}]                    4// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
-notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间 
-notebook/docs/.doctree/aggregate.js ▾{background-color:#6d6;color:#fff}            4// 聚合
+notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间
+
+- 聚合
+notebook/package.json ▾
+    ↧"scripts": { "aggregate": "node docs/.doctree/aggregate.js" }↥
+notebook/docs/.doctree/aggregate.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 notebook/docs/.doctree/data/KEY_RES.json[(cc)]       // 索引关键词  搜索 下拉
 notebook/docs/.doctree/data/TIT_RES.json[(cc)]       // 索引标题    搜索 下拉
@@ -107,15 +108,8 @@ notebook/docs/.doctree/data/RES_SOLUTION.json[(cc)]  // 暴露的方案  主题
 notebook/docs/.doctree/data/RES_STANDARD.json[(cc)]  // 暴露的标准  主题
 notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
 
-- 统筹
-notebook/docs/.doctree/scene.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook/docs/.doctree/usage.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook/docs/.doctree/solution.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
+
+
 
 [######] 开发规范
     &#45; Markdown点列表
@@ -171,9 +165,9 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
                 }
             }↥
     场景Scene
-        ★ Identity:场景名称
+        ◒ Identity:场景名称
         
-        ☆ 
+        ◓ 
         数据：[
             {Identity:{
                 title:'场景名称',
@@ -182,11 +176,11 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
         ]
     攻略Usage
         
-        ◒ Identity:攻略名称
-        第一点
-        第二点
-        第三点
-        ◓
+        ★ Identity:攻略名称
+        1 第一点
+        2 第二点
+        3 第三点
+        ☆
         数据：[
             {Identity:{
                 title:'攻略名称',
@@ -195,7 +189,7 @@ notebook/docs/.doctree/standard.js ▾{background-color:#6d6;color:#fff}
             }}
         ]
     方案Solution
-        ✿ Identity:方案名称2
+        ✿ Identity:方案名称
         去问问在
         ❀
         数据：[

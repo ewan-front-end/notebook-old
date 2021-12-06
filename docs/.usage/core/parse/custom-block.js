@@ -1,5 +1,6 @@
 const { fetch } = require('../../config')
 const Search = fetch('PARSE|search')
+const Aggregate = fetch('PARSE|aggregate')
 const { regexpPresetParse, PRESET_CSS } = fetch('UTILS|regexp-preset')
 
 let TAG_MAP_BLOCK = {}, blockCount = 0
@@ -7,7 +8,10 @@ const REG_STYLE_STR = `(\\{[\\w\\s-;:'"#]+\\})?` // color: #f00; font-size: 14px
 const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      // bd sz-16 c-0
 
 function parseCustomBlock(block, path) {
-    block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")    
+    block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+    
+    // 聚合之采集
+    block = Aggregate.pick(block, 'vuepress')
     
     ////////////////////////////////// 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符
     /**
@@ -68,7 +72,7 @@ function parseCustomBlock(block, path) {
         }
      */
     const REG_DETAIL_STR = regexpPresetParse([        
-        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`\\s*(.+)?`}, `[\\r\\n]`, {CONTENT_INDENT: `\\s*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
+        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`\\s*(.+)?`}, `[\\r\\n]`, {CONTENT_INDENT: `\\x20*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
     ])
     const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
     let detailMatch

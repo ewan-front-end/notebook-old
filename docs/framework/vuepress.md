@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.05 20:53</span>
+            <span>M 2021.12.06 13:32</span>
         </div>
     </div>
     <div class="content"></div>
@@ -92,24 +92,23 @@ notebook/docs/.doctree/
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">create</span>                       <span class="comment color4">// 依据体系树创建初级文档</span>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:tree</span>                   <span class="comment color4">// 监控tree树变化</span>
-<div class="block-detail"><span class="detail-desc" style="color:#ccc;background-color:transparent">notebook/docs/.doctree/data/RES_DATA.json</span>   <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span><div class="detail-content">
-    <span>vuepress_index: {
+notebook/docs/.doctree/data/RES_DATA.json ▾{color:#ccc;background-color:transparent}   <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span>
+    ↧vuepress_index: {
         path: '', <span class="comment">// 链接、文件结构</span>
-    }</span></div></div>
+    }↥
 
 ● <strong>资源库</strong>
 notebook/docs/.doctree/markdown/
 notebook/docs/.doctree/markdown/vuepress.md
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span> <span class="comment">// 设置scripts</span><div class="detail-content">
-    <span>"scripts": {
-        "watch:res": "node docs/.doctree/watch-res.js",
-        "aggregate": "node docs/.doctree/aggregate.js"  <span class="comment">// 聚合</span>
-    }</span></div></div>
+notebook/package.json ▾ <span class="comment">// 设置scripts</span>
+    ↧"scripts": { "watch:res": "node docs/.doctree/watch-res.js" }↥
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><div class="detail-content">    <span>{}</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:res</span>                    <span class="comment color4">// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_TIME.json</span>      <span class="comment">// 更新编辑时间</span>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/aggregate.js</span>            <span class="comment color4">// 聚合</span><div class="detail-content">
-    <span>{}</span></div></div>
+
+● <strong>聚合</strong>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": { "aggregate": "node docs/.doctree/aggregate.js" }</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/aggregate.js</span><div class="detail-content">    <span>{}</span></div></div>
 <span class="cc">notebook/docs/.doctree/data/KEY_RES.json</span>       <span class="comment">// 索引关键词  搜索 下拉</span>
 <span class="cc">notebook/docs/.doctree/data/TIT_RES.json</span>       <span class="comment">// 索引标题    搜索 下拉</span>
 <span class="cc">notebook/docs/.doctree/data/RES_SCENE.json</span>     <span class="comment">// 暴露的场景  主题</span>
@@ -118,11 +117,8 @@ notebook/docs/.doctree/markdown/vuepress.md
 <span class="cc">notebook/docs/.doctree/data/RES_STANDARD.json</span>  <span class="comment">// 暴露的标准  主题</span>
 <span class="cc">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接    外链</span>
 
-● <strong>统筹</strong>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/scene.js</span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/usage.js</span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/solution.js</span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/standard.js</span><div class="detail-content">    <span>{}</span></div></div>
+
+
 
 <span class="h6 bg3 cf"> 开发规范 </span>
     &#45; Markdown点列表
@@ -177,9 +173,9 @@ notebook/docs/.doctree/markdown/vuepress.md
                 }
             }</span></div></div>
     场景Scene
-        ★ Identity:场景名称
+        ◒ Identity:场景名称
         
-        ☆ 
+        ◓ 
         数据：[
             {Identity:{
                 title:'场景名称',
@@ -188,11 +184,7 @@ notebook/docs/.doctree/markdown/vuepress.md
         ]
     攻略Usage
         
-        ◒ Identity:攻略名称
-        第一点
-        第二点
-        第三点
-        ◓
+        <a class="usage" href="/aggregation/usage#filename_Identity">攻略名称</a>
         数据：[
             {Identity:{
                 title:'攻略名称',
@@ -201,7 +193,7 @@ notebook/docs/.doctree/markdown/vuepress.md
             <img :src="$withBase('/images/db-brace-right.png')">
         ]
     方案Solution
-        <a href="/solution#filename_Identity">方案名称2</a>
+        <a class="solution" href="/aggregation/solution#filename_Identity">方案名称</a>
         数据：[
             {filename: [
                 {

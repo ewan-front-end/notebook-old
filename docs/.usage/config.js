@@ -96,7 +96,7 @@ const MAP_PARSE = {
     "custom-block": "core/parse/custom-block.js", // 自定义代码块解析
     "anchor": "core/parse/anchor.js",
     "search": "core/parse/search.js",
-    "extract": "core/parse/extract.js"
+    "aggregate": "core/parse/aggregate.js"
 }
 const requireFile = relativePath => require(PATH.resolve(__dirname, relativePath))
 const readFileFn = relativePath => readFile(PATH.resolve(__dirname, relativePath))
