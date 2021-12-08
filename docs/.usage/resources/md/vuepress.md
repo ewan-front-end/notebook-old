@@ -1,3 +1,7 @@
+
+Refused to load the image '<URL>' because it violates the following Content Security Policy directive: "img-src 'self' data: content: <URL> <URL> blob:".
+
+
 {
     namespace: 'VUEPRESS',
     links: []
