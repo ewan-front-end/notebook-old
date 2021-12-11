@@ -10,7 +10,7 @@ sidebar: false
 - [︳数据库](/database/)
 - [︳工具&资源](/tools/)
 - [︳CSS](/css/)
-- [︳操作系统](/system/)
+- [︳系统&平台](/system/)
 - [︳服务器](/server)
 - [︳Typescript](/typescript)
 - [︳设计模式](/designPattern)

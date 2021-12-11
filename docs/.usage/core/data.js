@@ -16,19 +16,25 @@ function handleNodeIsFile(node) {
     CREATOR.push(node.path)
 }
 function handleNodeIsDirectory(node, children) {
-    node.path += '/' 
-    PATH_DATA[node.path] = node
-    PATH_DATA[node.path + 'README'] = node    
-    CREATOR.push(node.path)
+    node.path += '/'                       // 目录特有标识
+    PATH_DATA[node.path] = node            // 路径映身数据 
+    PATH_DATA[node.path + 'README'] = node // 路径映身数据 主页   
+    CREATOR.push(node.path)                // c
     CREATOR.push(node.path + 'README')
-    for (key in children) { handleItem(key, children[key], node) }
+    for (key in children) { handleTreeToData(key, children[key], node) }
 }
-function handleItem(key, node, parent) {    
+function handleTreeToData(key, node, parent) {    
     if (key === 'ROOT') {
         handleNodeIsDirectory(node, node.children)
         SRC_PATH[node.src] = node.path
     } else {        
-        Object.assign(node, {parent, key, title: node.title || node.linkName || key, linkName: node.linkName || node.title || key, path: parent.path + key})
+        Object.assign(node, {
+            parent, 
+            key, 
+            title: node.title || node.linkName || key, 
+            linkName: node.linkName || node.title || key, 
+            path: parent.path + key                       // 用于数据源查找数据
+        })
         node.children ? handleNodeIsDirectory(node, node.children) : handleNodeIsFile(node)
         node.src && (SRC_PATH[node.src] = node.path)
     }
@@ -49,12 +55,12 @@ function handleItem(key, node, parent) {
     if (node.peripheral) {
         for (i in node.peripheral) { 
             let item = node.peripheral[i]
-            handleItem(i, item, node) 
+            handleTreeToData(i, item, node) 
             KEYWORDS[node.path].keywords += `■${item.title.toLowerCase()}(${i.toLowerCase()})`
         }        
     }    
 }
-handleItem('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
+handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
 
 // 扁平化数据避免嵌套
 for (i in PATH_DATA) {

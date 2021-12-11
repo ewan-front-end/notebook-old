@@ -113,7 +113,7 @@
     },
     "/system/": {
         "key": "system",
-        "keywords": "操作系统(system)"
+        "keywords": "系统&平台(system)"
     },
     "/server": {
         "key": "server",

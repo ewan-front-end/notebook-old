@@ -413,7 +413,7 @@
         "path": "/css/variable"
     },
     "/system/": {
-        "title": "操作系统",
+        "title": "系统&平台",
         "src": "system",
         "children": [
             "/system/mac",
@@ -423,11 +423,11 @@
             "/system/android"
         ],
         "key": "system",
-        "linkName": "操作系统",
+        "linkName": "系统&平台",
         "path": "/system/"
     },
     "/system/README": {
-        "title": "操作系统",
+        "title": "系统&平台",
         "src": "system",
         "children": [
             "/system/mac",
@@ -437,7 +437,7 @@
             "/system/android"
         ],
         "key": "system",
-        "linkName": "操作系统",
+        "linkName": "系统&平台",
         "path": "/system/"
     },
     "/system/mac": {

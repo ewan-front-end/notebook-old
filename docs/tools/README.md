@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.26 20:16</span>
+            <span>M 2021.12.11 14:18</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/tools/git">Git</a></li><li><a href="/tools/npm">NPM</a></li><li><a href="/tools/markdown">Markdown</a></li><li><a href="/tools/qiankun">乾坤微服务</a></li><li><a href="/tools/charts">ECharts图表库</a></li><li><a href="/tools/vscode">VSCode</a></li><li><a href="/tools/chromeTools">chromeTools</a></li><li><a href="/tools/uml">uml</a></li><li><a href="/tools/regularExpression">正则表达式</a></li><li><a href="/tools/eslint">ESLint</a></li><li><a href="/tools/htmlBundler">html-bundler</a></li><li><a href="/tools/postman">PostMan</a></li></ul></div><div class="custom-block links">
@@ -42,6 +42,7 @@ Google帐号 > 安全性 > 登录Google > 两步验证 > 开始
 <div class="box-flex-item  flex-1">
 
 <strong>■ 资源</strong>
+- [Content-Security-Policy](https://developers.google.com/web/fundamentals/security/csp)
 - [icomoon](http://icomoon.io/app)
 - [UI](http://www.biaonimeia.com/project)
 - [图标库](ant.design/components/icon-cn)

@@ -8,16 +8,16 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.12.11 14:15</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/system/mac">MacBook</a></li><li><a href="/system/linux">Linux</a></li><li><a href="/system/windows">Windows</a></li><li><a href="/system/ios">IOS</a></li><li><a href="/system/android">Android</a></li></ul></div></div>
 </div>
 <div class="content-header">
-<h1>操作系统</h1><strong>操作系统</strong>
+<h1>系统&平台</h1><strong>系统&平台</strong>
 </div>
 <div class="static-content">
 
-操作系统
+系统&平台
 
 </div>

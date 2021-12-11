@@ -1,6 +1,4 @@
 
-Refused to load the image '<URL>' because it violates the following Content Security Policy directive: "img-src 'self' data: content: <URL> <URL> blob:".
-
 
 {
     namespace: 'VUEPRESS',
@@ -53,7 +51,9 @@ notebook> npm run [deploy{color:#0c0}]
 
 [##] 建立文档体系
 notebook/docs/.doctree/
-notebook/docs/.doctree/tree.js ▾
+
+- 数据源
+notebook/docs/.doctree/source-tree.js ▾
     ↧{
         vue: {
             title: 'Vue', src: 'vue/index', 
@@ -64,13 +64,26 @@ notebook/docs/.doctree/tree.js ▾
             }
         }    
     }↥
+
+- 数据预应用 
 notebook/package.json ▾
     ↧"scripts": {
-        "create": "node docs/.doctree/create.js"
-        "watch:tree": "node docs/.doctree/watch-tree.js"      
+        "watch:tree": "node docs/.doctree/watch-tree.js",
+        "tree": "node docs/.doctree/tree.js"
     }↥
 notebook/docs/.doctree/watch-tree.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
+notebook/docs/.doctree/tree.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
+notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
+
+- 生产文档
+应用数据 ▾
+    ↧notebook/package.json
+    "scripts": {
+        "create": "node docs/.doctree/create.js"
+        "watch:tree": "node docs/.doctree/watch-tree.js"      
+    }↥
 notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
     ↧{
         vue: {

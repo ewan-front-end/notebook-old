@@ -117,7 +117,7 @@ object。Config对象中的值在Scripts的整个周期中皆可用，专门用�
 [engineStrick]
 布尔值。如果你肯定你的程序只能在制定的engine上运行，设置为true。
 [os]
-指定模块可以在什么操作系统上运行：
+指定模块可以在什么系统&平台上运行：
 "os" : [ "darwin","Linux" ]
 "os" : [ "!win32" ]
 [cpu] 指定CPU型号

@@ -41,7 +41,7 @@ chokidar.watch(fetchPath('DIR|.usage/resources/md'))
                     stderr && console.log(stderr)
                 })
             } else {
-               console.log('当前资源未与 SRC:PATH 数据关联')
+               console.log(`当前资源(${resPath})未与 SRC:PATH 数据关联`)
             }
         }
     })       

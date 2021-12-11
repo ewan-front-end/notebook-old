@@ -62,12 +62,13 @@
         preset:{title:'预处理', src:'css-preset'},
         variable:{title:'CSS变量', src:'css-variable'}
     }},   
-    system:{title:'操作系统', src:'system', children:{
+    system:{title:'系统&平台', src:'system', children:{
         mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
         linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
         windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
         ios:{title:'IOS',linkName:'IOS', src:'ios'},
-        android:{title:'Android',linkName:'Android', src:'android'}
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
     }},
     server:{title:'服务器',src:'server', links:[{name:'koa',href:'/node/koa'}, {name:'express',href:'/node/express'}]},  
     typescript:{linkName:'Typescript', src:'typescript'},

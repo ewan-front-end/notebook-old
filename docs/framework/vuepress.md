@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.06 13:32</span>
+            <span>M 2021.12.11 15:35</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,8 @@ pageClass: theme-item
 <h1>Vuepress</h1><strong>Vuepress</strong>
 </div>
 <div class="static-content">
+
+
 
 {
     namespace: 'VUEPRESS',
@@ -65,7 +67,9 @@ notebook/docs/.deploy/
 
 <span class="h2 bg3 cf"> 建立文档体系 </span>
 notebook/docs/.doctree/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/tree.js</span><div class="detail-content">    <span>{
+
+● <strong>数据源</strong>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/source-tree.js</span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue/index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
@@ -75,11 +79,22 @@ notebook/docs/.doctree/
             }
         }    
     }</span></div></div>
+
+● <strong>数据预应用 </strong>
 <div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
+        "watch:tree": "node docs/.doctree/watch-tree.js",
+        "tree": "node docs/.doctree/tree.js"
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/tree.js</span><div class="detail-content">    <span>{}</span></div></div>
+<span class="cc">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接    外链</span>
+
+● <strong>生产文档</strong>
+<div class="block-detail"><span class="detail-desc">应用数据</span><div class="detail-content">    <span>notebook/package.json
+    "scripts": {
         "create": "node docs/.doctree/create.js"
         "watch:tree": "node docs/.doctree/watch-tree.js"      
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/create.js</span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue_index', 
