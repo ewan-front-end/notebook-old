@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.11 15:35</span>
+            <span>M 2021.12.14 16:14</span>
         </div>
     </div>
     <div class="content"></div>
@@ -69,7 +69,7 @@ notebook/docs/.deploy/
 notebook/docs/.doctree/
 
 ● <strong>数据源</strong>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/source-tree.js</span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/data-tree.js</span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue/index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
@@ -82,11 +82,55 @@ notebook/docs/.doctree/
 
 ● <strong>数据预应用 </strong>
 <div class="block-detail"><span class="detail-desc">notebook/package.json</span><div class="detail-content">    <span>"scripts": {
-        "watch:tree": "node docs/.doctree/watch-tree.js",
-        "tree": "node docs/.doctree/tree.js"
+        "watch:data": "node docs/.doctree/watch.js",
+        "data": "node docs/.doctree/data.js"
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-tree.js</span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/tree.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-data.js</span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/data.js</span><div class="detail-content">    <span>const ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
+
+    function handleNodeFile(node) {
+        PATH_DATA[node.path] = node
+        CREATOR.push(node.path)
+    }
+    function handleNodeDir(node, children) {
+        node.path += '/'                       <span class="comment">// 目录特有标识</span>
+        PATH_DATA[node.path] = node            <span class="comment">// 路径映身数据</span>
+        PATH_DATA[node.path + 'README'] = node <span class="comment">// 路径映身数据 主页</span>
+        CREATOR.push(node.path)                <span class="comment">// c</span>
+        CREATOR.push(node.path + 'README')
+        for (key in children) { handleTreeToData(key, children[key], node) }
+    }
+    function handleTreeToData(key, node, parent) {    
+        if (key === 'ROOT') {
+            handleNodeDir(node, node.children)
+            SRC_PATH[node.src] = node.path
+        } else {        
+            Object.assign(node, {
+                parent, 
+                key, 
+                title: node.title || node.linkName || key, 
+                linkName: node.linkName || node.title || key, 
+                path: parent.path + key                       <span class="comment">// 用于数据源查找数据</span>
+            })
+            node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
+            node.src && (SRC_PATH[node.src] = node.path)
+        }
+    }
+    if (ARG_ARR.length &gt; 0) {
+        for (let i = 0; i &lt; ARG_ARR.length; i++) {
+            let path = ARG_ARR[i] 
+            let item = PATH_DATA[path]
+            if (path === "/" || path === "/README") {
+                createHomeFile()
+            } else {
+                item ? handleCreator(item, path) : console.warn('参数' + path + '无效')
+            }
+            
+        }
+    } else {
+        handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
+    }</span></div></div>
+<span class="cc">notebook/docs/.doctree/data/RES_DATA.json</span>      <span class="comment">// 监听资源变动时 可用资源名直接查找相应数据</span>
 <span class="cc">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接    外链</span>
 
 ● <strong>生产文档</strong>

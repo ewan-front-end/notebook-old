@@ -53,7 +53,7 @@ notebook> npm run [deploy{color:#0c0}]
 notebook/docs/.doctree/
 
 - 数据源
-notebook/docs/.doctree/source-tree.js ▾
+notebook/docs/.doctree/data-tree.js ▾
     ↧{
         vue: {
             title: 'Vue', src: 'vue/index', 
@@ -68,13 +68,57 @@ notebook/docs/.doctree/source-tree.js ▾
 - 数据预应用 
 notebook/package.json ▾
     ↧"scripts": {
-        "watch:tree": "node docs/.doctree/watch-tree.js",
-        "tree": "node docs/.doctree/tree.js"
+        "watch:data": "node docs/.doctree/watch.js",
+        "data": "node docs/.doctree/data.js"
     }↥
-notebook/docs/.doctree/watch-tree.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.doctree/watch-data.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
-notebook/docs/.doctree/tree.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
+notebook/docs/.doctree/data.js ▾{background-color:#6d6;color:#fff}
+    ↧const ARG_ARR = process.argv.slice(2)  // 命令参数
+
+    function handleNodeFile(node) {
+        PATH_DATA[node.path] = node
+        CREATOR.push(node.path)
+    }
+    function handleNodeDir(node, children) {
+        node.path += '/'                       // 目录特有标识
+        PATH_DATA[node.path] = node            // 路径映身数据 
+        PATH_DATA[node.path + 'README'] = node // 路径映身数据 主页
+        CREATOR.push(node.path)                // c
+        CREATOR.push(node.path + 'README')
+        for (key in children) { handleTreeToData(key, children[key], node) }
+    }
+    function handleTreeToData(key, node, parent) {    
+        if (key === 'ROOT') {
+            handleNodeDir(node, node.children)
+            SRC_PATH[node.src] = node.path
+        } else {        
+            Object.assign(node, {
+                parent, 
+                key, 
+                title: node.title || node.linkName || key, 
+                linkName: node.linkName || node.title || key, 
+                path: parent.path + key                       // 用于数据源查找数据
+            })
+            node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
+            node.src && (SRC_PATH[node.src] = node.path)
+        }
+    }
+    if (ARG_ARR.length > 0) {
+        for (let i = 0; i < ARG_ARR.length; i++) {
+            let path = ARG_ARR[i] 
+            let item = PATH_DATA[path]
+            if (path === "/" || path === "/README") {
+                createHomeFile()
+            } else {
+                item ? handleCreator(item, path) : console.warn('参数' + path + '无效')
+            }
+            
+        }
+    } else {
+        handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
+    }↥
+notebook/docs/.doctree/data/RES_DATA.json[(cc)]      // 监听资源变动时 可用资源名直接查找相应数据
 notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
 
 - 生产文档

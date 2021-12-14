@@ -1,5 +1,6 @@
 const {fetch, fetchPath} = require('../config')
 const fs = fetch('UTILS|fs')
+const ARG_ARR = process.argv.slice(2)                    // 命令参数
 const DATA = fetch('DATA|main'), 
     SRC_PATH = {}, 
     PATH_DATA = {}, 
@@ -11,11 +12,11 @@ const DATA = fetch('DATA|main'),
     KEYWORDS = {}
 
 // 递归数据结构
-function handleNodeIsFile(node) {
+function handleNodeFile(node) {
     PATH_DATA[node.path] = node
     CREATOR.push(node.path)
 }
-function handleNodeIsDirectory(node, children) {
+function handleNodeDir(node, children) {
     node.path += '/'                       // 目录特有标识
     PATH_DATA[node.path] = node            // 路径映身数据 
     PATH_DATA[node.path + 'README'] = node // 路径映身数据 主页   
@@ -24,10 +25,7 @@ function handleNodeIsDirectory(node, children) {
     for (key in children) { handleTreeToData(key, children[key], node) }
 }
 function handleTreeToData(key, node, parent) {    
-    if (key === 'ROOT') {
-        handleNodeIsDirectory(node, node.children)
-        SRC_PATH[node.src] = node.path
-    } else {        
+    if (typeof key === 'string') {
         Object.assign(node, {
             parent, 
             key, 
@@ -35,8 +33,11 @@ function handleTreeToData(key, node, parent) {
             linkName: node.linkName || node.title || key, 
             path: parent.path + key                       // 用于数据源查找数据
         })
-        node.children ? handleNodeIsDirectory(node, node.children) : handleNodeIsFile(node)
+        node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
         node.src && (SRC_PATH[node.src] = node.path)
+    } else {
+        handleNodeDir({title: 'Home', src: 'index', path: '', children: key}, key)
+        SRC_PATH['index'] = '/'
     }
     KEYWORDS[node.path] = {key, keywords: `${node.title.toLowerCase()}(${key.toLowerCase()})`}
     if (node.usage) USAGE.push({title: node.title, data:node.usage}) 
@@ -60,7 +61,16 @@ function handleTreeToData(key, node, parent) {
         }        
     }    
 }
-handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
+if (ARG_ARR.length > 0) {
+    for (let i = 0; i < ARG_ARR.length; i++) {
+        let resName = ARG_ARR[i] 
+        let item = RES_DATA[resName]
+        handleTreeToData(item)
+    }
+} else {
+    handleTreeToData(DATA)
+}
+
 
 // 扁平化数据避免嵌套
 for (i in PATH_DATA) {

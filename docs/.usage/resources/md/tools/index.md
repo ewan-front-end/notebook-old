@@ -15,6 +15,7 @@ Google帐号 > 安全性 > 登录Google > 两步验证 > 开始
 
 -------------------- 1
 <strong>■ 资源</strong>
+- [favicon图标转换](https://tool.lu/favicon/)
 - [Content-Security-Policy](https://developers.google.com/web/fundamentals/security/csp)
 - [icomoon](http://icomoon.io/app)
 - [UI](http://www.biaonimeia.com/project)
