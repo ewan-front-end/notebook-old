@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>M 2021.12.25 20:26</span>
         </div>
     </div>
     <div class="content"></div>
@@ -18,6 +18,29 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
+在前端业务场景下的设计模式 https://blog.51cto.com/u_15077561/2594779
+
+<pre class="code-block">
+<span class="comment">/**
+ * 单例模式
+ * 1.如果需求变更允许n例了?
+ * 2.这个解耦的模式需要服务于所有的类?
+ */</span>
+function getSingleton(ClassName) {
+    let instance;
+    return () =&gt; {
+        if (!instance) {
+            instance = new ClassName();
+        }
+        return instance;
+    };
+}
+
+
+
+
+</pre>
 
 https://blog.csdn.net/qq_20901397/article/details/82219055
 http://c.biancheng.net/view/1380.html

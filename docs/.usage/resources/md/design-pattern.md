@@ -1,4 +1,26 @@
 
+在前端业务场景下的设计模式 https://blog.51cto.com/u_15077561/2594779
+===+
+/**
+ * 单例模式
+ * 1.如果需求变更允许n例了?
+ * 2.这个解耦的模式需要服务于所有的类?
+ */
+function getSingleton(ClassName) {
+    let instance;
+    return () => {
+        if (!instance) {
+            instance = new ClassName();
+        }
+        return instance;
+    };
+}
+
+
+
+
+===-
+
 https://blog.csdn.net/qq_20901397/article/details/82219055
 http://c.biancheng.net/view/1380.html
 Javascript 设计模式系统讲解与应用
