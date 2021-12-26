@@ -442,5 +442,9 @@
     "/": {
         "key": "ROOT",
         "keywords": "home(root)"
+    },
+    "/system/README": {
+        "keywords": "chrome■html■常见问题",
+        "key": "未知"
     }
 }
