@@ -443,8 +443,8 @@
         "key": "ROOT",
         "keywords": "home(root)"
     },
-    "/system/README": {
-        "keywords": "chrome■html■常见问题",
+    "/biaozhun/README": {
+        "keywords": " 从动检测 ■ 主动规范 ■prettier和eslint的唯一冲突■提交时自动检测■提交时自动修复■flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ■ 普通注释 ■ 文档注释 ■ 文件注释 ■ 块标签 ■对文件进行描述■标注js使用方法■开发者备注■文件详细结构",
         "key": "未知"
     }
 }

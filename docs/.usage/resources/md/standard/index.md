@@ -1,3 +1,219 @@
+
+
+::: details 标准化大厂编程规范解决方案之ESLint + Git Hooks
+===+
+指望所有人都看一遍规范文档？ 自动处理规范化的内容！
+
+hello> vue create coding-standard
+    Default ([Vue 2] babel, eslint)      
+    Default ([Vue 3] babel, eslint)
+    > Manually select features  // 推荐
+            (*) Choose Vue version  (*)Babel  (*)Linter/Formatter
+                  2.x
+                > 3.x  
+                      ESLint with error prevention only // 仅包含错误的ESLint
+                      ESLint + Airbnb config            // Airbnb的ESLint延伸规则
+                    > ESLint + Standard config          // 标准的ESLint延伸规则
+                      ESLint + Prettier                    
+hello> cd coding-standard
+coding-standard> npm run serve
+coding-standard> npm run build
+
+[##] 从动检测
+ESLint目标：提供一个插件化的javascript代码检测工具
+ESLint配置：coding-standard/.eslintrc.js [文档](https://eslint.bootcss.com/docs/user-guide/configuring)
+    module.exports = {        
+        root: true,                                              // 表示当前目录即为根目录 规则将被限制到该目录下        
+        env: { node: true },                                     // 检测的环境        
+        extends: ["plugin:vue/vue3-essential", "@vue/standard"], // ESLint 中基础配置需要继承的配置        
+        parserOptions: { parser: "babel-eslint" },               // 解析器
+        /**
+        * 启用规则：错误级别
+        * "off"/0   关闭规则
+        * "warn"/1  开启规则，使用警告级别的错误：warn (不会导致程序退出)
+        * "error"/2 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+        */
+        rules: {
+            "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+            "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
+        }
+    }
+
+coding-standard/src/components/HelloWorld.vue
+    name: 'HelloWorld' 改为 name: "HelloWorld"
+
+      35:9  [error{color:#F66}]  Strings must use singlequote  [quotes{color:#09c;font-weight:bold}]
+    【✖ 1 problem (1 error, 0 warnings)
+      1 error and 0 warnings potentially fixable with the `--fix` option.】{color:#F66}
+
+    解决：
+        按照 ESLint 的要求修改代码
+      > 修改 ESLint 的验证规则 .eslintrc.js
+            module.exports = {
+                rules: {
+                    "[quotes{color:#09c;font-weight:bold}]": "warn" // off、warn、error 
+                }
+            }
+            coding-standard> npm run serve
+
+[##] 主动规范
+团队中人员的水平不齐 大量的ESLint规则校验 会让开发者头疼 影响开发进度
+[Prettier](https://www.prettier.cn/): 代码格式化工具
+1. VSCode 中安装 prettier
+2. coding-standard/.prettierrc
+    {    
+        "semi": false,           // 不尾随分号
+        "trailingComma": "none", // 不尾随逗号
+        "singleQuote": true,     // 使用单引号
+        "tabWidth": 4            // 代码缩进
+    }
+3. VSCode > setting > 工作区    ▣ Format On Save
+
+# Prettier和ESLint的唯一冲突
+    export default {
+        created() {}
+    }
+
+      8:10  [error{color:#F66}]  Missing space before function parentheses  [space-before-function-paren{color:#09c;font-weight:bold}]
+    【✖ 1 problem (1 error, 0 warnings)
+      1 error and 0 warnings potentially fixable with the `--fix` option.】{color:#F66}
+
+    解决：修改 ESLint 的验证规则 .eslintrc.js
+        module.exports = {
+            rules: {
+                "[space-before-function-paren{color:#09c;font-weight:bold}]": "off" // off、warn、error 
+            }
+        }
+        coding-standard> npm run serve
+===-
+:::
+
+::: details 约定式提交规范
+===+
+项目创建 参考标准化大厂编程规范解决方案
+
+约定式提交规范要求：
+    <type>[optional scope]: <description>   <类型>[可选 范围]: <描述>
+    [optional body]                         [可选 正文]
+    [optional footer]                       [可选 脚注]
+
+按照规范提交太过繁琐[{color:#d96}]
+xxxx> npm install -g [commitizen](https://github.com/commitizen/cz-cli)@4.2.4
+coding-standard> npm i cz-customizable@6.3.0 --save-dev
+
+coding-standard/package.json ▾
+    ↧"config": {
+        "commitizen": {
+            "path": "node_modules/cz-customizable"
+        }
+    }↥
+coding-standard/.cz-config.js ▾
+    ↧module.exports = {
+        // 可选类型
+        types: [
+            { value: 'feat', name: 'feat:     新功能' },
+            { value: 'fix', name: 'fix:      修复' },
+            { value: 'docs', name: 'docs:     文档变更' },
+            { value: 'style', name: 'style:    代码格式(不影响代码运行的变动)' },
+            {
+                value: 'refactor',
+                name: 'refactor: 重构(既不是增加feature，也不是修复bug)'
+            },
+            { value: 'perf', name: 'perf:     性能优化' },
+            { value: 'test', name: 'test:     增加测试' },
+            { value: 'chore', name: 'chore:    构建过程或辅助工具的变动' },
+            { value: 'revert', name: 'revert:   回退' },
+            { value: 'build', name: 'build:    打包' }
+        ],
+        // 消息步骤
+        messages: {
+            type: '请选择提交类型:',
+            customScope: '请输入修改范围(可选):',
+            subject: '请简要描述提交(必填):',
+            body: '请输入详细描述(可选):',
+            footer: '请输入要关闭的issue(可选):',
+            confirmCommit: '确认使用以上信息提交？(y/n/e/h)'
+        },    
+        skipQuestions: ['body', 'footer'], // 跳过问题    
+        subjectLimit: 72                   // subject文字长度默认是72
+    }↥
+
+coding-standard> git cz  // 代替 git commit    
+
+如果有人忘记了使用 git cz 指令，直接就提交了怎么办呢？[{color:#d96}]
+目标：当《提交描述信息》不符合 约定式提交规范 的时候，阻止当前的提交，并抛出对应的错误提示
+
+Git hooks：
+    commit-msg 可以用来规范化标准格式，并且可以按需指定是否要拒绝本次提交
+    pre-commit 会在提交前被调用，并且可以按需指定是否要拒绝本次提交
+    ...
+工具：
+    1. commitlint 用于检查提交信息
+    coding-standard> npm install --save-dev @commitlint/config-conventional@12.1.4 @commitlint/cli@12.1.4
+    coding-standard/commitlint.config.js ▾
+        ↧ //确保保存为 UTF-8 的编码格式
+        module.exports = {
+            extends: ['@commitlint/config-conventional'], // 继承的规则
+            // 定义规则类型
+            rules: {
+                // type 类型定义，表示 git 提交的 type 必须在以下类型范围内
+                'type-enum': [
+                    2,
+                    'always',
+                    [
+                        'feat',     // 新功能 feature
+                        'fix',      // 修复 bug
+                        'docs',     // 文档注释
+                        'style',    // 代码格式(不影响代码运行的变动)
+                        'refactor', // 重构(既不增加新功能，也不是修复bug)
+                        'perf',     // 性能优化
+                        'test',     // 增加测试
+                        'chore',    // 构建过程或辅助工具的变动
+                        'revert',   // 回退
+                        'build'     // 打包
+                    ]
+                ],        
+                'subject-case': [0] // subject 大小写不做校验
+            }
+        }↥
+
+    2. husky      是git hooks工具
+    coding-standard> npm install husky@7.0.1 --save-dev
+    coding-standard> npx husky install // 或/package.json "scripts": {"prepare": "husky install"} 运行 npm run prepare 会生成 .husky 文件夹
+    执行成功提示：[husky - Git hooks installed{color:#69c}]
+
+    添加 commitlint 的 hook 到 husky中 并在 commit-msg 的 hooks 下执行 npx --no-install commitlint --edit "$1" 指令
+    coding-standard> npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
+    coding-standard/.husky/commit-msg // 生成的文件
+
+如果有人忘记配置保存自动格式代码直接就提交？[{color:#d96}]
+    - 提交时自动检测
+        coding-standard> npx husky add .husky/pre-commit "npx eslint --ext .js,.vue src" // 添加 commit 时的 hook （npx eslint --ext .js,.vue src 会在执行到该 hook 时运行）
+        coding-standard/.husky/pre-commit // 生成的文件
+
+        测试：
+            1. 关闭 VSCode 的自动保存操作
+            2. 修改一处代码，使其不符合 ESLint 校验规则
+            3. 执行 提交操作 会发现，抛出一系列的错误，代码无法提交
+
+    - 提交时自动修复
+        [lint-staged](https://github.com/okonet/lint-staged) // vue-cli 已经安装过了 直接使用即可
+        coding-standard/package.json ▾
+            ↧"lint-staged": {
+                "src/**/*.{js,vue}": [
+                    "eslint --fix",
+                    "git add"
+                ]
+            }↥
+        coding-standard/.husky/pre-commit ▾
+            ↧#!/bin/sh
+            . "$(dirname "$0")/_/husky.sh"
+
+            npx lint-staged↥
+        再次执行提交代码 发现暂存区中不符合 ESlint 的内容，被自动修复
+===-
+:::
+
 ::: details Ewan
 
 - 全局配置 config.js
