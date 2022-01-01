@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.30 16:36</span>
+            <span>M 2022.01.01 20:11</span>
         </div>
     </div>
     <div class="content"></div>
@@ -195,25 +195,72 @@ launch.json
 	// prefix           前缀 当你实际编写代码时 输入什么关键字 会触发此代码片段 如 con
 	// body             主体 存放代码片段的实际内容
 	// description      描述 如果没有description，默认提示信息是类似上图中Print to console一样的信息
-  "[0 Print to console]": {
-    "scope": "javascript,typescript",
-    "prefix": "con",
-    "body": [
-      "console.log('$1');",
-      "$2"
-    ],
-    "description": "打印到控制台"
-  }
-  "Add format comment": {
-    "prefix": "comment",
-    "body": [
-      "/**",
-      " * ",
-      " * Ewan $(l3)CURRENT_YEAR(/l3)-$CURRENT_MONTH-$(l4)CURRENT_DATE(/l4) $CURRENT_HOUR:$(l5)CURRENT_MINUTE(/l5)",
-      " */"
-    ],
-    "description": "添加注释"
-  }
+    "[0 Print to console]": {
+        "scope": "javascript,typescript",
+        "prefix": "con",
+        "body": [
+            "console.log('$1');",
+            "$2"
+        ],
+        "description": "打印到控制台"
+    },
+    "Add format comment": {
+        "prefix": "comment",
+        "body": [
+            "/**",
+            " * ",
+            " * Ewan $(l3)CURRENT_YEAR(/l3)-$CURRENT_MONTH-$(l4)CURRENT_DATE(/l4) $CURRENT_HOUR:$(l5)CURRENT_MINUTE(/l5)",
+            " */"
+        ],
+        "description": "添加注释"
+    },
+    "options api": {
+		"prefix": "vue2",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	},
+	"composition api": {
+		"prefix": "vue3",
+		"body": [
+			"<template>",
+			"\t<div></div>",
+			"</template>",
+			"",
+			"<script>",
+			"import { reactive, toRefs } from 'vue'",
+			"import { useRouter } from 'vue-router'",
+			"import { useStore } from 'vuex'",
+			"",
+			"export default {",
+				"\tsetup() {",
+					"\t\tconst state = reactive({})",
+					"\t\tconst router = useRouter()",
+        			"\t\tconst store = useStore()",
+					"",
+					"\t\treturn {",
+					"\t\t\t...toRefs(state)",
+					"\t\t}",
+				"\t}",
+			"}",
+			"</script>",
+			"",
+			"<style lang='scss' scoped>",
+			"</style>",
+			"$2"
+		],
+		"description": "Log output to console"
+	},
+	"script setup": {
+		"prefix": "vue3.2",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	}
 }
 
 /* 变量调用: $变量名

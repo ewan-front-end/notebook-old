@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.29 20:16</span>
+            <span>M 2022.01.01 20:07</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -23,6 +23,9 @@ pageClass: theme-item
 
 <pre class="code-block">
 <span class="h4">项目架构之搭建登录架构解决方案与实现</span>
+<span class="block-command">hello</span> vue create admin
+    &gt; Manually select features  <span class="comment">// 推荐</span>
+        (*) Choose Vue version (*) Babel (*) Router (*) Vuex (*) Linter / Formatter
 
 </pre>
 

@@ -2,6 +2,14 @@
 
 ===+
 #### 项目架构之搭建登录架构解决方案与实现
+hello> vue create admin
+
+导入 element-plus
+
+admin/src/views/login
+admin/src/views/login/index.vue
+
+admin/src/router/index.js
 
 ===-
 
