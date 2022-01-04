@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.04 20:37</span>
+            <span>M 2022.01.04 21:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -436,6 +436,63 @@ pageClass: theme-item
             重新启动项目
 
     http://localhost:8080/#/Login
+
+<span class="h2 bg3 cf"> 登陆逻辑 </span>
+    表单验证
+<div class="block-detail">    <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div class="login-container"&gt;
+                &lt;el-form class="login-form" :model="loginForm" :rules="loginRules"&gt;
+                    ...
+                    &lt;el-form-item prop="username"&gt;
+                        ...
+                        &lt;el-input ... v-model="loginForm.username" /&gt;
+                    &lt;/el-form-item&gt;
+
+                    &lt;el-form-item prop="password"&gt;
+                        ...
+                        &lt;el-input ... v-model="loginForm.password" /&gt;
+                        ...
+                    &lt;/el-form-item&gt;
+                    ...
+                &lt;/el-form&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+        &lt;script setup&gt;
+        import { ref } from 'vue'
+        import { validatePassword } from './rules'
+        <span class="comment">// 数据源</span>
+        const loginForm = ref({
+            username: 'super-admin',
+            password: '123456'
+        })
+        <span class="comment">// 验证规则</span>
+        const loginRules = ref({
+            username: [
+                {
+                    required: true,
+                    trigger: 'blur',
+                    message: '用户名为必填项'
+                }
+            ],
+            password: [
+                {
+                    required: true,
+                    trigger: 'blur',
+                    validator: validatePassword()
+                }
+            ]
+        })
+        &lt;/script&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/views/login/rules.js</span><div class="detail-content">        <span>export const validatePassword = () =&gt; {
+            return (rule, value, callback) =&gt; {
+                if (value.length &lt; 6) {
+                    callback(new Error('密码不能少于6位'))
+                } else {
+                    callback()
+                }
+            }
+        }</span></div></div>
+
 
 
 </pre>

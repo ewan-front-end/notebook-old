@@ -434,6 +434,65 @@ admin/src/router/index.js ▾
 
     http://localhost:8080/#/Login
 
+[##] 登陆逻辑
+    表单验证
+    src/views/login/index.vue ▾
+        ↧<template>
+            <div class="login-container">
+                <el-form class="login-form" :model="loginForm" :rules="loginRules">
+                    ...
+                    <el-form-item prop="username">
+                        ...
+                        <el-input ... v-model="loginForm.username" />
+                    </el-form-item>
+
+                    <el-form-item prop="password">
+                        ...
+                        <el-input ... v-model="loginForm.password" />
+                        ...
+                    </el-form-item>
+                    ...
+                </el-form>
+            </div>
+        </template>
+        <script setup>
+        import { ref } from 'vue'
+        import { validatePassword } from './rules'
+        // 数据源
+        const loginForm = ref({
+            username: 'super-admin',
+            password: '123456'
+        })
+        // 验证规则
+        const loginRules = ref({
+            username: [
+                {
+                    required: true,
+                    trigger: 'blur',
+                    message: '用户名为必填项'
+                }
+            ],
+            password: [
+                {
+                    required: true,
+                    trigger: 'blur',
+                    validator: validatePassword()
+                }
+            ]
+        })
+        </script>↥
+    src/views/login/rules.js ▾
+        ↧export const validatePassword = () => {
+            return (rule, value, callback) => {
+                if (value.length < 6) {
+                    callback(new Error('密码不能少于6位'))
+                } else {
+                    callback()
+                }
+            }
+        }↥
+
+
 
 ===-
 ▾↧↥
