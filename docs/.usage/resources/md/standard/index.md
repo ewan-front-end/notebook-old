@@ -3,15 +3,440 @@
 ===+
 #### 项目架构之搭建登录架构解决方案与实现
 hello> vue create admin
+    (*) Choose Vue version
+    (*) Babel
+    (*) Router
+    (*) Vuex
+    (*) CSS Pre-processors
+    (*) Linter / Formatter
 
-导入 element-plus
+      Sass/SCSS (with dart-sass)
+    > Sass/SCSS (with node-sass)
+      Less
+      Stylus
 
-admin/src/views/login
-admin/src/views/login/index.vue
+admin/.vscode/settings.json ▾
+↧{
+    "editor.formatOnSave": true,
+    "vetur.format.defaultFormatter.html": "prettier",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}↥
+admin/.prettierrc.js ▾
+    ↧module.exports = {
+        semi: false,                         // 不尾随分号
+        trailingComma: 'none',               // 不尾随逗号
+        singleQuote: true,                   // 使用单引号
+        tabWidth: 4,                         // 代码缩进
+        
+        useTabs: false,                      // 使用tab还是空格
+        jsxSingleQuote: false,               // JSX双引号        
+        bracketSpacing: true,                // 在对象文字中打印括号之间的空格
+        jsxBracketSameLine: true,            // > 标签放在最后一行的末尾，而不是单独放在下一行
+        arrowParens: 'avoid',                // 箭头圆括号        
+        insertPragma: false,                 // 在文件顶部插入一个特殊的 @format 标记
+        endOfLine: 'auto',                   // 行尾换行格式
+        HTMLWhitespaceSensitivity: 'ignore',
+        printWidth: 2000,                    // 最大长度200个字符
+    }↥
+admin/.eslintrc.js ▾
+    ↧module.exports = {
+        rules: {
+            indent: 'off',
+            "space-before-function-paren": "off"
+        }
+    }↥
+如果项目中有.editorconfig 该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符 ▾
+    ↧[*.{js,jsx,ts,tsx,vue}]
+    indent_style = space
+    indent_size = 2
+    trim_trailing_whitespace = true
+    insert_final_newline = true↥
 
-admin/src/router/index.js
+清空 src/views/[{color:#f66}]
+清空 src/components/[{color:#f66}]
+admin/src/main.js ▾
+    ↧import { createApp } from 'vue'
+    import router from './router'
+    import store from './store'
+    import App from './App.vue'
+
+    const app = createApp(App)
+    app.use(store)
+    app.use(router)
+    app.mount('#app')↥
+admin/src/App.vue ▾
+    ↧<template>
+        <router-view />
+    </template>
+
+    <style lang="scss"></style>↥
+admin/src/router/index.js ▾
+    ↧import { createRouter, createWebHashHistory } from 'vue-router'
+
+    const routes = []
+
+    const router = createRouter({
+        history: createWebHashHistory(),
+        routes
+    })
+
+    export default router↥
+浏览器:http://localhost:8080/
+
+[##] 构建登录页面 UI 结构
+    src/router/index.js ▾
+        ↧/**
+         * 公开路由表
+         */
+        const publicRoutes = [
+            {
+                path: '/login',
+                component: () => import('@/views/login/index')
+            }
+        ]
+
+        const router = createRouter({
+            routes: publicRoutes
+        })↥
+
+    src/views/login
+    src/views/login/index.vue ▾
+        ↧<template>
+            <div class="login-container">
+                <el-form class="login-form">
+                    <div class="title-container">
+                        <h3 class="title">用户登录</h3>
+                    </div>
+
+                    <el-form-item prop="username">
+                        <span class="svg-container">
+                            <svg-icon icon="user" />
+                        </span>
+                        <el-input placeholder="username" name="username" type="text" />
+                    </el-form-item>
+
+                    <el-form-item prop="password">
+                        <span class="svg-container">
+                            <svg-icon icon="password" />
+                        </span>
+                        <el-input placeholder="password" name="password" />
+                        <span class="show-pwd">
+                            <svg-icon icon="eye" />
+                        </span>
+                    </el-form-item>
+
+                    <el-button type="primary" style="width: 100%; margin-bottom: 30px">登录</el-button>
+                </el-form>
+            </div>
+        </template>
+
+        <script setup>
+        // 导入组件之后无需注册可直接使用
+        import {} from '@element-plus/icons'
+        import {} from 'vue'
+        </script>
+        
+        <style lang="scss" scoped>
+        $bg: #2d3a4b;
+        $dark_gray: #889aa4;
+        $light_gray: #eee;
+        $cursor: #fff;
+
+        .login-container {
+            min-height: 100%;
+            width: 100%;
+            background-color: $bg;
+            overflow: hidden;
+
+            .login-form {
+                position: relative;
+                width: 520px;
+                max-width: 100%;
+                padding: 160px 35px 0;
+                margin: 0 auto;
+                overflow: hidden;
+
+                ::v-deep .el-form-item {
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    background: rgba(0, 0, 0, 0.1);
+                    border-radius: 5px;
+                    color: #454545;
+                }
+
+                ::v-deep .el-input {
+                    display: inline-block;
+                    height: 47px;
+                    width: 85%;
+
+                    input {
+                        background: transparent;
+                        border: 0px;
+                        -webkit-appearance: none;
+                        border-radius: 0px;
+                        padding: 12px 5px 12px 15px;
+                        color: $light_gray;
+                        height: 47px;
+                        caret-color: $cursor;
+                    }
+                }
+            }
+
+            .svg-container {
+                padding: 6px 5px 6px 15px;
+                color: $dark_gray;
+                vertical-align: middle;
+                display: inline-block;
+            }
+
+            .title-container {
+                position: relative;
+
+                .title {
+                    font-size: 26px;
+                    color: $light_gray;
+                    margin: 0px auto 40px auto;
+                    text-align: center;
+                    font-weight: bold;
+                }
+            }
+
+            .show-pwd {
+                position: absolute;
+                right: 10px;
+                top: 7px;
+                font-size: 16px;
+                color: $dark_gray;
+                cursor: pointer;
+                user-select: none;
+            }
+        }
+        </style>↥
+    
+    src/styles/index.scss ▾
+        ↧html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+        }
+
+        #app {
+            height: 100%;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
+
+        a:focus,
+        a:active {
+            outline: none;
+        }
+
+        a,
+        a:focus,
+        a:hover {
+            cursor: pointer;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        div:focus {
+            outline: none;
+        }
+
+        .clearfix {
+            &:after {
+                visibility: hidden;
+                display: block;
+                font-size: 0;
+                content: ' ';
+                clear: both;
+                height: 0;
+            }
+        }↥
+    src/main.js ▾
+        ↧// 导入全局样式
+        import './styles/index.scss'↥
+
+    导入 [Element Plus](https://element-plus.gitee.io/zh-CN/)
+        快捷方式 ▾
+            ↧
+            admin> vue add element-plus
+                ? How do you want to import Element Plus?  // 如何导入Element Plus
+                    > Fully import     // 全局导入
+                    Import on demand // 按需导入
+                ? Do you want to overwrite the SCSS variables of Element Plus? (y/N)     // 生成覆盖变量的scss文件
+                ? Choose the locale you want to load, the default locale is English (en) // 选择想要加载的语言环境，默认语言环境是英语
+                    en 
+                    > zh-cn 
+                    af-za 
+                ✔  Successfully installed plugin: vue-cli-plugin-element-plus
+            src/App.vue
+                <template>
+                    <router-view />
+                </template>
+
+                <script>
+                export default {
+                    name: 'App'
+                }
+                </script>
+
+                <style></style>
+            admin/src/main.js
+                import installElementPlus from './plugins/element'
+                installElementPlus(app)↥
+        方式二 ▾
+            ↧
+            admin> npm i element-plus --save // 1.0.2-beta.28
+            admin/src/main.js
+                import ElementPlus from 'element-plus'
+                import 'element-plus/dist/index.css'
+                app.use(ElementPlus)
+            使用: <el-button>默认按钮</el-button>↥
+
+    SVG图标通用解决方案
+        src/components/SvgIcon/index.vue ▾
+            ↧<template>
+                <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" :class="className" />
+                <svg v-else class="svg-icon" :class="className" aria-hidden="true">
+                    <use :xlink:href="iconName" />
+                </svg>
+            </template>
+
+            <script setup>
+            import { isExternal as external } from '@/utils/validate'
+            import { defineProps, computed } from 'vue'
+            const props = defineProps({
+                // icon 图标
+                icon: {
+                    type: String,
+                    required: true
+                },
+                // 图标类名
+                className: {
+                    type: String,
+                    default: ''
+                }
+            })
+
+            /**
+            * 判断是否为外部图标
+            */
+            const isExternal = computed(() => external(props.icon))
+            /**
+            * 外部图标样式
+            */
+            const styleExternalIcon = computed(() => ({
+                mask: `url(${props.icon}) no-repeat 50% 50%`,
+                '-webkit-mask': `url(${props.icon}) no-repeat 50% 50%`
+            }))
+            /**
+            * 项目内图标
+            */
+            const iconName = computed(() => `#icon-${props.icon}`)
+            </script>
+
+            <style scoped>
+            .svg-icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: -0.15em;
+                fill: currentColor;
+                overflow: hidden;
+            }
+
+            .svg-external-icon {
+                background-color: currentColor;
+                mask-size: cover !important;
+                display: inline-block;
+            }
+            </style>↥
+        src/utils/validate.js ▾
+            ↧/**
+             * 判断是否为外部资源
+             */
+            export function isExternal(path) {
+                return /^(https?:|mailto:|tel:)/.test(path)
+            }↥
+
+        使用：外部图标
+            import SvgIcon from '@/components/SvgIcon'
+            <svg-icon icon="https://res.lgdsunday.club/user.svg"></svg-icon>
+
+        使用：内部图标
+            src/icons/
+            src/icons/svg/ // SVG资源
+            src/icons/index.js ▾
+                ↧import SvgIcon from '@/components/SvgIcon'
+                // 1. 导入所有的SVG图标
+                // https://webpack.docschina.org/guides/dependency-management/#requirecontext
+                // 通过 require.context() 函数来创建自己的 context
+                const svgRequire = require.context('./svg', false, /\.svg$/)
+                // 此时返回一个 require 的函数，可以接受一个 request 的参数，用于 require 的导入。
+                // 该函数提供了三个属性，可以通过 require.keys() 获取到所有的 svg 图标
+                // 遍历图标，把图标作为 request 传入到 require 导入函数中，完成本地 svg 图标的导入
+                svgRequire.keys().forEach(svgIcon => svgRequire(svgIcon))
+
+                // 2. 完成SvgIcon全局注册
+                export default app => {
+                    app.component('svg-icon', SvgIcon)
+                }↥
+            src/main.js ▾
+                ↧// 导入 svgIcon
+                import installIcons from '@/icons'
+                installIcons(app)↥
+            admin> npm i --save-dev svg-sprite-loader@6.0.9
+            admin/vue.config.js ▾
+                ↧const path = require('path')
+                function resolve(dir) {
+                    return path.join(__dirname, dir)
+                }
+                // https://cli.vuejs.org/zh/guide/webpack.html#%E7%AE%80%E5%8D%95%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F
+                module.exports = {
+                    chainWebpack(config) {
+                        // 设置 svg-sprite-loader
+                        config.module.rule('svg').exclude.add(resolve('src/icons')).end()
+                        config.module
+                            .rule('icons')
+                            .test(/\.svg$/)
+                            .include.add(resolve('src/icons'))
+                            .end()
+                            .use('svg-sprite-loader')
+                            .loader('svg-sprite-loader')
+                            .options({
+                                symbolId: 'icon-[name]'
+                            })
+                            .end()
+                    }
+                }↥
+            重新启动项目
+
+    http://localhost:8080/#/Login
+
 
 ===-
+▾↧↥
 
 ::: details 标准化大厂编程规范解决方案之ESLint + Git Hooks
 ===+
@@ -98,6 +523,25 @@ coding-standard/src/components/HelloWorld.vue
             }
         }
         coding-standard> npm run serve
+
+[##] 多规范之默认规范
+    coding-standard/.vscode/settings.json ▾
+    ↧{
+        "editor.formatOnSave": true,
+        "vetur.format.defaultFormatter.html": "prettier",
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[vue]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[scss]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+    }↥
 ===-
 :::
 

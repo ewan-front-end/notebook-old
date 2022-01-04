@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.01 20:07</span>
+            <span>M 2022.01.04 20:37</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -24,10 +24,422 @@ pageClass: theme-item
 <pre class="code-block">
 <span class="h4">项目架构之搭建登录架构解决方案与实现</span>
 <span class="block-command">hello</span> vue create admin
-    &gt; Manually select features  <span class="comment">// 推荐</span>
-        (*) Choose Vue version (*) Babel (*) Router (*) Vuex (*) Linter / Formatter
+    (*) Choose Vue version
+    (*) Babel
+    (*) Router
+    (*) Vuex
+    (*) CSS Pre-processors
+    (*) Linter / Formatter
+
+      Sass/SCSS (with dart-sass)
+    &gt; Sass/SCSS (with node-sass)
+      Less
+      Stylus
+
+<div class="block-detail"><span class="detail-desc">admin/.vscode/settings.json</span><div class="detail-content"><span>{
+    "editor.formatOnSave": true,
+    "vetur.format.defaultFormatter.html": "prettier",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}</span></div></div>
+<div class="block-detail"><span class="detail-desc">admin/.prettierrc.js</span><div class="detail-content">    <span>module.exports = {
+        semi: false,                         <span class="comment">// 不尾随分号</span>
+        trailingComma: 'none',               <span class="comment">// 不尾随逗号</span>
+        singleQuote: true,                   <span class="comment">// 使用单引号</span>
+        tabWidth: 4,                         <span class="comment">// 代码缩进</span>
+        
+        useTabs: false,                      <span class="comment">// 使用tab还是空格</span>
+        jsxSingleQuote: false,               <span class="comment">// JSX双引号</span>
+        bracketSpacing: true,                <span class="comment">// 在对象文字中打印括号之间的空格</span>
+        jsxBracketSameLine: true,            <span class="comment">// &gt; 标签放在最后一行的末尾，而不是单独放在下一行</span>
+        arrowParens: 'avoid',                <span class="comment">// 箭头圆括号</span>
+        insertPragma: false,                 <span class="comment">// 在文件顶部插入一个特殊的 @format 标记</span>
+        endOfLine: 'auto',                   <span class="comment">// 行尾换行格式</span>
+        HTMLWhitespaceSensitivity: 'ignore',
+        printWidth: 2000,                    <span class="comment">// 最大长度200个字符</span>
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc">admin/.eslintrc.js</span><div class="detail-content">    <span>module.exports = {
+        rules: {
+            indent: 'off',
+            "space-before-function-paren": "off"
+        }
+    }</span></div></div>
+<div class="block-detail"><span class="detail-desc">如果项目中有.editorconfig 该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符</span><div class="detail-content">    <span>[*.{js,jsx,ts,tsx,vue}]
+    indent_style = space
+    indent_size = 2
+    trim_trailing_whitespace = true
+    insert_final_newline = true</span></div></div>
+
+<span style="color:#f66">清空 src/views/</span>
+<span style="color:#f66">清空 src/components/</span>
+<div class="block-detail"><span class="detail-desc">admin/src/main.js</span><div class="detail-content">    <span>import { createApp } from 'vue'
+    import router from './router'
+    import store from './store'
+    import App from './App.vue'
+
+    const app = createApp(App)
+    app.use(store)
+    app.use(router)
+    app.mount('#app')</span></div></div>
+<div class="block-detail"><span class="detail-desc">admin/src/App.vue</span><div class="detail-content">    <span>&lt;template&gt;
+        &lt;router-view /&gt;
+    &lt;/template&gt;
+
+    &lt;style lang="scss"&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail"><span class="detail-desc">admin/src/router/index.js</span><div class="detail-content">    <span>import { createRouter, createWebHashHistory } from 'vue-router'
+
+    const routes = []
+
+    const router = createRouter({
+        history: createWebHashHistory(),
+        routes
+    })
+
+    export default router</span></div></div>
+浏览器:http://localhost:8080/
+
+<span class="h2 bg3 cf"> 构建登录页面 UI 结构 </span>
+<div class="block-detail">    <span class="detail-desc">src/router/index.js</span><div class="detail-content">        <span><span class="comment">/**
+         * 公开路由表
+         */</span>
+        const publicRoutes = [
+            {
+                path: '/login',
+                component: () =&gt; import('@/views/login/index')
+            }
+        ]
+
+        const router = createRouter({
+            routes: publicRoutes
+        })</span></div></div>
+
+    src/views/login
+<div class="block-detail">    <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div class="login-container"&gt;
+                &lt;el-form class="login-form"&gt;
+                    &lt;div class="title-container"&gt;
+                        &lt;h3 class="title"&gt;用户登录&lt;/h3&gt;
+                    &lt;/div&gt;
+
+                    &lt;el-form-item prop="username"&gt;
+                        &lt;span class="svg-container"&gt;
+                            &lt;svg-icon icon="user" /&gt;
+                        &lt;/span&gt;
+                        &lt;el-input placeholder="username" name="username" type="text" /&gt;
+                    &lt;/el-form-item&gt;
+
+                    &lt;el-form-item prop="password"&gt;
+                        &lt;span class="svg-container"&gt;
+                            &lt;svg-icon icon="password" /&gt;
+                        &lt;/span&gt;
+                        &lt;el-input placeholder="password" name="password" /&gt;
+                        &lt;span class="show-pwd"&gt;
+                            &lt;svg-icon icon="eye" /&gt;
+                        &lt;/span&gt;
+                    &lt;/el-form-item&gt;
+
+                    &lt;el-button type="primary" style="width: 100%; margin-bottom: 30px"&gt;登录&lt;/el-button&gt;
+                &lt;/el-form&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        <span class="comment">// 导入组件之后无需注册可直接使用</span>
+        import {} from '@element-plus/icons'
+        import {} from 'vue'
+        &lt;/script&gt;
+        
+        &lt;style lang="scss" scoped&gt;
+        $bg: #2d3a4b;
+        $dark_gray: #889aa4;
+        $light_gray: #eee;
+        $cursor: #fff;
+
+        .login-container {
+            min-height: 100%;
+            width: 100%;
+            background-color: $bg;
+            overflow: hidden;
+
+            .login-form {
+                position: relative;
+                width: 520px;
+                max-width: 100%;
+                padding: 160px 35px 0;
+                margin: 0 auto;
+                overflow: hidden;
+
+                ::v-deep .el-form-item {
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    background: rgba(0, 0, 0, 0.1);
+                    border-radius: 5px;
+                    color: #454545;
+                }
+
+                ::v-deep .el-input {
+                    display: inline-block;
+                    height: 47px;
+                    width: 85%;
+
+                    input {
+                        background: transparent;
+                        border: 0px;
+                        -webkit-appearance: none;
+                        border-radius: 0px;
+                        padding: 12px 5px 12px 15px;
+                        color: $light_gray;
+                        height: 47px;
+                        caret-color: $cursor;
+                    }
+                }
+            }
+
+            .svg-container {
+                padding: 6px 5px 6px 15px;
+                color: $dark_gray;
+                vertical-align: middle;
+                display: inline-block;
+            }
+
+            .title-container {
+                position: relative;
+
+                .title {
+                    font-size: 26px;
+                    color: $light_gray;
+                    margin: 0px auto 40px auto;
+                    text-align: center;
+                    font-weight: bold;
+                }
+            }
+
+            .show-pwd {
+                position: absolute;
+                right: 10px;
+                top: 7px;
+                font-size: 16px;
+                color: $dark_gray;
+                cursor: pointer;
+                user-select: none;
+            }
+        }
+        &lt;/style&gt;</span></div></div>
+    
+<div class="block-detail">    <span class="detail-desc">src/styles/index.scss</span><div class="detail-content">        <span>html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+        }
+
+        #app {
+            height: 100%;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
+
+        a:focus,
+        a:active {
+            outline: none;
+        }
+
+        a,
+        a:focus,
+        a:hover {
+            cursor: pointer;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        div:focus {
+            outline: none;
+        }
+
+        .clearfix {
+            &:after {
+                visibility: hidden;
+                display: block;
+                font-size: 0;
+                content: ' ';
+                clear: both;
+                height: 0;
+            }
+        }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/main.js</span><div class="detail-content">        <span>// 导入全局样式
+        import './styles/index.scss'</span></div></div>
+
+    导入 <a href="https://element-plus.gitee.io/zh-CN/" target="_blank">Element Plus</a>
+<div class="block-detail">        <span class="detail-desc">快捷方式</span><div class="detail-content">            <span>
+            <span class="block-command">admin</span> vue add element-plus
+                ? How do you want to import Element Plus?  <span class="comment">// 如何导入Element Plus</span>
+                    &gt; Fully import     <span class="comment">// 全局导入</span>
+                    Import on demand <span class="comment">// 按需导入</span>
+                ? Do you want to overwrite the SCSS variables of Element Plus? (y/N)     <span class="comment">// 生成覆盖变量的scss文件</span>
+                ? Choose the locale you want to load, the default locale is English (en) <span class="comment">// 选择想要加载的语言环境，默认语言环境是英语</span>
+                    en 
+                    &gt; zh-cn 
+                    af-za 
+                ✔  Successfully installed plugin: vue-cli-plugin-element-plus
+            src/App.vue
+                &lt;template&gt;
+                    &lt;router-view /&gt;
+                &lt;/template&gt;
+
+                &lt;script&gt;
+                export default {
+                    name: 'App'
+                }
+                &lt;/script&gt;
+
+                &lt;style&gt;&lt;/style&gt;
+            admin/src/main.js
+                import installElementPlus from './plugins/element'
+                installElementPlus(app)</span></div></div>
+<div class="block-detail">        <span class="detail-desc">方式二</span><div class="detail-content">            <span>
+            <span class="block-command">admin</span> npm i element-plus --save <span class="comment">// 1.0.2-beta.28</span>
+            admin/src/main.js
+                import ElementPlus from 'element-plus'
+                import 'element-plus/dist/index.css'
+                app.use(ElementPlus)
+            使用: &lt;el-button&gt;默认按钮&lt;/el-button&gt;</span></div></div>
+
+    SVG图标通用解决方案
+<div class="block-detail">        <span class="detail-desc">src/components/SvgIcon/index.vue</span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" :class="className" /&gt;
+                &lt;svg v-else class="svg-icon" :class="className" aria-hidden="true"&gt;
+                    &lt;use :xlink:href="iconName" /&gt;
+                &lt;/svg&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import { isExternal as external } from '@/utils/validate'
+            import { defineProps, computed } from 'vue'
+            const props = defineProps({
+                <span class="comment">// icon 图标</span>
+                icon: {
+                    type: String,
+                    required: true
+                },
+                <span class="comment">// 图标类名</span>
+                className: {
+                    type: String,
+                    default: ''
+                }
+            })
+
+            <span class="comment">/**
+            * 判断是否为外部图标
+            */</span>
+            const isExternal = computed(() =&gt; external(props.icon))
+            <span class="comment">/**
+            * 外部图标样式
+            */</span>
+            const styleExternalIcon = computed(() =&gt; ({
+                mask: `url(${props.icon}) no-repeat 50% 50%`,
+                '-webkit-mask': `url(${props.icon}) no-repeat 50% 50%`
+            }))
+            <span class="comment">/**
+            * 项目内图标
+            */</span>
+            const iconName = computed(() =&gt; `#icon-${props.icon}`)
+            &lt;/script&gt;
+
+            &lt;style scoped&gt;
+            .svg-icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: -0.15em;
+                fill: currentColor;
+                overflow: hidden;
+            }
+
+            .svg-external-icon {
+                background-color: currentColor;
+                mask-size: cover !important;
+                display: inline-block;
+            }
+            &lt;/style&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/utils/validate.js</span><div class="detail-content">            <span><span class="comment">/**
+             * 判断是否为外部资源
+             */</span>
+            export function isExternal(path) {
+                return /^(https?:|mailto:|tel:)/.test(path)
+            }</span></div></div>
+
+        使用：外部图标
+            import SvgIcon from '@/components/SvgIcon'
+            &lt;svg-icon icon="https://res.lgdsunday.club/user.svg"&gt;&lt;/svg-icon&gt;
+
+        使用：内部图标
+            src/icons/
+            src/icons/svg/ <span class="comment">// SVG资源</span>
+<div class="block-detail">            <span class="detail-desc">src/icons/index.js</span><div class="detail-content">                <span>import SvgIcon from '@/components/SvgIcon'
+                <span class="comment">// 1. 导入所有的SVG图标</span>
+                <span class="comment">// https://webpack.docschina.org/guides/dependency-management/#requirecontext</span>
+                <span class="comment">// 通过 require.context() 函数来创建自己的 context</span>
+                const svgRequire = require.context('./svg', false, /\.svg$/)
+                <span class="comment">// 此时返回一个 require 的函数，可以接受一个 request 的参数，用于 require 的导入。</span>
+                <span class="comment">// 该函数提供了三个属性，可以通过 require.keys() 获取到所有的 svg 图标</span>
+                <span class="comment">// 遍历图标，把图标作为 request 传入到 require 导入函数中，完成本地 svg 图标的导入</span>
+                svgRequire.keys().forEach(svgIcon =&gt; svgRequire(svgIcon))
+
+                <span class="comment">// 2. 完成SvgIcon全局注册</span>
+                export default app =&gt; {
+                    app.component('svg-icon', SvgIcon)
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/main.js</span><div class="detail-content">                <span>// 导入 svgIcon
+                import installIcons from '@/icons'
+                installIcons(app)</span></div></div>
+            <span class="block-command">admin</span> npm i --save-dev svg-sprite-loader@6.0.9
+<div class="block-detail">            <span class="detail-desc">admin/vue.config.js</span><div class="detail-content">                <span>const path = require('path')
+                function resolve(dir) {
+                    return path.join(__dirname, dir)
+                }
+                <span class="comment">// https://cli.vuejs.org/zh/guide/webpack.html#%E7%AE%80%E5%8D%95%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F</span>
+                module.exports = {
+                    chainWebpack(config) {
+                        <span class="comment">// 设置 svg-sprite-loader</span>
+                        config.module.rule('svg').exclude.add(resolve('src/icons')).end()
+                        config.module
+                            .rule('icons')
+                            .test(/\.svg$/)
+                            .include.add(resolve('src/icons'))
+                            .end()
+                            .use('svg-sprite-loader')
+                            .loader('svg-sprite-loader')
+                            .options({
+                                symbolId: 'icon-[name]'
+                            })
+                            .end()
+                    }
+                }</span></div></div>
+            重新启动项目
+
+    http://localhost:8080/#/Login
+
 
 </pre>
+▾↧↥
 
 ::: details 标准化大厂编程规范解决方案之ESLint + Git Hooks
 
@@ -115,6 +527,24 @@ coding-standard/src/components/HelloWorld.vue
             }
         }
         <span class="block-command">coding-standard</span> npm run serve
+
+<span class="h2 bg3 cf"> 多规范之默认规范 </span>
+<div class="block-detail">    <span class="detail-desc">coding-standard/.vscode/settings.json</span><div class="detail-content">    <span>{
+        "editor.formatOnSave": true,
+        "vetur.format.defaultFormatter.html": "prettier",
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[vue]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[scss]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+    }</span></div></div>
 </pre>
 :::
 
