@@ -56,6 +56,37 @@ function parseCustomBlock(block, path) {
     while (/^\x20*(([\w-\/]+)\&gt;)\s[^\r\n]+/m.exec(block) !== null) {
         block = block.replace(RegExp.$1, `<span class="block-command">${RegExp.$2}</span>`)
     }
+
+    /**
+     * 点缀集
+     * ▧content 1►text◄ 2►text◄▨
+     */
+    while (/(▧([^▨]+)▨)/.exec(block) !== null) {
+        let format = RegExp.$1, content = RegExp.$2
+        while (/((\d)►([^◄]+)◄)/.exec(content) !== null) {
+            content = content.replace(RegExp.$1, `<i class="i${RegExp.$2}">${RegExp.$3}</i>`)
+        }
+        /(❶([^❶]+)❶)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order1">${RegExp.$2}</i>`);
+        /(❷([^❷]+)❷)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order2">${RegExp.$2}</i>`);
+        /(❸([^❸]+)❸)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order3">${RegExp.$2}</i>`);
+        /(❹([^❹]+)❹)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order4">${RegExp.$2}</i>`);
+        /(❺([^❺]+)❺)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order5">${RegExp.$2}</i>`);
+        /(❻([^❻]+)❻)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order6">${RegExp.$2}</i>`);
+        /(❼([^❼]+)❼)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order7">${RegExp.$2}</i>`);
+        /(❽([^❽]+)❽)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order8">${RegExp.$2}</i>`);
+        /(❾([^❾]+)❾)/.exec(content)
+        content = content.replace(RegExp.$1, `<i class="order9">${RegExp.$2}</i>`);
+
+        block = block.replace(format, `<span class="format-block">${content}</span>`)
+    }    
     
     /**
      * Detail

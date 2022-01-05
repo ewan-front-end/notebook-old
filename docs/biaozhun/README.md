@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.04 21:00</span>
+            <span>M 2022.01.05 20:46</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -439,59 +439,305 @@ pageClass: theme-item
 
 <span class="h2 bg3 cf"> 登陆逻辑 </span>
     表单验证
-<div class="block-detail">    <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">        <span>&lt;template&gt;
-            &lt;div class="login-container"&gt;
-                &lt;el-form class="login-form" :model="loginForm" :rules="loginRules"&gt;
-                    ...
-                    &lt;el-form-item prop="username"&gt;
-                        ...
-                        &lt;el-input ... v-model="loginForm.username" /&gt;
-                    &lt;/el-form-item&gt;
-
-                    &lt;el-form-item prop="password"&gt;
-                        ...
-                        &lt;el-input ... v-model="loginForm.password" /&gt;
-                        ...
-                    &lt;/el-form-item&gt;
-                    ...
-                &lt;/el-form&gt;
-            &lt;/div&gt;
-        &lt;/template&gt;
-        &lt;script setup&gt;
-        import { ref } from 'vue'
-        import { validatePassword } from './rules'
-        <span class="comment">// 数据源</span>
-        const loginForm = ref({
-            username: 'super-admin',
-            password: '123456'
-        })
-        <span class="comment">// 验证规则</span>
-        const loginRules = ref({
-            username: [
-                {
-                    required: true,
-                    trigger: 'blur',
-                    message: '用户名为必填项'
+<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
+                &lt;el-form-item prop="username"&gt;
+                    &lt;el-input v-model="<i class="i1">loginForm</i>.username" /&gt;
+                &lt;/el-form-item&gt;
+                &lt;el-form-item prop="password"&gt;
+                    &lt;el-input v-model="<i class="i1">loginForm</i>.password" /&gt;
+                &lt;/el-form-item&gt;
+            &lt;/el-form&gt;
+                
+            &lt;script setup&gt;
+            import { ref } from 'vue'
+            import { <i class="i3">validatePassword</i> } from './rules'
+            <span class="comment">// 数据源</span>
+            const <i class="i1">loginForm</i> = ref({
+                username: 'super-admin',
+                password: '123456'
+            })
+            <span class="comment">// 验证规则</span>
+            const <i class="i2">loginRules</i> = ref({
+                username: [{required: true, trigger: 'blur', message: '用户名为必填项'}],
+                password: [{required: true, trigger: 'blur', validator: <i class="i3">validatePassword</i>()}]
+            })
+            &lt;/script&gt;</span></span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/views/login/rules.js</span><div class="detail-content">            <span><span class="format-block">export const <i class="i3">validatePassword</i> = () =&gt; {
+                return (rule, value, callback) =&gt; {
+                    if (value.length &lt; 6) {
+                        callback(new Error('密码不能少于6位'))
+                    } else {
+                        callback()
+                    }
                 }
-            ],
-            password: [
-                {
-                    required: true,
-                    trigger: 'blur',
-                    validator: validatePassword()
-                }
-            ]
-        })
-        &lt;/script&gt;</span></div></div>
-<div class="block-detail">    <span class="detail-desc">src/views/login/rules.js</span><div class="detail-content">        <span>export const validatePassword = () =&gt; {
-            return (rule, value, callback) =&gt; {
-                if (value.length &lt; 6) {
-                    callback(new Error('密码不能少于6位'))
-                } else {
-                    callback()
-                }
+            }</span></span></div></div>
+    密码框状态通用处理
+        <span class="format-block">&lt;el-input placeholder="password" name="password" <i class="i1">:type="passwordType"</i> v-model="loginForm.password" /&gt;
+        &lt;svg-icon <i class="i2">:icon="passwordType === 'password' ? 'eye' : 'eye-open'"</i> <i class="i3">@click="onChangePwdType"</i> /&gt;
+        
+        <span class="comment">// 处理密码框文本显示状态</span>
+        const passwordType = ref('password')
+        const onChangePwdType = () =&gt; {
+            if (passwordType.value === 'password') {
+                passwordType.value = 'text'
+            } else {
+                passwordType.value = 'password'
             }
-        }</span></div></div>
+        }</span>
+    通用后台登录方案        
+        1.封装 axios 模块
+            <span class="block-command">admin</span> npm i axios --save <span class="comment">// 0.24.0</span>
+<div class="block-detail">            <span class="detail-desc">admin/.env.development</span><div class="detail-content">                <span><span class="format-block">&#35; 标志
+                ENV = 'development'
+
+                &#35; base api
+                <i class="i1">VUE_APP_BASE_API</i> = '/api'</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/.env.production</span><div class="detail-content">                <span><span class="format-block">&#35; 标志
+                ENV = 'production'
+
+                &#35; base api
+                <i class="i1">VUE_APP_BASE_API</i> = '/prod-api'</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/src/utils/request.js</span><div class="detail-content">                <span><span class="format-block">import axios from 'axios'
+
+                const service = axios.create({
+                    baseURL: process.env.<i class="i1">VUE_APP_BASE_API</i>,
+                    timeout: 5000
+                })
+
+                export default service</span></span></div></div>
+        2.封装 接口请求 模块
+<div class="block-detail">            <span class="detail-desc">admin/src/api/sys.js</span><div class="detail-content">                <span><span class="format-block">import request from '@/utils/request'
+
+                <span class="comment">/**
+                * 登录
+                */</span>
+                export const <i class="i2">login</i> = data =&gt; {
+                    return request({
+                        url: '/sys/login',
+                        method: 'POST',
+                        data
+                    })
+                }</span></span></div></div>
+        3.封装登录请求动作
+            <span class="block-command">admin</span> npm i md5 --save
+<div class="block-detail">            <span class="detail-desc">admin/src/store/modules/user.js</span><div class="detail-content">                <span><span class="format-block">import { <i class="i2">login</i> } from '@/api/sys'
+                import md5 from 'md5'
+                <i class="i3">export default</i> {
+                    namespaced: true,
+                    state: () =&gt; ({}),
+                    mutations: {},
+                    actions: {
+                        login(context, userInfo) {
+                            const { username, password } = userInfo
+                            return new Promise((resolve, reject) =&gt; {
+                                <i class="i2">login</i>({
+                                    username,
+                                    password: md5(password)
+                                })
+                                    .then(data =&gt; {
+                                        resolve()
+                                    })
+                                    .catch(err =&gt; {
+                                        reject(err)
+                                    })
+                            })
+                        }
+                    }
+                }</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/src/store/index.js</span><div class="detail-content">                <span><span class="format-block">import { createStore } from 'vuex'
+                import <i class="i3">user</i> from './modules/user.js'
+                export default createStore({
+                    modules: {
+                        <i class="i3">user</i>
+                    }
+                })</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/src/views/login/index.vue</span><div class="detail-content">                <span><span class="format-block">&lt;el-form <i class="i6">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
+                    &lt;el-button <i class="i5">:loading="loading"</i> <i class="i4">@click="handleLogin"</i>&gt;登录&lt;/el-button&gt;
+                &lt;/el-form&gt;
+                
+                &lt;script setup&gt;
+                import { ref } from 'vue'
+                import { validatePassword } from './rules'
+                import { useStore } from 'vuex'
+
+                <span class="comment">// 登录动作处理</span>
+                const <i class="i5">loading</i> = ref(false)
+                const <i class="i6">loginFromRef</i> = ref(null)
+                const store = useStore()
+                const <i class="i4">handleLogin</i> = () =&gt; {
+                    <i class="i6">loginFromRef</i>.value.validate(valid =&gt; {
+                        if (!valid) return
+
+                        <i class="i5">loading</i>.value = true
+                        store
+                        .dispatch('user/login', loginForm.value)
+                        .then(() =&gt; {
+                            <i class="i5">loading</i>.value = false
+                            <span class="comment">// TODO: 登录后操作</span>
+                        })
+                        .catch(err =&gt; {
+                            console.log(err)
+                            <i class="i5">loading</i>.value = false
+                        })
+                    })
+                }
+                &lt;/script&gt;</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/vue.config.js</span><div class="detail-content">                <span><span class="format-block">module.exports = {
+                    devServer: {
+                        <span class="comment">// 配置反向代理</span>
+                        proxy: {
+                            <span class="comment">// 当地址中有/api的时候会触发代理机制</span>
+                            '/api': {
+                                <span class="comment">// 要代理的服务器地址  这里不用写 api</span>
+                                target: 'https://api.imooc-admin.lgdsunday.club/',
+                                changeOrigin: true <span class="comment">// 是否跨域</span>
+                            }
+                        }
+                    }
+                }</span></span></div></div>
+        4.保存服务端返回的 token
+<div class="block-detail">            <span class="detail-desc">admin/src/utils/storage.js</span><div class="detail-content">                <span><span class="format-block"><span class="comment">/**
+                 * 存储数据
+                 */</span>
+                export const setItem = (key, value) =&gt; {
+                    <span class="comment">// 将数组、对象类型的数据转化为 JSON 字符串进行存储</span>
+                    if (typeof value === 'object') {
+                        value = JSON.stringify(value)
+                    }
+                    window.localStorage.setItem(key, value)
+                }
+
+                <span class="comment">/**
+                 * 获取数据
+                 */</span>
+                export const getItem = key =&gt; {
+                    const data = window.localStorage.getItem(key)
+                    try {
+                        return JSON.parse(data)
+                    } catch (err) {
+                        return data
+                    }
+                }
+
+                <span class="comment">/**
+                 * 删除数据
+                 */</span>
+                export const removeItem = key =&gt; {
+                    window.localStorage.removeItem(key)
+                }
+
+                <span class="comment">/**
+                 * 删除所有数据
+                 */</span>
+                export const removeAllItem = key =&gt; {
+                    window.localStorage.clear()
+                }</span></span></div></div>
+            admin/src/constant/index.js
+                export const TOKEN = 'token'
+<div class="block-detail">            <span class="detail-desc">admin/src/store/modules/user.js</span><div class="detail-content">                <span><span class="format-block">import { login } from '@/api/sys'
+                import md5 from 'md5'
+                <i class="order4">import { setItem, getItem } from '@/utils/storage'
+                import { TOKEN } from '@/constant'</i>
+
+                export default {
+                    namespaced: true,
+                    state: () =&gt; ({
+                        <i class="order3">token: getItem(TOKEN) || ''</i>
+                    }),
+                    mutations: {
+                        <i class="order2">setToken(state, token) {
+                            state.token = token
+                            setItem(TOKEN, token)
+                        }</i>
+                    },
+                    actions: {
+                        login(context, userInfo) {
+                            const { username, password } = userInfo
+                            return new Promise((resolve, reject) =&gt; {
+                                login({
+                                    username,
+                                    password: md5(password)
+                                })
+                                    .then(data =&gt; {
+                                        <i class="order1">this.commit('user/setToken', data.data.data.token)</i>
+                                        resolve()
+                                    })
+                                    .catch(err =&gt; {
+                                        reject(err)
+                                    })
+                            })
+                        }
+                    }
+                }</span></span></div></div>
+            响应数据的统一处理
+<div class="block-detail">            <span class="detail-desc">admin/src/utils/request.js</span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
+
+                <span class="comment">// 响应拦截器</span>
+                service.interceptors.response.use(
+                    response =&gt; {
+                        const { success, message, data } = response.data
+                        <span class="comment">//   要根据success的成功与否决定下面的操作</span>
+                        if (success) {
+                            return data
+                        } else {
+                            <span class="comment">// 业务错误</span>
+                            ElMessage.error(message) <span class="comment">// 提示错误消息</span>
+                            return Promise.reject(new Error(message))
+                        }
+                    },
+                    error =&gt; {
+                        <span class="comment">// TODO: 将来处理 token 超时问题</span>
+                        ElMessage.error(error.message) <span class="comment">// 提示错误信息</span>
+                        return Promise.reject(error)
+                    }
+                )</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/src/store/modules/user.js</span><div class="detail-content">                <span><span class="format-block"><i class="order1">this.commit('user/setToken', data.token)</i></span></span></div></div>
+        5.登录鉴权
+            admin/src/layout/index.vue
+<div class="block-detail">            <span class="detail-desc">admin/src/router/index.js</span><div class="detail-content">                <span>{
+                    path: '/',
+                    component: () =&gt; import('@/layout/index')
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/src/permission.js</span><div class="detail-content">                <span><span class="format-block">import router from './router'
+                import store from './store'
+
+                <span class="comment">// 白名单</span>
+                const whiteList = ['/login']
+                <span class="comment">/**
+                * 路由前置守卫
+                */</span>
+                router.beforeEach(async (to, from, next) =&gt; {
+                    <span class="comment">// 存在 token ，进入主页</span>
+                    <span class="comment">// if (store.state.user.token) {</span>
+                    <span class="comment">// 快捷访问</span>
+                    if (store.getters.token) {
+                        if (to.path === '/login') {
+                            next('/')
+                        } else {
+                            next()
+                        }
+                    } else {
+                        <span class="comment">// 没有token的情况下，可以进入白名单</span>
+                        if (whiteList.indexOf(to.path) &gt; -1) {
+                            next()
+                        } else {
+                            next('/login')
+                        }
+                    }
+                })</span></span></div></div>
+            admin/src/store/getters.js
+                const getters = {
+                    token: state =&gt; state.user.token
+                }
+                export default getters
+            admin/src/store/index.js
+                import getters from './getters'
+                export default createStore({
+                    getters
+                })
+            admin/src/main.js
+            <span class="comment">// 导入权限控制模块</span>
+            import './permission'
 
 
 

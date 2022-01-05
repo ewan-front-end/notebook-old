@@ -436,61 +436,321 @@ admin/src/router/index.js ▾
 
 [##] 登陆逻辑
     表单验证
-    src/views/login/index.vue ▾
-        ↧<template>
-            <div class="login-container">
-                <el-form class="login-form" :model="loginForm" :rules="loginRules">
-                    ...
-                    <el-form-item prop="username">
-                        ...
-                        <el-input ... v-model="loginForm.username" />
-                    </el-form-item>
-
-                    <el-form-item prop="password">
-                        ...
-                        <el-input ... v-model="loginForm.password" />
-                        ...
-                    </el-form-item>
-                    ...
-                </el-form>
-            </div>
-        </template>
-        <script setup>
-        import { ref } from 'vue'
-        import { validatePassword } from './rules'
-        // 数据源
-        const loginForm = ref({
-            username: 'super-admin',
-            password: '123456'
-        })
-        // 验证规则
-        const loginRules = ref({
-            username: [
-                {
-                    required: true,
-                    trigger: 'blur',
-                    message: '用户名为必填项'
+        src/views/login/index.vue ▾
+            ↧▧<el-form :model="1►loginForm◄" :rules="2►loginRules◄">
+                <el-form-item prop="username">
+                    <el-input v-model="1►loginForm◄.username" />
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input v-model="1►loginForm◄.password" />
+                </el-form-item>
+            </el-form>
+                
+            <script setup>
+            import { ref } from 'vue'
+            import { 3►validatePassword◄ } from './rules'
+            // 数据源
+            const 1►loginForm◄ = ref({
+                username: 'super-admin',
+                password: '123456'
+            })
+            // 验证规则
+            const 2►loginRules◄ = ref({
+                username: [{required: true, trigger: 'blur', message: '用户名为必填项'}],
+                password: [{required: true, trigger: 'blur', validator: 3►validatePassword◄()}]
+            })
+            </script>▨↥
+        src/views/login/rules.js ▾
+            ↧▧export const 3►validatePassword◄ = () => {
+                return (rule, value, callback) => {
+                    if (value.length < 6) {
+                        callback(new Error('密码不能少于6位'))
+                    } else {
+                        callback()
+                    }
                 }
-            ],
-            password: [
-                {
-                    required: true,
-                    trigger: 'blur',
-                    validator: validatePassword()
-                }
-            ]
-        })
-        </script>↥
-    src/views/login/rules.js ▾
-        ↧export const validatePassword = () => {
-            return (rule, value, callback) => {
-                if (value.length < 6) {
-                    callback(new Error('密码不能少于6位'))
-                } else {
-                    callback()
-                }
+            }▨↥
+    密码框状态通用处理
+        ▧<el-input placeholder="password" name="password" 1►:type="passwordType"◄ v-model="loginForm.password" />
+        <svg-icon 2►:icon="passwordType === 'password' ? 'eye' : 'eye-open'"◄ 3►@click="onChangePwdType"◄ />
+        
+        // 处理密码框文本显示状态
+        const passwordType = ref('password')
+        const onChangePwdType = () => {
+            if (passwordType.value === 'password') {
+                passwordType.value = 'text'
+            } else {
+                passwordType.value = 'password'
             }
-        }↥
+        }▨
+    通用后台登录方案        
+        1.封装 axios 模块
+            admin> npm i axios --save // 0.24.0
+            admin/.env.development ▾
+                ↧▧&#35; 标志
+                ENV = 'development'
+
+                &#35; base api
+                1►VUE_APP_BASE_API◄ = '/api'▨↥
+            admin/.env.production ▾
+                ↧▧&#35; 标志
+                ENV = 'production'
+
+                &#35; base api
+                1►VUE_APP_BASE_API◄ = '/prod-api'▨↥
+            admin/src/utils/request.js ▾
+                ↧▧import axios from 'axios'
+
+                const service = axios.create({
+                    baseURL: process.env.1►VUE_APP_BASE_API◄,
+                    timeout: 5000
+                })
+
+                export default service▨↥
+        2.封装 接口请求 模块
+            admin/src/api/sys.js ▾
+                ↧▧import request from '@/utils/request'
+
+                /**
+                * 登录
+                */
+                export const 2►login◄ = data => {
+                    return request({
+                        url: '/sys/login',
+                        method: 'POST',
+                        data
+                    })
+                }▨↥
+        3.封装登录请求动作
+            admin> npm i md5 --save
+            admin/src/store/modules/user.js ▾
+                ↧▧import { 2►login◄ } from '@/api/sys'
+                import md5 from 'md5'
+                3►export default◄ {
+                    namespaced: true,
+                    state: () => ({}),
+                    mutations: {},
+                    actions: {
+                        login(context, userInfo) {
+                            const { username, password } = userInfo
+                            return new Promise((resolve, reject) => {
+                                2►login◄({
+                                    username,
+                                    password: md5(password)
+                                })
+                                    .then(data => {
+                                        resolve()
+                                    })
+                                    .catch(err => {
+                                        reject(err)
+                                    })
+                            })
+                        }
+                    }
+                }▨↥
+            admin/src/store/index.js ▾
+                ↧▧import { createStore } from 'vuex'
+                import 3►user◄ from './modules/user.js'
+                export default createStore({
+                    modules: {
+                        3►user◄
+                    }
+                })▨↥
+            admin/src/views/login/index.vue ▾
+                ↧▧<el-form 6►ref="loginFromRef"◄ :model="loginForm" :rules="loginRules">
+                    <el-button 5►:loading="loading"◄ 4►@click="handleLogin"◄>登录</el-button>
+                </el-form>
+                
+                <script setup>
+                import { ref } from 'vue'
+                import { validatePassword } from './rules'
+                import { useStore } from 'vuex'
+
+                // 登录动作处理
+                const 5►loading◄ = ref(false)
+                const 6►loginFromRef◄ = ref(null)
+                const store = useStore()
+                const 4►handleLogin◄ = () => {
+                    6►loginFromRef◄.value.validate(valid => {
+                        if (!valid) return
+
+                        5►loading◄.value = true
+                        store
+                        .dispatch('user/login', loginForm.value)
+                        .then(() => {
+                            5►loading◄.value = false
+                            // TODO: 登录后操作
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            5►loading◄.value = false
+                        })
+                    })
+                }
+                </script>▨↥
+            admin/vue.config.js ▾
+                ↧▧module.exports = {
+                    devServer: {
+                        // 配置反向代理
+                        proxy: {
+                            // 当地址中有/api的时候会触发代理机制
+                            '/api': {
+                                // 要代理的服务器地址  这里不用写 api
+                                target: 'https://api.imooc-admin.lgdsunday.club/',
+                                changeOrigin: true // 是否跨域
+                            }
+                        }
+                    }
+                }▨↥
+        4.保存服务端返回的 token
+            admin/src/utils/storage.js ▾
+                ↧▧/**
+                 * 存储数据
+                 */
+                export const setItem = (key, value) => {
+                    // 将数组、对象类型的数据转化为 JSON 字符串进行存储
+                    if (typeof value === 'object') {
+                        value = JSON.stringify(value)
+                    }
+                    window.localStorage.setItem(key, value)
+                }
+
+                /**
+                 * 获取数据
+                 */
+                export const getItem = key => {
+                    const data = window.localStorage.getItem(key)
+                    try {
+                        return JSON.parse(data)
+                    } catch (err) {
+                        return data
+                    }
+                }
+
+                /**
+                 * 删除数据
+                 */
+                export const removeItem = key => {
+                    window.localStorage.removeItem(key)
+                }
+
+                /**
+                 * 删除所有数据
+                 */
+                export const removeAllItem = key => {
+                    window.localStorage.clear()
+                }▨↥
+            admin/src/constant/index.js
+                export const TOKEN = 'token'
+            admin/src/store/modules/user.js ▾
+                ↧▧import { login } from '@/api/sys'
+                import md5 from 'md5'
+                ❹import { setItem, getItem } from '@/utils/storage'
+                import { TOKEN } from '@/constant'❹
+
+                export default {
+                    namespaced: true,
+                    state: () => ({
+                        ❸token: getItem(TOKEN) || ''❸
+                    }),
+                    mutations: {
+                        ❷setToken(state, token) {
+                            state.token = token
+                            setItem(TOKEN, token)
+                        }❷
+                    },
+                    actions: {
+                        login(context, userInfo) {
+                            const { username, password } = userInfo
+                            return new Promise((resolve, reject) => {
+                                login({
+                                    username,
+                                    password: md5(password)
+                                })
+                                    .then(data => {
+                                        ❶this.commit('user/setToken', data.data.data.token)❶
+                                        resolve()
+                                    })
+                                    .catch(err => {
+                                        reject(err)
+                                    })
+                            })
+                        }
+                    }
+                }▨↥
+            响应数据的统一处理
+            admin/src/utils/request.js ▾
+                ↧▧import { ElMessage } from 'element-plus'
+
+                // 响应拦截器
+                service.interceptors.response.use(
+                    response => {
+                        const { success, message, data } = response.data
+                        //   要根据success的成功与否决定下面的操作
+                        if (success) {
+                            return data
+                        } else {
+                            // 业务错误
+                            ElMessage.error(message) // 提示错误消息
+                            return Promise.reject(new Error(message))
+                        }
+                    },
+                    error => {
+                        // TODO: 将来处理 token 超时问题
+                        ElMessage.error(error.message) // 提示错误信息
+                        return Promise.reject(error)
+                    }
+                )▨↥
+            admin/src/store/modules/user.js ▾
+                ↧▧❶this.commit('user/setToken', data.token)❶▨↥
+        5.登录鉴权
+            admin/src/layout/index.vue
+            admin/src/router/index.js ▾
+                ↧{
+                    path: '/',
+                    component: () => import('@/layout/index')
+                }↥
+            admin/src/permission.js ▾
+                ↧▧import router from './router'
+                import store from './store'
+
+                // 白名单
+                const whiteList = ['/login']
+                /**
+                * 路由前置守卫
+                */
+                router.beforeEach(async (to, from, next) => {
+                    // 存在 token ，进入主页
+                    // if (store.state.user.token) {
+                    // 快捷访问
+                    if (store.getters.token) {
+                        if (to.path === '/login') {
+                            next('/')
+                        } else {
+                            next()
+                        }
+                    } else {
+                        // 没有token的情况下，可以进入白名单
+                        if (whiteList.indexOf(to.path) > -1) {
+                            next()
+                        } else {
+                            next('/login')
+                        }
+                    }
+                })▨↥
+            admin/src/store/getters.js
+                const getters = {
+                    token: state => state.user.token
+                }
+                export default getters
+            admin/src/store/index.js
+                import getters from './getters'
+                export default createStore({
+                    getters
+                })
+            admin/src/main.js
+            // 导入权限控制模块
+            import './permission'
 
 
 
