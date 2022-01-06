@@ -105,7 +105,8 @@ function parseCustomBlock(block, path) {
     const REG_DETAIL_STR = regexpPresetParse([        
         {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`\\s*(.+)?`}, `[\\r\\n]`, {CONTENT_INDENT: `\\x20*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
     ])
-    const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
+    // const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
+    const REG_DETAIL = /(?<DETAIL_FORMAT>((?<DETAIL_INDENT>\x20*)(?<TITLE>.+)\s▾(?<STYLE>(\{[\w\s-;:'"#]+\})?)(?<COMMENT>\s*(.+)?)[\r\n](?<CONTENT_INDENT>\x20*)↧(?<CONTENT>[^↥]+)↥))/
     let detailMatch
     while ((detailMatch = REG_DETAIL.exec(block)) !== null) {
         let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, COMMENT, CONTENT_INDENT, CONTENT} =  detailMatch.groups, descStyle = 'class="detail-desc"'

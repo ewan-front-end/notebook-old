@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.05 20:46</span>
+            <span>M 2022.01.06 17:01</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -472,18 +472,18 @@ pageClass: theme-item
                 }
             }</span></span></div></div>
     密码框状态通用处理
-        <span class="format-block">&lt;el-input placeholder="password" name="password" <i class="i1">:type="passwordType"</i> v-model="loginForm.password" /&gt;
+<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">        <span><span class="format-block">&lt;el-input placeholder="password" name="password" <i class="i2">:type="passwordType"</i> v-model="loginForm.password" /&gt;
         &lt;svg-icon <i class="i2">:icon="passwordType === 'password' ? 'eye' : 'eye-open'"</i> <i class="i3">@click="onChangePwdType"</i> /&gt;
         
         <span class="comment">// 处理密码框文本显示状态</span>
-        const passwordType = ref('password')
-        const onChangePwdType = () =&gt; {
+        const <i class="i2">passwordType</i> = ref('password')
+        const <i class="i3">onChangePwdType</i> = () =&gt; {
             if (passwordType.value === 'password') {
                 passwordType.value = 'text'
             } else {
                 passwordType.value = 'password'
             }
-        }</span>
+        }</span></span></div></div>
     通用后台登录方案        
         1.封装 axios 模块
             <span class="block-command">admin</span> npm i axios --save <span class="comment">// 0.24.0</span>
@@ -673,6 +673,7 @@ pageClass: theme-item
 <div class="block-detail">            <span class="detail-desc">admin/src/utils/request.js</span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
 
                 <span class="comment">// 响应拦截器</span>
+
                 service.interceptors.response.use(
                     response =&gt; {
                         const { success, message, data } = response.data
@@ -725,19 +726,17 @@ pageClass: theme-item
                         }
                     }
                 })</span></span></div></div>
-            admin/src/store/getters.js
-                const getters = {
+            admin/src/store/getters.js ▾ 快捷访问
+                ↧const getters = {
                     token: state =&gt; state.user.token
                 }
-                export default getters
-            admin/src/store/index.js
-                import getters from './getters'
+                export default getters↥
+<div class="block-detail">            <span class="detail-desc">admin/src/store/index.js</span><div class="detail-content">                <span>import getters from './getters'
                 export default createStore({
                     getters
-                })
-            admin/src/main.js
-            <span class="comment">// 导入权限控制模块</span>
-            import './permission'
+                })</span></div></div>
+<div class="block-detail">            <span class="detail-desc">admin/src/main.js</span><div class="detail-content">                <span>// 导入权限控制模块
+                import './permission'</span></div></div>
 
 
 

@@ -471,18 +471,19 @@ admin/src/router/index.js ▾
                 }
             }▨↥
     密码框状态通用处理
-        ▧<el-input placeholder="password" name="password" 1►:type="passwordType"◄ v-model="loginForm.password" />
+        src/views/login/index.vue ▾
+        ↧▧<el-input placeholder="password" name="password" 2►:type="passwordType"◄ v-model="loginForm.password" />
         <svg-icon 2►:icon="passwordType === 'password' ? 'eye' : 'eye-open'"◄ 3►@click="onChangePwdType"◄ />
         
         // 处理密码框文本显示状态
-        const passwordType = ref('password')
-        const onChangePwdType = () => {
+        const 2►passwordType◄ = ref('password')
+        const 3►onChangePwdType◄ = () => {
             if (passwordType.value === 'password') {
                 passwordType.value = 'text'
             } else {
                 passwordType.value = 'password'
             }
-        }▨
+        }▨↥
     通用后台登录方案        
         1.封装 axios 模块
             admin> npm i axios --save // 0.24.0
@@ -683,6 +684,7 @@ admin/src/router/index.js ▾
                 ↧▧import { ElMessage } from 'element-plus'
 
                 // 响应拦截器
+
                 service.interceptors.response.use(
                     response => {
                         const { success, message, data } = response.data
@@ -738,19 +740,19 @@ admin/src/router/index.js ▾
                         }
                     }
                 })▨↥
-            admin/src/store/getters.js
-                const getters = {
+            admin/src/store/getters.js ▾ 快捷访问
+                ↧const getters = {
                     token: state => state.user.token
                 }
-                export default getters
-            admin/src/store/index.js
-                import getters from './getters'
+                export default getters↥
+            admin/src/store/index.js ▾
+                ↧import getters from './getters'
                 export default createStore({
                     getters
-                })
-            admin/src/main.js
-            // 导入权限控制模块
-            import './permission'
+                })↥
+            admin/src/main.js ▾
+                ↧// 导入权限控制模块
+                import './permission'↥
 
 
 
