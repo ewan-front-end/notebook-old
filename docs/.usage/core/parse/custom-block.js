@@ -103,20 +103,19 @@ function parseCustomBlock(block, path) {
         }
      */
     const REG_DETAIL_STR = regexpPresetParse([        
-        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`\\s*(.+)?`}, `[\\r\\n]`, {CONTENT_INDENT: `\\x20*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
+        {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`[^\\n]*`}, `[\\r\\n]`, {CONTENT_INDENT: `\\x20*`}, `↧`, {CONTENT: `[^↥]+`}, `↥`]}
     ])
-    // const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
-    const REG_DETAIL = /(?<DETAIL_FORMAT>((?<DETAIL_INDENT>\x20*)(?<TITLE>.+)\s▾(?<STYLE>(\{[\w\s-;:'"#]+\})?)(?<COMMENT>\s*(.+)?)[\r\n](?<CONTENT_INDENT>\x20*)↧(?<CONTENT>[^↥]+)↥))/
+    const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
+    // const REG_DETAIL = /(?<DETAIL_FORMAT>((?<DETAIL_INDENT>\x20*)(?<TITLE>.+)\s▾(?<STYLE>(\{[\w\s-;:'"#]+\})?)(?<COMMENT>\s*(.+)?)[\r\n](?<CONTENT_INDENT>\x20*)↧(?<CONTENT>[^↥]+)↥))/
     let detailMatch
     while ((detailMatch = REG_DETAIL.exec(block)) !== null) {
         let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, COMMENT, CONTENT_INDENT, CONTENT} =  detailMatch.groups, descStyle = 'class="detail-desc"'
         if (STYLE) descStyle += ` style="${STYLE.replace('{', '').replace('}', '')}"`
-        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span ${descStyle}>${TITLE}</span>${COMMENT}<div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
+        block = block.replace(DETAIL_FORMAT, `<div class="block-detail">${DETAIL_INDENT}<span ${descStyle}>${TITLE}</span><span class="comment">${COMMENT}</span><div class="detail-content">${CONTENT_INDENT}<span>${CONTENT}</span></div></div>`)
     }
 
     /**
      * 标题
-     * # TITLE H1 12
      * ## TITLE H2 14
      * ### TITLE H3 16
      * #### TITLE H4 18
@@ -129,7 +128,7 @@ function parseCustomBlock(block, path) {
         `\\x20*`,                   // 0任意空格
         {FORMAT: [
             {INVERT: `\\[?`},       // 反相开始 [
-            {LEVEL: `#{1,6}`},      // 标题字号 #-###### 
+            {LEVEL: `#{2,6}`},      // 标题字号 #-###### 
             `\\]?`,                 // 反相结束 ]
             {STYLE: REG_STYLE_STR}, // 区配样式 {color: #fff} 
             {CLASS: REG_CLASS_STR}, // 匹配类名 (bd)

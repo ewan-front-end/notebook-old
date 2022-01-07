@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.06 17:01</span>
+            <span>M 2022.01.07 20:55</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -36,7 +36,7 @@ pageClass: theme-item
       Less
       Stylus
 
-<div class="block-detail"><span class="detail-desc">admin/.vscode/settings.json</span><div class="detail-content"><span>{
+<div class="block-detail"><span class="detail-desc">.vscode/settings.json</span><span class="comment"></span><div class="detail-content"><span>{
     "editor.formatOnSave": true,
     "vetur.format.defaultFormatter.html": "prettier",
     "[javascript]": {
@@ -52,7 +52,7 @@ pageClass: theme-item
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }</span></div></div>
-<div class="block-detail"><span class="detail-desc">admin/.prettierrc.js</span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">.prettierrc.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
         semi: false,                         <span class="comment">// 不尾随分号</span>
         trailingComma: 'none',               <span class="comment">// 不尾随逗号</span>
         singleQuote: true,                   <span class="comment">// 使用单引号</span>
@@ -68,13 +68,13 @@ pageClass: theme-item
         HTMLWhitespaceSensitivity: 'ignore',
         printWidth: 2000,                    <span class="comment">// 最大长度200个字符</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">admin/.eslintrc.js</span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">.eslintrc.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
         rules: {
             indent: 'off',
             "space-before-function-paren": "off"
         }
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">如果项目中有.editorconfig 该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符</span><div class="detail-content">    <span>[*.{js,jsx,ts,tsx,vue}]
+<div class="block-detail"><span class="detail-desc">如果项目中有.editorconfig 该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符</span><span class="comment"></span><div class="detail-content">    <span>[*.{js,jsx,ts,tsx,vue}]
     indent_style = space
     indent_size = 2
     trim_trailing_whitespace = true
@@ -82,7 +82,7 @@ pageClass: theme-item
 
 <span style="color:#f66">清空 src/views/</span>
 <span style="color:#f66">清空 src/components/</span>
-<div class="block-detail"><span class="detail-desc">admin/src/main.js</span><div class="detail-content">    <span>import { createApp } from 'vue'
+<div class="block-detail"><span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">    <span>import { createApp } from 'vue'
     import router from './router'
     import store from './store'
     import App from './App.vue'
@@ -91,12 +91,12 @@ pageClass: theme-item
     app.use(store)
     app.use(router)
     app.mount('#app')</span></div></div>
-<div class="block-detail"><span class="detail-desc">admin/src/App.vue</span><div class="detail-content">    <span>&lt;template&gt;
+<div class="block-detail"><span class="detail-desc">src/App.vue</span><span class="comment"></span><div class="detail-content">    <span>&lt;template&gt;
         &lt;router-view /&gt;
     &lt;/template&gt;
 
     &lt;style lang="scss"&gt;&lt;/style&gt;</span></div></div>
-<div class="block-detail"><span class="detail-desc">admin/src/router/index.js</span><div class="detail-content">    <span>import { createRouter, createWebHashHistory } from 'vue-router'
+<div class="block-detail"><span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">    <span>import { createRouter, createWebHashHistory } from 'vue-router'
 
     const routes = []
 
@@ -109,7 +109,7 @@ pageClass: theme-item
 浏览器:http://localhost:8080/
 
 <span class="h2 bg3 cf"> 构建登录页面 UI 结构 </span>
-<div class="block-detail">    <span class="detail-desc">src/router/index.js</span><div class="detail-content">        <span><span class="comment">/**
+<div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
          * 公开路由表
          */</span>
         const publicRoutes = [
@@ -124,7 +124,7 @@ pageClass: theme-item
         })</span></div></div>
 
     src/views/login
-<div class="block-detail">    <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">        <span>&lt;template&gt;
+<div class="block-detail">    <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="login-container"&gt;
                 &lt;el-form class="login-form"&gt;
                     &lt;div class="title-container"&gt;
@@ -235,7 +235,7 @@ pageClass: theme-item
         }
         &lt;/style&gt;</span></div></div>
     
-<div class="block-detail">    <span class="detail-desc">src/styles/index.scss</span><div class="detail-content">        <span>html,
+<div class="block-detail">    <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">        <span>html,
         body {
             height: 100%;
             margin: 0;
@@ -285,11 +285,11 @@ pageClass: theme-item
                 height: 0;
             }
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">src/main.js</span><div class="detail-content">        <span>// 导入全局样式
+<div class="block-detail">    <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">        <span>// 导入全局样式
         import './styles/index.scss'</span></div></div>
 
     导入 <a href="https://element-plus.gitee.io/zh-CN/" target="_blank">Element Plus</a>
-<div class="block-detail">        <span class="detail-desc">快捷方式</span><div class="detail-content">            <span>
+<div class="block-detail">        <span class="detail-desc">快捷方式</span><span class="comment"></span><div class="detail-content">            <span>
             <span class="block-command">admin</span> vue add element-plus
                 ? How do you want to import Element Plus?  <span class="comment">// 如何导入Element Plus</span>
                     &gt; Fully import     <span class="comment">// 全局导入</span>
@@ -312,19 +312,19 @@ pageClass: theme-item
                 &lt;/script&gt;
 
                 &lt;style&gt;&lt;/style&gt;
-            admin/src/main.js
+            src/main.js
                 import installElementPlus from './plugins/element'
                 installElementPlus(app)</span></div></div>
-<div class="block-detail">        <span class="detail-desc">方式二</span><div class="detail-content">            <span>
+<div class="block-detail">        <span class="detail-desc">方式二</span><span class="comment"></span><div class="detail-content">            <span>
             <span class="block-command">admin</span> npm i element-plus --save <span class="comment">// 1.0.2-beta.28</span>
-            admin/src/main.js
+            src/main.js
                 import ElementPlus from 'element-plus'
                 import 'element-plus/dist/index.css'
                 app.use(ElementPlus)
             使用: &lt;el-button&gt;默认按钮&lt;/el-button&gt;</span></div></div>
 
     SVG图标通用解决方案
-<div class="block-detail">        <span class="detail-desc">src/components/SvgIcon/index.vue</span><div class="detail-content">            <span>&lt;template&gt;
+<div class="block-detail">        <span class="detail-desc">src/components/SvgIcon/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" :class="className" /&gt;
                 &lt;svg v-else class="svg-icon" :class="className" aria-hidden="true"&gt;
                     &lt;use :xlink:href="iconName" /&gt;
@@ -379,7 +379,7 @@ pageClass: theme-item
                 display: inline-block;
             }
             &lt;/style&gt;</span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/utils/validate.js</span><div class="detail-content">            <span><span class="comment">/**
+<div class="block-detail">        <span class="detail-desc">src/utils/validate.js</span><span class="comment"></span><div class="detail-content">            <span><span class="comment">/**
              * 判断是否为外部资源
              */</span>
             export function isExternal(path) {
@@ -393,7 +393,7 @@ pageClass: theme-item
         使用：内部图标
             src/icons/
             src/icons/svg/ <span class="comment">// SVG资源</span>
-<div class="block-detail">            <span class="detail-desc">src/icons/index.js</span><div class="detail-content">                <span>import SvgIcon from '@/components/SvgIcon'
+<div class="block-detail">            <span class="detail-desc">src/icons/index.js</span><span class="comment"></span><div class="detail-content">                <span>import SvgIcon from '@/components/SvgIcon'
                 <span class="comment">// 1. 导入所有的SVG图标</span>
                 <span class="comment">// https://webpack.docschina.org/guides/dependency-management/#requirecontext</span>
                 <span class="comment">// 通过 require.context() 函数来创建自己的 context</span>
@@ -407,11 +407,11 @@ pageClass: theme-item
                 export default app =&gt; {
                     app.component('svg-icon', SvgIcon)
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/main.js</span><div class="detail-content">                <span>// 导入 svgIcon
+<div class="block-detail">            <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                <span>// 导入 svgIcon
                 import installIcons from '@/icons'
                 installIcons(app)</span></div></div>
             <span class="block-command">admin</span> npm i --save-dev svg-sprite-loader@6.0.9
-<div class="block-detail">            <span class="detail-desc">admin/vue.config.js</span><div class="detail-content">                <span>const path = require('path')
+<div class="block-detail">            <span class="detail-desc">vue.config.js</span><span class="comment"></span><div class="detail-content">                <span>const path = require('path')
                 function resolve(dir) {
                     return path.join(__dirname, dir)
                 }
@@ -439,7 +439,7 @@ pageClass: theme-item
 
 <span class="h2 bg3 cf"> 登陆逻辑 </span>
     表单验证
-<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
+<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
                 &lt;el-form-item prop="username"&gt;
                     &lt;el-input v-model="<i class="i1">loginForm</i>.username" /&gt;
                 &lt;/el-form-item&gt;
@@ -462,7 +462,7 @@ pageClass: theme-item
                 password: [{required: true, trigger: 'blur', validator: <i class="i3">validatePassword</i>()}]
             })
             &lt;/script&gt;</span></span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/views/login/rules.js</span><div class="detail-content">            <span><span class="format-block">export const <i class="i3">validatePassword</i> = () =&gt; {
+<div class="block-detail">        <span class="detail-desc">src/views/login/rules.js</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">export const <i class="i3">validatePassword</i> = () =&gt; {
                 return (rule, value, callback) =&gt; {
                     if (value.length &lt; 6) {
                         callback(new Error('密码不能少于6位'))
@@ -472,7 +472,7 @@ pageClass: theme-item
                 }
             }</span></span></div></div>
     密码框状态通用处理
-<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><div class="detail-content">        <span><span class="format-block">&lt;el-input placeholder="password" name="password" <i class="i2">:type="passwordType"</i> v-model="loginForm.password" /&gt;
+<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">&lt;el-input placeholder="password" name="password" <i class="i2">:type="passwordType"</i> v-model="loginForm.password" /&gt; 
         &lt;svg-icon <i class="i2">:icon="passwordType === 'password' ? 'eye' : 'eye-open'"</i> <i class="i3">@click="onChangePwdType"</i> /&gt;
         
         <span class="comment">// 处理密码框文本显示状态</span>
@@ -487,17 +487,17 @@ pageClass: theme-item
     通用后台登录方案        
         1.封装 axios 模块
             <span class="block-command">admin</span> npm i axios --save <span class="comment">// 0.24.0</span>
-<div class="block-detail">            <span class="detail-desc">admin/.env.development</span><div class="detail-content">                <span><span class="format-block">&#35; 标志
+<div class="block-detail">            <span class="detail-desc">.env.development</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"># 标志
                 ENV = 'development'
 
-                &#35; base api
+                # base api
                 <i class="i1">VUE_APP_BASE_API</i> = '/api'</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/.env.production</span><div class="detail-content">                <span><span class="format-block">&#35; 标志
+<div class="block-detail">            <span class="detail-desc">.env.production</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"># 标志
                 ENV = 'production'
 
-                &#35; base api
+                # base api
                 <i class="i1">VUE_APP_BASE_API</i> = '/prod-api'</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/src/utils/request.js</span><div class="detail-content">                <span><span class="format-block">import axios from 'axios'
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/utils/request.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import axios from 'axios'
 
                 const service = axios.create({
                     baseURL: process.env.<i class="i1">VUE_APP_BASE_API</i>,
@@ -506,7 +506,7 @@ pageClass: theme-item
 
                 export default service</span></span></div></div>
         2.封装 接口请求 模块
-<div class="block-detail">            <span class="detail-desc">admin/src/api/sys.js</span><div class="detail-content">                <span><span class="format-block">import request from '@/utils/request'
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/api/sys.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import request from '@/utils/request'
 
                 <span class="comment">/**
                 * 登录
@@ -520,14 +520,14 @@ pageClass: theme-item
                 }</span></span></div></div>
         3.封装登录请求动作
             <span class="block-command">admin</span> npm i md5 --save
-<div class="block-detail">            <span class="detail-desc">admin/src/store/modules/user.js</span><div class="detail-content">                <span><span class="format-block">import { <i class="i2">login</i> } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/store/modules/user.js</span><span class="comment"> 封装请求</span><div class="detail-content">                <span><span class="format-block">import { <i class="i2">login</i> } from '@/api/sys'
                 import md5 from 'md5'
                 <i class="i3">export default</i> {
                     namespaced: true,
                     state: () =&gt; ({}),
                     mutations: {},
                     actions: {
-                        login(context, userInfo) {
+                        <i class="i3">login</i>(context, userInfo) {
                             const { username, password } = userInfo
                             return new Promise((resolve, reject) =&gt; {
                                 <i class="i2">login</i>({
@@ -544,45 +544,48 @@ pageClass: theme-item
                         }
                     }
                 }</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/src/store/index.js</span><div class="detail-content">                <span><span class="format-block">import { createStore } from 'vuex'
+<div class="block-detail">            <span class="detail-desc">src/store/index.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import { createStore } from 'vuex'
                 import <i class="i3">user</i> from './modules/user.js'
                 export default createStore({
                     modules: {
                         <i class="i3">user</i>
                     }
                 })</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/src/views/login/index.vue</span><div class="detail-content">                <span><span class="format-block">&lt;el-form <i class="i6">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
-                    &lt;el-button <i class="i5">:loading="loading"</i> <i class="i4">@click="handleLogin"</i>&gt;登录&lt;/el-button&gt;
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/views/login/index.vue</span><span class="comment"> 请求</span><div class="detail-content">                <span><span class="format-block">&lt;el-form <i class="i0">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
+                    &lt;el-button <i class="i0">:loading="loading"</i> <i class="i0">@click="handleLogin"</i>&gt;登录&lt;/el-button&gt;
                 &lt;/el-form&gt;
                 
                 &lt;script setup&gt;
                 import { ref } from 'vue'
                 import { validatePassword } from './rules'
                 import { useStore } from 'vuex'
+                import { useRouter } from 'vue-router'
 
                 <span class="comment">// 登录动作处理</span>
-                const <i class="i5">loading</i> = ref(false)
-                const <i class="i6">loginFromRef</i> = ref(null)
+                const <i class="i0">loading</i> = ref(false)
+                const <i class="i0">loginFromRef</i> = ref(null)
                 const store = useStore()
-                const <i class="i4">handleLogin</i> = () =&gt; {
-                    <i class="i6">loginFromRef</i>.value.validate(valid =&gt; {
+                const router = useRouter()
+                const <i class="i0">handleLogin</i> = () =&gt; {
+                    <i class="i0">loginFromRef</i>.value.validate(valid =&gt; {
                         if (!valid) return
 
-                        <i class="i5">loading</i>.value = true
+                        <i class="i0">loading</i>.value = true
                         store
-                        .dispatch('user/login', loginForm.value)
+                        .dispatch('<i class="i3">user/login</i>', loginForm.value)
                         .then(() =&gt; {
-                            <i class="i5">loading</i>.value = false
+                            <i class="i0">loading</i>.value = false
                             <span class="comment">// TODO: 登录后操作</span>
+                            router.push('/')
                         })
                         .catch(err =&gt; {
                             console.log(err)
-                            <i class="i5">loading</i>.value = false
+                            <i class="i0">loading</i>.value = false
                         })
                     })
                 }
                 &lt;/script&gt;</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/vue.config.js</span><div class="detail-content">                <span><span class="format-block">module.exports = {
+<div class="block-detail">            <span class="detail-desc">vue.config.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">module.exports = {
                     devServer: {
                         <span class="comment">// 配置反向代理</span>
                         proxy: {
@@ -596,7 +599,7 @@ pageClass: theme-item
                     }
                 }</span></span></div></div>
         4.保存服务端返回的 token
-<div class="block-detail">            <span class="detail-desc">admin/src/utils/storage.js</span><div class="detail-content">                <span><span class="format-block"><span class="comment">/**
+<div class="block-detail">            <span class="detail-desc">src/utils/storage.js</span><span class="comment"> 封装localStorage操作方法</span><div class="detail-content">                <span><span class="format-block"><span class="comment">/**
                  * 存储数据
                  */</span>
                 export const setItem = (key, value) =&gt; {
@@ -632,9 +635,8 @@ pageClass: theme-item
                 export const removeAllItem = key =&gt; {
                     window.localStorage.clear()
                 }</span></span></div></div>
-            admin/src/constant/index.js
-                export const TOKEN = 'token'
-<div class="block-detail">            <span class="detail-desc">admin/src/store/modules/user.js</span><div class="detail-content">                <span><span class="format-block">import { login } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取TOKEN键值为常量</span><div class="detail-content">                <span>export const TOKEN = 'token'</span></div></div>
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import { login } from '@/api/sys'
                 import md5 from 'md5'
                 <i class="order4">import { setItem, getItem } from '@/utils/storage'
                 import { TOKEN } from '@/constant'</i>
@@ -668,9 +670,8 @@ pageClass: theme-item
                             })
                         }
                     }
-                }</span></span></div></div>
-            响应数据的统一处理
-<div class="block-detail">            <span class="detail-desc">admin/src/utils/request.js</span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
+                }</span></span></div></div>            
+<div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 响应数据的统一处理 data.data.data.token &gt; data.token</span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
 
                 <span class="comment">// 响应拦截器</span>
 
@@ -692,33 +693,29 @@ pageClass: theme-item
                         return Promise.reject(error)
                     }
                 )</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/src/store/modules/user.js</span><div class="detail-content">                <span><span class="format-block"><i class="order1">this.commit('user/setToken', data.token)</i></span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"><i class="order1">this.commit('user/setToken', data.token)</i></span></span></div></div>
         5.登录鉴权
-            admin/src/layout/index.vue
-<div class="block-detail">            <span class="detail-desc">admin/src/router/index.js</span><div class="detail-content">                <span>{
+            src/layout/index.vue
+<div class="block-detail">            <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">                <span>{
                     path: '/',
                     component: () =&gt; import('@/layout/index')
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/src/permission.js</span><div class="detail-content">                <span><span class="format-block">import router from './router'
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/permission.js</span><span class="comment"> 鉴权模块</span><div class="detail-content">                <span><span class="format-block">import router from './router'
                 import store from './store'
 
                 <span class="comment">// 白名单</span>
                 const whiteList = ['/login']
-                <span class="comment">/**
-                * 路由前置守卫
-                */</span>
+
+                <span class="comment">// 路由前置守卫</span>
                 router.beforeEach(async (to, from, next) =&gt; {
-                    <span class="comment">// 存在 token ，进入主页</span>
-                    <span class="comment">// if (store.state.user.token) {</span>
-                    <span class="comment">// 快捷访问</span>
+                    <span class="comment">// 存在 token 进入主页</span>
                     if (store.getters.token) {
                         if (to.path === '/login') {
                             next('/')
                         } else {
                             next()
                         }
-                    } else {
-                        <span class="comment">// 没有token的情况下，可以进入白名单</span>
+                    } else {                        
                         if (whiteList.indexOf(to.path) &gt; -1) {
                             next()
                         } else {
@@ -726,19 +723,429 @@ pageClass: theme-item
                         }
                     }
                 })</span></span></div></div>
-            admin/src/store/getters.js ▾ 快捷访问
-                ↧const getters = {
+<div class="block-detail">            <span class="detail-desc">src/store/getters.js</span><span class="comment"> 快捷访问 store.state.user.token &gt; store.getters.token</span><div class="detail-content">                <span>const getters = {
                     token: state =&gt; state.user.token
                 }
-                export default getters↥
-<div class="block-detail">            <span class="detail-desc">admin/src/store/index.js</span><div class="detail-content">                <span>import getters from './getters'
+                export default getters</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/index.js</span><span class="comment"></span><div class="detail-content">                <span>import getters from './getters'
                 export default createStore({
                     getters
                 })</span></div></div>
-<div class="block-detail">            <span class="detail-desc">admin/src/main.js</span><div class="detail-content">                <span>// 导入权限控制模块
-                import './permission'</span></div></div>
+<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
+
+<span class="h2 bg3 cf"> 搭建Layout架构    </span>
+        src/layout/
+<div class="block-detail">            <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class="app-wrapper"&gt;
+                        &lt;!-- 左侧 menu --&gt;
+                        &lt;sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" /&gt;
+                        &lt;div class="main-container"&gt;
+                            &lt;div class="fixed-header"&gt;
+                                &lt;!-- 顶部的 navbar --&gt;
+                                &lt;navbar /&gt;
+                            &lt;/div&gt;
+                            &lt;!-- 内容区 --&gt;
+                            &lt;app-main /&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import Navbar from './components/Navbar'
+                import Sidebar from './components/Sidebar/'
+                import AppMain from './components/AppMain'
+
+                import variables from '@/styles/variables.scss'
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                @import '~@/styles/mixin.scss';
+                @import '~@/styles/variables.scss';
+
+                .app-wrapper {
+                    @include clearfix;
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+                }
+
+                .fixed-header {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    z-index: 9;
+                    width: calc(100% - #{$sideBarWidth});
+                }
+                &lt;/style&gt;</span></div></div>
+            components/
+                Sidebar/
+<div class="block-detail">                    <span class="detail-desc">index.vue</span><span class="comment"></span><div class="detail-content">                        <span>&lt;template&gt;
+                            &lt;div class=""&gt;sidebar&lt;/div&gt;
+                        &lt;/template&gt;
+
+                        &lt;script setup&gt;
+                        import {} from 'vue'
+                        &lt;/script&gt;
+
+                        &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">Navbar.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;div class=""&gt;navbar&lt;/div&gt;
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import {} from 'vue'
+                    &lt;/script&gt;
+
+                    &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">AppMain.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;div class="app-main"&gt;AppMain&lt;/div&gt;
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import {} from 'vue'
+                    &lt;/script&gt;
+
+                    &lt;style lang="scss" scoped&gt;
+                    .app-main {
+                        min-height: calc(100vh - 50px);
+                        width: 100%;
+                        position: relative;
+                        overflow: hidden;
+                        padding: 61px 20px 20px 20px;
+                        box-sizing: border-box;
+                    }
+                    &lt;/style&gt;</span></div></div>
+        src/styles/
+            index.scss
+                @import './variables.scss';
+                @import './mixin.scss';
+                @import './sidebar.scss';
+                ...
+<div class="block-detail">            <span class="detail-desc">variables.scss</span><span class="comment"> 定义常量</span><div class="detail-content">                <span>// sidebar
+                $menuText: #bfcbd9;
+                $menuActiveText: #ffffff;
+                $subMenuActiveText: #f4f4f5;
+
+                $menuBg: #304156;
+                $menuHover: #263445;
+
+                $subMenuBg: #1f2d3d;
+                $subMenuHover: #001528;
+
+                $sideBarWidth: 210px;
+
+                <span class="comment">// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass</span>
+                <span class="comment">// JS 与 scss 共享变量，在 scss 中通过 :export 进行导出，在 js 中可通过 ESM 进行导入</span>
+                :export {
+                    menuText: $menuText;
+                    menuActiveText: $menuActiveText;
+                    subMenuActiveText: $subMenuActiveText;
+                    menuBg: $menuBg;
+                    menuHover: $menuHover;
+                    subMenuBg: $subMenuBg;
+                    subMenuHover: $subMenuHover;
+                    sideBarWidth: $sideBarWidth;
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">mixin.scss</span><span class="comment"> 定义通用的 css</span><div class="detail-content">                <span>@mixin clearfix {
+                    &:after {
+                        content: '';
+                        display: table;
+                        clear: both;
+                    }
+                }
+
+                @mixin scrollBar {
+                    &::-webkit-scrollbar-track-piece {
+                        background: #d3dce6;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: #99a9bf;
+                        border-radius: 20px;
+                    }
+                }
+
+                @mixin relative {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">sidebar.scss</span><span class="comment"> 处理 menu 菜单的样式</span><div class="detail-content">                <span>#app {
+                    .main-container {
+                        min-height: 100%;
+                        transition: margin-left 0.28s;
+                        margin-left: $sideBarWidth;
+                        position: relative;
+                    }
+
+                    .sidebar-container {
+                        transition: width 0.28s;
+                        width: $sideBarWidth !important;
+                        height: 100%;
+                        position: fixed;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        z-index: 1001;
+                        overflow: hidden;
+
+                        <span class="comment">// 重置 element-plus 的css</span>
+                        .horizontal-collapse-transition {
+                            transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+                        }
+
+                        .scrollbar-wrapper {
+                            overflow-x: hidden !important;
+                        }
+
+                        .el-scrollbar__bar.is-vertical {
+                            right: 0px;
+                        }
+
+                        .el-scrollbar {
+                            height: 100%;
+                        }
+
+                        &.has-logo {
+                            .el-scrollbar {
+                                height: calc(100% - 50px);
+                            }
+                        }
+
+                        .is-horizontal {
+                            display: none;
+                        }
+
+                        a {
+                            display: inline-block;
+                            width: 100%;
+                            overflow: hidden;
+                        }
+
+                        .svg-icon {
+                            margin-right: 16px;
+                        }
+
+                        .sub-el-icon {
+                            margin-right: 12px;
+                            margin-left: -2px;
+                        }
+
+                        .el-menu {
+                            border: none;
+                            height: 100%;
+                            width: 100% !important;
+                        }
+
+                        .is-active &gt; .el-submenu__title {
+                            color: $subMenuActiveText !important;
+                        }
+
+                        & .nest-menu .el-submenu &gt; .el-submenu__title,
+                        & .el-submenu .el-menu-item {
+                            min-width: $sideBarWidth !important;
+                        }
+                    }
+
+                    .hideSidebar {
+                        .sidebar-container {
+                            width: 54px !important;
+                        }
+
+                        .main-container {
+                            margin-left: 54px;
+                        }
+
+                        .submenu-title-noDropdown {
+                            padding: 0 !important;
+                            position: relative;
+
+                            .el-tooltip {
+                                padding: 0 !important;
+
+                                .svg-icon {
+                                    margin-left: 20px;
+                                }
+
+                                .sub-el-icon {
+                                    margin-left: 19px;
+                                }
+                            }
+                        }
+
+                        .el-submenu {
+                            overflow: hidden;
+
+                            & &gt; .el-submenu__title {
+                                padding: 0 !important;
+
+                                .svg-icon {
+                                    margin-left: 20px;
+                                }
+
+                                .sub-el-icon {
+                                    margin-left: 19px;
+                                }
+
+                                .el-submenu__icon-arrow {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        .el-menu--collapse {
+                            .el-submenu {
+                                & &gt; .el-submenu__title {
+                                    & &gt; span {
+                                        height: 0;
+                                        width: 0;
+                                        overflow: hidden;
+                                        visibility: hidden;
+                                        display: inline-block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .el-menu--collapse .el-menu .el-submenu {
+                        min-width: $sideBarWidth !important;
+                    }
+
+                    .withoutAnimation {
+                        .main-container,
+                        .sidebar-container {
+                            transition: none;
+                        }
+                    }
+                }
+
+                .el-menu--vertical {
+                    & &gt; .el-menu {
+                        .svg-icon {
+                            margin-right: 16px;
+                        }
+                        .sub-el-icon {
+                            margin-right: 12px;
+                            margin-left: -2px;
+                        }
+                    }
+
+                    <span class="comment">// 菜单项过长时</span>
+                    &gt; .el-menu--popup {
+                        max-height: 100vh;
+                        overflow-y: auto;
+
+                        &::-webkit-scrollbar-track-piece {
+                            background: #d3dce6;
+                        }
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: #99a9bf;
+                            border-radius: 20px;
+                        }
+                    }
+                }</span></div></div>
+        头像菜单
+            获取并展示用户信息                
+<div class="block-detail">                <span class="detail-desc">src/api/sys.js</span><span class="comment"> 定义接口请求方法</span><div class="detail-content">                    <span><span class="comment">/**
+                     * 获取用户信息
+                     */</span>
+                    export const getUserInfo = () =&gt; {
+                        return request({
+                            url: '/sys/profile'
+                        })
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                    <span>import { getUserInfo } from '@/api/sys'
+
+                    export default {
+                        state: () =&gt; ({
+                            userInfo: {}
+                        }),
+                        mutations: {
+                            setUserInfo(state, userInfo) {
+                                state.userInfo = userInfo
+                            }
+                        },
+                        actions: {
+                            async getUserInfo(context) {
+                                const res = await getUserInfo()
+                                this.commit('user/setUserInfo', res)
+                                return res
+                            }
+                        }
+                    }</span></div></div>
+
+                    
+<div class="block-detail">                <span class="detail-desc">src/utils/request.js</span><span class="comment"> 通用token注入</span><div class="detail-content">                    <span>import store from '@/store'
+
+                    <span class="comment">// 请求拦截器</span>
+                    service.interceptors.request.use(
+                        config =&gt; {
+                            <span class="comment">// 在这个位置需要统一的去注入token</span>
+                            if (store.getters.token) {
+                                <span class="comment">// 如果token存在 注入token</span>
+                                config.headers.Authorization = `Bearer ${store.getters.token}`
+                            }
+                            return config <span class="comment">// 必须返回配置</span>
+                        },
+                        error =&gt; {
+                            return Promise.reject(error)
+                        }
+                    )</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/permission.js</span><span class="comment"> 在权限拦截时触发动作</span><div class="detail-content">                    <span><span class="format-block">router.beforeEach(async (to, from, next) =&gt; {
+                        if (store.getters.token) {
+                            if (to.path === '/login') {
+                                ...
+                            } else {
+                                <span class="comment">// 判断用户资料是否获取</span>
+                                <span class="comment">// 若不存在用户信息，则需要获取用户信息</span>
+                                if (!store.getters.hasUserInfo) {
+                                    <span class="comment">// 触发获取用户信息的 action</span>
+                                    <i class="i2">await store.dispatch('user/getUserInfo')</i>
+                                }
+                                next()
+                            }
+                        } else {
+                            ...
+                        }
+                    })</span></span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                    <span>const getters = {
+                        userInfo: state =&gt; state.user.userInfo,
+                        <span class="comment">/**
+                         * @returns true 表示已存在用户信息
+                         */</span>
+                        hasUserInfo: state =&gt; {
+                            return JSON.stringify(state.user.userInfo) !== '{}'
+                        }
+                    }</span></div></div>
 
 
+            element-plus 中的 dropdown 组件使用
+            退出登录的方案实现
+
+
+
+    左侧的 Menu 菜单
+        动态侧边栏方案
+            
+    顶部的 NavBar
+        用户退出方案
+            退出的通用逻辑封装
+
+        动态面包屑方案
+    中间的内容区 Main
+
+    伸缩侧边栏动画
+    组件状态驱动的动态 CSS 值
 
 </pre>
 ▾↧↥
@@ -813,7 +1220,7 @@ coding-standard/src/components/HelloWorld.vue
     }
 3. VSCode &gt; setting &gt; 工作区    ▣ Format On Save
 
-<span class="h1">Prettier和ESLint的唯一冲突</span>
+# Prettier和ESLint的唯一冲突
     export default {
         created() {}
     }
@@ -831,7 +1238,7 @@ coding-standard/src/components/HelloWorld.vue
         <span class="block-command">coding-standard</span> npm run serve
 
 <span class="h2 bg3 cf"> 多规范之默认规范 </span>
-<div class="block-detail">    <span class="detail-desc">coding-standard/.vscode/settings.json</span><div class="detail-content">    <span>{
+<div class="block-detail">    <span class="detail-desc">coding-standard/.vscode/settings.json</span><span class="comment"></span><div class="detail-content">    <span>{
         "editor.formatOnSave": true,
         "vetur.format.defaultFormatter.html": "prettier",
         "[javascript]": {
@@ -864,12 +1271,12 @@ coding-standard/src/components/HelloWorld.vue
 <span class="block-command">xxxx</span> npm install -g <a href="https://github.com/commitizen/cz-cli" target="_blank">commitizen</a>@4.2.4
 <span class="block-command">coding-standard</span> npm i cz-customizable@6.3.0 --save-dev
 
-<div class="block-detail"><span class="detail-desc">coding-standard/package.json</span><div class="detail-content">    <span>"config": {
+<div class="block-detail"><span class="detail-desc">coding-standard/package.json</span><span class="comment"></span><div class="detail-content">    <span>"config": {
         "commitizen": {
             "path": "node_modules/cz-customizable"
         }
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">coding-standard/.cz-config.js</span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">coding-standard/.cz-config.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
         <span class="comment">// 可选类型</span>
         types: [
             { value: 'feat', name: 'feat:     新功能' },
@@ -911,7 +1318,7 @@ Git hooks：
 工具：
     1. commitlint 用于检查提交信息
     <span class="block-command">coding-standard</span> npm install --save-dev @commitlint/config-conventional@12.1.4 @commitlint/cli@12.1.4
-<div class="block-detail">    <span class="detail-desc">coding-standard/commitlint.config.js</span><div class="detail-content">        <span> <span class="comment">//确保保存为 UTF-8 的编码格式</span>
+<div class="block-detail">    <span class="detail-desc">coding-standard/commitlint.config.js</span><span class="comment"></span><div class="detail-content">        <span> <span class="comment">//确保保存为 UTF-8 的编码格式</span>
         module.exports = {
             extends: ['@commitlint/config-conventional'], <span class="comment">// 继承的规则</span>
             <span class="comment">// 定义规则类型</span>
@@ -958,13 +1365,13 @@ Git hooks：
 
     ● <strong>提交时自动修复</strong>
         <a href="https://github.com/okonet/lint-staged" target="_blank">lint-staged</a> <span class="comment">// vue-cli 已经安装过了 直接使用即可</span>
-<div class="block-detail">        <span class="detail-desc">coding-standard/package.json</span><div class="detail-content">            <span>"lint-staged": {
+<div class="block-detail">        <span class="detail-desc">coding-standard/package.json</span><span class="comment"></span><div class="detail-content">            <span>"lint-staged": {
                 "src<span class="comment">/**/</span>*.{js,vue}": [
                     "eslint --fix",
                     "git add"
                 ]
             }</span></div></div>
-<div class="block-detail">        <span class="detail-desc">coding-standard/.husky/pre-commit</span><div class="detail-content">            <span>#!/bin/sh
+<div class="block-detail">        <span class="detail-desc">coding-standard/.husky/pre-commit</span><span class="comment"></span><div class="detail-content">            <span>#!/bin/sh
             . "$(dirname "$0")/_/husky.sh"
 
             npx lint-staged</span></div></div>
@@ -1201,7 +1608,7 @@ read('RES|markdown.scene')
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 普通注释 </span>
+[#]  普通注释 
 目的：帮助开发者和阅读者更好地理解程序+
 规范：
     1. 总是在单行注释符后留一个空格
@@ -1255,7 +1662,7 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 文档注释 </span>
+[#]  文档注释 
 规范：
     1. 星号对齐
     2. 注释内容与星号间留一个空格
@@ -1365,7 +1772,7 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 文件注释 </span>
+[#]  文件注释 
 规范：
     1. 文件注释位于文件的最前面
     2. 文件注释必须全部以英文字符表示，并存在于文件的开发版本与生产版本中2222
@@ -1385,14 +1792,14 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 块标签 </span>
+[#]  块标签 
 </pre>
 <div class="box-flex">
 <div class="box-flex-item  flex-2">
 
 
 <pre class="code-block">
-<span class="h1">对文件进行描述</span>
+# 对文件进行描述
 @author       指定项目作者
 @copyright    描述版权信息
 @see          描述可以参考外部资源
@@ -1403,14 +1810,14 @@ function setOpacity(node, val) {
 @file         文件说明，在文件开头使用
 @license      描述代码才有那种软件许可协议
 
-<span class="h1">标注js使用方法</span>
+# 标注js使用方法
 @returns      描述一个函数的返回值
 @param        描述传递给函数的参数
 @description  描述
 @example      举例
 @throws       描述可能会被抛出什么样的错误
 
-<span class="h1">开发者备注</span>
+# 开发者备注
 @deprecated   标注关联代码已经被弃用
 @todo         描述一个将要完成的任务
 </pre>
@@ -1420,7 +1827,7 @@ function setOpacity(node, val) {
 
 
 <pre class="code-block">
-<span class="h1">文件详细结构</span>
+# 文件详细结构
 @abstract     标注该成员必须在子类中实现或重写
 @access       标注该成员的访问级别
 @access private &gt; @private

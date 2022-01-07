@@ -15,7 +15,7 @@ hello> vue create admin
       Less
       Stylus
 
-admin/.vscode/settings.json ▾
+.vscode/settings.json ▾
 ↧{
     "editor.formatOnSave": true,
     "vetur.format.defaultFormatter.html": "prettier",
@@ -32,7 +32,7 @@ admin/.vscode/settings.json ▾
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }↥
-admin/.prettierrc.js ▾
+.prettierrc.js ▾
     ↧module.exports = {
         semi: false,                         // 不尾随分号
         trailingComma: 'none',               // 不尾随逗号
@@ -49,7 +49,7 @@ admin/.prettierrc.js ▾
         HTMLWhitespaceSensitivity: 'ignore',
         printWidth: 2000,                    // 最大长度200个字符
     }↥
-admin/.eslintrc.js ▾
+.eslintrc.js ▾
     ↧module.exports = {
         rules: {
             indent: 'off',
@@ -65,7 +65,7 @@ admin/.eslintrc.js ▾
 
 清空 src/views/[{color:#f66}]
 清空 src/components/[{color:#f66}]
-admin/src/main.js ▾
+src/main.js ▾
     ↧import { createApp } from 'vue'
     import router from './router'
     import store from './store'
@@ -75,13 +75,13 @@ admin/src/main.js ▾
     app.use(store)
     app.use(router)
     app.mount('#app')↥
-admin/src/App.vue ▾
+src/App.vue ▾
     ↧<template>
         <router-view />
     </template>
 
     <style lang="scss"></style>↥
-admin/src/router/index.js ▾
+src/router/index.js ▾
     ↧import { createRouter, createWebHashHistory } from 'vue-router'
 
     const routes = []
@@ -303,13 +303,13 @@ admin/src/router/index.js ▾
                 </script>
 
                 <style></style>
-            admin/src/main.js
+            src/main.js
                 import installElementPlus from './plugins/element'
                 installElementPlus(app)↥
         方式二 ▾
             ↧
             admin> npm i element-plus --save // 1.0.2-beta.28
-            admin/src/main.js
+            src/main.js
                 import ElementPlus from 'element-plus'
                 import 'element-plus/dist/index.css'
                 app.use(ElementPlus)
@@ -407,7 +407,7 @@ admin/src/router/index.js ▾
                 import installIcons from '@/icons'
                 installIcons(app)↥
             admin> npm i --save-dev svg-sprite-loader@6.0.9
-            admin/vue.config.js ▾
+            vue.config.js ▾
                 ↧const path = require('path')
                 function resolve(dir) {
                     return path.join(__dirname, dir)
@@ -472,7 +472,7 @@ admin/src/router/index.js ▾
             }▨↥
     密码框状态通用处理
         src/views/login/index.vue ▾
-        ↧▧<el-input placeholder="password" name="password" 2►:type="passwordType"◄ v-model="loginForm.password" />
+        ↧▧<el-input placeholder="password" name="password" 2►:type="passwordType"◄ v-model="loginForm.password" /> 
         <svg-icon 2►:icon="passwordType === 'password' ? 'eye' : 'eye-open'"◄ 3►@click="onChangePwdType"◄ />
         
         // 处理密码框文本显示状态
@@ -487,19 +487,19 @@ admin/src/router/index.js ▾
     通用后台登录方案        
         1.封装 axios 模块
             admin> npm i axios --save // 0.24.0
-            admin/.env.development ▾
-                ↧▧&#35; 标志
+            .env.development ▾
+                ↧▧# 标志
                 ENV = 'development'
 
-                &#35; base api
+                # base api
                 1►VUE_APP_BASE_API◄ = '/api'▨↥
-            admin/.env.production ▾
-                ↧▧&#35; 标志
+            .env.production ▾
+                ↧▧# 标志
                 ENV = 'production'
 
-                &#35; base api
+                # base api
                 1►VUE_APP_BASE_API◄ = '/prod-api'▨↥
-            admin/src/utils/request.js ▾
+            src/utils/request.js ▾{background-color:#999; color:#fff}
                 ↧▧import axios from 'axios'
 
                 const service = axios.create({
@@ -509,7 +509,7 @@ admin/src/router/index.js ▾
 
                 export default service▨↥
         2.封装 接口请求 模块
-            admin/src/api/sys.js ▾
+            src/api/sys.js ▾{background-color:#999; color:#fff}
                 ↧▧import request from '@/utils/request'
 
                 /**
@@ -524,7 +524,7 @@ admin/src/router/index.js ▾
                 }▨↥
         3.封装登录请求动作
             admin> npm i md5 --save
-            admin/src/store/modules/user.js ▾
+            src/store/modules/user.js ▾{background-color:#999; color:#fff} 封装请求
                 ↧▧import { 2►login◄ } from '@/api/sys'
                 import md5 from 'md5'
                 3►export default◄ {
@@ -532,7 +532,7 @@ admin/src/router/index.js ▾
                     state: () => ({}),
                     mutations: {},
                     actions: {
-                        login(context, userInfo) {
+                        3►login◄(context, userInfo) {
                             const { username, password } = userInfo
                             return new Promise((resolve, reject) => {
                                 2►login◄({
@@ -549,7 +549,7 @@ admin/src/router/index.js ▾
                         }
                     }
                 }▨↥
-            admin/src/store/index.js ▾
+            src/store/index.js ▾
                 ↧▧import { createStore } from 'vuex'
                 import 3►user◄ from './modules/user.js'
                 export default createStore({
@@ -557,39 +557,42 @@ admin/src/router/index.js ▾
                         3►user◄
                     }
                 })▨↥
-            admin/src/views/login/index.vue ▾
-                ↧▧<el-form 6►ref="loginFromRef"◄ :model="loginForm" :rules="loginRules">
-                    <el-button 5►:loading="loading"◄ 4►@click="handleLogin"◄>登录</el-button>
+            src/views/login/index.vue ▾{background-color:#999; color:#fff} 请求
+                ↧▧<el-form 0►ref="loginFromRef"◄ :model="loginForm" :rules="loginRules">
+                    <el-button 0►:loading="loading"◄ 0►@click="handleLogin"◄>登录</el-button>
                 </el-form>
                 
                 <script setup>
                 import { ref } from 'vue'
                 import { validatePassword } from './rules'
                 import { useStore } from 'vuex'
+                import { useRouter } from 'vue-router'
 
                 // 登录动作处理
-                const 5►loading◄ = ref(false)
-                const 6►loginFromRef◄ = ref(null)
+                const 0►loading◄ = ref(false)
+                const 0►loginFromRef◄ = ref(null)
                 const store = useStore()
-                const 4►handleLogin◄ = () => {
-                    6►loginFromRef◄.value.validate(valid => {
+                const router = useRouter()
+                const 0►handleLogin◄ = () => {
+                    0►loginFromRef◄.value.validate(valid => {
                         if (!valid) return
 
-                        5►loading◄.value = true
+                        0►loading◄.value = true
                         store
-                        .dispatch('user/login', loginForm.value)
+                        .dispatch('3►user/login◄', loginForm.value)
                         .then(() => {
-                            5►loading◄.value = false
+                            0►loading◄.value = false
                             // TODO: 登录后操作
+                            router.push('/')
                         })
                         .catch(err => {
                             console.log(err)
-                            5►loading◄.value = false
+                            0►loading◄.value = false
                         })
                     })
                 }
                 </script>▨↥
-            admin/vue.config.js ▾
+            vue.config.js ▾
                 ↧▧module.exports = {
                     devServer: {
                         // 配置反向代理
@@ -604,7 +607,7 @@ admin/src/router/index.js ▾
                     }
                 }▨↥
         4.保存服务端返回的 token
-            admin/src/utils/storage.js ▾
+            src/utils/storage.js ▾ 封装localStorage操作方法
                 ↧▧/**
                  * 存储数据
                  */
@@ -641,9 +644,9 @@ admin/src/router/index.js ▾
                 export const removeAllItem = key => {
                     window.localStorage.clear()
                 }▨↥
-            admin/src/constant/index.js
-                export const TOKEN = 'token'
-            admin/src/store/modules/user.js ▾
+            src/constant/index.js ▾ 抽取TOKEN键值为常量
+                ↧export const TOKEN = 'token'↥
+            src/store/modules/user.js ▾{background-color:#999; color:#fff}
                 ↧▧import { login } from '@/api/sys'
                 import md5 from 'md5'
                 ❹import { setItem, getItem } from '@/utils/storage'
@@ -678,9 +681,8 @@ admin/src/router/index.js ▾
                             })
                         }
                     }
-                }▨↥
-            响应数据的统一处理
-            admin/src/utils/request.js ▾
+                }▨↥            
+            src/utils/request.js ▾ 响应数据的统一处理 data.data.data.token > data.token
                 ↧▧import { ElMessage } from 'element-plus'
 
                 // 响应拦截器
@@ -703,36 +705,32 @@ admin/src/router/index.js ▾
                         return Promise.reject(error)
                     }
                 )▨↥
-            admin/src/store/modules/user.js ▾
+            src/store/modules/user.js ▾
                 ↧▧❶this.commit('user/setToken', data.token)❶▨↥
         5.登录鉴权
-            admin/src/layout/index.vue
-            admin/src/router/index.js ▾
+            src/layout/index.vue
+            src/router/index.js ▾
                 ↧{
                     path: '/',
                     component: () => import('@/layout/index')
                 }↥
-            admin/src/permission.js ▾
+            src/permission.js ▾{background-color:#999; color:#fff} 鉴权模块
                 ↧▧import router from './router'
                 import store from './store'
 
                 // 白名单
                 const whiteList = ['/login']
-                /**
-                * 路由前置守卫
-                */
+
+                // 路由前置守卫
                 router.beforeEach(async (to, from, next) => {
-                    // 存在 token ，进入主页
-                    // if (store.state.user.token) {
-                    // 快捷访问
+                    // 存在 token 进入主页
                     if (store.getters.token) {
                         if (to.path === '/login') {
                             next('/')
                         } else {
                             next()
                         }
-                    } else {
-                        // 没有token的情况下，可以进入白名单
+                    } else {                        
                         if (whiteList.indexOf(to.path) > -1) {
                             next()
                         } else {
@@ -740,21 +738,444 @@ admin/src/router/index.js ▾
                         }
                     }
                 })▨↥
-            admin/src/store/getters.js ▾ 快捷访问
+            src/store/getters.js ▾ 快捷访问 store.state.user.token > store.getters.token
                 ↧const getters = {
                     token: state => state.user.token
                 }
                 export default getters↥
-            admin/src/store/index.js ▾
+            src/store/index.js ▾
                 ↧import getters from './getters'
                 export default createStore({
                     getters
                 })↥
-            admin/src/main.js ▾
-                ↧// 导入权限控制模块
-                import './permission'↥
+            src/main.js ▾{background-color:#999; color:#fff} 导入鉴权模块
+                ↧import './permission'↥
+
+[##] 搭建Layout架构    
+        src/layout/
+            index.vue ▾ 基础架构
+                ↧<template>
+                    <div class="app-wrapper">
+                        <!-- 左侧 menu -->
+                        <sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" />
+                        <div class="main-container">
+                            <div class="fixed-header">
+                                <!-- 顶部的 navbar -->
+                                <navbar />
+                            </div>
+                            <!-- 内容区 -->
+                            <app-main />
+                        </div>
+                    </div>
+                </template>
+
+                <script setup>
+                import Navbar from './components/Navbar'
+                import Sidebar from './components/Sidebar/'
+                import AppMain from './components/AppMain'
+
+                import variables from '@/styles/variables.scss'
+                </script>
+
+                <style lang="scss" scoped>
+                @import '~@/styles/mixin.scss';
+                @import '~@/styles/variables.scss';
+
+                .app-wrapper {
+                    @include clearfix;
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+                }
+
+                .fixed-header {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    z-index: 9;
+                    width: calc(100% - #{$sideBarWidth});
+                }
+                </style>↥
+            components/
+                Sidebar/
+                    index.vue ▾
+                        ↧<template>
+                            <div class="">sidebar</div>
+                        </template>
+
+                        <script setup>
+                        import {} from 'vue'
+                        </script>
+
+                        <style lang="scss" scoped></style>↥
+                Navbar.vue ▾
+                    ↧<template>
+                        <div class="">navbar</div>
+                    </template>
+
+                    <script setup>
+                    import {} from 'vue'
+                    </script>
+
+                    <style lang="scss" scoped></style>↥
+                AppMain.vue ▾
+                    ↧<template>
+                        <div class="app-main">AppMain</div>
+                    </template>
+
+                    <script setup>
+                    import {} from 'vue'
+                    </script>
+
+                    <style lang="scss" scoped>
+                    .app-main {
+                        min-height: calc(100vh - 50px);
+                        width: 100%;
+                        position: relative;
+                        overflow: hidden;
+                        padding: 61px 20px 20px 20px;
+                        box-sizing: border-box;
+                    }
+                    </style>↥
+        src/styles/
+            index.scss
+                @import './variables.scss';
+                @import './mixin.scss';
+                @import './sidebar.scss';
+                ...
+            variables.scss ▾ 定义常量
+                ↧// sidebar
+                $menuText: #bfcbd9;
+                $menuActiveText: #ffffff;
+                $subMenuActiveText: #f4f4f5;
+
+                $menuBg: #304156;
+                $menuHover: #263445;
+
+                $subMenuBg: #1f2d3d;
+                $subMenuHover: #001528;
+
+                $sideBarWidth: 210px;
+
+                // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+                // JS 与 scss 共享变量，在 scss 中通过 :export 进行导出，在 js 中可通过 ESM 进行导入
+                :export {
+                    menuText: $menuText;
+                    menuActiveText: $menuActiveText;
+                    subMenuActiveText: $subMenuActiveText;
+                    menuBg: $menuBg;
+                    menuHover: $menuHover;
+                    subMenuBg: $subMenuBg;
+                    subMenuHover: $subMenuHover;
+                    sideBarWidth: $sideBarWidth;
+                }↥
+            mixin.scss ▾ 定义通用的 css
+                ↧@mixin clearfix {
+                    &:after {
+                        content: '';
+                        display: table;
+                        clear: both;
+                    }
+                }
+
+                @mixin scrollBar {
+                    &::-webkit-scrollbar-track-piece {
+                        background: #d3dce6;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: #99a9bf;
+                        border-radius: 20px;
+                    }
+                }
+
+                @mixin relative {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                }↥
+            sidebar.scss ▾ 处理 menu 菜单的样式
+                ↧#app {
+                    .main-container {
+                        min-height: 100%;
+                        transition: margin-left 0.28s;
+                        margin-left: $sideBarWidth;
+                        position: relative;
+                    }
+
+                    .sidebar-container {
+                        transition: width 0.28s;
+                        width: $sideBarWidth !important;
+                        height: 100%;
+                        position: fixed;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        z-index: 1001;
+                        overflow: hidden;
+
+                        // 重置 element-plus 的css
+                        .horizontal-collapse-transition {
+                            transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+                        }
+
+                        .scrollbar-wrapper {
+                            overflow-x: hidden !important;
+                        }
+
+                        .el-scrollbar__bar.is-vertical {
+                            right: 0px;
+                        }
+
+                        .el-scrollbar {
+                            height: 100%;
+                        }
+
+                        &.has-logo {
+                            .el-scrollbar {
+                                height: calc(100% - 50px);
+                            }
+                        }
+
+                        .is-horizontal {
+                            display: none;
+                        }
+
+                        a {
+                            display: inline-block;
+                            width: 100%;
+                            overflow: hidden;
+                        }
+
+                        .svg-icon {
+                            margin-right: 16px;
+                        }
+
+                        .sub-el-icon {
+                            margin-right: 12px;
+                            margin-left: -2px;
+                        }
+
+                        .el-menu {
+                            border: none;
+                            height: 100%;
+                            width: 100% !important;
+                        }
+
+                        .is-active > .el-submenu__title {
+                            color: $subMenuActiveText !important;
+                        }
+
+                        & .nest-menu .el-submenu > .el-submenu__title,
+                        & .el-submenu .el-menu-item {
+                            min-width: $sideBarWidth !important;
+                        }
+                    }
+
+                    .hideSidebar {
+                        .sidebar-container {
+                            width: 54px !important;
+                        }
+
+                        .main-container {
+                            margin-left: 54px;
+                        }
+
+                        .submenu-title-noDropdown {
+                            padding: 0 !important;
+                            position: relative;
+
+                            .el-tooltip {
+                                padding: 0 !important;
+
+                                .svg-icon {
+                                    margin-left: 20px;
+                                }
+
+                                .sub-el-icon {
+                                    margin-left: 19px;
+                                }
+                            }
+                        }
+
+                        .el-submenu {
+                            overflow: hidden;
+
+                            & > .el-submenu__title {
+                                padding: 0 !important;
+
+                                .svg-icon {
+                                    margin-left: 20px;
+                                }
+
+                                .sub-el-icon {
+                                    margin-left: 19px;
+                                }
+
+                                .el-submenu__icon-arrow {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        .el-menu--collapse {
+                            .el-submenu {
+                                & > .el-submenu__title {
+                                    & > span {
+                                        height: 0;
+                                        width: 0;
+                                        overflow: hidden;
+                                        visibility: hidden;
+                                        display: inline-block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .el-menu--collapse .el-menu .el-submenu {
+                        min-width: $sideBarWidth !important;
+                    }
+
+                    .withoutAnimation {
+                        .main-container,
+                        .sidebar-container {
+                            transition: none;
+                        }
+                    }
+                }
+
+                .el-menu--vertical {
+                    & > .el-menu {
+                        .svg-icon {
+                            margin-right: 16px;
+                        }
+                        .sub-el-icon {
+                            margin-right: 12px;
+                            margin-left: -2px;
+                        }
+                    }
+
+                    // 菜单项过长时
+                    > .el-menu--popup {
+                        max-height: 100vh;
+                        overflow-y: auto;
+
+                        &::-webkit-scrollbar-track-piece {
+                            background: #d3dce6;
+                        }
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: #99a9bf;
+                            border-radius: 20px;
+                        }
+                    }
+                }↥
+        头像菜单
+            获取并展示用户信息                
+                src/api/sys.js ▾ 定义接口请求方法
+                    ↧/**
+                     * 获取用户信息
+                     */
+                    export const getUserInfo = () => {
+                        return request({
+                            url: '/sys/profile'
+                        })
+                    }↥
+                src/store/modules/user ▾ 定义调用接口的动作 
+                    ↧import { getUserInfo } from '@/api/sys'
+
+                    export default {
+                        state: () => ({
+                            userInfo: {}
+                        }),
+                        mutations: {
+                            setUserInfo(state, userInfo) {
+                                state.userInfo = userInfo
+                            }
+                        },
+                        actions: {
+                            async getUserInfo(context) {
+                                const res = await getUserInfo()
+                                this.commit('user/setUserInfo', res)
+                                return res
+                            }
+                        }
+                    }↥
+
+                    
+                src/utils/request.js ▾ 通用token注入
+                    ↧import store from '@/store'
+
+                    // 请求拦截器
+                    service.interceptors.request.use(
+                        config => {
+                            // 在这个位置需要统一的去注入token
+                            if (store.getters.token) {
+                                // 如果token存在 注入token
+                                config.headers.Authorization = `Bearer ${store.getters.token}`
+                            }
+                            return config // 必须返回配置
+                        },
+                        error => {
+                            return Promise.reject(error)
+                        }
+                    )↥
+                src/permission.js ▾ 在权限拦截时触发动作
+                    ↧▧router.beforeEach(async (to, from, next) => {
+                        if (store.getters.token) {
+                            if (to.path === '/login') {
+                                ...
+                            } else {
+                                // 判断用户资料是否获取
+                                // 若不存在用户信息，则需要获取用户信息
+                                if (!store.getters.hasUserInfo) {
+                                    // 触发获取用户信息的 action
+                                    2►await store.dispatch('user/getUserInfo')◄
+                                }
+                                next()
+                            }
+                        } else {
+                            ...
+                        }
+                    })▨↥
+                src/store/getters.js ▾
+                    ↧const getters = {
+                        userInfo: state => state.user.userInfo,
+                        /**
+                         * @returns true 表示已存在用户信息
+                         */
+                        hasUserInfo: state => {
+                            return JSON.stringify(state.user.userInfo) !== '{}'
+                        }
+                    }↥
 
 
+            element-plus 中的 dropdown 组件使用
+            退出登录的方案实现
+
+
+
+    左侧的 Menu 菜单
+        动态侧边栏方案
+            
+    顶部的 NavBar
+        用户退出方案
+            退出的通用逻辑封装
+
+        动态面包屑方案
+    中间的内容区 Main
+
+    伸缩侧边栏动画
+    组件状态驱动的动态 CSS 值
 
 ===-
 ▾↧↥
