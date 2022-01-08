@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.07 20:58</span>
+            <span>M 2022.01.08 20:59</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -671,7 +671,7 @@ pageClass: theme-item
                         }
                     }
                 }</span></span></div></div>            
-<div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 响应数据的统一处理 data.data.data.token &gt; data.token</span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
+<div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 响应数据的统一处理 data.data.data.token &gt; data.token </span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
 
                 <span class="comment">// 响应拦截器</span>
 
@@ -737,14 +737,14 @@ pageClass: theme-item
         src/layout/
 <div class="block-detail">            <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">                <span>&lt;template&gt;
                     &lt;div class="app-wrapper"&gt;
-                        &lt;!-- 左侧 menu --&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;左侧 menu&#45;&#45;&#62;</span>
                         &lt;sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" /&gt;
                         &lt;div class="main-container"&gt;
                             &lt;div class="fixed-header"&gt;
-                                &lt;!-- 顶部的 navbar --&gt;
+                                <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
                                 &lt;navbar /&gt;
                             &lt;/div&gt;
-                            &lt;!-- 内容区 --&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;内容区&#45;&#45;&#62;</span>
                             &lt;app-main /&gt;
                         &lt;/div&gt;
                     &lt;/div&gt;
@@ -1064,25 +1064,25 @@ pageClass: theme-item
                             url: '/sys/profile'
                         })
                     }</span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                    <span>import { getUserInfo } from '@/api/sys'
+<div class="block-detail">                <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                    <span><span class="format-block">import { <i class="i0">getUserInfo</i> } from '@/api/sys'
 
                     export default {
                         state: () =&gt; ({
-                            userInfo: {}
+                            <i class="i0">userInfo: {}</i>
                         }),
                         mutations: {
-                            setUserInfo(state, userInfo) {
+                            <i class="i0">setUserInfo(state, userInfo) {
                                 state.userInfo = userInfo
-                            }
+                            }</i>
                         },
                         actions: {
-                            async getUserInfo(context) {
+                            <i class="i0">async getUserInfo(context) {
                                 const res = await getUserInfo()
                                 this.commit('user/setUserInfo', res)
                                 return res
-                            }
+                            }</i>
                         }
-                    }</span></div></div>
+                    }</span></span></div></div>
 
                     
 <div class="block-detail">                <span class="detail-desc">src/utils/request.js</span><span class="comment"> 通用token注入</span><div class="detail-content">                    <span>import store from '@/store'
@@ -1127,10 +1127,504 @@ pageClass: theme-item
                             return JSON.stringify(state.user.userInfo) !== '{}'
                         }
                     }</span></div></div>
+            渲染用户头像菜单 element-plus中的dropdown组件使用
+<div class="block-detail">                <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                    <span><span class="format-block">&lt;template&gt;
+                        &lt;div class="navbar"&gt;
+                            &lt;div class="right-menu"&gt;
+                                <span class="comment">&#60;&#33;&#45;&#45;头像&#45;&#45;&#62;</span>
+                                <i class="i0">&lt;el-dropdown class="avatar-container" trigger="click"&gt;</i>
+                                    <i class="i0">&lt;div class="avatar-wrapper"&gt;</i>
+                                        <i class="i1">&lt;el-avatar shape="square" :size="40" :src="$store.getters.userInfo.avatar"&gt;&lt;/el-avatar&gt;</i>
+                                        &lt;i class="el-icon-s-tools"&gt;&lt;/i&gt;
+                                    <i class="i0">&lt;/div&gt;</i>
+                                    <i class="i0">&lt;template #dropdown&gt;</i>
+                                        <i class="i2">&lt;el-dropdown-menu class="user-dropdown"&gt;</i>
+                                            &lt;router-link to="/"&gt;
+                                                &lt;el-dropdown-item&gt; 首页 &lt;/el-dropdown-item&gt;
+                                            &lt;/router-link&gt;
+                                            &lt;a target="_blank" href=""&gt;
+                                                &lt;el-dropdown-item&gt;课程主页&lt;/el-dropdown-item&gt;
+                                            &lt;/a&gt;
+                                            &lt;el-dropdown-item divided&gt; 退出登录 &lt;/el-dropdown-item&gt;
+                                        <i class="i2">&lt;/el-dropdown-menu&gt;</i>
+                                    <i class="i0">&lt;/template&gt;</i>
+                                <i class="i0">&lt;/el-dropdown&gt;</i>
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/template&gt;
 
+                    &lt;script setup&gt;
+                    import {} from 'vue'
+                    &lt;/script&gt;
 
-            element-plus 中的 dropdown 组件使用
-            退出登录的方案实现
+                    &lt;style lang="scss" scoped&gt;
+                    .navbar {
+                        height: 50px;
+                        overflow: hidden;
+                        position: relative;
+                        background: #fff;
+                        box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+                        .right-menu {
+                            display: flex;
+                            align-items: center;
+                            float: right;
+                            padding-right: 16px;
+
+                            ::v-deep .avatar-container {
+                                cursor: pointer;
+                                .avatar-wrapper {
+                                    margin-top: 5px;
+                                    position: relative;
+                                    .el-avatar {
+                                        --el-avatar-background-color: none;
+                                        margin-right: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &lt;/style&gt;</span></span></div></div>
+            退出登录方案
+                1.清理掉当前用户缓存数据
+                2.清理掉权限相关配置
+                3.返回到登录页
+
+                用户主动退出：用户点击登录按钮之后退出
+<div class="block-detail">                    <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                        <span>import { removeAllItem } from '@/utils/storage'
+                        import router from '@/router'
+
+                        export default {                            
+                            actions: {
+                                logout() {
+                                    this.commit('user/setToken', '')
+                                    this.commit('user/setUserInfo', {})
+                                    removeAllItem()
+                                    router.push('/login')
+                                }
+                            }
+                        }</span></div></div>
+<div class="block-detail">                    <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"> 为退出登录按钮添加点击事件</span><div class="detail-content">                        <span>&lt;el-dropdown-item divided @click="logout"&gt; 退出登录 &lt;/el-dropdown-item&gt;
+
+                        import { useStore } from 'vuex'
+                        const store = useStore()
+                        const logout = () =&gt; {
+                            store.dispatch('user/logout')
+                        }</span></div></div>
+                用户被动退出：token过期或被其他人“顶下来”时退出
+                    主动计算token的失效时间(时效token)
+<div class="block-detail">                        <span class="detail-desc">src/utils/auth.js</span><span class="comment"></span><div class="detail-content">                            <span>import { TIME_STAMP, TOKEN_TIMEOUT_VALUE } from '@/constant'
+                            import { setItem, getItem } from '@/utils/storage'
+                            <span class="comment">/**
+                            * 获取时间戳
+                            */</span>
+                            export function getTimeStamp() {
+                                return getItem(TIME_STAMP)
+                            }
+                            <span class="comment">/**
+                            * 设置时间戳
+                            */</span>
+                            export function setTimeStamp() {
+                                setItem(TIME_STAMP, Date.now())
+                            }
+                            <span class="comment">/**
+                            * 是否超时
+                            */</span>
+                            export function isCheckTimeout() {
+                                <span class="comment">// 当前时间戳</span>
+                                var currentTime = Date.now()
+                                <span class="comment">// 缓存时间戳</span>
+                                var timeStamp = getTimeStamp()
+                                return currentTime - timeStamp &gt; TOKEN_TIMEOUT_VALUE
+                            }</span></div></div>
+<div class="block-detail">                        <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">                            <span>// token 时间戳
+                            export const TIME_STAMP = 'timeStamp'
+                            <span class="comment">// 超时时长(毫秒) 两小时</span>
+                            export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000</span></div></div>
+<div class="block-detail">                        <span class="detail-desc">src/store/modules/user.js</span><span class="comment"> 保存登录时间</span><div class="detail-content">                            <span><span class="format-block"><i class="i0">import { setTimeStamp } from '@/utils/auth'</i>
+                            export default {                                
+                                actions: {
+                                    login(context, userInfo) {
+                                        const { username, password } = userInfo
+                                        return new Promise((resolve, reject) =&gt; {login().then(data =&gt; {                                            
+                                            <i class="i0">setTimeStamp()</i>
+                                        })})
+                                    }
+                                }
+                            }</span></span></div></div>
+<div class="block-detail">                        <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                            <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
+                            <span class="comment">// 请求拦截器</span>
+                            service.interceptors.request.use(
+                                config =&gt; {
+                                    if (store.getters.token) {
+                                        <i class="i3">if (isCheckTimeout()) {                                            
+                                            store.dispatch('user/logout')
+                                            return Promise.reject(new Error('token 失效'))
+                                        }</i>
+                                    }
+                                }
+                            )</span></span></div></div>
+                    被动 token过期 和 单点登录
+<div class="block-detail">                        <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                            <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
+                            <span class="comment">// 响应拦截器</span>
+                            service.interceptors.response.use(
+                                response =&gt; {},
+                                error =&gt; {
+                                    <span class="comment">// 处理 token 超时问题</span>
+                                    <i class="i3">if (error.response && error.response.data && error.response.data.code === 401) {
+                                        store.dispatch('user/logout')
+                                    }</i>
+                                    <span class="comment">// 单点登录也一样协议返回码</span>
+
+                                    ElMessage.error(error.message) <span class="comment">// 提示错误信息</span>
+                                    return Promise.reject(error)
+                                }
+                            )</span></span></div></div>
+        临时menu菜单
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
+                    &lt;<i class="i1">el-menu</i> :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;子集 menu 菜单&#45;&#45;&#62;</span>
+                        &lt;<i class="i2">el-submenu</i> index="1"&gt;
+                            &lt;template #title&gt;
+                                &lt;i class="el-icon-location"&gt;&lt;/i&gt;
+                                &lt;span&gt;导航一&lt;/span&gt;
+                            &lt;/template&gt;
+                            &lt;<i class="i3">el-menu-item</i> index="1-1"&gt;选项1&lt;/<i class="i3">el-menu-item</i>&gt;
+                            &lt;<i class="i3">el-menu-item</i> index="1-2"&gt;选项2&lt;/<i class="i3">el-menu-item</i>&gt;
+                        &lt;/<i class="i2">el-submenu</i>&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;具体菜单项&#45;&#45;&#62;</span>
+                        &lt;<i class="i3">el-menu-item</i> index="4"&gt;
+                            &lt;i class="el-icon-setting"&gt;&lt;/i&gt;
+                            &lt;template #title&gt;导航四&lt;/template&gt;
+                        &lt;/<i class="i3">el-menu-item</i>&gt;
+                    &lt;/<i class="i1">el-menu</i>&gt;
+                &lt;/template&gt;</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 导入SidebarMenu</span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+                    &lt;div class=""&gt;
+                        &lt;h1&gt;占位&lt;/h1&gt;
+                        &lt;el-scrollbar&gt;
+                            <i class="i0">&lt;sidebar-menu&gt;&lt;/sidebar-menu&gt;</i>
+                        &lt;/el-scrollbar&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                <i class="i0">import SidebarMenu from './SidebarMenu'</i>
+                import {} from 'vue'
+                &lt;/script&gt;</span></span></div></div>
+        动态menu菜单
+            路由表 对应menu菜单规则: 
+                如果meta && meta.title && meta.icon
+                如果存在children以el-sub-menu(子菜单)展示 否则 则以el-menu-item(菜单项)展示
+
+            1.创建页面组件
+                src/views/article-create/index.vue 创建文章
+                src/views/article-detail/index.vue 文章详情
+                src/views/article-ranking/index.vue 文章排名
+                src/views/error-page/404.vue 错误页面
+                src/views/error-page/401.vue 错误页面
+                src/views/import 导入
+                src/views/permission-list 权限列表
+                src/views/profile 个人中心
+                src/views/role-list 角色列表
+                src/views/user-info 用户信息
+                src/views/user-manage 用户管理
+            2.生成路由表
+<div class="block-detail">                <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">                    <span>import { createRouter, createWebHashHistory } from 'vue-router'
+                    import layout from '@/layout'
+
+                    <span class="comment">/**
+                    * 私有路由表
+                    */</span>
+                    const privateRoutes = [
+                        {
+                            path: '/user',
+                            component: layout,
+                            redirect: '/user/manage',
+                            meta: {
+                                title: 'user',
+                                icon: 'personnel'
+                            },
+                            children: [
+                                {
+                                    path: '/user/manage',
+                                    component: () =&gt; import('@/views/user-manage/index'),
+                                    meta: {
+                                        title: 'userManage',
+                                        icon: 'personnel-manage'
+                                    }
+                                },
+                                {
+                                    path: '/user/role',
+                                    component: () =&gt; import('@/views/role-list/index'),
+                                    meta: {
+                                        title: 'roleList',
+                                        icon: 'role'
+                                    }
+                                },
+                                {
+                                    path: '/user/permission',
+                                    component: () =&gt; import('@/views/permission-list/index'),
+                                    meta: {
+                                        title: 'permissionList',
+                                        icon: 'permission'
+                                    }
+                                },
+                                {
+                                    path: '/user/info/:id',
+                                    name: 'userInfo',
+                                    component: () =&gt; import('@/views/user-info/index'),
+                                    meta: {
+                                        title: 'userInfo'
+                                    }
+                                },
+                                {
+                                    path: '/user/import',
+                                    name: 'import',
+                                    component: () =&gt; import('@/views/import/index'),
+                                    meta: {
+                                        title: 'excelImport'
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            path: '/article',
+                            component: layout,
+                            redirect: '/article/ranking',
+                            meta: {
+                                title: 'article',
+                                icon: 'article'
+                            },
+                            children: [
+                                {
+                                    path: '/article/ranking',
+                                    component: () =&gt; import('@/views/article-ranking/index'),
+                                    meta: {
+                                        title: 'articleRanking',
+                                        icon: 'article-ranking'
+                                    }
+                                },
+                                {
+                                    path: '/article/:id',
+                                    component: () =&gt; import('@/views/article-detail/index'),
+                                    meta: {
+                                        title: 'articleDetail'
+                                    }
+                                },
+                                {
+                                    path: '/article/create',
+                                    component: () =&gt; import('@/views/article-create/index'),
+                                    meta: {
+                                        title: 'articleCreate',
+                                        icon: 'article-create'
+                                    }
+                                },
+                                {
+                                    path: '/article/editor/:id',
+                                    component: () =&gt; import('@/views/article-create/index'),
+                                    meta: {
+                                        title: 'articleEditor'
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+
+                    <span class="comment">/**
+                    * 公开路由表
+                    */</span>
+                    const publicRoutes = [
+                        {
+                            path: '/login',
+                            component: () =&gt; import('@/views/login/index')
+                        },
+                        {
+                            path: '/',
+                            <span class="comment">// 注意：带有路径“/”的记录中的组件“默认”是一个不返回 Promise 的函数</span>
+                            component: layout,
+                            redirect: '/profile',
+                            children: [
+                                {
+                                    path: '/profile',
+                                    name: 'profile',
+                                    component: () =&gt; import('@/views/profile/index'),
+                                    meta: {
+                                        title: 'profile',
+                                        icon: 'el-icon-user'
+                                    }
+                                },
+                                {
+                                    path: '/404',
+                                    name: '404',
+                                    component: () =&gt; import('@/views/error-page/404')
+                                },
+                                {
+                                    path: '/401',
+                                    name: '401',
+                                    component: () =&gt; import('@/views/error-page/401')
+                                }
+                            ]
+                        }
+                    ]
+
+                    const router = createRouter({
+                        history: createWebHashHistory(),
+                        routes: [...publicRoutes, ...privateRoutes]
+                    })
+
+                    export default router</span></div></div>
+                src/layout/AppMain.vue
+                    &lt;template&gt;
+                        &lt;div class="app-main"&gt;
+                            &lt;router-view&gt;&lt;/router-view&gt;
+                        &lt;/div&gt;
+                    &lt;/template&gt;
+            3.解析路由表
+<div class="block-detail">                <span class="detail-desc">src/utils/route.js</span><span class="comment"></span><div class="detail-content">                    <span>import path from 'path'
+
+                    <span class="comment">/**
+                    * 返回所有子路由
+                    */</span>
+                    const getChildrenRoutes = routes =&gt; {
+                        const result = []
+                        routes.forEach(route =&gt; {
+                            if (route.children && route.children.length &gt; 0) {
+                                result.push(...route.children)
+                            }
+                        })
+                        return result
+                    }
+                    <span class="comment">/**
+                    * 处理脱离层级的路由：某个一级路由为其他子路由，则剔除该一级路由，保留路由层级
+                    * @param {*} routes router.getRoutes()
+                    */</span>
+                    export const filterRouters = routes =&gt; {
+                        const childrenRoutes = getChildrenRoutes(routes)
+                        return routes.filter(route =&gt; {
+                            return !childrenRoutes.find(childrenRoute =&gt; {
+                                return childrenRoute.path === route.path
+                            })
+                        })
+                    }
+
+                    <span class="comment">/**
+                    * 判断数据是否为空值
+                    */</span>
+                    function isNull(data) {
+                        if (!data) return true
+                        if (JSON.stringify(data) === '{}') return true
+                        if (JSON.stringify(data) === '[]') return true
+                        return false
+                    }
+                    <span class="comment">/**
+                    * 根据 routes 数据，返回对应 menu 规则数组
+                    */</span>
+                    export function generateMenus(routes, basePath = '') {
+                        const result = []
+                        <span class="comment">// 遍历路由表</span>
+                        routes.forEach(item =&gt; {
+                            <span class="comment">// 不存在 children && 不存在 meta 直接 return</span>
+                            if (isNull(item.meta) && isNull(item.children)) return
+                            <span class="comment">// 存在 children 不存在 meta，进入迭代</span>
+                            if (isNull(item.meta) && !isNull(item.children)) {
+                                result.push(...generateMenus(item.children))
+                                return
+                            }
+                            <span class="comment">// 合并 path 作为跳转路径</span>
+                            const routePath = path.resolve(basePath, item.path)
+                            <span class="comment">// 路由分离之后，存在同名父路由的情况，需要单独处理</span>
+                            let route = result.find(item =&gt; item.path === routePath)
+                            if (!route) {
+                                route = {
+                                    ...item,
+                                    path: routePath,
+                                    children: []
+                                }
+
+                                <span class="comment">// icon 与 title 必须全部存在</span>
+                                if (route.meta.icon && route.meta.title) {
+                                    <span class="comment">// meta 存在生成 route 对象，放入 arr</span>
+                                    result.push(route)
+                                }
+                            }
+
+                            <span class="comment">// 存在 children 进入迭代到children</span>
+                            if (item.children) {
+                                route.children.push(...generateMenus(item.children, route.path))
+                            }
+                        })
+                        return result
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"> 处理数据，作为最顶层 menu 载体</span><div class="detail-content">                    <span>&lt;template&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
+                        &lt;el-menu :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
+                            &lt;sidebar-item v-for="item in routes" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
+                        &lt;/el-menu&gt;
+                    &lt;/template&gt;                    
+
+                    &lt;script setup&gt;
+                    import { computed } from 'vue'
+                    import { useRouter } from 'vue-router'
+                    import { filterRouters, generateMenus } from '@/utils/route'
+                    import SidebarItem from './SidebarItem'
+
+                    const router = useRouter()
+                    const routes = computed(() =&gt; {
+                        const filterRoutes = filterRouters(router.getRoutes())
+                        return generateMenus(filterRoutes)
+                    })
+                    console.log(JSON.stringify(routes.value))
+                    &lt;/script&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> 根据数据处理 当前项为 el-submenu || el-menu-item</span><div class="detail-content">                    <span>&lt;template&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;支持渲染多级 menu 菜单&#45;&#45;&#62;</span>
+                        &lt;el-submenu v-if="route.children.length &gt; 0" :index="route.path"&gt;
+                            &lt;template #title&gt;
+                                &lt;menu-item :title="route.meta.title" :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
+                            &lt;/template&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;循环渲染&#45;&#45;&#62;</span>
+                            &lt;sidebar-item v-for="item in route.children" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
+                        &lt;/el-submenu&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;渲染 item 项&#45;&#45;&#62;</span>
+                        &lt;el-menu-item v-else :index="route.path"&gt;
+                            &lt;menu-item :title="route.meta.title" :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
+                        &lt;/el-menu-item&gt;
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import MenuItem from './MenuItem'
+                    import { defineProps } from 'vue'
+                    <span class="comment">// 定义 props</span>
+                    defineProps({
+                        route: {
+                            type: Object,
+                            required: true
+                        }
+                    })
+                    &lt;/script&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/MenuItem.vue</span><span class="comment"> 处理 el-menu-item 样式</span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;i v-if="icon.includes('el-icon')" class="sub-el-icon" :class="icon"&gt;&lt;/i&gt;
+                        &lt;svg-icon v-else :icon="icon"&gt;&lt;/svg-icon&gt;
+                        &lt;span&gt;<img :src="$withBase('/images/db-brace-left.png')"> title <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import { defineProps } from 'vue'
+                    defineProps({
+                        title: {
+                            type: String,
+                            required: true
+                        },
+                        icon: {
+                            type: String,
+                            required: true
+                        }
+                    })
+                    &lt;/script&gt;
+
+                    &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+            4.生成menu菜单
 
 
 

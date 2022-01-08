@@ -682,7 +682,7 @@ src/router/index.js ▾
                         }
                     }
                 }▨↥            
-            src/utils/request.js ▾ 响应数据的统一处理 data.data.data.token > data.token
+            src/utils/request.js ▾ 响应数据的统一处理 data.data.data.token > data.token 
                 ↧▧import { ElMessage } from 'element-plus'
 
                 // 响应拦截器
@@ -1091,25 +1091,25 @@ src/router/index.js ▾
                         })
                     }↥
                 src/store/modules/user ▾ 定义调用接口的动作 
-                    ↧import { getUserInfo } from '@/api/sys'
+                    ↧▧import { 0►getUserInfo◄ } from '@/api/sys'
 
                     export default {
                         state: () => ({
-                            userInfo: {}
+                            0►userInfo: {}◄
                         }),
                         mutations: {
-                            setUserInfo(state, userInfo) {
+                            0►setUserInfo(state, userInfo) {
                                 state.userInfo = userInfo
-                            }
+                            }◄
                         },
                         actions: {
-                            async getUserInfo(context) {
+                            0►async getUserInfo(context) {
                                 const res = await getUserInfo()
                                 this.commit('user/setUserInfo', res)
                                 return res
-                            }
+                            }◄
                         }
-                    }↥
+                    }▨↥
 
                     
                 src/utils/request.js ▾ 通用token注入
@@ -1157,10 +1157,519 @@ src/router/index.js ▾
                             return JSON.stringify(state.user.userInfo) !== '{}'
                         }
                     }↥
+            渲染用户头像菜单 element-plus中的dropdown组件使用
+                src/layout/components/navbar.vue ▾
+                    ↧▧<template>
+                        <div class="navbar">
+                            <div class="right-menu">
+                                <!-- 头像 -->
+                                0►<el-dropdown class="avatar-container" trigger="click">◄
+                                    0►<div class="avatar-wrapper">◄
+                                        1►<el-avatar shape="square" :size="40" :src="$store.getters.userInfo.avatar"></el-avatar>◄
+                                        <i class="el-icon-s-tools"></i>
+                                    0►</div>◄
+                                    0►<template #dropdown>◄
+                                        2►<el-dropdown-menu class="user-dropdown">◄
+                                            <router-link to="/">
+                                                <el-dropdown-item> 首页 </el-dropdown-item>
+                                            </router-link>
+                                            <a target="_blank" href="">
+                                                <el-dropdown-item>课程主页</el-dropdown-item>
+                                            </a>
+                                            <el-dropdown-item divided> 退出登录 </el-dropdown-item>
+                                        2►</el-dropdown-menu>◄
+                                    0►</template>◄
+                                0►</el-dropdown>◄
+                            </div>
+                        </div>
+                    </template>
 
+                    <script setup>
+                    import {} from 'vue'
+                    </script>
 
-            element-plus 中的 dropdown 组件使用
-            退出登录的方案实现
+                    <style lang="scss" scoped>
+                    .navbar {
+                        height: 50px;
+                        overflow: hidden;
+                        position: relative;
+                        background: #fff;
+                        box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+                        .right-menu {
+                            display: flex;
+                            align-items: center;
+                            float: right;
+                            padding-right: 16px;
+
+                            ::v-deep .avatar-container {
+                                cursor: pointer;
+                                .avatar-wrapper {
+                                    margin-top: 5px;
+                                    position: relative;
+                                    .el-avatar {
+                                        --el-avatar-background-color: none;
+                                        margin-right: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    </style>▨↥
+            退出登录方案
+                1.清理掉当前用户缓存数据
+                2.清理掉权限相关配置
+                3.返回到登录页
+
+                用户主动退出：用户点击登录按钮之后退出
+                    src/store/modules/user.js ▾
+                        ↧import { removeAllItem } from '@/utils/storage'
+                        import router from '@/router'
+
+                        export default {                            
+                            actions: {
+                                logout() {
+                                    this.commit('user/setToken', '')
+                                    this.commit('user/setUserInfo', {})
+                                    removeAllItem()
+                                    router.push('/login')
+                                }
+                            }
+                        }↥
+                    src/layout/components/navbar.vue ▾ 为退出登录按钮添加点击事件
+                        ↧<el-dropdown-item divided @click="logout"> 退出登录 </el-dropdown-item>
+
+                        import { useStore } from 'vuex'
+                        const store = useStore()
+                        const logout = () => {
+                            store.dispatch('user/logout')
+                        }↥
+                用户被动退出：token过期或被其他人“顶下来”时退出
+                    主动计算token的失效时间(时效token)
+                        src/utils/auth.js ▾
+                            ↧import { TIME_STAMP, TOKEN_TIMEOUT_VALUE } from '@/constant'
+                            import { setItem, getItem } from '@/utils/storage'
+                            /**
+                            * 获取时间戳
+                            */
+                            export function getTimeStamp() {
+                                return getItem(TIME_STAMP)
+                            }
+                            /**
+                            * 设置时间戳
+                            */
+                            export function setTimeStamp() {
+                                setItem(TIME_STAMP, Date.now())
+                            }
+                            /**
+                            * 是否超时
+                            */
+                            export function isCheckTimeout() {
+                                // 当前时间戳
+                                var currentTime = Date.now()
+                                // 缓存时间戳
+                                var timeStamp = getTimeStamp()
+                                return currentTime - timeStamp > TOKEN_TIMEOUT_VALUE
+                            }↥
+                        src/constant/index.js ▾ 抽取常量
+                            ↧// token 时间戳
+                            export const TIME_STAMP = 'timeStamp'
+                            // 超时时长(毫秒) 两小时
+                            export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000↥
+                        src/store/modules/user.js ▾ 保存登录时间
+                            ↧▧0►import { setTimeStamp } from '@/utils/auth'◄
+                            export default {                                
+                                actions: {
+                                    login(context, userInfo) {
+                                        const { username, password } = userInfo
+                                        return new Promise((resolve, reject) => {login().then(data => {                                            
+                                            0►setTimeStamp()◄
+                                        })})
+                                    }
+                                }
+                            }▨↥
+                        src/utils/request.js ▾ 检测token是否过期
+                            ↧▧3►import { isCheckTimeout } from '@/utils/auth'◄
+                            // 请求拦截器
+                            service.interceptors.request.use(
+                                config => {
+                                    if (store.getters.token) {
+                                        3►if (isCheckTimeout()) {                                            
+                                            store.dispatch('user/logout')
+                                            return Promise.reject(new Error('token 失效'))
+                                        }◄
+                                    }
+                                }
+                            )▨↥
+                    被动 token过期 和 单点登录
+                        src/utils/request.js ▾ 检测token是否过期
+                            ↧▧3►import { isCheckTimeout } from '@/utils/auth'◄
+                            // 响应拦截器
+                            service.interceptors.response.use(
+                                response => {},
+                                error => {
+                                    // 处理 token 超时问题
+                                    3►if (error.response && error.response.data && error.response.data.code === 401) {
+                                        store.dispatch('user/logout')
+                                    }◄
+                                    // 单点登录也一样协议返回码
+
+                                    ElMessage.error(error.message) // 提示错误信息
+                                    return Promise.reject(error)
+                                }
+                            )▨↥
+        临时menu菜单
+            src/layout/components/Sidebar/SidebarMenu.vue ▾
+                ↧▧<template>
+                    <!-- 一级 menu 菜单 -->
+                    <1►el-menu◄ :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                        <!-- 子集 menu 菜单 -->
+                        <2►el-submenu◄ index="1">
+                            <template #title>
+                                <i class="el-icon-location"></i>
+                                <span>导航一</span>
+                            </template>
+                            <3►el-menu-item◄ index="1-1">选项1</3►el-menu-item◄>
+                            <3►el-menu-item◄ index="1-2">选项2</3►el-menu-item◄>
+                        </2►el-submenu◄>
+                        <!-- 具体菜单项 -->
+                        <3►el-menu-item◄ index="4">
+                            <i class="el-icon-setting"></i>
+                            <template #title>导航四</template>
+                        </3►el-menu-item◄>
+                    </1►el-menu◄>
+                </template>▨↥
+            src/layout/components/Sidebar/index.vue ▾ 导入SidebarMenu
+                ↧▧<template>
+                    <div class="">
+                        <h1>占位</h1>
+                        <el-scrollbar>
+                            0►<sidebar-menu></sidebar-menu>◄
+                        </el-scrollbar>
+                    </div>
+                </template>
+
+                <script setup>
+                0►import SidebarMenu from './SidebarMenu'◄
+                import {} from 'vue'
+                </script>▨↥
+        动态menu菜单
+            路由表 对应menu菜单规则: 
+                如果meta && meta.title && meta.icon
+                如果存在children以el-sub-menu(子菜单)展示 否则 则以el-menu-item(菜单项)展示
+
+            1.创建页面组件
+                src/views/article-create/index.vue 创建文章
+                src/views/article-detail/index.vue 文章详情
+                src/views/article-ranking/index.vue 文章排名
+                src/views/error-page/404.vue 错误页面
+                src/views/error-page/401.vue 错误页面
+                src/views/import 导入
+                src/views/permission-list 权限列表
+                src/views/profile 个人中心
+                src/views/role-list 角色列表
+                src/views/user-info 用户信息
+                src/views/user-manage 用户管理
+            2.生成路由表
+                src/router/index.js ▾
+                    ↧import { createRouter, createWebHashHistory } from 'vue-router'
+                    import layout from '@/layout'
+
+                    /**
+                    * 私有路由表
+                    */
+                    const privateRoutes = [
+                        {
+                            path: '/user',
+                            component: layout,
+                            redirect: '/user/manage',
+                            meta: {
+                                title: 'user',
+                                icon: 'personnel'
+                            },
+                            children: [
+                                {
+                                    path: '/user/manage',
+                                    component: () => import('@/views/user-manage/index'),
+                                    meta: {
+                                        title: 'userManage',
+                                        icon: 'personnel-manage'
+                                    }
+                                },
+                                {
+                                    path: '/user/role',
+                                    component: () => import('@/views/role-list/index'),
+                                    meta: {
+                                        title: 'roleList',
+                                        icon: 'role'
+                                    }
+                                },
+                                {
+                                    path: '/user/permission',
+                                    component: () => import('@/views/permission-list/index'),
+                                    meta: {
+                                        title: 'permissionList',
+                                        icon: 'permission'
+                                    }
+                                },
+                                {
+                                    path: '/user/info/:id',
+                                    name: 'userInfo',
+                                    component: () => import('@/views/user-info/index'),
+                                    meta: {
+                                        title: 'userInfo'
+                                    }
+                                },
+                                {
+                                    path: '/user/import',
+                                    name: 'import',
+                                    component: () => import('@/views/import/index'),
+                                    meta: {
+                                        title: 'excelImport'
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            path: '/article',
+                            component: layout,
+                            redirect: '/article/ranking',
+                            meta: {
+                                title: 'article',
+                                icon: 'article'
+                            },
+                            children: [
+                                {
+                                    path: '/article/ranking',
+                                    component: () => import('@/views/article-ranking/index'),
+                                    meta: {
+                                        title: 'articleRanking',
+                                        icon: 'article-ranking'
+                                    }
+                                },
+                                {
+                                    path: '/article/:id',
+                                    component: () => import('@/views/article-detail/index'),
+                                    meta: {
+                                        title: 'articleDetail'
+                                    }
+                                },
+                                {
+                                    path: '/article/create',
+                                    component: () => import('@/views/article-create/index'),
+                                    meta: {
+                                        title: 'articleCreate',
+                                        icon: 'article-create'
+                                    }
+                                },
+                                {
+                                    path: '/article/editor/:id',
+                                    component: () => import('@/views/article-create/index'),
+                                    meta: {
+                                        title: 'articleEditor'
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+
+                    /**
+                    * 公开路由表
+                    */
+                    const publicRoutes = [
+                        {
+                            path: '/login',
+                            component: () => import('@/views/login/index')
+                        },
+                        {
+                            path: '/',
+                            // 注意：带有路径“/”的记录中的组件“默认”是一个不返回 Promise 的函数
+                            component: layout,
+                            redirect: '/profile',
+                            children: [
+                                {
+                                    path: '/profile',
+                                    name: 'profile',
+                                    component: () => import('@/views/profile/index'),
+                                    meta: {
+                                        title: 'profile',
+                                        icon: 'el-icon-user'
+                                    }
+                                },
+                                {
+                                    path: '/404',
+                                    name: '404',
+                                    component: () => import('@/views/error-page/404')
+                                },
+                                {
+                                    path: '/401',
+                                    name: '401',
+                                    component: () => import('@/views/error-page/401')
+                                }
+                            ]
+                        }
+                    ]
+
+                    const router = createRouter({
+                        history: createWebHashHistory(),
+                        routes: [...publicRoutes, ...privateRoutes]
+                    })
+
+                    export default router↥
+                src/layout/AppMain.vue
+                    <template>
+                        <div class="app-main">
+                            <router-view></router-view>
+                        </div>
+                    </template>
+            3.解析路由表
+                src/utils/route.js ▾
+                    ↧import path from 'path'
+
+                    /**
+                    * 返回所有子路由
+                    */
+                    const getChildrenRoutes = routes => {
+                        const result = []
+                        routes.forEach(route => {
+                            if (route.children && route.children.length > 0) {
+                                result.push(...route.children)
+                            }
+                        })
+                        return result
+                    }
+                    /**
+                    * 处理脱离层级的路由：某个一级路由为其他子路由，则剔除该一级路由，保留路由层级
+                    * @param {*} routes router.getRoutes()
+                    */
+                    export const filterRouters = routes => {
+                        const childrenRoutes = getChildrenRoutes(routes)
+                        return routes.filter(route => {
+                            return !childrenRoutes.find(childrenRoute => {
+                                return childrenRoute.path === route.path
+                            })
+                        })
+                    }
+
+                    /**
+                    * 判断数据是否为空值
+                    */
+                    function isNull(data) {
+                        if (!data) return true
+                        if (JSON.stringify(data) === '{}') return true
+                        if (JSON.stringify(data) === '[]') return true
+                        return false
+                    }
+                    /**
+                    * 根据 routes 数据，返回对应 menu 规则数组
+                    */
+                    export function generateMenus(routes, basePath = '') {
+                        const result = []
+                        // 遍历路由表
+                        routes.forEach(item => {
+                            // 不存在 children && 不存在 meta 直接 return
+                            if (isNull(item.meta) && isNull(item.children)) return
+                            // 存在 children 不存在 meta，进入迭代
+                            if (isNull(item.meta) && !isNull(item.children)) {
+                                result.push(...generateMenus(item.children))
+                                return
+                            }
+                            // 合并 path 作为跳转路径
+                            const routePath = path.resolve(basePath, item.path)
+                            // 路由分离之后，存在同名父路由的情况，需要单独处理
+                            let route = result.find(item => item.path === routePath)
+                            if (!route) {
+                                route = {
+                                    ...item,
+                                    path: routePath,
+                                    children: []
+                                }
+
+                                // icon 与 title 必须全部存在
+                                if (route.meta.icon && route.meta.title) {
+                                    // meta 存在生成 route 对象，放入 arr
+                                    result.push(route)
+                                }
+                            }
+
+                            // 存在 children 进入迭代到children
+                            if (item.children) {
+                                route.children.push(...generateMenus(item.children, route.path))
+                            }
+                        })
+                        return result
+                    }↥
+                src/layout/components/Sidebar/SidebarMenu.vue ▾ 处理数据，作为最顶层 menu 载体
+                    ↧<template>
+                        <!-- 一级 menu 菜单 -->
+                        <el-menu :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                            <sidebar-item v-for="item in routes" :key="item.path" :route="item"></sidebar-item>
+                        </el-menu>
+                    </template>                    
+
+                    <script setup>
+                    import { computed } from 'vue'
+                    import { useRouter } from 'vue-router'
+                    import { filterRouters, generateMenus } from '@/utils/route'
+                    import SidebarItem from './SidebarItem'
+
+                    const router = useRouter()
+                    const routes = computed(() => {
+                        const filterRoutes = filterRouters(router.getRoutes())
+                        return generateMenus(filterRoutes)
+                    })
+                    console.log(JSON.stringify(routes.value))
+                    </script>↥
+                src/layout/components/Sidebar/SidebarItem.vue ▾ 根据数据处理 当前项为 el-submenu || el-menu-item
+                    ↧<template>
+                        <!-- 支持渲染多级 menu 菜单 -->
+                        <el-submenu v-if="route.children.length > 0" :index="route.path">
+                            <template #title>
+                                <menu-item :title="route.meta.title" :icon="route.meta.icon"></menu-item>
+                            </template>
+                            <!-- 循环渲染 -->
+                            <sidebar-item v-for="item in route.children" :key="item.path" :route="item"></sidebar-item>
+                        </el-submenu>
+                        <!-- 渲染 item 项 -->
+                        <el-menu-item v-else :index="route.path">
+                            <menu-item :title="route.meta.title" :icon="route.meta.icon"></menu-item>
+                        </el-menu-item>
+                    </template>
+
+                    <script setup>
+                    import MenuItem from './MenuItem'
+                    import { defineProps } from 'vue'
+                    // 定义 props
+                    defineProps({
+                        route: {
+                            type: Object,
+                            required: true
+                        }
+                    })
+                    </script>↥
+                src/layout/components/Sidebar/MenuItem.vue ▾ 处理 el-menu-item 样式
+                    ↧<template>
+                        <i v-if="icon.includes('el-icon')" class="sub-el-icon" :class="icon"></i>
+                        <svg-icon v-else :icon="icon"></svg-icon>
+                        <span>{{ title }}</span>
+                    </template>
+
+                    <script setup>
+                    import { defineProps } from 'vue'
+                    defineProps({
+                        title: {
+                            type: String,
+                            required: true
+                        },
+                        icon: {
+                            type: String,
+                            required: true
+                        }
+                    })
+                    </script>
+
+                    <style lang="scss" scoped></style>↥
+            4.生成menu菜单
 
 
 

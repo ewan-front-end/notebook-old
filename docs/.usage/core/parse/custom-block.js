@@ -34,6 +34,13 @@ function parseCustomBlock(block, path) {
         if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
         block = block.replace(e, `<span class="comment${colorClass}">${_e}</span>`)
     })
+    // <!-- HTML注释 -->
+    const matchHtmlComment = block.match(/&lt;!--\s*[\s\S]*?\s*--&gt;/g) || [];
+    console.log('matchHtmlComment', matchHtmlComment);
+    matchHtmlComment.forEach(e => {
+        let content = e.replace(/&lt;!--\s*/, '<span class="comment">&#60;&#33;&#45;&#45;').replace(/\s*--&gt;/, '&#45;&#45;&#62;</span>')
+        block = block.replace(e, content)
+    })
 
     // Markdown格式 [链接](#)、- 点列表、**局部加粗**   
     while (/(\[([^\]\r\n]+)\]\(([^\)\r\n]+)\))/.exec(block) !== null) { 
