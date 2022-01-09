@@ -855,7 +855,9 @@ src/router/index.js ▾
                 $subMenuBg: #1f2d3d;
                 $subMenuHover: #001528;
 
-                $sideBarWidth: 210px;
+                $sideBarWidth: 210px;    // 侧栏展开时宽度
+                $hideSideBarWidth: 54px; // 侧栏收缩后宽度
+                $sideBarDuration: 0.28s; // 侧栏开闭动画时长
 
                 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
                 // JS 与 scss 共享变量，在 scss 中通过 :export 进行导出，在 js 中可通过 ESM 进行导入
@@ -1599,6 +1601,7 @@ src/router/index.js ▾
                         })
                         return result
                     }↥
+            4.生成menu菜单
                 src/layout/components/Sidebar/SidebarMenu.vue ▾ 处理数据，作为最顶层 menu 载体
                     ↧<template>
                         <!-- 一级 menu 菜单 -->
@@ -1669,7 +1672,186 @@ src/router/index.js ▾
                     </script>
 
                     <style lang="scss" scoped></style>↥
-            4.生成menu菜单
+
+                残余：样式问题
+                    src/store/getters.js
+                        import variables from '@/styles/variables.scss'
+                        const getters = {
+                            cssVar: state => variables
+                        }
+                        export default getters
+                    src/layout/components/Sidebar/SidebarMenu.vue
+                        <!-- <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :uniqueOpened="true" default-active="2"  > -->
+                        <el-menu 
+                            :background-color="$store.getters.cssVar.menuBg" 
+                            :text-color="$store.getters.cssVar.menuText" 
+                            :active-text-color="$store.getters.cssVar.menuActiveText" 
+                            :unique-opened="true">
+                残余：路由跳转问题
+                    src/layout/components/Sidebar/SidebarMenu.vue
+                        <el-menu router>
+                残余：默认激活项
+                    src/layout/components/Sidebar/SidebarMenu.vue
+                        import { useRoute } from 'vue-router'
+                        <el-menu :default-active="activeMenu">
+                        <script setup>
+                        // 计算高亮 menu 的方法
+                        const route = useRoute()
+                        const activeMenu = computed(() => {
+                            const { path } = route
+                            return path
+                        })
+                        </script>
+        左侧菜单伸缩功能实现
+            src/store/modules/app.js ▾ // 创建模块
+                ↧export default {
+                    namespaced: true,
+                    state: () => ({
+                        sidebarOpened: true
+                    }),
+                    mutations: {
+                        triggerSidebarOpened(state) {
+                            state.sidebarOpened = !state.sidebarOpened
+                        }
+                    },
+                    actions: {}
+                }↥
+            src/store/index.js ▾ // 引入模块
+                ↧import app from './modules/app'
+                export default createStore({
+                    modules: {
+                        app
+                    }
+                })↥
+            src/store/getters.js ▾
+                ↧sidebarOpened: state => state.app.sidebarOpened↥
+            src/components/Hamburger/index.vue ▾
+                ↧<template>
+                    <div class="hamburger-container" @click="toggleClick">
+                        <svg-icon class="hamburger" :icon="icon"></svg-icon>
+                    </div>
+                </template>
+
+                <script setup>
+                import { computed } from 'vue'
+                import { useStore } from 'vuex'
+
+                const store = useStore()
+                const toggleClick = () => {
+                    store.commit('app/triggerSidebarOpened')
+                }
+
+                const icon = computed(() => (store.getters.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'))
+                </script>
+
+                <style lang="scss" scoped>
+                .hamburger-container {
+                    padding: 0 16px;
+                    .hamburger {
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                </style>↥
+            src/layout/components/navbar.vue ▾
+                ↧<template>
+                    <div class="navbar">
+                        <hamburger class="hamburger-container" />
+                    </div>
+                </template>
+
+                <script setup>
+                import Hamburger from '@/components/Hamburger'
+                </script>
+
+                <style lang="scss" scoped>
+                .navbar {                
+                    .hamburger-container {
+                        line-height: 46px;
+                        height: 100%;
+                        float: left;
+                        cursor: pointer;
+                        // hover 动画
+                        transition: background 0.5s;
+
+                        &:hover {
+                        background: rgba(0, 0, 0, 0.1);
+                        }
+                    }
+                }
+                </style>↥
+            src/layout/components/Sidebar/SidebarMenu.vue ▾
+                ↧<el-menu :collapse="!$store.getters.sidebarOpened">↥
+            src/layout/index.vue ▾
+                ↧<div class="app-wrapper">
+
+                <style lang="scss" scoped>
+                ...
+
+                .fixed-header {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    z-index: 9;
+                    width: calc(100% - #{$sideBarWidth});
+                    transition: width 0.28s;
+                }
+
+                .hideSidebar .fixed-header {
+                    width: calc(100% - #{$hideSideBarWidth});
+                }
+                </style>↥
+            src/layout/components/Sidebar/index.vue ▾
+                ↧<template>
+                    <div class="">
+                        <div class="logo-container">
+                            <el-avatar size="44" shape="square" src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png" />
+                            <h1 class="logo-title" v-if="$store.getters.sidebarOpened">imooc-admin</h1>
+                        </div>
+                    </div>
+                </template>
+
+                <style lang="scss" scoped>
+                .logo-container {
+                    height: 44px;
+                    padding: 10px 0 22px 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .logo-title {
+                        margin-left: 10px;
+                        color: #fff;
+                        font-weight: 600;
+                        line-height: 50px;
+                        font-size: 16px;
+                        white-space: nowrap;
+                    }
+                }
+                </style>↥
+            src/styles/element.scss ▾
+                ↧.el-avatar {
+                    --el-avatar-background-color: none;
+                }↥
+            src/styles/index.scss ▾
+                ↧@import './element.scss';↥
+            src/styles/sidebar.scss ▾
+                ↧.main-container {
+                    // transition: margin-left 0.28s;
+                    transition: margin-left #{$sideBarDuration};
+                }
+                .sidebar-container {
+                    // transition: width 0.28s;
+                    transition: width #{$sideBarDuration};
+                }↥
+            src/layout/index.vue ▾
+                ↧.fixed-header {    
+                    // transition: width 0.28s;
+                    transition: width #{$sideBarDuration};
+                }↥
+
+
 
 
 

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.08 20:59</span>
+            <span>M 2022.01.09 16:28</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -832,7 +832,9 @@ pageClass: theme-item
                 $subMenuBg: #1f2d3d;
                 $subMenuHover: #001528;
 
-                $sideBarWidth: 210px;
+                $sideBarWidth: 210px;    <span class="comment">// 侧栏展开时宽度</span>
+                $hideSideBarWidth: 54px; <span class="comment">// 侧栏收缩后宽度</span>
+                $sideBarDuration: 0.28s; <span class="comment">// 侧栏开闭动画时长</span>
 
                 <span class="comment">// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass</span>
                 <span class="comment">// JS 与 scss 共享变量，在 scss 中通过 :export 进行导出，在 js 中可通过 ESM 进行导入</span>
@@ -1557,6 +1559,7 @@ pageClass: theme-item
                         })
                         return result
                     }</span></div></div>
+            4.生成menu菜单
 <div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"> 处理数据，作为最顶层 menu 载体</span><div class="detail-content">                    <span>&lt;template&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
                         &lt;el-menu :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
@@ -1624,7 +1627,174 @@ pageClass: theme-item
                     &lt;/script&gt;
 
                     &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
-            4.生成menu菜单
+
+                残余：样式问题
+                    src/store/getters.js
+                        import variables from '@/styles/variables.scss'
+                        const getters = {
+                            cssVar: state =&gt; variables
+                        }
+                        export default getters
+                    src/layout/components/Sidebar/SidebarMenu.vue
+                        <span class="comment">&#60;&#33;&#45;&#45;&lt;el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :uniqueOpened="true" default-active="2"  &gt;&#45;&#45;&#62;</span>
+                        &lt;el-menu 
+                            :background-color="$store.getters.cssVar.menuBg" 
+                            :text-color="$store.getters.cssVar.menuText" 
+                            :active-text-color="$store.getters.cssVar.menuActiveText" 
+                            :unique-opened="true"&gt;
+                残余：路由跳转问题
+                    src/layout/components/Sidebar/SidebarMenu.vue
+                        &lt;el-menu router&gt;
+                残余：默认激活项
+                    src/layout/components/Sidebar/SidebarMenu.vue
+                        import { useRoute } from 'vue-router'
+                        &lt;el-menu :default-active="activeMenu"&gt;
+                        &lt;script setup&gt;
+                        <span class="comment">// 计算高亮 menu 的方法</span>
+                        const route = useRoute()
+                        const activeMenu = computed(() =&gt; {
+                            const { path } = route
+                            return path
+                        })
+                        &lt;/script&gt;
+        左侧菜单伸缩功能实现
+<div class="block-detail">            <span class="detail-desc">src/store/modules/app.js</span><span class="comment"> <span class="comment">// 创建模块</span></span><div class="detail-content">                <span>export default {
+                    namespaced: true,
+                    state: () =&gt; ({
+                        sidebarOpened: true
+                    }),
+                    mutations: {
+                        triggerSidebarOpened(state) {
+                            state.sidebarOpened = !state.sidebarOpened
+                        }
+                    },
+                    actions: {}
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/index.js</span><span class="comment"> <span class="comment">// 引入模块</span></span><div class="detail-content">                <span>import app from './modules/app'
+                export default createStore({
+                    modules: {
+                        app
+                    }
+                })</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                <span>sidebarOpened: state =&gt; state.app.sidebarOpened</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/components/Hamburger/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class="hamburger-container" @click="toggleClick"&gt;
+                        &lt;svg-icon class="hamburger" :icon="icon"&gt;&lt;/svg-icon&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import { computed } from 'vue'
+                import { useStore } from 'vuex'
+
+                const store = useStore()
+                const toggleClick = () =&gt; {
+                    store.commit('app/triggerSidebarOpened')
+                }
+
+                const icon = computed(() =&gt; (store.getters.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'))
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                .hamburger-container {
+                    padding: 0 16px;
+                    .hamburger {
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                &lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class="navbar"&gt;
+                        &lt;hamburger class="hamburger-container" /&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import Hamburger from '@/components/Hamburger'
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                .navbar {                
+                    .hamburger-container {
+                        line-height: 46px;
+                        height: 100%;
+                        float: left;
+                        cursor: pointer;
+                        <span class="comment">// hover 动画</span>
+                        transition: background 0.5s;
+
+                        &:hover {
+                        background: rgba(0, 0, 0, 0.1);
+                        }
+                    }
+                }
+                &lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-menu :collapse="!$store.getters.sidebarOpened"&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;div class="app-wrapper"&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                ...
+
+                .fixed-header {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    z-index: 9;
+                    width: calc(100% - #{$sideBarWidth});
+                    transition: width 0.28s;
+                }
+
+                .hideSidebar .fixed-header {
+                    width: calc(100% - #{$hideSideBarWidth});
+                }
+                &lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class=""&gt;
+                        &lt;div class="logo-container"&gt;
+                            &lt;el-avatar size="44" shape="square" src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png" /&gt;
+                            &lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;imooc-admin&lt;/h1&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                .logo-container {
+                    height: 44px;
+                    padding: 10px 0 22px 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .logo-title {
+                        margin-left: 10px;
+                        color: #fff;
+                        font-weight: 600;
+                        line-height: 50px;
+                        font-size: 16px;
+                        white-space: nowrap;
+                    }
+                }
+                &lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/styles/element.scss</span><span class="comment"></span><div class="detail-content">                <span>.el-avatar {
+                    --el-avatar-background-color: none;
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                <span>@import './element.scss';</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/styles/sidebar.scss</span><span class="comment"></span><div class="detail-content">                <span>.main-container {
+                    <span class="comment">// transition: margin-left 0.28s;</span>
+                    transition: margin-left #{$sideBarDuration};
+                }
+                .sidebar-container {
+                    <span class="comment">// transition: width 0.28s;</span>
+                    transition: width #{$sideBarDuration};
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">                <span>.fixed-header {    
+                    <span class="comment">// transition: width 0.28s;</span>
+                    transition: width #{$sideBarDuration};
+                }</span></div></div>
+
+
 
 
 
