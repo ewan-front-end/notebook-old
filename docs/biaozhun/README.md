@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.09 16:28</span>
+            <span>M 2022.01.09 20:50</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -734,62 +734,53 @@ pageClass: theme-item
 <div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
 
 <span class="h2 bg3 cf"> 搭建Layout架构    </span>
-        src/layout/
-<div class="block-detail">            <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">                <span>&lt;template&gt;
-                    &lt;div class="app-wrapper"&gt;
-                        <span class="comment">&#60;&#33;&#45;&#45;左侧 menu&#45;&#45;&#62;</span>
-                        &lt;sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" /&gt;
-                        &lt;div class="main-container"&gt;
-                            &lt;div class="fixed-header"&gt;
-                                <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
-                                &lt;navbar /&gt;
-                            &lt;/div&gt;
-                            <span class="comment">&#60;&#33;&#45;&#45;内容区&#45;&#45;&#62;</span>
-                            &lt;app-main /&gt;
+    src/layout/
+<div class="block-detail">        <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;div class="app-wrapper"&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;左侧 menu&#45;&#45;&#62;</span>
+                    &lt;sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" /&gt;
+                    &lt;div class="main-container"&gt;
+                        &lt;div class="fixed-header"&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
+                            &lt;navbar /&gt;
                         &lt;/div&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;内容区&#45;&#45;&#62;</span>
+                        &lt;app-main /&gt;
                     &lt;/div&gt;
-                &lt;/template&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
 
-                &lt;script setup&gt;
-                import Navbar from './components/Navbar'
-                import Sidebar from './components/Sidebar/'
-                import AppMain from './components/AppMain'
+            &lt;script setup&gt;
+            import Navbar from './components/Navbar'
+            import Sidebar from './components/Sidebar/'
+            import AppMain from './components/AppMain'
 
-                import variables from '@/styles/variables.scss'
-                &lt;/script&gt;
+            import variables from '@/styles/variables.scss'
+            &lt;/script&gt;
 
-                &lt;style lang="scss" scoped&gt;
-                @import '~@/styles/mixin.scss';
-                @import '~@/styles/variables.scss';
+            &lt;style lang="scss" scoped&gt;
+            @import '~@/styles/mixin.scss';
+            @import '~@/styles/variables.scss';
 
-                .app-wrapper {
-                    @include clearfix;
-                    position: relative;
-                    height: 100%;
-                    width: 100%;
-                }
+            .app-wrapper {
+                @include clearfix;
+                position: relative;
+                height: 100%;
+                width: 100%;
+            }
 
-                .fixed-header {
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    z-index: 9;
-                    width: calc(100% - #{$sideBarWidth});
-                }
-                &lt;/style&gt;</span></div></div>
-            components/
-                Sidebar/
-<div class="block-detail">                    <span class="detail-desc">index.vue</span><span class="comment"></span><div class="detail-content">                        <span>&lt;template&gt;
-                            &lt;div class=""&gt;sidebar&lt;/div&gt;
-                        &lt;/template&gt;
-
-                        &lt;script setup&gt;
-                        import {} from 'vue'
-                        &lt;/script&gt;
-
-                        &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
-<div class="block-detail">                <span class="detail-desc">Navbar.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
-                        &lt;div class=""&gt;navbar&lt;/div&gt;
+            .fixed-header {
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 9;
+                width: calc(100% - #{$sideBarWidth});
+            }
+            &lt;/style&gt;</span></div></div>
+        components/
+            Sidebar/
+<div class="block-detail">                <span class="detail-desc">index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;div class=""&gt;sidebar&lt;/div&gt;
                     &lt;/template&gt;
 
                     &lt;script setup&gt;
@@ -797,66 +788,261 @@ pageClass: theme-item
                     &lt;/script&gt;
 
                     &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
-<div class="block-detail">                <span class="detail-desc">AppMain.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
-                        &lt;div class="app-main"&gt;AppMain&lt;/div&gt;
-                    &lt;/template&gt;
+<div class="block-detail">            <span class="detail-desc">Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class=""&gt;navbar&lt;/div&gt;
+                &lt;/template&gt;
 
-                    &lt;script setup&gt;
-                    import {} from 'vue'
-                    &lt;/script&gt;
+                &lt;script setup&gt;
+                import {} from 'vue'
+                &lt;/script&gt;
 
-                    &lt;style lang="scss" scoped&gt;
-                    .app-main {
-                        min-height: calc(100vh - 50px);
-                        width: 100%;
-                        position: relative;
-                        overflow: hidden;
-                        padding: 61px 20px 20px 20px;
-                        box-sizing: border-box;
+                &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">AppMain.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class="app-main"&gt;AppMain&lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import {} from 'vue'
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                .app-main {
+                    min-height: calc(100vh - 50px);
+                    width: 100%;
+                    position: relative;
+                    overflow: hidden;
+                    padding: 61px 20px 20px 20px;
+                    box-sizing: border-box;
+                }
+                &lt;/style&gt;</span></div></div>
+    src/styles/
+        index.scss
+            @import './variables.scss';
+            @import './mixin.scss';
+            @import './sidebar.scss';
+            ...
+<div class="block-detail">        <span class="detail-desc">variables.scss</span><span class="comment"> 定义常量</span><div class="detail-content">            <span>// sidebar
+            $menuText: #bfcbd9;
+            $menuActiveText: #ffffff;
+            $subMenuActiveText: #f4f4f5;
+
+            $menuBg: #304156;
+            $menuHover: #263445;
+
+            $subMenuBg: #1f2d3d;
+            $subMenuHover: #001528;
+
+            $sideBarWidth: 210px;    <span class="comment">// 侧栏展开时宽度</span>
+            $hideSideBarWidth: 54px; <span class="comment">// 侧栏收缩后宽度</span>
+            $sideBarDuration: 0.28s; <span class="comment">// 侧栏开闭动画时长</span>
+
+            <span class="comment">// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass</span>
+            <span class="comment">// JS 与 scss 共享变量，在 scss 中通过 :export 进行导出，在 js 中可通过 ESM 进行导入</span>
+            :export {
+                menuText: $menuText;
+                menuActiveText: $menuActiveText;
+                subMenuActiveText: $subMenuActiveText;
+                menuBg: $menuBg;
+                menuHover: $menuHover;
+                subMenuBg: $subMenuBg;
+                subMenuHover: $subMenuHover;
+                sideBarWidth: $sideBarWidth;
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">mixin.scss</span><span class="comment"> 定义通用的 css</span><div class="detail-content">            <span>@mixin clearfix {
+                &:after {
+                    content: '';
+                    display: table;
+                    clear: both;
+                }
+            }
+
+            @mixin scrollBar {
+                &::-webkit-scrollbar-track-piece {
+                    background: #d3dce6;
+                }
+
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: #99a9bf;
+                    border-radius: 20px;
+                }
+            }
+
+            @mixin relative {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">sidebar.scss</span><span class="comment"> 处理 menu 菜单的样式</span><div class="detail-content">            <span>#app {
+                .main-container {
+                    min-height: 100%;
+                    margin-left: $sideBarWidth;
+                    position: relative;
+                    transition: margin-left #{$sideBarDuration};
+                }
+
+                .sidebar-container {
+                    width: $sideBarWidth !important;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1001;
+                    overflow: hidden;
+                    
+                    transition: width #{$sideBarDuration};
+
+                    <span class="comment">// 重置 element-plus 的css</span>
+                    .horizontal-collapse-transition {
+                        transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
                     }
-                    &lt;/style&gt;</span></div></div>
-        src/styles/
-            index.scss
-                @import './variables.scss';
-                @import './mixin.scss';
-                @import './sidebar.scss';
-                ...
-<div class="block-detail">            <span class="detail-desc">variables.scss</span><span class="comment"> 定义常量</span><div class="detail-content">                <span>// sidebar
-                $menuText: #bfcbd9;
-                $menuActiveText: #ffffff;
-                $subMenuActiveText: #f4f4f5;
 
-                $menuBg: #304156;
-                $menuHover: #263445;
+                    .scrollbar-wrapper {
+                        overflow-x: hidden !important;
+                    }
 
-                $subMenuBg: #1f2d3d;
-                $subMenuHover: #001528;
+                    .el-scrollbar__bar.is-vertical {
+                        right: 0px;
+                    }
 
-                $sideBarWidth: 210px;    <span class="comment">// 侧栏展开时宽度</span>
-                $hideSideBarWidth: 54px; <span class="comment">// 侧栏收缩后宽度</span>
-                $sideBarDuration: 0.28s; <span class="comment">// 侧栏开闭动画时长</span>
+                    .el-scrollbar {
+                        height: 100%;
+                    }
 
-                <span class="comment">// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass</span>
-                <span class="comment">// JS 与 scss 共享变量，在 scss 中通过 :export 进行导出，在 js 中可通过 ESM 进行导入</span>
-                :export {
-                    menuText: $menuText;
-                    menuActiveText: $menuActiveText;
-                    subMenuActiveText: $subMenuActiveText;
-                    menuBg: $menuBg;
-                    menuHover: $menuHover;
-                    subMenuBg: $subMenuBg;
-                    subMenuHover: $subMenuHover;
-                    sideBarWidth: $sideBarWidth;
-                }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">mixin.scss</span><span class="comment"> 定义通用的 css</span><div class="detail-content">                <span>@mixin clearfix {
-                    &:after {
-                        content: '';
-                        display: table;
-                        clear: both;
+                    &.has-logo {
+                        .el-scrollbar {
+                            height: calc(100% - 50px);
+                        }
+                    }
+
+                    .is-horizontal {
+                        display: none;
+                    }
+
+                    a {
+                        display: inline-block;
+                        width: 100%;
+                        overflow: hidden;
+                    }
+
+                    .svg-icon {
+                        margin-right: 16px;
+                    }
+
+                    .sub-el-icon {
+                        margin-right: 12px;
+                        margin-left: -2px;
+                    }
+
+                    .el-menu {
+                        border: none;
+                        height: 100%;
+                        width: 100% !important;
+                    }
+
+                    .is-active &gt; .el-submenu__title {
+                        color: $subMenuActiveText !important;
+                    }
+
+                    & .nest-menu .el-submenu &gt; .el-submenu__title,
+                    & .el-submenu .el-menu-item {
+                        min-width: $sideBarWidth !important;
                     }
                 }
 
-                @mixin scrollBar {
+                .hideSidebar {
+                    .sidebar-container {
+                        width: 54px !important;
+                    }
+
+                    .main-container {
+                        margin-left: 54px;
+                    }
+
+                    .submenu-title-noDropdown {
+                        padding: 0 !important;
+                        position: relative;
+
+                        .el-tooltip {
+                            padding: 0 !important;
+
+                            .svg-icon {
+                                margin-left: 20px;
+                            }
+
+                            .sub-el-icon {
+                                margin-left: 19px;
+                            }
+                        }
+                    }
+
+                    .el-submenu {
+                        overflow: hidden;
+
+                        & &gt; .el-submenu__title {
+                            padding: 0 !important;
+
+                            .svg-icon {
+                                margin-left: 20px;
+                            }
+
+                            .sub-el-icon {
+                                margin-left: 19px;
+                            }
+
+                            .el-submenu__icon-arrow {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    .el-menu--collapse {
+                        .el-submenu {
+                            & &gt; .el-submenu__title {
+                                & &gt; span {
+                                    height: 0;
+                                    width: 0;
+                                    overflow: hidden;
+                                    visibility: hidden;
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .el-menu--collapse .el-menu .el-submenu {
+                    min-width: $sideBarWidth !important;
+                }
+
+                .withoutAnimation {
+                    .main-container,
+                    .sidebar-container {
+                        transition: none;
+                    }
+                }
+            }
+
+            .el-menu--vertical {
+                & &gt; .el-menu {
+                    .svg-icon {
+                        margin-right: 16px;
+                    }
+                    .sub-el-icon {
+                        margin-right: 12px;
+                        margin-left: -2px;
+                    }
+                }
+
+                <span class="comment">// 菜单项过长时</span>
+                &gt; .el-menu--popup {
+                    max-height: 100vh;
+                    overflow-y: auto;
+
                     &::-webkit-scrollbar-track-piece {
                         background: #d3dce6;
                     }
@@ -870,929 +1056,870 @@ pageClass: theme-item
                         border-radius: 20px;
                     }
                 }
-
-                @mixin relative {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
+            }</span></div></div>
+    头像菜单
+        获取并展示用户信息                
+<div class="block-detail">            <span class="detail-desc">src/api/sys.js</span><span class="comment"> 定义接口请求方法</span><div class="detail-content">                <span><span class="comment">/**
+                    * 获取用户信息
+                    */</span>
+                export const getUserInfo = () =&gt; {
+                    return request({
+                        url: '/sys/profile'
+                    })
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">sidebar.scss</span><span class="comment"> 处理 menu 菜单的样式</span><div class="detail-content">                <span>#app {
-                    .main-container {
-                        min-height: 100%;
-                        transition: margin-left 0.28s;
-                        margin-left: $sideBarWidth;
-                        position: relative;
+<div class="block-detail">            <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                <span><span class="format-block">import { <i class="i0">getUserInfo</i> } from '@/api/sys'
+
+                export default {
+                    state: () =&gt; ({
+                        <i class="i0">userInfo: {}</i>
+                    }),
+                    mutations: {
+                        <i class="i0">setUserInfo(state, userInfo) {
+                            state.userInfo = userInfo
+                        }</i>
+                    },
+                    actions: {
+                        <i class="i0">async getUserInfo(context) {
+                            const res = await getUserInfo()
+                            this.commit('user/setUserInfo', res)
+                            return res
+                        }</i>
                     }
+                }</span></span></div></div>
 
-                    .sidebar-container {
-                        transition: width 0.28s;
-                        width: $sideBarWidth !important;
-                        height: 100%;
-                        position: fixed;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        z-index: 1001;
-                        overflow: hidden;
+                
+<div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 通用token注入</span><div class="detail-content">                <span>import store from '@/store'
 
-                        <span class="comment">// 重置 element-plus 的css</span>
-                        .horizontal-collapse-transition {
-                            transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
-                        }
-
-                        .scrollbar-wrapper {
-                            overflow-x: hidden !important;
-                        }
-
-                        .el-scrollbar__bar.is-vertical {
-                            right: 0px;
-                        }
-
-                        .el-scrollbar {
-                            height: 100%;
-                        }
-
-                        &.has-logo {
-                            .el-scrollbar {
-                                height: calc(100% - 50px);
-                            }
-                        }
-
-                        .is-horizontal {
-                            display: none;
-                        }
-
-                        a {
-                            display: inline-block;
-                            width: 100%;
-                            overflow: hidden;
-                        }
-
-                        .svg-icon {
-                            margin-right: 16px;
-                        }
-
-                        .sub-el-icon {
-                            margin-right: 12px;
-                            margin-left: -2px;
-                        }
-
-                        .el-menu {
-                            border: none;
-                            height: 100%;
-                            width: 100% !important;
-                        }
-
-                        .is-active &gt; .el-submenu__title {
-                            color: $subMenuActiveText !important;
-                        }
-
-                        & .nest-menu .el-submenu &gt; .el-submenu__title,
-                        & .el-submenu .el-menu-item {
-                            min-width: $sideBarWidth !important;
-                        }
-                    }
-
-                    .hideSidebar {
-                        .sidebar-container {
-                            width: 54px !important;
-                        }
-
-                        .main-container {
-                            margin-left: 54px;
-                        }
-
-                        .submenu-title-noDropdown {
-                            padding: 0 !important;
-                            position: relative;
-
-                            .el-tooltip {
-                                padding: 0 !important;
-
-                                .svg-icon {
-                                    margin-left: 20px;
-                                }
-
-                                .sub-el-icon {
-                                    margin-left: 19px;
-                                }
-                            }
-                        }
-
-                        .el-submenu {
-                            overflow: hidden;
-
-                            & &gt; .el-submenu__title {
-                                padding: 0 !important;
-
-                                .svg-icon {
-                                    margin-left: 20px;
-                                }
-
-                                .sub-el-icon {
-                                    margin-left: 19px;
-                                }
-
-                                .el-submenu__icon-arrow {
-                                    display: none;
-                                }
-                            }
-                        }
-
-                        .el-menu--collapse {
-                            .el-submenu {
-                                & &gt; .el-submenu__title {
-                                    & &gt; span {
-                                        height: 0;
-                                        width: 0;
-                                        overflow: hidden;
-                                        visibility: hidden;
-                                        display: inline-block;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    .el-menu--collapse .el-menu .el-submenu {
-                        min-width: $sideBarWidth !important;
-                    }
-
-                    .withoutAnimation {
-                        .main-container,
-                        .sidebar-container {
-                            transition: none;
-                        }
-                    }
-                }
-
-                .el-menu--vertical {
-                    & &gt; .el-menu {
-                        .svg-icon {
-                            margin-right: 16px;
-                        }
-                        .sub-el-icon {
-                            margin-right: 12px;
-                            margin-left: -2px;
-                        }
-                    }
-
-                    <span class="comment">// 菜单项过长时</span>
-                    &gt; .el-menu--popup {
-                        max-height: 100vh;
-                        overflow-y: auto;
-
-                        &::-webkit-scrollbar-track-piece {
-                            background: #d3dce6;
-                        }
-
-                        &::-webkit-scrollbar {
-                            width: 6px;
-                        }
-
-                        &::-webkit-scrollbar-thumb {
-                            background: #99a9bf;
-                            border-radius: 20px;
-                        }
-                    }
-                }</span></div></div>
-        头像菜单
-            获取并展示用户信息                
-<div class="block-detail">                <span class="detail-desc">src/api/sys.js</span><span class="comment"> 定义接口请求方法</span><div class="detail-content">                    <span><span class="comment">/**
-                     * 获取用户信息
-                     */</span>
-                    export const getUserInfo = () =&gt; {
-                        return request({
-                            url: '/sys/profile'
-                        })
-                    }</span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                    <span><span class="format-block">import { <i class="i0">getUserInfo</i> } from '@/api/sys'
-
-                    export default {
-                        state: () =&gt; ({
-                            <i class="i0">userInfo: {}</i>
-                        }),
-                        mutations: {
-                            <i class="i0">setUserInfo(state, userInfo) {
-                                state.userInfo = userInfo
-                            }</i>
-                        },
-                        actions: {
-                            <i class="i0">async getUserInfo(context) {
-                                const res = await getUserInfo()
-                                this.commit('user/setUserInfo', res)
-                                return res
-                            }</i>
-                        }
-                    }</span></span></div></div>
-
-                    
-<div class="block-detail">                <span class="detail-desc">src/utils/request.js</span><span class="comment"> 通用token注入</span><div class="detail-content">                    <span>import store from '@/store'
-
-                    <span class="comment">// 请求拦截器</span>
-                    service.interceptors.request.use(
-                        config =&gt; {
-                            <span class="comment">// 在这个位置需要统一的去注入token</span>
-                            if (store.getters.token) {
-                                <span class="comment">// 如果token存在 注入token</span>
-                                config.headers.Authorization = `Bearer ${store.getters.token}`
-                            }
-                            return config <span class="comment">// 必须返回配置</span>
-                        },
-                        error =&gt; {
-                            return Promise.reject(error)
-                        }
-                    )</span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/permission.js</span><span class="comment"> 在权限拦截时触发动作</span><div class="detail-content">                    <span><span class="format-block">router.beforeEach(async (to, from, next) =&gt; {
+                <span class="comment">// 请求拦截器</span>
+                service.interceptors.request.use(
+                    config =&gt; {
+                        <span class="comment">// 在这个位置需要统一的去注入token</span>
                         if (store.getters.token) {
-                            if (to.path === '/login') {
-                                ...
-                            } else {
-                                <span class="comment">// 判断用户资料是否获取</span>
-                                <span class="comment">// 若不存在用户信息，则需要获取用户信息</span>
-                                if (!store.getters.hasUserInfo) {
-                                    <span class="comment">// 触发获取用户信息的 action</span>
-                                    <i class="i2">await store.dispatch('user/getUserInfo')</i>
-                                }
-                                next()
-                            }
-                        } else {
-                            ...
+                            <span class="comment">// 如果token存在 注入token</span>
+                            config.headers.Authorization = `Bearer ${store.getters.token}`
                         }
-                    })</span></span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                    <span>const getters = {
-                        userInfo: state =&gt; state.user.userInfo,
-                        <span class="comment">/**
-                         * @returns true 表示已存在用户信息
-                         */</span>
-                        hasUserInfo: state =&gt; {
-                            return JSON.stringify(state.user.userInfo) !== '{}'
-                        }
-                    }</span></div></div>
-            渲染用户头像菜单 element-plus中的dropdown组件使用
-<div class="block-detail">                <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                    <span><span class="format-block">&lt;template&gt;
-                        &lt;div class="navbar"&gt;
-                            &lt;div class="right-menu"&gt;
-                                <span class="comment">&#60;&#33;&#45;&#45;头像&#45;&#45;&#62;</span>
-                                <i class="i0">&lt;el-dropdown class="avatar-container" trigger="click"&gt;</i>
-                                    <i class="i0">&lt;div class="avatar-wrapper"&gt;</i>
-                                        <i class="i1">&lt;el-avatar shape="square" :size="40" :src="$store.getters.userInfo.avatar"&gt;&lt;/el-avatar&gt;</i>
-                                        &lt;i class="el-icon-s-tools"&gt;&lt;/i&gt;
-                                    <i class="i0">&lt;/div&gt;</i>
-                                    <i class="i0">&lt;template #dropdown&gt;</i>
-                                        <i class="i2">&lt;el-dropdown-menu class="user-dropdown"&gt;</i>
-                                            &lt;router-link to="/"&gt;
-                                                &lt;el-dropdown-item&gt; 首页 &lt;/el-dropdown-item&gt;
-                                            &lt;/router-link&gt;
-                                            &lt;a target="_blank" href=""&gt;
-                                                &lt;el-dropdown-item&gt;课程主页&lt;/el-dropdown-item&gt;
-                                            &lt;/a&gt;
-                                            &lt;el-dropdown-item divided&gt; 退出登录 &lt;/el-dropdown-item&gt;
-                                        <i class="i2">&lt;/el-dropdown-menu&gt;</i>
-                                    <i class="i0">&lt;/template&gt;</i>
-                                <i class="i0">&lt;/el-dropdown&gt;</i>
-                            &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/template&gt;
-
-                    &lt;script setup&gt;
-                    import {} from 'vue'
-                    &lt;/script&gt;
-
-                    &lt;style lang="scss" scoped&gt;
-                    .navbar {
-                        height: 50px;
-                        overflow: hidden;
-                        position: relative;
-                        background: #fff;
-                        box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
-                        .right-menu {
-                            display: flex;
-                            align-items: center;
-                            float: right;
-                            padding-right: 16px;
-
-                            ::v-deep .avatar-container {
-                                cursor: pointer;
-                                .avatar-wrapper {
-                                    margin-top: 5px;
-                                    position: relative;
-                                    .el-avatar {
-                                        --el-avatar-background-color: none;
-                                        margin-right: 12px;
-                                    }
-                                }
-                            }
-                        }
+                        return config <span class="comment">// 必须返回配置</span>
+                    },
+                    error =&gt; {
+                        return Promise.reject(error)
                     }
-                    &lt;/style&gt;</span></span></div></div>
-            退出登录方案
-                1.清理掉当前用户缓存数据
-                2.清理掉权限相关配置
-                3.返回到登录页
-
-                用户主动退出：用户点击登录按钮之后退出
-<div class="block-detail">                    <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                        <span>import { removeAllItem } from '@/utils/storage'
-                        import router from '@/router'
-
-                        export default {                            
-                            actions: {
-                                logout() {
-                                    this.commit('user/setToken', '')
-                                    this.commit('user/setUserInfo', {})
-                                    removeAllItem()
-                                    router.push('/login')
-                                }
+                )</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/permission.js</span><span class="comment"> 在权限拦截时触发动作</span><div class="detail-content">                <span><span class="format-block">router.beforeEach(async (to, from, next) =&gt; {
+                    if (store.getters.token) {
+                        if (to.path === '/login') {
+                            ...
+                        } else {
+                            <span class="comment">// 判断用户资料是否获取</span>
+                            <span class="comment">// 若不存在用户信息，则需要获取用户信息</span>
+                            if (!store.getters.hasUserInfo) {
+                                <span class="comment">// 触发获取用户信息的 action</span>
+                                <i class="i2">await store.dispatch('user/getUserInfo')</i>
                             }
-                        }</span></div></div>
-<div class="block-detail">                    <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"> 为退出登录按钮添加点击事件</span><div class="detail-content">                        <span>&lt;el-dropdown-item divided @click="logout"&gt; 退出登录 &lt;/el-dropdown-item&gt;
-
-                        import { useStore } from 'vuex'
-                        const store = useStore()
-                        const logout = () =&gt; {
-                            store.dispatch('user/logout')
-                        }</span></div></div>
-                用户被动退出：token过期或被其他人“顶下来”时退出
-                    主动计算token的失效时间(时效token)
-<div class="block-detail">                        <span class="detail-desc">src/utils/auth.js</span><span class="comment"></span><div class="detail-content">                            <span>import { TIME_STAMP, TOKEN_TIMEOUT_VALUE } from '@/constant'
-                            import { setItem, getItem } from '@/utils/storage'
-                            <span class="comment">/**
-                            * 获取时间戳
-                            */</span>
-                            export function getTimeStamp() {
-                                return getItem(TIME_STAMP)
-                            }
-                            <span class="comment">/**
-                            * 设置时间戳
-                            */</span>
-                            export function setTimeStamp() {
-                                setItem(TIME_STAMP, Date.now())
-                            }
-                            <span class="comment">/**
-                            * 是否超时
-                            */</span>
-                            export function isCheckTimeout() {
-                                <span class="comment">// 当前时间戳</span>
-                                var currentTime = Date.now()
-                                <span class="comment">// 缓存时间戳</span>
-                                var timeStamp = getTimeStamp()
-                                return currentTime - timeStamp &gt; TOKEN_TIMEOUT_VALUE
-                            }</span></div></div>
-<div class="block-detail">                        <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">                            <span>// token 时间戳
-                            export const TIME_STAMP = 'timeStamp'
-                            <span class="comment">// 超时时长(毫秒) 两小时</span>
-                            export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000</span></div></div>
-<div class="block-detail">                        <span class="detail-desc">src/store/modules/user.js</span><span class="comment"> 保存登录时间</span><div class="detail-content">                            <span><span class="format-block"><i class="i0">import { setTimeStamp } from '@/utils/auth'</i>
-                            export default {                                
-                                actions: {
-                                    login(context, userInfo) {
-                                        const { username, password } = userInfo
-                                        return new Promise((resolve, reject) =&gt; {login().then(data =&gt; {                                            
-                                            <i class="i0">setTimeStamp()</i>
-                                        })})
-                                    }
-                                }
-                            }</span></span></div></div>
-<div class="block-detail">                        <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                            <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
-                            <span class="comment">// 请求拦截器</span>
-                            service.interceptors.request.use(
-                                config =&gt; {
-                                    if (store.getters.token) {
-                                        <i class="i3">if (isCheckTimeout()) {                                            
-                                            store.dispatch('user/logout')
-                                            return Promise.reject(new Error('token 失效'))
-                                        }</i>
-                                    }
-                                }
-                            )</span></span></div></div>
-                    被动 token过期 和 单点登录
-<div class="block-detail">                        <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                            <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
-                            <span class="comment">// 响应拦截器</span>
-                            service.interceptors.response.use(
-                                response =&gt; {},
-                                error =&gt; {
-                                    <span class="comment">// 处理 token 超时问题</span>
-                                    <i class="i3">if (error.response && error.response.data && error.response.data.code === 401) {
-                                        store.dispatch('user/logout')
-                                    }</i>
-                                    <span class="comment">// 单点登录也一样协议返回码</span>
-
-                                    ElMessage.error(error.message) <span class="comment">// 提示错误信息</span>
-                                    return Promise.reject(error)
-                                }
-                            )</span></span></div></div>
-        临时menu菜单
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
-                    <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
-                    &lt;<i class="i1">el-menu</i> :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
-                        <span class="comment">&#60;&#33;&#45;&#45;子集 menu 菜单&#45;&#45;&#62;</span>
-                        &lt;<i class="i2">el-submenu</i> index="1"&gt;
-                            &lt;template #title&gt;
-                                &lt;i class="el-icon-location"&gt;&lt;/i&gt;
-                                &lt;span&gt;导航一&lt;/span&gt;
-                            &lt;/template&gt;
-                            &lt;<i class="i3">el-menu-item</i> index="1-1"&gt;选项1&lt;/<i class="i3">el-menu-item</i>&gt;
-                            &lt;<i class="i3">el-menu-item</i> index="1-2"&gt;选项2&lt;/<i class="i3">el-menu-item</i>&gt;
-                        &lt;/<i class="i2">el-submenu</i>&gt;
-                        <span class="comment">&#60;&#33;&#45;&#45;具体菜单项&#45;&#45;&#62;</span>
-                        &lt;<i class="i3">el-menu-item</i> index="4"&gt;
-                            &lt;i class="el-icon-setting"&gt;&lt;/i&gt;
-                            &lt;template #title&gt;导航四&lt;/template&gt;
-                        &lt;/<i class="i3">el-menu-item</i>&gt;
-                    &lt;/<i class="i1">el-menu</i>&gt;
-                &lt;/template&gt;</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 导入SidebarMenu</span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
-                    &lt;div class=""&gt;
-                        &lt;h1&gt;占位&lt;/h1&gt;
-                        &lt;el-scrollbar&gt;
-                            <i class="i0">&lt;sidebar-menu&gt;&lt;/sidebar-menu&gt;</i>
-                        &lt;/el-scrollbar&gt;
+                            next()
+                        }
+                    } else {
+                        ...
+                    }
+                })</span></span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                <span>const getters = {
+                    userInfo: state =&gt; state.user.userInfo,
+                    <span class="comment">/**
+                        * @returns true 表示已存在用户信息
+                        */</span>
+                    hasUserInfo: state =&gt; {
+                        return JSON.stringify(state.user.userInfo) !== '{}'
+                    }
+                }</span></div></div>
+        渲染用户头像菜单 element-plus中的dropdown组件使用
+<div class="block-detail">            <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+                    &lt;div class="navbar"&gt;
+                        &lt;div class="right-menu"&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;头像&#45;&#45;&#62;</span>
+                            <i class="i0">&lt;el-dropdown class="avatar-container" trigger="click"&gt;</i>
+                                <i class="i0">&lt;div class="avatar-wrapper"&gt;</i>
+                                    <i class="i1">&lt;el-avatar shape="square" :size="40" :src="$store.getters.userInfo.avatar"&gt;&lt;/el-avatar&gt;</i>
+                                    &lt;i class="el-icon-s-tools"&gt;&lt;/i&gt;
+                                <i class="i0">&lt;/div&gt;</i>
+                                <i class="i0">&lt;template #dropdown&gt;</i>
+                                    <i class="i2">&lt;el-dropdown-menu class="user-dropdown"&gt;</i>
+                                        &lt;router-link to="/"&gt;
+                                            &lt;el-dropdown-item&gt; 首页 &lt;/el-dropdown-item&gt;
+                                        &lt;/router-link&gt;
+                                        &lt;a target="_blank" href=""&gt;
+                                            &lt;el-dropdown-item&gt;课程主页&lt;/el-dropdown-item&gt;
+                                        &lt;/a&gt;
+                                        &lt;el-dropdown-item divided&gt; 退出登录 &lt;/el-dropdown-item&gt;
+                                    <i class="i2">&lt;/el-dropdown-menu&gt;</i>
+                                <i class="i0">&lt;/template&gt;</i>
+                            <i class="i0">&lt;/el-dropdown&gt;</i>
+                        &lt;/div&gt;
                     &lt;/div&gt;
                 &lt;/template&gt;
 
                 &lt;script setup&gt;
-                <i class="i0">import SidebarMenu from './SidebarMenu'</i>
                 import {} from 'vue'
-                &lt;/script&gt;</span></span></div></div>
-        动态menu菜单
-            路由表 对应menu菜单规则: 
-                如果meta && meta.title && meta.icon
-                如果存在children以el-sub-menu(子菜单)展示 否则 则以el-menu-item(菜单项)展示
+                &lt;/script&gt;
 
-            1.创建页面组件
-                src/views/article-create/index.vue 创建文章
-                src/views/article-detail/index.vue 文章详情
-                src/views/article-ranking/index.vue 文章排名
-                src/views/error-page/404.vue 错误页面
-                src/views/error-page/401.vue 错误页面
-                src/views/import 导入
-                src/views/permission-list 权限列表
-                src/views/profile 个人中心
-                src/views/role-list 角色列表
-                src/views/user-info 用户信息
-                src/views/user-manage 用户管理
-            2.生成路由表
-<div class="block-detail">                <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">                    <span>import { createRouter, createWebHashHistory } from 'vue-router'
-                    import layout from '@/layout'
+                &lt;style lang="scss" scoped&gt;
+                .navbar {
+                    height: 50px;
+                    overflow: hidden;
+                    position: relative;
+                    background: #fff;
+                    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
-                    <span class="comment">/**
-                    * 私有路由表
-                    */</span>
-                    const privateRoutes = [
-                        {
-                            path: '/user',
-                            component: layout,
-                            redirect: '/user/manage',
-                            meta: {
-                                title: 'user',
-                                icon: 'personnel'
-                            },
-                            children: [
-                                {
-                                    path: '/user/manage',
-                                    component: () =&gt; import('@/views/user-manage/index'),
-                                    meta: {
-                                        title: 'userManage',
-                                        icon: 'personnel-manage'
-                                    }
-                                },
-                                {
-                                    path: '/user/role',
-                                    component: () =&gt; import('@/views/role-list/index'),
-                                    meta: {
-                                        title: 'roleList',
-                                        icon: 'role'
-                                    }
-                                },
-                                {
-                                    path: '/user/permission',
-                                    component: () =&gt; import('@/views/permission-list/index'),
-                                    meta: {
-                                        title: 'permissionList',
-                                        icon: 'permission'
-                                    }
-                                },
-                                {
-                                    path: '/user/info/:id',
-                                    name: 'userInfo',
-                                    component: () =&gt; import('@/views/user-info/index'),
-                                    meta: {
-                                        title: 'userInfo'
-                                    }
-                                },
-                                {
-                                    path: '/user/import',
-                                    name: 'import',
-                                    component: () =&gt; import('@/views/import/index'),
-                                    meta: {
-                                        title: 'excelImport'
-                                    }
+                    .right-menu {
+                        display: flex;
+                        align-items: center;
+                        float: right;
+                        padding-right: 16px;
+
+                        ::v-deep .avatar-container {
+                            cursor: pointer;
+                            .avatar-wrapper {
+                                margin-top: 5px;
+                                position: relative;
+                                .el-avatar {
+                                    --el-avatar-background-color: none;
+                                    margin-right: 12px;
                                 }
-                            ]
-                        },
-                        {
-                            path: '/article',
-                            component: layout,
-                            redirect: '/article/ranking',
-                            meta: {
-                                title: 'article',
-                                icon: 'article'
-                            },
-                            children: [
-                                {
-                                    path: '/article/ranking',
-                                    component: () =&gt; import('@/views/article-ranking/index'),
-                                    meta: {
-                                        title: 'articleRanking',
-                                        icon: 'article-ranking'
-                                    }
-                                },
-                                {
-                                    path: '/article/:id',
-                                    component: () =&gt; import('@/views/article-detail/index'),
-                                    meta: {
-                                        title: 'articleDetail'
-                                    }
-                                },
-                                {
-                                    path: '/article/create',
-                                    component: () =&gt; import('@/views/article-create/index'),
-                                    meta: {
-                                        title: 'articleCreate',
-                                        icon: 'article-create'
-                                    }
-                                },
-                                {
-                                    path: '/article/editor/:id',
-                                    component: () =&gt; import('@/views/article-create/index'),
-                                    meta: {
-                                        title: 'articleEditor'
-                                    }
-                                }
-                            ]
+                            }
                         }
-                    ]
+                    }
+                }
+                &lt;/style&gt;</span></span></div></div>
+        退出登录方案
+            1.清理掉当前用户缓存数据
+            2.清理掉权限相关配置
+            3.返回到登录页
 
-                    <span class="comment">/**
-                    * 公开路由表
-                    */</span>
-                    const publicRoutes = [
-                        {
-                            path: '/login',
-                            component: () =&gt; import('@/views/login/index')
-                        },
-                        {
-                            path: '/',
-                            <span class="comment">// 注意：带有路径“/”的记录中的组件“默认”是一个不返回 Promise 的函数</span>
-                            component: layout,
-                            redirect: '/profile',
-                            children: [
-                                {
-                                    path: '/profile',
-                                    name: 'profile',
-                                    component: () =&gt; import('@/views/profile/index'),
-                                    meta: {
-                                        title: 'profile',
-                                        icon: 'el-icon-user'
-                                    }
-                                },
-                                {
-                                    path: '/404',
-                                    name: '404',
-                                    component: () =&gt; import('@/views/error-page/404')
-                                },
-                                {
-                                    path: '/401',
-                                    name: '401',
-                                    component: () =&gt; import('@/views/error-page/401')
-                                }
-                            ]
+            用户主动退出：用户点击登录按钮之后退出
+<div class="block-detail">                <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                    <span>import { removeAllItem } from '@/utils/storage'
+                    import router from '@/router'
+
+                    export default {                            
+                        actions: {
+                            logout() {
+                                this.commit('user/setToken', '')
+                                this.commit('user/setUserInfo', {})
+                                removeAllItem()
+                                router.push('/login')
+                            }
                         }
-                    ]
-
-                    const router = createRouter({
-                        history: createWebHashHistory(),
-                        routes: [...publicRoutes, ...privateRoutes]
-                    })
-
-                    export default router</span></div></div>
-                src/layout/AppMain.vue
-                    &lt;template&gt;
-                        &lt;div class="app-main"&gt;
-                            &lt;router-view&gt;&lt;/router-view&gt;
-                        &lt;/div&gt;
-                    &lt;/template&gt;
-            3.解析路由表
-<div class="block-detail">                <span class="detail-desc">src/utils/route.js</span><span class="comment"></span><div class="detail-content">                    <span>import path from 'path'
-
-                    <span class="comment">/**
-                    * 返回所有子路由
-                    */</span>
-                    const getChildrenRoutes = routes =&gt; {
-                        const result = []
-                        routes.forEach(route =&gt; {
-                            if (route.children && route.children.length &gt; 0) {
-                                result.push(...route.children)
-                            }
-                        })
-                        return result
-                    }
-                    <span class="comment">/**
-                    * 处理脱离层级的路由：某个一级路由为其他子路由，则剔除该一级路由，保留路由层级
-                    * @param {*} routes router.getRoutes()
-                    */</span>
-                    export const filterRouters = routes =&gt; {
-                        const childrenRoutes = getChildrenRoutes(routes)
-                        return routes.filter(route =&gt; {
-                            return !childrenRoutes.find(childrenRoute =&gt; {
-                                return childrenRoute.path === route.path
-                            })
-                        })
-                    }
-
-                    <span class="comment">/**
-                    * 判断数据是否为空值
-                    */</span>
-                    function isNull(data) {
-                        if (!data) return true
-                        if (JSON.stringify(data) === '{}') return true
-                        if (JSON.stringify(data) === '[]') return true
-                        return false
-                    }
-                    <span class="comment">/**
-                    * 根据 routes 数据，返回对应 menu 规则数组
-                    */</span>
-                    export function generateMenus(routes, basePath = '') {
-                        const result = []
-                        <span class="comment">// 遍历路由表</span>
-                        routes.forEach(item =&gt; {
-                            <span class="comment">// 不存在 children && 不存在 meta 直接 return</span>
-                            if (isNull(item.meta) && isNull(item.children)) return
-                            <span class="comment">// 存在 children 不存在 meta，进入迭代</span>
-                            if (isNull(item.meta) && !isNull(item.children)) {
-                                result.push(...generateMenus(item.children))
-                                return
-                            }
-                            <span class="comment">// 合并 path 作为跳转路径</span>
-                            const routePath = path.resolve(basePath, item.path)
-                            <span class="comment">// 路由分离之后，存在同名父路由的情况，需要单独处理</span>
-                            let route = result.find(item =&gt; item.path === routePath)
-                            if (!route) {
-                                route = {
-                                    ...item,
-                                    path: routePath,
-                                    children: []
-                                }
-
-                                <span class="comment">// icon 与 title 必须全部存在</span>
-                                if (route.meta.icon && route.meta.title) {
-                                    <span class="comment">// meta 存在生成 route 对象，放入 arr</span>
-                                    result.push(route)
-                                }
-                            }
-
-                            <span class="comment">// 存在 children 进入迭代到children</span>
-                            if (item.children) {
-                                route.children.push(...generateMenus(item.children, route.path))
-                            }
-                        })
-                        return result
                     }</span></div></div>
-            4.生成menu菜单
-<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"> 处理数据，作为最顶层 menu 载体</span><div class="detail-content">                    <span>&lt;template&gt;
-                        <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
-                        &lt;el-menu :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
-                            &lt;sidebar-item v-for="item in routes" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
-                        &lt;/el-menu&gt;
-                    &lt;/template&gt;                    
+<div class="block-detail">                <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"> 为退出登录按钮添加点击事件</span><div class="detail-content">                    <span>&lt;el-dropdown-item divided @click="logout"&gt; 退出登录 &lt;/el-dropdown-item&gt;
 
-                    &lt;script setup&gt;
-                    import { computed } from 'vue'
-                    import { useRouter } from 'vue-router'
-                    import { filterRouters, generateMenus } from '@/utils/route'
-                    import SidebarItem from './SidebarItem'
-
-                    const router = useRouter()
-                    const routes = computed(() =&gt; {
-                        const filterRoutes = filterRouters(router.getRoutes())
-                        return generateMenus(filterRoutes)
-                    })
-                    console.log(JSON.stringify(routes.value))
-                    &lt;/script&gt;</span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> 根据数据处理 当前项为 el-submenu || el-menu-item</span><div class="detail-content">                    <span>&lt;template&gt;
-                        <span class="comment">&#60;&#33;&#45;&#45;支持渲染多级 menu 菜单&#45;&#45;&#62;</span>
-                        &lt;el-submenu v-if="route.children.length &gt; 0" :index="route.path"&gt;
-                            &lt;template #title&gt;
-                                &lt;menu-item :title="route.meta.title" :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
-                            &lt;/template&gt;
-                            <span class="comment">&#60;&#33;&#45;&#45;循环渲染&#45;&#45;&#62;</span>
-                            &lt;sidebar-item v-for="item in route.children" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
-                        &lt;/el-submenu&gt;
-                        <span class="comment">&#60;&#33;&#45;&#45;渲染 item 项&#45;&#45;&#62;</span>
-                        &lt;el-menu-item v-else :index="route.path"&gt;
-                            &lt;menu-item :title="route.meta.title" :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
-                        &lt;/el-menu-item&gt;
-                    &lt;/template&gt;
-
-                    &lt;script setup&gt;
-                    import MenuItem from './MenuItem'
-                    import { defineProps } from 'vue'
-                    <span class="comment">// 定义 props</span>
-                    defineProps({
-                        route: {
-                            type: Object,
-                            required: true
+                    import { useStore } from 'vuex'
+                    const store = useStore()
+                    const logout = () =&gt; {
+                        store.dispatch('user/logout')
+                    }</span></div></div>
+            用户被动退出：token过期或被其他人“顶下来”时退出
+                主动计算token的失效时间(时效token)
+<div class="block-detail">                    <span class="detail-desc">src/utils/auth.js</span><span class="comment"></span><div class="detail-content">                        <span>import { TIME_STAMP, TOKEN_TIMEOUT_VALUE } from '@/constant'
+                        import { setItem, getItem } from '@/utils/storage'
+                        <span class="comment">/**
+                        * 获取时间戳
+                        */</span>
+                        export function getTimeStamp() {
+                            return getItem(TIME_STAMP)
                         }
-                    })
-                    &lt;/script&gt;</span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/MenuItem.vue</span><span class="comment"> 处理 el-menu-item 样式</span><div class="detail-content">                    <span>&lt;template&gt;
-                        &lt;i v-if="icon.includes('el-icon')" class="sub-el-icon" :class="icon"&gt;&lt;/i&gt;
-                        &lt;svg-icon v-else :icon="icon"&gt;&lt;/svg-icon&gt;
-                        &lt;span&gt;<img :src="$withBase('/images/db-brace-left.png')"> title <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
-                    &lt;/template&gt;
+                        <span class="comment">/**
+                        * 设置时间戳
+                        */</span>
+                        export function setTimeStamp() {
+                            setItem(TIME_STAMP, Date.now())
+                        }
+                        <span class="comment">/**
+                        * 是否超时
+                        */</span>
+                        export function isCheckTimeout() {
+                            <span class="comment">// 当前时间戳</span>
+                            var currentTime = Date.now()
+                            <span class="comment">// 缓存时间戳</span>
+                            var timeStamp = getTimeStamp()
+                            return currentTime - timeStamp &gt; TOKEN_TIMEOUT_VALUE
+                        }</span></div></div>
+<div class="block-detail">                    <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">                        <span>// token 时间戳
+                        export const TIME_STAMP = 'timeStamp'
+                        <span class="comment">// 超时时长(毫秒) 两小时</span>
+                        export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000</span></div></div>
+<div class="block-detail">                    <span class="detail-desc">src/store/modules/user.js</span><span class="comment"> 保存登录时间</span><div class="detail-content">                        <span><span class="format-block"><i class="i0">import { setTimeStamp } from '@/utils/auth'</i>
+                        export default {                                
+                            actions: {
+                                login(context, userInfo) {
+                                    const { username, password } = userInfo
+                                    return new Promise((resolve, reject) =&gt; {login().then(data =&gt; {                                            
+                                        <i class="i0">setTimeStamp()</i>
+                                    })})
+                                }
+                            }
+                        }</span></span></div></div>
+<div class="block-detail">                    <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                        <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
+                        <span class="comment">// 请求拦截器</span>
+                        service.interceptors.request.use(
+                            config =&gt; {
+                                if (store.getters.token) {
+                                    <i class="i3">if (isCheckTimeout()) {                                            
+                                        store.dispatch('user/logout')
+                                        return Promise.reject(new Error('token 失效'))
+                                    }</i>
+                                }
+                            }
+                        )</span></span></div></div>
+                被动 token过期 和 单点登录
+<div class="block-detail">                    <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                        <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
+                        <span class="comment">// 响应拦截器</span>
+                        service.interceptors.response.use(
+                            response =&gt; {},
+                            error =&gt; {
+                                <span class="comment">// 处理 token 超时问题</span>
+                                <i class="i3">if (error.response && error.response.data && error.response.data.code === 401) {
+                                    store.dispatch('user/logout')
+                                }</i>
+                                <span class="comment">// 单点登录也一样协议返回码</span>
 
-                    &lt;script setup&gt;
-                    import { defineProps } from 'vue'
-                    defineProps({
-                        title: {
-                            type: String,
-                            required: true
+                                ElMessage.error(error.message) <span class="comment">// 提示错误信息</span>
+                                return Promise.reject(error)
+                            }
+                        )</span></span></div></div>
+    临时menu菜单
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+                <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
+                &lt;<i class="i1">el-menu</i> :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;子集 menu 菜单&#45;&#45;&#62;</span>
+                    &lt;<i class="i2">el-submenu</i> index="1"&gt;
+                        &lt;template #title&gt;
+                            &lt;i class="el-icon-location"&gt;&lt;/i&gt;
+                            &lt;span&gt;导航一&lt;/span&gt;
+                        &lt;/template&gt;
+                        &lt;<i class="i3">el-menu-item</i> index="1-1"&gt;选项1&lt;/<i class="i3">el-menu-item</i>&gt;
+                        &lt;<i class="i3">el-menu-item</i> index="1-2"&gt;选项2&lt;/<i class="i3">el-menu-item</i>&gt;
+                    &lt;/<i class="i2">el-submenu</i>&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;具体菜单项&#45;&#45;&#62;</span>
+                    &lt;<i class="i3">el-menu-item</i> index="4"&gt;
+                        &lt;i class="el-icon-setting"&gt;&lt;/i&gt;
+                        &lt;template #title&gt;导航四&lt;/template&gt;
+                    &lt;/<i class="i3">el-menu-item</i>&gt;
+                &lt;/<i class="i1">el-menu</i>&gt;
+            &lt;/template&gt;</span></span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 导入SidebarMenu</span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+                &lt;div class=""&gt;
+                    &lt;h1&gt;占位&lt;/h1&gt;
+                    &lt;el-scrollbar&gt;
+                        <i class="i0">&lt;sidebar-menu&gt;&lt;/sidebar-menu&gt;</i>
+                    &lt;/el-scrollbar&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            <i class="i0">import SidebarMenu from './SidebarMenu'</i>
+            import {} from 'vue'
+            &lt;/script&gt;</span></span></div></div>
+    动态menu菜单
+        路由表 对应menu菜单规则: 
+            如果meta && meta.title && meta.icon
+            如果存在children以el-sub-menu(子菜单)展示 否则 则以el-menu-item(菜单项)展示
+
+        1.创建页面组件
+            src/views/article-create/index.vue 创建文章
+            src/views/article-detail/index.vue 文章详情
+            src/views/article-ranking/index.vue 文章排名
+            src/views/error-page/404.vue 错误页面
+            src/views/error-page/401.vue 错误页面
+            src/views/import 导入
+            src/views/permission-list 权限列表
+            src/views/profile 个人中心
+            src/views/role-list 角色列表
+            src/views/user-info 用户信息
+            src/views/user-manage 用户管理
+        2.生成路由表
+<div class="block-detail">            <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">                <span>import { createRouter, createWebHashHistory } from 'vue-router'
+                import layout from '@/layout'
+
+                <span class="comment">/**
+                * 私有路由表
+                */</span>
+                const privateRoutes = [
+                    {
+                        path: '/user',
+                        component: layout,
+                        redirect: '/user/manage',
+                        meta: {
+                            title: 'user',
+                            icon: 'personnel'
                         },
-                        icon: {
-                            type: String,
-                            required: true
-                        }
-                    })
-                    &lt;/script&gt;
-
-                    &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
-
-                残余：样式问题
-                    src/store/getters.js
-                        import variables from '@/styles/variables.scss'
-                        const getters = {
-                            cssVar: state =&gt; variables
-                        }
-                        export default getters
-                    src/layout/components/Sidebar/SidebarMenu.vue
-                        <span class="comment">&#60;&#33;&#45;&#45;&lt;el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :uniqueOpened="true" default-active="2"  &gt;&#45;&#45;&#62;</span>
-                        &lt;el-menu 
-                            :background-color="$store.getters.cssVar.menuBg" 
-                            :text-color="$store.getters.cssVar.menuText" 
-                            :active-text-color="$store.getters.cssVar.menuActiveText" 
-                            :unique-opened="true"&gt;
-                残余：路由跳转问题
-                    src/layout/components/Sidebar/SidebarMenu.vue
-                        &lt;el-menu router&gt;
-                残余：默认激活项
-                    src/layout/components/Sidebar/SidebarMenu.vue
-                        import { useRoute } from 'vue-router'
-                        &lt;el-menu :default-active="activeMenu"&gt;
-                        &lt;script setup&gt;
-                        <span class="comment">// 计算高亮 menu 的方法</span>
-                        const route = useRoute()
-                        const activeMenu = computed(() =&gt; {
-                            const { path } = route
-                            return path
-                        })
-                        &lt;/script&gt;
-        左侧菜单伸缩功能实现
-<div class="block-detail">            <span class="detail-desc">src/store/modules/app.js</span><span class="comment"> <span class="comment">// 创建模块</span></span><div class="detail-content">                <span>export default {
-                    namespaced: true,
-                    state: () =&gt; ({
-                        sidebarOpened: true
-                    }),
-                    mutations: {
-                        triggerSidebarOpened(state) {
-                            state.sidebarOpened = !state.sidebarOpened
-                        }
+                        children: [
+                            {
+                                path: '/user/manage',
+                                component: () =&gt; import('@/views/user-manage/index'),
+                                meta: {
+                                    title: 'userManage',
+                                    icon: 'personnel-manage'
+                                }
+                            },
+                            {
+                                path: '/user/role',
+                                component: () =&gt; import('@/views/role-list/index'),
+                                meta: {
+                                    title: 'roleList',
+                                    icon: 'role'
+                                }
+                            },
+                            {
+                                path: '/user/permission',
+                                component: () =&gt; import('@/views/permission-list/index'),
+                                meta: {
+                                    title: 'permissionList',
+                                    icon: 'permission'
+                                }
+                            },
+                            {
+                                path: '/user/info/:id',
+                                name: 'userInfo',
+                                component: () =&gt; import('@/views/user-info/index'),
+                                meta: {
+                                    title: 'userInfo'
+                                }
+                            },
+                            {
+                                path: '/user/import',
+                                name: 'import',
+                                component: () =&gt; import('@/views/import/index'),
+                                meta: {
+                                    title: 'excelImport'
+                                }
+                            }
+                        ]
                     },
-                    actions: {}
-                }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/store/index.js</span><span class="comment"> <span class="comment">// 引入模块</span></span><div class="detail-content">                <span>import app from './modules/app'
-                export default createStore({
-                    modules: {
-                        app
+                    {
+                        path: '/article',
+                        component: layout,
+                        redirect: '/article/ranking',
+                        meta: {
+                            title: 'article',
+                            icon: 'article'
+                        },
+                        children: [
+                            {
+                                path: '/article/ranking',
+                                component: () =&gt; import('@/views/article-ranking/index'),
+                                meta: {
+                                    title: 'articleRanking',
+                                    icon: 'article-ranking'
+                                }
+                            },
+                            {
+                                path: '/article/:id',
+                                component: () =&gt; import('@/views/article-detail/index'),
+                                meta: {
+                                    title: 'articleDetail'
+                                }
+                            },
+                            {
+                                path: '/article/create',
+                                component: () =&gt; import('@/views/article-create/index'),
+                                meta: {
+                                    title: 'articleCreate',
+                                    icon: 'article-create'
+                                }
+                            },
+                            {
+                                path: '/article/editor/:id',
+                                component: () =&gt; import('@/views/article-create/index'),
+                                meta: {
+                                    title: 'articleEditor'
+                                }
+                            }
+                        ]
                     }
-                })</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                <span>sidebarOpened: state =&gt; state.app.sidebarOpened</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/components/Hamburger/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
-                    &lt;div class="hamburger-container" @click="toggleClick"&gt;
-                        &lt;svg-icon class="hamburger" :icon="icon"&gt;&lt;/svg-icon&gt;
+                ]
+
+                <span class="comment">/**
+                * 公开路由表
+                */</span>
+                const publicRoutes = [
+                    {
+                        path: '/login',
+                        component: () =&gt; import('@/views/login/index')
+                    },
+                    {
+                        path: '/',
+                        <span class="comment">// 注意：带有路径“/”的记录中的组件“默认”是一个不返回 Promise 的函数</span>
+                        component: layout,
+                        redirect: '/profile',
+                        children: [
+                            {
+                                path: '/profile',
+                                name: 'profile',
+                                component: () =&gt; import('@/views/profile/index'),
+                                meta: {
+                                    title: 'profile',
+                                    icon: 'el-icon-user'
+                                }
+                            },
+                            {
+                                path: '/404',
+                                name: '404',
+                                component: () =&gt; import('@/views/error-page/404')
+                            },
+                            {
+                                path: '/401',
+                                name: '401',
+                                component: () =&gt; import('@/views/error-page/401')
+                            }
+                        ]
+                    }
+                ]
+
+                const router = createRouter({
+                    history: createWebHashHistory(),
+                    routes: [...publicRoutes, ...privateRoutes]
+                })
+
+                export default router</span></div></div>
+            src/layout/AppMain.vue
+                &lt;template&gt;
+                    &lt;div class="app-main"&gt;
+                        &lt;router-view&gt;&lt;/router-view&gt;
                     &lt;/div&gt;
                 &lt;/template&gt;
+        3.解析路由表
+<div class="block-detail">            <span class="detail-desc">src/utils/route.js</span><span class="comment"></span><div class="detail-content">                <span>import path from 'path'
+
+                <span class="comment">/**
+                * 返回所有子路由
+                */</span>
+                const getChildrenRoutes = routes =&gt; {
+                    const result = []
+                    routes.forEach(route =&gt; {
+                        if (route.children && route.children.length &gt; 0) {
+                            result.push(...route.children)
+                        }
+                    })
+                    return result
+                }
+                <span class="comment">/**
+                * 处理脱离层级的路由：某个一级路由为其他子路由，则剔除该一级路由，保留路由层级
+                * @param {*} routes router.getRoutes()
+                */</span>
+                export const filterRouters = routes =&gt; {
+                    const childrenRoutes = getChildrenRoutes(routes)
+                    return routes.filter(route =&gt; {
+                        return !childrenRoutes.find(childrenRoute =&gt; {
+                            return childrenRoute.path === route.path
+                        })
+                    })
+                }
+
+                <span class="comment">/**
+                * 判断数据是否为空值
+                */</span>
+                function isNull(data) {
+                    if (!data) return true
+                    if (JSON.stringify(data) === '{}') return true
+                    if (JSON.stringify(data) === '[]') return true
+                    return false
+                }
+                <span class="comment">/**
+                * 根据 routes 数据，返回对应 menu 规则数组
+                */</span>
+                export function generateMenus(routes, basePath = '') {
+                    const result = []
+                    <span class="comment">// 遍历路由表</span>
+                    routes.forEach(item =&gt; {
+                        <span class="comment">// 不存在 children && 不存在 meta 直接 return</span>
+                        if (isNull(item.meta) && isNull(item.children)) return
+                        <span class="comment">// 存在 children 不存在 meta，进入迭代</span>
+                        if (isNull(item.meta) && !isNull(item.children)) {
+                            result.push(...generateMenus(item.children))
+                            return
+                        }
+                        <span class="comment">// 合并 path 作为跳转路径</span>
+                        const routePath = path.resolve(basePath, item.path)
+                        <span class="comment">// 路由分离之后，存在同名父路由的情况，需要单独处理</span>
+                        let route = result.find(item =&gt; item.path === routePath)
+                        if (!route) {
+                            route = {
+                                ...item,
+                                path: routePath,
+                                children: []
+                            }
+
+                            <span class="comment">// icon 与 title 必须全部存在</span>
+                            if (route.meta.icon && route.meta.title) {
+                                <span class="comment">// meta 存在生成 route 对象，放入 arr</span>
+                                result.push(route)
+                            }
+                        }
+
+                        <span class="comment">// 存在 children 进入迭代到children</span>
+                        if (item.children) {
+                            route.children.push(...generateMenus(item.children, route.path))
+                        }
+                    })
+                    return result
+                }</span></div></div>
+        4.生成menu菜单
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"> 处理数据，作为最顶层 menu 载体</span><div class="detail-content">                <span>&lt;template&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
+                    &lt;el-menu :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
+                        &lt;sidebar-item v-for="item in routes" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
+                    &lt;/el-menu&gt;
+                &lt;/template&gt;                    
 
                 &lt;script setup&gt;
                 import { computed } from 'vue'
-                import { useStore } from 'vuex'
+                import { useRouter } from 'vue-router'
+                import { filterRouters, generateMenus } from '@/utils/route'
+                import SidebarItem from './SidebarItem'
 
-                const store = useStore()
-                const toggleClick = () =&gt; {
-                    store.commit('app/triggerSidebarOpened')
-                }
-
-                const icon = computed(() =&gt; (store.getters.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'))
-                &lt;/script&gt;
-
-                &lt;style lang="scss" scoped&gt;
-                .hamburger-container {
-                    padding: 0 16px;
-                    .hamburger {
-                        display: inline-block;
-                        vertical-align: middle;
-                        width: 20px;
-                        height: 20px;
-                    }
-                }
-                &lt;/style&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
-                    &lt;div class="navbar"&gt;
-                        &lt;hamburger class="hamburger-container" /&gt;
-                    &lt;/div&gt;
+                const router = useRouter()
+                const routes = computed(() =&gt; {
+                    const filterRoutes = filterRouters(router.getRoutes())
+                    return generateMenus(filterRoutes)
+                })
+                console.log(JSON.stringify(routes.value))
+                &lt;/script&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> 根据数据处理 当前项为 el-submenu || el-menu-item</span><div class="detail-content">                <span>&lt;template&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;支持渲染多级 menu 菜单&#45;&#45;&#62;</span>
+                    &lt;el-submenu v-if="route.children.length &gt; 0" :index="route.path"&gt;
+                        &lt;template #title&gt;
+                            &lt;menu-item :title="route.meta.title" :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
+                        &lt;/template&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;循环渲染&#45;&#45;&#62;</span>
+                        &lt;sidebar-item v-for="item in route.children" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
+                    &lt;/el-submenu&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;渲染 item 项&#45;&#45;&#62;</span>
+                    &lt;el-menu-item v-else :index="route.path"&gt;
+                        &lt;menu-item :title="route.meta.title" :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
+                    &lt;/el-menu-item&gt;
                 &lt;/template&gt;
 
                 &lt;script setup&gt;
-                import Hamburger from '@/components/Hamburger'
+                import MenuItem from './MenuItem'
+                import { defineProps } from 'vue'
+                <span class="comment">// 定义 props</span>
+                defineProps({
+                    route: {
+                        type: Object,
+                        required: true
+                    }
+                })
+                &lt;/script&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/MenuItem.vue</span><span class="comment"> 处理 el-menu-item 样式</span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;i v-if="icon.includes('el-icon')" class="sub-el-icon" :class="icon"&gt;&lt;/i&gt;
+                    &lt;svg-icon v-else :icon="icon"&gt;&lt;/svg-icon&gt;
+                    &lt;span&gt;<img :src="$withBase('/images/db-brace-left.png')"> title <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import { defineProps } from 'vue'
+                defineProps({
+                    title: {
+                        type: String,
+                        required: true
+                    },
+                    icon: {
+                        type: String,
+                        required: true
+                    }
+                })
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+
+            残余：样式问题
+<div class="block-detail">                <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                    <span>import variables from '@/styles/variables.scss'
+                    const getters = {
+                        cssVar: state =&gt; variables
+                    }
+                    export default getters</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                    <span><span class="comment">&#60;&#33;&#45;&#45;&lt;el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :uniqueOpened="true" default-active="2"  &gt;&#45;&#45;&#62;</span>
+                    &lt;el-menu 
+                        :background-color="$store.getters.cssVar.menuBg" 
+                        :text-color="$store.getters.cssVar.menuText" 
+                        :active-text-color="$store.getters.cssVar.menuActiveText" 
+                        :unique-opened="true"&gt;</span></div></div>
+            残余：路由跳转问题
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-menu router&gt;</span></div></div>
+            残余：默认激活项
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                    <span>import { useRoute } from 'vue-router'
+                    &lt;el-menu :default-active="activeMenu"&gt;
+                    &lt;script setup&gt;
+                    <span class="comment">// 计算高亮 menu 的方法</span>
+                    const route = useRoute()
+                    const activeMenu = computed(() =&gt; {
+                        const { path } = route
+                        return path
+                    })
+                    &lt;/script&gt;</span></div></div>
+    左侧菜单伸缩功能实现
+<div class="block-detail">        <span class="detail-desc">src/store/modules/app.js</span><span class="comment"> 创建模块</span><div class="detail-content">            <span>export default {
+                namespaced: true,
+                state: () =&gt; ({
+                    sidebarOpened: true
+                }),
+                mutations: {
+                    triggerSidebarOpened(state) {
+                        state.sidebarOpened = !state.sidebarOpened
+                    }
+                },
+                actions: {}
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/index.js</span><span class="comment"> 引入模块</span><div class="detail-content">            <span>import app from './modules/app'
+            export default createStore({
+                modules: {
+                    app
+                }
+            })</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>sidebarOpened: state =&gt; state.app.sidebarOpened</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/components/Hamburger/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;div class="hamburger-container" @click="toggleClick"&gt;
+                    &lt;svg-icon class="hamburger" :icon="icon"&gt;&lt;/svg-icon&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import { computed } from 'vue'
+            import { useStore } from 'vuex'
+
+            const store = useStore()
+            const toggleClick = () =&gt; {
+                store.commit('app/triggerSidebarOpened')
+            }
+
+            const icon = computed(() =&gt; (store.getters.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'))
+            &lt;/script&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            .hamburger-container {
+                padding: 0 16px;
+                .hamburger {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            &lt;/style&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+                &lt;div class="navbar"&gt;
+                    <i class="i1">&lt;hamburger class="hamburger-container" /&gt;</i>
+                &lt;/div&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            <i class="i1">import Hamburger from '@/components/Hamburger'</i>
+            &lt;/script&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            .navbar {                
+                <i class="i1">.hamburger-container {
+                    line-height: 46px;
+                    height: 100%;
+                    float: left;
+                    cursor: pointer;                        
+                    transition: background 0.5s; <span class="comment">// hover 动画</span>
+                    &:hover {
+                        background: rgba(0, 0, 0, 0.1);
+                    }
+                }</i>
+            }
+            &lt;/style&gt;</span></span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;el-menu :collapse="!$store.getters.sidebarOpened"&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;div class="app-wrapper" <i class="i1">:class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"</i>&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            .fixed-header {
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 9;
+                width: calc(100% - #{$sideBarWidth});
+                <i class="i1">transition: width #{$sideBarDuration};</i>
+            }
+
+            <i class="i1">.hideSidebar .fixed-header {
+                width: calc(100% - #{$hideSideBarWidth});
+            }</i>
+            &lt;/style&gt;</span></span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 完善占位</span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+                &lt;div class=""&gt;
+                    <i class="i1">&lt;div class="logo-container"&gt;
+                        &lt;el-avatar size="44" shape="square" src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png" /&gt;
+                        &lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;imooc-admin&lt;/h1&gt;
+                    &lt;/div&gt;</i>
+                    &lt;el-scrollbar&gt;
+                        &lt;sidebar-menu&gt;&lt;/sidebar-menu&gt;
+                    &lt;/el-scrollbar&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import SidebarMenu from './SidebarMenu'
+            import {} from 'vue'
+            &lt;/script&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            <i class="i1">.logo-container {
+                height: 44px;
+                padding: 10px 0 22px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .logo-title {
+                    margin-left: 10px;
+                    color: #fff;
+                    font-weight: 600;
+                    line-height: 50px;
+                    font-size: 16px;
+                    white-space: nowrap;
+                }
+            }</i>
+            &lt;/style&gt;</span></span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/styles/element.scss</span><span class="comment"></span><div class="detail-content">            <span>.el-avatar {
+                --el-avatar-background-color: none !important;
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">            <span>@import './element.scss';</span></div></div>
+    面包屑方案分析
+        1.创建、渲染基本的面包屑组件
+<div class="block-detail">            <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;el-breadcrumb class="breadcrumb" separator="/"&gt;
+                        &lt;el-breadcrumb-item :to="{ path: '/' }"&gt;首页&lt;/el-breadcrumb-item&gt;
+                        &lt;el-breadcrumb-item&gt;&lt;a href="/"&gt;活动管理&lt;/a&gt;&lt;/el-breadcrumb-item&gt;
+                        &lt;el-breadcrumb-item&gt;活动列表&lt;/el-breadcrumb-item&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;面包屑的最后一项&#45;&#45;&#62;</span>
+                        &lt;el-breadcrumb-item&gt;
+                            &lt;span class="no-redirect"&gt;活动详情&lt;/span&gt;
+                        &lt;/el-breadcrumb-item&gt;
+                    &lt;/el-breadcrumb&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import {} from 'vue'
                 &lt;/script&gt;
 
                 &lt;style lang="scss" scoped&gt;
-                .navbar {                
-                    .hamburger-container {
-                        line-height: 46px;
-                        height: 100%;
-                        float: left;
-                        cursor: pointer;
-                        <span class="comment">// hover 动画</span>
-                        transition: background 0.5s;
+                .breadcrumb {
+                    display: inline-block;
+                    font-size: 14px;
+                    line-height: 50px;
+                    margin-left: 8px;
 
-                        &:hover {
-                        background: rgba(0, 0, 0, 0.1);
-                        }
+                    ::v-deep .no-redirect {
+                        color: #97a8be;
+                        cursor: text;
                     }
                 }
                 &lt;/style&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-menu :collapse="!$store.getters.sidebarOpened"&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;div class="app-wrapper"&gt;
-
-                &lt;style lang="scss" scoped&gt;
-                ...
-
-                .fixed-header {
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    z-index: 9;
-                    width: calc(100% - #{$sideBarWidth});
-                    transition: width 0.28s;
-                }
-
-                .hideSidebar .fixed-header {
-                    width: calc(100% - #{$hideSideBarWidth});
-                }
-                &lt;/style&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
-                    &lt;div class=""&gt;
-                        &lt;div class="logo-container"&gt;
-                            &lt;el-avatar size="44" shape="square" src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png" /&gt;
-                            &lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;imooc-admin&lt;/h1&gt;
-                        &lt;/div&gt;
+            src/layout/components/Navbar.vue 导入面包屑
+                &lt;template&gt;
+                    &lt;div class="navbar"&gt;
+                        &lt;breadcrumb class="breadcrumb-container" /&gt;
                     &lt;/div&gt;
                 &lt;/template&gt;
-
+                &lt;script setup&gt;
+                import Breadcrumb from '@/components/Breadcrumb'
+                &lt;/script&gt;
                 &lt;style lang="scss" scoped&gt;
-                .logo-container {
-                    height: 44px;
-                    padding: 10px 0 22px 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    .logo-title {
-                        margin-left: 10px;
-                        color: #fff;
-                        font-weight: 600;
-                        line-height: 50px;
-                        font-size: 16px;
-                        white-space: nowrap;
+                .navbar {
+                    .breadcrumb-container {
+                        float: left;
                     }
                 }
-                &lt;/style&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/styles/element.scss</span><span class="comment"></span><div class="detail-content">                <span>.el-avatar {
-                    --el-avatar-background-color: none;
-                }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                <span>@import './element.scss';</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/styles/sidebar.scss</span><span class="comment"></span><div class="detail-content">                <span>.main-container {
-                    <span class="comment">// transition: margin-left 0.28s;</span>
-                    transition: margin-left #{$sideBarDuration};
+                &lt;/style&gt;
+        2.计算面包屑结构数据
+<div class="block-detail">            <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;script setup&gt;
+                import { ref, watch } from 'vue'
+                import { useRoute } from 'vue-router'
+
+                const route = useRoute()
+                <span class="comment">// 生成数组数据</span>
+                const breadcrumbData = ref([])
+                const getBreadcrumbData = () =&gt; {
+                    breadcrumbData.value = route.matched.filter(item =&gt; item.meta && item.meta.title)
+                    console.log(breadcrumbData.value)
                 }
-                .sidebar-container {
-                    <span class="comment">// transition: width 0.28s;</span>
-                    transition: width #{$sideBarDuration};
-                }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">                <span>.fixed-header {    
-                    <span class="comment">// transition: width 0.28s;</span>
-                    transition: width #{$sideBarDuration};
-                }</span></div></div>
+                <span class="comment">// 监听路由变化时触发</span>
+                watch(
+                    route,
+                    () =&gt; {
+                        getBreadcrumbData()
+                    },
+                    {
+                        immediate: true
+                    }
+                )
+                &lt;/script&gt;</span></div></div>
+        3.根据数据渲染动态面包屑内容
+<div class="block-detail">            <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;el-breadcrumb class="breadcrumb" separator="/"&gt;
+                        &lt;el-breadcrumb-item v-for="(item, index) in breadcrumbData" :key="item.path"&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
+                            &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;<img :src="$withBase('/images/db-brace-left.png')"> item.meta.title <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
+                            &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;<img :src="$withBase('/images/db-brace-left.png')"> item.meta.title <img :src="$withBase('/images/db-brace-right.png')">&lt;/a&gt;
+                        &lt;/el-breadcrumb-item&gt;
+                    &lt;/el-breadcrumb&gt;
+                &lt;/template&gt;
+                &lt;script setup&gt;
+                import { useRouter } from 'vue-router'
+                import { useStore } from 'vuex'
+
+                <span class="comment">// 处理点击事件</span>
+                const router = useRouter()
+                const onLinkClick = item =&gt; {
+                    console.log(item)
+                    router.push(item.path)
+                }
+
+                <span class="comment">// 将来需要进行主题替换，所以这里获取下动态样式</span>
+                const store = useStore()
+                <span class="comment">// eslint-disable-next-line</span>
+                const linkHoverColor = ref(store.getters.cssVar.menuBg)
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                .breadcrumb {
+                    .redirect {
+                        color: #666;
+                        font-weight: 600;
+                    }
+
+                    .redirect:hover {
+                        <span class="comment">// 将来需要进行主题替换，所以这里不去写死样式</span>
+                        color: v-bind(linkHoverColor);
+                    }
+                }
+                &lt;/style&gt;</span></div></div>  
+            动画处理
+<div class="block-detail">                <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                    <span><span class="format-block">&lt;template&gt;
+                        &lt;el-breadcrumb class="breadcrumb" separator="/"&gt;
+                            <i class="i0">&lt;transition-group name="breadcrumb"&gt;</i>
+                            ...
+                            <i class="i0">&lt;/transition-group&gt;</i>
+                        &lt;/el-breadcrumb&gt;
+                    &lt;/template&gt;</span></span></div></div>
+                src/styles/transition.scss
+                    .breadcrumb-enter-active,
+                    .breadcrumb-leave-active {
+                        transition: all 0.5s;
+                    }
+
+                    .breadcrumb-enter-from,
+                    .breadcrumb-leave-active {
+                        opacity: 0;
+                        transform: translateX(20px);
+                    }
+
+                    .breadcrumb-leave-active {
+                        position: absolute;
+                    }
+                src/styles/index.scss
+                    @import './transition.scss';
+
+
 
 
 
