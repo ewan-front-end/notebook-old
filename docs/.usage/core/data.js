@@ -38,6 +38,7 @@ function handleTreeToData(key, node, parent) {
     } else {
         handleNodeDir({title: 'Home', src: 'index', path: '', children: key}, key)
         SRC_PATH['index'] = '/'
+        return
     }
     KEYWORDS[node.path] = {key, keywords: `${node.title.toLowerCase()}(${key.toLowerCase()})`}
     if (node.usage) USAGE.push({title: node.title, data:node.usage}) 

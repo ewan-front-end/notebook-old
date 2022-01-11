@@ -94,24 +94,24 @@ rs.on('end', () => { console.log(key + '.png 文件创建完成'); ws.end() })
 ## 插件开发
 
 <pre class="code-block">
-├── bin                   <span class="comment"> // 运行目录</span>
-├── lib                   <span class="comment"> // 主代码目录</span>
-├── CHANGELOG.md          <span class="comment"><span class="comment"> // 版本更新说明</span></span>
-├── LICENSE               <span class="comment"> // 许可证书</span>
-├── package.json          <span class="comment"> // npm配置</span>
-├── README.md             <span class="comment"> // README</span>
+├── bin                    <span class="comment">// 运行目录</span>
+├── lib                    <span class="comment">// 主代码目录</span>
+├── CHANGELOG.md           <span class="comment">// 版本更新说明</span>
+├── LICENSE                <span class="comment">// 许可证书</span>
+├── package.json           <span class="comment">// npm配置</span>
+├── README.md              <span class="comment">// README</span>
 │
-├── docs                  <span class="comment"> // 使用文档</span>
-├── example               <span class="comment"> // 示例目录</span>
+├── docs                   <span class="comment">// 使用文档</span>
+├── example                <span class="comment">// 示例目录</span>
 │
-├── test                  <span class="comment"> // 测试目录，提供单元测试</span>
-├── .travis.yml           <span class="comment"> // 集成自动测试配置</span>
+├── test                   <span class="comment">// 测试目录，提供单元测试</span>
+├── .travis.yml            <span class="comment">// 集成自动测试配置</span>
 │
-├── .npmignore            <span class="comment"> // npm发布时忽略的文件</span>
+├── .npmignore             <span class="comment">// npm发布时忽略的文件</span>
 │
-├── CHANGELOG.md           // 版本更新说明
+├── CHANGELOG.md           <span class="comment">// 版本更新说明</span>
 │
-├── package.json          <span class="comment"> // NPM配置</span>
+├── package.json           <span class="comment">// NPM配置</span>
 </pre>
 
 - 账户 

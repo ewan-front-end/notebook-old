@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.12.03 20:54</span>
+            <span>M 2021.12.03 20:59</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div><div class="custom-block links">
@@ -59,15 +59,15 @@ hello/
     <span class="block-command">demo</span> npm run serve
     <span class="block-command">demo</span> npm run build
 
-<span class="h1 bg3 cf"> 路由部署 </span>
-<div class="block-detail">    <span class="detail-desc">demo/package.json</span><div class="detail-content">        <span>{ 
+[#] 路由部署
+<div class="block-detail">    <span class="detail-desc">demo/package.json</span><span class="comment"></span><div class="detail-content">        <span>{ 
             "dependencies": { "vue-router": "^4.0.0-0" }, 
             "devDependencies": { "@vue/cli-plugin-router": "~4.5.0" } 
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><div class="detail-content">        <span>import router from './router'
+<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><span class="comment"></span><div class="detail-content">        <span>import router from './router'
         <span class="comment">// createApp(App).mount('#app')</span>
         createApp(App).use(router).mount('#app')</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/router/index.js</span><div class="detail-content">        <span>import { 
+<div class="block-detail">    <span class="detail-desc">demo/src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span>import { 
             createRouter, 
             <span class="comment">// createWebHashHistory,</span>
             createWebHistory } from 'vue-router'
@@ -85,8 +85,8 @@ hello/
             }
         })
         export default router</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/config/namespace.js</span><div class="detail-content">        <span>export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/router/routes.js</span><div class="detail-content">        <span>import Home from '../views/Home.vue'
+<div class="block-detail">    <span class="detail-desc">demo/src/config/namespace.js</span><span class="comment"></span><div class="detail-content">        <span>export const name = { TOKEN: 'Token', USER_INFO: 'UserInfo' }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/router/routes.js</span><span class="comment"></span><div class="detail-content">        <span>import Home from '../views/Home.vue'
         const routes = [
             { path: '/', redirect: '/login' },
             { path: '/home', name: 'Home', component: Home },
@@ -94,9 +94,9 @@ hello/
             { path: '/login', name: 'Login', component: () =&gt; import('@/views/Login.vue'), meta: { index: 1 } }
         ]
         export default routes</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/views/Home.vue</span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="home"&gt;&lt;h1&gt;首页&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/views/About.vue</span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="about"&gt;&lt;h1&gt;关于我们&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/views/Login.vue</span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="login"&gt;&lt;h1&gt;登录&lt;/h1&gt;&lt;button @click="login"&gt;登录&lt;/button&gt;&lt;/div&gt;&lt;/template&gt;
+<div class="block-detail">    <span class="detail-desc">demo/src/views/Home.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="home"&gt;&lt;h1&gt;首页&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/views/About.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="about"&gt;&lt;h1&gt;关于我们&lt;/h1&gt;&lt;/div&gt;&lt;/template&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/views/Login.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;&lt;div class="login"&gt;&lt;h1&gt;登录&lt;/h1&gt;&lt;button @click="login"&gt;登录&lt;/button&gt;&lt;/div&gt;&lt;/template&gt;
         &lt;script&gt;
             import { TOKEN } from '@/config/namespace.js'
             export default {
@@ -106,7 +106,7 @@ hello/
                 }
             }
         &lt;/script&gt;</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><div class="detail-content">        <span>&lt;template&gt;
+<div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="app-container"&gt;
                 &lt;div&gt;
                     &lt;router-link to="/"&gt;Home&lt;/router-link&gt; | 
@@ -129,14 +129,14 @@ hello/
         &lt;style&gt;
             .app-container{}
         &lt;/style&gt;</span></div></div>
-<span class="h1 bg3 cf"> 状态管理 </span>
-<div class="block-detail">    <span class="detail-desc">demo/package.json</span><div class="detail-content">        <span>{ 
+[#] 状态管理
+<div class="block-detail">    <span class="detail-desc">demo/package.json</span><span class="comment"></span><div class="detail-content">        <span>{ 
             "dependencies": { "vuex": "^4.0.0" }, 
             "devDependencies": { "@vue/cli-plugin-vuex": "~4.5.0" } 
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><div class="detail-content">        <span>import store from './store'
+<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><span class="comment"></span><div class="detail-content">        <span>import store from './store'
         app.use(store)</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/store/index.js</span><div class="detail-content">        <span>import { createStore } from 'vuex'
+<div class="block-detail">    <span class="detail-desc">demo/src/store/index.js</span><span class="comment"></span><div class="detail-content">        <span>import { createStore } from 'vuex'
         import { GetUserInfo } from '@/api/user.js'
         const USERINFO = 'UserInfo' <span class="comment">// 入库到Config</span>
 
@@ -160,10 +160,10 @@ hello/
                 }
             }
         })</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/api/user.js</span><div class="detail-content">        <span>export const GetUserInfo = () =&gt; {
+<div class="block-detail">    <span class="detail-desc">demo/src/api/user.js</span><span class="comment"></span><div class="detail-content">        <span>export const GetUserInfo = () =&gt; {
             return {data: {<img :src="$withBase('/images/db-brace-right.png')">
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><div class="detail-content">        <span>&lt;script&gt;
+<div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;script&gt;
             import { computed } from 'vue'
             import { useStore } from 'vuex'
             export default {
@@ -176,10 +176,10 @@ hello/
                 }
             }
         &lt;/script&gt;</span></div></div>
-<span class="h1 bg3 cf"> ICONFont </span>
-<div class="block-detail">    <span class="detail-desc">创建图标项目</span><div class="detail-content">        <span>https://www.iconfont.cn/ &gt; 资源管理 &gt; 我的项目 新建项目 名称【demo】 FontClass/Symbol前缀【ewan-】 Font Family【ewanfont】
+[#] ICONFont
+<div class="block-detail">    <span class="detail-desc">创建图标项目</span><span class="comment"></span><div class="detail-content">        <span>https://www.iconfont.cn/ &gt; 资源管理 &gt; 我的项目 新建项目 名称【demo】 FontClass/Symbol前缀【ewan-】 Font Family【ewanfont】
         上传图标至项目</span></div></div> 
-<div class="block-detail">    <span class="detail-desc">下载图标项目</span><div class="detail-content">        <span>demo.css
+<div class="block-detail">    <span class="detail-desc">下载图标项目</span><span class="comment"></span><div class="detail-content">        <span>demo.css
         demo_index.html
         iconfont.css
         iconfont.js
@@ -188,8 +188,8 @@ hello/
         iconfont.woff
         iconfont.woff2</span></div></div>
     部署到demo/src/assets/font/
-<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><div class="detail-content">        <span>import '@/assets/font/iconfont.css'</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/views/Home.vue</span><div class="detail-content">        <span>&lt;template&gt;
+<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><span class="comment"></span><div class="detail-content">        <span>import '@/assets/font/iconfont.css'</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/views/Home.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="home"&gt;
                 &lt;h1&gt;ICON Font&lt;/h1&gt;
                 &lt;p&gt;
@@ -198,12 +198,12 @@ hello/
                 &lt;/p&gt;
             &lt;/div&gt;
         &lt;/template&gt;</span></div></div>
-<span class="h1 bg3 cf"> UI Vant </span>
-<div class="block-detail">    <span class="detail-desc">demo/package.json</span> <div class="detail-content">        <span>{ "dependencies": { "vant": "^3.0.12" } }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><div class="detail-content">        <span>import Vant from 'vant'
+[#] UI Vant
+<div class="block-detail">    <span class="detail-desc">demo/package.json</span><span class="comment"> </span><div class="detail-content">        <span>{ "dependencies": { "vant": "^3.0.12" } }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">demo/src/main.js</span><span class="comment"></span><div class="detail-content">        <span>import Vant from 'vant'
         import 'vant/lib/index.css'
         app.use(Vant)</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/views/About.vue</span><div class="detail-content">        <span>&lt;template&gt;
+<div class="block-detail">    <span class="detail-desc">demo/src/views/About.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="about"&gt;
                 &lt;h1&gt;关于我们&lt;/h1&gt;
                 &lt;ul class="features"&gt;
@@ -220,7 +220,7 @@ hello/
             .features li{padding:10px 10px; border-bottom:#eee 1px solid}
             .features li span{display:inline-block; padding:10px 10px}
         &lt;/style&gt;</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><div class="detail-content">        <span>&lt;script&gt;
+<div class="block-detail">    <span class="detail-desc">demo/src/App.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;script&gt;
             import { Dialog } from 'vant'
             export default {
                 created() {
@@ -228,20 +228,20 @@ hello/
                 }
             }
         &lt;/script&gt;</span></div></div>
-<span class="h1 bg3 cf"> CORDOVA项目 </span>
-<div class="block-detail">    <span class="detail-desc">环境部署</span><div class="detail-content">        <span>修改VUE3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/
+[#] CORDOVA项目
+<div class="block-detail">    <span class="detail-desc">环境部署</span><span class="comment"></span><div class="detail-content">        <span>修改VUE3打包(vue-cli-service build)位置 demo/dist/ 到 demo/www/
             方法一：demo/vue.config.js                   方法二：demo/package.json 中的 vue
             module.exports = { outputDir: 'www' }       { "vue": { "outputDir": "www" } }
         添加<a href="http://cordova.axuer.com/#getstarted" target="_blank">Cordova</a>
             创建一个空项目 xxx&gt; cordova create demo <span class="comment">// 依赖全局安装：npm install -g cordova  命令选项：cordova help create</span>
             拷贝 xxx/www 到 demo/www; 拷贝 xxx/config.xml 到 demo/config.xml</span></div></div>
-<div class="block-detail">    <span class="detail-desc">Android</span><div class="detail-content">        <span>添加平台 demo&gt; cordova platform add android                   <span class="comment">// 查看已添加平台 cordova platform</span>
+<div class="block-detail">    <span class="detail-desc">Android</span><span class="comment"></span><div class="detail-content">        <span>添加平台 demo&gt; cordova platform add android                   <span class="comment">// 查看已添加平台 cordova platform</span>
         开发流程
             1. 构建项目 demo&gt; npm run build
             2. 构建平台 demo&gt; cordova build android
             3. 运行平台 demo&gt; cordova run android  <span class="comment">// 依赖<a href="ANDROID:EnvironmentSetup" target="_blank">安卓环境</a></span>
         发布流程</span></div></div>
-<div class="block-detail">    <span class="detail-desc">IOS</span><div class="detail-content">        <span>添加平台 demo&gt; cordova platform add ios                       <span class="comment">// 查看已添加平台 cordova platform</span>
+<div class="block-detail">    <span class="detail-desc">IOS</span><span class="comment"></span><div class="detail-content">        <span>添加平台 demo&gt; cordova platform add ios                       <span class="comment">// 查看已添加平台 cordova platform</span>
         开发流程
             1. 构建代码 demo&gt; npm run build                           <span class="comment">// src &gt; demo/www/</span>
             2. 修改代码 demo/www/index.html 插入 &lt;script src=“cordova.js”&gt;&lt;/script&gt;
@@ -262,17 +262,10 @@ hello/
                 选择设备
                 run &gt;</span></div></div>
     发布流程
-<span class="h1 bg3 cf"> 项目规范 </span>
-    11111111114 codingSpecification:代码编写规范
-    团队代码需要统一，有了规则不执行或忘记执行
-    代码格式统一
-    提交检测
-    ❀
-    1111111111 gitCommitSpecification:Git提交规范
-    团队需要一个统一的提交规范，以更准确描述提交说明；有了规范不执行或忘记执行
-    提交流程 提交检测
-    ❀
-<div class="block-detail">    <span class="detail-desc">demo/package.json</span><div class="detail-content">    <span>{
+[#] 项目规范
+    <a class="solution" href="/aggregation/solution#filename_codingSpecification">代码编写规范</a>
+    <a class="solution" href="/aggregation/solution#filename_gitCommitSpecification">Git提交规范</a>
+<div class="block-detail">    <span class="detail-desc">demo/package.json</span><span class="comment"></span><div class="detail-content">    <span>{
         "scripts": { "lint": "vue-cli-service lint" },
         "devDependencies": {
             "@vue/cli-plugin-eslint": "~4.5.0",
@@ -384,7 +377,7 @@ demo/.env.development
 - 项目配置
 
 <pre class="code-block">
-<div class="block-detail">    <span class="detail-desc">Demo</span><div class="detail-content">        <span>const path = require('path')
+<div class="block-detail">    <span class="detail-desc">Demo</span><span class="comment"></span><div class="detail-content">        <span>const path = require('path')
         module.exports = {
             publicPath: './', <span class="comment">// 部署应用包时的基本URL,和webpack本身的output.publicPath一致; 也可设为空字符串('')或是相对路径('./')，这样打出来的包可以被部署在任意路径</span>
             outputDir: 'www', <span class="comment">// 输出文件目录(vue-cli-service build时)</span>
@@ -416,7 +409,7 @@ demo/.env.development
                 public: '10.10.115.154:4014'
             }
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">demo/vue.config.js</span><div class="detail-content">        <span>const path = require("path")
+<div class="block-detail">    <span class="detail-desc">demo/vue.config.js</span><span class="comment"></span><div class="detail-content">        <span>const path = require("path")
         const resolve = dir =&gt; path.join(__dirname, dir)        
         const PurgecssPlugin = require("purgecss-webpack-plugin")  <span class="comment">// 用于生产环境去除多余的css</span>
         const glob = require("glob-all")  <span class="comment">//全局文件路径</span>

@@ -11,10 +11,10 @@ pageClass: theme-item
             <span>M 2021.12.26 15:46</span>
         </div>
     </div>
-    <div class="content"><div class="custom-block children"><ul><li><a href="/system/mac">MacBook</a></li><li><a href="/system/linux">Linux</a></li><li><a href="/system/windows">Windows</a></li><li><a href="/system/ios">IOS</a></li><li><a href="/system/android">Android</a></li></ul></div></div>
+    <div class="content"><div class="custom-block children"><ul><li><a href="/system/mac">MacBook</a></li><li><a href="/system/linux">Linux</a></li><li><a href="/system/windows">Windows</a></li><li><a href="/system/ios">IOS</a></li><li><a href="/system/android">Android</a></li><li><a href="/system/google">Google</a></li></ul></div></div>
 </div>
 <div class="content-header">
-<h1>系统&平台</h1><strong>系统&平台</strong>
+<h1>系统&平台&工具</h1><strong>系统&平台&工具</strong>
 </div>
 <div class="static-content">
 
@@ -51,7 +51,7 @@ meta <span class="comment">// 用户缩放页面</span>
 &lt;html&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
-        &lt;meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi"&gt;&lt;!-- width取值与页面定义的宽度一致 --&gt;
+        &lt;meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi"&gt;<span class="comment">&#60;&#33;&#45;&#45;width取值与页面定义的宽度一致&#45;&#45;&#62;</span>
         &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
         &lt;meta name="apple-mobile-web-app-status-bar-style" content="black"&gt;
         &lt;meta name="format-detection" content="telephone=no"&gt;

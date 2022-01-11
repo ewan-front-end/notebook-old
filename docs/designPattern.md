@@ -28,14 +28,19 @@ pageClass: theme-item
  * 2.这个解耦的模式需要服务于所有的类?
  */</span>
 function getSingleton(ClassName) {
-    let instance;
-    return () =&gt; {
-        if (!instance) {
-            instance = new ClassName();
-        }
-        return instance;
-    };
+    let instance;
+    return () =&gt; {
+        if (!instance) {
+            instance = new ClassName();
+        }
+        return instance;
+    };
 }
+const createMessageBox = getSingleton(MessageBox);
+let box1 = createMessageBox();
+let box2 = createMessageBox();
+console.log(box1 === box2);
+
 
 
 

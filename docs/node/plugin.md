@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>N 2022.01.11 14:32</span>
         </div>
     </div>
     <div class="content"></div>
@@ -33,7 +33,7 @@ demo/server.js
         res.end("Hello world!")
     })
     app.listen(3000, "localhost")
-demo&gt; node --inspect server.js
+<span class="block-command">demo</span> node --inspect server.js
     Debugger listening on ws://127.0.0.1:9229/29112b02-6fce-4e02-bcb1-4f232941261e
     For help, see: https://nodejs.org/en/docs/inspector
 浏览器输入 chrome://inspect
@@ -49,31 +49,31 @@ demo&gt; node --inspect server.js
 
 <pre class="code-block">
 ┃ 1. demo&gt; npm install --save-dev gulp
-┃ 2. demo/gulpfile.js                            <span class="comment"> // 在运行 gulp 命令时会被自动加载</span>
-┃                                                <span class="comment"> // 默认任务</span>
+┃ 2. demo/gulpfile.js                             <span class="comment">// 在运行 gulp 命令时会被自动加载</span>
+┃                                                 <span class="comment">// 默认任务</span>
 ┃     function defaultTask(cb) { cb() }
-┃     exports.default = defaultTask              <span class="comment"> // 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用</span>
-┃     ...                                        <span class="comment"> // 注册更多的任务     </span>
-┃ 3. demo&gt; gulp                                  <span class="comment"> // 默认任务（task）将执行, 如果是本地安装,则"scripts":{"dev":"gulp"}  demo&gt; npm run dev</span>
-┃    demo&gt; gulp &lt;task&gt; &lt;othertask&gt;               <span class="comment"> // 运行多任务</span>
+┃     exports.default = defaultTask               <span class="comment">// 任何导出(export)的函数都将注册到gulp的任务(task)系统中 老版本gulp是用task()注册任务的 现仍然可以用</span>
+┃     ...                                         <span class="comment">// 注册更多的任务</span>
+┃ 3. demo&gt; gulp                                   <span class="comment">// 默认任务（task）将执行, 如果是本地安装,则"scripts":{"dev":"gulp"}  demo&gt; npm run dev</span>
+┃    demo&gt; gulp &lt;task&gt; &lt;othertask&gt;                <span class="comment">// 运行多任务</span>
 
 API    
     const { 
-        src,                                     <span class="comment"> // 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回 </span>
-        dest(path[,options]),                    <span class="comment"> // 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename</span>
-        series,                                  <span class="comment"> // 串联 任务功能、组合操作组合成同时执行的较大操作</span>
-        parallel                                 <span class="comment"> // 并联 </span>
+        src,                                      <span class="comment">// 读文件到内存中并通过流(stream)进行处理,应当从任务(task)中返回</span>
+        dest(path[,options]),                     <span class="comment">// 写文件 path只能是目录 文件名为导入文件流自身的文件名 要想改变文件名可使用插件gulp-rename</span>
+        series,                                   <span class="comment">// 串联 任务功能、组合操作组合成同时执行的较大操作</span>
+        parallel                                  <span class="comment">// 并联</span>
     } = require('gulp') 
 
 实例：
-    gulp.src('script/jquery.js')                 <span class="comment"> // 最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js</span>
-        .pipe(gulp.dest('dist/foo.js'))          <span class="comment"> // pipe用于连接转换流(Transform streams)或可写流(Writable streams)</span>
+    gulp.src('script/jquery.js')                  <span class="comment">// 最终生成的文件路径为 dist/foo.js/jquery.js 而不是dist/foo.js</span>
+        .pipe(gulp.dest('dist/foo.js'))           <span class="comment">// pipe用于连接转换流(Transform streams)或可写流(Writable streams)</span>
 
 任务分割
 
 公有&私有任务
-    function clean(cb) { cb() }                  <span class="comment"> // 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中</span>
-    function build(cb) { cb() }                  <span class="comment"> // 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo&gt; gulp build 可被用在串联(series)组合中</span>
+    function clean(cb) { cb() }                   <span class="comment">// 函数未被导出 因此被认为是私有任务 可被用在串联(series)组合中</span>
+    function build(cb) { cb() }                   <span class="comment">// 函数被导出 为公开任务 可以被`gulp`命令直接调用:demo&gt; gulp build 可被用在串联(series)组合中</span>
     exports.build = build;
     exports.default = series(clean, build);
 
@@ -83,9 +83,9 @@ API
     function bundle2(cb) { cb() }
     function javascript(cb) { cb() }
     function css(cb) { cb() }
-    exports.build = series(transpile1, bundle2)  <span class="comment"> // 如果需要让任务按顺序执行   串联组合</span>
-    exports.build2 = parallel(javascript, css)   <span class="comment"> // 希望以最大并发来运行的任务 并联组合</span>
-                                                 <span class="comment"> // 嵌套组合 任意深度 ↧</span>
+    exports.build = series(transpile1, bundle2)   <span class="comment">// 如果需要让任务按顺序执行   串联组合</span>
+    exports.build2 = parallel(javascript, css)    <span class="comment">// 希望以最大并发来运行的任务 并联组合</span>
+                                                  <span class="comment">// 嵌套组合 任意深度 ↧</span>
     exports.build3 = series(clean, parallel(cssTranspile, series(jsTranspile, jsBundle)), parallel(cssMinify, jsMinify), publish)
 </pre>
 :::
@@ -95,7 +95,7 @@ API
 ::: details commander 命令行编程工具
 
 <pre class="code-block">
-➤ 安装：demo&gt; npm install commander --save
+➤ 安装：<span class="block-command">demo</span> npm install commander --save
 
 ➤ 实例：响应版本号
     demo/bin/demo.js    
@@ -103,35 +103,35 @@ API
         var program = require('commander')
         program                                     
             .version("0.0.2")                         
-            .option('-v --version', 'version info')                   <span class="comment"> // 为主命令提供参数  </span>
-        program.parse(process.argv)                                   <span class="comment"> // 必须    </span>
-    demo&gt; node bin/demo.js -v                                         <span class="comment"> // 运行</span>
+            .option('-v --version', 'version info')                    <span class="comment">// 为主命令提供参数</span>
+        program.parse(process.argv)                                    <span class="comment">// 必须</span>
+    <span class="block-command">demo</span> node bin/demo.js -v                                          <span class="comment">// 运行</span>
 
 ➤ 实例：发布一个运行命令：abc
-    目标：xxxx&gt; abc create name [--options]                            <span class="comment"> // 主命令 命令 参数 选项</span>
+    目标：<span class="block-command">xxxx</span> abc create name [--options]                             <span class="comment">// 主命令 命令 参数 选项</span>
     项目：
         demo/package.json    
             {"bin": {"abc": "./bin/demo.js"<img :src="$withBase('/images/db-brace-right.png')">
 
-        demo/bin/demo.js                                              <span class="comment"> // 定义命令、选项、帮助和业务逻辑 </span>
+        demo/bin/demo.js                                               <span class="comment">// 定义命令、选项、帮助和业务逻辑</span>
             #!/usr/bin/env node
             var commander = require('commander')
             commander
-                .command("summary &lt;cmd&gt;")                             <span class="comment"> // 命令</span>
-                .alias("sm")                                          <span class="comment"> // 命令别名</span>
-                .description("generate a `SUMMARY.md` from a folder") <span class="comment"> // 命令描述</span>
-                .usage()                                              <span class="comment"> // 用户使用提示</span>
-                .option('-v --version', 'version info')               <span class="comment"> // 为命令提供参数</span>
-                .action(function(md, cmd){                            <span class="comment"> // 命令执行体</span>
+                .command("summary &lt;cmd&gt;")                              <span class="comment">// 命令</span>
+                .alias("sm")                                           <span class="comment">// 命令别名</span>
+                .description("generate a `SUMMARY.md` from a folder")  <span class="comment">// 命令描述</span>
+                .usage()                                               <span class="comment">// 用户使用提示</span>
+                .option('-v --version', 'version info')                <span class="comment">// 为命令提供参数</span>
+                .action(function(md, cmd){                             <span class="comment">// 命令执行体</span>
                     console.log('参数', md, cmd);
                 })
-            commander.parse(process.argv)                             <span class="comment"> // 解析命令行参数 一定要放到最后调用</span>
+            commander.parse(process.argv)                              <span class="comment">// 解析命令行参数 一定要放到最后调用</span>
 
-        demo&gt; node bin/demo.js summary abcd 
-        demo&gt; node bin/demo.js sm aaabbb  
+        <span class="block-command">demo</span> node bin/demo.js summary abcd 
+        <span class="block-command">demo</span> node bin/demo.js sm aaabbb  
         
-        demo&gt; npm link                                                <span class="comment"> // 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除</span>
-        xxxx&gt; abc sm aabb
+        <span class="block-command">demo</span> npm link                                                 <span class="comment">// 本地项目和本地npm模块之间建立连接进行模块测试 npm unlink 模块名  解除</span>
+        <span class="block-command">xxxx</span> abc sm aabb
 </pre>
 :::
 
@@ -142,12 +142,12 @@ API
 <pre class="code-block">
 可以用于，我们可以传入 glob 文件匹配模式，并可以简单实现递归目录监控。 与标准库fs.watch()、fs.watchFile对比
 
-安装：demo&gt; npm i chokidar --save-dev
+安装：<span class="block-command">demo</span> npm i chokidar --save-dev
 实例：
     const chokidar = require('chokidar'), log = console.log  
-   <span class="comment"> // chokidar.watch("E:\\work\\demo\\")                                        可以监控文件、文件夹, 参数类型file/dir/glob/array</span>
-   <span class="comment"> // chokidar.watch('.')                                                       监控当前目录</span>
-   <span class="comment"> // chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});  </span>
+    <span class="comment">// chokidar.watch("E:\\work\\demo\\")                                        可以监控文件、文件夹, 参数类型file/dir/glob/array</span>
+    <span class="comment">// chokidar.watch('.')                                                       监控当前目录</span>
+    <span class="comment">// chokidar.watch('./src', {ignored: /(^|[\/\\])\../, persistent: true});</span>
     chokidar.watch('./src')
         .on('raw', (event, path, details) =&gt; log('RAW:', event, path, details))
         .on('ready', () =&gt; console.log('初始扫描完成，准备好监听改变'))
@@ -156,13 +156,13 @@ API
         .on('unlink',    path =&gt; log('UNLINK:',    path))
         .on('addDir',    path =&gt; log('ADDDIR:',    path))
         .on('unlinkDir', path =&gt; log('UNLINKDIR:', path))
-        .on('all', (event, path) =&gt; log('ALL:', event, path))                   <span class="comment"> // 可以在这做事件分支而忽略前面的具体事件    </span>
+        .on('all', (event, path) =&gt; log('ALL:', event, path))                    <span class="comment">// 可以在这做事件分支而忽略前面的具体事件</span>
         .on('error', error =&gt; log(`监听错误: ${error}`))
 
 实例：    
     demo/src/watcher.js
-        chokidar.watch('./src/js')                                                  <span class="comment"> // 注意路径写法 非chokidar.watch('./js')    </span>
-    demo&gt; node src/watcher.js
+        chokidar.watch('./src/js')                                                   <span class="comment">// 注意路径写法 非chokidar.watch('./js')</span>
+    <span class="block-command">demo</span> node src/watcher.js
 
 监控场景：
     新建src/b.js
@@ -261,18 +261,18 @@ plantuml.generate(input, {
 <pre class="code-block">
 &gt; 监测开发文件变化，自动重启node, 开发环境使用，生产环境使用pm2
 
-<span>● xxxx&gt; npm i -g nodemon 或 </span>
-<span>● demo&gt; npm install --save-dev nodemon</span>
-<span>● demo&gt; nodemon main.js  或               <span class="comment"> // 相当于node main.js</span></span>
-<span>● demo&gt; nodemon main.js localhost 8080    <span class="comment"> // 如果没有在应用中指定端口，可以在命令中指定</span></span>
+● <strong>xxxx&gt; npm i -g nodemon 或 </strong>
+● <strong><span class="block-command">demo</span> npm install --save-dev nodemon</strong>
+● <strong><span class="block-command">demo</span> nodemon main.js  或                <span class="comment">// 相当于node main.js</span></strong>
+● <strong><span class="block-command">demo</span> nodemon main.js localhost 8080     <span class="comment">// 如果没有在应用中指定端口，可以在命令中指定</span></strong>
 
 [H6] 实例
 demo/src/01.js    
-    module.exports = 'test text'          <span class="comment"> // 启动nodemon后可响应文件的更改</span>
+    module.exports = 'test text'           <span class="comment">// 启动nodemon后可响应文件的更改</span>
 demo/main.js
     var str = require('./src/01')
     console.log(str);
-demo&gt; nodemon ./main.js                   
+<span class="block-command">demo</span> nodemon ./main.js                   
 </pre>
 :::
 

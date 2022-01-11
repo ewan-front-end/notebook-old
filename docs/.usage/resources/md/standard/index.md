@@ -94,6 +94,23 @@ src/router/index.js ▾
     export default router↥
 浏览器:http://localhost:8080/
 
+[##] 预设部署
+src/constant/index.js ▾ 抽取TOKEN键值为常量
+    ↧// token
+    export const TOKEN = 'token'
+    // token 时间戳
+    export const TIME_STAMP = 'timeStamp'
+    // 超时时长(毫秒) 两小时
+    export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000
+    // 国际化
+    export const LANG = 'language'
+    // 主题色保存的 key
+    export const MAIN_COLOR = 'mainColor'
+    // 默认色值
+    export const DEFAULT_COLOR = '#409eff'
+    // tags
+    export const TAGS_VIEW = 'tagsView'↥
+
 [##] 构建登录页面 UI 结构
     src/router/index.js ▾
         ↧/**
@@ -838,11 +855,11 @@ src/router/index.js ▾
                 }
                 </style>↥
     src/styles/
-        index.scss
-            @import './variables.scss';
+        index.scss ▾
+            ↧@import './variables.scss';
             @import './mixin.scss';
             @import './sidebar.scss';
-            ...
+            ...↥
         variables.scss ▾ 定义常量
             ↧// sidebar
             $menuText: #bfcbd9;
@@ -1519,12 +1536,12 @@ src/router/index.js ▾
                 })
 
                 export default router↥
-            src/layout/AppMain.vue
-                <template>
+            src/layout/AppMain.vue ▾
+                ↧<template>
                     <div class="app-main">
                         <router-view></router-view>
                     </div>
-                </template>
+                </template>↥
         3.解析路由表
             src/utils/route.js ▾
                 ↧import path from 'path'
@@ -1873,8 +1890,8 @@ src/router/index.js ▾
                     }
                 }
                 </style>↥
-            src/layout/components/Navbar.vue 导入面包屑
-                <template>
+            src/layout/components/Navbar.vue ▾ 导入面包屑
+                ↧<template>
                     <div class="navbar">
                         <breadcrumb class="breadcrumb-container" />
                     </div>
@@ -1888,7 +1905,7 @@ src/router/index.js ▾
                         float: left;
                     }
                 }
-                </style>
+                </style>↥
         2.计算面包屑结构数据
             src/components/Breadcrumb/index.vue ▾
                 ↧<script setup>
@@ -1964,8 +1981,8 @@ src/router/index.js ▾
                             0►</transition-group>◄
                         </el-breadcrumb>
                     </template>▨↥
-                src/styles/transition.scss
-                    .breadcrumb-enter-active,
+                src/styles/transition.scss ▾
+                    ↧.breadcrumb-enter-active,
                     .breadcrumb-leave-active {
                         transition: all 0.5s;
                     }
@@ -1978,10 +1995,544 @@ src/router/index.js ▾
 
                     .breadcrumb-leave-active {
                         position: absolute;
-                    }
-                src/styles/index.scss
-                    @import './transition.scss';
+                    }↥
+                src/styles/index.scss ▾
+                    ↧@import './transition.scss';↥
 
+[##] 五
+    国际化实现原理 ▾
+        ↧▧
+        1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
+        const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
+            en: {msg: 'hello world'},                                     return messages[locale][key]        console.log(msg)
+            zh: {msg: '你好世界'}                                      }
+        }▨↥
+    基于 vue-i18n V9 的国际化实现方案
+        admin> npm install vue-i18n@next // 安装 vue-i18n
+        基础部署
+            src/i18n/index.js ▾
+                ↧const messages = {
+                    en: {
+                        msg: {
+                            test: 'hello world'
+                        }
+                    },
+                    zh: {
+                        msg: {
+                            test: '你好世界'
+                        }
+                    }
+                }
+
+                const locale = 'en'
+
+                import { createI18n } from 'vue-i18n'
+                const i18n = createI18n({
+                    // 使用 Composition API 模式，则需要将其设置为false
+                    legacy: false,
+                    // 全局注入 $t 函数
+                    globalInjection: true,
+                    locale,
+                    messages
+                })
+
+                export default i18n↥
+            src/main.js ▾
+                ↧▧0►import i18n from '@/i18n'◄ // 在APP.vue之前导入 因为会在app.vue中使用国际化内容
+                import App from './App.vue'
+
+                const app = createApp(App)
+                0►app.use(i18n)◄▨↥
+            src/layout/components/Sidebar/index.vue ▾
+                ↧<h1 class="logo-title" v-if="$store.getters.sidebarOpened">{{ $t('msg.test') }}</h1>↥
+        封装 langSelect 组件用于修改 locale
+            src/store/modules/app.js ▾
+                ↧▧0►import { LANG } from '@/constant'◄
+                0►import { getItem, setItem } from '@/utils/storage'◄
+                export default {
+                    state: () => ({
+                        0►language: getItem(LANG) || 'zh'◄
+                    }),
+                    mutations: {
+                        /**
+                        * 设置国际化
+                        */
+                        0►setLanguage(state, lang) {
+                            setItem(LANG, lang)
+                            state.language = lang
+                        }◄
+                    },
+                    actions: {}
+                }▨↥
+            src/constant/index.js ▾ 抽取TOKEN键值为常量
+                ↧// 国际化
+                export const LANG = 'language'↥
+            src/components/LangSelect/index.vue ▾
+                ↧<template>
+                    <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
+                        <div>
+                            <el-tooltip content="国际化" :effect="effect">
+                                <svg-icon icon="language" />
+                            </el-tooltip>
+                        </div>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item :disabled="language === 'zh'" command="zh"> 中文 </el-dropdown-item>
+                                <el-dropdown-item :disabled="language === 'en'" command="en"> English </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
+                </template>
+
+                <script setup>
+                import { useI18n } from 'vue-i18n'
+                import { defineProps, computed } from 'vue'
+                import { useStore } from 'vuex'
+                import { ElMessage } from 'element-plus'
+
+                defineProps({
+                    effect: {
+                        type: String,
+                        default: 'dark',
+                        validator: function (value) {
+                            // 这个值必须匹配下列字符串中的一个
+                            return ['dark', 'light'].indexOf(value) !== -1
+                        }
+                    }
+                })
+
+                const store = useStore()
+                const language = computed(() => store.getters.language)
+
+                // 切换语言的方法
+                const i18n = useI18n()
+                const handleSetLanguage = lang => {
+                    i18n.locale.value = lang
+                    store.commit('app/setLanguage', lang)
+                    ElMessage.success('更新成功')
+                }
+                </script>↥
+            src/layout/components/navbar.vue ▾
+                ↧▧<template>
+                    <div class="navbar">
+                        <div class="right-menu">
+                            1►<lang-select class="right-menu-item hover-effect" />◄
+                        </div>
+                    </div>
+                </template>
+
+                <script setup>
+                1►import LangSelect from '@/components/LangSelect'◄
+                </script>
+
+                <style lang="scss" scoped>
+                .navbar {     
+                    .right-menu {
+                        1►::v-deep .right-menu-item {
+                            display: inline-block;
+                            padding: 0 18px 0 0;
+                            font-size: 24px;
+                            color: #5a5e66;
+                            vertical-align: text-bottom;
+
+                            &.hover-effect {
+                                cursor: pointer;
+                            }
+                        }◄
+                    }
+                }
+                </style>▨↥
+        语言包
+            src/i18n/lang/
+            src/i18n/lang/en.js ▾
+                ↧export default {
+                    login: {
+                        title: 'User Login',
+                        loginBtn: 'Login',
+                        usernameRule: 'Username is required',
+                        passwordRule: 'Password cannot be less than 6 digits',
+                        desc: `
+                    Test authority account:<br />
+                    Provide three kinds of authority accounts:<br />
+                    1. Super administrator account: super-admin <br />
+                    2. Administrator account: admin <br />
+                    3. Test configurable account: test <br />
+                    The uniform password is: 123456 <br />
+                    <br />
+                    Import user account:<br />
+                    You can log in with the imported username <br />
+                    The password is unified as: 123456 <br />
+                    <b>Note: Import user-discriminatory Chinese and English libraries! ! ! ! </b>
+                    `
+                    },
+                    route: {
+                        profile: 'Profile',
+                        user: 'user',
+                        excelImport: 'ExcelImport',
+                        userManage: 'EmployeeManage',
+                        userInfo: 'UserInfo',
+                        roleList: 'RoleList',
+                        permissionList: 'PermissionList',
+                        article: 'article',
+                        articleRanking: 'ArticleRanking',
+                        articleCreate: 'ArticleCreate',
+                        articleDetail: 'ArticleDetail',
+                        articleEditor: 'ArticleEditor'
+                    },
+                    toast: {
+                        switchLangSuccess: 'Switch Language Success'
+                    },
+                    tagsView: {
+                        refresh: 'Refresh',
+                        closeRight: 'Close Rights',
+                        closeOther: 'Close Others'
+                    },
+                    theme: {
+                        themeColorChange: 'Theme Color Change',
+                        themeChange: 'Theme Change'
+                    },
+                    universal: {
+                        confirm: 'confirm',
+                        cancel: 'cancel'
+                    },
+                    navBar: {
+                        themeChange: 'Theme Modification',
+                        headerSearch: 'Page Search',
+                        screenfull: 'Full Screen Replacement',
+                        lang: 'Globalization',
+                        guide: 'Function Guide',
+                        home: 'Home',
+                        course: 'Course homepage',
+                        logout: 'Log out'
+                    },
+                    guide: {
+                        close: 'close',
+                        next: 'next',
+                        prev: 'previous',
+                        guideTitle: 'guidance',
+                        guideDesc: 'Turn on the boot function',
+                        hamburgerTitle: 'Hamburger button',
+                        hamburgerDesc: 'Open and close the left menu',
+                        breadcrumbTitle: 'Bread crumbs',
+                        breadcrumbDesc: 'Indicates the current page position',
+                        searchTitle: 'search',
+                        searchDesc: 'Page link search',
+                        fullTitle: 'full screen',
+                        fullDesc: 'Page display switching',
+                        themeTitle: 'theme',
+                        themeDesc: 'Change project theme',
+                        langTitle: 'globalization',
+                        langDesc: 'Language switch',
+                        tagTitle: 'Label',
+                        tagDesc: 'Opened page tab',
+                        sidebarTitle: 'menu',
+                        sidebarDesc: 'Project function menu'
+                    },
+                    profile: {
+                        muted: '"Vue3 rewrite vue-element-admin, realize the back-end front-end integrated solution" project demonstration',
+                        introduce: 'Introduce',
+                        projectIntroduction: 'Project Introduction',
+                        projectFunction: 'Project Function',
+                        feature: 'Feature',
+                        chapter: 'Chapter',
+                        author: 'Author',
+                        name: 'Sunday',
+                        job: 'A front-end development program',
+                        Introduction: 'A senior technical expert, once worked in a domestic first-line Internet company, and has coordinated multiple large-scale projects with more than tens of millions of users. Committed to researching big front-end technology, he has been invited to participate in domestic front-end technology sharing sessions many times, such as: Google China Technology Sharing Session in 2018.'
+                    },
+                    userInfo: {
+                        print: 'Print',
+                        title: 'Employee information',
+                        name: 'name',
+                        sex: 'gender',
+                        nation: 'nationality',
+                        mobile: 'phone number',
+                        province: 'Place of residence',
+                        date: 'Entry Time',
+                        remark: 'Remark',
+                        address: 'contact address',
+                        experience: 'Experience',
+                        major: 'Professional',
+                        glory: 'Glory',
+                        foot: 'Signature:___________Date:___________'
+                    },
+                    uploadExcel: {
+                        upload: 'Click upload',
+                        drop: 'Drag files here'
+                    },
+                    excel: {
+                        importExcel: 'excel import',
+                        exportExcel: 'excel export',
+                        exportZip: 'zip export',
+                        name: 'Name',
+                        mobile: 'contact details',
+                        avatar: 'Avatar',
+                        role: 'Role',
+                        openTime: 'Opening time',
+                        action: 'Operate',
+                        show: 'Check',
+                        showRole: 'Role',
+                        defaultRole: 'Staff',
+                        remove: 'delete',
+                        removeSuccess: 'Deleted successfully',
+                        title: 'Export to excel',
+                        placeholder: 'excel file name',
+                        defaultName: 'Staff Management Form',
+                        close: 'Cancel',
+                        confirm: 'Export',
+                        importSuccess: ' Employee data imported successfully',
+                        dialogTitle1: 'Are you sure you want to delete the user ',
+                        dialogTitle2: ' Is it?',
+                        roleDialogTitle: 'Configure roles'
+                    },
+                    role: {
+                        buttonTxt: 'New Role',
+                        index: 'Serial number',
+                        name: 'name',
+                        desc: 'describe',
+                        action: 'operate',
+                        assignPermissions: 'assign permissions',
+                        removeRole: 'Delete role',
+                        dialogTitle: 'New role',
+                        dialogRole: 'Role Name',
+                        dialogDesc: 'Role description',
+                        updateRoleSuccess: 'User role updated successfully'
+                    },
+                    permission: {
+                        name: 'Authority name',
+                        mark: 'Authority ID',
+                        desc: 'Permission description'
+                    },
+                    article: {
+                        ranking: 'Ranking',
+                        title: 'Title',
+                        author: 'Author',
+                        publicDate: 'release time',
+                        desc: 'brief introduction',
+                        action: 'operate',
+                        dynamicTitle: 'Dynamic display',
+                        show: 'check',
+                        remove: 'delete',
+                        edit: 'editor',
+                        dialogTitle1: 'Are you sure you want to delete the article ',
+                        dialogTitle2: ' NS?',
+                        removeSuccess: 'Article deleted successfully',
+                        titlePlaceholder: 'Please enter the title of the article',
+                        markdown: 'Markdown',
+                        richText: 'Rich Text',
+                        commit: 'commit',
+                        createSuccess: 'The article was created successfully',
+                        editorSuccess: 'Article modified successfully',
+                        sortSuccess: 'Article ranking modified successfully'
+                    }
+                }↥
+            src/i18n/lang/zh.js ▾
+                ↧export default {
+                    login: {
+                        title: '用户登录',
+                        loginBtn: '登录',
+                        usernameRule: '用户名为必填项',
+                        passwordRule: '密码不能少于6位',
+                        desc: `
+                    测试权限账号：<br />
+                    提供三种权限账号：<br />
+                    1. 超级管理员账号： super-admin <br />
+                    2. 管理员账号：admin <br />
+                    3. 测试可配置账号：test <br />
+                    密码统一为：123456 <br />
+                    <br />
+                    导入用户账号：<br />
+                    可使用导入的用户名登录 <br />
+                    密码统一为：123456  <br />
+                    <b>注意：导入用户区分中英文库！！！！</b>
+                    `
+                    },
+                    route: {
+                        profile: '个人中心',
+                        user: '用户',
+                        excelImport: 'Excel导入',
+                        userManage: '员工管理',
+                        userInfo: '员工信息',
+                        roleList: '角色列表',
+                        permissionList: '权限列表',
+                        article: '文章',
+                        articleRanking: '文章排名',
+                        articleCreate: '创建文章',
+                        articleDetail: '文章详情',
+                        articleEditor: '文章编辑'
+                    },
+                    toast: {
+                        switchLangSuccess: '切换语言成功'
+                    },
+                    tagsView: {
+                        refresh: '刷新',
+                        closeRight: '关闭右侧',
+                        closeOther: '关闭其他'
+                    },
+                    theme: {
+                        themeColorChange: '主题色更换',
+                        themeChange: '主题更换'
+                    },
+                    universal: {
+                        confirm: '确定',
+                        cancel: '取消'
+                    },
+                    navBar: {
+                        themeChange: '主题修改',
+                        headerSearch: '页面搜索',
+                        screenfull: '全屏替换',
+                        lang: '国际化',
+                        guide: '功能引导',
+                        home: '首页',
+                        course: '课程主页',
+                        logout: '退出登录'
+                    },
+                    guide: {
+                        close: '关闭',
+                        next: '下一个',
+                        prev: '上一个',
+                        guideTitle: '引导',
+                        guideDesc: '打开引导功能',
+                        hamburgerTitle: '汉堡按钮',
+                        hamburgerDesc: '打开和关闭左侧菜单',
+                        breadcrumbTitle: '面包屑',
+                        breadcrumbDesc: '指示当前页面位置',
+                        searchTitle: '搜索',
+                        searchDesc: '页面链接搜索',
+                        fullTitle: '全屏',
+                        fullDesc: '页面显示切换',
+                        themeTitle: '主题',
+                        themeDesc: '更换项目主题',
+                        langTitle: '国际化',
+                        langDesc: '语言切换',
+                        tagTitle: '标签',
+                        tagDesc: '已打开页面标签',
+                        sidebarTitle: '菜单',
+                        sidebarDesc: '项目功能菜单'
+                    },
+                    profile: {
+                        muted: '《vue3 改写 vue-element-admin，实现后台前端综合解决方案》项目演示',
+                        introduce: '介绍',
+                        projectIntroduction: '项目介绍',
+                        projectFunction: '项目功能',
+                        feature: '功能',
+                        chapter: '章节',
+                        author: '作者',
+                        name: 'Sunday',
+                        job: '一个前端开发程序猿',
+                        Introduction: '高级技术专家，曾就职于国内一线互联网公司，统筹过的多个大型项目用户数已过千万级。致力于研究大前端技术，多次受邀参加国内前端技术分享会，如：2018 年 Google 中国技术分享会。'
+                    },
+                    userInfo: {
+                        print: '打印',
+                        title: '员工信息',
+                        name: '姓名',
+                        sex: '性别',
+                        nation: '民族',
+                        mobile: '手机号',
+                        province: '居住地',
+                        date: '入职时间',
+                        remark: '备注',
+                        address: '联系地址',
+                        experience: '经历',
+                        major: '专业',
+                        glory: '荣耀',
+                        foot: '签字：___________日期:___________'
+                    },
+                    uploadExcel: {
+                        upload: '点击上传',
+                        drop: '将文件拖到此处'
+                    },
+                    excel: {
+                        importExcel: 'excel 导入',
+                        exportExcel: 'excel 导出',
+                        exportZip: 'zip 导出',
+                        name: '姓名',
+                        mobile: '联系方式',
+                        avatar: '头像',
+                        role: '角色',
+                        openTime: '开通时间',
+                        action: '操作',
+                        show: '查看',
+                        showRole: '角色',
+                        defaultRole: '员工',
+                        remove: '删除',
+                        removeSuccess: '删除成功',
+                        title: '导出为 excel',
+                        placeholder: 'excel 文件名称',
+                        defaultName: '员工管理表',
+                        close: '取 消',
+                        confirm: '导 出',
+                        importSuccess: ' 条员工数据导入成功',
+                        dialogTitle1: '确定要删除用户 ',
+                        dialogTitle2: ' 吗？',
+                        roleDialogTitle: '配置角色'
+                    },
+                    role: {
+                        buttonTxt: '新增角色',
+                        index: '序号',
+                        name: '名称',
+                        desc: '描述',
+                        action: '操作',
+                        assignPermissions: '分配权限',
+                        removeRole: '删除角色',
+                        dialogTitle: '新增角色',
+                        dialogRole: '角色名称',
+                        dialogDesc: '角色描述',
+                        updateRoleSuccess: '用户角色更新成功'
+                    },
+                    permission: {
+                        name: '权限名称',
+                        mark: '权限标识',
+                        desc: '权限描述'
+                    },
+                    article: {
+                        ranking: '排名',
+                        title: '标题',
+                        author: '作者',
+                        publicDate: '发布时间',
+                        desc: '内容简介',
+                        action: '操作',
+                        dynamicTitle: '动态展示',
+                        show: '查看',
+                        remove: '删除',
+                        edit: '编辑',
+                        dialogTitle1: '确定要删除文章 ',
+                        dialogTitle2: ' 吗？',
+                        removeSuccess: '文章删除成功',
+                        titlePlaceholder: '请输入文章标题',
+                        markdown: 'markdown',
+                        richText: '富文本',
+                        commit: '提交',
+                        createSuccess: '文章创建成功',
+                        editorSuccess: '文章修改成功',
+                        sortSuccess: '文章排名修改成功'
+                    }
+                }↥
+            src/i18n/index.vue ▾
+                ↧import mZhLocale from './lang/zh'
+                import mEnLocale from './lang/en'
+
+                const messages = {
+                    en: {
+                        msg: {...mEnLocale}
+                    },
+                    zh: {
+                        msg: {...mZhLocale}
+                    }
+                }↥
+
+
+
+
+        1.创建 messages 数据源
+        2.创建 locale 语言变量
+        3.初始化 i18n 实例
+        4.注册 i18n 实例
+        
+        
+
+        
+        
 
 
 

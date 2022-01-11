@@ -40,7 +40,9 @@ module.exports = {
             } 
         })
     },
-    readFile: (path) => {
+    readFile: (path, ifNoCreateOne) => {
+        console.log('-------', ifNoCreateOne);
+        if (ifNoCreateOne && !fs.existsSync(path)) module.exports.writeFileSync(path, ``)
         return fs.readFileSync(path, 'utf8')
     },
     editWritCommonFile: (path, editHandler) => {

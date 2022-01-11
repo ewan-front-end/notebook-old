@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>N 2022.01.11 14:32</span>
         </div>
     </div>
     <div class="content"></div>
@@ -25,6 +25,13 @@ pageClass: theme-item
 a²+b² = (a+b)²-2ab
 a²-b² = (a+b)(a-b)
 </pre>
+
+
+# 八叉树
+aabb碰撞检测算法
+希尔排序
+
+
 
 ## 运算基础
 - bit  比特 0或1
@@ -74,34 +81,34 @@ a²-b² = (a+b)(a-b)
 溢出：
 
 左移位运算符 '&lt;&lt;' 数学意义：在数字没有溢出的前提下，对于正数和负数，左移一位都相当于乘以2的1次方，左移n位就相当于乘以2的n次方
-    5 &lt;&lt; 2    <span class="comment"> // 返回值20</span>
+    5 &lt;&lt; 2     <span class="comment">// 返回值20</span>
     <img :src="$withBase('/images/左移位运算符.jpg')">
-    1 &lt;&lt; 8    <span class="comment"> // 256</span>
+    1 &lt;&lt; 8     <span class="comment">// 256</span>
 
 右移位运算符 '&gt;&gt;' 数学意义：右移一位相当于除2，右移n位相当于除以2的n次方。这里是取商哈，余数就不要了
-    1000 &gt;&gt; 8    <span class="comment"> // 返回值3</span>
+    1000 &gt;&gt; 8     <span class="comment">// 返回值3</span>
     <img :src="$withBase('/images/右移位运算符.jpg')">
 
 '&gt;&gt;&gt;'运算符
 
 按位或 '|=' 数学意义：
     i = 1
-    i|=2 相当于 i= i|2 <span class="comment"> // 0001 | 0010 = 0011 = 3</span>
+    i|=2 相当于 i= i|2  <span class="comment">// 0001 | 0010 = 0011 = 3</span>
     本质为相位或运算
         0   0   0   1      1
         0   0   1   0      2
         0   0   1   1      或运算
 
 
-<span class="h1 bg3 cf"> 实际应用 </span>
-<span>● 判断奇偶</span>
-    a&1 == 0 <span class="comment"> // 偶数</span>
-    a&1 == 1 <span class="comment"> // 奇数</span>
-<span>● 整数平均数    </span>
-    int average(int x, int y) {  <span class="comment"> // (x+y)/2可能产生溢出</span>
+[#]  实际应用 
+● <strong>判断奇偶</strong>
+    a&1 == 0  <span class="comment">// 偶数</span>
+    a&1 == 1  <span class="comment">// 奇数</span>
+● <strong>整数平均数    </strong>
+    int average(int x, int y) {   <span class="comment">// (x+y)/2可能产生溢出</span>
         return (x&y)+((x^y)&gt;&gt;1);
     }
-<span>● 不用<strong>临时变量</strong>交换两个数</span>
+● <strong>不用<strong>临时变量</strong>交换两个数</strong>
     x ^= y;
     y ^= x;
     x ^= y;
@@ -130,36 +137,36 @@ a²-b² = (a+b)(a-b)
 链接：[矩阵算法](/projects#矩阵算法工具包)
 
 <pre class="code-block">
-<span class="h1 bg3 cf"> 加减运算 </span>
-<span>● 规则</span>
+[#]  加减运算 
+● <strong>规则</strong>
     同型矩阵 加减法运算才有意义 即加减运算是可行的
-<span>● 性质</span>
+● <strong>性质</strong>
 　　满足交换律和结合律
     　　交换律 a + b = b + a
     　　结合律 (a + b ) + c = a + (b + c)
-<span>● 实现：matrix(a, b)</span>
+● <strong>实现：matrix(a, b)</strong>
     1. 判断a、b是否为同型矩阵
     2. 相同位置的元素相加减 
-<span>● 实例：</span>
+● <strong>实例：</strong>
         ┌ a1 a2 a3 ┐     ┌ b1 b2 b3 ┐              ┌ a1+b1 a2+b2 a3+b3 ┐              ┌ a1-b1 a2-b2 a3-b3 ┐      ┌ 1 2 3 ┐   ┌ 1 2 3 ┐   ┌ 2  4  6  ┐                                           
     A = │ a4 a5 a6 │ B = │ b4 b5 b6 │      A + B = │ a4+b4 a5+b5 a6+b6 │      A - B = │ a4-b4 a5-b5 a6-b6 │      │ 4 5 6 │ + │ 4 5 6 │ = │ 8  10 12 │       
         └ a7 a8 a9 ┘     └ b7 b8 b9 ┘              └ a7+b7 a8+b8 a9+b9 ┘              └ a7-b7 a8-b8 a9-b9 ┘      └ 7 8 9 ┘   └ 7 8 9 ┘   └ 14 16 18 ┘ 
 
-<span class="h1 bg3 cf"> 乘法:矩阵与数 </span>
-<span>● 规则</span>
+[#]  乘法:矩阵与数 
+● <strong>规则</strong>
 　　数乘矩阵，就是将数乘以矩阵中的每一个元素
 　　称-A为A的负矩阵
-<span>● 性质</span>
+● <strong>性质</strong>
 　　满足结合律和分配律
     　　结合律： (λμ)A = λ(μA)  (λ+μ)A = λA+μA
     　　分配律： λ(A+B) = λA+λB
-<span>● 例题</span>
+● <strong>例题</strong>
         ┌ a1 a2 a3 ┐                ┌ a1*10 a2*10 a3*10 ┐      ┌ 1 2 3 ┐        ┌ 10 20 30 ┐                                          
     A = │ a4 a5 a6 │       A * 10 = │ a4*10 a5*10 a6*10 │      │ 4 5 6 │ * 10 = │ 40 50 60 │       
         └ a7 a8 a9 ┘                └ a7*10 a8*10 a9*10 ┘      └ 7 8 9 ┘        └ 70 80 90 ┘
 
-<span class="h1 bg3 cf"> 乘法:矩阵与矩阵 </span>
-<span>● 性质&规则</span>
+[#]  乘法:矩阵与矩阵 
+● <strong>性质&规则</strong>
     1. 有意义的运算 A矩阵的列数 ＝ B矩阵的行数
     2. 不对易性(不满足交换律) 顺序敏感
 　　如：A * B = C 则：
@@ -173,7 +180,7 @@ a²-b² = (a+b)(a-b)
     │➃ ➄ ➅│*│➃ ➄ ➅│   +8  │ ❹ ▢ ▢│  +20 │66 ▢ ▢│  +32 │66  ▢ ▢│      +10 │66  ❺ ▢│  +25 │66  81 ▢│  +40 │66  81  ▢│      +12 │66  81  ❻ │  +30 │66  81  96│  +48 │66  81  96 │    
     └➆ ➇ ➈┘ └➆ ➇ ➈┘   +21 └ ❼ ▢ ▢┘  +42 └ ❼ ▢ ▢┘  +63 └102 ▢ ▢┘      +24 └102 ❽ ▢┘  +48 └102  ❽ ▢┘  +72 └102 126 ▢┘      +27 └102 126 ❾ ┘  +54 └102 126 ❾ ┘  +81 └102 126 150┘    
 
-    <span>● 典型例题</span>
+    ● <strong>典型例题</strong>
             ┌ a1 ┐                            ┌ a1 ┐                  ┌ a1b1 a1b2 a1b3 ┐                          ┌ a1 ┐
         A = │ a2 │ B = [ b1 b2 b3 ]      AB = │ a2 │ * [ b1 b2 b3 ] = │ a2b1 a2b2 a2b3 │      BA = [ b1 b2 b3 ] * │ a2 │ = b1a1 + b2a2 + b3a3
             └ a3 ┘                            └ a3 ┘                  └ a3b1 a3b2 a3b3 ┘                          └ a3 ┘
@@ -344,11 +351,7 @@ tweens.setStrategyObj({
   strongEaseOut: (t,b,c,d) =&gt; c * ((t = t / d - 1) * t * t * t * t + 1) + b,
   sineaseIn: (t,b,c,d) =&gt; c * (t /= d) * t * t + b,
   sineaseOut: (t,b,c,d) =&gt; c * ((t = t / d - 1) * t * t + 1) + b
-})<span class="comment">
-// 指针</span><span class="comment">
-// tweens.useStrategy('sineaseOut')</span><span class="comment">
-// 策略使用</span><span class="comment">
-// tweens.run(t - startTime, startPos, endPos, duration)</span>
+}) <span class="comment">// 指针</span> <span class="comment">// tweens.useStrategy('sineaseOut')</span> <span class="comment">// 策略使用</span> <span class="comment">// tweens.run(t - startTime, startPos, endPos, duration)</span>
 </pre>
 
 

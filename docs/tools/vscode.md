@@ -220,7 +220,7 @@ launch.json
 			"console.log('$1');",
 			"$2"
 		],
-		"description": "Log output to console"
+		"description": ""
 	},
 	"composition api": {
 		"prefix": "vue3",
@@ -251,15 +251,31 @@ launch.json
 			"</style>",
 			"$2"
 		],
-		"description": "Log output to console"
+		"description": ""
 	},
 	"script setup": {
 		"prefix": "vue3.2",
 		"body": [
-			"console.log('$1');",
+			"<template>",
+			"\t<h1>{{ count }}</h1>",
+			"\t<button @click='inc'>++</button>",
+			"</template>",
+			"",
+			"<script setup>",
+			"import { ref } from 'vue'",
+			"",
+			"const count = ref(0)",
+			"",
+			"const inc = () => {",
+			"\tcount.value++",
+			"}",
+			"</script>",
+			"",
+			"<style lang='scss' scoped>",
+			"</style>",
 			"$2"
 		],
-		"description": "Log output to console"
+		"description": ""
 	}
 }
 

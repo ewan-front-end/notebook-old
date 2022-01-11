@@ -14,7 +14,7 @@ pageClass: theme-item
     <div class="content"></div>
 </div>
 <div class="content-header">
-<h1>Python</h1><strong>Python</strong>
+<h1>Google</h1><strong>Google</strong>
 </div>
 <div class="static-content">
 

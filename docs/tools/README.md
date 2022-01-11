@@ -25,6 +25,15 @@ pageClass: theme-item
 
 
 
+# Github Pages
+[指南](https://docs.github.com/en/pages)
+Settings > GitHub Pages > 【Launch automatic page generator】
+
+
+
+
+
+
 创建您的 Google 帐号
 ewan9297161244@gmail.com
 

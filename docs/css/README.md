@@ -21,6 +21,13 @@ pageClass: theme-item
 
 
 <pre class="code-block">
+js设置操作标签伪元素before、after的值
+&lt;div data-add="abc"&gt;&lt;/div&gt;
+#regexp:before{content:attr(data-add);}
+document.querySelector('#regexp').setAttribute("data-add", "abc")  
+
+
+
 SCSS
     calc(100% - 60px)
 

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2021.09.20 12:29</span>
+            <span>N 2022.01.11 14:32</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/computer/dataStructure">数据结构</a></li><li><a href="/computer/computerNetworks">计算机网络</a></li><li><a href="/computer/algorithm">算法</a></li></ul></div></div>
@@ -66,10 +66,10 @@ ACHOR[1628599921387|字符集]
             四字节  11110XXX 10XXXXXX 10XXXXXX 10XXXXXX      0x10000-0x10FFFF     65536-
         入库流程：
             例：'马'的Unicode编号是：0x9A6C，整数编号是 39532
-                1. 1110XXXX 10XXXXXX 10XXXXXX  <span class="comment"> // 找到Unicode编号范围对应的二进制格式</span>
-                2. 39532 &gt; 1001 1010 0110 1100 <span class="comment"> // Unicode编号转化为二进制数</span>
-                3. 111X1001 10101001 10101100  <span class="comment"> // 将二进制数从右&gt;左依次填入占位符</span>
-                4. 11101001 10101001 10101100  <span class="comment"> // 剩余占位符设为0</span>
+                1. 1110XXXX 10XXXXXX 10XXXXXX   <span class="comment">// 找到Unicode编号范围对应的二进制格式</span>
+                2. 39532 &gt; 1001 1010 0110 1100  <span class="comment">// Unicode编号转化为二进制数</span>
+                3. 111X1001 10101001 10101100   <span class="comment">// 将二进制数从右&gt;左依次填入占位符</span>
+                4. 11101001 10101001 10101100   <span class="comment">// 剩余占位符设为0</span>
 </pre>
 :::
 

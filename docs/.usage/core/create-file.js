@@ -27,7 +27,7 @@ module.exports = (ABSOLUTE_PATH, target, path) => {
     }
     // 资源静态内容
     if (target.src) {
-        let file = readFile(PATH.resolve(__dirname, '../resources/md/'+target.src+'.md'))
+        let file = readFile(PATH.resolve(__dirname, '../resources/md/'+target.src+'.md'), true)
         
         file = parseCode(file, path) // 解析代码
         
