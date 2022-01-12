@@ -504,19 +504,19 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
     通用后台登录方案        
         1.封装 axios 模块
             admin> npm i axios --save // 0.24.0
-            .env.development ▾
+            .env.development ▾ 开发模式 baseurl
                 ↧▧# 标志
                 ENV = 'development'
 
                 # base api
                 1►VUE_APP_BASE_API◄ = '/api'▨↥
-            .env.production ▾
+            .env.production ▾  生产模式 baseurl
                 ↧▧# 标志
                 ENV = 'production'
 
                 # base api
                 1►VUE_APP_BASE_API◄ = '/prod-api'▨↥
-            src/utils/request.js ▾{background-color:#999; color:#fff}
+            src/utils/request.js ▾{color:#fff;background-color:#00c381} 引入使用 baseurl
                 ↧▧import axios from 'axios'
 
                 const service = axios.create({
@@ -526,7 +526,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
 
                 export default service▨↥
         2.封装 接口请求 模块
-            src/api/sys.js ▾{background-color:#999; color:#fff}
+            src/api/sys.js ▾{color:#fff;background-color:#00c381}
                 ↧▧import request from '@/utils/request'
 
                 /**
@@ -541,7 +541,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                 }▨↥
         3.封装登录请求动作
             admin> npm i md5 --save
-            src/store/modules/user.js ▾{background-color:#999; color:#fff} 封装请求
+            src/store/modules/user.js ▾{color:#fff;background-color:#00c381} 封装请求
                 ↧▧import { 2►login◄ } from '@/api/sys'
                 import md5 from 'md5'
                 3►export default◄ {
@@ -574,7 +574,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                         3►user◄
                     }
                 })▨↥
-            src/views/login/index.vue ▾{background-color:#999; color:#fff} 请求
+            src/views/login/index.vue ▾{color:#fff;background-color:#00c381} 请求
                 ↧▧<el-form 0►ref="loginFromRef"◄ :model="loginForm" :rules="loginRules">
                     <el-button 0►:loading="loading"◄ 0►@click="handleLogin"◄>登录</el-button>
                 </el-form>
@@ -663,7 +663,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                 }▨↥
             src/constant/index.js ▾ 抽取TOKEN键值为常量
                 ↧export const TOKEN = 'token'↥
-            src/store/modules/user.js ▾{background-color:#999; color:#fff}
+            src/store/modules/user.js ▾{color:#fff;background-color:#00c381}
                 ↧▧import { login } from '@/api/sys'
                 import md5 from 'md5'
                 ❹import { setItem, getItem } from '@/utils/storage'
@@ -731,7 +731,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                     path: '/',
                     component: () => import('@/layout/index')
                 }↥
-            src/permission.js ▾{background-color:#999; color:#fff} 鉴权模块
+            src/permission.js ▾{color:#fff;background-color:#00c381} 鉴权模块
                 ↧▧import router from './router'
                 import store from './store'
 
@@ -765,7 +765,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                 export default createStore({
                     getters
                 })↥
-            src/main.js ▾{background-color:#999; color:#fff} 导入鉴权模块
+            src/main.js ▾{color:#fff;background-color:#00c381} 导入鉴权模块
                 ↧import './permission'↥
 
 [##] 搭建Layout架构    
@@ -1999,8 +1999,8 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                 src/styles/index.scss ▾
                     ↧@import './transition.scss';↥
 
-[##] 五
-    国际化实现原理 ▾
+[##] 国际化
+    实现原理 ▾
         ↧▧
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
         const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
@@ -2520,37 +2520,272 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                         msg: {...mZhLocale}
                     }
                 }↥
+        element组件的国际化
+            升级element-plus到最新版本
+                npm uninstall element-plus
+                npm i element-plus --save  // 1.3.0-beta.5 此时如报了很多与element-plus无关的错则删除node_modules重新npm i
+                src/plugins/elements.js ▾
+                    ↧// import 'element-plus/lib/theme-chalk/index.css'
+                    import 'element-plus/dist/index.css'
+                    // import locale from 'element-plus/lib/locale/lang/zh-cn'
+                    import zhCn from 'element-plus/es/locale/lang/zh-cn'
+                    import en from 'element-plus/lib/locale/lang/en'
+                    import store from '@/store'
 
+                    export default app => {
+                        app.use(ElementPlus, {
+                            locale: store.getters.language === 'en' ? en : zhCn
+                        })
+                    }↥  
+                src/utils/i18n.js
+                    import i18n from '@/i18n'
+                    export function generateTitle(title) {
+                        return i18n.global.t('msg.route.' + title)
+                    }
+                src/layout/components/Sidebar/SidebarItem.vue ▾ // 处理侧栏国际化
+                    ↧▧◄<template>
+                        <el-sub-menu v-if="route.children.length > 0" :index="route.path">
+                            <template #title>
+                                <menu-item 0►:title="generateTitle(route.meta.title)"◄ :icon="route.meta.icon"></menu-item>
+                            </template>
+                            <sidebar-item v-for="item in route.children" :key="item.path" :route="item"></sidebar-item>
+                        </el-sub-menu>
+                        <el-menu-item v-else :index="route.path">
+                            <menu-item 0►:title="generateTitle(route.meta.title)"◄ :icon="route.meta.icon"></menu-item>
+                        </el-menu-item>
+                    </template>
+                    
+                    <script setup>
+                    0►import { generateTitle } from '@/utils/i18n'◄
+                    </script>▨↥
+                src/styles/element.scss ▾ 图标背景失效
+                    ↧.el-avatar {
+                        //--el-avatar-background-color: none !important;
+                        --el-avatar-bg-color: none !important;
+                    }↥
+                src/layout/components/Sidebar/index.vue ▾ 属性size失效
+                    ↧<el-avatar :size="size" />
 
+                    <script setup>
+                    const size = 44
+                    </script>↥
+                src/components/Breadcrumb/index
+                    <template>
+                        <!-- 不可点击项 -->
+                        <span v-if="index === breadcrumbData.length - 1" class="no-redirect">{{ generateTitle(item.meta.title) }}</span>
+                        <!-- 可点击项 -->
+                        <a v-else class="redirect" @click.prevent="onLinkClick(item)">{{ generateTitle(item.meta.title) }}</a>
+                    </template>
 
+                    <script setup>
+                    import { generateTitle } from '@/utils/i18n'
+                    </script>
+    国际化缓存处理
+        src/i18n/index.js ▾
+            import store from '@/store'
 
-        1.创建 messages 数据源
-        2.创建 locale 语言变量
-        3.初始化 i18n 实例
-        4.注册 i18n 实例
-        
-        
+            function getLanguage() {
+                return store && store.getters && store.getters.language
+            }
+            // const locale = 'zh'
+            const locale = getLanguage()
+        src/store/getters.js ▾ 设置快捷访问
+            ↧language: state => state.app.language↥
+[##] 动态换肤
+    src/components/ThemeSelect/index ▾ 封装主题选择组件
+        ↧<template>
+            <!-- 主题图标 -->
+            <el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme">
+                <div>
+                    <el-tooltip :content="$t('msg.navBar.themeChange')">
+                        <svg-icon icon="change-theme" />
+                    </el-tooltip>
+                </div>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item command="color">
+                            {{ $t('msg.theme.themeColorChange') }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+            <!-- 展示弹出层 -->
+            <div></div>
+        </template>
 
-        
-        
+        <script setup>
+        const handleSetTheme = command => {}
+        </script>
 
+        <style lang="scss" scoped></style>↥
+    src/layout/components/Navbar ▾ 引用组件
+        ↧//<div class="right-menu">
+            <theme-picker class="right-menu-item hover-effect"></theme-picker>
+      
+        import ThemePicker from '@/components/ThemeSelect/index'↥
+    src/components/ThemePicker/components/SelectColor.vue ▾ 颜色选择组件
+        ↧<template>
+            <el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%">
+                <div class="center">
+                    <p class="title">{{ $t('msg.theme.themeColorChange') }}</p>
+                    <el-color-picker v-model="mColor" :predefine="predefineColors"></el-color-picker>
+                </div>
+                <template #footer>
+                    <span class="dialog-footer">
+                        <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
+                        <el-button type="primary" @click="comfirm">{{ $t('msg.universal.confirm') }}</el-button>
+                    </span>
+                </template>
+            </el-dialog>
+        </template>
 
+        <script setup>
+        import { defineProps, defineEmits, ref } from 'vue'
+        defineProps({
+            modelValue: {
+                type: Boolean,
+                required: true
+            }
+        })
+        const emits = defineEmits(['update:modelValue'])
 
+        // 预定义色值
+        const predefineColors = ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585', 'rgba(255, 69, 0, 0.68)', 'rgb(255, 120, 0)', 'hsv(51, 100, 98)', 'hsva(120, 40, 94, 0.5)', 'hsl(181, 100%, 37%)', 'hsla(209, 100%, 56%, 0.73)', '#c7158577']
+        // 默认色值
+        const mColor = ref('#00ff00')
 
+        /**
+        * 关闭
+        */
+        const closed = () => {
+            emits('update:modelValue', false)
+        }
+        /**
+        * 确定
+        * 1. 修改主题色
+        * 2. 保存最新的主题色
+        * 3. 关闭 dialog
+        */
+        const comfirm = async () => {
+            // 3. 关闭 dialog
+            closed()
+        }
+        </script>
 
+        <style lang="scss" scoped>
+        .center {
+            text-align: center;
+            .title {
+                margin-bottom: 12px;
+            }
+        }
+        </style>↥
+    src/components/ThemePicker/index ▾ 使用颜色组件
+        ↧<template>
+            <!-- 展示弹出层 -->
+            <div>
+                <select-color v-model="selectColorVisible"></select-color>
+            </div>
+        </template>
 
-    左侧的 Menu 菜单
-        动态侧边栏方案
+        <script setup>
+        import SelectColor from './components/SelectColor.vue'
+        import { ref } from 'vue'
+
+        const selectColorVisible = ref(false)
+        const handleSetTheme = command => {
+            selectColorVisible.value = true
+        }
+        </script>↥
+    缓存选中的色值
+        src/constants/index.js ▾
+            ↧// 主题色保存的 key
+            export const MAIN_COLOR = 'mainColor'
+            // 默认色值
+            export const DEFAULT_COLOR = '#409eff'↥
+        src/store/modules/theme.js ▾
+            ↧import { getItem, setItem } from '@/utils/storage'
+            import { MAIN_COLOR, DEFAULT_COLOR } from '@/constant'
+            export default {
+                namespaced: true,
+                state: () => ({
+                    mainColor: getItem(MAIN_COLOR) || DEFAULT_COLOR
+                }),
+                mutations: {
+                    /**
+                    * 设置主题色
+                    */
+                    setMainColor(state, newColor) {
+                        state.mainColor = newColor
+                        setItem(MAIN_COLOR, newColor)
+                    }
+                }
+            }↥
+        src/store/getters.js ▾
+            ↧mainColor: state => state.theme.mainColor↥
+        src/store/index.js ▾
+            ↧import theme from './modules/theme.js'
+
+            export default createStore({
+                modules: {
+                    theme
+                }
+            })↥
+        src/components/ThemePicker/components/SelectColor.vue ▾
+            ↧<script setup>
+            import { defineProps, defineEmits, ref } from 'vue'
+            import { useStore } from 'vuex'
             
-    顶部的 NavBar
-        用户退出方案
-            退出的通用逻辑封装
+            const store = useStore()
+            // 默认色值
+            const mColor = ref(store.getters.mainColor)
+            
+            /**
+            * 确定
+            * 1. 修改主题色
+            * 2. 保存最新的主题色
+            * 3. 关闭 dialog
+            */
+            const comfirm = async () => {
+                // 2. 保存最新的主题色
+                store.commit('theme/setMainColor', mColor.value)
+                // 3. 关闭 dialog
+                closed()
+            }
+            </script>↥
 
-        动态面包屑方案
-    中间的内容区 Main
 
-    伸缩侧边栏动画
-    组件状态驱动的动态 CSS 值
+
+
+
+
+
+
+    修改 css 变量 的值
+
+
+
+
+
+
+
+
+    element-plus 主题
+    非 element-plus 主题
+               
+                        
+
+
+
+        
+        
+
+        
+        
+
+
+
+
 
 ===-
 ▾↧↥

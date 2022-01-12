@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.11 20:35</span>
+            <span>M 2022.01.12 15:52</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -503,17 +503,17 @@ pageClass: theme-item
     通用后台登录方案        
         1.封装 axios 模块
             <span class="block-command">admin</span> npm i axios --save <span class="comment">// 0.24.0</span>
-<div class="block-detail">            <span class="detail-desc">.env.development</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"># 标志
+<div class="block-detail">            <span class="detail-desc">.env.development</span><span class="comment"> 开发模式 baseurl</span><div class="detail-content">                <span><span class="format-block"># 标志
                 ENV = 'development'
 
                 # base api
                 <i class="i1">VUE_APP_BASE_API</i> = '/api'</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">.env.production</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"># 标志
+<div class="block-detail">            <span class="detail-desc">.env.production</span><span class="comment">  生产模式 baseurl</span><div class="detail-content">                <span><span class="format-block"># 标志
                 ENV = 'production'
 
                 # base api
                 <i class="i1">VUE_APP_BASE_API</i> = '/prod-api'</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/utils/request.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import axios from 'axios'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/utils/request.js</span><span class="comment"> 引入使用 baseurl</span><div class="detail-content">                <span><span class="format-block">import axios from 'axios'
 
                 const service = axios.create({
                     baseURL: process.env.<i class="i1">VUE_APP_BASE_API</i>,
@@ -522,7 +522,7 @@ pageClass: theme-item
 
                 export default service</span></span></div></div>
         2.封装 接口请求 模块
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/api/sys.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import request from '@/utils/request'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/api/sys.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import request from '@/utils/request'
 
                 <span class="comment">/**
                 * 登录
@@ -536,7 +536,7 @@ pageClass: theme-item
                 }</span></span></div></div>
         3.封装登录请求动作
             <span class="block-command">admin</span> npm i md5 --save
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/store/modules/user.js</span><span class="comment"> 封装请求</span><div class="detail-content">                <span><span class="format-block">import { <i class="i2">login</i> } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/store/modules/user.js</span><span class="comment"> 封装请求</span><div class="detail-content">                <span><span class="format-block">import { <i class="i2">login</i> } from '@/api/sys'
                 import md5 from 'md5'
                 <i class="i3">export default</i> {
                     namespaced: true,
@@ -567,7 +567,7 @@ pageClass: theme-item
                         <i class="i3">user</i>
                     }
                 })</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/views/login/index.vue</span><span class="comment"> 请求</span><div class="detail-content">                <span><span class="format-block">&lt;el-form <i class="i0">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/views/login/index.vue</span><span class="comment"> 请求</span><div class="detail-content">                <span><span class="format-block">&lt;el-form <i class="i0">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
                     &lt;el-button <i class="i0">:loading="loading"</i> <i class="i0">@click="handleLogin"</i>&gt;登录&lt;/el-button&gt;
                 &lt;/el-form&gt;
                 
@@ -652,7 +652,7 @@ pageClass: theme-item
                     window.localStorage.clear()
                 }</span></span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取TOKEN键值为常量</span><div class="detail-content">                <span>export const TOKEN = 'token'</span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import { login } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import { login } from '@/api/sys'
                 import md5 from 'md5'
                 <i class="order4">import { setItem, getItem } from '@/utils/storage'
                 import { TOKEN } from '@/constant'</i>
@@ -716,7 +716,7 @@ pageClass: theme-item
                     path: '/',
                     component: () =&gt; import('@/layout/index')
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/permission.js</span><span class="comment"> 鉴权模块</span><div class="detail-content">                <span><span class="format-block">import router from './router'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/permission.js</span><span class="comment"> 鉴权模块</span><div class="detail-content">                <span><span class="format-block">import router from './router'
                 import store from './store'
 
                 <span class="comment">// 白名单</span>
@@ -747,7 +747,7 @@ pageClass: theme-item
                 export default createStore({
                     getters
                 })</span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="background-color:#999; color:#fff">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
 
 <span class="h2 bg3 cf"> 搭建Layout架构    </span>
     src/layout/
@@ -1930,8 +1930,8 @@ pageClass: theme-item
                     }</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                    <span>@import './transition.scss';</span></div></div>
 
-<span class="h2 bg3 cf"> 五 </span>
-<div class="block-detail">    <span class="detail-desc">国际化实现原理</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">
+<span class="h2 bg3 cf"> 国际化 </span>
+<div class="block-detail">    <span class="detail-desc">实现原理</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
         const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
             en: {msg: 'hello world'},                                     return messages[locale][key]        console.log(msg)
@@ -2440,37 +2440,258 @@ pageClass: theme-item
                         msg: {...mZhLocale}
                     }
                 }</span></div></div>
+        element组件的国际化
+            升级element-plus到最新版本
+                npm uninstall element-plus
+                npm i element-plus --save  <span class="comment">// 1.3.0-beta.5 此时如报了很多与element-plus无关的错则删除node_modules重新npm i</span>
+<div class="block-detail">                <span class="detail-desc">src/plugins/elements.js</span><span class="comment"></span><div class="detail-content">                    <span>// import 'element-plus/lib/theme-chalk/index.css'
+                    import 'element-plus/dist/index.css'
+                    <span class="comment">// import locale from 'element-plus/lib/locale/lang/zh-cn'</span>
+                    import zhCn from 'element-plus/es/locale/lang/zh-cn'
+                    import en from 'element-plus/lib/locale/lang/en'
+                    import store from '@/store'
 
+                    export default app =&gt; {
+                        app.use(ElementPlus, {
+                            locale: store.getters.language === 'en' ? en : zhCn
+                        })
+                    }</span></div></div>  
+                src/utils/i18n.js
+                    import i18n from '@/i18n'
+                    export function generateTitle(title) {
+                        return i18n.global.t('msg.route.' + title)
+                    }
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> <span class="comment">// 处理侧栏国际化</span></span><div class="detail-content">                    <span><span class="format-block">◄&lt;template&gt;
+                        &lt;el-sub-menu v-if="route.children.length &gt; 0" :index="route.path"&gt;
+                            &lt;template #title&gt;
+                                &lt;menu-item <i class="i0">:title="generateTitle(route.meta.title)"</i> :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
+                            &lt;/template&gt;
+                            &lt;sidebar-item v-for="item in route.children" :key="item.path" :route="item"&gt;&lt;/sidebar-item&gt;
+                        &lt;/el-sub-menu&gt;
+                        &lt;el-menu-item v-else :index="route.path"&gt;
+                            &lt;menu-item <i class="i0">:title="generateTitle(route.meta.title)"</i> :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
+                        &lt;/el-menu-item&gt;
+                    &lt;/template&gt;
+                    
+                    &lt;script setup&gt;
+                    <i class="i0">import { generateTitle } from '@/utils/i18n'</i>
+                    &lt;/script&gt;</span></span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/styles/element.scss</span><span class="comment"> 图标背景失效</span><div class="detail-content">                    <span>.el-avatar {
+                        <span class="comment">//--el-avatar-background-color: none !important;</span>
+                        --el-avatar-bg-color: none !important;
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 属性size失效</span><div class="detail-content">                    <span>&lt;el-avatar :size="size" /&gt;
 
+                    &lt;script setup&gt;
+                    const size = 44
+                    &lt;/script&gt;</span></div></div>
+                src/components/Breadcrumb/index
+                    &lt;template&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
+                        &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;<img :src="$withBase('/images/db-brace-left.png')"> generateTitle(item.meta.title) <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                        <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
+                        &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;<img :src="$withBase('/images/db-brace-left.png')"> generateTitle(item.meta.title) <img :src="$withBase('/images/db-brace-right.png')">&lt;/a&gt;
+                    &lt;/template&gt;
 
+                    &lt;script setup&gt;
+                    import { generateTitle } from '@/utils/i18n'
+                    &lt;/script&gt;
+    国际化缓存处理
+        src/i18n/index.js ▾
+            import store from '@/store'
 
-        1.创建 messages 数据源
-        2.创建 locale 语言变量
-        3.初始化 i18n 实例
-        4.注册 i18n 实例
-        
-        
+            function getLanguage() {
+                return store && store.getters && store.getters.language
+            }
+            <span class="comment">// const locale = 'zh'</span>
+            const locale = getLanguage()
+<div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
+<span class="h2 bg3 cf"> 动态换肤 </span>
+<div class="block-detail">    <span class="detail-desc">src/components/ThemeSelect/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
+            <span class="comment">&#60;&#33;&#45;&#45;主题图标&#45;&#45;&#62;</span>
+            &lt;el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme"&gt;
+                &lt;div&gt;
+                    &lt;el-tooltip :content="$t('msg.navBar.themeChange')"&gt;
+                        &lt;svg-icon icon="change-theme" /&gt;
+                    &lt;/el-tooltip&gt;
+                &lt;/div&gt;
+                &lt;template #dropdown&gt;
+                    &lt;el-dropdown-menu&gt;
+                        &lt;el-dropdown-item command="color"&gt;
+                            <img :src="$withBase('/images/db-brace-left.png')"> $t('msg.theme.themeColorChange') <img :src="$withBase('/images/db-brace-right.png')">
+                        &lt;/el-dropdown-item&gt;
+                    &lt;/el-dropdown-menu&gt;
+                &lt;/template&gt;
+            &lt;/el-dropdown&gt;
+            <span class="comment">&#60;&#33;&#45;&#45;展示弹出层&#45;&#45;&#62;</span>
+            &lt;div&gt;&lt;/div&gt;
+        &lt;/template&gt;
 
-        
-        
+        &lt;script setup&gt;
+        const handleSetTheme = command =&gt; {}
+        &lt;/script&gt;
 
+        &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/layout/components/Navbar</span><span class="comment"> 引用组件</span><div class="detail-content">        <span>//&lt;div class="right-menu"&gt;
+            &lt;theme-picker class="right-menu-item hover-effect"&gt;&lt;/theme-picker&gt;
+      
+        import ThemePicker from '@/components/ThemeSelect/index'</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"> 颜色选择组件</span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%"&gt;
+                &lt;div class="center"&gt;
+                    &lt;p class="title"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.theme.themeColorChange') <img :src="$withBase('/images/db-brace-right.png')">&lt;/p&gt;
+                    &lt;el-color-picker v-model="mColor" :predefine="predefineColors"&gt;&lt;/el-color-picker&gt;
+                &lt;/div&gt;
+                &lt;template #footer&gt;
+                    &lt;span class="dialog-footer"&gt;
+                        &lt;el-button @click="closed"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.universal.cancel') <img :src="$withBase('/images/db-brace-right.png')">&lt;/el-button&gt;
+                        &lt;el-button type="primary" @click="comfirm"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.universal.confirm') <img :src="$withBase('/images/db-brace-right.png')">&lt;/el-button&gt;
+                    &lt;/span&gt;
+                &lt;/template&gt;
+            &lt;/el-dialog&gt;
+        &lt;/template&gt;
 
+        &lt;script setup&gt;
+        import { defineProps, defineEmits, ref } from 'vue'
+        defineProps({
+            modelValue: {
+                type: Boolean,
+                required: true
+            }
+        })
+        const emits = defineEmits(['update:modelValue'])
 
+        <span class="comment">// 预定义色值</span>
+        const predefineColors = ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585', 'rgba(255, 69, 0, 0.68)', 'rgb(255, 120, 0)', 'hsv(51, 100, 98)', 'hsva(120, 40, 94, 0.5)', 'hsl(181, 100%, 37%)', 'hsla(209, 100%, 56%, 0.73)', '#c7158577']
+        <span class="comment">// 默认色值</span>
+        const mColor = ref('#00ff00')
 
+        <span class="comment">/**
+        * 关闭
+        */</span>
+        const closed = () =&gt; {
+            emits('update:modelValue', false)
+        }
+        <span class="comment">/**
+        * 确定
+        * 1. 修改主题色
+        * 2. 保存最新的主题色
+        * 3. 关闭 dialog
+        */</span>
+        const comfirm = async () =&gt; {
+            <span class="comment">// 3. 关闭 dialog</span>
+            closed()
+        }
+        &lt;/script&gt;
 
+        &lt;style lang="scss" scoped&gt;
+        .center {
+            text-align: center;
+            .title {
+                margin-bottom: 12px;
+            }
+        }
+        &lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 使用颜色组件</span><div class="detail-content">        <span>&lt;template&gt;
+            <span class="comment">&#60;&#33;&#45;&#45;展示弹出层&#45;&#45;&#62;</span>
+            &lt;div&gt;
+                &lt;select-color v-model="selectColorVisible"&gt;&lt;/select-color&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
 
-    左侧的 Menu 菜单
-        动态侧边栏方案
+        &lt;script setup&gt;
+        import SelectColor from './components/SelectColor.vue'
+        import { ref } from 'vue'
+
+        const selectColorVisible = ref(false)
+        const handleSetTheme = command =&gt; {
+            selectColorVisible.value = true
+        }
+        &lt;/script&gt;</span></div></div>
+    缓存选中的色值
+<div class="block-detail">        <span class="detail-desc">src/constants/index.js</span><span class="comment"></span><div class="detail-content">            <span>// 主题色保存的 key
+            export const MAIN_COLOR = 'mainColor'
+            <span class="comment">// 默认色值</span>
+            export const DEFAULT_COLOR = '#409eff'</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/modules/theme.js</span><span class="comment"></span><div class="detail-content">            <span>import { getItem, setItem } from '@/utils/storage'
+            import { MAIN_COLOR, DEFAULT_COLOR } from '@/constant'
+            export default {
+                namespaced: true,
+                state: () =&gt; ({
+                    mainColor: getItem(MAIN_COLOR) || DEFAULT_COLOR
+                }),
+                mutations: {
+                    <span class="comment">/**
+                    * 设置主题色
+                    */</span>
+                    setMainColor(state, newColor) {
+                        state.mainColor = newColor
+                        setItem(MAIN_COLOR, newColor)
+                    }
+                }
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">            <span>mainColor: state =&gt; state.theme.mainColor</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/index.js</span><span class="comment"></span><div class="detail-content">            <span>import theme from './modules/theme.js'
+
+            export default createStore({
+                modules: {
+                    theme
+                }
+            })</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;script setup&gt;
+            import { defineProps, defineEmits, ref } from 'vue'
+            import { useStore } from 'vuex'
             
-    顶部的 NavBar
-        用户退出方案
-            退出的通用逻辑封装
+            const store = useStore()
+            <span class="comment">// 默认色值</span>
+            const mColor = ref(store.getters.mainColor)
+            
+            <span class="comment">/**
+            * 确定
+            * 1. 修改主题色
+            * 2. 保存最新的主题色
+            * 3. 关闭 dialog
+            */</span>
+            const comfirm = async () =&gt; {
+                <span class="comment">// 2. 保存最新的主题色</span>
+                store.commit('theme/setMainColor', mColor.value)
+                <span class="comment">// 3. 关闭 dialog</span>
+                closed()
+            }
+            &lt;/script&gt;</span></div></div>
 
-        动态面包屑方案
-    中间的内容区 Main
 
-    伸缩侧边栏动画
-    组件状态驱动的动态 CSS 值
+
+
+
+
+
+
+    修改 css 变量 的值
+
+
+
+
+
+
+
+
+    element-plus 主题
+    非 element-plus 主题
+               
+                        
+
+
+
+        
+        
+
+        
+        
+
+
+
+
 
 </pre>
 ▾↧↥
