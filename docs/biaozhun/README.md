@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.12 15:52</span>
+            <span>M 2022.01.12 20:53</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -2507,7 +2507,7 @@ pageClass: theme-item
             const locale = getLanguage()
 <div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
 <span class="h2 bg3 cf"> 动态换肤 </span>
-<div class="block-detail">    <span class="detail-desc">src/components/ThemeSelect/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
+<div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             <span class="comment">&#60;&#33;&#45;&#45;主题图标&#45;&#45;&#62;</span>
             &lt;el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme"&gt;
                 &lt;div&gt;
@@ -2535,7 +2535,7 @@ pageClass: theme-item
 <div class="block-detail">    <span class="detail-desc">src/layout/components/Navbar</span><span class="comment"> 引用组件</span><div class="detail-content">        <span>//&lt;div class="right-menu"&gt;
             &lt;theme-picker class="right-menu-item hover-effect"&gt;&lt;/theme-picker&gt;
       
-        import ThemePicker from '@/components/ThemeSelect/index'</span></div></div>
+        import ThemePicker from '@/components/ThemePicker/index'</span></div></div>
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"> 颜色选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             &lt;el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%"&gt;
                 &lt;div class="center"&gt;
@@ -2592,17 +2592,16 @@ pageClass: theme-item
             }
         }
         &lt;/style&gt;</span></div></div>
-<div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 使用颜色组件</span><div class="detail-content">        <span>&lt;template&gt;
-            <span class="comment">&#60;&#33;&#45;&#45;展示弹出层&#45;&#45;&#62;</span>
-            &lt;div&gt;
-                &lt;select-color v-model="selectColorVisible"&gt;&lt;/select-color&gt;
-            &lt;/div&gt;
-        &lt;/template&gt;
+<div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 使用颜色组件</span><div class="detail-content">        <span><span class="comment">&#60;&#33;&#45;&#45;展示弹出层&#45;&#45;&#62;</span>
+        &lt;div&gt;
+            &lt;select-color v-model="selectColorVisible"&gt;&lt;/select-color&gt;
+        &lt;/div&gt;
+        
 
         &lt;script setup&gt;
         import SelectColor from './components/SelectColor.vue'
         import { ref } from 'vue'
-
+        
         const selectColorVisible = ref(false)
         const handleSetTheme = command =&gt; {
             selectColorVisible.value = true
@@ -2639,7 +2638,6 @@ pageClass: theme-item
                 }
             })</span></div></div>
 <div class="block-detail">        <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;script setup&gt;
-            import { defineProps, defineEmits, ref } from 'vue'
             import { useStore } from 'vuex'
             
             const store = useStore()
@@ -2659,6 +2657,160 @@ pageClass: theme-item
                 closed()
             }
             &lt;/script&gt;</span></div></div>
+    处理 element-plus 主题变更
+<div class="block-detail">        <span class="detail-desc">src/constant/formula.json</span><span class="comment"></span><div class="detail-content">            <span>{
+                "shade-1": "color(primary shade(10%))",
+                "light-1": "color(primary tint(10%))",
+                "light-2": "color(primary tint(20%))",
+                "light-3": "color(primary tint(30%))",
+                "light-4": "color(primary tint(40%))",
+                "light-5": "color(primary tint(50%))",
+                "light-6": "color(primary tint(60%))",
+                "light-7": "color(primary tint(70%))",
+                "light-8": "color(primary tint(80%))",
+                "light-9": "color(primary tint(90%))",
+                "subMenuHover": "color(primary tint(70%))",
+                "subMenuBg": "color(primary tint(80%))",
+                "menuHover": "color(primary tint(90%))",
+                "menuBg": "color(primary)"
+            }</span></div></div>
+        <span class="block-command">admin</span> npm i css-color-function@1.3.3 rgb-hex@4.0.0 --save
+<div class="block-detail">        <span class="detail-desc">src/utils/theme.js</span><span class="comment"></span><div class="detail-content">            <span>import color from 'css-color-function' <span class="comment">// 在CSS中提出的颜色函数的解析器和转换器</span>
+            import rgbHex from 'rgb-hex' <span class="comment">// 转换RGB(A)颜色为十六进制</span>
+            import formula from '@/constant/formula.json'
+            import axios from 'axios'
+
+            <span class="comment">/**
+            * 写入新样式到 style
+            * @param {*} elNewStyle  element-plus 的新样式
+            * @param {*} isNewStyleTag 是否生成新的 style 标签
+            */</span>
+            export const writeNewStyle = elNewStyle =&gt; {
+                const style = document.createElement('style')
+                style.innerText = elNewStyle
+                document.head.appendChild(style)
+            }
+
+            <span class="comment">/**
+            * 根据主色值，生成最新的样式表
+            */</span>
+            export const generateNewStyle = async primaryColor =&gt; {
+                const colors = generateColors(primaryColor)
+                let cssText = await getOriginalStyle()
+
+                <span class="comment">// 遍历生成的样式表，在 CSS 的原样式中进行全局替换</span>
+                Object.keys(colors).forEach(key =&gt; {
+                    cssText = cssText.replace(new RegExp('(:|\\s+)' + key, 'g'), '$1' + colors[key])
+                })
+
+                return cssText
+            }
+
+            <span class="comment">/**
+            * 根据主色生成色值表
+            */</span>
+            export const generateColors = primary =&gt; {
+                if (!primary) return
+                const colors = {
+                    primary
+                }
+                Object.keys(formula).forEach(key =&gt; {
+                    const value = formula[key].replace(/primary/g, primary)
+                    colors[key] = '#' + rgbHex(color.convert(value))
+                })
+                return colors
+            }
+
+            <span class="comment">/**
+            * 获取当前 element-plus 的默认样式表
+            */</span>
+            const getOriginalStyle = async () =&gt; {
+                const version = require('element-plus/package.json').version
+                const url = `https://unpkg.com/element-plus@${version}/dist/index.css`
+                const { data } = await axios(url)
+                <span class="comment">// 把获取到的数据筛选为原样式模板</span>
+                return getStyleTemplate(data)
+            }
+
+            <span class="comment">/**
+            * 返回 style 的 template
+            */</span>
+            const getStyleTemplate = data =&gt; {
+                <span class="comment">// element-plus 默认色值</span>
+                const colorMap = {
+                    '#3a8ee6': 'shade-1',
+                    '#409eff': 'primary',
+                    '#53a8ff': 'light-1',
+                    '#66b1ff': 'light-2',
+                    '#79bbff': 'light-3',
+                    '#8cc5ff': 'light-4',
+                    '#a0cfff': 'light-5',
+                    '#b3d8ff': 'light-6',
+                    '#c6e2ff': 'light-7',
+                    '#d9ecff': 'light-8',
+                    '#ecf5ff': 'light-9'
+                }
+                <span class="comment">// 根据默认色值为要替换的色值打上标记</span>
+                Object.keys(colorMap).forEach(key =&gt; {
+                    const value = colorMap[key]
+                    data = data.replace(new RegExp(key, 'ig'), value)
+                })
+                return data
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"></span><div class="detail-content">            <span>import { generateNewStyle, writeNewStyle } from '@/utils/theme'
+            
+            <span class="comment">/**
+             * 确定
+             * 1. 修改主题色
+             * 2. 保存最新的主题色
+             * 3. 关闭 dialog
+             */</span>
+            const comfirm = async () =&gt; {
+                <span class="comment">// 1.1 获取主题色</span>
+                const newStyleText = await generateNewStyle(mColor.value)
+                <span class="comment">// 1.2 写入最新主题色</span>
+                writeNewStyle(newStyleText)
+                <span class="comment">// 2. 保存最新的主题色</span>
+                store.commit('theme/setMainColor', mColor.value)
+                <span class="comment">// 3. 关闭 dialog</span>
+                closed()
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">更改目标：https://unpkg.com/element-plus@${version}/dist/index.css</span><span class="comment"> 更改完成后写入head</span><div class="detail-content">            <span>@charset "UTF-8";
+
+            :root {
+                --el-color-primary: #409eff;
+                --el-color-primary-light-1: #53a8ff;
+                --el-color-primary-light-2: #66b1ff;
+                --el-color-primary-light-3: #79bbff;
+                --el-color-primary-light-4: #8cc5ff;
+                --el-color-primary-light-5: #a0cfff;
+                --el-color-primary-light-6: #b3d8ff;
+                --el-color-primary-light-7: #c6e2ff;
+                --el-color-primary-light-8: #d9ecff;
+                --el-color-primary-light-9: #ecf5ff;
+            }</span></div></div>
+        验证测试
+<div class="block-detail">            <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-row&gt;
+                    &lt;el-button&gt;Default&lt;/el-button&gt;
+                    &lt;el-button type="primary"&gt;Primary&lt;/el-button&gt;
+                    &lt;el-button type="success"&gt;Success&lt;/el-button&gt;
+                    &lt;el-button type="info"&gt;Info&lt;/el-button&gt;
+                    &lt;el-button type="warning"&gt;Warning&lt;/el-button&gt;
+                    &lt;el-button type="danger"&gt;Danger&lt;/el-button&gt;
+                &lt;/el-row&gt;</span></div></div>
+    处理自定义主题变更
+
+
+
+
+
+
+
+
+
+
+            
+              
 
 
 
