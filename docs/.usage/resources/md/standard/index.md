@@ -2752,141 +2752,228 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
             }
             </script>↥
     处理 element-plus 主题变更
-        src/constant/formula.json ▾
-            ↧{
-                "shade-1": "color(primary shade(10%))",
-                "light-1": "color(primary tint(10%))",
-                "light-2": "color(primary tint(20%))",
-                "light-3": "color(primary tint(30%))",
-                "light-4": "color(primary tint(40%))",
-                "light-5": "color(primary tint(50%))",
-                "light-6": "color(primary tint(60%))",
-                "light-7": "color(primary tint(70%))",
-                "light-8": "color(primary tint(80%))",
-                "light-9": "color(primary tint(90%))",
-                "subMenuHover": "color(primary tint(70%))",
-                "subMenuBg": "color(primary tint(80%))",
-                "menuHover": "color(primary tint(90%))",
-                "menuBg": "color(primary)"
-            }↥
-        admin> npm i css-color-function@1.3.3 rgb-hex@4.0.0 --save
-        src/utils/theme.js ▾
-            ↧import color from 'css-color-function' // 在CSS中提出的颜色函数的解析器和转换器 
-            import rgbHex from 'rgb-hex' // 转换RGB(A)颜色为十六进制
-            import formula from '@/constant/formula.json'
-            import axios from 'axios'
+        老方法
+            src/constant/formula.json ▾
+                ↧{
+                    "shade-1": "color(primary shade(10%))",
+                    "light-1": "color(primary tint(10%))",
+                    "light-2": "color(primary tint(20%))",
+                    "light-3": "color(primary tint(30%))",
+                    "light-4": "color(primary tint(40%))",
+                    "light-5": "color(primary tint(50%))",
+                    "light-6": "color(primary tint(60%))",
+                    "light-7": "color(primary tint(70%))",
+                    "light-8": "color(primary tint(80%))",
+                    "light-9": "color(primary tint(90%))",
+                    "subMenuHover": "color(primary tint(70%))",
+                    "subMenuBg": "color(primary tint(80%))",
+                    "menuHover": "color(primary tint(90%))",
+                    "menuBg": "color(primary)"
+                }↥
+            admin> npm i css-color-function@1.3.3 rgb-hex@4.0.0 --save
+            src/utils/theme.js ▾
+                ↧import color from 'css-color-function' // 在CSS中提出的颜色函数的解析器和转换器 
+                import rgbHex from 'rgb-hex' // 转换RGB(A)颜色为十六进制
+                import formula from '@/constant/formula.json'
+                import axios from 'axios'
 
-            /**
-            * 写入新样式到 style
-            * @param {*} elNewStyle  element-plus 的新样式
-            * @param {*} isNewStyleTag 是否生成新的 style 标签
-            */
-            export const writeNewStyle = elNewStyle => {
-                const style = document.createElement('style')
-                style.innerText = elNewStyle
-                document.head.appendChild(style)
-            }
-
-            /**
-            * 根据主色值，生成最新的样式表
-            */
-            export const generateNewStyle = async primaryColor => {
-                const colors = generateColors(primaryColor)
-                let cssText = await getOriginalStyle()
-
-                // 遍历生成的样式表，在 CSS 的原样式中进行全局替换
-                Object.keys(colors).forEach(key => {
-                    cssText = cssText.replace(new RegExp('(:|\\s+)' + key, 'g'), '$1' + colors[key])
-                })
-
-                return cssText
-            }
-
-            /**
-            * 根据主色生成色值表
-            */
-            export const generateColors = primary => {
-                if (!primary) return
-                const colors = {
-                    primary
+                /**
+                * 写入新样式到 style
+                * @param {*} elNewStyle  element-plus 的新样式
+                * @param {*} isNewStyleTag 是否生成新的 style 标签
+                */
+                export const writeNewStyle = elNewStyle => {
+                    const style = document.createElement('style')
+                    style.innerText = elNewStyle
+                    document.head.appendChild(style)
                 }
-                Object.keys(formula).forEach(key => {
-                    const value = formula[key].replace(/primary/g, primary)
-                    colors[key] = '#' + rgbHex(color.convert(value))
-                })
-                return colors
-            }
 
-            /**
-            * 获取当前 element-plus 的默认样式表
-            */
-            const getOriginalStyle = async () => {
-                const version = require('element-plus/package.json').version
-                const url = `https://unpkg.com/element-plus@${version}/dist/index.css`
-                const { data } = await axios(url)
-                // 把获取到的数据筛选为原样式模板
-                return getStyleTemplate(data)
-            }
+                /**
+                * 根据主色值，生成最新的样式表
+                */
+                export const generateNewStyle = async primaryColor => {
+                    const colors = generateColors(primaryColor)
+                    let cssText = await getOriginalStyle()
 
-            /**
-            * 返回 style 的 template
-            */
-            const getStyleTemplate = data => {
-                // element-plus 默认色值
-                const colorMap = {
-                    '#3a8ee6': 'shade-1',
-                    '#409eff': 'primary',
-                    '#53a8ff': 'light-1',
-                    '#66b1ff': 'light-2',
-                    '#79bbff': 'light-3',
-                    '#8cc5ff': 'light-4',
-                    '#a0cfff': 'light-5',
-                    '#b3d8ff': 'light-6',
-                    '#c6e2ff': 'light-7',
-                    '#d9ecff': 'light-8',
-                    '#ecf5ff': 'light-9'
+                    // 遍历生成的样式表，在 CSS 的原样式中进行全局替换
+                    Object.keys(colors).forEach(key => {
+                        cssText = cssText.replace(new RegExp('(:|\\s+)' + key, 'g'), '$1' + colors[key])
+                    })
+
+                    return cssText
                 }
-                // 根据默认色值为要替换的色值打上标记
-                Object.keys(colorMap).forEach(key => {
-                    const value = colorMap[key]
-                    data = data.replace(new RegExp(key, 'ig'), value)
-                })
-                return data
-            }↥
-        src/components/ThemePicker/components/SelectColor.vue ▾
-            ↧import { generateNewStyle, writeNewStyle } from '@/utils/theme'
-            
-            /**
-             * 确定
-             * 1. 修改主题色
-             * 2. 保存最新的主题色
-             * 3. 关闭 dialog
-             */
-            const comfirm = async () => {
-                // 1.1 获取主题色
-                const newStyleText = await generateNewStyle(mColor.value)
-                // 1.2 写入最新主题色
-                writeNewStyle(newStyleText)
-                // 2. 保存最新的主题色
-                store.commit('theme/setMainColor', mColor.value)
-                // 3. 关闭 dialog
-                closed()
-            }↥
-        更改目标：https://unpkg.com/element-plus@${version}/dist/index.css ▾ 更改完成后写入head
-            ↧@charset "UTF-8";
 
-            :root {
-                --el-color-primary: #409eff;
-                --el-color-primary-light-1: #53a8ff;
-                --el-color-primary-light-2: #66b1ff;
-                --el-color-primary-light-3: #79bbff;
-                --el-color-primary-light-4: #8cc5ff;
-                --el-color-primary-light-5: #a0cfff;
-                --el-color-primary-light-6: #b3d8ff;
-                --el-color-primary-light-7: #c6e2ff;
-                --el-color-primary-light-8: #d9ecff;
-                --el-color-primary-light-9: #ecf5ff;
-            }↥
+                /**
+                * 根据主色生成色值表
+                */
+                export const generateColors = primary => {
+                    if (!primary) return
+                    const colors = {
+                        primary
+                    }
+                    Object.keys(formula).forEach(key => {
+                        const value = formula[key].replace(/primary/g, primary)
+                        colors[key] = '#' + rgbHex(color.convert(value))
+                    })
+                    return colors
+                }
+
+                /**
+                * 获取当前 element-plus 的默认样式表
+                */
+                const getOriginalStyle = async () => {
+                    const version = require('element-plus/package.json').version
+                    const url = `https://unpkg.com/element-plus@${version}/dist/index.css`
+                    const { data } = await axios(url)
+                    // 把获取到的数据筛选为原样式模板
+                    return getStyleTemplate(data)
+                }
+
+                /**
+                * 返回 style 的 template
+                */
+                const getStyleTemplate = data => {
+                    // element-plus 默认色值
+                    const colorMap = {
+                        '#3a8ee6': 'shade-1',
+                        '#409eff': 'primary',
+                        '#53a8ff': 'light-1',
+                        '#66b1ff': 'light-2',
+                        '#79bbff': 'light-3',
+                        '#8cc5ff': 'light-4',
+                        '#a0cfff': 'light-5',
+                        '#b3d8ff': 'light-6',
+                        '#c6e2ff': 'light-7',
+                        '#d9ecff': 'light-8',
+                        '#ecf5ff': 'light-9'
+                    }
+                    // 根据默认色值为要替换的色值打上标记
+                    Object.keys(colorMap).forEach(key => {
+                        const value = colorMap[key]
+                        data = data.replace(new RegExp(key, 'ig'), value)
+                    })
+                    return data
+                }↥
+            src/components/ThemePicker/components/SelectColor.vue ▾
+                ↧import { generateNewStyle, writeNewStyle } from '@/utils/theme'
+                
+                /**
+                * 确定
+                * 1. 修改主题色
+                * 2. 保存最新的主题色
+                * 3. 关闭 dialog
+                */
+                const comfirm = async () => {
+                    // 1.1 获取主题色
+                    const newStyleText = await generateNewStyle(mColor.value)
+                    // 1.2 写入最新主题色
+                    writeNewStyle(newStyleText)
+                    // 2. 保存最新的主题色
+                    store.commit('theme/setMainColor', mColor.value)
+                    // 3. 关闭 dialog
+                    closed()
+                }↥
+            更改目标：https://unpkg.com/element-plus@${version}/dist/index.css ▾ 更改完成后写入head
+                ↧@charset "UTF-8";
+
+                :root {
+                    --el-color-primary: #409eff;
+                    --el-color-primary-light-1: #53a8ff;
+                    --el-color-primary-light-2: #66b1ff;
+                    --el-color-primary-light-3: #79bbff;
+                    --el-color-primary-light-4: #8cc5ff;
+                    --el-color-primary-light-5: #a0cfff;
+                    --el-color-primary-light-6: #b3d8ff;
+                    --el-color-primary-light-7: #c6e2ff;
+                    --el-color-primary-light-8: #d9ecff;
+                    --el-color-primary-light-9: #ecf5ff;
+                }↥
+        新方法
+            src/styles/element-plus.scss ▾
+                ↧/*
+                 * for ^1.3.0-beta.5
+                 */
+                :root {
+                    --el-color-white: #ffffff;
+                    --el-color-black: #000000;
+                    --el-color-primary: teal; // 主题颜色
+                    --el-color-primary-light-1: #53a8ff;
+                    --el-color-primary-light-2: #66b1ff;
+                    --el-color-primary-light-3: #79bbff;
+                    --el-color-primary-light-4: #8cc5ff;
+                    --el-color-primary-light-5: #a0cfff;
+                    --el-color-primary-light-6: #b3d8ff;
+                    --el-color-primary-light-7: #c6e2ff;
+                    --el-color-primary-light-8: #d9ecff;
+                    --el-color-primary-light-9: #ecf5ff;
+                    --el-color-success: #67c23a;
+                    --el-color-success-light: #e1f3d8;
+                    --el-color-success-lighter: #f0f9eb;
+                    --el-color-warning: #e6a23c;
+                    --el-color-warning-light: #faecd8;
+                    --el-color-warning-lighter: #fdf6ec;
+                    --el-color-danger: #f56c6c;
+                    --el-color-danger-light: #fde2e2;
+                    --el-color-danger-lighter: #fef0f0;
+                    --el-color-error: #f56c6c;
+                    --el-color-error-light: #fde2e2;
+                    --el-color-error-lighter: #fef0f0;
+                    --el-color-info: #909399;
+                    --el-color-info-light: #e9e9eb;
+                    --el-color-info-lighter: #f4f4f5;
+                    --el-bg-color: #f5f7fa;
+                    --el-border-width-base: 1px;
+                    --el-border-style-base: solid;
+                    --el-border-color-hover: var(--el-text-color-placeholder);
+                    --el-border-base: var(--el-border-width-base) var(--el-border-style-base) var(--el-border-color-base);
+                    --el-svg-monochrome-grey: #dcdde0;
+                    --el-fill-base: var(--el-color-white);
+                    --el-font-size-extra-large: 20px;
+                    --el-font-size-large: 18px;
+                    --el-font-size-medium: 16px;
+                    --el-font-size-base: 14px;
+                    --el-font-size-small: 13px;
+                    --el-font-size-extra-small: 12px;
+                    --el-font-weight-primary: 500;
+                    --el-font-line-height-primary: 24px;
+                    --el-text-color-disabled-base: #bbb;
+                    --el-index-normal: 1;
+                    --el-index-top: 1000;
+                    --el-index-popper: 2000;
+                    --el-text-color-primary: #303133;
+                    --el-text-color-regular: #606266;
+                    --el-text-color-secondary: #909399;
+                    --el-text-color-placeholder: #c0c4cc;
+                    --el-border-color-base: #dcdfe6;
+                    --el-border-color-light: #e4e7ed;
+                    --el-border-color-lighter: #ebeef5;
+                    --el-border-color-extra-light: #f2f6fc;
+                    --el-border-radius-base: 4px;
+                    --el-border-radius-small: 2px;
+                    --el-border-radius-round: 20px;
+                    --el-border-radius-circle: 100%;
+                    --el-box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+                    --el-box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+                    --el-disabled-bg-color: var(--el-bg-color);
+                    --el-disabled-text-color: var(--el-text-color-placeholder);
+                    --el-disabled-border-color: var(--el-border-color-light);
+                    --el-transition-duration: 0.3s;
+                    --el-transition-duration-fast: 0.2s;
+                    --el-transition-function-ease-in-out-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
+                    --el-transition-function-fast-bezier: cubic-bezier(0.23, 1, 0.32, 1);
+                    --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+                    --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+                    --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier), opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+                    --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
+                    --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+                    --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+                }↥
+            src/main.js ▾
+                ↧▧import installElementPlus from './plugins/element'
+                3►import './styles/element-plus.scss'◄
+
+                installElementPlus(app)▨↥
+
         验证测试
             src/views/profile/index.vue ▾
                 ↧<el-row>
