@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.13 14:55</span>
+            <span>M 2022.01.14 20:55</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -22,9 +22,8 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="h4">项目架构之搭建登录架构解决方案与实现</span>
-<span class="block-command">hello</span> vue create admin
-    (*) Choose Vue version
+<span class="title1" style="margin-top:5px;">项目架构之搭建登录架构解决方案与实现</span>
+<div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"></span><div class="detail-content">    <span>(*) Choose Vue version
     (*) Babel
     (*) Router
     (*) Vuex
@@ -34,7 +33,7 @@ pageClass: theme-item
       Sass/SCSS (with dart-sass)
     &gt; Sass/SCSS (with node-sass)
       Less
-      Stylus
+      Stylus</span></div></div>
 
 <div class="block-detail"><span class="detail-desc">.vscode/settings.json</span><span class="comment"></span><div class="detail-content"><span>{
     "editor.formatOnSave": true,
@@ -108,7 +107,7 @@ pageClass: theme-item
     export default router</span></div></div>
 浏览器:http://localhost:8080/
 
-<span class="h2 bg3 cf"> 预设部署 </span>
+<span class="title3" style="margin-top:5px;">预设部署</span>
 <div class="block-detail"><span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取TOKEN键值为常量</span><div class="detail-content">    <span>// token
     export const TOKEN = 'token'
     <span class="comment">// token 时间戳</span>
@@ -124,7 +123,7 @@ pageClass: theme-item
     <span class="comment">// tags</span>
     export const TAGS_VIEW = 'tagsView'</span></div></div>
 
-<span class="h2 bg3 cf"> 构建登录页面 UI 结构 </span>
+<span class="title3" style="margin-top:5px;">构建登录页面 UI 结构</span>
 <div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
          * 公开路由表
          */</span>
@@ -453,7 +452,7 @@ pageClass: theme-item
 
     http://localhost:8080/#/Login
 
-<span class="h2 bg3 cf"> 登陆逻辑 </span>
+<span class="title3" style="margin-top:5px;">登陆逻辑</span>
     表单验证
 <div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
                 &lt;el-form-item prop="username"&gt;
@@ -749,7 +748,7 @@ pageClass: theme-item
                 })</span></div></div>
 <div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
 
-<span class="h2 bg3 cf"> 搭建Layout架构    </span>
+<span class="title3" style="margin-top:5px;">搭建Layout架构</span>
     src/layout/
 <div class="block-detail">        <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div class="app-wrapper"&gt;
@@ -1930,7 +1929,7 @@ pageClass: theme-item
                     }</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                    <span>@import './transition.scss';</span></div></div>
 
-<span class="h2 bg3 cf"> 国际化 </span>
+<span class="title3" style="margin-top:5px;">国际化</span>
 <div class="block-detail">    <span class="detail-desc">实现原理</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
         const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
@@ -2506,7 +2505,7 @@ pageClass: theme-item
             <span class="comment">// const locale = 'zh'</span>
             const locale = getLanguage()
 <div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
-<span class="h2 bg3 cf"> 动态换肤 </span>
+<span class="title3" style="margin-top:5px;">动态换肤</span>
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             <span class="comment">&#60;&#33;&#45;&#45;主题图标&#45;&#45;&#62;</span>
             &lt;el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme"&gt;
@@ -2607,7 +2606,7 @@ pageClass: theme-item
             selectColorVisible.value = true
         }
         &lt;/script&gt;</span></div></div>
-    缓存选中的色值
+    <span class="title5" style="margin-top:5px;">缓存选中的色值</span>
 <div class="block-detail">        <span class="detail-desc">src/constants/index.js</span><span class="comment"></span><div class="detail-content">            <span>// 主题色保存的 key
             export const MAIN_COLOR = 'mainColor'
             <span class="comment">// 默认色值</span>
@@ -2657,8 +2656,8 @@ pageClass: theme-item
                 closed()
             }
             &lt;/script&gt;</span></div></div>
-    处理 element-plus 主题变更
-        老方法
+    <span class="title5" style="margin-top:5px;">处理ElementPlus主题变更</span>
+        <span class="title6" style="margin-top:5px;">老方法</span>
 <div class="block-detail">            <span class="detail-desc">src/constant/formula.json</span><span class="comment"></span><div class="detail-content">                <span>{
                     "shade-1": "color(primary shade(10%))",
                     "light-1": "color(primary tint(10%))",
@@ -2790,7 +2789,7 @@ pageClass: theme-item
                     --el-color-primary-light-8: #d9ecff;
                     --el-color-primary-light-9: #ecf5ff;
                 }</span></div></div>
-        新方法
+        <span class="title6" style="margin-top:5px;">新方法</span>
 <div class="block-detail">            <span class="detail-desc">src/styles/element-plus.scss</span><span class="comment"></span><div class="detail-content">                <span><span class="comment">/*
                  * for ^1.3.0-beta.5
                  */</span>
@@ -2874,7 +2873,7 @@ pageClass: theme-item
 
                 installElementPlus(app)</span></span></div></div>
 
-        验证测试
+        <span class="title6" style="margin-top:5px;">验证测试</span>
 <div class="block-detail">            <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-row&gt;
                     &lt;el-button&gt;Default&lt;/el-button&gt;
                     &lt;el-button type="primary"&gt;Primary&lt;/el-button&gt;
@@ -2883,7 +2882,31 @@ pageClass: theme-item
                     &lt;el-button type="warning"&gt;Warning&lt;/el-button&gt;
                     &lt;el-button type="danger"&gt;Danger&lt;/el-button&gt;
                 &lt;/el-row&gt;</span></div></div>
-    处理自定义主题变更
+    <span class="title5" style="margin-top:5px;">处理自定义主题变更</span>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;el-menu
+                :background-color="$store.getters.cssVar.menuBg"
+                :text-color="$store.getters.cssVar.menuText"
+                :active-text-color="$store.getters.cssVar.menuActiveText"
+            &gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 快捷访问 store.state.user.token &gt; store.getters.token</span><div class="detail-content">            <span>import variables from '@/styles/variables.scss'
+            import { generateColors } from '@/utils/theme'
+            import { getItem } from '@/utils/storage'
+            import { MAIN_COLOR } from '@/constant'
+
+            const getters = {
+                <span class="comment">// cssVar: state =&gt; variables</span>
+                cssVar: state =&gt; {
+                    return {
+                        ...variables,
+                        ...generateColors(getItem(MAIN_COLOR))
+                    }
+                } 
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/index.js</span><span class="comment"></span><div class="detail-content">            <span>import getters from './getters'
+            export default createStore({
+                getters
+            })</span></div></div>
+
 
 
 

@@ -5,17 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        div{
+            padding-left: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+    <h1>字号大小32</h1>
+    <h2>字号大小24</h2>
+    <h3>字号大小18</h3>
+    <h4>字号大小16</h4>
+    <h5>字号大小14</h5>
+    <h6>字号大小12</h6>
+    
+                <div style="font-size: 52px">
+                    字号大小0
+                    <div style="font-size: 40px">
+                        字号大小0
+                        <div style="font-size: 30px">
+                            字号大小0
+                            <div style="font-size: 22px">
+                                字号大小0
+                                <div style="font-size: 16px">
+                                    字号大小0
+                                    <div style="font-size: 12px">
+                                        字号大小0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+    
+    
     
 </body>
 </html>
 <script>
-    
-class API{
-    constructor() {
-
-    }
-}
+var block = `[1]处理自定义主题变更
+[fff#1#333]处理自定义主题变更`
+var bb = /\s*(\[(\w{3,6}#)?(\d)(#\w{3,6})?\](.+))/.exec(block)
+RegExp.$1
 
 </script>

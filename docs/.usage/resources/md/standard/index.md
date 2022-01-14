@@ -1,9 +1,9 @@
 
 
 ===+
-#### 项目架构之搭建登录架构解决方案与实现
-hello> vue create admin
-    (*) Choose Vue version
+【1】项目架构之搭建登录架构解决方案与实现
+hello> vue create admin ▾
+    ↧(*) Choose Vue version
     (*) Babel
     (*) Router
     (*) Vuex
@@ -13,7 +13,7 @@ hello> vue create admin
       Sass/SCSS (with dart-sass)
     > Sass/SCSS (with node-sass)
       Less
-      Stylus
+      Stylus↥
 
 .vscode/settings.json ▾
 ↧{
@@ -94,7 +94,7 @@ src/router/index.js ▾
     export default router↥
 浏览器:http://localhost:8080/
 
-[##] 预设部署
+【3】预设部署
 src/constant/index.js ▾ 抽取TOKEN键值为常量
     ↧// token
     export const TOKEN = 'token'
@@ -111,7 +111,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
     // tags
     export const TAGS_VIEW = 'tagsView'↥
 
-[##] 构建登录页面 UI 结构
+【3】构建登录页面 UI 结构
     src/router/index.js ▾
         ↧/**
          * 公开路由表
@@ -451,7 +451,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
 
     http://localhost:8080/#/Login
 
-[##] 登陆逻辑
+【3】登陆逻辑
     表单验证
         src/views/login/index.vue ▾
             ↧▧<el-form :model="1►loginForm◄" :rules="2►loginRules◄">
@@ -768,7 +768,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
             src/main.js ▾{color:#fff;background-color:#00c381} 导入鉴权模块
                 ↧import './permission'↥
 
-[##] 搭建Layout架构    
+【3】搭建Layout架构
     src/layout/
         index.vue ▾ 基础架构
             ↧<template>
@@ -1999,7 +1999,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                 src/styles/index.scss ▾
                     ↧@import './transition.scss';↥
 
-[##] 国际化
+【3】国际化
     实现原理 ▾
         ↧▧
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
@@ -2591,7 +2591,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
             const locale = getLanguage()
         src/store/getters.js ▾ 设置快捷访问
             ↧language: state => state.app.language↥
-[##] 动态换肤
+【3】动态换肤
     src/components/ThemePicker/index ▾ 封装主题选择组件
         ↧<template>
             <!-- 主题图标 -->
@@ -2696,7 +2696,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
             selectColorVisible.value = true
         }
         </script>↥
-    缓存选中的色值
+    【5】缓存选中的色值
         src/constants/index.js ▾
             ↧// 主题色保存的 key
             export const MAIN_COLOR = 'mainColor'
@@ -2751,8 +2751,8 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                 closed()
             }
             </script>↥
-    处理 element-plus 主题变更
-        老方法
+    【5】处理ElementPlus主题变更
+        【6】老方法
             src/constant/formula.json ▾
                 ↧{
                     "shade-1": "color(primary shade(10%))",
@@ -2888,7 +2888,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                     --el-color-primary-light-8: #d9ecff;
                     --el-color-primary-light-9: #ecf5ff;
                 }↥
-        新方法
+        【6】新方法
             src/styles/element-plus.scss ▾
                 ↧/*
                  * for ^1.3.0-beta.5
@@ -2974,7 +2974,7 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
 
                 installElementPlus(app)▨↥
 
-        验证测试
+        【6】验证测试
             src/views/profile/index.vue ▾
                 ↧<el-row>
                     <el-button>Default</el-button>
@@ -2984,7 +2984,34 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
                     <el-button type="warning">Warning</el-button>
                     <el-button type="danger">Danger</el-button>
                 </el-row>↥
-    处理自定义主题变更
+    【5】处理自定义主题变更
+        src/layout/components/sidebar/SidebarMenu.vue ▾
+            ↧<el-menu
+                :background-color="$store.getters.cssVar.menuBg"
+                :text-color="$store.getters.cssVar.menuText"
+                :active-text-color="$store.getters.cssVar.menuActiveText"
+            >↥
+        src/store/getters.js ▾ 快捷访问 store.state.user.token > store.getters.token
+            ↧import variables from '@/styles/variables.scss'
+            import { generateColors } from '@/utils/theme'
+            import { getItem } from '@/utils/storage'
+            import { MAIN_COLOR } from '@/constant'
+
+            const getters = {
+                // cssVar: state => variables
+                cssVar: state => {
+                    return {
+                        ...variables,
+                        ...generateColors(getItem(MAIN_COLOR))
+                    }
+                } 
+            }↥
+        src/store/index.js ▾
+            ↧import getters from './getters'
+            export default createStore({
+                getters
+            })↥
+
 
 
 

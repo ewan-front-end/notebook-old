@@ -36,7 +36,6 @@ function parseCustomBlock(block, path) {
     })
     // <!-- HTML注释 -->
     const matchHtmlComment = block.match(/&lt;!--\s*[\s\S]*?\s*--&gt;/g) || [];
-    console.log('matchHtmlComment', matchHtmlComment);
     matchHtmlComment.forEach(e => {
         let content = e.replace(/&lt;!--\s*/, '<span class="comment">&#60;&#33;&#45;&#45;').replace(/\s*--&gt;/, '&#45;&#45;&#62;</span>')
         block = block.replace(e, content)
@@ -122,7 +121,25 @@ function parseCustomBlock(block, path) {
     }
 
     /**
-     * 标题
+     * 标题表示一
+     * 【1】 52PX
+     * 【2】 40PX
+     * 【3】 30PX
+     * 【4】 22PX
+     * 【5】 16PX
+     * 【6】 12PX
+     * 【fff#1#333】颜色#等级#背景
+     */
+    while (/\s*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/.exec(block) !== null) {
+        let classStr = `title${RegExp.$4}`
+        let styleStr = `margin-top:5px;`
+        if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
+        if (RegExp.$3) classStr += ` reverse${RegExp.$4}`
+        if (RegExp.$5) styleStr += `background-color:${RegExp.$5}`
+        block = block.replace(RegExp.$1, `<span class="${classStr}" style="${styleStr}">${RegExp.$6}</span>`)
+    }
+    /**
+     * 标题表示二
      * ## TITLE H2 14
      * ### TITLE H3 16
      * #### TITLE H4 18
