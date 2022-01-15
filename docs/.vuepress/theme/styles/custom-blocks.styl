@@ -91,7 +91,30 @@
     width 91%  
   &.col-12
     width 100%
-
+.code-block
+    .i0, .i1, .i2, .i3, .i4, .i5, .i6, .i7, .i8, .i9
+        font-weight bold
+        font-style normal
+    .i0
+        color #4975a4
+    .i1
+        color #eb9b00  
+    .i2
+        color #00cf00
+    .i3
+        color #009ceb
+    .i4
+        color #a523e8
+    .i5
+        color #ff3a3a 
+    .i6
+        color #7bbb00
+    .i7
+        color #00c381 
+    .i8
+        color #5454ff 
+    .i9
+        color #ec33ae
 .format-block
     color:#ccc 
     i
@@ -149,80 +172,130 @@
     display inline-block
     color #2c3e50 
     vertical-align top
-    &::before
-        content ''
+    i
         display inline-block
-        background-color #2c3e50
         vertical-align top
-        transform translateY(3px)
+        width 0
+        border-style solid
+        border-color transparent #333 transparent #eee
+        margin-right 6px
+        position relative
+        &::before, &::after
+            content ''
+            width 22px
+            position absolute
 .reverse1, .reverse2, .reverse3, .reverse4, .reverse5, .reverse6    
     border-width 0 !important
     padding 0 5px
-    &::before
+    i
         display none
 .reverse1
     color #fff
-    background-color #2c3e50
+    background-color #222
 .reverse2
     color #fff
-    background-color #566573
+    background-color #444
 .reverse3
     color #fff
-    background-color #808b96
+    background-color #666
 .reverse4
     color #fff
-    background-color #abb2b9
+    background-color #888
 .reverse5
-    color #808b96
-    background-color #d5d8dc
+    color #fff
+    background-color #aaa
 .reverse6
-    color #abb2b9
-    background-color #e9ebed
+    color #fff
+    background-color #ccc
 .title1
     font-size 32px
     border-width 0 0 0 10px
     line-height 38px
-    &::before
-        width 22px
-        height 30px
-        margin-right 10px
+    i
+        border-width 0 22px 0 0
+        height 27px
+        transform translateY(5px)
+        &::before
+            border-style solid
+            border-width 1px 0 1px 0
+            border-color #eee transparent transparent transparent
+            left -4px
+            top 5px
+            height 0
+            width 20px
+            transform rotate(45deg)
+        &::after
+            border-style solid
+            border-width 1px 0 0 0
+            border-color #eee transparent transparent transparent
+            left -4px
+            top 20px
+            height 0
+            width 20px
+            transform rotate(-45deg)
 .title2
     font-size 24px
     border-width 0 0 0 8px
     line-height 28px
-    &::before
-        width 16px
-        height 22px
-        margin-right 8px
+    i
+        border-width 0 16px 0 6px
+        height 21px
+        transform translateY(4px)
+        &::before
+            border-style solid
+            border-width 1px 0 0 0
+            border-color #eee transparent transparent transparent
+            right -16px
+            top 10px
 .title3
     font-size 20px
     border-width 0 0 0 6px
     line-height 24px
-    &::before
-        width 12px
-        height 18px
-        margin-right 7px
+    i
+        border-width 0 11px 0 11px
+        height 17px
+        transform translateY(3px)
+        &::before
+            border-style solid
+            border-width 1px 0 1px 0
+            border-color #eee transparent #eee transparent
+            right -11px
+            top 5px
+            height 5px
 .title4
     font-size 16px
     border-width 0 0 0 4px
     line-height 20px
-    &::before
-        width 8px
-        height 14px
-        margin-right 5px
+    i
+        border-width 0 7px 0 14px
+        height 15px
+        transform translateY(2px)
+        &::before
+            border-style solid
+            border-width 1px 0 1px 0
+            border-color #eee transparent #eee transparent
+            right -7px
+            top 3px
+            height 3px
+        &::after
+            border-style solid
+            border-width 1px 0 0 0
+            border-color #eee transparent transparent transparent
+            right -7px
+            top 11px
 .title5
     font-size 14px
     border-width 0 0 0 4px
     line-height 18px
-    &::before
-        width 5px
-        height 12px
-        margin-right 5px
+    i
+        border-width 0 4px 0 17px
+        height 13px
+        transform translateY(2px)
 .title6
     font-size 12px
     border-width 0 0 0 2px
     line-height 16px
-    &::before
-        width 3px
-        height 10px
-        margin-right 4px
+    i
+        border-width 0 2px 0 19px
+        height 12px
+        transform translateY(2px)

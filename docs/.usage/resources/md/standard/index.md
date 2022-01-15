@@ -1,4 +1,4 @@
-
+ 
 
 ===+
 【1】项目架构之搭建登录架构解决方案与实现
@@ -11,7 +11,7 @@ hello> vue create admin ▾
     (*) Linter / Formatter
 
       Sass/SCSS (with dart-sass)
-    > Sass/SCSS (with node-sass)
+    ►> Sass/SCSS (with node-sass)◄
       Less
       Stylus↥
 
@@ -95,21 +95,21 @@ src/router/index.js ▾
 浏览器:http://localhost:8080/
 
 【3】预设部署
-src/constant/index.js ▾ 抽取TOKEN键值为常量
-    ↧// token
-    export const TOKEN = 'token'
-    // token 时间戳
-    export const TIME_STAMP = 'timeStamp'
-    // 超时时长(毫秒) 两小时
-    export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000
-    // 国际化
-    export const LANG = 'language'
-    // 主题色保存的 key
-    export const MAIN_COLOR = 'mainColor'
-    // 默认色值
-    export const DEFAULT_COLOR = '#409eff'
-    // tags
-    export const TAGS_VIEW = 'tagsView'↥
+    src/constant/index.js ▾ 抽取TOKEN键值为常量
+        ↧// token
+        export const TOKEN = 'token'
+        // token 时间戳
+        export const TIME_STAMP = 'timeStamp'
+        // 超时时长(毫秒) 两小时
+        export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000
+        // 国际化
+        export const LANG = 'language'
+        // 主题色保存的 key
+        export const MAIN_COLOR = 'mainColor'
+        // 默认色值
+        export const DEFAULT_COLOR = '#409eff'
+        // tags
+        export const TAGS_VIEW = 'tagsView'↥
 
 【3】构建登录页面 UI 结构
     src/router/index.js ▾
@@ -3011,6 +3011,88 @@ src/constant/index.js ▾ 抽取TOKEN键值为常量
             export default createStore({
                 getters
             })↥
+
+        src/layout/index.vue
+            <sidebar :style="{ backgroundColor: $store.getters.cssVar.menuBg }"/>
+            // import variables from '@/styles/variables.scss'
+        src/store/modules/theme.js
+            import variables from '@/styles/variables.scss'
+
+            export default {
+                state: () => ({
+                    variables
+                }),
+                mutations: {
+                    /**
+                    * 设置主题色
+                    */
+                    setMainColor(state, newColor) {
+                        state.variables.menuBg = newColor
+                    }
+                }
+            }
+        src/store/getters.js
+            // import variables from '@/styles/variables.scss'
+
+            const getters = {
+                cssVar: state => {
+                    return {
+                        ...state.theme.variables,
+                        ...generateColors(getItem(MAIN_COLOR))
+                    }
+                }
+            }
+【3】Screenfull原理及方案分析
+    封装Screenfull组件
+        npm i screenfull@5.1.0
+        components/Screenfull/index.vue
+            <template>
+                <div>
+                    <svg-icon :icon="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="onToggle" />
+                </div>
+            </template>
+
+            <script setup>
+            import { ref, onMounted, onUnmounted } from 'vue'
+            import screenfull from 'screenfull'
+
+            // 是否全屏
+            const isFullscreen = ref(false)
+
+            // 监听变化
+            const change = () => {
+                isFullscreen.value = screenfull.isFullscreen
+            }
+
+            // 切换事件
+            const onToggle = () => {
+                screenfull.toggle()
+            }
+
+            // 设置侦听器
+            onMounted(() => {
+                screenfull.on('change', change)
+            })
+
+            // 删除侦听器
+            onUnmounted(() => {
+                screenfull.off('change', change)
+            })
+            </script>
+
+            <style lang="scss" scoped></style>
+        src/layout/components/navbar.vue
+            <screenfull class="right-menu-item hover-effect" />
+            import Screenfull from '@/components/Screenfull'
+【3】HeaderSearch原理及方案分析
+
+
+
+
+
+
+
+
 
 
 

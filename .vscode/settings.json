@@ -7,5 +7,9 @@
     "editor.detectIndentation": false,     
     "beautify.tabSize": 4,                
     "vetur.format.options.tabSize": 4,     
-    "prettier.tabWidth": 4              
+    "prettier.tabWidth": 4,
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": true
+    }            
 }

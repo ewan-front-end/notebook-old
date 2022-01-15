@@ -67,6 +67,14 @@ function parseCustomBlock(block, path) {
      * 点缀集
      * ▧content 1►text◄ 2►text◄▨
      */
+     while (/((\d)?►([^◄]+)◄)/.exec(block) !== null) {
+        block = block.replace(RegExp.$1, `<i class="i${RegExp.$2 || 0}">${RegExp.$3}</i>`)
+    }   
+
+    /**
+     * 点缀集
+     * ▧content 1►text◄ 2►text◄▨
+     */
     while (/(▧([^▨]+)▨)/.exec(block) !== null) {
         let format = RegExp.$1, content = RegExp.$2
         while (/((\d)►([^◄]+)◄)/.exec(content) !== null) {
@@ -135,8 +143,11 @@ function parseCustomBlock(block, path) {
         let styleStr = `margin-top:5px;`
         if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
         if (RegExp.$3) classStr += ` reverse${RegExp.$4}`
-        if (RegExp.$5) styleStr += `background-color:${RegExp.$5}`
-        block = block.replace(RegExp.$1, `<span class="${classStr}" style="${styleStr}">${RegExp.$6}</span>`)
+        if (RegExp.$5) {
+            classStr += ` reverse1`
+            styleStr += `background-color:${RegExp.$5}`
+        }
+        block = block.replace(RegExp.$1, `<span class="${classStr}" style="${styleStr}"><i></i>${RegExp.$6}</span>`)
     }
     /**
      * 标题表示二

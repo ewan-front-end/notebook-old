@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.14 16:44</span>
+            <span>M 2022.01.15 20:51</span>
         </div>
     </div>
     <div class="content"></div>
@@ -183,8 +183,11 @@ notebook/docs/.doctree/markdown/vuepress.md
 
     &#35; 标题文本
     [&#35;] 反相标题
-    标题 <span class="title1"><span class="title2"><span class="title3"><span class="title4"><span class="title5"><span class="title6"> [fff#1#333]颜色#等级#背景</span></span></span></span></span></span>
+    标题 [1][2][3][4][5][6] [fff#1#333]颜色#等级#背景
     序号标题 (1)(2)(3)(4)(5)(6)(7)(8)(9)
+
+    &#9658;全局点缀&#9668;
+    1&#9658;预设颜色1-9&#9668;
     
     <span class="comment">// 单行注释给你</span>
     <span class="comment">/* 多行注释 */</span>
