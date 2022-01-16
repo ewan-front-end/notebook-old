@@ -221,7 +221,7 @@
     },
     "/framework/vuepress": {
         "key": "vuepress",
-        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片■数据源■数据预应用 ■生产文档■资源库■聚合■扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引■目标■场景■ 入门使用 ■ 部署基础功能 ■ 建立文档体系 ■ 开发规范 ■ 内容规范 ■ config.js■ 文档体系 ■ md文件的命名规范 ■ 链接方案 ■ 链接方案 ■ 配置与调度 ■<a href=\"http://icomoon.io/app\" target=\"_blank\">icomoon</a>■<a href=\"https://jsrun.net/new\" target=\"_blank\">jsrun</a>■<a href=\"https://github.com/\" target=\"_blank\">github</a>"
+        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片"
     },
     "/framework/docsify": {
         "key": "docsify",
@@ -446,5 +446,9 @@
     "/computer/": {
         "key": "computer",
         "keywords": "计算机(computer)"
+    },
+    "/biaozhun/README": {
+        "keywords": " 从动检测 ■ 主动规范 ■ 多规范之默认规范 ■提交时自动检测■提交时自动修复■flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ",
+        "key": "未知"
     }
 }

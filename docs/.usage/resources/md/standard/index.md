@@ -2,7 +2,7 @@
 
 ===+
 【1】项目架构之搭建登录架构解决方案与实现
-hello> vue create admin ▾
+hello> vue create admin ▾ 创建项目
     ↧(*) Choose Vue version
     (*) Babel
     (*) Router
@@ -14,8 +14,7 @@ hello> vue create admin ▾
     ►> Sass/SCSS (with node-sass)◄
       Less
       Stylus↥
-
-.vscode/settings.json ▾
+.vscode/settings.json ▾ 规范
 ↧{
     "editor.formatOnSave": true,
     "vetur.format.defaultFormatter.html": "prettier",
@@ -32,7 +31,7 @@ hello> vue create admin ▾
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }↥
-.prettierrc.js ▾
+.prettierrc.js ▾ 规范工具
     ↧module.exports = {
         semi: false,                         // 不尾随分号
         trailingComma: 'none',               // 不尾随逗号
@@ -49,29 +48,27 @@ hello> vue create admin ▾
         HTMLWhitespaceSensitivity: 'ignore',
         printWidth: 2000,                    // 最大长度200个字符
     }↥
-.eslintrc.js ▾
+.eslintrc.js ▾ 规范标准
     ↧module.exports = {
         rules: {
             indent: 'off',
             "space-before-function-paren": "off"
         }
     }↥
-如果项目中有.editorconfig 该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符 ▾
+.editorconfig ▾ 如果项目中有该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符
     ↧[*.{js,jsx,ts,tsx,vue}]
     indent_style = space
     indent_size = 2
     trim_trailing_whitespace = true
     insert_final_newline = true↥
-
-清空 src/views/[{color:#f66}]
-清空 src/components/[{color:#f66}]
+清空 src/views/ 和 src/components/[{color:#f66}]
 src/main.js ▾
-    ↧import { createApp } from 'vue'
+    ↧import { ►createApp◄ } from 'vue'
     import router from './router'
     import store from './store'
     import App from './App.vue'
 
-    const app = createApp(App)
+    const app = ►createApp◄(App)
     app.use(store)
     app.use(router)
     app.mount('#app')↥
@@ -82,20 +79,20 @@ src/App.vue ▾
 
     <style lang="scss"></style>↥
 src/router/index.js ▾
-    ↧import { createRouter, createWebHashHistory } from 'vue-router'
+    ↧import { ►createRouter◄, createWebHashHistory } from 'vue-router'
 
     const routes = []
 
-    const router = createRouter({
+    const router = ►createRouter◄({
         history: createWebHashHistory(),
         routes
     })
 
     export default router↥
-浏览器:http://localhost:8080/
+http://localhost:8080/
 
 【3】预设部署
-    src/constant/index.js ▾ 抽取TOKEN键值为常量
+    src/constant/index.js ▾ 抽取常量
         ↧// token
         export const TOKEN = 'token'
         // token 时间戳
@@ -116,7 +113,7 @@ src/router/index.js ▾
         ↧/**
          * 公开路由表
          */
-        const publicRoutes = [
+        const ►publicRoutes◄ = [
             {
                 path: '/login',
                 component: () => import('@/views/login/index')
@@ -124,9 +121,8 @@ src/router/index.js ▾
         ]
 
         const router = createRouter({
-            routes: publicRoutes
+            routes: ►publicRoutes◄
         })↥
-
     src/views/login
     src/views/login/index.vue ▾
         ↧<template>
@@ -238,8 +234,7 @@ src/router/index.js ▾
                 user-select: none;
             }
         }
-        </style>↥
-    
+        </style>↥    
     src/styles/index.scss ▾
         ↧html,
         body {
@@ -294,8 +289,7 @@ src/router/index.js ▾
     src/main.js ▾
         ↧// 导入全局样式
         import './styles/index.scss'↥
-
-    导入 [Element Plus](https://element-plus.gitee.io/zh-CN/)
+    导入[Element Plus](https://element-plus.gitee.io/zh-CN/)
         快捷方式 ▾
             ↧
             admin> vue add element-plus
@@ -331,7 +325,6 @@ src/router/index.js ▾
                 import 'element-plus/dist/index.css'
                 app.use(ElementPlus)
             使用: <el-button>默认按钮</el-button>↥
-
     SVG图标通用解决方案
         src/components/SvgIcon/index.vue ▾
             ↧<template>
@@ -396,7 +389,6 @@ src/router/index.js ▾
             export function isExternal(path) {
                 return /^(https?:|mailto:|tel:)/.test(path)
             }↥
-
         使用：外部图标
             import SvgIcon from '@/components/SvgIcon'
             <svg-icon icon="https://res.lgdsunday.club/user.svg"></svg-icon>
@@ -448,7 +440,6 @@ src/router/index.js ▾
                     }
                 }↥
             重新启动项目
-
     http://localhost:8080/#/Login
 
 【3】登陆逻辑
@@ -1130,8 +1121,6 @@ src/router/index.js ▾
                         }◄
                     }
                 }▨↥
-
-                
             src/utils/request.js ▾ 通用token注入
                 ↧import store from '@/store'
 
@@ -1178,7 +1167,7 @@ src/router/index.js ▾
                     }
                 }↥
         渲染用户头像菜单 element-plus中的dropdown组件使用
-            src/layout/components/navbar.vue ▾
+            src/layout/components/Navbar.vue ▾
                 ↧▧<template>
                     <div class="navbar">
                         <div class="right-menu">
@@ -1240,7 +1229,6 @@ src/router/index.js ▾
             1.清理掉当前用户缓存数据
             2.清理掉权限相关配置
             3.返回到登录页
-
             用户主动退出：用户点击登录按钮之后退出
                 src/store/modules/user.js ▾
                     ↧import { removeAllItem } from '@/utils/storage'
@@ -1256,7 +1244,7 @@ src/router/index.js ▾
                             }
                         }
                     }↥
-                src/layout/components/navbar.vue ▾ 为退出登录按钮添加点击事件
+                src/layout/components/Navbar.vue ▾ 为退出登录按钮添加点击事件
                     ↧<el-dropdown-item divided @click="logout"> 退出登录 </el-dropdown-item>
 
                     import { useStore } from 'vuex'
@@ -1773,7 +1761,7 @@ src/router/index.js ▾
                 }
             }
             </style>↥
-        src/layout/components/navbar.vue ▾
+        src/layout/components/Navbar.vue ▾
             ↧▧<template>
                 <div class="navbar">
                     1►<hamburger class="hamburger-container" />◄
@@ -2112,7 +2100,7 @@ src/router/index.js ▾
                     ElMessage.success('更新成功')
                 }
                 </script>↥
-            src/layout/components/navbar.vue ▾
+            src/layout/components/Navbar.vue ▾
                 ↧▧<template>
                     <div class="navbar">
                         <div class="right-menu">
@@ -2537,11 +2525,11 @@ src/router/index.js ▾
                             locale: store.getters.language === 'en' ? en : zhCn
                         })
                     }↥  
-                src/utils/i18n.js
-                    import i18n from '@/i18n'
+                src/utils/i18n.js ▾
+                    ↧import i18n from '@/i18n'
                     export function generateTitle(title) {
                         return i18n.global.t('msg.route.' + title)
-                    }
+                    }↥                    
                 src/layout/components/Sidebar/SidebarItem.vue ▾ // 处理侧栏国际化
                     ↧▧◄<template>
                         <el-sub-menu v-if="route.children.length > 0" :index="route.path">
@@ -2569,8 +2557,8 @@ src/router/index.js ▾
                     <script setup>
                     const size = 44
                     </script>↥
-                src/components/Breadcrumb/index
-                    <template>
+                src/components/Breadcrumb/index.vue ▾
+                    ↧<template>
                         <!-- 不可点击项 -->
                         <span v-if="index === breadcrumbData.length - 1" class="no-redirect">{{ generateTitle(item.meta.title) }}</span>
                         <!-- 可点击项 -->
@@ -2579,16 +2567,16 @@ src/router/index.js ▾
 
                     <script setup>
                     import { generateTitle } from '@/utils/i18n'
-                    </script>
+                    </script>↥                    
     国际化缓存处理
         src/i18n/index.js ▾
-            import store from '@/store'
+            ↧import store from '@/store'
 
             function getLanguage() {
                 return store && store.getters && store.getters.language
             }
             // const locale = 'zh'
-            const locale = getLanguage()
+            const locale = getLanguage()↥            
         src/store/getters.js ▾ 设置快捷访问
             ↧language: state => state.app.language↥
 【3】动态换肤
@@ -3011,12 +2999,12 @@ src/router/index.js ▾
             export default createStore({
                 getters
             })↥
-
-        src/layout/index.vue
-            <sidebar :style="{ backgroundColor: $store.getters.cssVar.menuBg }"/>
+        src/layout/index.vue ▾
+            ↧<sidebar :style="{ backgroundColor: $store.getters.cssVar.menuBg }"/>
             // import variables from '@/styles/variables.scss'
-        src/store/modules/theme.js
-            import variables from '@/styles/variables.scss'
+            ↥
+        src/store/modules/theme.js ▾
+            ↧import variables from '@/styles/variables.scss'
 
             export default {
                 state: () => ({
@@ -3030,9 +3018,9 @@ src/router/index.js ▾
                         state.variables.menuBg = newColor
                     }
                 }
-            }
-        src/store/getters.js
-            // import variables from '@/styles/variables.scss'
+            }↥            
+        src/store/getters.js ▾
+            ↧// import variables from '@/styles/variables.scss'
 
             const getters = {
                 cssVar: state => {
@@ -3041,12 +3029,12 @@ src/router/index.js ▾
                         ...generateColors(getItem(MAIN_COLOR))
                     }
                 }
-            }
+            }↥            
 【3】Screenfull原理及方案分析
     封装Screenfull组件
-        npm i screenfull@5.1.0
-        components/Screenfull/index.vue
-            <template>
+        npm i screenfull@5.1.0 --save
+        components/Screenfull/index.vue ▾
+            ↧<template>
                 <div>
                     <svg-icon :icon="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="onToggle" />
                 </div>
@@ -3080,11 +3068,225 @@ src/router/index.js ▾
             })
             </script>
 
-            <style lang="scss" scoped></style>
-        src/layout/components/navbar.vue
-            <screenfull class="right-menu-item hover-effect" />
-            import Screenfull from '@/components/Screenfull'
+            <style lang="scss" scoped></style>↥            
+        src/layout/components/Navbar.vue ▾
+            ↧<screenfull class="right-menu-item hover-effect" />
+            import Screenfull from '@/components/Screenfull'↥            
 【3】HeaderSearch原理及方案分析
+    1.根据指定内容对所有页面进行检索
+    2.以 select 形式展示检索出的页面
+    3.通过检索页面可快速进入对应页面
+    src/components/HeaderSearch/FuseData.js ▾ 重新计算数据源
+        ↧import path from 'path'
+        import i18n from '@/i18n'
+        /**
+        * 筛选出可供搜索的路由对象
+        * @param routes 路由表
+        * @param basePath 基础路径，默认为 /
+        * @param prefixTitle
+        */
+        export const ►generateRoutes◄ = (routes, basePath = '/', prefixTitle = []) => {
+            // 创建 result 数据
+            let res = []
+            // 循环 routes 路由
+            for (const route of routes) {
+                // 创建包含 path 和 title 的 item
+                const data = {
+                    path: path.resolve(basePath, route.path),
+                    title: [...prefixTitle]
+                }
+                // 当前存在 meta 时，使用 i18n 解析国际化数据，组合成新的 title 内容
+                // 动态路由不允许被搜索
+                // 匹配动态路由的正则
+                const re = /.*\/:.*/
+                if (route.meta && route.meta.title && !re.exec(route.path)) {
+                    const i18ntitle = i18n.global.t(`msg.route.${route.meta.title}`)
+                    data.title = [...data.title, i18ntitle]
+                    res.push(data)
+                }
+
+                // 存在 children 时，迭代调用
+                if (route.children) {
+                    const tempRoutes = ►generateRoutes◄(route.children, data.path, data.title)
+                    if (tempRoutes.length >= 1) {
+                        res = [...res, ...tempRoutes]
+                    }
+                }
+            }
+            return res
+        }↥
+    npm install --save fuse.js@6.4.6 // 模糊搜索依赖
+    src/components/HeaderSearch/index.vue ▾ 创建headerSearch组件
+        ↧<template>
+            <div :class="{ show: isShow }" class="header-search">
+                <svg-icon class-name="search-icon" icon="search" @click.stop="1►onShowClick◄" />
+                <el-select
+                    class="header-search-select"
+                    default-first-option 
+                    placeholder="Search"
+                    filterable
+                    remote
+                    :remote-method="2►querySearch◄"
+                    ref="headerSearchSelectRef" 
+                    v-model="8►search◄"
+                    @change="9►onSelectChange◄">
+                    <el-option 
+                        v-for="option in ►searchOptions◄" 
+                        :key="option.item.path" 
+                        :label="option.item.title.join(' > ')" 
+                        :value="option.item"></el-option>
+                    </el-select>
+            </div>
+        </template>
+
+        <script setup>
+        import { ref, computed, watch } from 'vue'
+        import { filterRouters } from '@/utils/route'
+        import { useRouter } from 'vue-router'
+        import { ►generateRoutes◄ } from './FuseData'
+        import Fuse from 'fuse.js'
+
+        // 检索数据源
+        const router = useRouter()
+        const searchPool = computed(() => {
+            const filterRoutes = filterRouters(router.getRoutes())
+            return ►generateRoutes◄(filterRoutes)
+        })
+        // 搜索库相关
+        const fuse = new Fuse(searchPool.value, {
+            keys: ['title', 'path']
+        }) 
+
+        // search 相关
+        const 8►search◄ = ref('')
+        const ►searchOptions◄ = ref([]) // 搜索结果
+        // 搜索方法
+        const 2►querySearch◄ = query => {
+            if (query !== '') {
+                ►searchOptions◄.value = fuse.search(query)
+            } else {
+                ►searchOptions◄.value = []
+            }
+        }
+        
+        const isShow = ref(false)               // 控制search显示
+        const headerSearchSelectRef = ref(null) // el-select 实例
+        const 1►onShowClick◄ = () => {
+            isShow.value = !isShow.value
+            headerSearchSelectRef.value.focus()
+        }
+        
+        // 选中回调
+        const 9►onSelectChange◄ = val => {
+            router.push(val.path)
+        }
+        /**
+        * 关闭 search 的处理事件
+        */
+        const onClose = () => {
+            headerSearchSelectRef.value.blur()
+            isShow.value = false
+            searchOptions.value = []
+        }
+        /**
+        * 监听 search 打开，处理 close 事件
+        */
+        watch(isShow, val => {
+            if (val) {
+                document.body.addEventListener('click', onClose)
+            } else {
+                document.body.removeEventListener('click', onClose)
+            }
+        })
+        </script>
+
+        <style lang="scss" scoped>
+        .header-search {
+            font-size: 0 !important;
+            .search-icon {
+                cursor: pointer;
+                font-size: 18px;
+                vertical-align: middle;
+            }
+            .header-search-select {
+                font-size: 18px;
+                transition: width 0.2s;
+                width: 0;
+                overflow: hidden;
+                background: transparent;
+                border-radius: 0;
+                display: inline-block;
+                vertical-align: middle;
+
+                ::v-deep .el-input__inner {
+                    border-radius: 0;
+                    border: 0;
+                    padding-left: 0;
+                    padding-right: 0;
+                    box-shadow: none !important;
+                    border-bottom: 1px solid #d9d9d9;
+                    vertical-align: middle;
+                }
+            }
+            &.show {
+                .header-search-select {
+                    width: 210px;
+                    margin-left: 10px;
+                }
+            }
+        }
+        </style>↥
+    src/layout/components/Navbar.vue ▾ 使用headerSearch组件
+        ↧►<header-search◄ class="right-menu-item hover-effect"►></header-search>◄
+        import ►HeaderSearch◄ from '@/components/HeaderSearch'↥
+    响应国际化
+        src/utils/i18n.js ▾
+            ↧import { watch } from 'vue'
+            import store from '@/store'
+            /**
+            * @param  {...any} cbs 所有的回调
+            */
+            export function watchSwitchLang(...cbs) {
+                watch(
+                    () => store.getters.language,
+                    () => {
+                        cbs.forEach(cb => cb(store.getters.language))
+                    }
+                )
+            }↥
+        src/components/HeaderSearch/index.vue ▾
+            ↧import { watchSwitchLang } from '@/utils/i18n'
+
+            // 检索数据源
+            const router = useRouter()
+            let searchPool = computed(() => {
+                const filterRoutes = filterRouters(router.getRoutes())
+                return generateRoutes(filterRoutes)
+            })
+            /**
+            * 搜索库相关
+            */
+            let fuse
+            const initFuse = searchPool => {
+                fuse = new Fuse(searchPool, {
+                    keys: ['title', 'path']
+                })
+            }
+            initFuse(searchPool.value)
+
+            // 处理国际化
+            watchSwitchLang(() => {
+                searchPool = computed(() => {
+                    const filterRoutes = filterRouters(router.getRoutes())
+                    return generateRoutes(filterRoutes)
+                })
+                initFuse(searchPool.value)
+            })↥
+【3】tagsView原理及方案分析
+            
+    
+        
+        
 
 
 

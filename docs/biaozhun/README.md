@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.15 20:51</span>
+            <span>M 2022.01.16 20:33</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -23,7 +23,7 @@ pageClass: theme-item
 
 <pre class="code-block">
 <span class="title1" style="margin-top:5px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
-<div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"></span><div class="detail-content">    <span>(*) Choose Vue version
+<div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"> 创建项目</span><div class="detail-content">    <span>(*) Choose Vue version
     (*) Babel
     (*) Router
     (*) Vuex
@@ -34,8 +34,7 @@ pageClass: theme-item
     <i class="i0">&gt; Sass/SCSS (with node-sass)</i>
       Less
       Stylus</span></div></div>
-
-<div class="block-detail"><span class="detail-desc">.vscode/settings.json</span><span class="comment"></span><div class="detail-content"><span>{
+<div class="block-detail"><span class="detail-desc">.vscode/settings.json</span><span class="comment"> 规范</span><div class="detail-content"><span>{
     "editor.formatOnSave": true,
     "vetur.format.defaultFormatter.html": "prettier",
     "[javascript]": {
@@ -51,7 +50,7 @@ pageClass: theme-item
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }</span></div></div>
-<div class="block-detail"><span class="detail-desc">.prettierrc.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">.prettierrc.js</span><span class="comment"> 规范工具</span><div class="detail-content">    <span>module.exports = {
         semi: false,                         <span class="comment">// 不尾随分号</span>
         trailingComma: 'none',               <span class="comment">// 不尾随逗号</span>
         singleQuote: true,                   <span class="comment">// 使用单引号</span>
@@ -67,26 +66,24 @@ pageClass: theme-item
         HTMLWhitespaceSensitivity: 'ignore',
         printWidth: 2000,                    <span class="comment">// 最大长度200个字符</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">.eslintrc.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">.eslintrc.js</span><span class="comment"> 规范标准</span><div class="detail-content">    <span>module.exports = {
         rules: {
             indent: 'off',
             "space-before-function-paren": "off"
         }
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">如果项目中有.editorconfig 该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符</span><span class="comment"></span><div class="detail-content">    <span>[*.{js,jsx,ts,tsx,vue}]
+<div class="block-detail"><span class="detail-desc">.editorconfig</span><span class="comment"> 如果项目中有该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符</span><div class="detail-content">    <span>[*.{js,jsx,ts,tsx,vue}]
     indent_style = space
     indent_size = 2
     trim_trailing_whitespace = true
     insert_final_newline = true</span></div></div>
-
-<span style="color:#f66">清空 src/views/</span>
-<span style="color:#f66">清空 src/components/</span>
-<div class="block-detail"><span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">    <span>import { createApp } from 'vue'
+<span style="color:#f66">清空 src/views/ 和 src/components/</span>
+<div class="block-detail"><span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">    <span>import { <i class="i0">createApp</i> } from 'vue'
     import router from './router'
     import store from './store'
     import App from './App.vue'
 
-    const app = createApp(App)
+    const app = <i class="i0">createApp</i>(App)
     app.use(store)
     app.use(router)
     app.mount('#app')</span></div></div>
@@ -95,20 +92,20 @@ pageClass: theme-item
     &lt;/template&gt;
 
     &lt;style lang="scss"&gt;&lt;/style&gt;</span></div></div>
-<div class="block-detail"><span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">    <span>import { createRouter, createWebHashHistory } from 'vue-router'
+<div class="block-detail"><span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">    <span>import { <i class="i0">createRouter</i>, createWebHashHistory } from 'vue-router'
 
     const routes = []
 
-    const router = createRouter({
+    const router = <i class="i0">createRouter</i>({
         history: createWebHashHistory(),
         routes
     })
 
     export default router</span></div></div>
-浏览器:http://localhost:8080/
+http://localhost:8080/
 
 <span class="title3" style="margin-top:5px;"><i></i>预设部署</span>
-<div class="block-detail">    <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取TOKEN键值为常量</span><div class="detail-content">        <span>// token
+<div class="block-detail">    <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">        <span>// token
         export const TOKEN = 'token'
         <span class="comment">// token 时间戳</span>
         export const TIME_STAMP = 'timeStamp'
@@ -127,7 +124,7 @@ pageClass: theme-item
 <div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
          * 公开路由表
          */</span>
-        const publicRoutes = [
+        const <i class="i0">publicRoutes</i> = [
             {
                 path: '/login',
                 component: () =&gt; import('@/views/login/index')
@@ -135,9 +132,8 @@ pageClass: theme-item
         ]
 
         const router = createRouter({
-            routes: publicRoutes
+            routes: <i class="i0">publicRoutes</i>
         })</span></div></div>
-
     src/views/login
 <div class="block-detail">    <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="login-container"&gt;
@@ -248,8 +244,7 @@ pageClass: theme-item
                 user-select: none;
             }
         }
-        &lt;/style&gt;</span></div></div>
-    
+        &lt;/style&gt;</span></div></div>    
 <div class="block-detail">    <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">        <span>html,
         body {
             height: 100%;
@@ -302,8 +297,7 @@ pageClass: theme-item
         }</span></div></div>
 <div class="block-detail">    <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">        <span>// 导入全局样式
         import './styles/index.scss'</span></div></div>
-
-    导入 <a href="https://element-plus.gitee.io/zh-CN/" target="_blank">Element Plus</a>
+    导入<a href="https://element-plus.gitee.io/zh-CN/" target="_blank">Element Plus</a>
 <div class="block-detail">        <span class="detail-desc">快捷方式</span><span class="comment"></span><div class="detail-content">            <span>
             <span class="block-command">admin</span> vue add element-plus
                 ? How do you want to import Element Plus?  <span class="comment">// 如何导入Element Plus</span>
@@ -337,7 +331,6 @@ pageClass: theme-item
                 import 'element-plus/dist/index.css'
                 app.use(ElementPlus)
             使用: &lt;el-button&gt;默认按钮&lt;/el-button&gt;</span></div></div>
-
     SVG图标通用解决方案
 <div class="block-detail">        <span class="detail-desc">src/components/SvgIcon/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" :class="className" /&gt;
@@ -400,7 +393,6 @@ pageClass: theme-item
             export function isExternal(path) {
                 return /^(https?:|mailto:|tel:)/.test(path)
             }</span></div></div>
-
         使用：外部图标
             import SvgIcon from '@/components/SvgIcon'
             &lt;svg-icon icon="https://res.lgdsunday.club/user.svg"&gt;&lt;/svg-icon&gt;
@@ -449,7 +441,6 @@ pageClass: theme-item
                     }
                 }</span></div></div>
             重新启动项目
-
     http://localhost:8080/#/Login
 
 <span class="title3" style="margin-top:5px;"><i></i>登陆逻辑</span>
@@ -1100,8 +1091,6 @@ pageClass: theme-item
                         }</i>
                     }
                 }</span></span></div></div>
-
-                
 <div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 通用token注入</span><div class="detail-content">                <span>import store from '@/store'
 
                 <span class="comment">// 请求拦截器</span>
@@ -1145,7 +1134,7 @@ pageClass: theme-item
                     }
                 }</span></div></div>
         渲染用户头像菜单 element-plus中的dropdown组件使用
-<div class="block-detail">            <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
                     &lt;div class="navbar"&gt;
                         &lt;div class="right-menu"&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;头像&#45;&#45;&#62;</span>
@@ -1206,7 +1195,6 @@ pageClass: theme-item
             1.清理掉当前用户缓存数据
             2.清理掉权限相关配置
             3.返回到登录页
-
             用户主动退出：用户点击登录按钮之后退出
 <div class="block-detail">                <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                    <span>import { removeAllItem } from '@/utils/storage'
                     import router from '@/router'
@@ -1221,7 +1209,7 @@ pageClass: theme-item
                             }
                         }
                     }</span></div></div>
-<div class="block-detail">                <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"> 为退出登录按钮添加点击事件</span><div class="detail-content">                    <span>&lt;el-dropdown-item divided @click="logout"&gt; 退出登录 &lt;/el-dropdown-item&gt;
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"> 为退出登录按钮添加点击事件</span><div class="detail-content">                    <span>&lt;el-dropdown-item divided @click="logout"&gt; 退出登录 &lt;/el-dropdown-item&gt;
 
                     import { useStore } from 'vuex'
                     const store = useStore()
@@ -1716,7 +1704,7 @@ pageClass: theme-item
                 }
             }
             &lt;/style&gt;</span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
                 &lt;div class="navbar"&gt;
                     <i class="i1">&lt;hamburger class="hamburger-container" /&gt;</i>
                 &lt;/div&gt;
@@ -2035,7 +2023,7 @@ pageClass: theme-item
                     ElMessage.success('更新成功')
                 }
                 &lt;/script&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
                     &lt;div class="navbar"&gt;
                         &lt;div class="right-menu"&gt;
                             <i class="i1">&lt;lang-select class="right-menu-item hover-effect" /&gt;</i>
@@ -2455,11 +2443,10 @@ pageClass: theme-item
                             locale: store.getters.language === 'en' ? en : zhCn
                         })
                     }</span></div></div>  
-                src/utils/i18n.js
-                    import i18n from '@/i18n'
+<div class="block-detail">                <span class="detail-desc">src/utils/i18n.js</span><span class="comment"></span><div class="detail-content">                    <span>import i18n from '@/i18n'
                     export function generateTitle(title) {
                         return i18n.global.t('msg.route.' + title)
-                    }
+                    }</span></div></div>                    
 <div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> <span class="comment">// 处理侧栏国际化</span></span><div class="detail-content">                    <span><span class="format-block">◄&lt;template&gt;
                         &lt;el-sub-menu v-if="route.children.length &gt; 0" :index="route.path"&gt;
                             &lt;template #title&gt;
@@ -2484,8 +2471,7 @@ pageClass: theme-item
                     &lt;script setup&gt;
                     const size = 44
                     &lt;/script&gt;</span></div></div>
-                src/components/Breadcrumb/index
-                    &lt;template&gt;
+<div class="block-detail">                <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
                         &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;<img :src="$withBase('/images/db-brace-left.png')"> generateTitle(item.meta.title) <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
@@ -2494,16 +2480,15 @@ pageClass: theme-item
 
                     &lt;script setup&gt;
                     import { generateTitle } from '@/utils/i18n'
-                    &lt;/script&gt;
+                    &lt;/script&gt;</span></div></div>                    
     国际化缓存处理
-        src/i18n/index.js ▾
-            import store from '@/store'
+<div class="block-detail">        <span class="detail-desc">src/i18n/index.js</span><span class="comment"></span><div class="detail-content">            <span>import store from '@/store'
 
             function getLanguage() {
                 return store && store.getters && store.getters.language
             }
             <span class="comment">// const locale = 'zh'</span>
-            const locale = getLanguage()
+            const locale = getLanguage()</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
 <span class="title3" style="margin-top:5px;"><i></i>动态换肤</span>
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
@@ -2906,12 +2891,10 @@ pageClass: theme-item
             export default createStore({
                 getters
             })</span></div></div>
-
-        src/layout/index.vue
-            &lt;sidebar :style="{ backgroundColor: $store.getters.cssVar.menuBg }"/&gt;
+<div class="block-detail">        <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;sidebar :style="{ backgroundColor: $store.getters.cssVar.menuBg }"/&gt;
             <span class="comment">// import variables from '@/styles/variables.scss'</span>
-        src/store/modules/theme.js
-            import variables from '@/styles/variables.scss'
+            </span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/modules/theme.js</span><span class="comment"></span><div class="detail-content">            <span>import variables from '@/styles/variables.scss'
 
             export default {
                 state: () =&gt; ({
@@ -2925,9 +2908,8 @@ pageClass: theme-item
                         state.variables.menuBg = newColor
                     }
                 }
-            }
-        src/store/getters.js
-            <span class="comment">// import variables from '@/styles/variables.scss'</span>
+            }</span></div></div>            
+<div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">            <span>// import variables from '@/styles/variables.scss'
 
             const getters = {
                 cssVar: state =&gt; {
@@ -2936,12 +2918,11 @@ pageClass: theme-item
                         ...generateColors(getItem(MAIN_COLOR))
                     }
                 }
-            }
+            }</span></div></div>            
 <span class="title3" style="margin-top:5px;"><i></i>Screenfull原理及方案分析</span>
     封装Screenfull组件
-        npm i screenfull@5.1.0
-        components/Screenfull/index.vue
-            &lt;template&gt;
+        npm i screenfull@5.1.0 --save
+<div class="block-detail">        <span class="detail-desc">components/Screenfull/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div&gt;
                     &lt;svg-icon :icon="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="onToggle" /&gt;
                 &lt;/div&gt;
@@ -2975,11 +2956,219 @@ pageClass: theme-item
             })
             &lt;/script&gt;
 
-            &lt;style lang="scss" scoped&gt;&lt;/style&gt;
-        src/layout/components/navbar.vue
-            &lt;screenfull class="right-menu-item hover-effect" /&gt;
-            import Screenfull from '@/components/Screenfull'
+            &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>            
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;screenfull class="right-menu-item hover-effect" /&gt;
+            import Screenfull from '@/components/Screenfull'</span></div></div>            
 <span class="title3" style="margin-top:5px;"><i></i>HeaderSearch原理及方案分析</span>
+    1.根据指定内容对所有页面进行检索
+    2.以 select 形式展示检索出的页面
+    3.通过检索页面可快速进入对应页面
+<div class="block-detail">    <span class="detail-desc">src/components/HeaderSearch/FuseData.js</span><span class="comment"> 重新计算数据源</span><div class="detail-content">        <span>import path from 'path'
+        import i18n from '@/i18n'
+        <span class="comment">/**
+        * 筛选出可供搜索的路由对象
+        * @param routes 路由表
+        * @param basePath 基础路径，默认为 /
+        * @param prefixTitle
+        */</span>
+        export const <i class="i0">generateRoutes</i> = (routes, basePath = '/', prefixTitle = []) =&gt; {
+            <span class="comment">// 创建 result 数据</span>
+            let res = []
+            <span class="comment">// 循环 routes 路由</span>
+            for (const route of routes) {
+                <span class="comment">// 创建包含 path 和 title 的 item</span>
+                const data = {
+                    path: path.resolve(basePath, route.path),
+                    title: [...prefixTitle]
+                }
+                <span class="comment">// 当前存在 meta 时，使用 i18n 解析国际化数据，组合成新的 title 内容</span>
+                <span class="comment">// 动态路由不允许被搜索</span>
+                <span class="comment">// 匹配动态路由的正则</span>
+                const re = /.*\/:.*/
+                if (route.meta && route.meta.title && !re.exec(route.path)) {
+                    const i18ntitle = i18n.global.t(`msg.route.${route.meta.title}`)
+                    data.title = [...data.title, i18ntitle]
+                    res.push(data)
+                }
+
+                <span class="comment">// 存在 children 时，迭代调用</span>
+                if (route.children) {
+                    const tempRoutes = <i class="i0">generateRoutes</i>(route.children, data.path, data.title)
+                    if (tempRoutes.length &gt;= 1) {
+                        res = [...res, ...tempRoutes]
+                    }
+                }
+            }
+            return res
+        }</span></div></div>
+    npm install --save fuse.js@6.4.6 <span class="comment">// 模糊搜索依赖</span>
+<div class="block-detail">    <span class="detail-desc">src/components/HeaderSearch/index.vue</span><span class="comment"> 创建headerSearch组件</span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div :class="{ show: isShow }" class="header-search"&gt;
+                &lt;svg-icon class-name="search-icon" icon="search" @click.stop="<i class="i1">onShowClick</i>" /&gt;
+                &lt;el-select
+                    class="header-search-select"
+                    default-first-option 
+                    placeholder="Search"
+                    filterable
+                    remote
+                    :remote-method="<i class="i2">querySearch</i>"
+                    ref="headerSearchSelectRef" 
+                    v-model="<i class="i8">search</i>"
+                    @change="<i class="i9">onSelectChange</i>"&gt;
+                    &lt;el-option 
+                        v-for="option in <i class="i0">searchOptions</i>" 
+                        :key="option.item.path" 
+                        :label="option.item.title.join(' &gt; ')" 
+                        :value="option.item"&gt;&lt;/el-option&gt;
+                    &lt;/el-select&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        import { ref, computed, watch } from 'vue'
+        import { filterRouters } from '@/utils/route'
+        import { useRouter } from 'vue-router'
+        import { <i class="i0">generateRoutes</i> } from './FuseData'
+        import Fuse from 'fuse.js'
+
+        <span class="comment">// 检索数据源</span>
+        const router = useRouter()
+        const searchPool = computed(() =&gt; {
+            const filterRoutes = filterRouters(router.getRoutes())
+            return <i class="i0">generateRoutes</i>(filterRoutes)
+        })
+        <span class="comment">// 搜索库相关</span>
+        const fuse = new Fuse(searchPool.value, {
+            keys: ['title', 'path']
+        }) 
+
+        <span class="comment">// search 相关</span>
+        const <i class="i8">search</i> = ref('')
+        const <i class="i0">searchOptions</i> = ref([]) <span class="comment">// 搜索结果</span>
+        <span class="comment">// 搜索方法</span>
+        const <i class="i2">querySearch</i> = query =&gt; {
+            if (query !== '') {
+                <i class="i0">searchOptions</i>.value = fuse.search(query)
+            } else {
+                <i class="i0">searchOptions</i>.value = []
+            }
+        }
+        
+        const isShow = ref(false)               <span class="comment">// 控制search显示</span>
+        const headerSearchSelectRef = ref(null) <span class="comment">// el-select 实例</span>
+        const <i class="i1">onShowClick</i> = () =&gt; {
+            isShow.value = !isShow.value
+            headerSearchSelectRef.value.focus()
+        }
+        
+        <span class="comment">// 选中回调</span>
+        const <i class="i9">onSelectChange</i> = val =&gt; {
+            router.push(val.path)
+        }
+        <span class="comment">/**
+        * 关闭 search 的处理事件
+        */</span>
+        const onClose = () =&gt; {
+            headerSearchSelectRef.value.blur()
+            isShow.value = false
+            searchOptions.value = []
+        }
+        <span class="comment">/**
+        * 监听 search 打开，处理 close 事件
+        */</span>
+        watch(isShow, val =&gt; {
+            if (val) {
+                document.body.addEventListener('click', onClose)
+            } else {
+                document.body.removeEventListener('click', onClose)
+            }
+        })
+        &lt;/script&gt;
+
+        &lt;style lang="scss" scoped&gt;
+        .header-search {
+            font-size: 0 !important;
+            .search-icon {
+                cursor: pointer;
+                font-size: 18px;
+                vertical-align: middle;
+            }
+            .header-search-select {
+                font-size: 18px;
+                transition: width 0.2s;
+                width: 0;
+                overflow: hidden;
+                background: transparent;
+                border-radius: 0;
+                display: inline-block;
+                vertical-align: middle;
+
+                ::v-deep .el-input__inner {
+                    border-radius: 0;
+                    border: 0;
+                    padding-left: 0;
+                    padding-right: 0;
+                    box-shadow: none !important;
+                    border-bottom: 1px solid #d9d9d9;
+                    vertical-align: middle;
+                }
+            }
+            &.show {
+                .header-search-select {
+                    width: 210px;
+                    margin-left: 10px;
+                }
+            }
+        }
+        &lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"> 使用headerSearch组件</span><div class="detail-content">        <span><i class="i0">&lt;header-search</i> class="right-menu-item hover-effect"<i class="i0">&gt;&lt;/header-search&gt;</i>
+        import <i class="i0">HeaderSearch</i> from '@/components/HeaderSearch'</span></div></div>
+    响应国际化
+<div class="block-detail">        <span class="detail-desc">src/utils/i18n.js</span><span class="comment"></span><div class="detail-content">            <span>import { watch } from 'vue'
+            import store from '@/store'
+            <span class="comment">/**
+            * @param  {...any} cbs 所有的回调
+            */</span>
+            export function watchSwitchLang(...cbs) {
+                watch(
+                    () =&gt; store.getters.language,
+                    () =&gt; {
+                        cbs.forEach(cb =&gt; cb(store.getters.language))
+                    }
+                )
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/components/HeaderSearch/index.vue</span><span class="comment"></span><div class="detail-content">            <span>import { watchSwitchLang } from '@/utils/i18n'
+
+            <span class="comment">// 检索数据源</span>
+            const router = useRouter()
+            let searchPool = computed(() =&gt; {
+                const filterRoutes = filterRouters(router.getRoutes())
+                return generateRoutes(filterRoutes)
+            })
+            <span class="comment">/**
+            * 搜索库相关
+            */</span>
+            let fuse
+            const initFuse = searchPool =&gt; {
+                fuse = new Fuse(searchPool, {
+                    keys: ['title', 'path']
+                })
+            }
+            initFuse(searchPool.value)
+
+            <span class="comment">// 处理国际化</span>
+            watchSwitchLang(() =&gt; {
+                searchPool = computed(() =&gt; {
+                    const filterRoutes = filterRouters(router.getRoutes())
+                    return generateRoutes(filterRoutes)
+                })
+                initFuse(searchPool.value)
+            })</span></div></div>
+<span class="title3" style="margin-top:5px;"><i></i>tagsView原理及方案分析</span>
+            
+    
+        
+        
 
 
 
