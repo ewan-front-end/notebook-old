@@ -3283,6 +3283,15 @@ http://localhost:8080/
                 initFuse(searchPool.value)
             })↥
 【3】tagsView原理及方案分析
+    src/layout/index.vue ▾
+        ↧<div class="fixed-header">
+            <!-- 顶部的 navbar -->
+            <navbar />
+            <!-- tags -->
+            ►<tags-view></tags-view>◄
+        </div>
+
+        ►import TagsView from '@/components/TagsView'◄↥
     src/components/TagsView/index.vue ▾
         ↧<template>
             <div class="tags-view-container">
@@ -3384,13 +3393,89 @@ http://localhost:8080/
         </style>↥
     src/store/getters.js ▾
         ↧const getters = {
-            1►tagsViewList◄: state => state.app.►tagsViewList◄
+            1►tagsViewList◄: state => state.app.2►tagsViewList◄
         }↥
     src/store/modules/app.js ▾
-        ↧export default {
+        ↧import { TAGS_VIEW } from '@/constant'
+        export default {
             state: () => ({
-                tagsViewList: getItem(TAGS_VIEW) || []
-            })
+                2►tagsViewList◄: 3►getItem(TAGS_VIEW)◄ || []
+            }),
+            mutations: {
+                /**
+                * 添加 tags
+                */
+                4►addTagsViewList◄(state, tag) {
+                    const isFind = state.tagsViewList.find(item => {
+                        return item.path === tag.path
+                    })
+                    // 处理重复
+                    if (!isFind) {
+                        state.tagsViewList.push(tag)
+                        3►setItem(TAGS_VIEW, state.tagsViewList)◄
+                    }
+                }
+            }
+        }↥
+    src/layout/components/AppMain.vue ▾
+        ↧<script setup>
+        import { watch } from 'vue'
+        import { isTags } from '@/utils/tags'
+        import { generateTitle } from '@/utils/i18n'
+        import { useRoute } from 'vue-router'
+        import { useStore } from 'vuex'
+
+        const route = useRoute()
+
+        /**
+        * 生成 title
+        */
+        const getTitle = route => {
+            let title = ''
+            if (!route.meta) {
+                // 处理无 meta 的路由
+                const pathArr = route.path.split('/')
+                title = pathArr[pathArr.length - 1]
+            } else {
+                title = generateTitle(route.meta.title)
+            }
+            return title
+        }
+
+        /**
+        * 监听路由变化
+        */
+        const store = useStore()
+        watch(
+            route,
+            (to, from) => {
+                if (!isTags(to.path)) return
+                const { fullPath, meta, name, params, path, query } = to
+                store.commit('4►app/addTagsViewList◄', {
+                    fullPath,
+                    meta,
+                    name,
+                    params,
+                    path,
+                    query,
+                    title: getTitle(to)
+                })
+            },
+            {
+                immediate: true
+            }
+        )
+        </script>↥
+    src/utils/tags.js ▾
+        ↧const whiteList = ['/login', '/import', '/404', '/401']
+
+        /**
+         * path 是否需要被缓存
+         * @param {*} path
+         * @returns
+         */
+        export function isTags(path) {
+            return !whiteList.includes(path)
         }↥
 
             

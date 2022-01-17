@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.17 13:28</span>
+            <span>M 2022.01.17 20:40</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -3165,6 +3165,14 @@ http://localhost:8080/
                 initFuse(searchPool.value)
             })</span></div></div>
 <span class="title3" style="margin-top:5px;"><i></i>tagsView原理及方案分析</span>
+<div class="block-detail">    <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="fixed-header"&gt;
+            <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
+            &lt;navbar /&gt;
+            <span class="comment">&#60;&#33;&#45;&#45;tags&#45;&#45;&#62;</span>
+            <i class="i0">&lt;tags-view&gt;&lt;/tags-view&gt;</i>
+        &lt;/div&gt;
+
+        <i class="i0">import TagsView from '@/components/TagsView'</i></span></div></div>
 <div class="block-detail">    <span class="detail-desc">src/components/TagsView/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="tags-view-container"&gt;
                 &lt;router-link
@@ -3264,12 +3272,86 @@ http://localhost:8080/
         }
         &lt;/style&gt;</span></div></div>
 <div class="block-detail">    <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">        <span>const getters = {
-            <i class="i1">tagsViewList</i>: state =&gt; state.app.<i class="i0">tagsViewList</i>
+            <i class="i1">tagsViewList</i>: state =&gt; state.app.<i class="i2">tagsViewList</i>
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">        <span>export default {
+<div class="block-detail">    <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">        <span>import { TAGS_VIEW } from '@/constant'
+        export default {
             state: () =&gt; ({
-                tagsViewList: getItem(TAGS_VIEW) || []
-            })
+                <i class="i2">tagsViewList</i>: <i class="i3">getItem(TAGS_VIEW)</i> || []
+            }),
+            mutations: {
+                <span class="comment">/**
+                * 添加 tags
+                */</span>
+                <i class="i4">addTagsViewList</i>(state, tag) {
+                    const isFind = state.tagsViewList.find(item =&gt; {
+                        return item.path === tag.path
+                    })
+                    <span class="comment">// 处理重复</span>
+                    if (!isFind) {
+                        state.tagsViewList.push(tag)
+                        <i class="i3">setItem(TAGS_VIEW, state.tagsViewList)</i>
+                    }
+                }
+            }
+        }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/layout/components/AppMain.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;script setup&gt;
+        import { watch } from 'vue'
+        import { isTags } from '@/utils/tags'
+        import { generateTitle } from '@/utils/i18n'
+        import { useRoute } from 'vue-router'
+        import { useStore } from 'vuex'
+
+        const route = useRoute()
+
+        <span class="comment">/**
+        * 生成 title
+        */</span>
+        const getTitle = route =&gt; {
+            let title = ''
+            if (!route.meta) {
+                <span class="comment">// 处理无 meta 的路由</span>
+                const pathArr = route.path.split('/')
+                title = pathArr[pathArr.length - 1]
+            } else {
+                title = generateTitle(route.meta.title)
+            }
+            return title
+        }
+
+        <span class="comment">/**
+        * 监听路由变化
+        */</span>
+        const store = useStore()
+        watch(
+            route,
+            (to, from) =&gt; {
+                if (!isTags(to.path)) return
+                const { fullPath, meta, name, params, path, query } = to
+                store.commit('<i class="i4">app/addTagsViewList</i>', {
+                    fullPath,
+                    meta,
+                    name,
+                    params,
+                    path,
+                    query,
+                    title: getTitle(to)
+                })
+            },
+            {
+                immediate: true
+            }
+        )
+        &lt;/script&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/utils/tags.js</span><span class="comment"></span><div class="detail-content">        <span>const whiteList = ['/login', '/import', '/404', '/401']
+
+        <span class="comment">/**
+         * path 是否需要被缓存
+         * @param {*} path
+         * @returns
+         */</span>
+        export function isTags(path) {
+            return !whiteList.includes(path)
         }</span></div></div>
 
             
