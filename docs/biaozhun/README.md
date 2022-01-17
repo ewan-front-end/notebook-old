@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.16 20:33</span>
+            <span>M 2022.01.17 13:28</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -3165,6 +3165,113 @@ http://localhost:8080/
                 initFuse(searchPool.value)
             })</span></div></div>
 <span class="title3" style="margin-top:5px;"><i></i>tagsView原理及方案分析</span>
+<div class="block-detail">    <span class="detail-desc">src/components/TagsView/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div class="tags-view-container"&gt;
+                &lt;router-link
+                    class="tags-view-item"
+                    :class="isActive(tag) ? 'active' : ''"
+                    :style="{
+                        backgroundColor: isActive(tag) ? $store.getters.cssVar.menuBg : '',
+                        borderColor: isActive(tag) ? $store.getters.cssVar.menuBg : ''
+                    }"
+                    v-for="(tag, index) in <i class="i1">$store.getters.tagsViewList</i>"
+                    :key="tag.fullPath"
+                    :to="{ path: tag.fullPath }"
+                &gt;
+                    <img :src="$withBase('/images/db-brace-left.png')"> tag.title <img :src="$withBase('/images/db-brace-right.png')">
+                    &lt;i v-show="!isActive(tag)" class="el-icon-close" @click.prevent.stop="onCloseClick(index)" /&gt;
+                &lt;/router-link&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        import { useRoute } from 'vue-router'
+        const route = useRoute()
+
+        <span class="comment">/**
+        * 是否被选中
+        */</span>
+        const isActive = tag =&gt; {
+            return tag.path === route.path
+        }
+
+        <span class="comment">/**
+        * 关闭 tag 的点击事件
+        */</span>
+        const onCloseClick = index =&gt; {}
+        &lt;/script&gt;
+
+        &lt;style lang="scss" scoped&gt;
+        .tags-view-container {
+            height: 34px;
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid #d8dce5;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+            .tags-view-item {
+                display: inline-block;
+                position: relative;
+                cursor: pointer;
+                height: 26px;
+                line-height: 26px;
+                border: 1px solid #d8dce5;
+                color: #495060;
+                background: #fff;
+                padding: 0 8px;
+                font-size: 12px;
+                margin-left: 5px;
+                margin-top: 4px;
+                &:first-of-type {
+                    margin-left: 15px;
+                }
+                &:last-of-type {
+                    margin-right: 15px;
+                }
+                &.active {
+                    color: #fff;
+                    &::before {
+                        content: '';
+                        background: #fff;
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        position: relative;
+                        margin-right: 4px;
+                    }
+                }
+                <span class="comment">// close 按钮</span>
+                .el-icon-close {
+                    width: 16px;
+                    height: 16px;
+                    line-height: 10px;
+                    vertical-align: 2px;
+                    border-radius: 50%;
+                    text-align: center;
+                    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                    transform-origin: 100% 50%;
+                    &:before {
+                        transform: scale(0.6);
+                        display: inline-block;
+                        vertical-align: -3px;
+                    }
+                    &:hover {
+                        background-color: #b4bccc;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        &lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">        <span>const getters = {
+            <i class="i1">tagsViewList</i>: state =&gt; state.app.<i class="i0">tagsViewList</i>
+        }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">        <span>export default {
+            state: () =&gt; ({
+                tagsViewList: getItem(TAGS_VIEW) || []
+            })
+        }</span></div></div>
+
             
     
         
