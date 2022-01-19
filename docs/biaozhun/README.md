@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.17 20:40</span>
+            <span>M 2022.01.19 20:53</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -1324,17 +1324,25 @@ http://localhost:8080/
             如果存在children以el-sub-menu(子菜单)展示 否则 则以el-menu-item(菜单项)展示
 
         1.创建页面组件
-            src/views/article-create/index.vue 创建文章
-            src/views/article-detail/index.vue 文章详情
-            src/views/article-ranking/index.vue 文章排名
-            src/views/error-page/404.vue 错误页面
-            src/views/error-page/401.vue 错误页面
-            src/views/import 导入
-            src/views/permission-list 权限列表
-            src/views/profile 个人中心
-            src/views/role-list 角色列表
-            src/views/user-info 用户信息
-            src/views/user-manage 用户管理
+<div class="block-detail">            <span class="detail-desc">src/views/article-create/index.vue</span><span class="comment"> 创建文章</span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div&gt;
+                        &lt;h1&gt;用户管理&lt;/h1&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;&lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+            src/views/article-detail/index.vue <span class="comment">// 文章详情</span>
+            src/views/article-ranking/index.vue <span class="comment">// 文章排名</span>
+            src/views/error-page/404.vue <span class="comment">// 错误页面</span>
+            src/views/error-page/401.vue <span class="comment">// 错误页面</span>
+            src/views/import <span class="comment">// 导入</span>
+            src/views/permission-list <span class="comment">// 权限列表</span>
+            src/views/profile <span class="comment">// 个人中心</span>
+            src/views/role-list <span class="comment">// 角色列表</span>
+            src/views/user-info <span class="comment">// 用户信息</span>
+            src/views/user-manage <span class="comment">// 用户管理</span>
         2.生成路由表
 <div class="block-detail">            <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">                <span>import { createRouter, createWebHashHistory } from 'vue-router'
                 import layout from '@/layout'
@@ -2093,6 +2101,7 @@ http://localhost:8080/
                     },
                     tagsView: {
                         refresh: 'Refresh',
+                        close: 'Close',
                         closeRight: 'Close Rights',
                         closeOther: 'Close Others'
                     },
@@ -2274,6 +2283,7 @@ http://localhost:8080/
                     },
                     tagsView: {
                         refresh: '刷新',
+                        close: '关闭',
                         closeRight: '关闭右侧',
                         closeOther: '关闭其他'
                     },
@@ -3353,6 +3363,324 @@ http://localhost:8080/
         export function isTags(path) {
             return !whiteList.includes(path)
         }</span></div></div>
+    国际化处理
+<div class="block-detail">        <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">            <span>mutations: {
+                <span class="comment">/**
+                 * 为指定的 tag 修改 title
+                 */</span>
+                changeTagsView(state, { index, tag }) {
+                    state.tagsViewList[index] = tag
+                    setItem(TAGS_VIEW, state.tagsViewList)
+                }
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/AppMain.vue</span><span class="comment"></span><div class="detail-content">            <span>import { watchSwitchLang } from '@/utils/i18n'
+
+            <span class="comment">/**
+             * 国际化 tags
+             */</span>
+            watchSwitchLang(() =&gt; {
+                store.getters.tagsViewList.forEach((route, index) =&gt; {
+                    store.commit('app/changeTagsView', {
+                    index,
+                    tag: {
+                        ...route,
+                        title: getTitle(route)
+                    }
+                    })
+                })
+            })</span></div></div>
+    contextMenu展示处理
+<div class="block-detail">        <span class="detail-desc">src/components/TagsView/ContextMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;ul class="context-menu-container"&gt;
+                    &lt;li @click="onRefreshClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.refresh') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
+                    &lt;li @click="onCloseClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.close') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
+                    &lt;li @click="onCloseRightClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.closeRight') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
+                    &lt;li @click="onCloseOtherClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.closeOther') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import { defineProps } from 'vue'
+            import { useRouter } from 'vue-router'
+            import { useStore } from 'vuex'
+
+            const props = defineProps({
+                index: {
+                    type: Number,
+                    required: true
+                }
+            })
+
+            <span class="comment">// 刷新</span>
+            const router = useRouter()
+            const onRefreshClick = () =&gt; {
+                router.go(0)
+            }
+
+            <span class="comment">// 关闭 tag 的点击事件</span>
+            const store = useStore()
+            const onCloseClick = index =&gt; {
+                store.commit('app/removeTagsView', {type: 'index', index: index})
+            }
+
+            <span class="comment">// 关闭右侧</span>
+            const store = useStore()
+            const onCloseRightClick = () =&gt; {
+                store.commit('app/removeTagsView', {type: 'right', index: props.index})
+            }
+
+            <span class="comment">// 关闭其他</span>
+            const onCloseOtherClick = () =&gt; {
+                store.commit('app/removeTagsView', {type: 'other', index: props.index})
+            }
+
+            &lt;/script&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            .context-menu-container {
+                position: fixed;
+                background: #fff;
+                z-index: 3000;
+                list-style-type: none;
+                padding: 5px 0;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: 400;
+                color: #333;
+                box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+                li {
+                    margin: 0;
+                    padding: 7px 16px;
+                    cursor: pointer;
+                    &:hover {
+                        background: #eee;
+                    }
+                }
+            }
+            &lt;/style&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/components/TagsView/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;div class="tags-view-container"&gt;
+                <i class="i2">&lt;el-scrollbar class="tags-view-wrapper"&gt;</i>
+                    &lt;router-link <i class="i1">@contextmenu.prevent="openMenu($event, index)"</i>&gt;&lt;/router-link&gt;
+                <i class="i2">&lt;/el-scrollbar&gt;</i>
+                <i class="i2">&lt;context-menu v-show="visible" :style="menuStyle" :index="selectIndex"&gt;&lt;/context-menu&gt;</i>
+            &lt;/div&gt;
+            
+            &lt;script setup&gt;
+            import ContextMenu from './ContextMenu.vue'
+            import { ref, reactive, watch } from 'vue'
+
+            <span class="comment">// contextMenu 相关</span>
+            const selectIndex = ref(0)
+            const visible = ref(false)
+            const menuStyle = reactive({
+                left: 0,
+                top: 0
+            })
+
+            <span class="comment">/**
+             * 展示 menu
+             */</span>
+            const openMenu = (e, index) =&gt; {
+                const { x, y } = e
+                menuStyle.left = x + 'px'
+                menuStyle.top = y + 'px'
+                selectIndex.value = index
+                visible.value = true
+            }
+
+            <span class="comment">/**
+             * 关闭 menu
+             */</span>
+            const closeMenu = () =&gt; {
+                visible.value = false
+            }
+
+            <span class="comment">/**
+             * 监听变化
+             */</span>
+            watch(visible, val =&gt; {
+                if (val) {
+                    document.body.addEventListener('click', closeMenu)
+                } else {
+                    document.body.removeEventListener('click', closeMenu)
+                }
+            })
+            &lt;/script&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">            <span>mutations: {
+                <span class="comment">/**
+                 * 删除 tag
+                 * @param {type: 'other'||'right'||'index', index: index} payload
+                 */</span>
+                removeTagsView(state, payload) {
+                    if (payload.type === 'index') {
+                        state.tagsViewList.splice(payload.index, 1)
+                        return
+                    } else if (payload.type === 'other') {
+                        state.tagsViewList.splice(payload.index + 1, state.tagsViewList.length - payload.index + 1)
+                        state.tagsViewList.splice(0, payload.index)
+                    } else if (payload.type === 'right') {
+                        state.tagsViewList.splice(payload.index + 1, state.tagsViewList.length - payload.index + 1)
+                    }
+                    setItem(TAGS_VIEW, state.tagsViewList)
+                }
+            }</span></div></div>
+    处理基于路由的动态过渡
+<div class="block-detail">        <span class="detail-desc">src/layout/AppMain.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;div class="app-main"&gt;
+                &lt;router-view <i class="i1">v-slot="{ Component, route }"</i>&gt;
+                    <i class="i2">&lt;transition name="fade-transform" mode="out-in"&gt;
+                        &lt;keep-alive&gt;
+                            &lt;component :is="Component" :key="route.path" /&gt;
+                        &lt;/keep-alive&gt;
+                    &lt;/transition&gt;</i>
+                &lt;/router-view&gt;
+            &lt;/div&gt;
+            
+            &lt;style lang="scss" scoped&gt;
+            .app-main {
+                <i class="i3">min-height: calc(100vh - 50px - 43px);</i>
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                <i class="i3">padding: 104px 20px 20px 20px;</i>
+                box-sizing: border-box;
+            }
+            &lt;/style&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/styles/transition.scss</span><span class="comment"></span><div class="detail-content">            <span><span class="comment">/* fade-transform */</span>
+            .fade-transform-leave-active,
+            .fade-transform-enter-active {
+                transition: all 0.5s;
+            }
+
+            .fade-transform-enter-from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            .fade-transform-leave-to {
+                opacity: 0;
+                transform: translateX(30px);
+            }</span></div></div>
+<span class="title3" style="margin-top:5px;"><i></i>Guide引导页原理及方案分析</span>
+    <span class="block-command">admin</span> npm i driver.js@0.9.8 --save
+<div class="block-detail">    <span class="detail-desc">src/components/Guide/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div&gt;
+                &lt;el-tooltip :content="$t('msg.navBar.guide')"&gt;
+                    &lt;svg-icon icon="guide" @click="onClick" /&gt;
+                &lt;/el-tooltip&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        import Driver from 'driver.js'
+        import 'driver.js/dist/driver.min.css'
+        import { onMounted } from 'vue'
+        import { useI18n } from 'vue-i18n'
+        import steps from './steps'
+
+        const i18n = useI18n()
+
+        let driver = null
+        onMounted(() =&gt; {
+            driver = new Driver({
+                <span class="comment">// 禁止点击蒙版关闭</span>
+                allowClose: false,
+                closeBtnText: i18n.t('msg.guide.close'),
+                nextBtnText: i18n.t('msg.guide.next'),
+                prevBtnText: i18n.t('msg.guide.prev')
+            })
+        })
+
+        const onClick = () =&gt; {
+            driver.defineSteps(steps(i18n))
+            driver.start()
+        }
+        &lt;/script&gt;
+
+        &lt;style scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/components/Guide/steps.js</span><span class="comment"></span><div class="detail-content">        <span>// 此处不要导入 @/i18n 使用 i18n.global ，
+        <span class="comment">// 因为我们在 router 中 layout 不是按需加载，</span>
+        <span class="comment">// 所以会在 Guide 会在 I18n 初始化完成之前被直接调用。</span>
+        <span class="comment">// 导致 i18n 为 undefined</span>
+        const steps = i18n =&gt; {
+            return [
+                {
+                    element: '#guide-start',
+                    popover: {
+                        title: i18n.t('msg.guide.guideTitle'),
+                        description: i18n.t('msg.guide.guideDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-hamburger',
+                    popover: {
+                        title: i18n.t('msg.guide.hamburgerTitle'),
+                        description: i18n.t('msg.guide.hamburgerDesc')
+                    }
+                },
+                {
+                    element: '#guide-breadcrumb',
+                    popover: {
+                        title: i18n.t('msg.guide.breadcrumbTitle'),
+                        description: i18n.t('msg.guide.breadcrumbDesc')
+                    }
+                },
+                {
+                    element: '#guide-search',
+                    popover: {
+                        title: i18n.t('msg.guide.searchTitle'),
+                        description: i18n.t('msg.guide.searchDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-full',
+                    popover: {
+                        title: i18n.t('msg.guide.fullTitle'),
+                        description: i18n.t('msg.guide.fullDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-theme',
+                    popover: {
+                        title: i18n.t('msg.guide.themeTitle'),
+                        description: i18n.t('msg.guide.themeDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-lang',
+                    popover: {
+                        title: i18n.t('msg.guide.langTitle'),
+                        description: i18n.t('msg.guide.langDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-tags',
+                    popover: {
+                        title: i18n.t('msg.guide.tagTitle'),
+                        description: i18n.t('msg.guide.tagDesc')
+                    }
+                },
+                {
+                    element: '#guide-sidebar',
+                    popover: {
+                        title: i18n.t('msg.guide.sidebarTitle'),
+                        description: i18n.t('msg.guide.sidebarDesc'),
+                        position: 'right-center'
+                    }
+                }
+            ]
+        }
+        export default steps</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="right-menu"&gt;
+            <i class="i0">&lt;guide class="right-menu-item hover-effect" /&gt;</i>
+        &lt;/div&gt;
+
+        import <i class="i0">Guide</i> from '@/components/Guide'</span></div></div>
+
 
             
     

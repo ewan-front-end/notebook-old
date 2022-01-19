@@ -1367,17 +1367,26 @@ http://localhost:8080/
             如果存在children以el-sub-menu(子菜单)展示 否则 则以el-menu-item(菜单项)展示
 
         1.创建页面组件
-            src/views/article-create/index.vue 创建文章
-            src/views/article-detail/index.vue 文章详情
-            src/views/article-ranking/index.vue 文章排名
-            src/views/error-page/404.vue 错误页面
-            src/views/error-page/401.vue 错误页面
-            src/views/import 导入
-            src/views/permission-list 权限列表
-            src/views/profile 个人中心
-            src/views/role-list 角色列表
-            src/views/user-info 用户信息
-            src/views/user-manage 用户管理
+            src/views/article-create/index.vue ▾ 创建文章
+                ↧<template>
+                    <div>
+                        <h1>用户管理</h1>
+                    </div>
+                </template>
+
+                <script setup></script>
+
+                <style lang="scss" scoped></style>↥
+            src/views/article-detail/index.vue // 文章详情
+            src/views/article-ranking/index.vue // 文章排名
+            src/views/error-page/404.vue // 错误页面
+            src/views/error-page/401.vue // 错误页面
+            src/views/import // 导入
+            src/views/permission-list // 权限列表
+            src/views/profile // 个人中心
+            src/views/role-list // 角色列表
+            src/views/user-info // 用户信息
+            src/views/user-manage // 用户管理
         2.生成路由表
             src/router/index.js ▾
                 ↧import { createRouter, createWebHashHistory } from 'vue-router'
@@ -2172,6 +2181,7 @@ http://localhost:8080/
                     },
                     tagsView: {
                         refresh: 'Refresh',
+                        close: 'Close',
                         closeRight: 'Close Rights',
                         closeOther: 'Close Others'
                     },
@@ -2354,6 +2364,7 @@ http://localhost:8080/
                     },
                     tagsView: {
                         refresh: '刷新',
+                        close: '关闭',
                         closeRight: '关闭右侧',
                         closeOther: '关闭其他'
                     },
@@ -3477,6 +3488,334 @@ http://localhost:8080/
         export function isTags(path) {
             return !whiteList.includes(path)
         }↥
+    国际化处理
+        src/store/modules/app.js ▾
+            ↧mutations: {
+                /**
+                 * 为指定的 tag 修改 title
+                 */
+                changeTagsView(state, { index, tag }) {
+                    state.tagsViewList[index] = tag
+                    setItem(TAGS_VIEW, state.tagsViewList)
+                }
+            }↥
+        src/layout/components/AppMain.vue ▾
+            ↧import { watchSwitchLang } from '@/utils/i18n'
+
+            /**
+             * 国际化 tags
+             */
+            watchSwitchLang(() => {
+                store.getters.tagsViewList.forEach((route, index) => {
+                    store.commit('app/changeTagsView', {
+                    index,
+                    tag: {
+                        ...route,
+                        title: getTitle(route)
+                    }
+                    })
+                })
+            })↥
+    contextMenu展示处理
+        src/components/TagsView/ContextMenu.vue ▾
+            ↧<template>
+                <ul class="context-menu-container">
+                    <li @click="onRefreshClick">{{ $t('msg.tagsView.refresh') }}</li>
+                    <li @click="onCloseClick">{{ $t('msg.tagsView.close') }}</li>
+                    <li @click="onCloseRightClick">{{ $t('msg.tagsView.closeRight') }}</li>
+                    <li @click="onCloseOtherClick">{{ $t('msg.tagsView.closeOther') }}</li>
+                </ul>
+            </template>
+
+            <script setup>
+            import { defineProps } from 'vue'
+            import { useRouter } from 'vue-router'
+            import { useStore } from 'vuex'
+
+            const props = defineProps({
+                index: {
+                    type: Number,
+                    required: true
+                }
+            })
+
+            // 刷新
+            const router = useRouter()
+            const onRefreshClick = () => {
+                router.go(0)
+            }
+
+            // 关闭 tag 的点击事件
+            const store = useStore()
+            const onCloseClick = index => {
+                store.commit('app/removeTagsView', {type: 'index', index: index})
+            }
+
+            // 关闭右侧
+            const store = useStore()
+            const onCloseRightClick = () => {
+                store.commit('app/removeTagsView', {type: 'right', index: props.index})
+            }
+
+            // 关闭其他
+            const onCloseOtherClick = () => {
+                store.commit('app/removeTagsView', {type: 'other', index: props.index})
+            }
+
+            </script>
+
+            <style lang="scss" scoped>
+            .context-menu-container {
+                position: fixed;
+                background: #fff;
+                z-index: 3000;
+                list-style-type: none;
+                padding: 5px 0;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: 400;
+                color: #333;
+                box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+                li {
+                    margin: 0;
+                    padding: 7px 16px;
+                    cursor: pointer;
+                    &:hover {
+                        background: #eee;
+                    }
+                }
+            }
+            </style>↥
+        src/components/TagsView/index.vue ▾
+            ↧<div class="tags-view-container">
+                2►<el-scrollbar class="tags-view-wrapper">◄
+                    <router-link 1►@contextmenu.prevent="openMenu($event, index)"◄></router-link>
+                2►</el-scrollbar>◄
+                2►<context-menu v-show="visible" :style="menuStyle" :index="selectIndex"></context-menu>◄
+            </div>
+            
+            <script setup>
+            import ContextMenu from './ContextMenu.vue'
+            import { ref, reactive, watch } from 'vue'
+
+            // contextMenu 相关
+            const selectIndex = ref(0)
+            const visible = ref(false)
+            const menuStyle = reactive({
+                left: 0,
+                top: 0
+            })
+
+            /**
+             * 展示 menu
+             */
+            const openMenu = (e, index) => {
+                const { x, y } = e
+                menuStyle.left = x + 'px'
+                menuStyle.top = y + 'px'
+                selectIndex.value = index
+                visible.value = true
+            }
+
+            /**
+             * 关闭 menu
+             */
+            const closeMenu = () => {
+                visible.value = false
+            }
+
+            /**
+             * 监听变化
+             */
+            watch(visible, val => {
+                if (val) {
+                    document.body.addEventListener('click', closeMenu)
+                } else {
+                    document.body.removeEventListener('click', closeMenu)
+                }
+            })
+            </script>↥
+        src/store/modules/app.js ▾
+            ↧mutations: {
+                /**
+                 * 删除 tag
+                 * @param {type: 'other'||'right'||'index', index: index} payload
+                 */
+                removeTagsView(state, payload) {
+                    if (payload.type === 'index') {
+                        state.tagsViewList.splice(payload.index, 1)
+                        return
+                    } else if (payload.type === 'other') {
+                        state.tagsViewList.splice(payload.index + 1, state.tagsViewList.length - payload.index + 1)
+                        state.tagsViewList.splice(0, payload.index)
+                    } else if (payload.type === 'right') {
+                        state.tagsViewList.splice(payload.index + 1, state.tagsViewList.length - payload.index + 1)
+                    }
+                    setItem(TAGS_VIEW, state.tagsViewList)
+                }
+            }↥
+    处理基于路由的动态过渡
+        src/layout/AppMain.vue ▾
+            ↧<div class="app-main">
+                <router-view 1►v-slot="{ Component, route }"◄>
+                    2►<transition name="fade-transform" mode="out-in">
+                        <keep-alive>
+                            <component :is="Component" :key="route.path" />
+                        </keep-alive>
+                    </transition>◄
+                </router-view>
+            </div>
+            
+            <style lang="scss" scoped>
+            .app-main {
+                3►min-height: calc(100vh - 50px - 43px);◄
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                3►padding: 104px 20px 20px 20px;◄
+                box-sizing: border-box;
+            }
+            </style>↥
+        src/styles/transition.scss ▾
+            ↧/* fade-transform */
+            .fade-transform-leave-active,
+            .fade-transform-enter-active {
+                transition: all 0.5s;
+            }
+
+            .fade-transform-enter-from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            .fade-transform-leave-to {
+                opacity: 0;
+                transform: translateX(30px);
+            }↥
+【3】Guide引导页原理及方案分析
+    admin> npm i driver.js@0.9.8 --save
+    src/components/Guide/index.vue ▾
+        ↧<template>
+            <div>
+                <el-tooltip :content="$t('msg.navBar.guide')">
+                    <svg-icon icon="guide" @click="onClick" />
+                </el-tooltip>
+            </div>
+        </template>
+
+        <script setup>
+        import Driver from 'driver.js'
+        import 'driver.js/dist/driver.min.css'
+        import { onMounted } from 'vue'
+        import { useI18n } from 'vue-i18n'
+        import steps from './steps'
+
+        const i18n = useI18n()
+
+        let driver = null
+        onMounted(() => {
+            driver = new Driver({
+                // 禁止点击蒙版关闭
+                allowClose: false,
+                closeBtnText: i18n.t('msg.guide.close'),
+                nextBtnText: i18n.t('msg.guide.next'),
+                prevBtnText: i18n.t('msg.guide.prev')
+            })
+        })
+
+        const onClick = () => {
+            driver.defineSteps(steps(i18n))
+            driver.start()
+        }
+        </script>
+
+        <style scoped></style>↥
+    src/components/Guide/steps.js ▾
+        ↧// 此处不要导入 @/i18n 使用 i18n.global ，
+        // 因为我们在 router 中 layout 不是按需加载，
+        // 所以会在 Guide 会在 I18n 初始化完成之前被直接调用。
+        // 导致 i18n 为 undefined
+        const steps = i18n => {
+            return [
+                {
+                    element: '#guide-start',
+                    popover: {
+                        title: i18n.t('msg.guide.guideTitle'),
+                        description: i18n.t('msg.guide.guideDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-hamburger',
+                    popover: {
+                        title: i18n.t('msg.guide.hamburgerTitle'),
+                        description: i18n.t('msg.guide.hamburgerDesc')
+                    }
+                },
+                {
+                    element: '#guide-breadcrumb',
+                    popover: {
+                        title: i18n.t('msg.guide.breadcrumbTitle'),
+                        description: i18n.t('msg.guide.breadcrumbDesc')
+                    }
+                },
+                {
+                    element: '#guide-search',
+                    popover: {
+                        title: i18n.t('msg.guide.searchTitle'),
+                        description: i18n.t('msg.guide.searchDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-full',
+                    popover: {
+                        title: i18n.t('msg.guide.fullTitle'),
+                        description: i18n.t('msg.guide.fullDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-theme',
+                    popover: {
+                        title: i18n.t('msg.guide.themeTitle'),
+                        description: i18n.t('msg.guide.themeDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-lang',
+                    popover: {
+                        title: i18n.t('msg.guide.langTitle'),
+                        description: i18n.t('msg.guide.langDesc'),
+                        position: 'bottom-right'
+                    }
+                },
+                {
+                    element: '#guide-tags',
+                    popover: {
+                        title: i18n.t('msg.guide.tagTitle'),
+                        description: i18n.t('msg.guide.tagDesc')
+                    }
+                },
+                {
+                    element: '#guide-sidebar',
+                    popover: {
+                        title: i18n.t('msg.guide.sidebarTitle'),
+                        description: i18n.t('msg.guide.sidebarDesc'),
+                        position: 'right-center'
+                    }
+                }
+            ]
+        }
+        export default steps↥
+    src/layout/components/Navbar.vue ▾
+        ↧<div class="right-menu">
+            ►<guide class="right-menu-item hover-effect" />◄
+        </div>
+
+        import ►Guide◄ from '@/components/Guide'↥
+
 
             
     
