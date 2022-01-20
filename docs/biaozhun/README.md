@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.19 20:53</span>
+            <span>M 2022.01.20 20:56</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -22,6 +22,382 @@ pageClass: theme-item
 
 
 <pre class="code-block">
+<span class="title2" style="margin-top:5px;"><i></i>个人中心模块基本布局</span>
+<div class="block-detail">    <span class="detail-desc">src/views/Profile/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div class="my-container"&gt;
+                &lt;el-row&gt;
+                    &lt;el-col :span="6"&gt;
+                        &lt;project-card class="user-card"&gt;&lt;/project-card&gt;
+                    &lt;/el-col&gt;
+                    &lt;el-col :span="18"&gt;
+                        &lt;el-card&gt;
+                            &lt;el-tabs v-model="activeName"&gt;
+                                &lt;el-tab-pane :label="$t('msg.profile.feature')" name="feature"&gt;
+                                    &lt;feature /&gt;
+                                &lt;/el-tab-pane&gt;
+                                &lt;el-tab-pane :label="$t('msg.profile.chapter')" name="chapter"&gt;
+                                    &lt;chapter /&gt;
+                                &lt;/el-tab-pane&gt;
+                                &lt;el-tab-pane :label="$t('msg.profile.author')" name="author"&gt;
+                                    &lt;author /&gt;
+                                &lt;/el-tab-pane&gt;
+                            &lt;/el-tabs&gt;
+                        &lt;/el-card&gt;
+                    &lt;/el-col&gt;
+                &lt;/el-row&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        import ProjectCard from './components/ProjectCard.vue'
+        import Chapter from './components/Chapter.vue'
+        import Feature from './components/Feature.vue'
+        import Author from './components/Author.vue'
+        import { ref } from 'vue'
+        const activeName = ref('feature')
+        &lt;/script&gt;
+
+        &lt;style lang="scss" scoped&gt;
+        .my-container {
+            .user-card {
+                margin-right: 20px;
+            }
+        }
+        &lt;/style&gt;</span></div></div>
+    src/views/profile/components/ProjectCard.vue
+    src/views/profile/components/Feature.vue
+    src/views/profile/components/Chapter.vue
+    src/views/profile/components/Author.vue
+<div class="block-detail">    <span class="detail-desc">src/views/profile/components/ProjectCard.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;el-card class="user-container"&gt;
+                &lt;template #header&gt;
+                    &lt;div class="header"&gt;
+                        &lt;span&gt;&#123; &#123; $t('msg.profile.introduce') &#125; &#125;&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;div class="user-profile"&gt;
+                    <span class="comment">&#60;&#33;&#45;&#45;头像&#45;&#45;&#62;</span>
+                    &lt;div class="box-center"&gt;
+                        <i class="i0">&lt;pan-thumb :image="$store.getters.userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false"&gt;
+                            &lt;div&gt;Hello&lt;/div&gt;
+                            &#123; &#123; $store.getters.userInfo.title &#125; &#125;
+                        &lt;/pan-thumb&gt;</i>
+                    &lt;/div&gt;
+
+                    <span class="comment">&#60;&#33;&#45;&#45;姓名 && 角色&#45;&#45;&#62;</span>
+                    &lt;div class="box-center"&gt;
+                        &lt;div class="user-name text-center"&gt;
+                            &#123; &#123; $store.getters.userInfo.username &#125; &#125;
+                        &lt;/div&gt;
+                        &lt;div class="user-role text-center text-muted"&gt;
+                            &#123; &#123; $store.getters.userInfo.title &#125; &#125;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                <span class="comment">&#60;&#33;&#45;&#45;简介&#45;&#45;&#62;</span>
+                <i class="i1">&lt;div class="project-bio"&gt;
+                    &lt;div class="project-bio-section"&gt;
+                        &lt;div class="project-bio-section-header"&gt;
+                            &lt;svg-icon icon="introduce" /&gt;
+                            &lt;span&gt;&#123; &#123; $t('msg.profile.projectIntroduction') &#125; &#125;&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class="project-bio-section-body"&gt;
+                            &lt;div class="text-muted"&gt;
+                                &#123; &#123; $t('msg.profile.muted') &#125; &#125;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    <span class="comment">&#60;&#33;&#45;&#45;功能区域&#45;&#45;&#62;</span>
+                    &lt;div class="project-bio-section"&gt;
+                        &lt;div class="project-bio-section-header"&gt;
+                            &lt;svg-icon icon="reward" /&gt;&lt;span&gt;&#123; &#123; $t('msg.profile.projectFunction') &#125; &#125;&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class="project-bio-section-body"&gt;
+                            &lt;div class="progress-item" v-for="item in features" :key="item.id"&gt;
+                                &lt;div&gt;&#123; &#123; item.title &#125; &#125;&lt;/div&gt;
+                                &lt;el-progress :percentage="item.percentage" status="success" /&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;</i>
+
+                
+            &lt;/el-card&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        <i class="i0">import PanThumb from '@/components/PanThumb/index.vue'</i>
+        <i class="i1">import { defineProps } from 'vue'
+        defineProps({
+            features: {
+                type: Array,
+                required: true
+            }
+        })</i>
+        &lt;/script&gt;
+
+        &lt;style lang="scss" scoped&gt;
+        .user-container {
+            .text-muted {
+                font-size: 14px;
+                color: #777;
+            }
+            .user-profile {
+                text-align: center;
+                .user-name {
+                    font-weight: bold;
+                }
+                .box-center {
+                    padding-top: 10px;
+                }
+                .user-role {
+                    padding-top: 10px;
+                    font-weight: 400;
+                }
+            }
+            <i class="i1">.project-bio {
+                margin-top: 20px;
+                color: #606266;
+                span {
+                    padding-left: 4px;
+                }
+
+                .project-bio-section {
+                    margin-bottom: 36px;
+                    .project-bio-section-header {
+                        border-bottom: 1px solid #dfe6ec;
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                    }
+                    .project-bio-section-body {
+                        .progress-item {
+                            margin-top: 10px;
+                            div {
+                                font-size: 14px;
+                                margin-bottom: 2px;
+                            }
+                        }
+                    }
+                }
+            }</i>
+        }
+        &lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/components/PanThumb/index.vue</span><span class="comment"> 头像组件</span><div class="detail-content">        <span>&lt;template&gt;
+            &lt;div :style="{ zIndex: zIndex, height: height, width: width }" class="pan-item"&gt;
+                &lt;div class="pan-info"&gt;
+                    &lt;div class="pan-info-roles-container"&gt;
+                        &lt;slot /&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div :style="{ backgroundImage: `url(${image})` }" class="pan-thumb"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script setup&gt;
+        import { defineProps } from 'vue'
+        defineProps({
+            image: {
+                type: String
+            },
+            zIndex: {
+                type: Number,
+                default: 1
+            },
+            width: {
+                type: String,
+                default: '150px'
+            },
+            height: {
+                type: String,
+                default: '150px'
+            }
+        })
+        &lt;/script&gt;
+
+        &lt;style scoped&gt;
+        .pan-item {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            cursor: default;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .pan-info-roles-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .pan-thumb {
+            width: 100%;
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
+            border-radius: 50%;
+            overflow: hidden;
+            position: absolute;
+            transform-origin: 95% 40%;
+            transition: all 0.3s ease-in-out;
+        }
+        .pan-info {
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+        .pan-info h3 {
+            color: #fff;
+            text-transform: uppercase;
+            position: relative;
+            letter-spacing: 2px;
+            font-size: 14px;
+            margin: 0 60px;
+            padding: 22px 0 0 0;
+            height: 85px;
+            font-family: 'Open Sans', Arial, sans-serif;
+            text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .pan-info p {
+            color: #fff;
+            padding: 10px 5px;
+            font-style: italic;
+            margin: 0 30px;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .pan-info p a {
+            display: block;
+            color: #333;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #fff;
+            font-style: normal;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+            padding-top: 24px;
+            margin: 7px auto 0;
+            font-family: 'Open Sans', Arial, sans-serif;
+            opacity: 0;
+            transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s, background 0.2s linear 0s;
+            transform: translateX(60px) rotate(90deg);
+        }
+        .pan-info p a:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .pan-item:hover .pan-thumb {
+            transform: rotate(-110deg);
+        }
+        .pan-item:hover .pan-info p a {
+            opacity: 1;
+            transform: translateX(0px) rotate(0deg);
+        }
+        &lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/api/user.js</span><span class="comment"></span><div class="detail-content">        <span>import request from '@/utils/request'
+
+        export const feature = () =&gt; {
+            return request({
+                url: '/user/feature'
+            })
+        }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;project-card class="user-card" :features="<i class="i1">featureData</i>"&gt;&lt;/project-card&gt;
+        
+        import { feature as <i class="i0">getFeature</i> } from '@/api/user'
+
+        const <i class="i1">featureData</i> = ref([])
+        const getFeatureData = async () =&gt; {
+            <i class="i1">featureData</i>.value = await <i class="i0">getFeature</i>()
+        }
+        getFeatureData()</span></div></div>
+    <span class="title3" style="margin-top:5px;"><i></i>接口国际化</span>
+<div class="block-detail">        <span class="detail-desc">src/utils/request.js</span><span class="comment"></span><div class="detail-content">            <span>// 请求拦截器
+            service.interceptors.request.use(
+                config =&gt; {                    
+                    <span class="comment">// 配置接口国际化</span>
+                    <i class="i0">config.headers['Accept-Language'] = store.getters.language</i>
+                    return config <span class="comment">// 必须返回配置</span>
+                }
+            )</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"> 功能数据重新获取</span><div class="detail-content">            <span>import { watchSwitchLang } from '@/utils/i18n'
+            <span class="comment">// 监听语言切换</span>
+            watchSwitchLang(getFeatureData)</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/store/modules/app.js</span><span class="comment"> 用户信息重新获取</span><div class="detail-content">            <span>import { watchSwitchLang } from '@/utils/i18n'
+            
+            <span class="comment">/**
+             * 监听 语言变化，重新获取个人信息
+             */</span>
+            watchSwitchLang(() =&gt; {
+                if (store.getters.token) {
+                    store.dispatch('user/getUserInfo')
+                }
+            })</span></div></div>
+        <span class="title3" style="margin-top:5px;"><i></i>功能模块开发</span>
+<div class="block-detail">            <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;feature <i class="i0">:features="featureData"</i> /&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/views/profile/components/Feature.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;el-collapse v-model="activeName" accordion&gt;
+                        &lt;el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id"&gt;
+                            &lt;div v-html="item.content"&gt;&lt;/div&gt;
+                        &lt;/el-collapse-item&gt;
+                    &lt;/el-collapse&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import { ref, defineProps } from 'vue'
+                const activeName = ref(0)
+                defineProps({
+                    features: {
+                        type: Array,
+                        required: true
+                    }
+                })
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                ::v-deep .el-collapse-item__header {
+                    font-weight: bold;
+                }
+
+                .el-collapse-item {
+                    ::v-deep a {
+                        color: #2d62f7;
+                        margin: 0 4px;
+                    }
+                }
+                &lt;/style&gt;</span></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="title1" style="margin-top:5px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
 <div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"> 创建项目</span><div class="detail-content">    <span>(*) Choose Vue version
     (*) Babel
@@ -104,7 +480,7 @@ pageClass: theme-item
     export default router</span></div></div>
 http://localhost:8080/
 
-<span class="title3" style="margin-top:5px;"><i></i>预设部署</span>
+<span class="title2" style="margin-top:5px;"><i></i>预设部署</span>
 <div class="block-detail">    <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">        <span>// token
         export const TOKEN = 'token'
         <span class="comment">// token 时间戳</span>
@@ -120,7 +496,7 @@ http://localhost:8080/
         <span class="comment">// tags</span>
         export const TAGS_VIEW = 'tagsView'</span></div></div>
 
-<span class="title3" style="margin-top:5px;"><i></i>构建登录页面 UI 结构</span>
+<span class="title2" style="margin-top:5px;"><i></i>构建登录页面 UI 结构</span>
 <div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
          * 公开路由表
          */</span>
@@ -443,7 +819,7 @@ http://localhost:8080/
             重新启动项目
     http://localhost:8080/#/Login
 
-<span class="title3" style="margin-top:5px;"><i></i>登陆逻辑</span>
+<span class="title2" style="margin-top:5px;"><i></i>登陆逻辑</span>
     表单验证
 <div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
                 &lt;el-form-item prop="username"&gt;
@@ -739,12 +1115,12 @@ http://localhost:8080/
                 })</span></div></div>
 <div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
 
-<span class="title3" style="margin-top:5px;"><i></i>搭建Layout架构</span>
+<span class="title2" style="margin-top:5px;"><i></i>搭建Layout架构</span>
     src/layout/
 <div class="block-detail">        <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div class="app-wrapper"&gt;
                     <span class="comment">&#60;&#33;&#45;&#45;左侧 menu&#45;&#45;&#62;</span>
-                    &lt;sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" /&gt;
+                    &lt;sidebar class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" /&gt;
                     &lt;div class="main-container"&gt;
                         &lt;div class="fixed-header"&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
@@ -1619,7 +1995,7 @@ http://localhost:8080/
 <div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/MenuItem.vue</span><span class="comment"> 处理 el-menu-item 样式</span><div class="detail-content">                <span>&lt;template&gt;
                     &lt;i v-if="icon.includes('el-icon')" class="sub-el-icon" :class="icon"&gt;&lt;/i&gt;
                     &lt;svg-icon v-else :icon="icon"&gt;&lt;/svg-icon&gt;
-                    &lt;span&gt;<img :src="$withBase('/images/db-brace-left.png')"> title <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                    &lt;span&gt;&#123; &#123; title &#125; &#125;&lt;/span&gt;
                 &lt;/template&gt;
 
                 &lt;script setup&gt;
@@ -1865,9 +2241,9 @@ http://localhost:8080/
                     &lt;el-breadcrumb class="breadcrumb" separator="/"&gt;
                         &lt;el-breadcrumb-item v-for="(item, index) in breadcrumbData" :key="item.path"&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
-                            &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;<img :src="$withBase('/images/db-brace-left.png')"> item.meta.title <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                            &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;&#123; &#123; item.meta.title &#125; &#125;&lt;/span&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
-                            &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;<img :src="$withBase('/images/db-brace-left.png')"> item.meta.title <img :src="$withBase('/images/db-brace-right.png')">&lt;/a&gt;
+                            &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;&#123; &#123; item.meta.title &#125; &#125;&lt;/a&gt;
                         &lt;/el-breadcrumb-item&gt;
                     &lt;/el-breadcrumb&gt;
                 &lt;/template&gt;
@@ -1925,7 +2301,7 @@ http://localhost:8080/
                     }</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                    <span>@import './transition.scss';</span></div></div>
 
-<span class="title3" style="margin-top:5px;"><i></i>国际化</span>
+<span class="title2" style="margin-top:5px;"><i></i>国际化</span>
 <div class="block-detail">    <span class="detail-desc">实现原理</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
         const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
@@ -1966,7 +2342,7 @@ http://localhost:8080/
 
                 const app = createApp(App)
                 <i class="i0">app.use(i18n)</i></span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.test') <img :src="$withBase('/images/db-brace-right.png')">&lt;/h1&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;&#123; &#123; $t('msg.test') &#125; &#125;&lt;/h1&gt;</span></div></div>
         封装 langSelect 组件用于修改 locale
 <div class="block-detail">            <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"><i class="i0">import { LANG } from '@/constant'</i>
                 <i class="i0">import { getItem, setItem } from '@/utils/storage'</i>
@@ -1991,7 +2367,7 @@ http://localhost:8080/
                     &lt;el-dropdown trigger="click" class="international" @command="handleSetLanguage"&gt;
                         &lt;div&gt;
                             &lt;el-tooltip content="国际化" :effect="effect"&gt;
-                                &lt;svg-icon icon="language" /&gt;
+                                &lt;svg-icon icon="language"/&gt;
                             &lt;/el-tooltip&gt;
                         &lt;/div&gt;
                         &lt;template #dropdown&gt;
@@ -2127,6 +2503,7 @@ http://localhost:8080/
                         close: 'close',
                         next: 'next',
                         prev: 'previous',
+                        done: 'Done',
                         guideTitle: 'guidance',
                         guideDesc: 'Turn on the boot function',
                         hamburgerTitle: 'Hamburger button',
@@ -2309,6 +2686,7 @@ http://localhost:8080/
                         close: '关闭',
                         next: '下一个',
                         prev: '上一个',
+                        done: '完成',
                         guideTitle: '引导',
                         guideDesc: '打开引导功能',
                         hamburgerTitle: '汉堡按钮',
@@ -2483,9 +2861,9 @@ http://localhost:8080/
                     &lt;/script&gt;</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
-                        &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;<img :src="$withBase('/images/db-brace-left.png')"> generateTitle(item.meta.title) <img :src="$withBase('/images/db-brace-right.png')">&lt;/span&gt;
+                        &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;&#123; &#123; generateTitle(item.meta.title) &#125; &#125;&lt;/span&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
-                        &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;<img :src="$withBase('/images/db-brace-left.png')"> generateTitle(item.meta.title) <img :src="$withBase('/images/db-brace-right.png')">&lt;/a&gt;
+                        &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;&#123; &#123; generateTitle(item.meta.title) &#125; &#125;&lt;/a&gt;
                     &lt;/template&gt;
 
                     &lt;script setup&gt;
@@ -2500,19 +2878,19 @@ http://localhost:8080/
             <span class="comment">// const locale = 'zh'</span>
             const locale = getLanguage()</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
-<span class="title3" style="margin-top:5px;"><i></i>动态换肤</span>
+<span class="title2" style="margin-top:5px;"><i></i>动态换肤</span>
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             <span class="comment">&#60;&#33;&#45;&#45;主题图标&#45;&#45;&#62;</span>
             &lt;el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme"&gt;
                 &lt;div&gt;
                     &lt;el-tooltip :content="$t('msg.navBar.themeChange')"&gt;
-                        &lt;svg-icon icon="change-theme" /&gt;
+                        &lt;svg-icon icon="change-theme"/&gt;
                     &lt;/el-tooltip&gt;
                 &lt;/div&gt;
                 &lt;template #dropdown&gt;
                     &lt;el-dropdown-menu&gt;
                         &lt;el-dropdown-item command="color"&gt;
-                            <img :src="$withBase('/images/db-brace-left.png')"> $t('msg.theme.themeColorChange') <img :src="$withBase('/images/db-brace-right.png')">
+                            &#123; &#123; $t('msg.theme.themeColorChange') &#125; &#125;
                         &lt;/el-dropdown-item&gt;
                     &lt;/el-dropdown-menu&gt;
                 &lt;/template&gt;
@@ -2533,13 +2911,13 @@ http://localhost:8080/
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"> 颜色选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             &lt;el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%"&gt;
                 &lt;div class="center"&gt;
-                    &lt;p class="title"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.theme.themeColorChange') <img :src="$withBase('/images/db-brace-right.png')">&lt;/p&gt;
+                    &lt;p class="title"&gt;&#123; &#123; $t('msg.theme.themeColorChange') &#125; &#125;&lt;/p&gt;
                     &lt;el-color-picker v-model="mColor" :predefine="predefineColors"&gt;&lt;/el-color-picker&gt;
                 &lt;/div&gt;
                 &lt;template #footer&gt;
                     &lt;span class="dialog-footer"&gt;
-                        &lt;el-button @click="closed"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.universal.cancel') <img :src="$withBase('/images/db-brace-right.png')">&lt;/el-button&gt;
-                        &lt;el-button type="primary" @click="comfirm"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.universal.confirm') <img :src="$withBase('/images/db-brace-right.png')">&lt;/el-button&gt;
+                        &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.universal.cancel') &#125; &#125;&lt;/el-button&gt;
+                        &lt;el-button type="primary" @click="comfirm"&gt;&#123; &#123; $t('msg.universal.confirm') &#125; &#125;&lt;/el-button&gt;
                     &lt;/span&gt;
                 &lt;/template&gt;
             &lt;/el-dialog&gt;
@@ -2929,7 +3307,7 @@ http://localhost:8080/
                     }
                 }
             }</span></div></div>            
-<span class="title3" style="margin-top:5px;"><i></i>Screenfull原理及方案分析</span>
+<span class="title2" style="margin-top:5px;"><i></i>Screenfull原理及方案分析</span>
     封装Screenfull组件
         npm i screenfull@5.1.0 --save
 <div class="block-detail">        <span class="detail-desc">components/Screenfull/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
@@ -2969,7 +3347,7 @@ http://localhost:8080/
             &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;screenfull class="right-menu-item hover-effect" /&gt;
             import Screenfull from '@/components/Screenfull'</span></div></div>            
-<span class="title3" style="margin-top:5px;"><i></i>HeaderSearch原理及方案分析</span>
+<span class="title2" style="margin-top:5px;"><i></i>HeaderSearch原理及方案分析</span>
     1.根据指定内容对所有页面进行检索
     2.以 select 形式展示检索出的页面
     3.通过检索页面可快速进入对应页面
@@ -3174,7 +3552,7 @@ http://localhost:8080/
                 })
                 initFuse(searchPool.value)
             })</span></div></div>
-<span class="title3" style="margin-top:5px;"><i></i>tagsView原理及方案分析</span>
+<span class="title2" style="margin-top:5px;"><i></i>tagsView原理及方案分析</span>
 <div class="block-detail">    <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="fixed-header"&gt;
             <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
             &lt;navbar /&gt;
@@ -3196,7 +3574,7 @@ http://localhost:8080/
                     :key="tag.fullPath"
                     :to="{ path: tag.fullPath }"
                 &gt;
-                    <img :src="$withBase('/images/db-brace-left.png')"> tag.title <img :src="$withBase('/images/db-brace-right.png')">
+                    &#123; &#123; tag.title &#125; &#125;
                     &lt;i v-show="!isActive(tag)" class="el-icon-close" @click.prevent.stop="onCloseClick(index)" /&gt;
                 &lt;/router-link&gt;
             &lt;/div&gt;
@@ -3392,10 +3770,10 @@ http://localhost:8080/
     contextMenu展示处理
 <div class="block-detail">        <span class="detail-desc">src/components/TagsView/ContextMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;ul class="context-menu-container"&gt;
-                    &lt;li @click="onRefreshClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.refresh') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
-                    &lt;li @click="onCloseClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.close') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
-                    &lt;li @click="onCloseRightClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.closeRight') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
-                    &lt;li @click="onCloseOtherClick"&gt;<img :src="$withBase('/images/db-brace-left.png')"> $t('msg.tagsView.closeOther') <img :src="$withBase('/images/db-brace-right.png')">&lt;/li&gt;
+                    &lt;li @click="onRefreshClick"&gt;&#123; &#123; $t('msg.tagsView.refresh') &#125; &#125;&lt;/li&gt;
+                    &lt;li @click="onCloseClick"&gt;&#123; &#123; $t('msg.tagsView.close') &#125; &#125;&lt;/li&gt;
+                    &lt;li @click="onCloseRightClick"&gt;&#123; &#123; $t('msg.tagsView.closeRight') &#125; &#125;&lt;/li&gt;
+                    &lt;li @click="onCloseOtherClick"&gt;&#123; &#123; $t('msg.tagsView.closeOther') &#125; &#125;&lt;/li&gt;
                 &lt;/ul&gt;
             &lt;/template&gt;
 
@@ -3560,7 +3938,7 @@ http://localhost:8080/
                 opacity: 0;
                 transform: translateX(30px);
             }</span></div></div>
-<span class="title3" style="margin-top:5px;"><i></i>Guide引导页原理及方案分析</span>
+<span class="title2" style="margin-top:5px;"><i></i>Guide引导页原理及方案分析</span>
     <span class="block-command">admin</span> npm i driver.js@0.9.8 --save
 <div class="block-detail">    <span class="detail-desc">src/components/Guide/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div&gt;
@@ -3582,11 +3960,12 @@ http://localhost:8080/
         let driver = null
         onMounted(() =&gt; {
             driver = new Driver({
-                <span class="comment">// 禁止点击蒙版关闭</span>
-                allowClose: false,
-                closeBtnText: i18n.t('msg.guide.close'),
-                nextBtnText: i18n.t('msg.guide.next'),
-                prevBtnText: i18n.t('msg.guide.prev')
+                allowClose: false,                       <span class="comment">// 是否允许点击外部关闭</span>
+                closeBtnText: i18n.t('msg.guide.close'), <span class="comment">// 关闭按钮标题</span>
+                nextBtnText: i18n.t('msg.guide.next'),   <span class="comment">// 下一步按钮标题</span>
+                prevBtnText: i18n.t('msg.guide.prev'),   <span class="comment">// 上一步按钮标题</span>
+                doneBtnText: i18n.t('msg.guide.done'),   <span class="comment">// 完成按钮标题</span>
+                stageBackground: 'rgba(0, 0, 0, 0.2)'    <span class="comment">// 引导对话的背景色</span>
             })
         })
 
@@ -3597,6 +3976,11 @@ http://localhost:8080/
         &lt;/script&gt;
 
         &lt;style scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="right-menu"&gt;
+            <i class="i0">&lt;guide class="right-menu-item hover-effect" /&gt;</i>
+        &lt;/div&gt;
+
+        import <i class="i0">Guide</i> from '@/components/Guide'</span></div></div>
 <div class="block-detail">    <span class="detail-desc">src/components/Guide/steps.js</span><span class="comment"></span><div class="detail-content">        <span>// 此处不要导入 @/i18n 使用 i18n.global ，
         <span class="comment">// 因为我们在 router 中 layout 不是按需加载，</span>
         <span class="comment">// 所以会在 Guide 会在 I18n 初始化完成之前被直接调用。</span>
@@ -3604,7 +3988,7 @@ http://localhost:8080/
         const steps = i18n =&gt; {
             return [
                 {
-                    element: '#guide-start',
+                    element: '<i class="i0">#guide-start</i>',
                     popover: {
                         title: i18n.t('msg.guide.guideTitle'),
                         description: i18n.t('msg.guide.guideDesc'),
@@ -3612,21 +3996,21 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-hamburger',
+                    element: '<i class="i0">#guide-hamburger</i>',
                     popover: {
                         title: i18n.t('msg.guide.hamburgerTitle'),
                         description: i18n.t('msg.guide.hamburgerDesc')
                     }
                 },
                 {
-                    element: '#guide-breadcrumb',
+                    element: '<i class="i0">#guide-breadcrumb</i>',
                     popover: {
                         title: i18n.t('msg.guide.breadcrumbTitle'),
                         description: i18n.t('msg.guide.breadcrumbDesc')
                     }
                 },
                 {
-                    element: '#guide-search',
+                    element: '<i class="i0">#guide-search</i>',
                     popover: {
                         title: i18n.t('msg.guide.searchTitle'),
                         description: i18n.t('msg.guide.searchDesc'),
@@ -3634,7 +4018,7 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-full',
+                    element: '<i class="i0">#guide-full</i>',
                     popover: {
                         title: i18n.t('msg.guide.fullTitle'),
                         description: i18n.t('msg.guide.fullDesc'),
@@ -3642,7 +4026,7 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-theme',
+                    element: '<i class="i0">#guide-theme</i>',
                     popover: {
                         title: i18n.t('msg.guide.themeTitle'),
                         description: i18n.t('msg.guide.themeDesc'),
@@ -3650,7 +4034,7 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-lang',
+                    element: '<i class="i0">#guide-lang</i>',
                     popover: {
                         title: i18n.t('msg.guide.langTitle'),
                         description: i18n.t('msg.guide.langDesc'),
@@ -3658,14 +4042,14 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-tags',
+                    element: '<i class="i0">#guide-tags</i>',
                     popover: {
                         title: i18n.t('msg.guide.tagTitle'),
                         description: i18n.t('msg.guide.tagDesc')
                     }
                 },
                 {
-                    element: '#guide-sidebar',
+                    element: '<i class="i0">#guide-sidebar</i>',
                     popover: {
                         title: i18n.t('msg.guide.sidebarTitle'),
                         description: i18n.t('msg.guide.sidebarDesc'),
@@ -3675,11 +4059,18 @@ http://localhost:8080/
             ]
         }
         export default steps</span></div></div>
-<div class="block-detail">    <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="right-menu"&gt;
-            <i class="i0">&lt;guide class="right-menu-item hover-effect" /&gt;</i>
-        &lt;/div&gt;
+<div class="block-detail">    <span class="detail-desc">标识ID</span><span class="comment"></span><div class="detail-content">        <span>src/components/Guide/index.vue        &lt;svg-icon <i class="i0">id="guide-start"</i>/&gt;
+        src/components/Hamburger/index.vue    &lt;svg-icon <i class="i0">id="guide-hamburger"</i>&gt;&lt;/svg-icon&gt;
+        src/layout/components/Navbar.vue      &lt;breadcrumb <i class="i0">id="guide-breadcrumb"</i>/&gt;
+        src/components/HeaderSearch/index.vue &lt;svg-icon <i class="i0">id="guide-search"</i>/&gt;
+        src/components/Screenfull/index.vue   &lt;svg-icon <i class="i0">id="guide-full"</i>/&gt;
+        src/components/ThemePicker/index      &lt;svg-icon <i class="i0">id="guide-theme"</i>/&gt;
+        src/components/LangSelect/index.vue   &lt;svg-icon <i class="i0">id="guide-lang"</i>/&gt;
+        src/layout/index.vue                  &lt;tags-view <i class="i0">id="guide-tags"</i>&gt;&lt;/tags-view&gt;
+        src/layout/index.vue                  &lt;sidebar <i class="i0">id="guide-sidebar"</i>/&gt;</span></div></div>
+    
+        
 
-        import <i class="i0">Guide</i> from '@/components/Guide'</span></div></div>
 
 
             
@@ -4099,8 +4490,8 @@ read('RES|markdown.scene')
     &#91;FORM_START&#93;
 
         [{color:#f33}e4fc5eb9-316a-48e5-a970-dc116e7ab897]
-        <img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}API]<img :src="$withBase('/images/db-brace-right.png')">
-        <img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}RES]<img :src="$withBase('/images/db-brace-right.png')">
+        &#123; &#123;[{color:#26f}API]&#125; &#125;
+        &#123; &#123;[{color:#26f}RES]&#125; &#125;
 
         按钮： 
         [BTNbg6 cf|+ New Collection]
@@ -4122,8 +4513,8 @@ read('RES|markdown.scene')
         ▭{color:#ffaa22}collection-name▭
         ▭{color:#20b477}(bd)登录▭
         ▭{color:#8922ff}environment-name▭
-        ▭<img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}API]<img :src="$withBase('/images/db-brace-right.png')">/api/login/▭
-        ▭<img :src="$withBase('/images/db-brace-left.png')">[{color:#26f}RES]<img :src="$withBase('/images/db-brace-right.png')">/api/cdn/UploadFile/▭
+        ▭&#123; &#123;[{color:#26f}API]&#125; &#125;/api/login/▭
+        ▭&#123; &#123;[{color:#26f}RES]&#125; &#125;/api/cdn/UploadFile/▭
 
         选项卡：
         ▥⇤Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings▥

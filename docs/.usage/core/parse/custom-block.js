@@ -55,8 +55,10 @@ function parseCustomBlock(block, path) {
     } 
 
     // 模板符{{}}用图片表示
-    block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
-    block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
+    // block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
+    // block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
+    block = block.replace(/\{\{/g, `&#123; &#123;`)  
+    block = block.replace(/\}\}/g, `&#125; &#125;`)
 
     // 命令行示意
     while (/^\x20*(([\w-\/]+)\&gt;)\s[^\r\n]+/m.exec(block) !== null) {

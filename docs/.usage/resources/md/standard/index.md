@@ -1,6 +1,392 @@
  
 
 ===+
+【2】个人中心模块基本布局
+    src/views/Profile/index.vue ▾
+        ↧<template>
+            <div class="my-container">
+                <el-row>
+                    <el-col :span="6">
+                        <project-card class="user-card"></project-card>
+                    </el-col>
+                    <el-col :span="18">
+                        <el-card>
+                            <el-tabs v-model="activeName">
+                                <el-tab-pane :label="$t('msg.profile.feature')" name="feature">
+                                    <feature />
+                                </el-tab-pane>
+                                <el-tab-pane :label="$t('msg.profile.chapter')" name="chapter">
+                                    <chapter />
+                                </el-tab-pane>
+                                <el-tab-pane :label="$t('msg.profile.author')" name="author">
+                                    <author />
+                                </el-tab-pane>
+                            </el-tabs>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </div>
+        </template>
+
+        <script setup>
+        import ProjectCard from './components/ProjectCard.vue'
+        import Chapter from './components/Chapter.vue'
+        import Feature from './components/Feature.vue'
+        import Author from './components/Author.vue'
+        import { ref } from 'vue'
+        const activeName = ref('feature')
+        </script>
+
+        <style lang="scss" scoped>
+        .my-container {
+            .user-card {
+                margin-right: 20px;
+            }
+        }
+        </style>↥
+    src/views/profile/components/ProjectCard.vue
+    src/views/profile/components/Feature.vue
+    src/views/profile/components/Chapter.vue
+    src/views/profile/components/Author.vue
+    src/views/profile/components/ProjectCard.vue ▾
+        ↧<template>
+            <el-card class="user-container">
+                <template #header>
+                    <div class="header">
+                        <span>{{ $t('msg.profile.introduce') }}</span>
+                    </div>
+                </template>
+
+                <div class="user-profile">
+                    <!-- 头像 -->
+                    <div class="box-center">
+                        ►<pan-thumb :image="$store.getters.userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
+                            <div>Hello</div>
+                            {{ $store.getters.userInfo.title }}
+                        </pan-thumb>◄
+                    </div>
+
+                    <!-- 姓名 && 角色 -->
+                    <div class="box-center">
+                        <div class="user-name text-center">
+                            {{ $store.getters.userInfo.username }}
+                        </div>
+                        <div class="user-role text-center text-muted">
+                            {{ $store.getters.userInfo.title }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 简介 -->
+                1►<div class="project-bio">
+                    <div class="project-bio-section">
+                        <div class="project-bio-section-header">
+                            <svg-icon icon="introduce" />
+                            <span>{{ $t('msg.profile.projectIntroduction') }}</span>
+                        </div>
+                        <div class="project-bio-section-body">
+                            <div class="text-muted">
+                                {{ $t('msg.profile.muted') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 功能区域 -->
+                    <div class="project-bio-section">
+                        <div class="project-bio-section-header">
+                            <svg-icon icon="reward" /><span>{{ $t('msg.profile.projectFunction') }}</span>
+                        </div>
+                        <div class="project-bio-section-body">
+                            <div class="progress-item" v-for="item in features" :key="item.id">
+                                <div>{{ item.title }}</div>
+                                <el-progress :percentage="item.percentage" status="success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>◄
+
+                
+            </el-card>
+        </template>
+
+        <script setup>
+        ►import PanThumb from '@/components/PanThumb/index.vue'◄
+        1►import { defineProps } from 'vue'
+        defineProps({
+            features: {
+                type: Array,
+                required: true
+            }
+        })◄
+        </script>
+
+        <style lang="scss" scoped>
+        .user-container {
+            .text-muted {
+                font-size: 14px;
+                color: #777;
+            }
+            .user-profile {
+                text-align: center;
+                .user-name {
+                    font-weight: bold;
+                }
+                .box-center {
+                    padding-top: 10px;
+                }
+                .user-role {
+                    padding-top: 10px;
+                    font-weight: 400;
+                }
+            }
+            1►.project-bio {
+                margin-top: 20px;
+                color: #606266;
+                span {
+                    padding-left: 4px;
+                }
+
+                .project-bio-section {
+                    margin-bottom: 36px;
+                    .project-bio-section-header {
+                        border-bottom: 1px solid #dfe6ec;
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                    }
+                    .project-bio-section-body {
+                        .progress-item {
+                            margin-top: 10px;
+                            div {
+                                font-size: 14px;
+                                margin-bottom: 2px;
+                            }
+                        }
+                    }
+                }
+            }◄
+        }
+        </style>↥
+    src/components/PanThumb/index.vue ▾ 头像组件
+        ↧<template>
+            <div :style="{ zIndex: zIndex, height: height, width: width }" class="pan-item">
+                <div class="pan-info">
+                    <div class="pan-info-roles-container">
+                        <slot />
+                    </div>
+                </div>
+                <div :style="{ backgroundImage: `url(${image})` }" class="pan-thumb"></div>
+            </div>
+        </template>
+
+        <script setup>
+        import { defineProps } from 'vue'
+        defineProps({
+            image: {
+                type: String
+            },
+            zIndex: {
+                type: Number,
+                default: 1
+            },
+            width: {
+                type: String,
+                default: '150px'
+            },
+            height: {
+                type: String,
+                default: '150px'
+            }
+        })
+        </script>
+
+        <style scoped>
+        .pan-item {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            cursor: default;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .pan-info-roles-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .pan-thumb {
+            width: 100%;
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
+            border-radius: 50%;
+            overflow: hidden;
+            position: absolute;
+            transform-origin: 95% 40%;
+            transition: all 0.3s ease-in-out;
+        }
+        .pan-info {
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+        .pan-info h3 {
+            color: #fff;
+            text-transform: uppercase;
+            position: relative;
+            letter-spacing: 2px;
+            font-size: 14px;
+            margin: 0 60px;
+            padding: 22px 0 0 0;
+            height: 85px;
+            font-family: 'Open Sans', Arial, sans-serif;
+            text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .pan-info p {
+            color: #fff;
+            padding: 10px 5px;
+            font-style: italic;
+            margin: 0 30px;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .pan-info p a {
+            display: block;
+            color: #333;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #fff;
+            font-style: normal;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+            padding-top: 24px;
+            margin: 7px auto 0;
+            font-family: 'Open Sans', Arial, sans-serif;
+            opacity: 0;
+            transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s, background 0.2s linear 0s;
+            transform: translateX(60px) rotate(90deg);
+        }
+        .pan-info p a:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .pan-item:hover .pan-thumb {
+            transform: rotate(-110deg);
+        }
+        .pan-item:hover .pan-info p a {
+            opacity: 1;
+            transform: translateX(0px) rotate(0deg);
+        }
+        </style>↥
+    src/api/user.js ▾
+        ↧import request from '@/utils/request'
+
+        export const feature = () => {
+            return request({
+                url: '/user/feature'
+            })
+        }↥
+    src/views/profile/index.vue ▾
+        ↧<project-card class="user-card" :features="1►featureData◄"></project-card>
+        
+        import { feature as ►getFeature◄ } from '@/api/user'
+
+        const 1►featureData◄ = ref([])
+        const getFeatureData = async () => {
+            1►featureData◄.value = await ►getFeature◄()
+        }
+        getFeatureData()↥
+    【3】接口国际化
+        src/utils/request.js ▾
+            ↧// 请求拦截器
+            service.interceptors.request.use(
+                config => {                    
+                    // 配置接口国际化
+                    ►config.headers['Accept-Language'] = store.getters.language◄
+                    return config // 必须返回配置
+                }
+            )↥
+        src/views/profile/index.vue ▾ 功能数据重新获取
+            ↧import { watchSwitchLang } from '@/utils/i18n'
+            // 监听语言切换
+            watchSwitchLang(getFeatureData)↥
+        src/store/modules/app.js ▾ 用户信息重新获取
+            ↧import { watchSwitchLang } from '@/utils/i18n'
+            
+            /**
+             * 监听 语言变化，重新获取个人信息
+             */
+            watchSwitchLang(() => {
+                if (store.getters.token) {
+                    store.dispatch('user/getUserInfo')
+                }
+            })↥
+        【3】功能模块开发
+            src/views/profile/index.vue ▾
+                ↧<feature ►:features="featureData"◄ />↥
+            src/views/profile/components/Feature.vue ▾
+                ↧<template>
+                    <el-collapse v-model="activeName" accordion>
+                        <el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id">
+                            <div v-html="item.content"></div>
+                        </el-collapse-item>
+                    </el-collapse>
+                </template>
+
+                <script setup>
+                import { ref, defineProps } from 'vue'
+                const activeName = ref(0)
+                defineProps({
+                    features: {
+                        type: Array,
+                        required: true
+                    }
+                })
+                </script>
+
+                <style lang="scss" scoped>
+                ::v-deep .el-collapse-item__header {
+                    font-weight: bold;
+                }
+
+                .el-collapse-item {
+                    ::v-deep a {
+                        color: #2d62f7;
+                        margin: 0 4px;
+                    }
+                }
+                </style>↥
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 【1】项目架构之搭建登录架构解决方案与实现
 hello> vue create admin ▾ 创建项目
     ↧(*) Choose Vue version
@@ -91,7 +477,7 @@ src/router/index.js ▾
     export default router↥
 http://localhost:8080/
 
-【3】预设部署
+【2】预设部署
     src/constant/index.js ▾ 抽取常量
         ↧// token
         export const TOKEN = 'token'
@@ -108,7 +494,7 @@ http://localhost:8080/
         // tags
         export const TAGS_VIEW = 'tagsView'↥
 
-【3】构建登录页面 UI 结构
+【2】构建登录页面 UI 结构
     src/router/index.js ▾
         ↧/**
          * 公开路由表
@@ -442,7 +828,7 @@ http://localhost:8080/
             重新启动项目
     http://localhost:8080/#/Login
 
-【3】登陆逻辑
+【2】登陆逻辑
     表单验证
         src/views/login/index.vue ▾
             ↧▧<el-form :model="1►loginForm◄" :rules="2►loginRules◄">
@@ -759,13 +1145,13 @@ http://localhost:8080/
             src/main.js ▾{color:#fff;background-color:#00c381} 导入鉴权模块
                 ↧import './permission'↥
 
-【3】搭建Layout架构
+【2】搭建Layout架构
     src/layout/
         index.vue ▾ 基础架构
             ↧<template>
                 <div class="app-wrapper">
                     <!-- 左侧 menu -->
-                    <sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" />
+                    <sidebar class="sidebar-container" :style="{ backgroundColor: variables.menuBg }" />
                     <div class="main-container">
                         <div class="fixed-header">
                             <!-- 顶部的 navbar -->
@@ -1996,7 +2382,7 @@ http://localhost:8080/
                 src/styles/index.scss ▾
                     ↧@import './transition.scss';↥
 
-【3】国际化
+【2】国际化
     实现原理 ▾
         ↧▧
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
@@ -2069,7 +2455,7 @@ http://localhost:8080/
                     <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
                         <div>
                             <el-tooltip content="国际化" :effect="effect">
-                                <svg-icon icon="language" />
+                                <svg-icon icon="language"/>
                             </el-tooltip>
                         </div>
                         <template #dropdown>
@@ -2207,6 +2593,7 @@ http://localhost:8080/
                         close: 'close',
                         next: 'next',
                         prev: 'previous',
+                        done: 'Done',
                         guideTitle: 'guidance',
                         guideDesc: 'Turn on the boot function',
                         hamburgerTitle: 'Hamburger button',
@@ -2390,6 +2777,7 @@ http://localhost:8080/
                         close: '关闭',
                         next: '下一个',
                         prev: '上一个',
+                        done: '完成',
                         guideTitle: '引导',
                         guideDesc: '打开引导功能',
                         hamburgerTitle: '汉堡按钮',
@@ -2590,14 +2978,14 @@ http://localhost:8080/
             const locale = getLanguage()↥            
         src/store/getters.js ▾ 设置快捷访问
             ↧language: state => state.app.language↥
-【3】动态换肤
+【2】动态换肤
     src/components/ThemePicker/index ▾ 封装主题选择组件
         ↧<template>
             <!-- 主题图标 -->
             <el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme">
                 <div>
                     <el-tooltip :content="$t('msg.navBar.themeChange')">
-                        <svg-icon icon="change-theme" />
+                        <svg-icon icon="change-theme"/>
                     </el-tooltip>
                 </div>
                 <template #dropdown>
@@ -3041,7 +3429,7 @@ http://localhost:8080/
                     }
                 }
             }↥            
-【3】Screenfull原理及方案分析
+【2】Screenfull原理及方案分析
     封装Screenfull组件
         npm i screenfull@5.1.0 --save
         components/Screenfull/index.vue ▾
@@ -3083,7 +3471,7 @@ http://localhost:8080/
         src/layout/components/Navbar.vue ▾
             ↧<screenfull class="right-menu-item hover-effect" />
             import Screenfull from '@/components/Screenfull'↥            
-【3】HeaderSearch原理及方案分析
+【2】HeaderSearch原理及方案分析
     1.根据指定内容对所有页面进行检索
     2.以 select 形式展示检索出的页面
     3.通过检索页面可快速进入对应页面
@@ -3293,7 +3681,7 @@ http://localhost:8080/
                 })
                 initFuse(searchPool.value)
             })↥
-【3】tagsView原理及方案分析
+【2】tagsView原理及方案分析
     src/layout/index.vue ▾
         ↧<div class="fixed-header">
             <!-- 顶部的 navbar -->
@@ -3692,7 +4080,7 @@ http://localhost:8080/
                 opacity: 0;
                 transform: translateX(30px);
             }↥
-【3】Guide引导页原理及方案分析
+【2】Guide引导页原理及方案分析
     admin> npm i driver.js@0.9.8 --save
     src/components/Guide/index.vue ▾
         ↧<template>
@@ -3715,11 +4103,12 @@ http://localhost:8080/
         let driver = null
         onMounted(() => {
             driver = new Driver({
-                // 禁止点击蒙版关闭
-                allowClose: false,
-                closeBtnText: i18n.t('msg.guide.close'),
-                nextBtnText: i18n.t('msg.guide.next'),
-                prevBtnText: i18n.t('msg.guide.prev')
+                allowClose: false,                       // 是否允许点击外部关闭
+                closeBtnText: i18n.t('msg.guide.close'), // 关闭按钮标题
+                nextBtnText: i18n.t('msg.guide.next'),   // 下一步按钮标题
+                prevBtnText: i18n.t('msg.guide.prev'),   // 上一步按钮标题
+                doneBtnText: i18n.t('msg.guide.done'),   // 完成按钮标题
+                stageBackground: 'rgba(0, 0, 0, 0.2)'    // 引导对话的背景色
             })
         })
 
@@ -3730,6 +4119,12 @@ http://localhost:8080/
         </script>
 
         <style scoped></style>↥
+    src/layout/components/Navbar.vue ▾
+        ↧<div class="right-menu">
+            ►<guide class="right-menu-item hover-effect" />◄
+        </div>
+
+        import ►Guide◄ from '@/components/Guide'↥
     src/components/Guide/steps.js ▾
         ↧// 此处不要导入 @/i18n 使用 i18n.global ，
         // 因为我们在 router 中 layout 不是按需加载，
@@ -3738,7 +4133,7 @@ http://localhost:8080/
         const steps = i18n => {
             return [
                 {
-                    element: '#guide-start',
+                    element: '►#guide-start◄',
                     popover: {
                         title: i18n.t('msg.guide.guideTitle'),
                         description: i18n.t('msg.guide.guideDesc'),
@@ -3746,21 +4141,21 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-hamburger',
+                    element: '►#guide-hamburger◄',
                     popover: {
                         title: i18n.t('msg.guide.hamburgerTitle'),
                         description: i18n.t('msg.guide.hamburgerDesc')
                     }
                 },
                 {
-                    element: '#guide-breadcrumb',
+                    element: '►#guide-breadcrumb◄',
                     popover: {
                         title: i18n.t('msg.guide.breadcrumbTitle'),
                         description: i18n.t('msg.guide.breadcrumbDesc')
                     }
                 },
                 {
-                    element: '#guide-search',
+                    element: '►#guide-search◄',
                     popover: {
                         title: i18n.t('msg.guide.searchTitle'),
                         description: i18n.t('msg.guide.searchDesc'),
@@ -3768,7 +4163,7 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-full',
+                    element: '►#guide-full◄',
                     popover: {
                         title: i18n.t('msg.guide.fullTitle'),
                         description: i18n.t('msg.guide.fullDesc'),
@@ -3776,7 +4171,7 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-theme',
+                    element: '►#guide-theme◄',
                     popover: {
                         title: i18n.t('msg.guide.themeTitle'),
                         description: i18n.t('msg.guide.themeDesc'),
@@ -3784,7 +4179,7 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-lang',
+                    element: '►#guide-lang◄',
                     popover: {
                         title: i18n.t('msg.guide.langTitle'),
                         description: i18n.t('msg.guide.langDesc'),
@@ -3792,14 +4187,14 @@ http://localhost:8080/
                     }
                 },
                 {
-                    element: '#guide-tags',
+                    element: '►#guide-tags◄',
                     popover: {
                         title: i18n.t('msg.guide.tagTitle'),
                         description: i18n.t('msg.guide.tagDesc')
                     }
                 },
                 {
-                    element: '#guide-sidebar',
+                    element: '►#guide-sidebar◄',
                     popover: {
                         title: i18n.t('msg.guide.sidebarTitle'),
                         description: i18n.t('msg.guide.sidebarDesc'),
@@ -3809,12 +4204,19 @@ http://localhost:8080/
             ]
         }
         export default steps↥
-    src/layout/components/Navbar.vue ▾
-        ↧<div class="right-menu">
-            ►<guide class="right-menu-item hover-effect" />◄
-        </div>
+    标识ID ▾
+        ↧src/components/Guide/index.vue        <svg-icon ►id="guide-start"◄/>
+        src/components/Hamburger/index.vue    <svg-icon ►id="guide-hamburger"◄></svg-icon>
+        src/layout/components/Navbar.vue      <breadcrumb ►id="guide-breadcrumb"◄/>
+        src/components/HeaderSearch/index.vue <svg-icon ►id="guide-search"◄/>
+        src/components/Screenfull/index.vue   <svg-icon ►id="guide-full"◄/>
+        src/components/ThemePicker/index      <svg-icon ►id="guide-theme"◄/>
+        src/components/LangSelect/index.vue   <svg-icon ►id="guide-lang"◄/>
+        src/layout/index.vue                  <tags-view ►id="guide-tags"◄></tags-view>
+        src/layout/index.vue                  <sidebar ►id="guide-sidebar"◄/>↥
+    
+        
 
-        import ►Guide◄ from '@/components/Guide'↥
 
 
             
