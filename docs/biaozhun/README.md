@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.20 20:56</span>
+            <span>M 2022.01.21 20:40</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -22,7 +22,7 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="title2" style="margin-top:5px;"><i></i>个人中心模块基本布局</span>
+<span class="title2" style="margin-top:8px;"><i></i>个人中心模块基本布局</span>
 <div class="block-detail">    <span class="detail-desc">src/views/Profile/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="my-container"&gt;
                 &lt;el-row&gt;
@@ -318,7 +318,7 @@ pageClass: theme-item
             <i class="i1">featureData</i>.value = await <i class="i0">getFeature</i>()
         }
         getFeatureData()</span></div></div>
-    <span class="title3" style="margin-top:5px;"><i></i>接口国际化</span>
+    <span class="title3" style="margin-top:6px;"><i></i>接口国际化</span>
 <div class="block-detail">        <span class="detail-desc">src/utils/request.js</span><span class="comment"></span><div class="detail-content">            <span>// 请求拦截器
             service.interceptors.request.use(
                 config =&gt; {                    
@@ -340,39 +340,775 @@ pageClass: theme-item
                     store.dispatch('user/getUserInfo')
                 }
             })</span></div></div>
-        <span class="title3" style="margin-top:5px;"><i></i>功能模块开发</span>
-<div class="block-detail">            <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;feature <i class="i0">:features="featureData"</i> /&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/views/profile/components/Feature.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
-                    &lt;el-collapse v-model="activeName" accordion&gt;
-                        &lt;el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id"&gt;
-                            &lt;div v-html="item.content"&gt;&lt;/div&gt;
-                        &lt;/el-collapse-item&gt;
-                    &lt;/el-collapse&gt;
+    <span class="title3" style="margin-top:6px;"><i></i>功能模块开发</span>
+<div class="block-detail">        <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;feature <i class="i0">:features="featureData"</i> /&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/views/profile/components/Feature.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;el-collapse v-model="activeName" accordion&gt;
+                    &lt;el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id"&gt;
+                        &lt;div v-html="item.content"&gt;&lt;/div&gt;
+                    &lt;/el-collapse-item&gt;
+                &lt;/el-collapse&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import { ref, defineProps } from 'vue'
+            const activeName = ref(0)
+            defineProps({
+                features: {
+                    type: Array,
+                    required: true
+                }
+            })
+            &lt;/script&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            ::v-deep .el-collapse-item__header {
+                font-weight: bold;
+            }
+
+            .el-collapse-item {
+                ::v-deep a {
+                    color: #2d62f7;
+                    margin: 0 4px;
+                }
+            }
+            &lt;/style&gt;</span></div></div>
+    <span class="title3" style="margin-top:6px;"><i></i>章节模块开发</span>
+<div class="block-detail">        <span class="detail-desc">src/api/user.js</span><span class="comment"></span><div class="detail-content">            <span>export const <i class="i0">chapter</i> = () =&gt; {
+                return request({
+                    url: '/user/chapter'
+                })
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/views/profile/components/Chapter.vue</span><span class="comment"> 调用接口处理接口国际化</span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;el-timeline&gt;
+                    &lt;el-timeline-item
+                        v-for="item in <i class="i2">chapterData</i>"
+                        :key="item.id"
+                        :timestamp="item.timestamp"
+                        placement="top"
+                        &gt;
+                        &lt;el-card&gt;
+                            &lt;h4&gt;&#123; &#123; item.content &#125; &#125;&lt;/h4&gt;
+                        &lt;/el-card&gt;
+                    &lt;/el-timeline-item&gt;
+                &lt;/el-timeline&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import { watchSwitchLang } from '@/utils/i18n'
+            import { <i class="i0">chapter</i> } from '@/api/user'
+            import { ref } from 'vue'
+            const <i class="i2">chapterData</i> = ref([])
+
+            const getChapterData = async () =&gt; {
+                <i class="i2">chapterData</i>.value = await <i class="i0">chapter</i>()
+            }
+            getChapterData()
+
+            <span class="comment">// 监听语言切换</span>
+            watchSwitchLang(getChapterData)
+            &lt;/script&gt;</span></div></div>
+    <span class="title3" style="margin-top:6px;"><i></i>作者模块开发</span>
+<div class="block-detail">        <span class="detail-desc">src/views/profile/components/Author.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;div class="author-container"&gt;
+                    &lt;div class="header"&gt;
+                        &lt;pan-thumb image="https://img4.sycdn.imooc.com/61110c2b0001152907400741-140-140.jpg" height="60px" width="60px" :hoverable="false"&gt;
+                            &#123; &#123; $t('msg.profile.name') &#125; &#125;
+                        &lt;/pan-thumb&gt;
+                        &lt;div class="header-desc"&gt;
+                            &lt;h3&gt;&#123; &#123; $t('msg.profile.name') &#125; &#125;&lt;/h3&gt;
+                            &lt;span&gt;&#123; &#123; $t('msg.profile.job') &#125; &#125;&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="info"&gt;
+                        &#123; &#123; $t('msg.profile.Introduction') &#125; &#125;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import PanThumb from '@/components/PanThumb/index.vue'
+            import {} from 'vue'
+            &lt;/script&gt;
+
+            &lt;style lang="scss" scoped&gt;
+            .author-container {
+                .header {
+                    display: flex;
+                    .header-desc {
+                        margin-left: 12px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-around;
+
+                        span {
+                            font-size: 14px;
+                        }
+                    }
+                }
+                .info {
+                    margin-top: 16px;
+                    line-height: 22px;
+                    font-size: 14px;
+                    text-indent: 26px;
+                }
+            }
+            &lt;/style&gt;</span></div></div>
+<span class="title2" style="margin-top:8px;"><i></i>权限架构处理之用户权限处理</span>
+    <span class="title3" style="margin-top:6px;"><i></i>员工管理</span>
+        <span class="title4" style="margin-top:4px;"><i></i>用户列表分页展示</span>
+<div class="block-detail">            <span class="detail-desc">src/api/user-manage.js</span><span class="comment"> 定义接口</span><div class="detail-content">                <span>import request from '@/utils/request'
+
+                <span class="comment">/**
+                 * 获取用户列表数据
+                 */</span>
+                export const <i class="i0">getUserManageList</i> = data =&gt; {
+                    return request({
+                        url: '/user-manage/list',
+                        params: data
+                    })
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class="user-manage-container"&gt;
+                        &lt;el-card class="header"&gt;
+                            &lt;div&gt;
+                                &lt;el-button type="primary"&gt; &#123; &#123; $t('msg.excel.importExcel') &#125; &#125;&lt;/el-button&gt;
+                                &lt;el-button type="success"&gt;
+                                    &#123; &#123; $t('msg.excel.exportExcel') &#125; &#125;
+                                &lt;/el-button&gt;
+                            &lt;/div&gt;
+                        &lt;/el-card&gt;
+                        &lt;el-card&gt;
+                            &lt;el-table :data="<i class="i2">tableData</i>" border style="width: 100%"&gt;
+                                &lt;el-table-column label="#" type="index" /&gt;
+                                &lt;el-table-column prop="username" :label="$t('msg.excel.name')"&gt; &lt;/el-table-column&gt;
+                                &lt;el-table-column prop="mobile" :label="$t('msg.excel.mobile')"&gt; &lt;/el-table-column&gt;
+                                &lt;el-table-column :label="$t('msg.excel.avatar')" align="center"&gt;
+                                    &lt;template v-slot="{ row }"&gt;
+                                        &lt;el-image class="avatar" :src="row.avatar" :preview-src-list="[row.avatar]"&gt;&lt;/el-image&gt;
+                                    &lt;/template&gt;
+                                &lt;/el-table-column&gt;
+                                &lt;el-table-column :label="$t('msg.excel.role')"&gt;
+                                    &lt;template #default="{ row }"&gt;
+                                        &lt;div v-if="row.role && row.role.length &gt; 0"&gt;
+                                            &lt;el-tag v-for="item in row.role" :key="item.id" size="mini"&gt;&#123; &#123; item.title &#125; &#125;&lt;/el-tag&gt;
+                                        &lt;/div&gt;
+                                        &lt;div v-else&gt;
+                                            &lt;el-tag size="mini"&gt;&#123; &#123; $t('msg.excel.defaultRole') &#125; &#125;&lt;/el-tag&gt;
+                                        &lt;/div&gt;
+                                    &lt;/template&gt;
+                                &lt;/el-table-column&gt;
+                                &lt;el-table-column prop="openTime" :label="$t('msg.excel.openTime')"&gt; &lt;/el-table-column&gt;
+                                &lt;el-table-column :label="$t('msg.excel.action')" fixed="right" width="260"&gt;
+                                    &lt;template #default&gt;
+                                        &lt;el-button type="primary" size="mini"&gt;&#123; &#123; $t('msg.excel.show') &#125; &#125;&lt;/el-button&gt;
+                                        &lt;el-button type="info" size="mini"&gt;&#123; &#123; $t('msg.excel.showRole') &#125; &#125;&lt;/el-button&gt;
+                                        &lt;el-button type="danger" size="mini"&gt;&#123; &#123; $t('msg.excel.remove') &#125; &#125;&lt;/el-button&gt;
+                                    &lt;/template&gt;
+                                &lt;/el-table-column&gt;
+                            &lt;/el-table&gt;
+
+                            &lt;el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page" :page-sizes="[2, 5, 10, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper" :total="total"&gt; &lt;/el-pagination&gt;
+                        &lt;/el-card&gt;
+                    &lt;/div&gt;
                 &lt;/template&gt;
 
                 &lt;script setup&gt;
-                import { ref, defineProps } from 'vue'
-                const activeName = ref(0)
-                defineProps({
-                    features: {
-                        type: Array,
-                        required: true
-                    }
-                })
+                import { ref } from 'vue'
+                import { <i class="i0">getUserManageList</i> } from '@/api/user-manage'
+                import { watchSwitchLang } from '@/utils/i18n'
+
+                <span class="comment">// 数据相关</span>
+                const <i class="i2">tableData</i> = ref([])
+                const total = ref(0)
+                const page = ref(1)
+                const size = ref(5)
+
+                <span class="comment">// 获取数据的方法</span>
+                const getListData = async () =&gt; {
+                    const result = await <i class="i0">getUserManageList</i>({
+                        page: page.value,
+                        size: size.value
+                    })
+                    <i class="i2">tableData</i>.value = result.list
+                    total.value = result.total
+                }
+                getListData()
+
+                <span class="comment">// 监听语言切换</span>
+                watchSwitchLang(getListData)
+
+                <span class="comment">// size 改变触发</span>
+                const handleSizeChange = currentSize =&gt; {
+                    size.value = currentSize
+                    getListData()
+                }
+                <span class="comment">// 页码改变触发</span>
+                const handleCurrentChange = currentPage =&gt; {
+                    page.value = currentPage
+                    getListData()
+                }
                 &lt;/script&gt;
 
                 &lt;style lang="scss" scoped&gt;
-                ::v-deep .el-collapse-item__header {
-                    font-weight: bold;
-                }
-
-                .el-collapse-item {
-                    ::v-deep a {
-                        color: #2d62f7;
-                        margin: 0 4px;
+                .user-manage-container {
+                    .header {
+                        margin-bottom: 22px;
+                        text-align: right;
+                    }
+                    ::v-deep .avatar {
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                    }
+                    ::v-deep .el-tag {
+                        margin-right: 6px;
+                    }
+                    .pagination {
+                        margin-top: 20px;
+                        text-align: center;
                     }
                 }
                 &lt;/style&gt;</span></div></div>
+            <span class="title5" style="margin-top:2px;"><i></i>全局属性处理时间展示</span>
+                npm i dayjs@1.10.6 --save
+<div class="block-detail">                <span class="detail-desc">src/filters/index.js</span><span class="comment"></span><div class="detail-content">                    <span>import dayjs from 'dayjs'
+
+                    const dateFilter = (val, format = 'YYYY-MM-DD') =&gt; {
+                        if (!isNaN(val)) {
+                            val = parseInt(val)
+                        }
+
+                        return dayjs(val).format(format)
+                    }
+
+                    export default app =&gt; {
+                        app.config.globalProperties.$filters = {
+                            dateFilter
+                        }
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                    <span>// 全局属性
+                    import installFilter from '@/filters'
+
+                    installFilter(app)</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-table-column :label="$t('msg.excel.openTime')"&gt;
+                        &lt;template #default="{ row }"&gt;
+                            &#123; &#123; $filters.dateFilter(row.openTime) &#125; &#125;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;</span></div></div>
+            <span class="title5" style="margin-top:2px;"><i></i>excel导入用户</span>
+<div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">@click="onImportExcelClick"</i>&gt;&#123; &#123; $t('msg.excel.importExcel') &#125; &#125;&lt;/el-button&gt;
+
+                    import { useRouter } from 'vue-router'
+                    const router = useRouter()
+                    <span class="comment">/**
+                    * excel 导入点击事件
+                    */</span>
+                    const <i class="i0">onImportExcelClick</i> = () =&gt; {
+                        router.push('/user/import')
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/views/import/index.vue</span><span class="comment"> 上传页面</span><div class="detail-content">                    <span>&lt;template&gt;
+                        <i class="i0">&lt;upload-excel :onSuccess="<i class="i1">onSuccess</i>"&gt;&lt;/upload-excel&gt;</i>
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import <i class="i0">UploadExcel</i> from '@/components/UploadExcel'
+                    import { userBatchImport } from '@/api/user-manage'
+                    import { USER_RELATIONS, formatDate } from './utils'
+                    import { ElMessage } from 'element-plus'
+                    import { useI18n } from 'vue-i18n'
+                    import { useRouter } from 'vue-router'
+
+                    const i18n = useI18n()
+                    const router = useRouter()
+
+                    <span class="comment">/**
+                     * 数据解析成功之后的回调
+                     */</span>
+                    const <i class="i1">onSuccess</i> = async ({ header, results }) =&gt; {
+                        const updateData = <i class="i2">generateData</i>(results)
+                        await userBatchImport(updateData)
+                        ElMessage.success({
+                            message: results.length + i18n.t('msg.excel.importSuccess'),
+                            type: 'success'
+                        })
+                        router.push('/user/manage')
+                    }
+
+                    <span class="comment">/**
+                     * 筛选数据
+                     */</span>
+                    const <i class="i2">generateData</i> = results =&gt; {
+                        const arr = []
+                        results.forEach(item =&gt; {
+                            const userInfo = {}
+                            Object.keys(item).forEach(key =&gt; {
+                                if (USER_RELATIONS[key] === 'openTime') {
+                                    userInfo[USER_RELATIONS[key]] = formatDate(item[key])
+                                    return
+                                }
+                                userInfo[USER_RELATIONS[key]] = item[key]
+                            })
+                            arr.push(userInfo)
+                        })
+                        return arr
+                    }
+                    &lt;/script&gt;</span></div></div>
+                npm i xlsx@0.17.0 --save <span class="comment">// 解析excel工具</span>
+<div class="block-detail">                <span class="detail-desc">src/components/UploadExcel/utils.js</span><span class="comment"></span><div class="detail-content">                    <span>import XLSX from 'xlsx'
+                    <span class="comment">/**
+                    * 获取表头（通用方式）
+                    */</span>
+                    export const getHeaderRow = sheet =&gt; {
+                        const headers = []
+                        const range = XLSX.utils.decode_range(sheet['!ref'])
+                        let C
+                        const R = range.s.r
+                        <span class="comment">/* start in the first row */</span>
+                        for (C = range.s.c; C &lt;= range.e.c; ++C) {
+                            <span class="comment">/* walk every column in the range */</span>
+                            const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
+                            <span class="comment">/* find the cell in the first row */</span>
+                            let hdr = 'UNKNOWN ' + C <span class="comment">// &lt;-- replace with your desired default</span>
+                            if (cell && cell.t) hdr = XLSX.utils.format_cell(cell)
+                            headers.push(hdr)
+                        }
+                        return headers
+                    }
+
+                    export const isExcel = file =&gt; {
+                        return /\.(xlsx|xls|csv)$/.test(file.name)
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/components/UploadExcel/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;div class="upload-excel"&gt;
+                            &lt;div class="btn-upload"&gt;
+                                &lt;el-button :loading="loading" type="primary" @click="handleUpload"&gt;
+                                    &#123; &#123; $t('msg.uploadExcel.upload') &#125; &#125;
+                                &lt;/el-button&gt;
+                            &lt;/div&gt;
+
+                            &lt;input ref="excelUploadInput" class="excel-upload-input" type="file" accept=".xlsx, .xls" @change="handleChange" /&gt;
+                            <span class="comment">&#60;&#33;&#45;&#45;https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API&#45;&#45;&#62;</span>
+                            &lt;div class="drop" @drop.stop.prevent="handleDrop" @dragover.stop.prevent="handleDragover" @dragenter.stop.prevent="handleDragover"&gt;
+                                &lt;i class="el-icon-upload" /&gt;
+                                &lt;span&gt;&#123; &#123; $t('msg.uploadExcel.drop') &#125; &#125;&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import XLSX from 'xlsx'
+                    import { defineProps, ref } from 'vue'
+                    import { getHeaderRow<i class="i3">, isExcel</i> } from './utils'
+                    <i class="i3">import { ElMessage } from 'element-plus'</i>
+
+                    <span class="comment">/**
+                     * 拖拽文本释放时触发
+                     */</span>
+                    <i class="i3">const handleDrop = e =&gt; {
+                        if (loading.value) return <span class="comment">// 上传中跳过</span>
+                        const files = e.dataTransfer.files
+                        if (files.length !== 1) {
+                            ElMessage.error('必须要有一个文件')
+                            return
+                        }
+                        const rawFile = files[0]
+                        if (!isExcel(rawFile)) {
+                            ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
+                            return false
+                        }
+                        upload(rawFile) <span class="comment">// 触发上传事件</span>
+                    }</i>
+
+                    <span class="comment">/**
+                     * 拖拽悬停时触发
+                     */</span>
+                    <i class="i3">const handleDragover = e =&gt; {
+                        e.dataTransfer.dropEffect = 'copy' <span class="comment">// 在新位置生成源项的副本 https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/dropEffect</span>
+                    }</i>
+
+                    const props = defineProps({
+                        <span class="comment">// 上传前回调</span>
+                        beforeUpload: Function,
+                        <span class="comment">// 成功回调</span>
+                        onSuccess: Function
+                    })
+
+                    <span class="comment">/**
+                    * 点击上传触发
+                    */</span>
+                    const loading = ref(false)
+                    const excelUploadInput = ref(null)
+                    const handleUpload = () =&gt; {
+                        excelUploadInput.value.click()
+                    }
+                    const handleChange = e =&gt; {
+                        const files = e.target.files
+                        const rawFile = files[0] <span class="comment">// only use files[0]</span>
+                        if (!rawFile) return
+                        upload(rawFile)
+                    }
+
+                    <span class="comment">/**
+                    * 触发上传事件
+                    */</span>
+                    const upload = rawFile =&gt; {
+                        excelUploadInput.value.value = null
+                        <span class="comment">// 如果没有指定上传前回调的话</span>
+                        if (!props.beforeUpload) {
+                            readerData(rawFile)
+                            return
+                        }
+                        <span class="comment">// 如果指定了上传前回调，那么只有返回 true 才会执行后续操作</span>
+                        const before = props.beforeUpload(rawFile)
+                        if (before) {
+                            readerData(rawFile)
+                        }
+                    }
+
+                    <span class="comment">/**
+                    * 读取数据（异步）
+                    */</span>
+                    const readerData = rawFile =&gt; {
+                        loading.value = true
+                        return new Promise((resolve, reject) =&gt; {
+                            <span class="comment">// https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader</span>
+                            const reader = new FileReader()
+                            <span class="comment">// 该事件在读取操作完成时触发</span>
+                            <span class="comment">// https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/onload</span>
+                            reader.onload = e =&gt; {
+                                <span class="comment">// 1. 获取解析到的数据</span>
+                                const data = e.target.result
+                                <span class="comment">// 2. 利用 XLSX 对数据进行解析</span>
+                                const workbook = XLSX.read(data, { type: 'array' })
+                                <span class="comment">// 3. 获取第一张表格(工作簿)名称</span>
+                                const firstSheetName = workbook.SheetNames[0]
+                                <span class="comment">// 4. 只读取 Sheet1（第一张表格）的数据</span>
+                                const worksheet = workbook.Sheets[firstSheetName]
+                                <span class="comment">// 5. 解析数据表头</span>
+                                const header = getHeaderRow(worksheet)
+                                <span class="comment">// 6. 解析数据体</span>
+                                const results = XLSX.utils.sheet_to_json(worksheet)
+                                <span class="comment">// 7. 传入解析之后的数据</span>
+                                generateData({ header, results })
+                                <span class="comment">// 8. loading 处理</span>
+                                loading.value = false
+                                <span class="comment">// 9. 异步完成</span>
+                                resolve()
+                            }
+                            <span class="comment">// 启动读取指定的 Blob 或 File 内容</span>
+                            reader.readAsArrayBuffer(rawFile)
+                        })
+                    }
+
+                    <span class="comment">/**
+                    * 根据导入内容，生成数据
+                    */</span>
+                    const generateData = excelData =&gt; {
+                        props.onSuccess && props.onSuccess(excelData)
+                    }
+                    &lt;/script&gt;
+
+                    &lt;style lang="scss" scoped&gt;
+                    .upload-excel {
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 100px;
+                        .excel-upload-input {
+                            display: none;
+                            z-index: -9999;
+                        }
+                        .btn-upload,
+                        .drop {
+                            border: 1px dashed #bbb;
+                            width: 350px;
+                            height: 160px;
+                            text-align: center;
+                            line-height: 160px;
+                        }
+                        .drop {
+                            line-height: 60px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            color: #bbb;
+                            i {
+                                font-size: 60px;
+                                display: block;
+                            }
+                        }
+                    }
+                    &lt;/style&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/api/user-manage.js</span><span class="comment"></span><div class="detail-content">                    <span><span class="comment">/**
+                     * 批量导入
+                     */</span>
+                    export const userBatchImport = data =&gt; {
+                        return request({
+                            url: '/user-manage/batch/import',
+                            method: 'POST',
+                            data
+                        })
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/views/import/utils.js</span><span class="comment"></span><div class="detail-content">                    <span><span class="comment"><span class="comment">/**
+                     * 导入数据对应表
+                     */</span></span>
+                    export const USER_RELATIONS = {
+                        姓名: 'username',
+                        联系方式: 'mobile',
+                        角色: 'role',
+                        开通时间: 'openTime'
+                    }</span></div></div>
+            <span class="title5" style="margin-top:2px;"><i></i>用户列表导出为excel</span>
+<div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;div class="user-manage-container"&gt;
+                            &lt;el-card class="header"&gt;
+                                &lt;div&gt;
+                                    &lt;el-button type="success" <i class="i0">@click="onToExcelClick"</i>&gt;&#123; &#123; $t('msg.excel.exportExcel') &#125; &#125;&lt;/el-button&gt;
+                                &lt;/div&gt;
+                            &lt;/el-card&gt;
+                            &lt;export-to-excel v-model="<i class="i1">exportToExcelVisible</i>"&gt;&lt;/export-to-excel&gt;
+                        &lt;/div&gt;
+                    &lt;template&gt;
+                    
+                    &lt;script setup&gt;
+                    import ExportToExcel from './components/Export2Excel.vue'
+
+                    <span class="comment">/**
+                     * excel 导出点击事件
+                     */</span>
+                    const <i class="i1">exportToExcelVisible</i> = ref(false)
+                    const <i class="i0">onToExcelClick</i> = () =&gt; {
+                        <i class="i1">exportToExcelVisible</i>.value = true
+                    }
+                    &lt;/script&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/api/user-manage.js</span><span class="comment"></span><div class="detail-content">                    <span><span class="comment">/**
+                     * 获取所有用户列表数据
+                     */</span>
+                    export const <i class="i0">getUserManageAllList</i> = () =&gt; {
+                        return request({
+                            url: '/user-manage/all-list'
+                        })
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/views/user-manage/components/Export2Excel.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
+                        &lt;el-dialog :title="$t('msg.excel.title')" :model-value="modelValue" @close="closed" width="30%"&gt;
+                            &lt;el-input :placeholder="$t('msg.excel.placeholder')" <i class="i1">v-model="excelName"</i>&gt;&lt;/el-input&gt;
+                            &lt;template #footer&gt;
+                                &lt;span class="dialog-footer"&gt;
+                                    &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.excel.close') &#125; &#125;&lt;/el-button&gt;
+                                    &lt;el-button type="primary" @click="onConfirm" <i class="i2">:loading="loading"</i>&gt;&#123; &#123; $t('msg.excel.confirm') &#125; &#125;&lt;/el-button&gt;
+                                &lt;/span&gt;
+                            &lt;/template&gt;
+                        &lt;/el-dialog&gt;
+                    &lt;/template&gt;
+
+                    &lt;script setup&gt;
+                    import { defineProps, defineEmits<i class="i1">, ref</i> } from 'vue'
+                    <i class="i1">import { useI18n } from 'vue-i18n'
+                    import { watchSwitchLang } from '@/utils/i18n'</i>
+                    <i class="i2">import { getUserManageAllList } from '@/api/user-manage'</i>
+                    <i class="i3">import { USER_RELATIONS } from './Export2ExcelConstants'
+                    import { dateFormat } from '@/utils/date'</i>
+
+                    defineProps({
+                        modelValue: {
+                            type: Boolean,
+                            required: true
+                        }
+                    })
+                    const emits = defineEmits(['update:modelValue'])
+
+                    <span class="comment">/**
+                    * 导出按钮点击事件
+                    */</span>
+                    <i class="i2">const loading = ref(false)</i>
+                    const onConfirm = async () =&gt; {
+                        <i class="i2">loading.value = true
+                        const allUser = (await getUserManageAllList()).list</i>
+                        <span class="comment">// 导入工具包</span>
+                        <i class="i3">const excel = await import('@/utils/Export2Excel')
+                        const data = formatJson(USER_RELATIONS, allUser)
+                        excel.export_json_to_excel({                            
+                            header: Object.keys(USER_RELATIONS), <span class="comment">// excel 表头</span>
+                            data, <span class="comment">// excel 数据（二维数组结构）</span>
+                            filename: excelName.value || exportDefaultName, <span class="comment">// 文件名称</span>
+                            autoWidth: true, <span class="comment">// 是否自动列宽</span>
+                            bookType: 'xlsx' <span class="comment">// 文件类型</span>
+                        })</i>
+                        closed()
+                    }
+                    <span class="comment">// 该方法负责将数组转化成二维数组</span>
+                    <i class="i3">const formatJson = (headers, rows) =&gt; {
+                        <span class="comment">// 首先遍历数组[{ username: '张三'},{},{}]  =&gt; [[’张三'],[],[]]</span>
+                        return rows.map(item =&gt; {
+                            return Object.keys(headers).map(key =&gt; {                                
+                                if (headers[key] === 'openTime') {return dateFormat(item[headers[key]])} <span class="comment">// 时间特殊处理</span>
+                                <span class="comment">// 角色特殊处理</span>
+                                if (headers[key] === 'role') {
+                                    const roles = item[headers[key]]
+                                    return JSON.stringify(roles.map(role =&gt; role.title))
+                                }
+                                return item[headers[key]]
+                            })
+                        })
+                    }</i>
+
+                    <span class="comment">/**
+                    * 关闭
+                    */</span>
+                    const closed = () =&gt; {
+                        <i class="i2">loading.value = false</i>
+                        emits('update:modelValue', false)
+                    }
+
+                    <i class="i1">const i18n = useI18n()
+                    let exportDefaultName = i18n.t('msg.excel.defaultName')
+                    const excelName = ref('')
+                    excelName.value = exportDefaultName
+                    watchSwitchLang(() =&gt; {
+                        exportDefaultName = i18n.t('msg.excel.defaultName')
+                        excelName.value = exportDefaultName
+                    })</i>
+                    &lt;/script&gt;</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/uitils/Export2Excel.js</span><span class="comment"></span><div class="detail-content">                    <span><span class="comment">/* eslint-disable */</span>
+                    import { saveAs } from 'file-saver'
+                    import XLSX from 'xlsx'
+
+                    function datenum(v, date1904) {
+                        if (date1904) v += 1462
+                        var epoch = Date.parse(v)
+                        return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000)
+                    }
+
+                    function sheet_from_array_of_arrays(data, opts) {
+                        var ws = {}
+                        var range = {
+                            s: { c: 10000000, r: 10000000 },
+                            e: { c: 0, r: 0 }
+                        }
+                        for (var R = 0; R != data.length; ++R) {
+                            for (var C = 0; C != data[R].length; ++C) {
+                                if (range.s.r &gt; R) range.s.r = R
+                                if (range.s.c &gt; C) range.s.c = C
+                                if (range.e.r &lt; R) range.e.r = R
+                                if (range.e.c &lt; C) range.e.c = C
+                                var cell = {
+                                    v: data[R][C]
+                                }
+                                if (cell.v == null) continue
+                                var cell_ref = XLSX.utils.encode_cell({ c: C, r: R })
+
+                                if (typeof cell.v === 'number') cell.t = 'n'
+                                else if (typeof cell.v === 'boolean') cell.t = 'b'
+                                else if (cell.v instanceof Date) {
+                                    cell.t = 'n'
+                                    cell.z = XLSX.SSF._table[14]
+                                    cell.v = datenum(cell.v)
+                                } else cell.t = 's'
+
+                                ws[cell_ref] = cell
+                            }
+                        }
+                        if (range.s.c &lt; 10000000) ws['!ref'] = XLSX.utils.encode_range(range)
+                        return ws
+                    }
+
+                    function Workbook() {
+                        if (!(this instanceof Workbook)) return new Workbook()
+                        this.SheetNames = []
+                        this.Sheets = {}
+                    }
+
+                    function s2ab(s) {
+                        var buf = new ArrayBuffer(s.length)
+                        var view = new Uint8Array(buf)
+                        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
+                        return buf
+                    }
+
+                    export const export_json_to_excel = ({ multiHeader = [], header, data, filename, merges = [], autoWidth = true, bookType = 'xlsx' } = {}) =&gt; {    
+                        filename = filename || 'excel-list' <span class="comment">// 1. 设置文件名称</span>
+                        data = [...data] <span class="comment">// 2. 把数据解析为数组，并把表头添加到数组的头部</span>
+                        data.unshift(header)    
+                        for (let i = multiHeader.length - 1; i &gt; -1; i--) {data.unshift(multiHeader[i])} <span class="comment">// 3. 解析多表头，把多表头的数据添加到数组头部（二维数组）</span>
+                        var ws_name = 'SheetJS' <span class="comment">// 4. 设置 Excel 表工作簿（第一张表格）名称</span>
+                        var wb = new Workbook() <span class="comment">// 5. 生成工作簿对象</span>
+                        var ws = sheet_from_array_of_arrays(data) <span class="comment">// 6. 将 data 数组（json格式）转化为 Excel 数据格式</span>
+                        <span class="comment">// 7. 合并单元格相关（['A1:A2', 'B1:D1', 'E1:E2']）</span>
+                        if (merges.length &gt; 0) {
+                            if (!ws['!merges']) ws['!merges'] = []
+                            merges.forEach(item =&gt; {ws['!merges'].push(XLSX.utils.decode_range(item))})
+                        }
+                        <span class="comment">// 8. 单元格宽度相关</span>
+                        if (autoWidth) {
+                            <span class="comment">/*设置 worksheet 每列的最大宽度*/</span>
+                            const colWidth = data.map(row =&gt;
+                                row.map(val =&gt; {
+                                    <span class="comment">/*先判断是否为null/undefined*/</span>
+                                    if (val == null) { return {wch: 10}
+                                    } else if (val.toString().charCodeAt(0) &gt; 255) {
+                                        <span class="comment">/*再判断是否为中文*/</span>
+                                        return {wch: val.toString().length * 2}
+                                    } else {
+                                        return {wch: val.toString().length}
+                                    }
+                                })
+                            )
+                            <span class="comment">/*以第一行为初始值*/</span>
+                            let result = colWidth[0]
+                            for (let i = 1; i &lt; colWidth.length; i++) {
+                                for (let j = 0; j &lt; colWidth[i].length; j++) {
+                                    if (result[j]['wch'] &lt; colWidth[i][j]['wch']) {result[j]['wch'] = colWidth[i][j]['wch']}
+                                }
+                            }
+                            ws['!cols'] = result
+                        }
+
+                        <span class="comment">// 9. 添加工作表（解析后的 excel 数据）到工作簿</span>
+                        wb.SheetNames.push(ws_name)
+                        wb.Sheets[ws_name] = ws
+                        <span class="comment">// 10. 写入数据</span>
+                        var wbout = XLSX.write(wb, {bookType: bookType, bookSST: false, type: 'binary'})
+                        <span class="comment">// 11. 下载数据</span>
+                        saveAs(new Blob(<span class="wbout">s2ab</span>, {type: 'application/octet-stream'}), `${filename}.${bookType}`)
+                    }</span></div></div>
+                npm i file-saver@2.0.5 --save <span class="comment">// 文件下载工具</span>
+<div class="block-detail">                <span class="detail-desc">src/views/user-manage/components/Export2ExcelConstants.js</span><span class="comment"></span><div class="detail-content">                    <span>/**
+                     * 导入数据对应表
+                     */
+                    export const USER_RELATIONS = {
+                        姓名: 'username',
+                        联系方式: 'mobile',
+                        角色: 'role',
+                        开通时间: 'openTime'
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/utils/date.js</span><span class="comment"></span><div class="detail-content">                    <span>import dayjs from 'dayjs'
+                    export const dateFormat = (val, format = 'YYYY-MM-DD') =&gt; {
+                        if (isNaN(val)) return val
+                        val = parseInt(val)
+                        return dayjs(val).format(format)
+                    }</span></div></div>                
+        <span class="title4" style="margin-top:4px;"><i></i>用户详情的表格展示</span>
+<div class="block-detail">            <span class="detail-desc">src/api/user-manage.js</span><span class="comment"> 获取用户详情接口</span><div class="detail-content">                <span><span class="comment">/**
+                 * 获取用户详情
+                 */</span>
+                export const userDetail = (id) =&gt; {
+                    return request({
+                        url: `/user-manage/detail/${id}`
+                    })
+                }</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="primary" size="mini" <i class="i0">@click="onShowClick(row._id)"</i>&gt;&#123; &#123; $t('msg.excel.show') &#125; &#125;&lt;/el-button&gt;
+                
+                <span class="comment">/**
+                 * 查看按钮点击事件
+                 */</span>
+                const onShowClick = id =&gt; {
+                    router.push(`/user/info/${id}`)
+                }</span></div></div>
+        <span class="title4" style="margin-top:4px;"><i></i>用户详情表格打印</span>
+        <span class="title4" style="margin-top:4px;"><i></i>用户删除</span>
+        <span class="title4" style="margin-top:4px;"><i></i>用户角色分配（需要在完成角色列表之后处理）</span>
+    <span class="title3" style="margin-top:6px;"><i></i>角色列表</span>
+    <span class="title3" style="margin-top:6px;"><i></i>权限列表</span>
 
 
 
@@ -398,7 +1134,8 @@ pageClass: theme-item
 
 
 
-<span class="title1" style="margin-top:5px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
+
+<span class="title1" style="margin-top:10px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
 <div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"> 创建项目</span><div class="detail-content">    <span>(*) Choose Vue version
     (*) Babel
     (*) Router
@@ -480,7 +1217,7 @@ pageClass: theme-item
     export default router</span></div></div>
 http://localhost:8080/
 
-<span class="title2" style="margin-top:5px;"><i></i>预设部署</span>
+<span class="title2" style="margin-top:8px;"><i></i>预设部署</span>
 <div class="block-detail">    <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">        <span>// token
         export const TOKEN = 'token'
         <span class="comment">// token 时间戳</span>
@@ -496,7 +1233,7 @@ http://localhost:8080/
         <span class="comment">// tags</span>
         export const TAGS_VIEW = 'tagsView'</span></div></div>
 
-<span class="title2" style="margin-top:5px;"><i></i>构建登录页面 UI 结构</span>
+<span class="title2" style="margin-top:8px;"><i></i>构建登录页面 UI 结构</span>
 <div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
          * 公开路由表
          */</span>
@@ -819,7 +1556,7 @@ http://localhost:8080/
             重新启动项目
     http://localhost:8080/#/Login
 
-<span class="title2" style="margin-top:5px;"><i></i>登陆逻辑</span>
+<span class="title2" style="margin-top:8px;"><i></i>登陆逻辑</span>
     表单验证
 <div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
                 &lt;el-form-item prop="username"&gt;
@@ -1115,7 +1852,7 @@ http://localhost:8080/
                 })</span></div></div>
 <div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
 
-<span class="title2" style="margin-top:5px;"><i></i>搭建Layout架构</span>
+<span class="title2" style="margin-top:8px;"><i></i>搭建Layout架构</span>
     src/layout/
 <div class="block-detail">        <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div class="app-wrapper"&gt;
@@ -2301,7 +3038,7 @@ http://localhost:8080/
                     }</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                    <span>@import './transition.scss';</span></div></div>
 
-<span class="title2" style="margin-top:5px;"><i></i>国际化</span>
+<span class="title2" style="margin-top:8px;"><i></i>国际化</span>
 <div class="block-detail">    <span class="detail-desc">实现原理</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
         const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
@@ -2878,7 +3615,7 @@ http://localhost:8080/
             <span class="comment">// const locale = 'zh'</span>
             const locale = getLanguage()</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
-<span class="title2" style="margin-top:5px;"><i></i>动态换肤</span>
+<span class="title2" style="margin-top:8px;"><i></i>动态换肤</span>
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             <span class="comment">&#60;&#33;&#45;&#45;主题图标&#45;&#45;&#62;</span>
             &lt;el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme"&gt;
@@ -2979,7 +3716,7 @@ http://localhost:8080/
             selectColorVisible.value = true
         }
         &lt;/script&gt;</span></div></div>
-    <span class="title5" style="margin-top:5px;"><i></i>缓存选中的色值</span>
+    <span class="title5" style="margin-top:2px;"><i></i>缓存选中的色值</span>
 <div class="block-detail">        <span class="detail-desc">src/constants/index.js</span><span class="comment"></span><div class="detail-content">            <span>// 主题色保存的 key
             export const MAIN_COLOR = 'mainColor'
             <span class="comment">// 默认色值</span>
@@ -3029,8 +3766,8 @@ http://localhost:8080/
                 closed()
             }
             &lt;/script&gt;</span></div></div>
-    <span class="title5" style="margin-top:5px;"><i></i>处理ElementPlus主题变更</span>
-        <span class="title6" style="margin-top:5px;"><i></i>老方法</span>
+    <span class="title5" style="margin-top:2px;"><i></i>处理ElementPlus主题变更</span>
+        <span class="title6" style="margin-top:0px;"><i></i>老方法</span>
 <div class="block-detail">            <span class="detail-desc">src/constant/formula.json</span><span class="comment"></span><div class="detail-content">                <span>{
                     "shade-1": "color(primary shade(10%))",
                     "light-1": "color(primary tint(10%))",
@@ -3162,7 +3899,7 @@ http://localhost:8080/
                     --el-color-primary-light-8: #d9ecff;
                     --el-color-primary-light-9: #ecf5ff;
                 }</span></div></div>
-        <span class="title6" style="margin-top:5px;"><i></i>新方法</span>
+        <span class="title6" style="margin-top:0px;"><i></i>新方法</span>
 <div class="block-detail">            <span class="detail-desc">src/styles/element-plus.scss</span><span class="comment"></span><div class="detail-content">                <span><span class="comment">/*
                  * for ^1.3.0-beta.5
                  */</span>
@@ -3246,7 +3983,7 @@ http://localhost:8080/
 
                 installElementPlus(app)</span></span></div></div>
 
-        <span class="title6" style="margin-top:5px;"><i></i>验证测试</span>
+        <span class="title6" style="margin-top:0px;"><i></i>验证测试</span>
 <div class="block-detail">            <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-row&gt;
                     &lt;el-button&gt;Default&lt;/el-button&gt;
                     &lt;el-button type="primary"&gt;Primary&lt;/el-button&gt;
@@ -3255,7 +3992,7 @@ http://localhost:8080/
                     &lt;el-button type="warning"&gt;Warning&lt;/el-button&gt;
                     &lt;el-button type="danger"&gt;Danger&lt;/el-button&gt;
                 &lt;/el-row&gt;</span></div></div>
-    <span class="title5" style="margin-top:5px;"><i></i>处理自定义主题变更</span>
+    <span class="title5" style="margin-top:2px;"><i></i>处理自定义主题变更</span>
 <div class="block-detail">        <span class="detail-desc">src/layout/components/sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;el-menu
                 :background-color="$store.getters.cssVar.menuBg"
                 :text-color="$store.getters.cssVar.menuText"
@@ -3307,7 +4044,7 @@ http://localhost:8080/
                     }
                 }
             }</span></div></div>            
-<span class="title2" style="margin-top:5px;"><i></i>Screenfull原理及方案分析</span>
+<span class="title2" style="margin-top:8px;"><i></i>Screenfull原理及方案分析</span>
     封装Screenfull组件
         npm i screenfull@5.1.0 --save
 <div class="block-detail">        <span class="detail-desc">components/Screenfull/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
@@ -3347,7 +4084,7 @@ http://localhost:8080/
             &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;screenfull class="right-menu-item hover-effect" /&gt;
             import Screenfull from '@/components/Screenfull'</span></div></div>            
-<span class="title2" style="margin-top:5px;"><i></i>HeaderSearch原理及方案分析</span>
+<span class="title2" style="margin-top:8px;"><i></i>HeaderSearch原理及方案分析</span>
     1.根据指定内容对所有页面进行检索
     2.以 select 形式展示检索出的页面
     3.通过检索页面可快速进入对应页面
@@ -3552,7 +4289,7 @@ http://localhost:8080/
                 })
                 initFuse(searchPool.value)
             })</span></div></div>
-<span class="title2" style="margin-top:5px;"><i></i>tagsView原理及方案分析</span>
+<span class="title2" style="margin-top:8px;"><i></i>tagsView原理及方案分析</span>
 <div class="block-detail">    <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="fixed-header"&gt;
             <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
             &lt;navbar /&gt;
@@ -3938,7 +4675,7 @@ http://localhost:8080/
                 opacity: 0;
                 transform: translateX(30px);
             }</span></div></div>
-<span class="title2" style="margin-top:5px;"><i></i>Guide引导页原理及方案分析</span>
+<span class="title2" style="margin-top:8px;"><i></i>Guide引导页原理及方案分析</span>
     <span class="block-command">admin</span> npm i driver.js@0.9.8 --save
 <div class="block-detail">    <span class="detail-desc">src/components/Guide/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div&gt;

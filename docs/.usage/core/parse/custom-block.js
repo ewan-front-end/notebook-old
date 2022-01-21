@@ -142,7 +142,7 @@ function parseCustomBlock(block, path) {
      */
     while (/\s*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/.exec(block) !== null) {
         let classStr = `title${RegExp.$4}`
-        let styleStr = `margin-top:5px;`
+        let styleStr = `margin-top:${(6 - RegExp.$4) * 2}px;`
         if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
         if (RegExp.$3) classStr += ` reverse${RegExp.$4}`
         if (RegExp.$5) {

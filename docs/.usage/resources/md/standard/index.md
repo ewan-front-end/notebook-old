@@ -327,41 +327,800 @@
                     store.dispatch('user/getUserInfo')
                 }
             })↥
-        【3】功能模块开发
-            src/views/profile/index.vue ▾
-                ↧<feature ►:features="featureData"◄ />↥
-            src/views/profile/components/Feature.vue ▾
+    【3】功能模块开发
+        src/views/profile/index.vue ▾
+            ↧<feature ►:features="featureData"◄ />↥
+        src/views/profile/components/Feature.vue ▾
+            ↧<template>
+                <el-collapse v-model="activeName" accordion>
+                    <el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id">
+                        <div v-html="item.content"></div>
+                    </el-collapse-item>
+                </el-collapse>
+            </template>
+
+            <script setup>
+            import { ref, defineProps } from 'vue'
+            const activeName = ref(0)
+            defineProps({
+                features: {
+                    type: Array,
+                    required: true
+                }
+            })
+            </script>
+
+            <style lang="scss" scoped>
+            ::v-deep .el-collapse-item__header {
+                font-weight: bold;
+            }
+
+            .el-collapse-item {
+                ::v-deep a {
+                    color: #2d62f7;
+                    margin: 0 4px;
+                }
+            }
+            </style>↥
+    【3】章节模块开发
+        src/api/user.js ▾
+            ↧export const ►chapter◄ = () => {
+                return request({
+                    url: '/user/chapter'
+                })
+            }↥
+        src/views/profile/components/Chapter.vue ▾ 调用接口处理接口国际化
+            ↧<template>
+                <el-timeline>
+                    <el-timeline-item
+                        v-for="item in 2►chapterData◄"
+                        :key="item.id"
+                        :timestamp="item.timestamp"
+                        placement="top"
+                        >
+                        <el-card>
+                            <h4>{{ item.content }}</h4>
+                        </el-card>
+                    </el-timeline-item>
+                </el-timeline>
+            </template>
+
+            <script setup>
+            import { watchSwitchLang } from '@/utils/i18n'
+            import { ►chapter◄ } from '@/api/user'
+            import { ref } from 'vue'
+            const 2►chapterData◄ = ref([])
+
+            const getChapterData = async () => {
+                2►chapterData◄.value = await ►chapter◄()
+            }
+            getChapterData()
+
+            // 监听语言切换
+            watchSwitchLang(getChapterData)
+            </script>↥
+    【3】作者模块开发
+        src/views/profile/components/Author.vue ▾
+            ↧<template>
+                <div class="author-container">
+                    <div class="header">
+                        <pan-thumb image="https://img4.sycdn.imooc.com/61110c2b0001152907400741-140-140.jpg" height="60px" width="60px" :hoverable="false">
+                            {{ $t('msg.profile.name') }}
+                        </pan-thumb>
+                        <div class="header-desc">
+                            <h3>{{ $t('msg.profile.name') }}</h3>
+                            <span>{{ $t('msg.profile.job') }}</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        {{ $t('msg.profile.Introduction') }}
+                    </div>
+                </div>
+            </template>
+
+            <script setup>
+            import PanThumb from '@/components/PanThumb/index.vue'
+            import {} from 'vue'
+            </script>
+
+            <style lang="scss" scoped>
+            .author-container {
+                .header {
+                    display: flex;
+                    .header-desc {
+                        margin-left: 12px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-around;
+
+                        span {
+                            font-size: 14px;
+                        }
+                    }
+                }
+                .info {
+                    margin-top: 16px;
+                    line-height: 22px;
+                    font-size: 14px;
+                    text-indent: 26px;
+                }
+            }
+            </style>↥
+【2】权限架构处理之用户权限处理
+    【3】员工管理
+        【4】用户列表分页展示
+            src/api/user-manage.js ▾ 定义接口
+                ↧import request from '@/utils/request'
+
+                /**
+                 * 获取用户列表数据
+                 */
+                export const ►getUserManageList◄ = data => {
+                    return request({
+                        url: '/user-manage/list',
+                        params: data
+                    })
+                }↥
+            src/views/user-manage/index.vue ▾
                 ↧<template>
-                    <el-collapse v-model="activeName" accordion>
-                        <el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id">
-                            <div v-html="item.content"></div>
-                        </el-collapse-item>
-                    </el-collapse>
+                    <div class="user-manage-container">
+                        <el-card class="header">
+                            <div>
+                                <el-button type="primary"> {{ $t('msg.excel.importExcel') }}</el-button>
+                                <el-button type="success">
+                                    {{ $t('msg.excel.exportExcel') }}
+                                </el-button>
+                            </div>
+                        </el-card>
+                        <el-card>
+                            <el-table :data="2►tableData◄" border style="width: 100%">
+                                <el-table-column label="#" type="index" />
+                                <el-table-column prop="username" :label="$t('msg.excel.name')"> </el-table-column>
+                                <el-table-column prop="mobile" :label="$t('msg.excel.mobile')"> </el-table-column>
+                                <el-table-column :label="$t('msg.excel.avatar')" align="center">
+                                    <template v-slot="{ row }">
+                                        <el-image class="avatar" :src="row.avatar" :preview-src-list="[row.avatar]"></el-image>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label="$t('msg.excel.role')">
+                                    <template #default="{ row }">
+                                        <div v-if="row.role && row.role.length > 0">
+                                            <el-tag v-for="item in row.role" :key="item.id" size="mini">{{ item.title }}</el-tag>
+                                        </div>
+                                        <div v-else>
+                                            <el-tag size="mini">{{ $t('msg.excel.defaultRole') }}</el-tag>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="openTime" :label="$t('msg.excel.openTime')"> </el-table-column>
+                                <el-table-column :label="$t('msg.excel.action')" fixed="right" width="260">
+                                    <template #default>
+                                        <el-button type="primary" size="mini">{{ $t('msg.excel.show') }}</el-button>
+                                        <el-button type="info" size="mini">{{ $t('msg.excel.showRole') }}</el-button>
+                                        <el-button type="danger" size="mini">{{ $t('msg.excel.remove') }}</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+
+                            <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page" :page-sizes="[2, 5, 10, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
+                        </el-card>
+                    </div>
                 </template>
 
                 <script setup>
-                import { ref, defineProps } from 'vue'
-                const activeName = ref(0)
-                defineProps({
-                    features: {
-                        type: Array,
-                        required: true
-                    }
-                })
+                import { ref } from 'vue'
+                import { ►getUserManageList◄ } from '@/api/user-manage'
+                import { watchSwitchLang } from '@/utils/i18n'
+
+                // 数据相关
+                const 2►tableData◄ = ref([])
+                const total = ref(0)
+                const page = ref(1)
+                const size = ref(5)
+
+                // 获取数据的方法
+                const getListData = async () => {
+                    const result = await ►getUserManageList◄({
+                        page: page.value,
+                        size: size.value
+                    })
+                    2►tableData◄.value = result.list
+                    total.value = result.total
+                }
+                getListData()
+
+                // 监听语言切换
+                watchSwitchLang(getListData)
+
+                // size 改变触发
+                const handleSizeChange = currentSize => {
+                    size.value = currentSize
+                    getListData()
+                }
+                // 页码改变触发
+                const handleCurrentChange = currentPage => {
+                    page.value = currentPage
+                    getListData()
+                }
                 </script>
 
                 <style lang="scss" scoped>
-                ::v-deep .el-collapse-item__header {
-                    font-weight: bold;
-                }
-
-                .el-collapse-item {
-                    ::v-deep a {
-                        color: #2d62f7;
-                        margin: 0 4px;
+                .user-manage-container {
+                    .header {
+                        margin-bottom: 22px;
+                        text-align: right;
+                    }
+                    ::v-deep .avatar {
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                    }
+                    ::v-deep .el-tag {
+                        margin-right: 6px;
+                    }
+                    .pagination {
+                        margin-top: 20px;
+                        text-align: center;
                     }
                 }
                 </style>↥
+            【5】全局属性处理时间展示
+                npm i dayjs@1.10.6 --save
+                src/filters/index.js ▾
+                    ↧import dayjs from 'dayjs'
+
+                    const dateFilter = (val, format = 'YYYY-MM-DD') => {
+                        if (!isNaN(val)) {
+                            val = parseInt(val)
+                        }
+
+                        return dayjs(val).format(format)
+                    }
+
+                    export default app => {
+                        app.config.globalProperties.$filters = {
+                            dateFilter
+                        }
+                    }↥
+                src/main.js ▾
+                    ↧// 全局属性
+                    import installFilter from '@/filters'
+
+                    installFilter(app)↥
+                src/views/user-manage/index.vue ▾
+                    ↧<el-table-column :label="$t('msg.excel.openTime')">
+                        <template #default="{ row }">
+                            {{ $filters.dateFilter(row.openTime) }}
+                        </template>
+                    </el-table-column>↥
+            【5】excel导入用户
+                src/views/user-manage/index.vue ▾
+                    ↧<el-button type="primary" ►@click="onImportExcelClick"◄>{{ $t('msg.excel.importExcel') }}</el-button>
+
+                    import { useRouter } from 'vue-router'
+                    const router = useRouter()
+                    /**
+                    * excel 导入点击事件
+                    */
+                    const ►onImportExcelClick◄ = () => {
+                        router.push('/user/import')
+                    }↥
+                src/views/import/index.vue ▾ 上传页面
+                    ↧<template>
+                        ►<upload-excel :onSuccess="1►onSuccess◄"></upload-excel>◄
+                    </template>
+
+                    <script setup>
+                    import ►UploadExcel◄ from '@/components/UploadExcel'
+                    import { userBatchImport } from '@/api/user-manage'
+                    import { USER_RELATIONS, formatDate } from './utils'
+                    import { ElMessage } from 'element-plus'
+                    import { useI18n } from 'vue-i18n'
+                    import { useRouter } from 'vue-router'
+
+                    const i18n = useI18n()
+                    const router = useRouter()
+
+                    /**
+                     * 数据解析成功之后的回调
+                     */
+                    const 1►onSuccess◄ = async ({ header, results }) => {
+                        const updateData = 2►generateData◄(results)
+                        await userBatchImport(updateData)
+                        ElMessage.success({
+                            message: results.length + i18n.t('msg.excel.importSuccess'),
+                            type: 'success'
+                        })
+                        router.push('/user/manage')
+                    }
+
+                    /**
+                     * 筛选数据
+                     */
+                    const 2►generateData◄ = results => {
+                        const arr = []
+                        results.forEach(item => {
+                            const userInfo = {}
+                            Object.keys(item).forEach(key => {
+                                if (USER_RELATIONS[key] === 'openTime') {
+                                    userInfo[USER_RELATIONS[key]] = formatDate(item[key])
+                                    return
+                                }
+                                userInfo[USER_RELATIONS[key]] = item[key]
+                            })
+                            arr.push(userInfo)
+                        })
+                        return arr
+                    }
+                    </script>↥
+                npm i xlsx@0.17.0 --save // 解析excel工具
+                src/components/UploadExcel/utils.js ▾
+                    ↧import XLSX from 'xlsx'
+                    /**
+                    * 获取表头（通用方式）
+                    */
+                    export const getHeaderRow = sheet => {
+                        const headers = []
+                        const range = XLSX.utils.decode_range(sheet['!ref'])
+                        let C
+                        const R = range.s.r
+                        /* start in the first row */
+                        for (C = range.s.c; C <= range.e.c; ++C) {
+                            /* walk every column in the range */
+                            const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
+                            /* find the cell in the first row */
+                            let hdr = 'UNKNOWN ' + C // <-- replace with your desired default
+                            if (cell && cell.t) hdr = XLSX.utils.format_cell(cell)
+                            headers.push(hdr)
+                        }
+                        return headers
+                    }
+
+                    export const isExcel = file => {
+                        return /\.(xlsx|xls|csv)$/.test(file.name)
+                    }↥
+                src/components/UploadExcel/index.vue ▾
+                    ↧<template>
+                        <div class="upload-excel">
+                            <div class="btn-upload">
+                                <el-button :loading="loading" type="primary" @click="handleUpload">
+                                    {{ $t('msg.uploadExcel.upload') }}
+                                </el-button>
+                            </div>
+
+                            <input ref="excelUploadInput" class="excel-upload-input" type="file" accept=".xlsx, .xls" @change="handleChange" />
+                            <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API -->
+                            <div class="drop" @drop.stop.prevent="handleDrop" @dragover.stop.prevent="handleDragover" @dragenter.stop.prevent="handleDragover">
+                                <i class="el-icon-upload" />
+                                <span>{{ $t('msg.uploadExcel.drop') }}</span>
+                            </div>
+                        </div>
+                    </template>
+
+                    <script setup>
+                    import XLSX from 'xlsx'
+                    import { defineProps, ref } from 'vue'
+                    import { getHeaderRow3►, isExcel◄ } from './utils'
+                    3►import { ElMessage } from 'element-plus'◄
+
+                    /**
+                     * 拖拽文本释放时触发
+                     */
+                    3►const handleDrop = e => {
+                        if (loading.value) return // 上传中跳过
+                        const files = e.dataTransfer.files
+                        if (files.length !== 1) {
+                            ElMessage.error('必须要有一个文件')
+                            return
+                        }
+                        const rawFile = files[0]
+                        if (!isExcel(rawFile)) {
+                            ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
+                            return false
+                        }
+                        upload(rawFile) // 触发上传事件
+                    }◄
+
+                    /**
+                     * 拖拽悬停时触发
+                     */
+                    3►const handleDragover = e => {
+                        e.dataTransfer.dropEffect = 'copy' // 在新位置生成源项的副本 https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/dropEffect
+                    }◄
+
+                    const props = defineProps({
+                        // 上传前回调
+                        beforeUpload: Function,
+                        // 成功回调
+                        onSuccess: Function
+                    })
+
+                    /**
+                    * 点击上传触发
+                    */
+                    const loading = ref(false)
+                    const excelUploadInput = ref(null)
+                    const handleUpload = () => {
+                        excelUploadInput.value.click()
+                    }
+                    const handleChange = e => {
+                        const files = e.target.files
+                        const rawFile = files[0] // only use files[0]
+                        if (!rawFile) return
+                        upload(rawFile)
+                    }
+
+                    /**
+                    * 触发上传事件
+                    */
+                    const upload = rawFile => {
+                        excelUploadInput.value.value = null
+                        // 如果没有指定上传前回调的话
+                        if (!props.beforeUpload) {
+                            readerData(rawFile)
+                            return
+                        }
+                        // 如果指定了上传前回调，那么只有返回 true 才会执行后续操作
+                        const before = props.beforeUpload(rawFile)
+                        if (before) {
+                            readerData(rawFile)
+                        }
+                    }
+
+                    /**
+                    * 读取数据（异步）
+                    */
+                    const readerData = rawFile => {
+                        loading.value = true
+                        return new Promise((resolve, reject) => {
+                            // https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader
+                            const reader = new FileReader()
+                            // 该事件在读取操作完成时触发
+                            // https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/onload
+                            reader.onload = e => {
+                                // 1. 获取解析到的数据
+                                const data = e.target.result
+                                // 2. 利用 XLSX 对数据进行解析
+                                const workbook = XLSX.read(data, { type: 'array' })
+                                // 3. 获取第一张表格(工作簿)名称
+                                const firstSheetName = workbook.SheetNames[0]
+                                // 4. 只读取 Sheet1（第一张表格）的数据
+                                const worksheet = workbook.Sheets[firstSheetName]
+                                // 5. 解析数据表头
+                                const header = getHeaderRow(worksheet)
+                                // 6. 解析数据体
+                                const results = XLSX.utils.sheet_to_json(worksheet)
+                                // 7. 传入解析之后的数据
+                                generateData({ header, results })
+                                // 8. loading 处理
+                                loading.value = false
+                                // 9. 异步完成
+                                resolve()
+                            }
+                            // 启动读取指定的 Blob 或 File 内容
+                            reader.readAsArrayBuffer(rawFile)
+                        })
+                    }
+
+                    /**
+                    * 根据导入内容，生成数据
+                    */
+                    const generateData = excelData => {
+                        props.onSuccess && props.onSuccess(excelData)
+                    }
+                    </script>
+
+                    <style lang="scss" scoped>
+                    .upload-excel {
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 100px;
+                        .excel-upload-input {
+                            display: none;
+                            z-index: -9999;
+                        }
+                        .btn-upload,
+                        .drop {
+                            border: 1px dashed #bbb;
+                            width: 350px;
+                            height: 160px;
+                            text-align: center;
+                            line-height: 160px;
+                        }
+                        .drop {
+                            line-height: 60px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            color: #bbb;
+                            i {
+                                font-size: 60px;
+                                display: block;
+                            }
+                        }
+                    }
+                    </style>↥
+                src/api/user-manage.js ▾
+                    ↧/**
+                     * 批量导入
+                     */
+                    export const userBatchImport = data => {
+                        return request({
+                            url: '/user-manage/batch/import',
+                            method: 'POST',
+                            data
+                        })
+                    }↥
+                src/views/import/utils.js ▾
+                    ↧/**
+                     * 导入数据对应表
+                     */
+                    export const USER_RELATIONS = {
+                        姓名: 'username',
+                        联系方式: 'mobile',
+                        角色: 'role',
+                        开通时间: 'openTime'
+                    }↥
+            【5】用户列表导出为excel
+                src/views/user-manage/index.vue ▾
+                    ↧<template>
+                        <div class="user-manage-container">
+                            <el-card class="header">
+                                <div>
+                                    <el-button type="success" ►@click="onToExcelClick"◄>{{ $t('msg.excel.exportExcel') }}</el-button>
+                                </div>
+                            </el-card>
+                            <export-to-excel v-model="1►exportToExcelVisible◄"></export-to-excel>
+                        </div>
+                    <template>
+                    
+                    <script setup>
+                    import ExportToExcel from './components/Export2Excel.vue'
+
+                    /**
+                     * excel 导出点击事件
+                     */
+                    const 1►exportToExcelVisible◄ = ref(false)
+                    const ►onToExcelClick◄ = () => {
+                        1►exportToExcelVisible◄.value = true
+                    }
+                    </script>↥
+                src/api/user-manage.js ▾
+                    ↧/**
+                     * 获取所有用户列表数据
+                     */
+                    export const ►getUserManageAllList◄ = () => {
+                        return request({
+                            url: '/user-manage/all-list'
+                        })
+                    }↥
+                src/views/user-manage/components/Export2Excel.vue ▾
+                    ↧<template>
+                        <el-dialog :title="$t('msg.excel.title')" :model-value="modelValue" @close="closed" width="30%">
+                            <el-input :placeholder="$t('msg.excel.placeholder')" 1►v-model="excelName"◄></el-input>
+                            <template #footer>
+                                <span class="dialog-footer">
+                                    <el-button @click="closed">{{ $t('msg.excel.close') }}</el-button>
+                                    <el-button type="primary" @click="onConfirm" 2►:loading="loading"◄>{{ $t('msg.excel.confirm') }}</el-button>
+                                </span>
+                            </template>
+                        </el-dialog>
+                    </template>
+
+                    <script setup>
+                    import { defineProps, defineEmits1►, ref◄ } from 'vue'
+                    1►import { useI18n } from 'vue-i18n'
+                    import { watchSwitchLang } from '@/utils/i18n'◄
+                    2►import { getUserManageAllList } from '@/api/user-manage'◄
+                    3►import { USER_RELATIONS } from './Export2ExcelConstants'
+                    import { dateFormat } from '@/utils/date'◄
+
+                    defineProps({
+                        modelValue: {
+                            type: Boolean,
+                            required: true
+                        }
+                    })
+                    const emits = defineEmits(['update:modelValue'])
+
+                    /**
+                    * 导出按钮点击事件
+                    */
+                    2►const loading = ref(false)◄
+                    const onConfirm = async () => {
+                        2►loading.value = true
+                        const allUser = (await getUserManageAllList()).list◄
+                        // 导入工具包
+                        3►const excel = await import('@/utils/Export2Excel')
+                        const data = formatJson(USER_RELATIONS, allUser)
+                        excel.export_json_to_excel({                            
+                            header: Object.keys(USER_RELATIONS), // excel 表头                            
+                            data, // excel 数据（二维数组结构）                            
+                            filename: excelName.value || exportDefaultName, // 文件名称                            
+                            autoWidth: true, // 是否自动列宽                            
+                            bookType: 'xlsx' // 文件类型
+                        })◄
+                        closed()
+                    }
+                    // 该方法负责将数组转化成二维数组
+                    3►const formatJson = (headers, rows) => {
+                        // 首先遍历数组[{ username: '张三'},{},{}]  => [[’张三'],[],[]]
+                        return rows.map(item => {
+                            return Object.keys(headers).map(key => {                                
+                                if (headers[key] === 'openTime') {return dateFormat(item[headers[key]])} // 时间特殊处理
+                                // 角色特殊处理
+                                if (headers[key] === 'role') {
+                                    const roles = item[headers[key]]
+                                    return JSON.stringify(roles.map(role => role.title))
+                                }
+                                return item[headers[key]]
+                            })
+                        })
+                    }◄
+
+                    /**
+                    * 关闭
+                    */
+                    const closed = () => {
+                        2►loading.value = false◄
+                        emits('update:modelValue', false)
+                    }
+
+                    1►const i18n = useI18n()
+                    let exportDefaultName = i18n.t('msg.excel.defaultName')
+                    const excelName = ref('')
+                    excelName.value = exportDefaultName
+                    watchSwitchLang(() => {
+                        exportDefaultName = i18n.t('msg.excel.defaultName')
+                        excelName.value = exportDefaultName
+                    })◄
+                    </script>↥
+                src/uitils/Export2Excel.js ▾
+                    ↧/* eslint-disable */
+                    import { saveAs } from 'file-saver'
+                    import XLSX from 'xlsx'
+
+                    function datenum(v, date1904) {
+                        if (date1904) v += 1462
+                        var epoch = Date.parse(v)
+                        return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000)
+                    }
+
+                    function sheet_from_array_of_arrays(data, opts) {
+                        var ws = {}
+                        var range = {
+                            s: { c: 10000000, r: 10000000 },
+                            e: { c: 0, r: 0 }
+                        }
+                        for (var R = 0; R != data.length; ++R) {
+                            for (var C = 0; C != data[R].length; ++C) {
+                                if (range.s.r > R) range.s.r = R
+                                if (range.s.c > C) range.s.c = C
+                                if (range.e.r < R) range.e.r = R
+                                if (range.e.c < C) range.e.c = C
+                                var cell = {
+                                    v: data[R][C]
+                                }
+                                if (cell.v == null) continue
+                                var cell_ref = XLSX.utils.encode_cell({ c: C, r: R })
+
+                                if (typeof cell.v === 'number') cell.t = 'n'
+                                else if (typeof cell.v === 'boolean') cell.t = 'b'
+                                else if (cell.v instanceof Date) {
+                                    cell.t = 'n'
+                                    cell.z = XLSX.SSF._table[14]
+                                    cell.v = datenum(cell.v)
+                                } else cell.t = 's'
+
+                                ws[cell_ref] = cell
+                            }
+                        }
+                        if (range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range)
+                        return ws
+                    }
+
+                    function Workbook() {
+                        if (!(this instanceof Workbook)) return new Workbook()
+                        this.SheetNames = []
+                        this.Sheets = {}
+                    }
+
+                    function s2ab(s) {
+                        var buf = new ArrayBuffer(s.length)
+                        var view = new Uint8Array(buf)
+                        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
+                        return buf
+                    }
+
+                    export const export_json_to_excel = ({ multiHeader = [], header, data, filename, merges = [], autoWidth = true, bookType = 'xlsx' } = {}) => {    
+                        filename = filename || 'excel-list' // 1. 设置文件名称    
+                        data = [...data] // 2. 把数据解析为数组，并把表头添加到数组的头部
+                        data.unshift(header)    
+                        for (let i = multiHeader.length - 1; i > -1; i--) {data.unshift(multiHeader[i])} // 3. 解析多表头，把多表头的数据添加到数组头部（二维数组）    
+                        var ws_name = 'SheetJS' // 4. 设置 Excel 表工作簿（第一张表格）名称    
+                        var wb = new Workbook() // 5. 生成工作簿对象    
+                        var ws = sheet_from_array_of_arrays(data) // 6. 将 data 数组（json格式）转化为 Excel 数据格式
+                        // 7. 合并单元格相关（['A1:A2', 'B1:D1', 'E1:E2']）
+                        if (merges.length > 0) {
+                            if (!ws['!merges']) ws['!merges'] = []
+                            merges.forEach(item => {ws['!merges'].push(XLSX.utils.decode_range(item))})
+                        }
+                        // 8. 单元格宽度相关
+                        if (autoWidth) {
+                            /*设置 worksheet 每列的最大宽度*/
+                            const colWidth = data.map(row =>
+                                row.map(val => {
+                                    /*先判断是否为null/undefined*/
+                                    if (val == null) { return {wch: 10}
+                                    } else if (val.toString().charCodeAt(0) > 255) {
+                                        /*再判断是否为中文*/
+                                        return {wch: val.toString().length * 2}
+                                    } else {
+                                        return {wch: val.toString().length}
+                                    }
+                                })
+                            )
+                            /*以第一行为初始值*/
+                            let result = colWidth[0]
+                            for (let i = 1; i < colWidth.length; i++) {
+                                for (let j = 0; j < colWidth[i].length; j++) {
+                                    if (result[j]['wch'] < colWidth[i][j]['wch']) {result[j]['wch'] = colWidth[i][j]['wch']}
+                                }
+                            }
+                            ws['!cols'] = result
+                        }
+
+                        // 9. 添加工作表（解析后的 excel 数据）到工作簿
+                        wb.SheetNames.push(ws_name)
+                        wb.Sheets[ws_name] = ws
+                        // 10. 写入数据
+                        var wbout = XLSX.write(wb, {bookType: bookType, bookSST: false, type: 'binary'})
+                        // 11. 下载数据
+                        saveAs(new Blob([s2ab(wbout)], {type: 'application/octet-stream'}), `${filename}.${bookType}`)
+                    }↥
+                npm i file-saver@2.0.5 --save // 文件下载工具
+                src/views/user-manage/components/Export2ExcelConstants.js ▾
+                    ↧/**
+                     * 导入数据对应表
+                     */
+                    export const USER_RELATIONS = {
+                        姓名: 'username',
+                        联系方式: 'mobile',
+                        角色: 'role',
+                        开通时间: 'openTime'
+                    }↥
+                src/utils/date.js ▾
+                    ↧import dayjs from 'dayjs'
+                    export const dateFormat = (val, format = 'YYYY-MM-DD') => {
+                        if (isNaN(val)) return val
+                        val = parseInt(val)
+                        return dayjs(val).format(format)
+                    }↥                
+        【4】用户详情的表格展示
+            src/api/user-manage.js ▾ 获取用户详情接口
+                ↧/**
+                 * 获取用户详情
+                 */
+                export const userDetail = (id) => {
+                    return request({
+                        url: `/user-manage/detail/${id}`
+                    })
+                }↥
+            src/views/user-info/index.vue ▾
+                ↧<el-button type="primary" size="mini" ►@click="onShowClick(row._id)"◄>{{ $t('msg.excel.show') }}</el-button>
+                
+                /**
+                 * 查看按钮点击事件
+                 */
+                const onShowClick = id => {
+                    router.push(`/user/info/${id}`)
+                }↥
+        【4】用户详情表格打印
+        【4】用户删除
+        【4】用户角色分配（需要在完成角色列表之后处理）
+    【3】角色列表
+    【3】权限列表
+
 
 
 
