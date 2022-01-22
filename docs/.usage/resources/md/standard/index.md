@@ -860,6 +860,18 @@
                         联系方式: 'mobile',
                         角色: 'role',
                         开通时间: 'openTime'
+                    }
+                    
+                    /**
+                     * 解析 excel 导入的时间格式
+                     */
+                    export const formatDate = numb => {
+                        const time = new Date((numb - 1) * 24 * 3600000 + 1)
+                        time.setYear(time.getFullYear() - 70)
+                        const year = time.getFullYear() + ''
+                        const month = time.getMonth() + 1 + ''
+                        const date = time.getDate() - 1 + ''
+                        return year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date)
                     }↥
             【5】用户列表导出为excel
                 src/views/user-manage/index.vue ▾
@@ -1106,21 +1118,344 @@
                         url: `/user-manage/detail/${id}`
                     })
                 }↥
-            src/views/user-info/index.vue ▾
+            src/views/user-manage/index.vue ▾
                 ↧<el-button type="primary" size="mini" ►@click="onShowClick(row._id)"◄>{{ $t('msg.excel.show') }}</el-button>
                 
                 /**
                  * 查看按钮点击事件
                  */
-                const onShowClick = id => {
+                const ►onShowClick◄ = id => {
                     router.push(`/user/info/${id}`)
                 }↥
+            src/views/user-info/index.vue ▾
+                ↧<template>
+                    <div class="user-info-container">
+                        <el-card class="print-box">
+                            <el-button type="primary">{{ $t('msg.userInfo.print') }}</el-button>
+                        </el-card>
+                        <el-card>
+                            <div class="user-info-box">
+                                <!-- 标题 -->
+                                <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
+
+                                <div class="header">
+                                    <!-- 头部渲染表格 -->
+                                    <el-descriptions :column="2" border>
+                                        <el-descriptions-item :label="$t('msg.userInfo.name')">{{ 3►detailData◄.username }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.sex')">{{ 3►detailData◄.gender }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.nation')">{{ 3►detailData◄.nationality }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.mobile')">{{ 3►detailData◄.mobile }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.province')">{{ 3►detailData◄.province }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.date')">{{ $filters.dateFilter(3►detailData◄.openTime) }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.remark')" :span="2">
+                                            <el-tag class="remark" size="small" v-for="(item, index) in 3►detailData◄.remark" :key="index">{{ item }}</el-tag>
+                                        </el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.address')" :span="2">{{ 3►detailData◄.address }}</el-descriptions-item>
+                                    </el-descriptions>
+                                    <!-- 头像渲染 -->
+                                    <el-image class="avatar" :src="3►detailData◄.avatar" :preview-src-list="[3►detailData◄.avatar]"></el-image>
+                                </div>
+                                <div class="body">
+                                    <!-- 内容渲染表格 -->
+                                    <el-descriptions direction="vertical" :column="1" border>
+                                        <el-descriptions-item :label="$t('msg.userInfo.experience')">
+                                            <ul>
+                                                <li v-for="(item, index) in 3►detailData◄.experience" :key="index">
+                                                    <span>
+                                                        {{ $filters.dateFilter(item.startTime, 'YYYY/MM') }}
+                                                        ----
+                                                        {{ $filters.dateFilter(item.endTime, 'YYYY/MM') }}</span
+                                                    >
+                                                    <span>{{ item.title }}</span>
+                                                    <span>{{ item.desc }}</span>
+                                                </li>
+                                            </ul>
+                                        </el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.major')">
+                                            {{ 3►detailData◄.major }}
+                                        </el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.glory')">
+                                            {{ 3►detailData◄.glory }}
+                                        </el-descriptions-item>
+                                    </el-descriptions>
+                                </div>
+                                <!-- 尾部签名 -->
+                                <div class="foot">{{ $t('msg.userInfo.foot') }}</div>
+                            </div>
+                        </el-card>
+                    </div>
+                </template>
+
+                <script setup>
+                import { userDetail } from '@/api/user-manage'
+                import { watchSwitchLang } from '@/utils/i18n'
+                import { ❶►defineProps◄, ref } from 'vue'
+
+                ❶►const props = defineProps({
+                    id: {
+                        type: String,
+                        required: true
+                    }
+                })◄
+
+                // 数据相关
+                const ❸►detailData◄ = ref({})
+                const getUserDetail = async () => {
+                    ❸►detailData◄.value = await userDetail(props.id)
+                }
+                ❷►getUserDetail()◄
+                // 语言切换
+                watchSwitchLang(getUserDetail)
+                </script>
+
+                <style lang="scss" scoped>
+                .print-box {
+                    margin-bottom: 20px;
+                    text-align: right;
+                }
+                .user-info-box {
+                    width: 1024px;
+                    margin: 0 auto;
+                    .title {
+                        text-align: center;
+                        margin-bottom: 18px;
+                    }
+                    .header {
+                        display: flex;
+                        ::v-deep .el-descriptions {
+                            flex-grow: 1;
+                        }
+                        .avatar {
+                            width: 187px;
+                            box-sizing: border-box;
+                            padding: 30px 20px;
+                            border: 1px solid #ebeef5;
+                            border-left: none;
+                        }
+                        .remark {
+                            margin-right: 12px;
+                        }
+                    }
+                    .body {
+                        ul {
+                            list-style: none;
+                            li {
+                                span {
+                                    margin-right: 62px;
+                                }
+                            }
+                        }
+                    }
+                    .foot {
+                        margin-top: 42px;
+                        text-align: right;
+                    }
+                }
+                </style>↥
+            src/router/index.js ▾ 传参支持
+                ↧{
+                    path: '/user/info/:id',
+                    name: 'userInfo',
+                    component: () => import('@/views/user-info/index'),
+                    ►props: true◄,
+                    meta: {
+                        title: 'userInfo'
+                    }
+                }↥
+            【5】局部打印
+                npm i vue3-print-nb@0.1.4 --save
+                src/views/user-info/index.vue ▾
+                    ↧<el-button type="primary" ►v-print="printObj"◄ ►:loading="printLoading"◄>{{ $t('msg.userInfo.print') }}</el-button>
+
+                    <div ►id="userInfoBox"◄ class="user-info-box">
+                    
+                    // 打印相关
+                    const printLoading = ref(false)
+                    const printObj = {
+                        id: 'userInfoBox', // 打印区域
+                        popTitle: 'imooc-vue-element-admin', // 打印标题                        
+                        beforeOpenCallback(vue) {printLoading.value = true}, // 打印前                        
+                        openCallback(vue) {printLoading.value = false} // 执行打印
+                    }↥
+                src/directives/index.js ▾
+                    ↧import print from 'vue3-print-nb'
+
+                    export default app => {
+                        app.use(print)
+                    }↥
+                src/main.js ▾
+                    ↧import installDirective from '@/directives'
+                    
+                    installDirective(app)↥
         【4】用户详情表格打印
         【4】用户删除
         【4】用户角色分配（需要在完成角色列表之后处理）
     【3】角色列表
     【3】权限列表
+【2】权限受控解决方案之分级分控权限管理
+    【3】角色列表展示        
+        src/views/role-list/index.vue ▾
+            ↧<template>
+                <div class="">
+                    <el-card>
+                        <el-table :data="allRoles" border style="width: 100%">
+                            <el-table-column :label="$t('msg.role.index')" type="index" width="120"> </el-table-column>
+                            <el-table-column :label="$t('msg.role.name')" prop="title"> </el-table-column>
+                            <el-table-column :label="$t('msg.role.desc')" prop="describe"> </el-table-column>
+                            <el-table-column :label="$t('msg.role.action')" prop="action" width="260">
+                                <el-button type="primary" size="mini">
+                                    {{ $t('msg.role.assignPermissions') }}
+                                </el-button>
+                            </el-table-column>
+                        </el-table>
+                    </el-card>
+                </div>
+            </template>
 
+            <script setup>
+            import { roleList } from '@/api/role'
+            import { watchSwitchLang } from '@/utils/i18n'
+            import { ref } from 'vue'
+
+            const allRoles = ref([])
+            const getRoleList = async () => {
+                allRoles.value = await roleList()
+            }
+            getRoleList()
+            watchSwitchLang(getRoleList)
+            </script>↥
+        src/api/role.js ▾
+            ↧import request from '@/utils/request'
+
+            /**
+             * 获取所有角色
+             */
+            export const roleList = () => {
+                return request({
+                    url: '/role/list'
+                })
+            }↥
+        【4】为用户分配角色
+            src/views/user-manage/index.vue ▾
+                ↧<el-button type="info" size="mini" 1►@click="onShowRoleClick(row)"◄>{{ $t('msg.excel.showRole') }}</el-button>
+                
+                <div class="user-manage-container">
+                    ►<roles-dialog v-model="2►roleDialogVisible◄" 3►:userId="selectUserId"◄></roles-dialog>◄
+                </div>
+
+                import ►RolesDialog◄ from './components/roles.vue'
+                import { watch } from 'vue'
+
+                /**
+                * 查看角色的点击事件
+                */
+                const 2►roleDialogVisible◄ = ref(false)
+                const 3►selectUserId◄ = ref('')
+                const 1►onShowRoleClick◄ = row => {
+                    2►roleDialogVisible◄.value = true
+                    3►selectUserId◄.value = row._id
+                }
+                // 保证每次打开重新获取用户角色数据
+                watch(roleDialogVisible, val => {
+                    if (!val) 3►selectUserId◄.value = ''
+                })↥
+            src/views/user-manage/components/roles.vue ▾
+                ↧<template>
+                    <el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed">
+                        <el-checkbox-group v-model="3►userRoleTitleList◄">
+                            <el-checkbox v-for="item in 2►allRoleList◄" :key="item.id" :label="item.title"></el-checkbox>
+                        </el-checkbox-group>
+                        <template #footer>
+                            <span class="dialog-footer">
+                                <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
+                                <el-button type="primary" @click="4►onConfirm◄">{{ $t('msg.universal.confirm') }}</el-button>
+                            </span>
+                        </template>
+                    </el-dialog>
+                </template>
+
+                <script setup>
+                import { defineProps, defineEmits, ref, watch } from 'vue'
+                import { roleList } from '@/api/role'
+                import { watchSwitchLang } from '@/utils/i18n'
+                import { userRoles, updateRole } from '@/api/user-manage'
+
+                const props = defineProps({
+                    modelValue: {
+                        type: Boolean,
+                        required: true
+                    },
+                    3►userId◄: {
+                        type: String,
+                        required: true
+                    }
+                })
+                const emits = defineEmits(['update:modelValue', 5►'updateRole'◄])
+
+                /**
+                 * 确定按钮点击事件
+                 */
+                4►const i18n = useI18n()
+                const onConfirm = async () => {
+                    const roles = userRoleTitleList.value.map(title => {
+                        return allRoleList.value.find(role => role.title === title) // 处理数据结构
+                    })
+                    await updateRole(props.userId, roles) // 更新用户角色
+                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
+                    closed()
+                    
+                    5►emits('updateRole')◄ // 更新成功通知父类
+                }◄
+                /**
+                 * 关闭
+                 */
+                const closed = () => {
+                    emits('update:modelValue', false)
+                }
+
+                // 所有角色
+                const 2►allRoleList◄ = ref([])
+                // 获取所有角色数据的方法
+                const ❶►getListData◄ = async () => {
+                    2►allRoleList◄.value = await roleList()
+                }
+                ❶►getListData◄()
+                watchSwitchLang(getListData)
+
+                // 当前用户角色
+                3►const userRoleTitleList = ref([])                
+                const getUserRoles = async () => {
+                    const res = await userRoles(props.userId)
+                    userRoleTitleList.value = res.role.map(item => item.title)
+                }
+                watch(() => props.userId, val => {
+                    if (val) getUserRoles() // 此值依赖用户点击事件
+                })◄
+                </script>
+
+                <style lang="scss" scoped></style>↥
+            src/api/user-manage.js ▾
+                ↧/*
+                 * 获取指定用户角色
+                 */
+                export const userRoles = (id) => {
+                    return request({
+                        url: `/user-manage/role/${id}`
+                    })
+                }
+                
+                /**
+                 * 分用户分配角色
+                 */
+                export const updateRole = (id, roles) => {
+                    return request({
+                        url: `/user-manage/update-role/${id}`,
+                        method: 'POST',
+                        data: {
+                            roles
+                        }
+                    })
+                }↥
 
 
 

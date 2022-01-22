@@ -92,29 +92,60 @@
   &.col-12
     width 100%
 .code-block
-    .i0, .i1, .i2, .i3, .i4, .i5, .i6, .i7, .i8, .i9
+    .i0, .i1, .i2, .i3, .i4, .i5, .i6, .i7, .i8, .i9, .order1, .order2, .order3, .order4, .order5, .order6, .order7, .order8, .order9, .order10
         font-weight bold
         font-style normal
+        position relative
     .i0
         color #4975a4
-    .i1
+    .i1, .order1
         color #eb9b00  
-    .i2
+    .i2, .order2
         color #00cf00
-    .i3
+    .i3, .order3
         color #009ceb
-    .i4
+    .i4, .order4
         color #a523e8
-    .i5
+    .i5, .order5
         color #ff3a3a 
-    .i6
+    .i6, .order6
         color #7bbb00
-    .i7
+    .i7, .order7
         color #00c381 
-    .i8
+    .i8, .order8
         color #5454ff 
-    .i9
+    .i9, .order9
         color #ec33ae
+    .order10
+        color #e0d400
+    .order1::before, .order2::before, .order3::before, .order4::before, .order5::before, 
+    .order6::before, .order7::before, .order8::before, .order9::before, .order10::before
+        font-size 18px
+        line-height 18px
+        vertical-align middle
+        position absolute
+        top -3px
+        left -11px
+    .order1::before
+        content '❶'
+    .order2::before
+        content '❷'
+    .order3::before
+        content '❸'
+    .order4::before
+        content '❹'
+    .order5::before
+        content '❺'
+    .order6::before
+        content '❻'
+    .order7::before
+        content '❼'
+    .order8::before
+        content '❽'
+    .order9::before
+        content '❾'
+    .order10::before
+        content '❿'
 .format-block
     color:#ccc 
     i

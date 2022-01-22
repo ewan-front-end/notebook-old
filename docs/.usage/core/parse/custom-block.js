@@ -67,42 +67,14 @@ function parseCustomBlock(block, path) {
 
     /**
      * 点缀集
-     * ▧content 1►text◄ 2►text◄▨
+     * 1►text◄ 2►text◄ ❶❷❸❹❺❻❼❽❾❿►text◄
      */
-     while (/((\d)?►([^◄]+)◄)/.exec(block) !== null) {
-        block = block.replace(RegExp.$1, `<i class="i${RegExp.$2 || 0}">${RegExp.$3}</i>`)
-    }   
-
-    /**
-     * 点缀集
-     * ▧content 1►text◄ 2►text◄▨
-     */
-    while (/(▧([^▨]+)▨)/.exec(block) !== null) {
-        let format = RegExp.$1, content = RegExp.$2
-        while (/((\d)►([^◄]+)◄)/.exec(content) !== null) {
-            content = content.replace(RegExp.$1, `<i class="i${RegExp.$2}">${RegExp.$3}</i>`)
-        }
-        /(❶([^❶]+)❶)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order1">${RegExp.$2}</i>`);
-        /(❷([^❷]+)❷)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order2">${RegExp.$2}</i>`);
-        /(❸([^❸]+)❸)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order3">${RegExp.$2}</i>`);
-        /(❹([^❹]+)❹)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order4">${RegExp.$2}</i>`);
-        /(❺([^❺]+)❺)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order5">${RegExp.$2}</i>`);
-        /(❻([^❻]+)❻)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order6">${RegExp.$2}</i>`);
-        /(❼([^❼]+)❼)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order7">${RegExp.$2}</i>`);
-        /(❽([^❽]+)❽)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order8">${RegExp.$2}</i>`);
-        /(❾([^❾]+)❾)/.exec(content)
-        content = content.replace(RegExp.$1, `<i class="order9">${RegExp.$2}</i>`);
-
-        block = block.replace(format, `<span class="format-block">${content}</span>`)
-    }    
+    const orderMap = {"❶": 1, "❷": 2, "❸": 3, "❹": 4,"❺": 5,"❻": 6,"❼": 7,"❽": 8,"❾": 9,"❿": 10}
+    while (/((\d)?([❶❷❸❹❺❻❼❽❾❿])?►([^◄]+)◄)/.exec(block) !== null) {
+        let className = 'i' + (RegExp.$2 || 0)
+        if (RegExp.$3) className = 'order' + orderMap[RegExp.$3]
+        block = block.replace(RegExp.$1, `<i class="${className}">${RegExp.$4}</i>`)
+    }
     
     /**
      * Detail
@@ -142,7 +114,7 @@ function parseCustomBlock(block, path) {
      */
     while (/\s*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/.exec(block) !== null) {
         let classStr = `title${RegExp.$4}`
-        let styleStr = `margin-top:${(6 - RegExp.$4) * 2}px;`
+        let styleStr = `margin-top:${(6 - RegExp.$4) * 3}px;`
         if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
         if (RegExp.$3) classStr += ` reverse${RegExp.$4}`
         if (RegExp.$5) {

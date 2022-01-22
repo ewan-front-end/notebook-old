@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.21 20:40</span>
+            <span>M 2022.01.22 21:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -22,7 +22,7 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="title2" style="margin-top:8px;"><i></i>个人中心模块基本布局</span>
+<span class="title2" style="margin-top:12px;"><i></i>个人中心模块基本布局</span>
 <div class="block-detail">    <span class="detail-desc">src/views/Profile/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="my-container"&gt;
                 &lt;el-row&gt;
@@ -318,7 +318,7 @@ pageClass: theme-item
             <i class="i1">featureData</i>.value = await <i class="i0">getFeature</i>()
         }
         getFeatureData()</span></div></div>
-    <span class="title3" style="margin-top:6px;"><i></i>接口国际化</span>
+    <span class="title3" style="margin-top:9px;"><i></i>接口国际化</span>
 <div class="block-detail">        <span class="detail-desc">src/utils/request.js</span><span class="comment"></span><div class="detail-content">            <span>// 请求拦截器
             service.interceptors.request.use(
                 config =&gt; {                    
@@ -340,7 +340,7 @@ pageClass: theme-item
                     store.dispatch('user/getUserInfo')
                 }
             })</span></div></div>
-    <span class="title3" style="margin-top:6px;"><i></i>功能模块开发</span>
+    <span class="title3" style="margin-top:9px;"><i></i>功能模块开发</span>
 <div class="block-detail">        <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;feature <i class="i0">:features="featureData"</i> /&gt;</span></div></div>
 <div class="block-detail">        <span class="detail-desc">src/views/profile/components/Feature.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;el-collapse v-model="activeName" accordion&gt;
@@ -373,7 +373,7 @@ pageClass: theme-item
                 }
             }
             &lt;/style&gt;</span></div></div>
-    <span class="title3" style="margin-top:6px;"><i></i>章节模块开发</span>
+    <span class="title3" style="margin-top:9px;"><i></i>章节模块开发</span>
 <div class="block-detail">        <span class="detail-desc">src/api/user.js</span><span class="comment"></span><div class="detail-content">            <span>export const <i class="i0">chapter</i> = () =&gt; {
                 return request({
                     url: '/user/chapter'
@@ -408,7 +408,7 @@ pageClass: theme-item
             <span class="comment">// 监听语言切换</span>
             watchSwitchLang(getChapterData)
             &lt;/script&gt;</span></div></div>
-    <span class="title3" style="margin-top:6px;"><i></i>作者模块开发</span>
+    <span class="title3" style="margin-top:9px;"><i></i>作者模块开发</span>
 <div class="block-detail">        <span class="detail-desc">src/views/profile/components/Author.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div class="author-container"&gt;
                     &lt;div class="header"&gt;
@@ -454,9 +454,9 @@ pageClass: theme-item
                 }
             }
             &lt;/style&gt;</span></div></div>
-<span class="title2" style="margin-top:8px;"><i></i>权限架构处理之用户权限处理</span>
-    <span class="title3" style="margin-top:6px;"><i></i>员工管理</span>
-        <span class="title4" style="margin-top:4px;"><i></i>用户列表分页展示</span>
+<span class="title2" style="margin-top:12px;"><i></i>权限架构处理之用户权限处理</span>
+    <span class="title3" style="margin-top:9px;"><i></i>员工管理</span>
+        <span class="title4" style="margin-top:6px;"><i></i>用户列表分页展示</span>
 <div class="block-detail">            <span class="detail-desc">src/api/user-manage.js</span><span class="comment"> 定义接口</span><div class="detail-content">                <span>import request from '@/utils/request'
 
                 <span class="comment">/**
@@ -570,7 +570,7 @@ pageClass: theme-item
                     }
                 }
                 &lt;/style&gt;</span></div></div>
-            <span class="title5" style="margin-top:2px;"><i></i>全局属性处理时间展示</span>
+            <span class="title5" style="margin-top:3px;"><i></i>全局属性处理时间展示</span>
                 npm i dayjs@1.10.6 --save
 <div class="block-detail">                <span class="detail-desc">src/filters/index.js</span><span class="comment"></span><div class="detail-content">                    <span>import dayjs from 'dayjs'
 
@@ -596,7 +596,7 @@ pageClass: theme-item
                             &#123; &#123; $filters.dateFilter(row.openTime) &#125; &#125;
                         &lt;/template&gt;
                     &lt;/el-table-column&gt;</span></div></div>
-            <span class="title5" style="margin-top:2px;"><i></i>excel导入用户</span>
+            <span class="title5" style="margin-top:3px;"><i></i>excel导入用户</span>
 <div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">@click="onImportExcelClick"</i>&gt;&#123; &#123; $t('msg.excel.importExcel') &#125; &#125;&lt;/el-button&gt;
 
                     import { useRouter } from 'vue-router'
@@ -857,8 +857,20 @@ pageClass: theme-item
                         联系方式: 'mobile',
                         角色: 'role',
                         开通时间: 'openTime'
+                    }
+                    
+                    <span class="comment">/**
+                     * 解析 excel 导入的时间格式
+                     */</span>
+                    export const formatDate = numb =&gt; {
+                        const time = new Date((numb - 1) * 24 * 3600000 + 1)
+                        time.setYear(time.getFullYear() - 70)
+                        const year = time.getFullYear() + ''
+                        const month = time.getMonth() + 1 + ''
+                        const date = time.getDate() - 1 + ''
+                        return year + '-' + (month &lt; 10 ? '0' + month : month) + '-' + (date &lt; 10 ? '0' + date : date)
                     }</span></div></div>
-            <span class="title5" style="margin-top:2px;"><i></i>用户列表导出为excel</span>
+            <span class="title5" style="margin-top:3px;"><i></i>用户列表导出为excel</span>
 <div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
                         &lt;div class="user-manage-container"&gt;
                             &lt;el-card class="header"&gt;
@@ -1087,7 +1099,7 @@ pageClass: theme-item
                         val = parseInt(val)
                         return dayjs(val).format(format)
                     }</span></div></div>                
-        <span class="title4" style="margin-top:4px;"><i></i>用户详情的表格展示</span>
+        <span class="title4" style="margin-top:6px;"><i></i>用户详情的表格展示</span>
 <div class="block-detail">            <span class="detail-desc">src/api/user-manage.js</span><span class="comment"> 获取用户详情接口</span><div class="detail-content">                <span><span class="comment">/**
                  * 获取用户详情
                  */</span>
@@ -1096,19 +1108,333 @@ pageClass: theme-item
                         url: `/user-manage/detail/${id}`
                     })
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="primary" size="mini" <i class="i0">@click="onShowClick(row._id)"</i>&gt;&#123; &#123; $t('msg.excel.show') &#125; &#125;&lt;/el-button&gt;
+<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="primary" size="mini" <i class="i0">@click="onShowClick(row._id)"</i>&gt;&#123; &#123; $t('msg.excel.show') &#125; &#125;&lt;/el-button&gt;
                 
                 <span class="comment">/**
                  * 查看按钮点击事件
                  */</span>
-                const onShowClick = id =&gt; {
+                const <i class="i0">onShowClick</i> = id =&gt; {
                     router.push(`/user/info/${id}`)
                 }</span></div></div>
-        <span class="title4" style="margin-top:4px;"><i></i>用户详情表格打印</span>
-        <span class="title4" style="margin-top:4px;"><i></i>用户删除</span>
-        <span class="title4" style="margin-top:4px;"><i></i>用户角色分配（需要在完成角色列表之后处理）</span>
-    <span class="title3" style="margin-top:6px;"><i></i>角色列表</span>
-    <span class="title3" style="margin-top:6px;"><i></i>权限列表</span>
+<div class="block-detail">            <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;div class="user-info-container"&gt;
+                        &lt;el-card class="print-box"&gt;
+                            &lt;el-button type="primary"&gt;&#123; &#123; $t('msg.userInfo.print') &#125; &#125;&lt;/el-button&gt;
+                        &lt;/el-card&gt;
+                        &lt;el-card&gt;
+                            &lt;div class="user-info-box"&gt;
+                                <span class="comment">&#60;&#33;&#45;&#45;标题&#45;&#45;&#62;</span>
+                                &lt;h2 class="title"&gt;&#123; &#123; $t('msg.userInfo.title') &#125; &#125;&lt;/h2&gt;
+
+                                &lt;div class="header"&gt;
+                                    <span class="comment">&#60;&#33;&#45;&#45;头部渲染表格&#45;&#45;&#62;</span>
+                                    &lt;el-descriptions :column="2" border&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.name')"&gt;&#123; &#123; <i class="i3">detailData</i>.username &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.sex')"&gt;&#123; &#123; <i class="i3">detailData</i>.gender &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.nation')"&gt;&#123; &#123; <i class="i3">detailData</i>.nationality &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.mobile')"&gt;&#123; &#123; <i class="i3">detailData</i>.mobile &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.province')"&gt;&#123; &#123; <i class="i3">detailData</i>.province &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.date')"&gt;&#123; &#123; $filters.dateFilter(<i class="i3">detailData</i>.openTime) &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.remark')" :span="2"&gt;
+                                            &lt;el-tag class="remark" size="small" v-for="(item, index) in <i class="i3">detailData</i>.remark" :key="index"&gt;&#123; &#123; item &#125; &#125;&lt;/el-tag&gt;
+                                        &lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.address')" :span="2"&gt;&#123; &#123; <i class="i3">detailData</i>.address &#125; &#125;&lt;/el-descriptions-item&gt;
+                                    &lt;/el-descriptions&gt;
+                                    <span class="comment">&#60;&#33;&#45;&#45;头像渲染&#45;&#45;&#62;</span>
+                                    &lt;el-image class="avatar" :src="<i class="i3">detailData</i>.avatar" :preview-src-list="[<i class="i3">detailData</i>.avatar]"&gt;&lt;/el-image&gt;
+                                &lt;/div&gt;
+                                &lt;div class="body"&gt;
+                                    <span class="comment">&#60;&#33;&#45;&#45;内容渲染表格&#45;&#45;&#62;</span>
+                                    &lt;el-descriptions direction="vertical" :column="1" border&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.experience')"&gt;
+                                            &lt;ul&gt;
+                                                &lt;li v-for="(item, index) in <i class="i3">detailData</i>.experience" :key="index"&gt;
+                                                    &lt;span&gt;
+                                                        &#123; &#123; $filters.dateFilter(item.startTime, 'YYYY/MM') &#125; &#125;
+                                                        ----
+                                                        &#123; &#123; $filters.dateFilter(item.endTime, 'YYYY/MM') &#125; &#125;&lt;/span
+                                                    &gt;
+                                                    &lt;span&gt;&#123; &#123; item.title &#125; &#125;&lt;/span&gt;
+                                                    &lt;span&gt;&#123; &#123; item.desc &#125; &#125;&lt;/span&gt;
+                                                &lt;/li&gt;
+                                            &lt;/ul&gt;
+                                        &lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.major')"&gt;
+                                            &#123; &#123; <i class="i3">detailData</i>.major &#125; &#125;
+                                        &lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.glory')"&gt;
+                                            &#123; &#123; <i class="i3">detailData</i>.glory &#125; &#125;
+                                        &lt;/el-descriptions-item&gt;
+                                    &lt;/el-descriptions&gt;
+                                &lt;/div&gt;
+                                <span class="comment">&#60;&#33;&#45;&#45;尾部签名&#45;&#45;&#62;</span>
+                                &lt;div class="foot"&gt;&#123; &#123; $t('msg.userInfo.foot') &#125; &#125;&lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/el-card&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import { userDetail } from '@/api/user-manage'
+                import { watchSwitchLang } from '@/utils/i18n'
+                import { <i class="order1">defineProps</i>, ref } from 'vue'
+
+                <i class="order1">const props = defineProps({
+                    id: {
+                        type: String,
+                        required: true
+                    }
+                })</i>
+
+                <span class="comment">// 数据相关</span>
+                const <i class="order3">detailData</i> = ref({})
+                const getUserDetail = async () =&gt; {
+                    <i class="order3">detailData</i>.value = await userDetail(props.id)
+                }
+                <i class="order2">getUserDetail()</i>
+                <span class="comment">// 语言切换</span>
+                watchSwitchLang(getUserDetail)
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;
+                .print-box {
+                    margin-bottom: 20px;
+                    text-align: right;
+                }
+                .user-info-box {
+                    width: 1024px;
+                    margin: 0 auto;
+                    .title {
+                        text-align: center;
+                        margin-bottom: 18px;
+                    }
+                    .header {
+                        display: flex;
+                        ::v-deep .el-descriptions {
+                            flex-grow: 1;
+                        }
+                        .avatar {
+                            width: 187px;
+                            box-sizing: border-box;
+                            padding: 30px 20px;
+                            border: 1px solid #ebeef5;
+                            border-left: none;
+                        }
+                        .remark {
+                            margin-right: 12px;
+                        }
+                    }
+                    .body {
+                        ul {
+                            list-style: none;
+                            li {
+                                span {
+                                    margin-right: 62px;
+                                }
+                            }
+                        }
+                    }
+                    .foot {
+                        margin-top: 42px;
+                        text-align: right;
+                    }
+                }
+                &lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/router/index.js</span><span class="comment"> 传参支持</span><div class="detail-content">                <span>{
+                    path: '/user/info/:id',
+                    name: 'userInfo',
+                    component: () =&gt; import('@/views/user-info/index'),
+                    <i class="i0">props: true</i>,
+                    meta: {
+                        title: 'userInfo'
+                    }
+                }</span></div></div>
+            <span class="title5" style="margin-top:3px;"><i></i>局部打印</span>
+                npm i vue3-print-nb@0.1.4 --save
+<div class="block-detail">                <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">v-print="printObj"</i> <i class="i0">:loading="printLoading"</i>&gt;&#123; &#123; $t('msg.userInfo.print') &#125; &#125;&lt;/el-button&gt;
+
+                    &lt;div <i class="i0">id="userInfoBox"</i> class="user-info-box"&gt;
+                    
+                    <span class="comment">// 打印相关</span>
+                    const printLoading = ref(false)
+                    const printObj = {
+                        id: 'userInfoBox', <span class="comment">// 打印区域</span>
+                        popTitle: 'imooc-vue-element-admin', <span class="comment">// 打印标题</span>
+                        beforeOpenCallback(vue) {printLoading.value = true}, <span class="comment">// 打印前</span>
+                        openCallback(vue) {printLoading.value = false} <span class="comment">// 执行打印</span>
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/directives/index.js</span><span class="comment"></span><div class="detail-content">                    <span>import print from 'vue3-print-nb'
+
+                    export default app =&gt; {
+                        app.use(print)
+                    }</span></div></div>
+<div class="block-detail">                <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                    <span>import installDirective from '@/directives'
+                    
+                    installDirective(app)</span></div></div>
+        <span class="title4" style="margin-top:6px;"><i></i>用户详情表格打印</span>
+        <span class="title4" style="margin-top:6px;"><i></i>用户删除</span>
+        <span class="title4" style="margin-top:6px;"><i></i>用户角色分配（需要在完成角色列表之后处理）</span>
+    <span class="title3" style="margin-top:9px;"><i></i>角色列表</span>
+    <span class="title3" style="margin-top:9px;"><i></i>权限列表</span>
+<span class="title2" style="margin-top:12px;"><i></i>权限受控解决方案之分级分控权限管理</span>
+    <span class="title3" style="margin-top:9px;"><i></i>角色列表展示        </span>
+<div class="block-detail">        <span class="detail-desc">src/views/role-list/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
+                &lt;div class=""&gt;
+                    &lt;el-card&gt;
+                        &lt;el-table :data="allRoles" border style="width: 100%"&gt;
+                            &lt;el-table-column :label="$t('msg.role.index')" type="index" width="120"&gt; &lt;/el-table-column&gt;
+                            &lt;el-table-column :label="$t('msg.role.name')" prop="title"&gt; &lt;/el-table-column&gt;
+                            &lt;el-table-column :label="$t('msg.role.desc')" prop="describe"&gt; &lt;/el-table-column&gt;
+                            &lt;el-table-column :label="$t('msg.role.action')" prop="action" width="260"&gt;
+                                &lt;el-button type="primary" size="mini"&gt;
+                                    &#123; &#123; $t('msg.role.assignPermissions') &#125; &#125;
+                                &lt;/el-button&gt;
+                            &lt;/el-table-column&gt;
+                        &lt;/el-table&gt;
+                    &lt;/el-card&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
+
+            &lt;script setup&gt;
+            import { roleList } from '@/api/role'
+            import { watchSwitchLang } from '@/utils/i18n'
+            import { ref } from 'vue'
+
+            const allRoles = ref([])
+            const getRoleList = async () =&gt; {
+                allRoles.value = await roleList()
+            }
+            getRoleList()
+            watchSwitchLang(getRoleList)
+            &lt;/script&gt;</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/api/role.js</span><span class="comment"></span><div class="detail-content">            <span>import request from '@/utils/request'
+
+            <span class="comment">/**
+             * 获取所有角色
+             */</span>
+            export const roleList = () =&gt; {
+                return request({
+                    url: '/role/list'
+                })
+            }</span></div></div>
+        <span class="title4" style="margin-top:6px;"><i></i>为用户分配角色</span>
+<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="info" size="mini" <i class="i1">@click="onShowRoleClick(row)"</i>&gt;&#123; &#123; $t('msg.excel.showRole') &#125; &#125;&lt;/el-button&gt;
+                
+                &lt;div class="user-manage-container"&gt;
+                    <i class="i0">&lt;roles-dialog v-model="<i class="i2">roleDialogVisible</i>" <i class="i3">:userId="selectUserId"</i>&gt;&lt;/roles-dialog&gt;</i>
+                &lt;/div&gt;
+
+                import <i class="i0">RolesDialog</i> from './components/roles.vue'
+                import { watch } from 'vue'
+
+                <span class="comment">/**
+                * 查看角色的点击事件
+                */</span>
+                const <i class="i2">roleDialogVisible</i> = ref(false)
+                const <i class="i3">selectUserId</i> = ref('')
+                const <i class="i1">onShowRoleClick</i> = row =&gt; {
+                    <i class="i2">roleDialogVisible</i>.value = true
+                    <i class="i3">selectUserId</i>.value = row._id
+                }
+                <span class="comment">// 保证每次打开重新获取用户角色数据</span>
+                watch(roleDialogVisible, val =&gt; {
+                    if (!val) <i class="i3">selectUserId</i>.value = ''
+                })</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/views/user-manage/components/roles.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
+                    &lt;el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed"&gt;
+                        &lt;el-checkbox-group v-model="<i class="i3">userRoleTitleList</i>"&gt;
+                            &lt;el-checkbox v-for="item in <i class="i2">allRoleList</i>" :key="item.id" :label="item.title"&gt;&lt;/el-checkbox&gt;
+                        &lt;/el-checkbox-group&gt;
+                        &lt;template #footer&gt;
+                            &lt;span class="dialog-footer"&gt;
+                                &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.universal.cancel') &#125; &#125;&lt;/el-button&gt;
+                                &lt;el-button type="primary" @click="<i class="i4">onConfirm</i>"&gt;&#123; &#123; $t('msg.universal.confirm') &#125; &#125;&lt;/el-button&gt;
+                            &lt;/span&gt;
+                        &lt;/template&gt;
+                    &lt;/el-dialog&gt;
+                &lt;/template&gt;
+
+                &lt;script setup&gt;
+                import { defineProps, defineEmits, ref, watch } from 'vue'
+                import { roleList } from '@/api/role'
+                import { watchSwitchLang } from '@/utils/i18n'
+                import { userRoles, updateRole } from '@/api/user-manage'
+
+                const props = defineProps({
+                    modelValue: {
+                        type: Boolean,
+                        required: true
+                    },
+                    <i class="i3">userId</i>: {
+                        type: String,
+                        required: true
+                    }
+                })
+                const emits = defineEmits(['update:modelValue', <i class="i5">'updateRole'</i>])
+
+                <span class="comment">/**
+                 * 确定按钮点击事件
+                 */</span>
+                <i class="i4">const i18n = useI18n()
+                const onConfirm = async () =&gt; {
+                    const roles = userRoleTitleList.value.map(title =&gt; {
+                        return allRoleList.value.find(role =&gt; role.title === title) <span class="comment">// 处理数据结构</span>
+                    })
+                    await updateRole(props.userId, roles) <span class="comment">// 更新用户角色</span>
+                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
+                    closed()
+                    
+                    <i class="i5">emits('updateRole')</i> <span class="comment">// 更新成功通知父类</span>
+                }</i>
+                <span class="comment">/**
+                 * 关闭
+                 */</span>
+                const closed = () =&gt; {
+                    emits('update:modelValue', false)
+                }
+
+                <span class="comment">// 所有角色</span>
+                const <i class="i2">allRoleList</i> = ref([])
+                <span class="comment">// 获取所有角色数据的方法</span>
+                const <i class="order1">getListData</i> = async () =&gt; {
+                    <i class="i2">allRoleList</i>.value = await roleList()
+                }
+                <i class="order1">getListData</i>()
+                watchSwitchLang(getListData)
+
+                <span class="comment">// 当前用户角色</span>
+                <i class="i3">const userRoleTitleList = ref([])                
+                const getUserRoles = async () =&gt; {
+                    const res = await userRoles(props.userId)
+                    userRoleTitleList.value = res.role.map(item =&gt; item.title)
+                }
+                watch(() =&gt; props.userId, val =&gt; {
+                    if (val) getUserRoles() <span class="comment">// 此值依赖用户点击事件</span>
+                })</i>
+                &lt;/script&gt;
+
+                &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/api/user-manage.js</span><span class="comment"></span><div class="detail-content">                <span><span class="comment">/*
+                 * 获取指定用户角色
+                 */</span>
+                export const userRoles = (id) =&gt; {
+                    return request({
+                        url: `/user-manage/role/${id}`
+                    })
+                }
+                
+                <span class="comment">/**
+                 * 分用户分配角色
+                 */</span>
+                export const updateRole = (id, roles) =&gt; {
+                    return request({
+                        url: `/user-manage/update-role/${id}`,
+                        method: 'POST',
+                        data: {
+                            roles
+                        }
+                    })
+                }</span></div></div>
 
 
 
@@ -1134,8 +1460,7 @@ pageClass: theme-item
 
 
 
-
-<span class="title1" style="margin-top:10px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
+<span class="title1" style="margin-top:15px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
 <div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"> 创建项目</span><div class="detail-content">    <span>(*) Choose Vue version
     (*) Babel
     (*) Router
@@ -1217,7 +1542,7 @@ pageClass: theme-item
     export default router</span></div></div>
 http://localhost:8080/
 
-<span class="title2" style="margin-top:8px;"><i></i>预设部署</span>
+<span class="title2" style="margin-top:12px;"><i></i>预设部署</span>
 <div class="block-detail">    <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取常量</span><div class="detail-content">        <span>// token
         export const TOKEN = 'token'
         <span class="comment">// token 时间戳</span>
@@ -1233,7 +1558,7 @@ http://localhost:8080/
         <span class="comment">// tags</span>
         export const TAGS_VIEW = 'tagsView'</span></div></div>
 
-<span class="title2" style="margin-top:8px;"><i></i>构建登录页面 UI 结构</span>
+<span class="title2" style="margin-top:12px;"><i></i>构建登录页面 UI 结构</span>
 <div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
          * 公开路由表
          */</span>
@@ -1556,9 +1881,9 @@ http://localhost:8080/
             重新启动项目
     http://localhost:8080/#/Login
 
-<span class="title2" style="margin-top:8px;"><i></i>登陆逻辑</span>
+<span class="title2" style="margin-top:12px;"><i></i>登陆逻辑</span>
     表单验证
-<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
+<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">            <span>▧&lt;el-form :model="<i class="i1">loginForm</i>" :rules="<i class="i2">loginRules</i>"&gt;
                 &lt;el-form-item prop="username"&gt;
                     &lt;el-input v-model="<i class="i1">loginForm</i>.username" /&gt;
                 &lt;/el-form-item&gt;
@@ -1580,8 +1905,8 @@ http://localhost:8080/
                 username: [{required: true, trigger: 'blur', message: '用户名为必填项'}],
                 password: [{required: true, trigger: 'blur', validator: <i class="i3">validatePassword</i>()}]
             })
-            &lt;/script&gt;</span></span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/views/login/rules.js</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">export const <i class="i3">validatePassword</i> = () =&gt; {
+            &lt;/script&gt;▨</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/views/login/rules.js</span><span class="comment"></span><div class="detail-content">            <span>▧export const <i class="i3">validatePassword</i> = () =&gt; {
                 return (rule, value, callback) =&gt; {
                     if (value.length &lt; 6) {
                         callback(new Error('密码不能少于6位'))
@@ -1589,9 +1914,9 @@ http://localhost:8080/
                         callback()
                     }
                 }
-            }</span></span></div></div>
+            }▨</span></div></div>
     密码框状态通用处理
-<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">&lt;el-input placeholder="password" name="password" <i class="i2">:type="passwordType"</i> v-model="loginForm.password" /&gt; 
+<div class="block-detail">        <span class="detail-desc">src/views/login/index.vue</span><span class="comment"></span><div class="detail-content">        <span>▧&lt;el-input placeholder="password" name="password" <i class="i2">:type="passwordType"</i> v-model="loginForm.password" /&gt; 
         &lt;svg-icon <i class="i2">:icon="passwordType === 'password' ? 'eye' : 'eye-open'"</i> <i class="i3">@click="onChangePwdType"</i> /&gt;
         
         <span class="comment">// 处理密码框文本显示状态</span>
@@ -1602,30 +1927,30 @@ http://localhost:8080/
             } else {
                 passwordType.value = 'password'
             }
-        }</span></span></div></div>
+        }▨</span></div></div>
     通用后台登录方案        
         1.封装 axios 模块
             <span class="block-command">admin</span> npm i axios --save <span class="comment">// 0.24.0</span>
-<div class="block-detail">            <span class="detail-desc">.env.development</span><span class="comment"> 开发模式 baseurl</span><div class="detail-content">                <span><span class="format-block"># 标志
+<div class="block-detail">            <span class="detail-desc">.env.development</span><span class="comment"> 开发模式 baseurl</span><div class="detail-content">                <span>▧# 标志
                 ENV = 'development'
 
                 # base api
-                <i class="i1">VUE_APP_BASE_API</i> = '/api'</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">.env.production</span><span class="comment">  生产模式 baseurl</span><div class="detail-content">                <span><span class="format-block"># 标志
+                <i class="i1">VUE_APP_BASE_API</i> = '/api'▨</span></div></div>
+<div class="block-detail">            <span class="detail-desc">.env.production</span><span class="comment">  生产模式 baseurl</span><div class="detail-content">                <span>▧# 标志
                 ENV = 'production'
 
                 # base api
-                <i class="i1">VUE_APP_BASE_API</i> = '/prod-api'</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/utils/request.js</span><span class="comment"> 引入使用 baseurl</span><div class="detail-content">                <span><span class="format-block">import axios from 'axios'
+                <i class="i1">VUE_APP_BASE_API</i> = '/prod-api'▨</span></div></div>
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/utils/request.js</span><span class="comment"> 引入使用 baseurl</span><div class="detail-content">                <span>▧import axios from 'axios'
 
                 const service = axios.create({
                     baseURL: process.env.<i class="i1">VUE_APP_BASE_API</i>,
                     timeout: 5000
                 })
 
-                export default service</span></span></div></div>
+                export default service▨</span></div></div>
         2.封装 接口请求 模块
-<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/api/sys.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import request from '@/utils/request'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/api/sys.js</span><span class="comment"></span><div class="detail-content">                <span>▧import request from '@/utils/request'
 
                 <span class="comment">/**
                 * 登录
@@ -1636,10 +1961,10 @@ http://localhost:8080/
                         method: 'POST',
                         data
                     })
-                }</span></span></div></div>
+                }▨</span></div></div>
         3.封装登录请求动作
             <span class="block-command">admin</span> npm i md5 --save
-<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/store/modules/user.js</span><span class="comment"> 封装请求</span><div class="detail-content">                <span><span class="format-block">import { <i class="i2">login</i> } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/store/modules/user.js</span><span class="comment"> 封装请求</span><div class="detail-content">                <span>▧import { <i class="i2">login</i> } from '@/api/sys'
                 import md5 from 'md5'
                 <i class="i3">export default</i> {
                     namespaced: true,
@@ -1662,15 +1987,15 @@ http://localhost:8080/
                             })
                         }
                     }
-                }</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/store/index.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import { createStore } from 'vuex'
+                }▨</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/index.js</span><span class="comment"></span><div class="detail-content">                <span>▧import { createStore } from 'vuex'
                 import <i class="i3">user</i> from './modules/user.js'
                 export default createStore({
                     modules: {
                         <i class="i3">user</i>
                     }
-                })</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/views/login/index.vue</span><span class="comment"> 请求</span><div class="detail-content">                <span><span class="format-block">&lt;el-form <i class="i0">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
+                })▨</span></div></div>
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/views/login/index.vue</span><span class="comment"> 请求</span><div class="detail-content">                <span>▧&lt;el-form <i class="i0">ref="loginFromRef"</i> :model="loginForm" :rules="loginRules"&gt;
                     &lt;el-button <i class="i0">:loading="loading"</i> <i class="i0">@click="handleLogin"</i>&gt;登录&lt;/el-button&gt;
                 &lt;/el-form&gt;
                 
@@ -1703,8 +2028,8 @@ http://localhost:8080/
                         })
                     })
                 }
-                &lt;/script&gt;</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">vue.config.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">module.exports = {
+                &lt;/script&gt;▨</span></div></div>
+<div class="block-detail">            <span class="detail-desc">vue.config.js</span><span class="comment"></span><div class="detail-content">                <span>▧module.exports = {
                     devServer: {
                         <span class="comment">// 配置反向代理</span>
                         proxy: {
@@ -1716,9 +2041,9 @@ http://localhost:8080/
                             }
                         }
                     }
-                }</span></span></div></div>
+                }▨</span></div></div>
         4.保存服务端返回的 token
-<div class="block-detail">            <span class="detail-desc">src/utils/storage.js</span><span class="comment"> 封装localStorage操作方法</span><div class="detail-content">                <span><span class="format-block"><span class="comment">/**
+<div class="block-detail">            <span class="detail-desc">src/utils/storage.js</span><span class="comment"> 封装localStorage操作方法</span><div class="detail-content">                <span>▧<span class="comment">/**
                  * 存储数据
                  */</span>
                 export const setItem = (key, value) =&gt; {
@@ -1753,23 +2078,23 @@ http://localhost:8080/
                  */</span>
                 export const removeAllItem = key =&gt; {
                     window.localStorage.clear()
-                }</span></span></div></div>
+                }▨</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取TOKEN键值为常量</span><div class="detail-content">                <span>export const TOKEN = 'token'</span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import { login } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span>▧import { login } from '@/api/sys'
                 import md5 from 'md5'
-                <i class="order4">import { setItem, getItem } from '@/utils/storage'
-                import { TOKEN } from '@/constant'</i>
+                ❹import { setItem, getItem } from '@/utils/storage'
+                import { TOKEN } from '@/constant'❹
 
                 export default {
                     namespaced: true,
                     state: () =&gt; ({
-                        <i class="order3">token: getItem(TOKEN) || ''</i>
+                        ❸token: getItem(TOKEN) || ''❸
                     }),
                     mutations: {
-                        <i class="order2">setToken(state, token) {
+                        ❷setToken(state, token) {
                             state.token = token
                             setItem(TOKEN, token)
-                        }</i>
+                        }❷
                     },
                     actions: {
                         login(context, userInfo) {
@@ -1780,7 +2105,7 @@ http://localhost:8080/
                                     password: md5(password)
                                 })
                                     .then(data =&gt; {
-                                        <i class="order1">this.commit('user/setToken', data.data.data.token)</i>
+                                        ❶this.commit('user/setToken', data.data.data.token)❶
                                         resolve()
                                     })
                                     .catch(err =&gt; {
@@ -1789,8 +2114,8 @@ http://localhost:8080/
                             })
                         }
                     }
-                }</span></span></div></div>            
-<div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 响应数据的统一处理 data.data.data.token &gt; data.token </span><div class="detail-content">                <span><span class="format-block">import { ElMessage } from 'element-plus'
+                }▨</span></div></div>            
+<div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 响应数据的统一处理 data.data.data.token &gt; data.token </span><div class="detail-content">                <span>▧import { ElMessage } from 'element-plus'
 
                 <span class="comment">// 响应拦截器</span>
 
@@ -1811,15 +2136,15 @@ http://localhost:8080/
                         ElMessage.error(error.message) <span class="comment">// 提示错误信息</span>
                         return Promise.reject(error)
                     }
-                )</span></span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"><i class="order1">this.commit('user/setToken', data.token)</i></span></span></div></div>
+                )▨</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/store/modules/user.js</span><span class="comment"></span><div class="detail-content">                <span>▧❶this.commit('user/setToken', data.token)❶▨</span></div></div>
         5.登录鉴权
             src/layout/index.vue
 <div class="block-detail">            <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">                <span>{
                     path: '/',
                     component: () =&gt; import('@/layout/index')
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/permission.js</span><span class="comment"> 鉴权模块</span><div class="detail-content">                <span><span class="format-block">import router from './router'
+<div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/permission.js</span><span class="comment"> 鉴权模块</span><div class="detail-content">                <span>▧import router from './router'
                 import store from './store'
 
                 <span class="comment">// 白名单</span>
@@ -1841,7 +2166,7 @@ http://localhost:8080/
                             next('/login')
                         }
                     }
-                })</span></span></div></div>
+                })▨</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/store/getters.js</span><span class="comment"> 快捷访问 store.state.user.token &gt; store.getters.token</span><div class="detail-content">                <span>const getters = {
                     token: state =&gt; state.user.token
                 }
@@ -1852,7 +2177,7 @@ http://localhost:8080/
                 })</span></div></div>
 <div class="block-detail">            <span class="detail-desc" style="color:#fff;background-color:#00c381">src/main.js</span><span class="comment"> 导入鉴权模块</span><div class="detail-content">                <span>import './permission'</span></div></div>
 
-<span class="title2" style="margin-top:8px;"><i></i>搭建Layout架构</span>
+<span class="title2" style="margin-top:12px;"><i></i>搭建Layout架构</span>
     src/layout/
 <div class="block-detail">        <span class="detail-desc">index.vue</span><span class="comment"> 基础架构</span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;div class="app-wrapper"&gt;
@@ -2185,7 +2510,7 @@ http://localhost:8080/
                         url: '/sys/profile'
                     })
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                <span><span class="format-block">import { <i class="i0">getUserInfo</i> } from '@/api/sys'
+<div class="block-detail">            <span class="detail-desc">src/store/modules/user</span><span class="comment"> 定义调用接口的动作 </span><div class="detail-content">                <span>▧import { <i class="i0">getUserInfo</i> } from '@/api/sys'
 
                 export default {
                     state: () =&gt; ({
@@ -2203,7 +2528,7 @@ http://localhost:8080/
                             return res
                         }</i>
                     }
-                }</span></span></div></div>
+                }▨</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/utils/request.js</span><span class="comment"> 通用token注入</span><div class="detail-content">                <span>import store from '@/store'
 
                 <span class="comment">// 请求拦截器</span>
@@ -2220,7 +2545,7 @@ http://localhost:8080/
                         return Promise.reject(error)
                     }
                 )</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/permission.js</span><span class="comment"> 在权限拦截时触发动作</span><div class="detail-content">                <span><span class="format-block">router.beforeEach(async (to, from, next) =&gt; {
+<div class="block-detail">            <span class="detail-desc">src/permission.js</span><span class="comment"> 在权限拦截时触发动作</span><div class="detail-content">                <span>▧router.beforeEach(async (to, from, next) =&gt; {
                     if (store.getters.token) {
                         if (to.path === '/login') {
                             ...
@@ -2236,7 +2561,7 @@ http://localhost:8080/
                     } else {
                         ...
                     }
-                })</span></span></div></div>
+                })▨</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/store/getters.js</span><span class="comment"></span><div class="detail-content">                <span>const getters = {
                     userInfo: state =&gt; state.user.userInfo,
                     <span class="comment">/**
@@ -2247,7 +2572,7 @@ http://localhost:8080/
                     }
                 }</span></div></div>
         渲染用户头像菜单 element-plus中的dropdown组件使用
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span>▧&lt;template&gt;
                     &lt;div class="navbar"&gt;
                         &lt;div class="right-menu"&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;头像&#45;&#45;&#62;</span>
@@ -2303,7 +2628,7 @@ http://localhost:8080/
                         }
                     }
                 }
-                &lt;/style&gt;</span></span></div></div>
+                &lt;/style&gt;▨</span></div></div>
         退出登录方案
             1.清理掉当前用户缓存数据
             2.清理掉权限相关配置
@@ -2359,7 +2684,7 @@ http://localhost:8080/
                         export const TIME_STAMP = 'timeStamp'
                         <span class="comment">// 超时时长(毫秒) 两小时</span>
                         export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000</span></div></div>
-<div class="block-detail">                    <span class="detail-desc">src/store/modules/user.js</span><span class="comment"> 保存登录时间</span><div class="detail-content">                        <span><span class="format-block"><i class="i0">import { setTimeStamp } from '@/utils/auth'</i>
+<div class="block-detail">                    <span class="detail-desc">src/store/modules/user.js</span><span class="comment"> 保存登录时间</span><div class="detail-content">                        <span>▧<i class="i0">import { setTimeStamp } from '@/utils/auth'</i>
                         export default {                                
                             actions: {
                                 login(context, userInfo) {
@@ -2369,8 +2694,8 @@ http://localhost:8080/
                                     })})
                                 }
                             }
-                        }</span></span></div></div>
-<div class="block-detail">                    <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                        <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
+                        }▨</span></div></div>
+<div class="block-detail">                    <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                        <span>▧<i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
                         <span class="comment">// 请求拦截器</span>
                         service.interceptors.request.use(
                             config =&gt; {
@@ -2381,9 +2706,9 @@ http://localhost:8080/
                                     }</i>
                                 }
                             }
-                        )</span></span></div></div>
+                        )▨</span></div></div>
                 被动 token过期 和 单点登录
-<div class="block-detail">                    <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                        <span><span class="format-block"><i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
+<div class="block-detail">                    <span class="detail-desc">src/utils/request.js</span><span class="comment"> 检测token是否过期</span><div class="detail-content">                        <span>▧<i class="i3">import { isCheckTimeout } from '@/utils/auth'</i>
                         <span class="comment">// 响应拦截器</span>
                         service.interceptors.response.use(
                             response =&gt; {},
@@ -2397,9 +2722,9 @@ http://localhost:8080/
                                 ElMessage.error(error.message) <span class="comment">// 提示错误信息</span>
                                 return Promise.reject(error)
                             }
-                        )</span></span></div></div>
+                        )▨</span></div></div>
     临时menu菜单
-<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>▧&lt;template&gt;
                 <span class="comment">&#60;&#33;&#45;&#45;一级 menu 菜单&#45;&#45;&#62;</span>
                 &lt;<i class="i1">el-menu</i> :uniqueOpened="true" default-active="2" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"&gt;
                     <span class="comment">&#60;&#33;&#45;&#45;子集 menu 菜单&#45;&#45;&#62;</span>
@@ -2417,8 +2742,8 @@ http://localhost:8080/
                         &lt;template #title&gt;导航四&lt;/template&gt;
                     &lt;/<i class="i3">el-menu-item</i>&gt;
                 &lt;/<i class="i1">el-menu</i>&gt;
-            &lt;/template&gt;</span></span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 导入SidebarMenu</span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+            &lt;/template&gt;▨</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 导入SidebarMenu</span><div class="detail-content">            <span>▧&lt;template&gt;
                 &lt;div class=""&gt;
                     &lt;h1&gt;占位&lt;/h1&gt;
                     &lt;el-scrollbar&gt;
@@ -2430,7 +2755,7 @@ http://localhost:8080/
             &lt;script setup&gt;
             <i class="i0">import SidebarMenu from './SidebarMenu'</i>
             import {} from 'vue'
-            &lt;/script&gt;</span></span></div></div>
+            &lt;/script&gt;▨</span></div></div>
     动态menu菜单
         路由表 对应menu菜单规则: 
             如果meta && meta.title && meta.icon
@@ -2825,7 +3150,7 @@ http://localhost:8080/
                 }
             }
             &lt;/style&gt;</span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span>▧&lt;template&gt;
                 &lt;div class="navbar"&gt;
                     <i class="i1">&lt;hamburger class="hamburger-container" /&gt;</i>
                 &lt;/div&gt;
@@ -2848,9 +3173,9 @@ http://localhost:8080/
                     }
                 }</i>
             }
-            &lt;/style&gt;</span></span></div></div>
+            &lt;/style&gt;▨</span></div></div>
 <div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;el-menu :collapse="!$store.getters.sidebarOpened"&gt;</span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">            <span><span class="format-block">&lt;div class="app-wrapper" <i class="i1">:class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"</i>&gt;
+<div class="block-detail">        <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">            <span>▧&lt;div class="app-wrapper" <i class="i1">:class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"</i>&gt;
 
             &lt;style lang="scss" scoped&gt;
             .fixed-header {
@@ -2865,8 +3190,8 @@ http://localhost:8080/
             <i class="i1">.hideSidebar .fixed-header {
                 width: calc(100% - #{$hideSideBarWidth});
             }</i>
-            &lt;/style&gt;</span></span></div></div>
-<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 完善占位</span><div class="detail-content">            <span><span class="format-block">&lt;template&gt;
+            &lt;/style&gt;▨</span></div></div>
+<div class="block-detail">        <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"> 完善占位</span><div class="detail-content">            <span>▧&lt;template&gt;
                 &lt;div class=""&gt;
                     <i class="i1">&lt;div class="logo-container"&gt;
                         &lt;el-avatar size="44" shape="square" src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png" /&gt;
@@ -2899,7 +3224,7 @@ http://localhost:8080/
                     white-space: nowrap;
                 }
             }</i>
-            &lt;/style&gt;</span></span></div></div>
+            &lt;/style&gt;▨</span></div></div>
 <div class="block-detail">        <span class="detail-desc">src/styles/element.scss</span><span class="comment"></span><div class="detail-content">            <span>.el-avatar {
                 --el-avatar-background-color: none !important;
             }</span></div></div>
@@ -3015,13 +3340,13 @@ http://localhost:8080/
                 }
                 &lt;/style&gt;</span></div></div>  
             动画处理
-<div class="block-detail">                <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                    <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">                <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>▧&lt;template&gt;
                         &lt;el-breadcrumb class="breadcrumb" separator="/"&gt;
                             <i class="i0">&lt;transition-group name="breadcrumb"&gt;</i>
                             ...
                             <i class="i0">&lt;/transition-group&gt;</i>
                         &lt;/el-breadcrumb&gt;
-                    &lt;/template&gt;</span></span></div></div>
+                    &lt;/template&gt;▨</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/transition.scss</span><span class="comment"></span><div class="detail-content">                    <span>.breadcrumb-enter-active,
                     .breadcrumb-leave-active {
                         transition: all 0.5s;
@@ -3038,13 +3363,13 @@ http://localhost:8080/
                     }</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/index.scss</span><span class="comment"></span><div class="detail-content">                    <span>@import './transition.scss';</span></div></div>
 
-<span class="title2" style="margin-top:8px;"><i></i>国际化</span>
-<div class="block-detail">    <span class="detail-desc">实现原理</span><span class="comment"></span><div class="detail-content">        <span><span class="format-block">
+<span class="title2" style="margin-top:12px;"><i></i>国际化</span>
+<div class="block-detail">    <span class="detail-desc">实现原理</span><span class="comment"></span><div class="detail-content">        <span>▧
         1. 定义 msg 值的数据源               2. 定义切换变量            3. 定义赋值函数                          4. 为 msg 赋值
         const messages = {                  let locale = 'en'         function t(key) {                       let msg = t('msg')
             en: {msg: 'hello world'},                                     return messages[locale][key]        console.log(msg)
             zh: {msg: '你好世界'}                                      }
-        }</span></span></div></div>
+        }▨</span></div></div>
     基于 vue-i18n V9 的国际化实现方案
         <span class="block-command">admin</span> npm install vue-i18n@next <span class="comment">// 安装 vue-i18n</span>
         基础部署
@@ -3074,14 +3399,14 @@ http://localhost:8080/
                 })
 
                 export default i18n</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"><i class="i0">import i18n from '@/i18n'</i> <span class="comment">// 在APP.vue之前导入 因为会在app.vue中使用国际化内容</span>
+<div class="block-detail">            <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                <span>▧<i class="i0">import i18n from '@/i18n'</i> <span class="comment">// 在APP.vue之前导入 因为会在app.vue中使用国际化内容</span>
                 import App from './App.vue'
 
                 const app = createApp(App)
-                <i class="i0">app.use(i18n)</i></span></span></div></div>
+                <i class="i0">app.use(i18n)</i>▨</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;&#123; &#123; $t('msg.test') &#125; &#125;&lt;/h1&gt;</span></div></div>
         封装 langSelect 组件用于修改 locale
-<div class="block-detail">            <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block"><i class="i0">import { LANG } from '@/constant'</i>
+<div class="block-detail">            <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">                <span>▧<i class="i0">import { LANG } from '@/constant'</i>
                 <i class="i0">import { getItem, setItem } from '@/utils/storage'</i>
                 export default {
                     state: () =&gt; ({
@@ -3097,7 +3422,7 @@ http://localhost:8080/
                         }</i>
                     },
                     actions: {}
-                }</span></span></div></div>
+                }▨</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/constant/index.js</span><span class="comment"> 抽取TOKEN键值为常量</span><div class="detail-content">                <span>// 国际化
                 export const LANG = 'language'</span></div></div>
 <div class="block-detail">            <span class="detail-desc">src/components/LangSelect/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
@@ -3144,7 +3469,7 @@ http://localhost:8080/
                     ElMessage.success('更新成功')
                 }
                 &lt;/script&gt;</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">&lt;template&gt;
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">                <span>▧&lt;template&gt;
                     &lt;div class="navbar"&gt;
                         &lt;div class="right-menu"&gt;
                             <i class="i1">&lt;lang-select class="right-menu-item hover-effect" /&gt;</i>
@@ -3172,7 +3497,7 @@ http://localhost:8080/
                         }</i>
                     }
                 }
-                &lt;/style&gt;</span></span></div></div>
+                &lt;/style&gt;▨</span></div></div>
         语言包
             src/i18n/lang/
 <div class="block-detail">            <span class="detail-desc">src/i18n/lang/en.js</span><span class="comment"></span><div class="detail-content">                <span>export default {
@@ -3572,7 +3897,7 @@ http://localhost:8080/
                     export function generateTitle(title) {
                         return i18n.global.t('msg.route.' + title)
                     }</span></div></div>                    
-<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> <span class="comment">// 处理侧栏国际化</span></span><div class="detail-content">                    <span><span class="format-block">◄&lt;template&gt;
+<div class="block-detail">                <span class="detail-desc">src/layout/components/Sidebar/SidebarItem.vue</span><span class="comment"> <span class="comment">// 处理侧栏国际化</span></span><div class="detail-content">                    <span>▧◄&lt;template&gt;
                         &lt;el-sub-menu v-if="route.children.length &gt; 0" :index="route.path"&gt;
                             &lt;template #title&gt;
                                 &lt;menu-item <i class="i0">:title="generateTitle(route.meta.title)"</i> :icon="route.meta.icon"&gt;&lt;/menu-item&gt;
@@ -3586,7 +3911,7 @@ http://localhost:8080/
                     
                     &lt;script setup&gt;
                     <i class="i0">import { generateTitle } from '@/utils/i18n'</i>
-                    &lt;/script&gt;</span></span></div></div>
+                    &lt;/script&gt;▨</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/styles/element.scss</span><span class="comment"> 图标背景失效</span><div class="detail-content">                    <span>.el-avatar {
                         <span class="comment">//--el-avatar-background-color: none !important;</span>
                         --el-avatar-bg-color: none !important;
@@ -3615,7 +3940,7 @@ http://localhost:8080/
             <span class="comment">// const locale = 'zh'</span>
             const locale = getLanguage()</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/store/getters.js</span><span class="comment"> 设置快捷访问</span><div class="detail-content">            <span>language: state =&gt; state.app.language</span></div></div>
-<span class="title2" style="margin-top:8px;"><i></i>动态换肤</span>
+<span class="title2" style="margin-top:12px;"><i></i>动态换肤</span>
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/index</span><span class="comment"> 封装主题选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             <span class="comment">&#60;&#33;&#45;&#45;主题图标&#45;&#45;&#62;</span>
             &lt;el-dropdown v-bind="$attrs" trigger="click" class="theme" @command="handleSetTheme"&gt;
@@ -3716,7 +4041,7 @@ http://localhost:8080/
             selectColorVisible.value = true
         }
         &lt;/script&gt;</span></div></div>
-    <span class="title5" style="margin-top:2px;"><i></i>缓存选中的色值</span>
+    <span class="title5" style="margin-top:3px;"><i></i>缓存选中的色值</span>
 <div class="block-detail">        <span class="detail-desc">src/constants/index.js</span><span class="comment"></span><div class="detail-content">            <span>// 主题色保存的 key
             export const MAIN_COLOR = 'mainColor'
             <span class="comment">// 默认色值</span>
@@ -3766,7 +4091,7 @@ http://localhost:8080/
                 closed()
             }
             &lt;/script&gt;</span></div></div>
-    <span class="title5" style="margin-top:2px;"><i></i>处理ElementPlus主题变更</span>
+    <span class="title5" style="margin-top:3px;"><i></i>处理ElementPlus主题变更</span>
         <span class="title6" style="margin-top:0px;"><i></i>老方法</span>
 <div class="block-detail">            <span class="detail-desc">src/constant/formula.json</span><span class="comment"></span><div class="detail-content">                <span>{
                     "shade-1": "color(primary shade(10%))",
@@ -3978,10 +4303,10 @@ http://localhost:8080/
                     --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
                     --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                <span><span class="format-block">import installElementPlus from './plugins/element'
+<div class="block-detail">            <span class="detail-desc">src/main.js</span><span class="comment"></span><div class="detail-content">                <span>▧import installElementPlus from './plugins/element'
                 <i class="i3">import './styles/element-plus.scss'</i>
 
-                installElementPlus(app)</span></span></div></div>
+                installElementPlus(app)▨</span></div></div>
 
         <span class="title6" style="margin-top:0px;"><i></i>验证测试</span>
 <div class="block-detail">            <span class="detail-desc">src/views/profile/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-row&gt;
@@ -3992,7 +4317,7 @@ http://localhost:8080/
                     &lt;el-button type="warning"&gt;Warning&lt;/el-button&gt;
                     &lt;el-button type="danger"&gt;Danger&lt;/el-button&gt;
                 &lt;/el-row&gt;</span></div></div>
-    <span class="title5" style="margin-top:2px;"><i></i>处理自定义主题变更</span>
+    <span class="title5" style="margin-top:3px;"><i></i>处理自定义主题变更</span>
 <div class="block-detail">        <span class="detail-desc">src/layout/components/sidebar/SidebarMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;el-menu
                 :background-color="$store.getters.cssVar.menuBg"
                 :text-color="$store.getters.cssVar.menuText"
@@ -4044,7 +4369,7 @@ http://localhost:8080/
                     }
                 }
             }</span></div></div>            
-<span class="title2" style="margin-top:8px;"><i></i>Screenfull原理及方案分析</span>
+<span class="title2" style="margin-top:12px;"><i></i>Screenfull原理及方案分析</span>
     封装Screenfull组件
         npm i screenfull@5.1.0 --save
 <div class="block-detail">        <span class="detail-desc">components/Screenfull/index.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
@@ -4084,7 +4409,7 @@ http://localhost:8080/
             &lt;style lang="scss" scoped&gt;&lt;/style&gt;</span></div></div>            
 <div class="block-detail">        <span class="detail-desc">src/layout/components/Navbar.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;screenfull class="right-menu-item hover-effect" /&gt;
             import Screenfull from '@/components/Screenfull'</span></div></div>            
-<span class="title2" style="margin-top:8px;"><i></i>HeaderSearch原理及方案分析</span>
+<span class="title2" style="margin-top:12px;"><i></i>HeaderSearch原理及方案分析</span>
     1.根据指定内容对所有页面进行检索
     2.以 select 形式展示检索出的页面
     3.通过检索页面可快速进入对应页面
@@ -4289,7 +4614,7 @@ http://localhost:8080/
                 })
                 initFuse(searchPool.value)
             })</span></div></div>
-<span class="title2" style="margin-top:8px;"><i></i>tagsView原理及方案分析</span>
+<span class="title2" style="margin-top:12px;"><i></i>tagsView原理及方案分析</span>
 <div class="block-detail">    <span class="detail-desc">src/layout/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;div class="fixed-header"&gt;
             <span class="comment">&#60;&#33;&#45;&#45;顶部的 navbar&#45;&#45;&#62;</span>
             &lt;navbar /&gt;
@@ -4675,7 +5000,7 @@ http://localhost:8080/
                 opacity: 0;
                 transform: translateX(30px);
             }</span></div></div>
-<span class="title2" style="margin-top:8px;"><i></i>Guide引导页原理及方案分析</span>
+<span class="title2" style="margin-top:12px;"><i></i>Guide引导页原理及方案分析</span>
     <span class="block-command">admin</span> npm i driver.js@0.9.8 --save
 <div class="block-detail">    <span class="detail-desc">src/components/Guide/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div&gt;
