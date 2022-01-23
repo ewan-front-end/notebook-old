@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.23 20:59</span>
+            <span>M 2022.01.23 21:00</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -1582,6 +1582,8 @@ pageClass: theme-item
             history: createWebHashHistory(),
             routes: publicRoutes
         })</span></div></div>
+    src/store/index.js ▾
+        ↧↥
 <div class="block-detail">    <span class="detail-desc">src/store/modules/permission.js</span><span class="comment"></span><div class="detail-content">        <span>// 专门处理权限路由的模块
         import { publicRoutes, privateRoutes } from '@/router'
         export default {
