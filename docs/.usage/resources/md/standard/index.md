@@ -1340,7 +1340,7 @@
                 ↧<el-button type="info" size="mini" 1►@click="onShowRoleClick(row)"◄>{{ $t('msg.excel.showRole') }}</el-button>
                 
                 <div class="user-manage-container">
-                    ►<roles-dialog v-model="2►roleDialogVisible◄" 3►:userId="selectUserId"◄></roles-dialog>◄
+                    ►<roles-dialog v-model="2►roleDialogVisible◄" 3►:userId="selectUserId"◄ 5►@updateRole="2►getListData◄"◄></roles-dialog>◄
                 </div>
 
                 import ►RolesDialog◄ from './components/roles.vue'
@@ -1379,6 +1379,8 @@
                 import { roleList } from '@/api/role'
                 import { watchSwitchLang } from '@/utils/i18n'
                 import { userRoles, updateRole } from '@/api/user-manage'
+                import { useI18n } from 'vue-i18n'
+                import { ElMessage } from 'element-plus'
 
                 const props = defineProps({
                     modelValue: {
@@ -1456,8 +1458,148 @@
                         }
                     })
                 }↥
+        【4】为角色指定权限
+            src/views/role-list/index.vue ▾
+                ↧<el-table-column :label="$t('msg.role.action')" prop="action" width="260" 1►#default="{ row }"◄>
+                    <el-button type="primary" size="mini" ❶►@click="onDistributePermissionClick(row)"◄>{{ $t('msg.role.assignPermissions') }}</el-button>
+                </el-table-column>
+                
+                <template>
+                    <div class="">
+                    ►<distribute-permission v-model="2►distributePermissionVisible◄" :roleId="3►selectRoleId◄"></distribute-permission>◄
+                    </div>
+                </template>
+                
+                <script setup>
+                import ►DistributePermission◄ from './components/DistributePermission.vue'
 
+                /**
+                * 分配权限
+                */
+                const ❷►distributePermissionVisible◄ = ref(false)
+                const ❸►selectRoleId◄ = ref('')
+                const ❶►onDistributePermissionClick◄ = row => {
+                    ❷►distributePermissionVisible◄.value = true
+                    ❸►selectRoleId.value = row.id◄
+                }
+                </script>↥
+            src/views/role-list/components/DistributePermission.vue ▾
+                ↧<template>
+                    <el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed">
+                        <el-tree
+                            ref="5►treeRef◄"
+                            :data="2►allPermission◄"
+                            show-checkbox
+                            check-strictly
+                            node-key="id"
+                            default-expand-all
+                            :props="defaultProps"
+                            >
+                        </el-tree>
+                        <template #footer>
+                            <span class="dialog-footer">
+                                <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
+                                <el-button type="primary" ❻►@click="onConfirm"◄>{{ $t('msg.universal.confirm') }}</el-button>
+                            </span>
+                        </template>
+                    </el-dialog>
+                </template>
 
+                <script setup>
+                import { defineProps, defineEmits, ref, 4►watch◄ } from 'vue'
+                import { permissionList } from '@/api/permission'
+                import { watchSwitchLang } from '@/utils/i18n'
+                4►import { rolePermission, 6►distributePermission◄ } from '@/api/role'◄                
+                6►import { useI18n } from 'vue-i18n'
+                import { ElMessage } from 'element-plus'◄
+
+                const props = defineProps({
+                    modelValue: {
+                        type: Boolean,
+                        required: true
+                    },
+                    ❸►roleId: {
+                        type: String,
+                        required: true
+                    }◄
+                })
+                const emits = defineEmits(['update:modelValue'])
+
+                // 所有权限
+                const 2►allPermission◄ = ref([])
+                const 1►getPermissionList◄ = async () => {
+                    ❷►allPermission◄.value = await permissionList()
+                }
+                ❶►getPermissionList◄()
+                watchSwitchLang(1►getPermissionList◄)
+
+                // 属性结构配置
+                const defaultProps = {
+                    children: 'children',
+                    label: 'permissionName'
+                }
+
+                // 获取当前用户角色的权限                
+                ❹►const 5►treeRef◄ = ref(null) // 树组件引用
+                const getRolePermission = async () => {
+                    const checkedKeys = await rolePermission(props.roleId)
+                    ❺►treeRef◄.value.setCheckedKeys(checkedKeys)
+                }
+                watch(() => props.roleId, val => {if (val) getRolePermission()})◄
+
+                /**
+                 * 确定按钮点击事件
+                 */
+                6►const i18n = useI18n()
+                const onConfirm = async () => {
+                    await distributePermission({
+                        roleId: props.roleId,
+                        permissions: treeRef.value.getCheckedKeys()
+                    })
+                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
+                    closed()
+                }◄
+                /**
+                * 关闭
+                */
+                const closed = () => {
+                    emits('update:modelValue', false)
+                }
+                </script>↥
+            src/api/permission.js ▾
+                ↧import request from '@/utils/request'
+
+                /**
+                * 获取所有权限
+                */
+                export const permissionList = () => {
+                    return request({
+                        url: '/permission/list'
+                    })
+                }↥
+            src/api/role.js ▾
+                ↧/**
+                 * 获取指定角色的权限
+                 */
+                export const rolePermission = roleId => {
+                    return request({
+                        url: `/role/permission/${roleId}`
+                    })
+                }
+
+                /**
+                 * 为角色修改权限
+                 */
+                export const distributePermission = (data) => {
+                    return request({
+                        url: '/role/distribute-permission',
+                        method: 'POST',
+                        data
+                    })
+                }↥
+    【3】基于 RBAC 的权限控制体系原理与实现分析
+
+【2】项目部署之通用方案
 
 
 
