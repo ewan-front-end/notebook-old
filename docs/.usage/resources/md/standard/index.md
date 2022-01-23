@@ -1600,6 +1600,210 @@
     【3】基于 RBAC 的权限控制体系原理与实现分析
 
 【2】项目部署之通用方案
+    src/router/index.js ▾ 导出公私列表
+        ↧export const privateRoutes = [...]
+        export const publicRoutes = [...]
+
+        const router = createRouter({
+            history: createWebHashHistory(),
+            routes: publicRoutes
+        })↥
+    src/store/index.js ▾
+        ↧↥
+    src/store/modules/permission.js ▾
+        ↧// 专门处理权限路由的模块
+        import { publicRoutes, privateRoutes } from '@/router'
+        export default {
+            namespaced: true,
+            state: {
+                // 路由表：初始拥有静态路由权限
+                routes: publicRoutes
+            },
+            mutations: {
+                /**
+                * 增加路由
+                */
+                setRoutes(state, newRoutes) {
+                // 永远在静态路由的基础上增加新路由
+                state.routes = [...publicRoutes, ...newRoutes]
+                }
+            },
+            actions: {
+                /**
+                 * 根据权限筛选路由
+                 */
+                filterRoutes(context, menus) {
+                    const routes = []
+                    // 路由权限匹配
+                    menus.forEach(key => {
+                        // 权限名 与 路由的 name 匹配
+                        routes.push(...privateRoutes.filter(item => item.name === key))
+                    })
+                    // 最后添加 不匹配路由进入 404
+                    routes.push({
+                        path: '/:catchAll(.*)',
+                        redirect: '/404'
+                    })
+                    context.commit('setRoutes', routes)
+                    return routes
+                }
+            }
+        }↥
+    src/router/modules/
+        UserManage.js ▾ 写入5个页面权限路由
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'userManage',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/manage',
+                        component: () => import('@/views/user-manage/index'),
+                        meta: {
+                            title: 'userManage',
+                            icon: 'personnel-manage'
+                        }
+                    },
+                    {
+                        path: '/user/info/:id',
+                        name: 'userInfo',
+                        component: () => import('@/views/user-info/index'),
+                        props: true,
+                        meta: {
+                            title: 'userInfo'
+                        }
+                    },
+                    {
+                        path: '/user/import',
+                        name: 'import',
+                        component: () => import('@/views/import/index'),
+                        meta: {
+                            title: 'excelImport'
+                        }
+                    }
+                ]
+            }↥
+        RoleList.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'roleList',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/role',
+                        component: () => import('@/views/role-list/index'),
+                        meta: {
+                            title: 'roleList',
+                            icon: 'role'
+                        }
+                    }
+                ]
+            }↥
+        PermissionList.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'roleList',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/permission',
+                        component: () => import('@/views/permission-list/index'),
+                        meta: {
+                            title: 'permissionList',
+                            icon: 'permission'
+                        }
+                    }
+                ]
+            }↥
+        Article.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/article',
+                component: layout,
+                redirect: '/article/ranking',
+                name: 'articleRanking',
+                meta: { title: 'article', icon: 'article' },
+                children: [
+                    {
+                        path: '/article/ranking',
+                        component: () => import('@/views/article-ranking/index'),
+                        meta: {
+                            title: 'articleRanking',
+                            icon: 'article-ranking'
+                        }
+                    },
+                    {
+                        path: '/article/:id',
+                        component: () => import('@/views/article-detail/index'),
+                        meta: {
+                            title: 'articleDetail'
+                        }
+                    }
+                ]
+            }↥
+        ArticleCreate.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/article',
+                component: layout,
+                redirect: '/article/ranking',
+                name: 'articleCreate',
+                meta: { title: 'article', icon: 'article' },
+                children: [
+                    {
+                        path: '/article/create',
+                        component: () => import('@/views/article-create/index'),
+                        meta: {
+                            title: 'articleCreate',
+                            icon: 'article-create'
+                        }
+                    },
+                    {
+                        path: '/article/editor/:id',
+                        component: () => import('@/views/article-create/index'),
+                        meta: {
+                            title: 'articleEditor'
+                        }
+                    }
+                ]
+            }↥
+    src/router/index.js ▾
+        ↧import ArticleCreaterRouter from './modules/ArticleCreate'
+        import ArticleRouter from './modules/Article'
+        import PermissionListRouter from './modules/PermissionList'
+        import RoleListRouter from './modules/RoleList'
+        import UserManageRouter from './modules/UserManage'
+
+        export const asyncRoutes = [
+            RoleListRouter,
+            UserManageRouter,
+            PermissionListRouter,
+            ArticleCreaterRouter,
+            ArticleRouter
+        ]↥
 
 
 

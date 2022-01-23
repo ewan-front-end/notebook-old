@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.23 19:30</span>
+            <span>M 2022.01.23 20:59</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -1575,6 +1575,200 @@ pageClass: theme-item
     <span class="title3" style="margin-top:9px;"><i></i>基于 RBAC 的权限控制体系原理与实现分析</span>
 
 <span class="title2" style="margin-top:12px;"><i></i>项目部署之通用方案</span>
+<div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"> 导出公私列表</span><div class="detail-content">        <span>export const privateRoutes = [...]
+        export const publicRoutes = [...]
+
+        const router = createRouter({
+            history: createWebHashHistory(),
+            routes: publicRoutes
+        })</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/store/modules/permission.js</span><span class="comment"></span><div class="detail-content">        <span>// 专门处理权限路由的模块
+        import { publicRoutes, privateRoutes } from '@/router'
+        export default {
+            namespaced: true,
+            state: {
+                <span class="comment">// 路由表：初始拥有静态路由权限</span>
+                routes: publicRoutes
+            },
+            mutations: {
+                <span class="comment">/**
+                * 增加路由
+                */</span>
+                setRoutes(state, newRoutes) {
+                <span class="comment">// 永远在静态路由的基础上增加新路由</span>
+                state.routes = [...publicRoutes, ...newRoutes]
+                }
+            },
+            actions: {
+                <span class="comment">/**
+                 * 根据权限筛选路由
+                 */</span>
+                filterRoutes(context, menus) {
+                    const routes = []
+                    <span class="comment">// 路由权限匹配</span>
+                    menus.forEach(key =&gt; {
+                        <span class="comment">// 权限名 与 路由的 name 匹配</span>
+                        routes.push(...privateRoutes.filter(item =&gt; item.name === key))
+                    })
+                    <span class="comment">// 最后添加 不匹配路由进入 404</span>
+                    routes.push({
+                        path: '/:catchAll(.*)',
+                        redirect: '/404'
+                    })
+                    context.commit('setRoutes', routes)
+                    return routes
+                }
+            }
+        }</span></div></div>
+    src/router/modules/
+<div class="block-detail">        <span class="detail-desc">UserManage.js</span><span class="comment"> 写入5个页面权限路由</span><div class="detail-content">            <span>import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'userManage',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/manage',
+                        component: () =&gt; import('@/views/user-manage/index'),
+                        meta: {
+                            title: 'userManage',
+                            icon: 'personnel-manage'
+                        }
+                    },
+                    {
+                        path: '/user/info/:id',
+                        name: 'userInfo',
+                        component: () =&gt; import('@/views/user-info/index'),
+                        props: true,
+                        meta: {
+                            title: 'userInfo'
+                        }
+                    },
+                    {
+                        path: '/user/import',
+                        name: 'import',
+                        component: () =&gt; import('@/views/import/index'),
+                        meta: {
+                            title: 'excelImport'
+                        }
+                    }
+                ]
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">RoleList.js</span><span class="comment"></span><div class="detail-content">            <span>import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'roleList',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/role',
+                        component: () =&gt; import('@/views/role-list/index'),
+                        meta: {
+                            title: 'roleList',
+                            icon: 'role'
+                        }
+                    }
+                ]
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">PermissionList.js</span><span class="comment"></span><div class="detail-content">            <span>import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'roleList',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/permission',
+                        component: () =&gt; import('@/views/permission-list/index'),
+                        meta: {
+                            title: 'permissionList',
+                            icon: 'permission'
+                        }
+                    }
+                ]
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">Article.js</span><span class="comment"></span><div class="detail-content">            <span>import layout from '@/layout'
+
+            export default {
+                path: '/article',
+                component: layout,
+                redirect: '/article/ranking',
+                name: 'articleRanking',
+                meta: { title: 'article', icon: 'article' },
+                children: [
+                    {
+                        path: '/article/ranking',
+                        component: () =&gt; import('@/views/article-ranking/index'),
+                        meta: {
+                            title: 'articleRanking',
+                            icon: 'article-ranking'
+                        }
+                    },
+                    {
+                        path: '/article/:id',
+                        component: () =&gt; import('@/views/article-detail/index'),
+                        meta: {
+                            title: 'articleDetail'
+                        }
+                    }
+                ]
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">ArticleCreate.js</span><span class="comment"></span><div class="detail-content">            <span>import layout from '@/layout'
+
+            export default {
+                path: '/article',
+                component: layout,
+                redirect: '/article/ranking',
+                name: 'articleCreate',
+                meta: { title: 'article', icon: 'article' },
+                children: [
+                    {
+                        path: '/article/create',
+                        component: () =&gt; import('@/views/article-create/index'),
+                        meta: {
+                            title: 'articleCreate',
+                            icon: 'article-create'
+                        }
+                    },
+                    {
+                        path: '/article/editor/:id',
+                        component: () =&gt; import('@/views/article-create/index'),
+                        meta: {
+                            title: 'articleEditor'
+                        }
+                    }
+                ]
+            }</span></div></div>
+<div class="block-detail">    <span class="detail-desc">src/router/index.js</span><span class="comment"></span><div class="detail-content">        <span>import ArticleCreaterRouter from './modules/ArticleCreate'
+        import ArticleRouter from './modules/Article'
+        import PermissionListRouter from './modules/PermissionList'
+        import RoleListRouter from './modules/RoleList'
+        import UserManageRouter from './modules/UserManage'
+
+        export const asyncRoutes = [
+            RoleListRouter,
+            UserManageRouter,
+            PermissionListRouter,
+            ArticleCreaterRouter,
+            ArticleRouter
+        ]</span></div></div>
 
 
 
