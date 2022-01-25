@@ -1,6 +1,117 @@
  
 
 ===+
+<template>
+    <div class="container">123445567890</div>
+</template>
+
+<script setup>
+import { defineProps } from 'vue'
+import BScroll from '@better-scroll/core'
+
+const props = defineProps({
+    modelValue: {
+        type: Boolean,
+        required: true
+    }
+})
+
+let scroller
+const initScroll = () => {
+    if (scroller) {
+        scroller.refresh()
+    } else {
+        scroller = new BScroll('.drag-wrapper', { click: true, tap: true, probeType: 3 })
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    border: #f00 1px solid;
+}
+</style>
+
+
+
+
+
+
+<template>
+    <div class="business-center">
+        <page-flex-layout></page-flex-layout>
+    </div>
+</template>
+<script setup>
+import PageFlexLayout from '@/components/PageFlexLayout'
+
+
+
+
+【1】移动端页面布局
+    <template>
+        <div class="container">
+            <div class="header"></div>
+            <div class="content">
+                <div class="drag-wrapper">
+                    <div style="padding-bottom: 1px;">
+                    </div>
+                </div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </template>
+
+    <script>
+    import BScroll from '@better-scroll/core'
+    export default {
+        setup() {
+            let BScroll
+            const initScroll = () => {
+                if (BScroll) {
+                    BScroll.refresh()
+                } else {
+                    BScroll = new BScroll('.drag-wrapper', {click: true, tap: true, probeType: 3})
+                }
+            }
+        }
+    }
+    </script>
+
+    <style lang="scss" scoped>
+    html, body, #app, .app {
+        width: 100%;
+        height: 100%;
+    }
+    .drag-wrapper {
+        height: 100%;
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .container {
+        display: flex;          // 弹性盒子
+        flex-direction: column; // 垂直排列
+        height: 100%;           // 全屏高
+        .header{
+
+        }
+        .content {
+
+        }
+        .footer {
+
+        }
+    }
+    </style>
+
+
+
+
 【2】个人中心模块基本布局
     src/views/Profile/index.vue ▾
         ↧<template>

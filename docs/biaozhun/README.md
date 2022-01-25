@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.23 21:00</span>
+            <span>M 2022.01.25 20:25</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -22,6 +22,67 @@ pageClass: theme-item
 
 
 <pre class="code-block">
+<span class="title1" style="margin-top:15px;"><i></i>移动端页面布局</span>
+    &lt;template&gt;
+        &lt;div class="container"&gt;
+            &lt;div class="header"&gt;&lt;/div&gt;
+            &lt;div class="content"&gt;
+                &lt;div class="drag-wrapper"&gt;
+                    &lt;div style="padding-bottom: 1px;"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="footer"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    import BScroll from '@better-scroll/core'
+    export default {
+        setup() {
+            let BScroll
+            const initScroll = () =&gt; {
+                if (BScroll) {
+                    BScroll.refresh()
+                } else {
+                    BScroll = new BScroll('.drag-wrapper', {click: true, tap: true, probeType: 3})
+                }
+            }
+        }
+    }
+    &lt;/script&gt;
+
+    &lt;style lang="scss" scoped&gt;
+    html, body, #app, .app {
+        width: 100%;
+        height: 100%;
+    }
+    .drag-wrapper {
+        height: 100%;
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .container {
+        display: flex;          <span class="comment">// 弹性盒子</span>
+        flex-direction: column; <span class="comment">// 垂直排列</span>
+        height: 100%;           <span class="comment">// 全屏高</span>
+        .header{
+
+        }
+        .content {
+
+        }
+        .footer {
+            
+        }
+    }
+    &lt;/style&gt;
+
+
+
+
 <span class="title2" style="margin-top:12px;"><i></i>个人中心模块基本布局</span>
 <div class="block-detail">    <span class="detail-desc">src/views/Profile/index.vue</span><span class="comment"></span><div class="detail-content">        <span>&lt;template&gt;
             &lt;div class="my-container"&gt;
