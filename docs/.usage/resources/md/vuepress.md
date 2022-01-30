@@ -255,9 +255,7 @@ notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
             }}
         ]
     方案Solution
-        ✿ Identity:方案名称
-        去问问在
-        ❀
+        ✿ Identity:方案名称❀
         数据：[
             {filename: [
                 {
@@ -289,6 +287,7 @@ notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
                 ]
             }}
         ]
+    ❖ 项目Project
 
 [######] config.js    
     资源调度 // 应对重构导至的工具、插件等变更

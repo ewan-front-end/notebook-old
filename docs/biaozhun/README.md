@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.25 20:25</span>
+            <span>M 2022.01.30 17:38</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -22,63 +22,6 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="title1" style="margin-top:15px;"><i></i>移动端页面布局</span>
-    &lt;template&gt;
-        &lt;div class="container"&gt;
-            &lt;div class="header"&gt;&lt;/div&gt;
-            &lt;div class="content"&gt;
-                &lt;div class="drag-wrapper"&gt;
-                    &lt;div style="padding-bottom: 1px;"&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="footer"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/template&gt;
-
-    &lt;script&gt;
-    import BScroll from '@better-scroll/core'
-    export default {
-        setup() {
-            let BScroll
-            const initScroll = () =&gt; {
-                if (BScroll) {
-                    BScroll.refresh()
-                } else {
-                    BScroll = new BScroll('.drag-wrapper', {click: true, tap: true, probeType: 3})
-                }
-            }
-        }
-    }
-    &lt;/script&gt;
-
-    &lt;style lang="scss" scoped&gt;
-    html, body, #app, .app {
-        width: 100%;
-        height: 100%;
-    }
-    .drag-wrapper {
-        height: 100%;
-        flex: 1;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-    .container {
-        display: flex;          <span class="comment">// 弹性盒子</span>
-        flex-direction: column; <span class="comment">// 垂直排列</span>
-        height: 100%;           <span class="comment">// 全屏高</span>
-        .header{
-
-        }
-        .content {
-
-        }
-        .footer {
-            
-        }
-    }
-    &lt;/style&gt;
 
 
 
@@ -1856,6 +1799,7 @@ pageClass: theme-item
 
 
 <span class="title1" style="margin-top:15px;"><i></i>项目架构之搭建登录架构解决方案与实现</span>
+<div>工具</div>
 <div class="block-detail"><span class="detail-desc"><span class="block-command">hello</span> vue create admin</span><span class="comment"> 创建项目</span><div class="detail-content">    <span>(*) Choose Vue version
     (*) Babel
     (*) Router

@@ -9,6 +9,12 @@ const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      // bd sz-16 c-0
 
 function parseCustomBlock(block, path) {
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
+
+    // ❖ 项目Project
+    if (/(❖\s项目Project)/.exec(block)) {
+        block = block.replace(RegExp.$1, `<div>工具</div>`)
+    }
+
     
     // 聚合之采集
     block = Aggregate.pick(block, 'vuepress')

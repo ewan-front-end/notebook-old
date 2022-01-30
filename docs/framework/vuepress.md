@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.15 20:51</span>
+            <span>M 2022.01.30 14:57</span>
         </div>
     </div>
     <div class="content"></div>
@@ -34,7 +34,7 @@ notebook/
 <span class="block-command">notebook</span> npm install vuepress --save-dev
 notebook/docs/
 <div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"<img :src="$withBase('/images/db-brace-right.png')"></span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"&#125; &#125;</span></div></div>
 <span class="block-command">notebook</span> npm run docs:dev
     http://localhost:8080
 
@@ -242,7 +242,7 @@ notebook/docs/.doctree/markdown/vuepress.md
             {Identity:{
                 title:'场景名称',
                 res: 'reskey'
-            <img :src="$withBase('/images/db-brace-right.png')">
+            &#125; &#125;
         ]
     攻略Usage
         
@@ -252,10 +252,10 @@ notebook/docs/.doctree/markdown/vuepress.md
                 title:'攻略名称',
                 res: 'reskey',
                 steps: ['第一点','第二点','第三点']
-            <img :src="$withBase('/images/db-brace-right.png')">
+            &#125; &#125;
         ]
     方案Solution
-        <a class="solution" href="/aggregation/solution#filename_Identity">方案名称</a>
+        ✿ Identity:方案名称❀
         数据：[
             {filename: [
                 {
@@ -285,8 +285,9 @@ notebook/docs/.doctree/markdown/vuepress.md
                     {"标准一": "标准一文案"}
                     {"标准二": "标准二文案"}
                 ]
-            <img :src="$withBase('/images/db-brace-right.png')">
+            &#125; &#125;
         ]
+    ❖ 项目Project
 
 <span class="h6 bg3 cf"> config.js    </span>
     资源调度 <span class="comment">// 应对重构导至的工具、插件等变更</span>
