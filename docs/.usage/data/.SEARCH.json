@@ -446,9 +446,5 @@
     "/computer/": {
         "key": "computer",
         "keywords": "计算机(computer)"
-    },
-    "/biaozhun/README": {
-        "keywords": " 从动检测 ■ 主动规范 ■ 多规范之默认规范 ■提交时自动检测■提交时自动修复■flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ",
-        "key": "未知"
     }
 }

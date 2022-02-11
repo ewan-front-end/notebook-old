@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2022.01.11 14:32</span>
+            <span>M 2022.02.10 20:08</span>
         </div>
     </div>
     <div class="content"></div>
@@ -18,6 +18,93 @@ pageClass: theme-item
 </div>
 <div class="static-content">
 
+
+
+<pre class="code-block">
+
+iphoneconfigutilitysetup.exe
+
+
+
+
+
+
+
+
+配置GIT的配置文件：git config
+    查看所有的配置信息：git config -l <span class="comment">// 依次是系统级别、用户级别、仓库级别</span>
+    增加一个配置项信息：
+        git config [--local|--global|--system] --add section.key value
+        git config --add section.key value <span class="comment">// 默认是添加在local配置中</span>
+    获取一个配置项信息：
+        git config [--local|--global|--system] --get section.key
+        git config --get user.name <span class="comment">// 默认是获取local配置中内容</span>
+    删除一个配置项信息：
+        git config [--local|--global|--system] --unset section.key
+        git config --unset user.name
+
+    1、仓库级别 local 【优先级最高】
+        查看仓库配置：git config --local -l
+        编辑仓库配置：git config --local -e
+<div class="block-detail">        <span class="detail-desc">demo/.git/config</span><span class="comment"></span><div class="detail-content">            <span>[core]
+                repositoryformatversion = 0 <span class="comment">// 用于未来能够兼容git版本，决定怎么处理git命令和文件的</span>
+                filemode = false            <span class="comment">// 是否提供文件权限的diff</span>
+                bare = false                <span class="comment">// 决定当前仓库是中心仓库还是开发库</span>
+                logallrefupdates = true     <span class="comment">// 记录所有的ref更新：决定变更ref时，会不会被记录在`$GIT_DIR/logs/&lt;ref&gt;`目录下</span>
+                symlinks = false
+                ignorecase = true
+            [remote "origin"]
+                url = http://git.nbet-group.com/yun/cloud_site_webUI.git
+                fetch = +refs/heads/resouce:refs/remotes/origin/resouce
+            [remote "origin"] <span class="comment">// 主分支</span>
+                url = http://git.nbet-group.com/yun/cloud_site_webUI.git
+                fetch = +refs/heads/*:refs/remotes/origin/*
+            [remote "origin"]
+                url = http://git.nbet-group.com/yun/cloud_site_webUI.git
+                fetch = +refs/heads/aa:refs/remotes/origin/aa
+            [remote "origin"]
+                url = http://git.nbet-group.com/yun/cloud_site_webUI.git
+                fetch = +refs/heads/bb:refs/remotes/origin/bb
+
+
+            [branch "resouce"]
+                remote = origin
+                merge = refs/heads/resouce
+            [user]
+                name = ewan
+                email = ewan9616696010@gmail.com</span></div></div> 
+
+    2、用户级别 global【优先级次之】
+        查看用户配置：git config --global -l 
+        编辑用户配置：git config --global -e
+        添加配置项目：
+            git config --global user.email "you@example.com"
+            git config --global user.name "Your Name"
+<div class="block-detail">        <span class="detail-desc">C:\Users\xxxx\.gitconfig</span><span class="comment"></span><div class="detail-content">            <span>[user]
+            name = EWAN</span></div></div>
+
+    3、系统级别 system【优先级最低】
+        查看系统配置：git config --system -l
+        编辑系统配置：git config --system -e
+        C:\Program Files\Git\mingw64\etc\gitconfig ▾
+            ↧↥
+
+    同时要下载多个项目
+        demo/ &gt; 右键 &gt; Git Bash Here
+
+        git clone --branch=aa http://git.nbet-group.com/yun/cloud_site_webUI.git aa --depth=1;
+        git clone --branch=bi http://git.nbet-group.com/yun/cloud_site_webUI.git bi --depth=1;
+        git clone --branch=br http://git.nbet-group.com/yun/cloud_site_webUI.git br --depth=1;
+        git clone --branch=bs http://git.nbet-group.com/yun/cloud_site_webUI.git bs --depth=1;
+        git clone --branch=ca http://git.nbet-group.com/yun/cloud_site_webUI.git ca --depth=1;
+        git clone --branch=cm http://git.nbet-group.com/yun/cloud_site_webUI.git cm --depth=1;
+        git clone --branch=gi http://git.nbet-group.com/yun/cloud_site_webUI.git gi --depth=1
+
+        
+
+
+
+</pre>
 
 <pre>
 

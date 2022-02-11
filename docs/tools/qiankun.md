@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>N 2022.01.11 14:32</span>
+            <span>M 2022.02.11 20:56</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,18 @@ pageClass: theme-item
 <h1>乾坤微服务</h1><strong>乾坤微服务</strong>
 </div>
 <div class="static-content">
+
+
+
+<pre class="code-block">
+<span class="title1" style="margin-top:15px;"><i></i>从0打造微前端框架，实战汽车资讯平台</span>
+
+</pre>
+
+
+
+
+
 
 
 # 场景
