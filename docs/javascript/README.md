@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.09.03 18:19</span>
+            <span>M 2022.02.14 19:17</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul><li><a href="/javascript/es6">es6</a></li><li><a href="/javascript/ecmascript">ECMAScript</a></li></ul></div></div>
@@ -175,10 +175,14 @@ String.prototype.replaceAt = function(start, len, replacement) {
 'Hello1Hello2H'.match(/H(\w+)H/)                     // 搜索 匹配 {0:"Hello1Hello2H", 1:"ello1Hello2", index:0, input:"Hello1Hello2H", groups:undefined} 默认贪婪模式
 'Hello1Hello2H'.match(/H(\w+?)H/)                    // 搜索 匹配 {0:"Hello1H", 1:"ello1", index:0, input:"Hello1Hello2H", groups:undefined]
 
+          'abc'.startsWith('a')      true            // 判断 是否以'a'开始 对大小写敏感
+          'abc'.startsWith('b',1)    true            // 判断 是否以'b'开始 ...
+          'abc'.endsWith('b')        false           // 判断 是否以'b'结束 ...
+          'abc'.endsWith('c')        true            // 判断 是否以'c'结束 ...
             'a'.localeCompare('b')   -1              // 判断 靠前 字符串排序先后对比 返回值：-1、0、1
             'a'.localeCompare('a')    0              // 判断 同位
             'b'.localeCompare('a')    1              // 判断 靠后
-    ['猫','狗'].sort((a, b)=>a.localeCompare(b))     // 判断 ['猫','狗'] > ["狗", "猫"]
+    ['猫','狗'].sort((a, b)=>a.localeCompare(b))     // 判断 ['猫','狗'] > ["狗", "猫"]          
 
       'He l lo'.trim()  "He l lo"                    // 转换 去空格 只去左右
       ' Hello '.trim()  "Hello"                      // 转换 去空格 只去左右

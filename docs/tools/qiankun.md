@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.13 20:59</span>
+            <span>M 2022.02.14 17:54</span>
         </div>
     </div>
     <div class="content"></div>
@@ -21,6 +21,16 @@ pageClass: theme-item
 
 
 <pre class="code-block">
+人工智能教程
+https://www.captainai.net/jiangyu1013/
+https://www.captainai.net/join/
+
+
+
+window.__CURRENT_SUB_APP__ = '/react15'
+
+
+
 <span class="title1" style="margin-top:15px;"><i></i>从0打造微前端框架，实战汽车资讯平台</span>
     <span class="title2" style="margin-top:12px;"><i></i>设计原则</span>
         <span class="title4" style="margin-top:6px;"><i></i>开闭原则</span>
@@ -53,7 +63,7 @@ pageClass: theme-item
         解读：在继承体系中，子类中可以增加自己特有的方法，也可以实现父类的抽象方法，但是不能重写父类的非抽象方法，否则该继承关系就不是一个正确的继承关系。
         优点：可以检验继承使用的正确性，约束继承在使用上的泛滥。
 
-
+    <span class="title2" style="margin-top:12px;"><i></i>改造子应用</span>
 
 </pre>
 
