@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.14 17:54</span>
+            <span>M 2022.02.15 15:08</span>
         </div>
     </div>
     <div class="content"></div>
@@ -29,6 +29,109 @@ https://www.captainai.net/join/
 
 window.__CURRENT_SUB_APP__ = '/react15'
 
+增加一个子应用
+<div class="block-detail">    <span class="detail-desc">main/src/const/nav.js</span><span class="comment"> 导航</span><div class="detail-content">        <span>[
+            {
+                name: '叁叁',
+                status: false,
+                value: 7,
+                url: '/vue33/#/index',
+                hash: '',
+            }
+        ]</span></div></div>
+<div class="block-detail">    <span class="detail-desc">main/src/router/index.js</span><span class="comment"> 路由</span><div class="detail-content">        <span>[
+            {
+                path: '/vue33',
+                component: () =&gt; import('../App.vue'),
+            }
+        ]</span></div></div>
+<div class="block-detail">    <span class="detail-desc">main/src/store/sub.js</span><span class="comment"> 子应用信息</span><div class="detail-content">        <span>[
+            {
+                name: 'vue33',
+                entry: '//localhost:9006/',
+                loading,
+                container: '#micro-container',
+                activeRule: '/vue33',
+                appInfo,
+            }
+        ]</span></div></div>
+    改造子应用
+<div class="block-detail">        <span class="detail-desc">vue33/vue.config.js</span><span class="comment"></span><div class="detail-content">            <span>const path = require('path');
+
+            const packageName = 'vue33'
+
+            function resolve(dir) {
+                return path.join(__dirname, dir);
+            }
+
+            const port = 9006;
+
+            module.exports = {
+                outputDir: 'dist',
+                assetsDir: 'static',
+                filenameHashing: true,
+                publicPath: 'http://localhost:' + port,
+                devServer: {
+                    contentBase: path.join(__dirname, 'dist'),
+                    hot: true,
+                    disableHostCheck: true,
+                    port,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                },
+                configureWebpack: {
+                    resolve: {
+                    alias: {
+                        '@': resolve('src'),
+                    },
+                    },
+                    output: {
+                        filename: `${packageName}.js`,
+                        library: `${packageName}`,
+                        libraryTarget: 'umd',
+                        jsonpFunction: `webpackJsonp_${packageName}`
+                    }
+                }
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">vue33/src/main.js</span><span class="comment"></span><div class="detail-content">            <span>import { createApp } from 'vue'
+            import App from './App.vue'
+            <i class="i0">import { setMain } from './utils/global'</i> 
+
+            <span class="comment">// createApp(App).mount('#app')</span>
+
+            <i class="i0">let instance = null
+            function render() {
+                instance = createApp(App);
+                instance.mount('#app');
+            }
+
+            if (!window.__MICRO_WEB__) {
+                render();
+            }
+
+            export async function bootstrap() {
+                console.log('app bootstrap');
+            }
+
+            export async function mount(app) {
+                setMain(app)
+                render();
+            }
+
+            export async function unmount(ctx) {
+                instance.unmount();
+                instance = null;
+                const { container } = ctx
+                if (container) {
+                    document.querySelector(container).innerHTML = ''
+                }
+            }</i></span></div></div>
+<div class="block-detail">        <span class="detail-desc">vue33/src/utils/global.js</span><span class="comment"></span><div class="detail-content">            <span>export let main = {}
+
+            export const setMain = (data) =&gt; {
+                main = data
+            }</span></div></div>
 
 
 <span class="title1" style="margin-top:15px;"><i></i>从0打造微前端框架，实战汽车资讯平台</span>

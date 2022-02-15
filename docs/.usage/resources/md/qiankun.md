@@ -8,6 +8,115 @@ https://www.captainai.net/join/
 
 window.__CURRENT_SUB_APP__ = '/react15'
 
+增加一个子应用
+    main/src/const/nav.js ▾ 导航
+        ↧[
+            {
+                name: '叁叁',
+                status: false,
+                value: 7,
+                url: '/vue33/#/index',
+                hash: '',
+            }
+        ]↥
+    main/src/router/index.js ▾ 路由
+        ↧[
+            {
+                path: '/vue33',
+                component: () => import('../App.vue'),
+            }
+        ]↥
+    main/src/store/sub.js ▾ 子应用信息
+        ↧[
+            {
+                name: 'vue33',
+                entry: '//localhost:9006/',
+                loading,
+                container: '#micro-container',
+                activeRule: '/vue33',
+                appInfo,
+            }
+        ]↥
+    改造子应用
+        vue33/vue.config.js ▾
+            ↧const path = require('path');
+
+            const packageName = 'vue33'
+
+            function resolve(dir) {
+                return path.join(__dirname, dir);
+            }
+
+            const port = 9006;
+
+            module.exports = {
+                outputDir: 'dist',
+                assetsDir: 'static',
+                filenameHashing: true,
+                publicPath: 'http://localhost:' + port,
+                devServer: {
+                    contentBase: path.join(__dirname, 'dist'),
+                    hot: true,
+                    disableHostCheck: true,
+                    port,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                },
+                configureWebpack: {
+                    resolve: {
+                    alias: {
+                        '@': resolve('src'),
+                    },
+                    },
+                    output: {
+                        filename: `${packageName}.js`,
+                        library: `${packageName}`,
+                        libraryTarget: 'umd',
+                        jsonpFunction: `webpackJsonp_${packageName}`
+                    }
+                }
+            }↥
+        vue33/src/main.js ▾
+            ↧import { createApp } from 'vue'
+            import App from './App.vue'
+            ►import { setMain } from './utils/global'◄ 
+
+            // createApp(App).mount('#app')
+
+            ►let instance = null
+            function render() {
+                instance = createApp(App);
+                instance.mount('#app');
+            }
+
+            if (!window.__MICRO_WEB__) {
+                render();
+            }
+
+            export async function bootstrap() {
+                console.log('app bootstrap');
+            }
+
+            export async function mount(app) {
+                setMain(app)
+                render();
+            }
+
+            export async function unmount(ctx) {
+                instance.unmount();
+                instance = null;
+                const { container } = ctx
+                if (container) {
+                    document.querySelector(container).innerHTML = ''
+                }
+            }◄↥
+        vue33/src/utils/global.js ▾
+            ↧export let main = {}
+
+            export const setMain = (data) => {
+                main = data
+            }↥
 
 
 【1】从0打造微前端框架，实战汽车资讯平台
