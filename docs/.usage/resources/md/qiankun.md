@@ -1,5 +1,42 @@
 
 ===+
+
+包裹滚动容器 ▾
+    ↧<div class="drag-wrapper2"><div style="padding-bottom: 1px;"></div></div>
+    <style lang="scss" scoped>
+        .drag-wrapper2 {
+            height: 100%;
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>↥
+初始 ▾
+    ↧import { onMounted } from 'vue'
+    import BScroll from '@better-scroll/core'
+
+    let bscroller = null
+    const initScroll = () => {
+        if (bscroller) {
+            bscroller.refresh()
+        } else {
+            bscroller = new BScroll('.drag-wrapper2', {
+                click: true,
+                tap: true,
+                probeType: 3
+            })
+        }
+    }
+
+    onMounted(() => {
+        initScroll()
+    })↥
+    
+    
+
+
+
 人工智能教程
 https://www.captainai.net/jiangyu1013/
 https://www.captainai.net/join/

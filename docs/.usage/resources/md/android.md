@@ -1,4 +1,59 @@
 
+===+
+【2】Android打包
+    【4】生成Android证书
+        E:\android-key：keytool -genkey -alias rj_alias -keyalg RSA -keysize 2048 -validity 36500 -keystore rj.keystore
+
+    【4】构建项目到平台
+
+    【4】打包android平台
+        Android Studio 打开构建好的codova android平台
+            菜单Build > Generate Signed Bundle/APK...
+            选取 API > [Next]
+                Key store path: E:\android-key\rj.keystore
+                Key store password: 000000 // 生成Android证书时 默认密码 000000
+                Key alias: rj_alias
+                Key password: 000000
+                [Next]
+                    debug // APK文件会打包到：platforms/android/app/release/
+                    release // APK文件会打包到：platforms/android/app/release/
+                    [Finish]
+                        等待...  
+
+===-
+
+
+
+
+
+
+
+1. 从[Gralde官网](https://gradle.org/releases/)下载合适版本的 binary-only
+2. 解压到xxxx/gradle-7.3.1
+3. 添加系统变量 GRADLE_HOME:xxxx/gradle-7.3.1
+4. 编辑环境变量 Path
+    依赖 %JAVA_HOME%\bin
+    依赖 %JAVA_HOME%\jre\bin
+    添加 %GRADLE_HOME%\bin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. 构建项目到平台
+
+
 
 # Android开发环境搭建
 1. Android Studio

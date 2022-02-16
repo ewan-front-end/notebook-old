@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.20 13:21</span>
+            <span>M 2022.02.16 20:59</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,62 @@ pageClass: theme-item
 <h1>Android</h1><strong>Android</strong>
 </div>
 <div class="static-content">
+
+
+
+<pre class="code-block">
+<span class="title2" style="margin-top:12px;"><i></i>Android打包</span>
+    <span class="title4" style="margin-top:6px;"><i></i>生成Android证书</span>
+        E:\android-key：keytool -genkey -alias rj_alias -keyalg RSA -keysize 2048 -validity 36500 -keystore rj.keystore
+
+    <span class="title4" style="margin-top:6px;"><i></i>构建项目到平台</span>
+
+    <span class="title4" style="margin-top:6px;"><i></i>打包android平台</span>
+        Android Studio 打开构建好的codova android平台
+            菜单Build &gt; Generate Signed Bundle/APK...
+            选取 API &gt; [Next]
+                Key store path: E:\android-key\rj.keystore
+                Key store password: 000000 <span class="comment">// 生成Android证书时 默认密码 000000</span>
+                Key alias: rj_alias
+                Key password: 000000
+                [Next]
+                    debug <span class="comment">// APK文件会打包到：platforms/android/app/release/</span>
+                    release <span class="comment">// APK文件会打包到：platforms/android/app/release/</span>
+                    [Finish]
+                        等待...  
+
+</pre>
+
+
+
+
+
+
+
+1. 从[Gralde官网](https://gradle.org/releases/)下载合适版本的 binary-only
+2. 解压到xxxx/gradle-7.3.1
+3. 添加系统变量 GRADLE_HOME:xxxx/gradle-7.3.1
+4. 编辑环境变量 Path
+    依赖 %JAVA_HOME%\bin
+    依赖 %JAVA_HOME%\jre\bin
+    添加 %GRADLE_HOME%\bin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. 构建项目到平台
 
 
 
