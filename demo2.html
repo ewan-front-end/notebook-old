@@ -5,24 +5,101 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .business-center {
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+            border: #fc0 1px solid;
+        }
+        .custom-header {
+            background: #3366ee url('~@/assets/img/header-bg.png') center bottom/100% auto no-repeat;    
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            border-radius: 0 0 20px 20px;
+            flex: 1 1 auto;
+        }
+        .content {
+            padding: 5px 5px h(30);
+            text-align: left;
+            flex: 1;
+            border: #00f 1px solid;
+            overflow: hidden;
+        }
+        .drag-wrapper2 {
+            border: #f00 1px solid;
+            height: 100%;
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <code id="box"></code>
+    <div class="business-center">
+        <div class="custom-header">
+
+        </div>
+        <div class="content">
+            
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                    <p>11</p>
+                
+        </div>
+    </div>
 </body>
 </html>
-<script>
-    const REG_DETAIL = /(?<DETAIL_FORMAT>((?<DETAIL_INDENT>\x20*)(?<TITLE>.+)\s▾(?<STYLE>(\{[\w\s-;:'"#]+\})?)(?<COMMENT>\s*(.+)?)[\r\n](?<CONTENT_INDENT>\x20*)↧(?<CONTENT>[^↥]+)↥))/
-    let asdf = `admin/src/store/getters.js ▾ 快捷访问4
-                ↧const getters↥
-         
-            admin/src/main.js ▾
-                ↧// 导入权限控制模块
-                import './permission'↥`.match(REG_DETAIL)
-console.log('--------');
-console.log(asdf);
-console.log('--------');
-
-
-
-
-</script>

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.16 20:59</span>
+            <span>M 2022.02.18 19:25</span>
         </div>
     </div>
     <div class="content"></div>
@@ -21,23 +21,47 @@ pageClass: theme-item
 
 
 <pre class="code-block">
-<span class="title2" style="margin-top:12px;"><i></i>Android打包</span>
-    <span class="title4" style="margin-top:6px;"><i></i>生成Android证书</span>
-        E:\android-key：keytool -genkey -alias rj_alias -keyalg RSA -keysize 2048 -validity 36500 -keystore rj.keystore
+<span class="title1" style="margin-top:15px;"><i></i>IOS打包</span>
+    <span class="title5" style="margin-top:3px;"><i></i>生成描述文件</span>
 
-    <span class="title4" style="margin-top:6px;"><i></i>构建项目到平台</span>
+    <span class="title5" style="margin-top:3px;"><i></i>构建项目到平台</span>
+        cordova build ios
 
-    <span class="title4" style="margin-top:6px;"><i></i>打包android平台</span>
+
+<span class="title1" style="margin-top:15px;"><i></i>Android打包</span>
+    <span class="title5" style="margin-top:3px;"><i></i>生成Android证书</span>
+        <i class="i3">demo/</i> &gt; shift + 右键 &gt; 在此处打开Powershell窗口        
+        <span class="block-command">demo</span> keytool -genkey -alias <i class="i1">rj_alias</i> -keyalg RSA -keysize 2048 -validity 36500 -keystore rj.keystore
+<div class="block-detail">            <span class="detail-desc">交互详情</span><span class="comment"></span><div class="detail-content">            <span>输入密钥库口令: <i class="i2">123456</i> <span class="comment">// 默认密码 000000</span>
+            再次输入新口令: <i class="i2">123456</i>
+            您的名字与姓氏是什么?
+            [Unknown]:  ewan
+            您的组织单位名称是什么?
+            [Unknown]:  a
+            您的组织名称是什么?
+            [Unknown]:  a
+            您所在的城市或区域名称是什么?
+            [Unknown]:  a
+            您所在的省/市/自治区名称是什么?
+            [Unknown]:  a
+            该单位的双字母国家/地区代码是什么?
+            [Unknown]:  a
+            CN=ewan, OU=a, O=a, L=a, ST=a, C=a是否正确?
+            [否]:  y</span></div></div>
+    <span class="title5" style="margin-top:3px;"><i></i>构建项目到平台</span>
+        cordova build android
+
+    <span class="title5" style="margin-top:3px;"><i></i>打包android平台</span>
         Android Studio 打开构建好的codova android平台
             菜单Build &gt; Generate Signed Bundle/APK...
             选取 API &gt; [Next]
-                Key store path: E:\android-key\rj.keystore
-                Key store password: 000000 <span class="comment">// 生成Android证书时 默认密码 000000</span>
-                Key alias: rj_alias
-                Key password: 000000
+                Key store path: <i class="i3">demo\rj.keystore</i>
+                Key store password: <i class="i2">123456</i> 
+                Key alias: <i class="i1">rj_alias</i>
+                Key password: <i class="i2">123456</i>
                 [Next]
-                    debug <span class="comment">// APK文件会打包到：platforms/android/app/release/</span>
-                    release <span class="comment">// APK文件会打包到：platforms/android/app/release/</span>
+                    debug   <span class="comment">// 打包到：platforms/android/app/release/</span>
+                    release <span class="comment">// 打包到：platforms/android/app/release/</span>
                     [Finish]
                         等待...  
 

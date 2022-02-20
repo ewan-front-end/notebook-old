@@ -3,1836 +3,7 @@
 ===+
 
 
-
-
-【2】个人中心模块基本布局
-    src/views/Profile/index.vue ▾
-        ↧<template>
-            <div class="my-container">
-                <el-row>
-                    <el-col :span="6">
-                        <project-card class="user-card"></project-card>
-                    </el-col>
-                    <el-col :span="18">
-                        <el-card>
-                            <el-tabs v-model="activeName">
-                                <el-tab-pane :label="$t('msg.profile.feature')" name="feature">
-                                    <feature />
-                                </el-tab-pane>
-                                <el-tab-pane :label="$t('msg.profile.chapter')" name="chapter">
-                                    <chapter />
-                                </el-tab-pane>
-                                <el-tab-pane :label="$t('msg.profile.author')" name="author">
-                                    <author />
-                                </el-tab-pane>
-                            </el-tabs>
-                        </el-card>
-                    </el-col>
-                </el-row>
-            </div>
-        </template>
-
-        <script setup>
-        import ProjectCard from './components/ProjectCard.vue'
-        import Chapter from './components/Chapter.vue'
-        import Feature from './components/Feature.vue'
-        import Author from './components/Author.vue'
-        import { ref } from 'vue'
-        const activeName = ref('feature')
-        </script>
-
-        <style lang="scss" scoped>
-        .my-container {
-            .user-card {
-                margin-right: 20px;
-            }
-        }
-        </style>↥
-    src/views/profile/components/ProjectCard.vue
-    src/views/profile/components/Feature.vue
-    src/views/profile/components/Chapter.vue
-    src/views/profile/components/Author.vue
-    src/views/profile/components/ProjectCard.vue ▾
-        ↧<template>
-            <el-card class="user-container">
-                <template #header>
-                    <div class="header">
-                        <span>{{ $t('msg.profile.introduce') }}</span>
-                    </div>
-                </template>
-
-                <div class="user-profile">
-                    <!-- 头像 -->
-                    <div class="box-center">
-                        ►<pan-thumb :image="$store.getters.userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
-                            <div>Hello</div>
-                            {{ $store.getters.userInfo.title }}
-                        </pan-thumb>◄
-                    </div>
-
-                    <!-- 姓名 && 角色 -->
-                    <div class="box-center">
-                        <div class="user-name text-center">
-                            {{ $store.getters.userInfo.username }}
-                        </div>
-                        <div class="user-role text-center text-muted">
-                            {{ $store.getters.userInfo.title }}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 简介 -->
-                1►<div class="project-bio">
-                    <div class="project-bio-section">
-                        <div class="project-bio-section-header">
-                            <svg-icon icon="introduce" />
-                            <span>{{ $t('msg.profile.projectIntroduction') }}</span>
-                        </div>
-                        <div class="project-bio-section-body">
-                            <div class="text-muted">
-                                {{ $t('msg.profile.muted') }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 功能区域 -->
-                    <div class="project-bio-section">
-                        <div class="project-bio-section-header">
-                            <svg-icon icon="reward" /><span>{{ $t('msg.profile.projectFunction') }}</span>
-                        </div>
-                        <div class="project-bio-section-body">
-                            <div class="progress-item" v-for="item in features" :key="item.id">
-                                <div>{{ item.title }}</div>
-                                <el-progress :percentage="item.percentage" status="success" />
-                            </div>
-                        </div>
-                    </div>
-                </div>◄
-
-                
-            </el-card>
-        </template>
-
-        <script setup>
-        ►import PanThumb from '@/components/PanThumb/index.vue'◄
-        1►import { defineProps } from 'vue'
-        defineProps({
-            features: {
-                type: Array,
-                required: true
-            }
-        })◄
-        </script>
-
-        <style lang="scss" scoped>
-        .user-container {
-            .text-muted {
-                font-size: 14px;
-                color: #777;
-            }
-            .user-profile {
-                text-align: center;
-                .user-name {
-                    font-weight: bold;
-                }
-                .box-center {
-                    padding-top: 10px;
-                }
-                .user-role {
-                    padding-top: 10px;
-                    font-weight: 400;
-                }
-            }
-            1►.project-bio {
-                margin-top: 20px;
-                color: #606266;
-                span {
-                    padding-left: 4px;
-                }
-
-                .project-bio-section {
-                    margin-bottom: 36px;
-                    .project-bio-section-header {
-                        border-bottom: 1px solid #dfe6ec;
-                        padding-bottom: 10px;
-                        margin-bottom: 10px;
-                        font-weight: bold;
-                    }
-                    .project-bio-section-body {
-                        .progress-item {
-                            margin-top: 10px;
-                            div {
-                                font-size: 14px;
-                                margin-bottom: 2px;
-                            }
-                        }
-                    }
-                }
-            }◄
-        }
-        </style>↥
-    src/components/PanThumb/index.vue ▾ 头像组件
-        ↧<template>
-            <div :style="{ zIndex: zIndex, height: height, width: width }" class="pan-item">
-                <div class="pan-info">
-                    <div class="pan-info-roles-container">
-                        <slot />
-                    </div>
-                </div>
-                <div :style="{ backgroundImage: `url(${image})` }" class="pan-thumb"></div>
-            </div>
-        </template>
-
-        <script setup>
-        import { defineProps } from 'vue'
-        defineProps({
-            image: {
-                type: String
-            },
-            zIndex: {
-                type: Number,
-                default: 1
-            },
-            width: {
-                type: String,
-                default: '150px'
-            },
-            height: {
-                type: String,
-                default: '150px'
-            }
-        })
-        </script>
-
-        <style scoped>
-        .pan-item {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            display: inline-block;
-            position: relative;
-            cursor: default;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-        .pan-info-roles-container {
-            padding: 20px;
-            text-align: center;
-        }
-        .pan-thumb {
-            width: 100%;
-            height: 100%;
-            background-position: center center;
-            background-size: cover;
-            border-radius: 50%;
-            overflow: hidden;
-            position: absolute;
-            transform-origin: 95% 40%;
-            transition: all 0.3s ease-in-out;
-        }
-        .pan-info {
-            position: absolute;
-            width: inherit;
-            height: inherit;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.05);
-        }
-        .pan-info h3 {
-            color: #fff;
-            text-transform: uppercase;
-            position: relative;
-            letter-spacing: 2px;
-            font-size: 14px;
-            margin: 0 60px;
-            padding: 22px 0 0 0;
-            height: 85px;
-            font-family: 'Open Sans', Arial, sans-serif;
-            text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .pan-info p {
-            color: #fff;
-            padding: 10px 5px;
-            font-style: italic;
-            margin: 0 30px;
-            font-size: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        .pan-info p a {
-            display: block;
-            color: #333;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            color: #fff;
-            font-style: normal;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 9px;
-            letter-spacing: 1px;
-            padding-top: 24px;
-            margin: 7px auto 0;
-            font-family: 'Open Sans', Arial, sans-serif;
-            opacity: 0;
-            transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s, background 0.2s linear 0s;
-            transform: translateX(60px) rotate(90deg);
-        }
-        .pan-info p a:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-        .pan-item:hover .pan-thumb {
-            transform: rotate(-110deg);
-        }
-        .pan-item:hover .pan-info p a {
-            opacity: 1;
-            transform: translateX(0px) rotate(0deg);
-        }
-        </style>↥
-    src/api/user.js ▾
-        ↧import request from '@/utils/request'
-
-        export const feature = () => {
-            return request({
-                url: '/user/feature'
-            })
-        }↥
-    src/views/profile/index.vue ▾
-        ↧<project-card class="user-card" :features="1►featureData◄"></project-card>
-        
-        import { feature as ►getFeature◄ } from '@/api/user'
-
-        const 1►featureData◄ = ref([])
-        const getFeatureData = async () => {
-            1►featureData◄.value = await ►getFeature◄()
-        }
-        getFeatureData()↥
-    【3】接口国际化
-        src/utils/request.js ▾
-            ↧// 请求拦截器
-            service.interceptors.request.use(
-                config => {                    
-                    // 配置接口国际化
-                    ►config.headers['Accept-Language'] = store.getters.language◄
-                    return config // 必须返回配置
-                }
-            )↥
-        src/views/profile/index.vue ▾ 功能数据重新获取
-            ↧import { watchSwitchLang } from '@/utils/i18n'
-            // 监听语言切换
-            watchSwitchLang(getFeatureData)↥
-        src/store/modules/app.js ▾ 用户信息重新获取
-            ↧import { watchSwitchLang } from '@/utils/i18n'
-            
-            /**
-             * 监听 语言变化，重新获取个人信息
-             */
-            watchSwitchLang(() => {
-                if (store.getters.token) {
-                    store.dispatch('user/getUserInfo')
-                }
-            })↥
-    【3】功能模块开发
-        src/views/profile/index.vue ▾
-            ↧<feature ►:features="featureData"◄ />↥
-        src/views/profile/components/Feature.vue ▾
-            ↧<template>
-                <el-collapse v-model="activeName" accordion>
-                    <el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id">
-                        <div v-html="item.content"></div>
-                    </el-collapse-item>
-                </el-collapse>
-            </template>
-
-            <script setup>
-            import { ref, defineProps } from 'vue'
-            const activeName = ref(0)
-            defineProps({
-                features: {
-                    type: Array,
-                    required: true
-                }
-            })
-            </script>
-
-            <style lang="scss" scoped>
-            ::v-deep .el-collapse-item__header {
-                font-weight: bold;
-            }
-
-            .el-collapse-item {
-                ::v-deep a {
-                    color: #2d62f7;
-                    margin: 0 4px;
-                }
-            }
-            </style>↥
-    【3】章节模块开发
-        src/api/user.js ▾
-            ↧export const ►chapter◄ = () => {
-                return request({
-                    url: '/user/chapter'
-                })
-            }↥
-        src/views/profile/components/Chapter.vue ▾ 调用接口处理接口国际化
-            ↧<template>
-                <el-timeline>
-                    <el-timeline-item
-                        v-for="item in 2►chapterData◄"
-                        :key="item.id"
-                        :timestamp="item.timestamp"
-                        placement="top"
-                        >
-                        <el-card>
-                            <h4>{{ item.content }}</h4>
-                        </el-card>
-                    </el-timeline-item>
-                </el-timeline>
-            </template>
-
-            <script setup>
-            import { watchSwitchLang } from '@/utils/i18n'
-            import { ►chapter◄ } from '@/api/user'
-            import { ref } from 'vue'
-            const 2►chapterData◄ = ref([])
-
-            const getChapterData = async () => {
-                2►chapterData◄.value = await ►chapter◄()
-            }
-            getChapterData()
-
-            // 监听语言切换
-            watchSwitchLang(getChapterData)
-            </script>↥
-    【3】作者模块开发
-        src/views/profile/components/Author.vue ▾
-            ↧<template>
-                <div class="author-container">
-                    <div class="header">
-                        <pan-thumb image="https://img4.sycdn.imooc.com/61110c2b0001152907400741-140-140.jpg" height="60px" width="60px" :hoverable="false">
-                            {{ $t('msg.profile.name') }}
-                        </pan-thumb>
-                        <div class="header-desc">
-                            <h3>{{ $t('msg.profile.name') }}</h3>
-                            <span>{{ $t('msg.profile.job') }}</span>
-                        </div>
-                    </div>
-                    <div class="info">
-                        {{ $t('msg.profile.Introduction') }}
-                    </div>
-                </div>
-            </template>
-
-            <script setup>
-            import PanThumb from '@/components/PanThumb/index.vue'
-            import {} from 'vue'
-            </script>
-
-            <style lang="scss" scoped>
-            .author-container {
-                .header {
-                    display: flex;
-                    .header-desc {
-                        margin-left: 12px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-around;
-
-                        span {
-                            font-size: 14px;
-                        }
-                    }
-                }
-                .info {
-                    margin-top: 16px;
-                    line-height: 22px;
-                    font-size: 14px;
-                    text-indent: 26px;
-                }
-            }
-            </style>↥
-【2】权限架构处理之用户权限处理
-    【3】员工管理
-        【4】用户列表分页展示
-            src/api/user-manage.js ▾ 定义接口
-                ↧import request from '@/utils/request'
-
-                /**
-                 * 获取用户列表数据
-                 */
-                export const ►getUserManageList◄ = data => {
-                    return request({
-                        url: '/user-manage/list',
-                        params: data
-                    })
-                }↥
-            src/views/user-manage/index.vue ▾
-                ↧<template>
-                    <div class="user-manage-container">
-                        <el-card class="header">
-                            <div>
-                                <el-button type="primary"> {{ $t('msg.excel.importExcel') }}</el-button>
-                                <el-button type="success">
-                                    {{ $t('msg.excel.exportExcel') }}
-                                </el-button>
-                            </div>
-                        </el-card>
-                        <el-card>
-                            <el-table :data="2►tableData◄" border style="width: 100%">
-                                <el-table-column label="#" type="index" />
-                                <el-table-column prop="username" :label="$t('msg.excel.name')"> </el-table-column>
-                                <el-table-column prop="mobile" :label="$t('msg.excel.mobile')"> </el-table-column>
-                                <el-table-column :label="$t('msg.excel.avatar')" align="center">
-                                    <template v-slot="{ row }">
-                                        <el-image class="avatar" :src="row.avatar" :preview-src-list="[row.avatar]"></el-image>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column :label="$t('msg.excel.role')">
-                                    <template #default="{ row }">
-                                        <div v-if="row.role && row.role.length > 0">
-                                            <el-tag v-for="item in row.role" :key="item.id" size="mini">{{ item.title }}</el-tag>
-                                        </div>
-                                        <div v-else>
-                                            <el-tag size="mini">{{ $t('msg.excel.defaultRole') }}</el-tag>
-                                        </div>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="openTime" :label="$t('msg.excel.openTime')"> </el-table-column>
-                                <el-table-column :label="$t('msg.excel.action')" fixed="right" width="260">
-                                    <template #default>
-                                        <el-button type="primary" size="mini">{{ $t('msg.excel.show') }}</el-button>
-                                        <el-button type="info" size="mini">{{ $t('msg.excel.showRole') }}</el-button>
-                                        <el-button type="danger" size="mini">{{ $t('msg.excel.remove') }}</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-
-                            <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page" :page-sizes="[2, 5, 10, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
-                        </el-card>
-                    </div>
-                </template>
-
-                <script setup>
-                import { ref } from 'vue'
-                import { ►getUserManageList◄ } from '@/api/user-manage'
-                import { watchSwitchLang } from '@/utils/i18n'
-
-                // 数据相关
-                const 2►tableData◄ = ref([])
-                const total = ref(0)
-                const page = ref(1)
-                const size = ref(5)
-
-                // 获取数据的方法
-                const getListData = async () => {
-                    const result = await ►getUserManageList◄({
-                        page: page.value,
-                        size: size.value
-                    })
-                    2►tableData◄.value = result.list
-                    total.value = result.total
-                }
-                getListData()
-
-                // 监听语言切换
-                watchSwitchLang(getListData)
-
-                // size 改变触发
-                const handleSizeChange = currentSize => {
-                    size.value = currentSize
-                    getListData()
-                }
-                // 页码改变触发
-                const handleCurrentChange = currentPage => {
-                    page.value = currentPage
-                    getListData()
-                }
-                </script>
-
-                <style lang="scss" scoped>
-                .user-manage-container {
-                    .header {
-                        margin-bottom: 22px;
-                        text-align: right;
-                    }
-                    ::v-deep .avatar {
-                        width: 60px;
-                        height: 60px;
-                        border-radius: 50%;
-                    }
-                    ::v-deep .el-tag {
-                        margin-right: 6px;
-                    }
-                    .pagination {
-                        margin-top: 20px;
-                        text-align: center;
-                    }
-                }
-                </style>↥
-            【5】全局属性处理时间展示
-                npm i dayjs@1.10.6 --save
-                src/filters/index.js ▾
-                    ↧import dayjs from 'dayjs'
-
-                    const dateFilter = (val, format = 'YYYY-MM-DD') => {
-                        if (!isNaN(val)) {
-                            val = parseInt(val)
-                        }
-
-                        return dayjs(val).format(format)
-                    }
-
-                    export default app => {
-                        app.config.globalProperties.$filters = {
-                            dateFilter
-                        }
-                    }↥
-                src/main.js ▾
-                    ↧// 全局属性
-                    import installFilter from '@/filters'
-
-                    installFilter(app)↥
-                src/views/user-manage/index.vue ▾
-                    ↧<el-table-column :label="$t('msg.excel.openTime')">
-                        <template #default="{ row }">
-                            {{ $filters.dateFilter(row.openTime) }}
-                        </template>
-                    </el-table-column>↥
-            【5】excel导入用户
-                src/views/user-manage/index.vue ▾
-                    ↧<el-button type="primary" ►@click="onImportExcelClick"◄>{{ $t('msg.excel.importExcel') }}</el-button>
-
-                    import { useRouter } from 'vue-router'
-                    const router = useRouter()
-                    /**
-                    * excel 导入点击事件
-                    */
-                    const ►onImportExcelClick◄ = () => {
-                        router.push('/user/import')
-                    }↥
-                src/views/import/index.vue ▾ 上传页面
-                    ↧<template>
-                        ►<upload-excel :onSuccess="1►onSuccess◄"></upload-excel>◄
-                    </template>
-
-                    <script setup>
-                    import ►UploadExcel◄ from '@/components/UploadExcel'
-                    import { userBatchImport } from '@/api/user-manage'
-                    import { USER_RELATIONS, formatDate } from './utils'
-                    import { ElMessage } from 'element-plus'
-                    import { useI18n } from 'vue-i18n'
-                    import { useRouter } from 'vue-router'
-
-                    const i18n = useI18n()
-                    const router = useRouter()
-
-                    /**
-                     * 数据解析成功之后的回调
-                     */
-                    const 1►onSuccess◄ = async ({ header, results }) => {
-                        const updateData = 2►generateData◄(results)
-                        await userBatchImport(updateData)
-                        ElMessage.success({
-                            message: results.length + i18n.t('msg.excel.importSuccess'),
-                            type: 'success'
-                        })
-                        router.push('/user/manage')
-                    }
-
-                    /**
-                     * 筛选数据
-                     */
-                    const 2►generateData◄ = results => {
-                        const arr = []
-                        results.forEach(item => {
-                            const userInfo = {}
-                            Object.keys(item).forEach(key => {
-                                if (USER_RELATIONS[key] === 'openTime') {
-                                    userInfo[USER_RELATIONS[key]] = formatDate(item[key])
-                                    return
-                                }
-                                userInfo[USER_RELATIONS[key]] = item[key]
-                            })
-                            arr.push(userInfo)
-                        })
-                        return arr
-                    }
-                    </script>↥
-                npm i xlsx@0.17.0 --save // 解析excel工具
-                src/components/UploadExcel/utils.js ▾
-                    ↧import XLSX from 'xlsx'
-                    /**
-                    * 获取表头（通用方式）
-                    */
-                    export const getHeaderRow = sheet => {
-                        const headers = []
-                        const range = XLSX.utils.decode_range(sheet['!ref'])
-                        let C
-                        const R = range.s.r
-                        /* start in the first row */
-                        for (C = range.s.c; C <= range.e.c; ++C) {
-                            /* walk every column in the range */
-                            const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
-                            /* find the cell in the first row */
-                            let hdr = 'UNKNOWN ' + C // <-- replace with your desired default
-                            if (cell && cell.t) hdr = XLSX.utils.format_cell(cell)
-                            headers.push(hdr)
-                        }
-                        return headers
-                    }
-
-                    export const isExcel = file => {
-                        return /\.(xlsx|xls|csv)$/.test(file.name)
-                    }↥
-                src/components/UploadExcel/index.vue ▾
-                    ↧<template>
-                        <div class="upload-excel">
-                            <div class="btn-upload">
-                                <el-button :loading="loading" type="primary" @click="handleUpload">
-                                    {{ $t('msg.uploadExcel.upload') }}
-                                </el-button>
-                            </div>
-
-                            <input ref="excelUploadInput" class="excel-upload-input" type="file" accept=".xlsx, .xls" @change="handleChange" />
-                            <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API -->
-                            <div class="drop" @drop.stop.prevent="handleDrop" @dragover.stop.prevent="handleDragover" @dragenter.stop.prevent="handleDragover">
-                                <i class="el-icon-upload" />
-                                <span>{{ $t('msg.uploadExcel.drop') }}</span>
-                            </div>
-                        </div>
-                    </template>
-
-                    <script setup>
-                    import XLSX from 'xlsx'
-                    import { defineProps, ref } from 'vue'
-                    import { getHeaderRow3►, isExcel◄ } from './utils'
-                    3►import { ElMessage } from 'element-plus'◄
-
-                    /**
-                     * 拖拽文本释放时触发
-                     */
-                    3►const handleDrop = e => {
-                        if (loading.value) return // 上传中跳过
-                        const files = e.dataTransfer.files
-                        if (files.length !== 1) {
-                            ElMessage.error('必须要有一个文件')
-                            return
-                        }
-                        const rawFile = files[0]
-                        if (!isExcel(rawFile)) {
-                            ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
-                            return false
-                        }
-                        upload(rawFile) // 触发上传事件
-                    }◄
-
-                    /**
-                     * 拖拽悬停时触发
-                     */
-                    3►const handleDragover = e => {
-                        e.dataTransfer.dropEffect = 'copy' // 在新位置生成源项的副本 https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/dropEffect
-                    }◄
-
-                    const props = defineProps({
-                        // 上传前回调
-                        beforeUpload: Function,
-                        // 成功回调
-                        onSuccess: Function
-                    })
-
-                    /**
-                    * 点击上传触发
-                    */
-                    const loading = ref(false)
-                    const excelUploadInput = ref(null)
-                    const handleUpload = () => {
-                        excelUploadInput.value.click()
-                    }
-                    const handleChange = e => {
-                        const files = e.target.files
-                        const rawFile = files[0] // only use files[0]
-                        if (!rawFile) return
-                        upload(rawFile)
-                    }
-
-                    /**
-                    * 触发上传事件
-                    */
-                    const upload = rawFile => {
-                        excelUploadInput.value.value = null
-                        // 如果没有指定上传前回调的话
-                        if (!props.beforeUpload) {
-                            readerData(rawFile)
-                            return
-                        }
-                        // 如果指定了上传前回调，那么只有返回 true 才会执行后续操作
-                        const before = props.beforeUpload(rawFile)
-                        if (before) {
-                            readerData(rawFile)
-                        }
-                    }
-
-                    /**
-                    * 读取数据（异步）
-                    */
-                    const readerData = rawFile => {
-                        loading.value = true
-                        return new Promise((resolve, reject) => {
-                            // https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader
-                            const reader = new FileReader()
-                            // 该事件在读取操作完成时触发
-                            // https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/onload
-                            reader.onload = e => {
-                                // 1. 获取解析到的数据
-                                const data = e.target.result
-                                // 2. 利用 XLSX 对数据进行解析
-                                const workbook = XLSX.read(data, { type: 'array' })
-                                // 3. 获取第一张表格(工作簿)名称
-                                const firstSheetName = workbook.SheetNames[0]
-                                // 4. 只读取 Sheet1（第一张表格）的数据
-                                const worksheet = workbook.Sheets[firstSheetName]
-                                // 5. 解析数据表头
-                                const header = getHeaderRow(worksheet)
-                                // 6. 解析数据体
-                                const results = XLSX.utils.sheet_to_json(worksheet)
-                                // 7. 传入解析之后的数据
-                                generateData({ header, results })
-                                // 8. loading 处理
-                                loading.value = false
-                                // 9. 异步完成
-                                resolve()
-                            }
-                            // 启动读取指定的 Blob 或 File 内容
-                            reader.readAsArrayBuffer(rawFile)
-                        })
-                    }
-
-                    /**
-                    * 根据导入内容，生成数据
-                    */
-                    const generateData = excelData => {
-                        props.onSuccess && props.onSuccess(excelData)
-                    }
-                    </script>
-
-                    <style lang="scss" scoped>
-                    .upload-excel {
-                        display: flex;
-                        justify-content: center;
-                        margin-top: 100px;
-                        .excel-upload-input {
-                            display: none;
-                            z-index: -9999;
-                        }
-                        .btn-upload,
-                        .drop {
-                            border: 1px dashed #bbb;
-                            width: 350px;
-                            height: 160px;
-                            text-align: center;
-                            line-height: 160px;
-                        }
-                        .drop {
-                            line-height: 60px;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            color: #bbb;
-                            i {
-                                font-size: 60px;
-                                display: block;
-                            }
-                        }
-                    }
-                    </style>↥
-                src/api/user-manage.js ▾
-                    ↧/**
-                     * 批量导入
-                     */
-                    export const userBatchImport = data => {
-                        return request({
-                            url: '/user-manage/batch/import',
-                            method: 'POST',
-                            data
-                        })
-                    }↥
-                src/views/import/utils.js ▾
-                    ↧/**
-                     * 导入数据对应表
-                     */
-                    export const USER_RELATIONS = {
-                        姓名: 'username',
-                        联系方式: 'mobile',
-                        角色: 'role',
-                        开通时间: 'openTime'
-                    }
-                    
-                    /**
-                     * 解析 excel 导入的时间格式
-                     */
-                    export const formatDate = numb => {
-                        const time = new Date((numb - 1) * 24 * 3600000 + 1)
-                        time.setYear(time.getFullYear() - 70)
-                        const year = time.getFullYear() + ''
-                        const month = time.getMonth() + 1 + ''
-                        const date = time.getDate() - 1 + ''
-                        return year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date)
-                    }↥
-            【5】用户列表导出为excel
-                src/views/user-manage/index.vue ▾
-                    ↧<template>
-                        <div class="user-manage-container">
-                            <el-card class="header">
-                                <div>
-                                    <el-button type="success" ►@click="onToExcelClick"◄>{{ $t('msg.excel.exportExcel') }}</el-button>
-                                </div>
-                            </el-card>
-                            <export-to-excel v-model="1►exportToExcelVisible◄"></export-to-excel>
-                        </div>
-                    <template>
-                    
-                    <script setup>
-                    import ExportToExcel from './components/Export2Excel.vue'
-
-                    /**
-                     * excel 导出点击事件
-                     */
-                    const 1►exportToExcelVisible◄ = ref(false)
-                    const ►onToExcelClick◄ = () => {
-                        1►exportToExcelVisible◄.value = true
-                    }
-                    </script>↥
-                src/api/user-manage.js ▾
-                    ↧/**
-                     * 获取所有用户列表数据
-                     */
-                    export const ►getUserManageAllList◄ = () => {
-                        return request({
-                            url: '/user-manage/all-list'
-                        })
-                    }↥
-                src/views/user-manage/components/Export2Excel.vue ▾
-                    ↧<template>
-                        <el-dialog :title="$t('msg.excel.title')" :model-value="modelValue" @close="closed" width="30%">
-                            <el-input :placeholder="$t('msg.excel.placeholder')" 1►v-model="excelName"◄></el-input>
-                            <template #footer>
-                                <span class="dialog-footer">
-                                    <el-button @click="closed">{{ $t('msg.excel.close') }}</el-button>
-                                    <el-button type="primary" @click="onConfirm" 2►:loading="loading"◄>{{ $t('msg.excel.confirm') }}</el-button>
-                                </span>
-                            </template>
-                        </el-dialog>
-                    </template>
-
-                    <script setup>
-                    import { defineProps, defineEmits1►, ref◄ } from 'vue'
-                    1►import { useI18n } from 'vue-i18n'
-                    import { watchSwitchLang } from '@/utils/i18n'◄
-                    2►import { getUserManageAllList } from '@/api/user-manage'◄
-                    3►import { USER_RELATIONS } from './Export2ExcelConstants'
-                    import { dateFormat } from '@/utils/date'◄
-
-                    defineProps({
-                        modelValue: {
-                            type: Boolean,
-                            required: true
-                        }
-                    })
-                    const emits = defineEmits(['update:modelValue'])
-
-                    /**
-                    * 导出按钮点击事件
-                    */
-                    2►const loading = ref(false)◄
-                    const onConfirm = async () => {
-                        2►loading.value = true
-                        const allUser = (await getUserManageAllList()).list◄
-                        // 导入工具包
-                        3►const excel = await import('@/utils/Export2Excel')
-                        const data = formatJson(USER_RELATIONS, allUser)
-                        excel.export_json_to_excel({                            
-                            header: Object.keys(USER_RELATIONS), // excel 表头                            
-                            data, // excel 数据（二维数组结构）                            
-                            filename: excelName.value || exportDefaultName, // 文件名称                            
-                            autoWidth: true, // 是否自动列宽                            
-                            bookType: 'xlsx' // 文件类型
-                        })◄
-                        closed()
-                    }
-                    // 该方法负责将数组转化成二维数组
-                    3►const formatJson = (headers, rows) => {
-                        // 首先遍历数组[{ username: '张三'},{},{}]  => [[’张三'],[],[]]
-                        return rows.map(item => {
-                            return Object.keys(headers).map(key => {                                
-                                if (headers[key] === 'openTime') {return dateFormat(item[headers[key]])} // 时间特殊处理
-                                // 角色特殊处理
-                                if (headers[key] === 'role') {
-                                    const roles = item[headers[key]]
-                                    return JSON.stringify(roles.map(role => role.title))
-                                }
-                                return item[headers[key]]
-                            })
-                        })
-                    }◄
-
-                    /**
-                    * 关闭
-                    */
-                    const closed = () => {
-                        2►loading.value = false◄
-                        emits('update:modelValue', false)
-                    }
-
-                    1►const i18n = useI18n()
-                    let exportDefaultName = i18n.t('msg.excel.defaultName')
-                    const excelName = ref('')
-                    excelName.value = exportDefaultName
-                    watchSwitchLang(() => {
-                        exportDefaultName = i18n.t('msg.excel.defaultName')
-                        excelName.value = exportDefaultName
-                    })◄
-                    </script>↥
-                src/uitils/Export2Excel.js ▾
-                    ↧/* eslint-disable */
-                    import { saveAs } from 'file-saver'
-                    import XLSX from 'xlsx'
-
-                    function datenum(v, date1904) {
-                        if (date1904) v += 1462
-                        var epoch = Date.parse(v)
-                        return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000)
-                    }
-
-                    function sheet_from_array_of_arrays(data, opts) {
-                        var ws = {}
-                        var range = {
-                            s: { c: 10000000, r: 10000000 },
-                            e: { c: 0, r: 0 }
-                        }
-                        for (var R = 0; R != data.length; ++R) {
-                            for (var C = 0; C != data[R].length; ++C) {
-                                if (range.s.r > R) range.s.r = R
-                                if (range.s.c > C) range.s.c = C
-                                if (range.e.r < R) range.e.r = R
-                                if (range.e.c < C) range.e.c = C
-                                var cell = {
-                                    v: data[R][C]
-                                }
-                                if (cell.v == null) continue
-                                var cell_ref = XLSX.utils.encode_cell({ c: C, r: R })
-
-                                if (typeof cell.v === 'number') cell.t = 'n'
-                                else if (typeof cell.v === 'boolean') cell.t = 'b'
-                                else if (cell.v instanceof Date) {
-                                    cell.t = 'n'
-                                    cell.z = XLSX.SSF._table[14]
-                                    cell.v = datenum(cell.v)
-                                } else cell.t = 's'
-
-                                ws[cell_ref] = cell
-                            }
-                        }
-                        if (range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range)
-                        return ws
-                    }
-
-                    function Workbook() {
-                        if (!(this instanceof Workbook)) return new Workbook()
-                        this.SheetNames = []
-                        this.Sheets = {}
-                    }
-
-                    function s2ab(s) {
-                        var buf = new ArrayBuffer(s.length)
-                        var view = new Uint8Array(buf)
-                        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
-                        return buf
-                    }
-
-                    export const export_json_to_excel = ({ multiHeader = [], header, data, filename, merges = [], autoWidth = true, bookType = 'xlsx' } = {}) => {    
-                        filename = filename || 'excel-list' // 1. 设置文件名称    
-                        data = [...data] // 2. 把数据解析为数组，并把表头添加到数组的头部
-                        data.unshift(header)    
-                        for (let i = multiHeader.length - 1; i > -1; i--) {data.unshift(multiHeader[i])} // 3. 解析多表头，把多表头的数据添加到数组头部（二维数组）    
-                        var ws_name = 'SheetJS' // 4. 设置 Excel 表工作簿（第一张表格）名称    
-                        var wb = new Workbook() // 5. 生成工作簿对象    
-                        var ws = sheet_from_array_of_arrays(data) // 6. 将 data 数组（json格式）转化为 Excel 数据格式
-                        // 7. 合并单元格相关（['A1:A2', 'B1:D1', 'E1:E2']）
-                        if (merges.length > 0) {
-                            if (!ws['!merges']) ws['!merges'] = []
-                            merges.forEach(item => {ws['!merges'].push(XLSX.utils.decode_range(item))})
-                        }
-                        // 8. 单元格宽度相关
-                        if (autoWidth) {
-                            /*设置 worksheet 每列的最大宽度*/
-                            const colWidth = data.map(row =>
-                                row.map(val => {
-                                    /*先判断是否为null/undefined*/
-                                    if (val == null) { return {wch: 10}
-                                    } else if (val.toString().charCodeAt(0) > 255) {
-                                        /*再判断是否为中文*/
-                                        return {wch: val.toString().length * 2}
-                                    } else {
-                                        return {wch: val.toString().length}
-                                    }
-                                })
-                            )
-                            /*以第一行为初始值*/
-                            let result = colWidth[0]
-                            for (let i = 1; i < colWidth.length; i++) {
-                                for (let j = 0; j < colWidth[i].length; j++) {
-                                    if (result[j]['wch'] < colWidth[i][j]['wch']) {result[j]['wch'] = colWidth[i][j]['wch']}
-                                }
-                            }
-                            ws['!cols'] = result
-                        }
-
-                        // 9. 添加工作表（解析后的 excel 数据）到工作簿
-                        wb.SheetNames.push(ws_name)
-                        wb.Sheets[ws_name] = ws
-                        // 10. 写入数据
-                        var wbout = XLSX.write(wb, {bookType: bookType, bookSST: false, type: 'binary'})
-                        // 11. 下载数据
-                        saveAs(new Blob([s2ab(wbout)], {type: 'application/octet-stream'}), `${filename}.${bookType}`)
-                    }↥
-                npm i file-saver@2.0.5 --save // 文件下载工具
-                src/views/user-manage/components/Export2ExcelConstants.js ▾
-                    ↧/**
-                     * 导入数据对应表
-                     */
-                    export const USER_RELATIONS = {
-                        姓名: 'username',
-                        联系方式: 'mobile',
-                        角色: 'role',
-                        开通时间: 'openTime'
-                    }↥
-                src/utils/date.js ▾
-                    ↧import dayjs from 'dayjs'
-                    export const dateFormat = (val, format = 'YYYY-MM-DD') => {
-                        if (isNaN(val)) return val
-                        val = parseInt(val)
-                        return dayjs(val).format(format)
-                    }↥                
-        【4】用户详情的表格展示
-            src/api/user-manage.js ▾ 获取用户详情接口
-                ↧/**
-                 * 获取用户详情
-                 */
-                export const userDetail = (id) => {
-                    return request({
-                        url: `/user-manage/detail/${id}`
-                    })
-                }↥
-            src/views/user-manage/index.vue ▾
-                ↧<el-button type="primary" size="mini" ►@click="onShowClick(row._id)"◄>{{ $t('msg.excel.show') }}</el-button>
-                
-                /**
-                 * 查看按钮点击事件
-                 */
-                const ►onShowClick◄ = id => {
-                    router.push(`/user/info/${id}`)
-                }↥
-            src/views/user-info/index.vue ▾
-                ↧<template>
-                    <div class="user-info-container">
-                        <el-card class="print-box">
-                            <el-button type="primary">{{ $t('msg.userInfo.print') }}</el-button>
-                        </el-card>
-                        <el-card>
-                            <div class="user-info-box">
-                                <!-- 标题 -->
-                                <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
-
-                                <div class="header">
-                                    <!-- 头部渲染表格 -->
-                                    <el-descriptions :column="2" border>
-                                        <el-descriptions-item :label="$t('msg.userInfo.name')">{{ 3►detailData◄.username }}</el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.sex')">{{ 3►detailData◄.gender }}</el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.nation')">{{ 3►detailData◄.nationality }}</el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.mobile')">{{ 3►detailData◄.mobile }}</el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.province')">{{ 3►detailData◄.province }}</el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.date')">{{ $filters.dateFilter(3►detailData◄.openTime) }}</el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.remark')" :span="2">
-                                            <el-tag class="remark" size="small" v-for="(item, index) in 3►detailData◄.remark" :key="index">{{ item }}</el-tag>
-                                        </el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.address')" :span="2">{{ 3►detailData◄.address }}</el-descriptions-item>
-                                    </el-descriptions>
-                                    <!-- 头像渲染 -->
-                                    <el-image class="avatar" :src="3►detailData◄.avatar" :preview-src-list="[3►detailData◄.avatar]"></el-image>
-                                </div>
-                                <div class="body">
-                                    <!-- 内容渲染表格 -->
-                                    <el-descriptions direction="vertical" :column="1" border>
-                                        <el-descriptions-item :label="$t('msg.userInfo.experience')">
-                                            <ul>
-                                                <li v-for="(item, index) in 3►detailData◄.experience" :key="index">
-                                                    <span>
-                                                        {{ $filters.dateFilter(item.startTime, 'YYYY/MM') }}
-                                                        ----
-                                                        {{ $filters.dateFilter(item.endTime, 'YYYY/MM') }}</span
-                                                    >
-                                                    <span>{{ item.title }}</span>
-                                                    <span>{{ item.desc }}</span>
-                                                </li>
-                                            </ul>
-                                        </el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.major')">
-                                            {{ 3►detailData◄.major }}
-                                        </el-descriptions-item>
-                                        <el-descriptions-item :label="$t('msg.userInfo.glory')">
-                                            {{ 3►detailData◄.glory }}
-                                        </el-descriptions-item>
-                                    </el-descriptions>
-                                </div>
-                                <!-- 尾部签名 -->
-                                <div class="foot">{{ $t('msg.userInfo.foot') }}</div>
-                            </div>
-                        </el-card>
-                    </div>
-                </template>
-
-                <script setup>
-                import { userDetail } from '@/api/user-manage'
-                import { watchSwitchLang } from '@/utils/i18n'
-                import { ❶►defineProps◄, ref } from 'vue'
-
-                ❶►const props = defineProps({
-                    id: {
-                        type: String,
-                        required: true
-                    }
-                })◄
-
-                // 数据相关
-                const ❸►detailData◄ = ref({})
-                const getUserDetail = async () => {
-                    ❸►detailData◄.value = await userDetail(props.id)
-                }
-                ❷►getUserDetail()◄
-                // 语言切换
-                watchSwitchLang(getUserDetail)
-                </script>
-
-                <style lang="scss" scoped>
-                .print-box {
-                    margin-bottom: 20px;
-                    text-align: right;
-                }
-                .user-info-box {
-                    width: 1024px;
-                    margin: 0 auto;
-                    .title {
-                        text-align: center;
-                        margin-bottom: 18px;
-                    }
-                    .header {
-                        display: flex;
-                        ::v-deep .el-descriptions {
-                            flex-grow: 1;
-                        }
-                        .avatar {
-                            width: 187px;
-                            box-sizing: border-box;
-                            padding: 30px 20px;
-                            border: 1px solid #ebeef5;
-                            border-left: none;
-                        }
-                        .remark {
-                            margin-right: 12px;
-                        }
-                    }
-                    .body {
-                        ul {
-                            list-style: none;
-                            li {
-                                span {
-                                    margin-right: 62px;
-                                }
-                            }
-                        }
-                    }
-                    .foot {
-                        margin-top: 42px;
-                        text-align: right;
-                    }
-                }
-                </style>↥
-            src/router/index.js ▾ 传参支持
-                ↧{
-                    path: '/user/info/:id',
-                    name: 'userInfo',
-                    component: () => import('@/views/user-info/index'),
-                    ►props: true◄,
-                    meta: {
-                        title: 'userInfo'
-                    }
-                }↥
-            【5】局部打印
-                npm i vue3-print-nb@0.1.4 --save
-                src/views/user-info/index.vue ▾
-                    ↧<el-button type="primary" ►v-print="printObj"◄ ►:loading="printLoading"◄>{{ $t('msg.userInfo.print') }}</el-button>
-
-                    <div ►id="userInfoBox"◄ class="user-info-box">
-                    
-                    // 打印相关
-                    const printLoading = ref(false)
-                    const printObj = {
-                        id: 'userInfoBox', // 打印区域
-                        popTitle: 'imooc-vue-element-admin', // 打印标题                        
-                        beforeOpenCallback(vue) {printLoading.value = true}, // 打印前                        
-                        openCallback(vue) {printLoading.value = false} // 执行打印
-                    }↥
-                src/directives/index.js ▾
-                    ↧import print from 'vue3-print-nb'
-
-                    export default app => {
-                        app.use(print)
-                    }↥
-                src/main.js ▾
-                    ↧import installDirective from '@/directives'
-                    
-                    installDirective(app)↥
-        【4】用户详情表格打印
-        【4】用户删除
-        【4】用户角色分配（需要在完成角色列表之后处理）
-    【3】角色列表
-    【3】权限列表
-【2】权限受控解决方案之分级分控权限管理
-    【3】角色列表展示        
-        src/views/role-list/index.vue ▾
-            ↧<template>
-                <div class="">
-                    <el-card>
-                        <el-table :data="allRoles" border style="width: 100%">
-                            <el-table-column :label="$t('msg.role.index')" type="index" width="120"> </el-table-column>
-                            <el-table-column :label="$t('msg.role.name')" prop="title"> </el-table-column>
-                            <el-table-column :label="$t('msg.role.desc')" prop="describe"> </el-table-column>
-                            <el-table-column :label="$t('msg.role.action')" prop="action" width="260">
-                                <el-button type="primary" size="mini">
-                                    {{ $t('msg.role.assignPermissions') }}
-                                </el-button>
-                            </el-table-column>
-                        </el-table>
-                    </el-card>
-                </div>
-            </template>
-
-            <script setup>
-            import { roleList } from '@/api/role'
-            import { watchSwitchLang } from '@/utils/i18n'
-            import { ref } from 'vue'
-
-            const allRoles = ref([])
-            const getRoleList = async () => {
-                allRoles.value = await roleList()
-            }
-            getRoleList()
-            watchSwitchLang(getRoleList)
-            </script>↥
-        src/api/role.js ▾
-            ↧import request from '@/utils/request'
-
-            /**
-             * 获取所有角色
-             */
-            export const roleList = () => {
-                return request({
-                    url: '/role/list'
-                })
-            }↥
-        【4】为用户分配角色
-            src/views/user-manage/index.vue ▾
-                ↧<el-button type="info" size="mini" 1►@click="onShowRoleClick(row)"◄>{{ $t('msg.excel.showRole') }}</el-button>
-                
-                <div class="user-manage-container">
-                    ►<roles-dialog v-model="2►roleDialogVisible◄" 3►:userId="selectUserId"◄ 5►@updateRole="2►getListData◄"◄></roles-dialog>◄
-                </div>
-
-                import ►RolesDialog◄ from './components/roles.vue'
-                import { watch } from 'vue'
-
-                /**
-                * 查看角色的点击事件
-                */
-                const 2►roleDialogVisible◄ = ref(false)
-                const 3►selectUserId◄ = ref('')
-                const 1►onShowRoleClick◄ = row => {
-                    2►roleDialogVisible◄.value = true
-                    3►selectUserId◄.value = row._id
-                }
-                // 保证每次打开重新获取用户角色数据
-                watch(roleDialogVisible, val => {
-                    if (!val) 3►selectUserId◄.value = ''
-                })↥
-            src/views/user-manage/components/roles.vue ▾
-                ↧<template>
-                    <el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed">
-                        <el-checkbox-group v-model="3►userRoleTitleList◄">
-                            <el-checkbox v-for="item in 2►allRoleList◄" :key="item.id" :label="item.title"></el-checkbox>
-                        </el-checkbox-group>
-                        <template #footer>
-                            <span class="dialog-footer">
-                                <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
-                                <el-button type="primary" @click="4►onConfirm◄">{{ $t('msg.universal.confirm') }}</el-button>
-                            </span>
-                        </template>
-                    </el-dialog>
-                </template>
-
-                <script setup>
-                import { defineProps, defineEmits, ref, watch } from 'vue'
-                import { roleList } from '@/api/role'
-                import { watchSwitchLang } from '@/utils/i18n'
-                import { userRoles, updateRole } from '@/api/user-manage'
-                import { useI18n } from 'vue-i18n'
-                import { ElMessage } from 'element-plus'
-
-                const props = defineProps({
-                    modelValue: {
-                        type: Boolean,
-                        required: true
-                    },
-                    3►userId◄: {
-                        type: String,
-                        required: true
-                    }
-                })
-                const emits = defineEmits(['update:modelValue', 5►'updateRole'◄])
-
-                /**
-                 * 确定按钮点击事件
-                 */
-                4►const i18n = useI18n()
-                const onConfirm = async () => {
-                    const roles = userRoleTitleList.value.map(title => {
-                        return allRoleList.value.find(role => role.title === title) // 处理数据结构
-                    })
-                    await updateRole(props.userId, roles) // 更新用户角色
-                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
-                    closed()
-                    
-                    5►emits('updateRole')◄ // 更新成功通知父类
-                }◄
-                /**
-                 * 关闭
-                 */
-                const closed = () => {
-                    emits('update:modelValue', false)
-                }
-
-                // 所有角色
-                const 2►allRoleList◄ = ref([])
-                // 获取所有角色数据的方法
-                const ❶►getListData◄ = async () => {
-                    2►allRoleList◄.value = await roleList()
-                }
-                ❶►getListData◄()
-                watchSwitchLang(getListData)
-
-                // 当前用户角色
-                3►const userRoleTitleList = ref([])                
-                const getUserRoles = async () => {
-                    const res = await userRoles(props.userId)
-                    userRoleTitleList.value = res.role.map(item => item.title)
-                }
-                watch(() => props.userId, val => {
-                    if (val) getUserRoles() // 此值依赖用户点击事件
-                })◄
-                </script>
-
-                <style lang="scss" scoped></style>↥
-            src/api/user-manage.js ▾
-                ↧/*
-                 * 获取指定用户角色
-                 */
-                export const userRoles = (id) => {
-                    return request({
-                        url: `/user-manage/role/${id}`
-                    })
-                }
-                
-                /**
-                 * 分用户分配角色
-                 */
-                export const updateRole = (id, roles) => {
-                    return request({
-                        url: `/user-manage/update-role/${id}`,
-                        method: 'POST',
-                        data: {
-                            roles
-                        }
-                    })
-                }↥
-        【4】为角色指定权限
-            src/views/role-list/index.vue ▾
-                ↧<el-table-column :label="$t('msg.role.action')" prop="action" width="260" 1►#default="{ row }"◄>
-                    <el-button type="primary" size="mini" ❶►@click="onDistributePermissionClick(row)"◄>{{ $t('msg.role.assignPermissions') }}</el-button>
-                </el-table-column>
-                
-                <template>
-                    <div class="">
-                    ►<distribute-permission v-model="2►distributePermissionVisible◄" :roleId="3►selectRoleId◄"></distribute-permission>◄
-                    </div>
-                </template>
-                
-                <script setup>
-                import ►DistributePermission◄ from './components/DistributePermission.vue'
-
-                /**
-                * 分配权限
-                */
-                const ❷►distributePermissionVisible◄ = ref(false)
-                const ❸►selectRoleId◄ = ref('')
-                const ❶►onDistributePermissionClick◄ = row => {
-                    ❷►distributePermissionVisible◄.value = true
-                    ❸►selectRoleId.value = row.id◄
-                }
-                </script>↥
-            src/views/role-list/components/DistributePermission.vue ▾
-                ↧<template>
-                    <el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed">
-                        <el-tree
-                            ref="5►treeRef◄"
-                            :data="2►allPermission◄"
-                            show-checkbox
-                            check-strictly
-                            node-key="id"
-                            default-expand-all
-                            :props="defaultProps"
-                            >
-                        </el-tree>
-                        <template #footer>
-                            <span class="dialog-footer">
-                                <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
-                                <el-button type="primary" ❻►@click="onConfirm"◄>{{ $t('msg.universal.confirm') }}</el-button>
-                            </span>
-                        </template>
-                    </el-dialog>
-                </template>
-
-                <script setup>
-                import { defineProps, defineEmits, ref, 4►watch◄ } from 'vue'
-                import { permissionList } from '@/api/permission'
-                import { watchSwitchLang } from '@/utils/i18n'
-                4►import { rolePermission, 6►distributePermission◄ } from '@/api/role'◄                
-                6►import { useI18n } from 'vue-i18n'
-                import { ElMessage } from 'element-plus'◄
-
-                const props = defineProps({
-                    modelValue: {
-                        type: Boolean,
-                        required: true
-                    },
-                    ❸►roleId: {
-                        type: String,
-                        required: true
-                    }◄
-                })
-                const emits = defineEmits(['update:modelValue'])
-
-                // 所有权限
-                const 2►allPermission◄ = ref([])
-                const 1►getPermissionList◄ = async () => {
-                    ❷►allPermission◄.value = await permissionList()
-                }
-                ❶►getPermissionList◄()
-                watchSwitchLang(1►getPermissionList◄)
-
-                // 属性结构配置
-                const defaultProps = {
-                    children: 'children',
-                    label: 'permissionName'
-                }
-
-                // 获取当前用户角色的权限                
-                ❹►const 5►treeRef◄ = ref(null) // 树组件引用
-                const getRolePermission = async () => {
-                    const checkedKeys = await rolePermission(props.roleId)
-                    ❺►treeRef◄.value.setCheckedKeys(checkedKeys)
-                }
-                watch(() => props.roleId, val => {if (val) getRolePermission()})◄
-
-                /**
-                 * 确定按钮点击事件
-                 */
-                6►const i18n = useI18n()
-                const onConfirm = async () => {
-                    await distributePermission({
-                        roleId: props.roleId,
-                        permissions: treeRef.value.getCheckedKeys()
-                    })
-                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
-                    closed()
-                }◄
-                /**
-                * 关闭
-                */
-                const closed = () => {
-                    emits('update:modelValue', false)
-                }
-                </script>↥
-            src/api/permission.js ▾
-                ↧import request from '@/utils/request'
-
-                /**
-                * 获取所有权限
-                */
-                export const permissionList = () => {
-                    return request({
-                        url: '/permission/list'
-                    })
-                }↥
-            src/api/role.js ▾
-                ↧/**
-                 * 获取指定角色的权限
-                 */
-                export const rolePermission = roleId => {
-                    return request({
-                        url: `/role/permission/${roleId}`
-                    })
-                }
-
-                /**
-                 * 为角色修改权限
-                 */
-                export const distributePermission = (data) => {
-                    return request({
-                        url: '/role/distribute-permission',
-                        method: 'POST',
-                        data
-                    })
-                }↥
-    【3】基于 RBAC 的权限控制体系原理与实现分析
-
-【2】项目部署之通用方案
-    src/router/index.js ▾ 导出公私列表
-        ↧export const privateRoutes = [...]
-        export const publicRoutes = [...]
-
-        const router = createRouter({
-            history: createWebHashHistory(),
-            routes: publicRoutes
-        })↥
-    src/store/index.js ▾
-        ↧↥
-    src/store/modules/permission.js ▾
-        ↧// 专门处理权限路由的模块
-        import { publicRoutes, privateRoutes } from '@/router'
-        export default {
-            namespaced: true,
-            state: {
-                // 路由表：初始拥有静态路由权限
-                routes: publicRoutes
-            },
-            mutations: {
-                /**
-                * 增加路由
-                */
-                setRoutes(state, newRoutes) {
-                // 永远在静态路由的基础上增加新路由
-                state.routes = [...publicRoutes, ...newRoutes]
-                }
-            },
-            actions: {
-                /**
-                 * 根据权限筛选路由
-                 */
-                filterRoutes(context, menus) {
-                    const routes = []
-                    // 路由权限匹配
-                    menus.forEach(key => {
-                        // 权限名 与 路由的 name 匹配
-                        routes.push(...privateRoutes.filter(item => item.name === key))
-                    })
-                    // 最后添加 不匹配路由进入 404
-                    routes.push({
-                        path: '/:catchAll(.*)',
-                        redirect: '/404'
-                    })
-                    context.commit('setRoutes', routes)
-                    return routes
-                }
-            }
-        }↥
-    src/router/modules/
-        UserManage.js ▾ 写入5个页面权限路由
-            ↧import layout from '@/layout'
-
-            export default {
-                path: '/user',
-                component: layout,
-                redirect: '/user/manage',
-                name: 'userManage',
-                meta: {
-                    title: 'user',
-                    icon: 'personnel'
-                },
-                children: [
-                    {
-                        path: '/user/manage',
-                        component: () => import('@/views/user-manage/index'),
-                        meta: {
-                            title: 'userManage',
-                            icon: 'personnel-manage'
-                        }
-                    },
-                    {
-                        path: '/user/info/:id',
-                        name: 'userInfo',
-                        component: () => import('@/views/user-info/index'),
-                        props: true,
-                        meta: {
-                            title: 'userInfo'
-                        }
-                    },
-                    {
-                        path: '/user/import',
-                        name: 'import',
-                        component: () => import('@/views/import/index'),
-                        meta: {
-                            title: 'excelImport'
-                        }
-                    }
-                ]
-            }↥
-        RoleList.js ▾
-            ↧import layout from '@/layout'
-
-            export default {
-                path: '/user',
-                component: layout,
-                redirect: '/user/manage',
-                name: 'roleList',
-                meta: {
-                    title: 'user',
-                    icon: 'personnel'
-                },
-                children: [
-                    {
-                        path: '/user/role',
-                        component: () => import('@/views/role-list/index'),
-                        meta: {
-                            title: 'roleList',
-                            icon: 'role'
-                        }
-                    }
-                ]
-            }↥
-        PermissionList.js ▾
-            ↧import layout from '@/layout'
-
-            export default {
-                path: '/user',
-                component: layout,
-                redirect: '/user/manage',
-                name: 'roleList',
-                meta: {
-                    title: 'user',
-                    icon: 'personnel'
-                },
-                children: [
-                    {
-                        path: '/user/permission',
-                        component: () => import('@/views/permission-list/index'),
-                        meta: {
-                            title: 'permissionList',
-                            icon: 'permission'
-                        }
-                    }
-                ]
-            }↥
-        Article.js ▾
-            ↧import layout from '@/layout'
-
-            export default {
-                path: '/article',
-                component: layout,
-                redirect: '/article/ranking',
-                name: 'articleRanking',
-                meta: { title: 'article', icon: 'article' },
-                children: [
-                    {
-                        path: '/article/ranking',
-                        component: () => import('@/views/article-ranking/index'),
-                        meta: {
-                            title: 'articleRanking',
-                            icon: 'article-ranking'
-                        }
-                    },
-                    {
-                        path: '/article/:id',
-                        component: () => import('@/views/article-detail/index'),
-                        meta: {
-                            title: 'articleDetail'
-                        }
-                    }
-                ]
-            }↥
-        ArticleCreate.js ▾
-            ↧import layout from '@/layout'
-
-            export default {
-                path: '/article',
-                component: layout,
-                redirect: '/article/ranking',
-                name: 'articleCreate',
-                meta: { title: 'article', icon: 'article' },
-                children: [
-                    {
-                        path: '/article/create',
-                        component: () => import('@/views/article-create/index'),
-                        meta: {
-                            title: 'articleCreate',
-                            icon: 'article-create'
-                        }
-                    },
-                    {
-                        path: '/article/editor/:id',
-                        component: () => import('@/views/article-create/index'),
-                        meta: {
-                            title: 'articleEditor'
-                        }
-                    }
-                ]
-            }↥
-    src/router/index.js ▾
-        ↧import ArticleCreaterRouter from './modules/ArticleCreate'
-        import ArticleRouter from './modules/Article'
-        import PermissionListRouter from './modules/PermissionList'
-        import RoleListRouter from './modules/RoleList'
-        import UserManageRouter from './modules/UserManage'
-
-        export const asyncRoutes = [
-            RoleListRouter,
-            UserManageRouter,
-            PermissionListRouter,
-            ArticleCreaterRouter,
-            ArticleRouter
-        ]↥
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 【1】项目架构之搭建登录架构解决方案与实现
-❖ 项目Project
 hello> vue create admin ▾ 创建项目
     ↧(*) Choose Vue version
     (*) Babel
@@ -1841,10 +12,20 @@ hello> vue create admin ▾ 创建项目
     (*) CSS Pre-processors
     (*) Linter / Formatter
 
-      Sass/SCSS (with dart-sass)
-    ►> Sass/SCSS (with node-sass)◄
-      Less
-      Stylus↥
+        Use history mode for router? n
+
+            Sass/SCSS (with dart-sass)
+          ►> Sass/SCSS (with node-sass)◄
+            Less
+            Stylus
+
+                ESLint with error prevention only
+                ESLint + Airbnb config
+              ►> ESLint + Standard config◄
+                ESLint + Prettier
+                
+                  ►> In dedicated config files◄
+                    In package.json↥
 .vscode/settings.json ▾ 规范
 ↧{
     "editor.formatOnSave": true,
@@ -1883,7 +64,7 @@ hello> vue create admin ▾ 创建项目
     ↧module.exports = {
         rules: {
             indent: 'off',
-            "space-before-function-paren": "off"
+            'space-before-function-paren': 'off'
         }
     }↥
 .editorconfig ▾ 如果项目中有该文件用来定义项目的编码规范 优先级比编辑器自身的设置要高 需与Prettier和ESLint相符
@@ -1920,7 +101,7 @@ src/router/index.js ▾
     })
 
     export default router↥
-http://localhost:8080/
+admin> npm run serve // http://localhost:8080/
 
 【2】预设部署
     src/constant/index.js ▾ 抽取常量
@@ -1953,8 +134,7 @@ http://localhost:8080/
 
         const router = createRouter({
             routes: ►publicRoutes◄
-        })↥
-    src/views/login
+        })↥    
     src/views/login/index.vue ▾
         ↧<template>
             <div class="login-container">
@@ -1965,18 +145,18 @@ http://localhost:8080/
 
                     <el-form-item prop="username">
                         <span class="svg-container">
-                            <svg-icon icon="user" />
+                            ►<el-icon><avatar /></el-icon>◄
                         </span>
                         <el-input placeholder="username" name="username" type="text" />
                     </el-form-item>
 
                     <el-form-item prop="password">
                         <span class="svg-container">
-                            <svg-icon icon="password" />
+                            ►<el-icon><avatar /></el-icon>◄
                         </span>
                         <el-input placeholder="password" name="password" />
                         <span class="show-pwd">
-                            <svg-icon icon="eye" />
+                            ►<el-icon><avatar /></el-icon>◄
                         </span>
                     </el-form-item>
 
@@ -1987,10 +167,10 @@ http://localhost:8080/
 
         <script setup>
         // 导入组件之后无需注册可直接使用
-        import {} from '@element-plus/icons'
+        import { ►Avatar◄ } from '@element-plus/icons'
         import {} from 'vue'
         </script>
-        
+
         <style lang="scss" scoped>
         $bg: #2d3a4b;
         $dark_gray: #889aa4;
@@ -2117,161 +297,80 @@ http://localhost:8080/
                 height: 0;
             }
         }↥
+    admin> npm i element-plus --save // 1.0.2-beta.28 使用:<el-button>默认按钮</el-button>
+    admin> npm i @element-plus/icons --save
     src/main.js ▾
         ↧// 导入全局样式
-        import './styles/index.scss'↥
-    导入[Element Plus](https://element-plus.gitee.io/zh-CN/)
-        快捷方式 ▾
-            ↧
-            admin> vue add element-plus
-                ? How do you want to import Element Plus?  // 如何导入Element Plus
-                    > Fully import     // 全局导入
-                    Import on demand // 按需导入
-                ? Do you want to overwrite the SCSS variables of Element Plus? (y/N)     // 生成覆盖变量的scss文件
-                ? Choose the locale you want to load, the default locale is English (en) // 选择想要加载的语言环境，默认语言环境是英语
-                    en 
-                    > zh-cn 
-                    af-za 
-                ✔  Successfully installed plugin: vue-cli-plugin-element-plus
-            src/App.vue
-                <template>
-                    <router-view />
-                </template>
+        import './styles/index.scss'
+        
+        import ElementPlus from 'element-plus'
+        import 'element-plus/dist/index.css'
+        
+        app.use(ElementPlus)↥
+    http://localhost:8082/#/Login
 
-                <script>
-                export default {
-                    name: 'App'
-                }
-                </script>
-
-                <style></style>
-            src/main.js
-                import installElementPlus from './plugins/element'
-                installElementPlus(app)↥
-        方式二 ▾
-            ↧
-            admin> npm i element-plus --save // 1.0.2-beta.28
-            src/main.js
-                import ElementPlus from 'element-plus'
-                import 'element-plus/dist/index.css'
-                app.use(ElementPlus)
-            使用: <el-button>默认按钮</el-button>↥
-    SVG图标通用解决方案
-        src/components/SvgIcon/index.vue ▾
-            ↧<template>
+    SVG图标通用解决方案 ▾
+        ↧►src/components/SvgIcon/index.vue◄
+            <template>
                 <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" :class="className" />
-                <svg v-else class="svg-icon" :class="className" aria-hidden="true">
-                    <use :xlink:href="iconName" />
-                </svg>
+                <svg v-else class="svg-icon" :class="className" aria-hidden="true"><use :xlink:href="iconName" /></svg>
             </template>
 
             <script setup>
             import { isExternal as external } from '@/utils/validate'
             import { defineProps, computed } from 'vue'
-            const props = defineProps({
-                // icon 图标
-                icon: {
-                    type: String,
-                    required: true
-                },
-                // 图标类名
-                className: {
-                    type: String,
-                    default: ''
-                }
-            })
-
-            /**
-            * 判断是否为外部图标
-            */
-            const isExternal = computed(() => external(props.icon))
-            /**
-            * 外部图标样式
-            */
-            const styleExternalIcon = computed(() => ({
-                mask: `url(${props.icon}) no-repeat 50% 50%`,
-                '-webkit-mask': `url(${props.icon}) no-repeat 50% 50%`
-            }))
-            /**
-            * 项目内图标
-            */
-            const iconName = computed(() => `#icon-${props.icon}`)
+            const props = defineProps({                
+                icon: {type: String, required: true},  // icon 图标                
+                className: {type: String, default: ''} // 图标类名
+            })            
+            const isExternal = computed(() => external(props.icon)) // 判断是否为外部图标            
+            const styleExternalIcon = computed(() => ({mask: `url(${props.icon}) no-repeat 50% 50%`, '-webkit-mask': `url(${props.icon}) no-repeat 50% 50%`})) // 外部图标样式            
+            const iconName = computed(() => `#icon-${props.icon}`) // 项目内图标
             </script>
 
             <style scoped>
-            .svg-icon {
-                width: 1em;
-                height: 1em;
-                vertical-align: -0.15em;
-                fill: currentColor;
-                overflow: hidden;
-            }
+            .svg-icon {width: 1em; height: 1em; vertical-align: -0.15em; fill: currentColor; overflow: hidden;}
+            .svg-external-icon {background-color: currentColor; mask-size: cover !important; display: inline-block;}
+            </style>
+        ►src/utils/validate.js◄
+            // 判断是否为外部资源
+            export function isExternal(path) {return /^(https?:|mailto:|tel:)/.test(path)}
 
-            .svg-external-icon {
-                background-color: currentColor;
-                mask-size: cover !important;
-                display: inline-block;
-            }
-            </style>↥
-        src/utils/validate.js ▾
-            ↧/**
-             * 判断是否为外部资源
-             */
-            export function isExternal(path) {
-                return /^(https?:|mailto:|tel:)/.test(path)
-            }↥
-        使用：外部图标
+        ►使用：外部图标◄
             import SvgIcon from '@/components/SvgIcon'
             <svg-icon icon="https://res.lgdsunday.club/user.svg"></svg-icon>
 
-        使用：内部图标
-            src/icons/
+        ►使用：内部图标◄
             src/icons/svg/ // SVG资源
-            src/icons/index.js ▾
-                ↧import SvgIcon from '@/components/SvgIcon'
-                // 1. 导入所有的SVG图标
-                // https://webpack.docschina.org/guides/dependency-management/#requirecontext
-                // 通过 require.context() 函数来创建自己的 context
-                const svgRequire = require.context('./svg', false, /\.svg$/)
-                // 此时返回一个 require 的函数，可以接受一个 request 的参数，用于 require 的导入。
-                // 该函数提供了三个属性，可以通过 require.keys() 获取到所有的 svg 图标
-                // 遍历图标，把图标作为 request 传入到 require 导入函数中，完成本地 svg 图标的导入
-                svgRequire.keys().forEach(svgIcon => svgRequire(svgIcon))
-
-                // 2. 完成SvgIcon全局注册
-                export default app => {
-                    app.component('svg-icon', SvgIcon)
-                }↥
-            src/main.js ▾
-                ↧// 导入 svgIcon
+            src/icons/index.js
+                    import SvgIcon from '@/components/SvgIcon'
+                    // 1. 导入所有的SVG图标 通过 require.context() 函数来创建自己的 context https://webpack.docschina.org/guides/dependency-management/#requirecontext
+                    const svgRequire = require.context('./svg', false, /\.svg$/)
+                    svgRequire.keys().forEach(icon => svgRequire(icon))
+                    // 2. 完成SvgIcon全局注册
+                    export default app => {app.component('svg-icon', SvgIcon)}
+            src/main.js
+                // 导入 svgIcon
                 import installIcons from '@/icons'
-                installIcons(app)↥
+                installIcons(app)
             admin> npm i --save-dev svg-sprite-loader@6.0.9
-            vue.config.js ▾
-                ↧const path = require('path')
-                function resolve(dir) {
-                    return path.join(__dirname, dir)
-                }
+            vue.config.js
+                const path = require('path')
+                function resolve(dir) {return path.join(__dirname, dir)}
                 // https://cli.vuejs.org/zh/guide/webpack.html#%E7%AE%80%E5%8D%95%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F
                 module.exports = {
                     chainWebpack(config) {
                         // 设置 svg-sprite-loader
                         config.module.rule('svg').exclude.add(resolve('src/icons')).end()
-                        config.module
-                            .rule('icons')
-                            .test(/\.svg$/)
-                            .include.add(resolve('src/icons'))
-                            .end()
-                            .use('svg-sprite-loader')
-                            .loader('svg-sprite-loader')
-                            .options({
-                                symbolId: 'icon-[name]'
-                            })
-                            .end()
+                        config.module.rule('icons').test(/\.svg$/).include.add(resolve('src/icons')).end().use('svg-sprite-loader').loader('svg-sprite-loader').options({symbolId: 'icon-[name]'}).end()
                     }
-                }↥
+                }
             重新启动项目
-    http://localhost:8080/#/Login
+            src/views/login/index.vue
+                <el-icon><avatar /></el-icon> 改成 <svg-icon icon="user" />
+                <el-icon><avatar /></el-icon> 改成 <svg-icon icon="password" />
+                <el-icon><avatar /></el-icon> 改成 <svg-icon :icon="passwordType === 'password' ? 'eye' : 'eye-open'" @click="onChangePwdType" />
+                删除 Avatar 引用↥
 
 【2】登陆逻辑
     表单验证
@@ -5668,7 +3767,1809 @@ http://localhost:8080/
     
         
         
+【2】个人中心模块基本布局
+    src/views/Profile/index.vue ▾
+        ↧<template>
+            <div class="my-container">
+                <el-row>
+                    <el-col :span="6">
+                        <project-card class="user-card"></project-card>
+                    </el-col>
+                    <el-col :span="18">
+                        <el-card>
+                            <el-tabs v-model="activeName">
+                                <el-tab-pane :label="$t('msg.profile.feature')" name="feature">
+                                    <feature />
+                                </el-tab-pane>
+                                <el-tab-pane :label="$t('msg.profile.chapter')" name="chapter">
+                                    <chapter />
+                                </el-tab-pane>
+                                <el-tab-pane :label="$t('msg.profile.author')" name="author">
+                                    <author />
+                                </el-tab-pane>
+                            </el-tabs>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </div>
+        </template>
 
+        <script setup>
+        import ProjectCard from './components/ProjectCard.vue'
+        import Chapter from './components/Chapter.vue'
+        import Feature from './components/Feature.vue'
+        import Author from './components/Author.vue'
+        import { ref } from 'vue'
+        const activeName = ref('feature')
+        </script>
+
+        <style lang="scss" scoped>
+        .my-container {
+            .user-card {
+                margin-right: 20px;
+            }
+        }
+        </style>↥
+    src/views/profile/components/ProjectCard.vue
+    src/views/profile/components/Feature.vue
+    src/views/profile/components/Chapter.vue
+    src/views/profile/components/Author.vue
+    src/views/profile/components/ProjectCard.vue ▾
+        ↧<template>
+            <el-card class="user-container">
+                <template #header>
+                    <div class="header">
+                        <span>{{ $t('msg.profile.introduce') }}</span>
+                    </div>
+                </template>
+
+                <div class="user-profile">
+                    <!-- 头像 -->
+                    <div class="box-center">
+                        ►<pan-thumb :image="$store.getters.userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
+                            <div>Hello</div>
+                            {{ $store.getters.userInfo.title }}
+                        </pan-thumb>◄
+                    </div>
+
+                    <!-- 姓名 && 角色 -->
+                    <div class="box-center">
+                        <div class="user-name text-center">
+                            {{ $store.getters.userInfo.username }}
+                        </div>
+                        <div class="user-role text-center text-muted">
+                            {{ $store.getters.userInfo.title }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 简介 -->
+                1►<div class="project-bio">
+                    <div class="project-bio-section">
+                        <div class="project-bio-section-header">
+                            <svg-icon icon="introduce" />
+                            <span>{{ $t('msg.profile.projectIntroduction') }}</span>
+                        </div>
+                        <div class="project-bio-section-body">
+                            <div class="text-muted">
+                                {{ $t('msg.profile.muted') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 功能区域 -->
+                    <div class="project-bio-section">
+                        <div class="project-bio-section-header">
+                            <svg-icon icon="reward" /><span>{{ $t('msg.profile.projectFunction') }}</span>
+                        </div>
+                        <div class="project-bio-section-body">
+                            <div class="progress-item" v-for="item in features" :key="item.id">
+                                <div>{{ item.title }}</div>
+                                <el-progress :percentage="item.percentage" status="success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>◄
+
+                
+            </el-card>
+        </template>
+
+        <script setup>
+        ►import PanThumb from '@/components/PanThumb/index.vue'◄
+        1►import { defineProps } from 'vue'
+        defineProps({
+            features: {
+                type: Array,
+                required: true
+            }
+        })◄
+        </script>
+
+        <style lang="scss" scoped>
+        .user-container {
+            .text-muted {
+                font-size: 14px;
+                color: #777;
+            }
+            .user-profile {
+                text-align: center;
+                .user-name {
+                    font-weight: bold;
+                }
+                .box-center {
+                    padding-top: 10px;
+                }
+                .user-role {
+                    padding-top: 10px;
+                    font-weight: 400;
+                }
+            }
+            1►.project-bio {
+                margin-top: 20px;
+                color: #606266;
+                span {
+                    padding-left: 4px;
+                }
+
+                .project-bio-section {
+                    margin-bottom: 36px;
+                    .project-bio-section-header {
+                        border-bottom: 1px solid #dfe6ec;
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                    }
+                    .project-bio-section-body {
+                        .progress-item {
+                            margin-top: 10px;
+                            div {
+                                font-size: 14px;
+                                margin-bottom: 2px;
+                            }
+                        }
+                    }
+                }
+            }◄
+        }
+        </style>↥
+    src/components/PanThumb/index.vue ▾ 头像组件
+        ↧<template>
+            <div :style="{ zIndex: zIndex, height: height, width: width }" class="pan-item">
+                <div class="pan-info">
+                    <div class="pan-info-roles-container">
+                        <slot />
+                    </div>
+                </div>
+                <div :style="{ backgroundImage: `url(${image})` }" class="pan-thumb"></div>
+            </div>
+        </template>
+
+        <script setup>
+        import { defineProps } from 'vue'
+        defineProps({
+            image: {
+                type: String
+            },
+            zIndex: {
+                type: Number,
+                default: 1
+            },
+            width: {
+                type: String,
+                default: '150px'
+            },
+            height: {
+                type: String,
+                default: '150px'
+            }
+        })
+        </script>
+
+        <style scoped>
+        .pan-item {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            cursor: default;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .pan-info-roles-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .pan-thumb {
+            width: 100%;
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
+            border-radius: 50%;
+            overflow: hidden;
+            position: absolute;
+            transform-origin: 95% 40%;
+            transition: all 0.3s ease-in-out;
+        }
+        .pan-info {
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+        .pan-info h3 {
+            color: #fff;
+            text-transform: uppercase;
+            position: relative;
+            letter-spacing: 2px;
+            font-size: 14px;
+            margin: 0 60px;
+            padding: 22px 0 0 0;
+            height: 85px;
+            font-family: 'Open Sans', Arial, sans-serif;
+            text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .pan-info p {
+            color: #fff;
+            padding: 10px 5px;
+            font-style: italic;
+            margin: 0 30px;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .pan-info p a {
+            display: block;
+            color: #333;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #fff;
+            font-style: normal;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+            padding-top: 24px;
+            margin: 7px auto 0;
+            font-family: 'Open Sans', Arial, sans-serif;
+            opacity: 0;
+            transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s, background 0.2s linear 0s;
+            transform: translateX(60px) rotate(90deg);
+        }
+        .pan-info p a:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .pan-item:hover .pan-thumb {
+            transform: rotate(-110deg);
+        }
+        .pan-item:hover .pan-info p a {
+            opacity: 1;
+            transform: translateX(0px) rotate(0deg);
+        }
+        </style>↥
+    src/api/user.js ▾
+        ↧import request from '@/utils/request'
+
+        export const feature = () => {
+            return request({
+                url: '/user/feature'
+            })
+        }↥
+    src/views/profile/index.vue ▾
+        ↧<project-card class="user-card" :features="1►featureData◄"></project-card>
+        
+        import { feature as ►getFeature◄ } from '@/api/user'
+
+        const 1►featureData◄ = ref([])
+        const getFeatureData = async () => {
+            1►featureData◄.value = await ►getFeature◄()
+        }
+        getFeatureData()↥
+    【3】接口国际化
+        src/utils/request.js ▾
+            ↧// 请求拦截器
+            service.interceptors.request.use(
+                config => {                    
+                    // 配置接口国际化
+                    ►config.headers['Accept-Language'] = store.getters.language◄
+                    return config // 必须返回配置
+                }
+            )↥
+        src/views/profile/index.vue ▾ 功能数据重新获取
+            ↧import { watchSwitchLang } from '@/utils/i18n'
+            // 监听语言切换
+            watchSwitchLang(getFeatureData)↥
+        src/store/modules/app.js ▾ 用户信息重新获取
+            ↧import { watchSwitchLang } from '@/utils/i18n'
+            
+            /**
+             * 监听 语言变化，重新获取个人信息
+             */
+            watchSwitchLang(() => {
+                if (store.getters.token) {
+                    store.dispatch('user/getUserInfo')
+                }
+            })↥
+    【3】功能模块开发
+        src/views/profile/index.vue ▾
+            ↧<feature ►:features="featureData"◄ />↥
+        src/views/profile/components/Feature.vue ▾
+            ↧<template>
+                <el-collapse v-model="activeName" accordion>
+                    <el-collapse-item v-for="item in features" :key="item.id" :title="item.title" :name="item.id">
+                        <div v-html="item.content"></div>
+                    </el-collapse-item>
+                </el-collapse>
+            </template>
+
+            <script setup>
+            import { ref, defineProps } from 'vue'
+            const activeName = ref(0)
+            defineProps({
+                features: {
+                    type: Array,
+                    required: true
+                }
+            })
+            </script>
+
+            <style lang="scss" scoped>
+            ::v-deep .el-collapse-item__header {
+                font-weight: bold;
+            }
+
+            .el-collapse-item {
+                ::v-deep a {
+                    color: #2d62f7;
+                    margin: 0 4px;
+                }
+            }
+            </style>↥
+    【3】章节模块开发
+        src/api/user.js ▾
+            ↧export const ►chapter◄ = () => {
+                return request({
+                    url: '/user/chapter'
+                })
+            }↥
+        src/views/profile/components/Chapter.vue ▾ 调用接口处理接口国际化
+            ↧<template>
+                <el-timeline>
+                    <el-timeline-item
+                        v-for="item in 2►chapterData◄"
+                        :key="item.id"
+                        :timestamp="item.timestamp"
+                        placement="top"
+                        >
+                        <el-card>
+                            <h4>{{ item.content }}</h4>
+                        </el-card>
+                    </el-timeline-item>
+                </el-timeline>
+            </template>
+
+            <script setup>
+            import { watchSwitchLang } from '@/utils/i18n'
+            import { ►chapter◄ } from '@/api/user'
+            import { ref } from 'vue'
+            const 2►chapterData◄ = ref([])
+
+            const getChapterData = async () => {
+                2►chapterData◄.value = await ►chapter◄()
+            }
+            getChapterData()
+
+            // 监听语言切换
+            watchSwitchLang(getChapterData)
+            </script>↥
+    【3】作者模块开发
+        src/views/profile/components/Author.vue ▾
+            ↧<template>
+                <div class="author-container">
+                    <div class="header">
+                        <pan-thumb image="https://img4.sycdn.imooc.com/61110c2b0001152907400741-140-140.jpg" height="60px" width="60px" :hoverable="false">
+                            {{ $t('msg.profile.name') }}
+                        </pan-thumb>
+                        <div class="header-desc">
+                            <h3>{{ $t('msg.profile.name') }}</h3>
+                            <span>{{ $t('msg.profile.job') }}</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        {{ $t('msg.profile.Introduction') }}
+                    </div>
+                </div>
+            </template>
+
+            <script setup>
+            import PanThumb from '@/components/PanThumb/index.vue'
+            import {} from 'vue'
+            </script>
+
+            <style lang="scss" scoped>
+            .author-container {
+                .header {
+                    display: flex;
+                    .header-desc {
+                        margin-left: 12px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-around;
+
+                        span {
+                            font-size: 14px;
+                        }
+                    }
+                }
+                .info {
+                    margin-top: 16px;
+                    line-height: 22px;
+                    font-size: 14px;
+                    text-indent: 26px;
+                }
+            }
+            </style>↥
+【2】权限架构处理之用户权限处理
+    【3】员工管理
+        【4】用户列表分页展示
+            src/api/user-manage.js ▾ 定义接口
+                ↧import request from '@/utils/request'
+
+                /**
+                 * 获取用户列表数据
+                 */
+                export const ►getUserManageList◄ = data => {
+                    return request({
+                        url: '/user-manage/list',
+                        params: data
+                    })
+                }↥
+            src/views/user-manage/index.vue ▾
+                ↧<template>
+                    <div class="user-manage-container">
+                        <el-card class="header">
+                            <div>
+                                <el-button type="primary"> {{ $t('msg.excel.importExcel') }}</el-button>
+                                <el-button type="success">
+                                    {{ $t('msg.excel.exportExcel') }}
+                                </el-button>
+                            </div>
+                        </el-card>
+                        <el-card>
+                            <el-table :data="2►tableData◄" border style="width: 100%">
+                                <el-table-column label="#" type="index" />
+                                <el-table-column prop="username" :label="$t('msg.excel.name')"> </el-table-column>
+                                <el-table-column prop="mobile" :label="$t('msg.excel.mobile')"> </el-table-column>
+                                <el-table-column :label="$t('msg.excel.avatar')" align="center">
+                                    <template v-slot="{ row }">
+                                        <el-image class="avatar" :src="row.avatar" :preview-src-list="[row.avatar]"></el-image>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label="$t('msg.excel.role')">
+                                    <template #default="{ row }">
+                                        <div v-if="row.role && row.role.length > 0">
+                                            <el-tag v-for="item in row.role" :key="item.id" size="mini">{{ item.title }}</el-tag>
+                                        </div>
+                                        <div v-else>
+                                            <el-tag size="mini">{{ $t('msg.excel.defaultRole') }}</el-tag>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="openTime" :label="$t('msg.excel.openTime')"> </el-table-column>
+                                <el-table-column :label="$t('msg.excel.action')" fixed="right" width="260">
+                                    <template #default>
+                                        <el-button type="primary" size="mini">{{ $t('msg.excel.show') }}</el-button>
+                                        <el-button type="info" size="mini">{{ $t('msg.excel.showRole') }}</el-button>
+                                        <el-button type="danger" size="mini">{{ $t('msg.excel.remove') }}</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+
+                            <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page" :page-sizes="[2, 5, 10, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
+                        </el-card>
+                    </div>
+                </template>
+
+                <script setup>
+                import { ref } from 'vue'
+                import { ►getUserManageList◄ } from '@/api/user-manage'
+                import { watchSwitchLang } from '@/utils/i18n'
+
+                // 数据相关
+                const 2►tableData◄ = ref([])
+                const total = ref(0)
+                const page = ref(1)
+                const size = ref(5)
+
+                // 获取数据的方法
+                const getListData = async () => {
+                    const result = await ►getUserManageList◄({
+                        page: page.value,
+                        size: size.value
+                    })
+                    2►tableData◄.value = result.list
+                    total.value = result.total
+                }
+                getListData()
+
+                // 监听语言切换
+                watchSwitchLang(getListData)
+
+                // size 改变触发
+                const handleSizeChange = currentSize => {
+                    size.value = currentSize
+                    getListData()
+                }
+                // 页码改变触发
+                const handleCurrentChange = currentPage => {
+                    page.value = currentPage
+                    getListData()
+                }
+                </script>
+
+                <style lang="scss" scoped>
+                .user-manage-container {
+                    .header {
+                        margin-bottom: 22px;
+                        text-align: right;
+                    }
+                    ::v-deep .avatar {
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                    }
+                    ::v-deep .el-tag {
+                        margin-right: 6px;
+                    }
+                    .pagination {
+                        margin-top: 20px;
+                        text-align: center;
+                    }
+                }
+                </style>↥
+            【5】全局属性处理时间展示
+                npm i dayjs@1.10.6 --save
+                src/filters/index.js ▾
+                    ↧import dayjs from 'dayjs'
+
+                    const dateFilter = (val, format = 'YYYY-MM-DD') => {
+                        if (!isNaN(val)) {
+                            val = parseInt(val)
+                        }
+
+                        return dayjs(val).format(format)
+                    }
+
+                    export default app => {
+                        app.config.globalProperties.$filters = {
+                            dateFilter
+                        }
+                    }↥
+                src/main.js ▾
+                    ↧// 全局属性
+                    import installFilter from '@/filters'
+
+                    installFilter(app)↥
+                src/views/user-manage/index.vue ▾
+                    ↧<el-table-column :label="$t('msg.excel.openTime')">
+                        <template #default="{ row }">
+                            {{ $filters.dateFilter(row.openTime) }}
+                        </template>
+                    </el-table-column>↥
+            【5】excel导入用户
+                src/views/user-manage/index.vue ▾
+                    ↧<el-button type="primary" ►@click="onImportExcelClick"◄>{{ $t('msg.excel.importExcel') }}</el-button>
+
+                    import { useRouter } from 'vue-router'
+                    const router = useRouter()
+                    /**
+                    * excel 导入点击事件
+                    */
+                    const ►onImportExcelClick◄ = () => {
+                        router.push('/user/import')
+                    }↥
+                src/views/import/index.vue ▾ 上传页面
+                    ↧<template>
+                        ►<upload-excel :onSuccess="1►onSuccess◄"></upload-excel>◄
+                    </template>
+
+                    <script setup>
+                    import ►UploadExcel◄ from '@/components/UploadExcel'
+                    import { userBatchImport } from '@/api/user-manage'
+                    import { USER_RELATIONS, formatDate } from './utils'
+                    import { ElMessage } from 'element-plus'
+                    import { useI18n } from 'vue-i18n'
+                    import { useRouter } from 'vue-router'
+
+                    const i18n = useI18n()
+                    const router = useRouter()
+
+                    /**
+                     * 数据解析成功之后的回调
+                     */
+                    const 1►onSuccess◄ = async ({ header, results }) => {
+                        const updateData = 2►generateData◄(results)
+                        await userBatchImport(updateData)
+                        ElMessage.success({
+                            message: results.length + i18n.t('msg.excel.importSuccess'),
+                            type: 'success'
+                        })
+                        router.push('/user/manage')
+                    }
+
+                    /**
+                     * 筛选数据
+                     */
+                    const 2►generateData◄ = results => {
+                        const arr = []
+                        results.forEach(item => {
+                            const userInfo = {}
+                            Object.keys(item).forEach(key => {
+                                if (USER_RELATIONS[key] === 'openTime') {
+                                    userInfo[USER_RELATIONS[key]] = formatDate(item[key])
+                                    return
+                                }
+                                userInfo[USER_RELATIONS[key]] = item[key]
+                            })
+                            arr.push(userInfo)
+                        })
+                        return arr
+                    }
+                    </script>↥
+                npm i xlsx@0.17.0 --save // 解析excel工具
+                src/components/UploadExcel/utils.js ▾
+                    ↧import XLSX from 'xlsx'
+                    /**
+                    * 获取表头（通用方式）
+                    */
+                    export const getHeaderRow = sheet => {
+                        const headers = []
+                        const range = XLSX.utils.decode_range(sheet['!ref'])
+                        let C
+                        const R = range.s.r
+                        /* start in the first row */
+                        for (C = range.s.c; C <= range.e.c; ++C) {
+                            /* walk every column in the range */
+                            const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
+                            /* find the cell in the first row */
+                            let hdr = 'UNKNOWN ' + C // <-- replace with your desired default
+                            if (cell && cell.t) hdr = XLSX.utils.format_cell(cell)
+                            headers.push(hdr)
+                        }
+                        return headers
+                    }
+
+                    export const isExcel = file => {
+                        return /\.(xlsx|xls|csv)$/.test(file.name)
+                    }↥
+                src/components/UploadExcel/index.vue ▾
+                    ↧<template>
+                        <div class="upload-excel">
+                            <div class="btn-upload">
+                                <el-button :loading="loading" type="primary" @click="handleUpload">
+                                    {{ $t('msg.uploadExcel.upload') }}
+                                </el-button>
+                            </div>
+
+                            <input ref="excelUploadInput" class="excel-upload-input" type="file" accept=".xlsx, .xls" @change="handleChange" />
+                            <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API -->
+                            <div class="drop" @drop.stop.prevent="handleDrop" @dragover.stop.prevent="handleDragover" @dragenter.stop.prevent="handleDragover">
+                                <i class="el-icon-upload" />
+                                <span>{{ $t('msg.uploadExcel.drop') }}</span>
+                            </div>
+                        </div>
+                    </template>
+
+                    <script setup>
+                    import XLSX from 'xlsx'
+                    import { defineProps, ref } from 'vue'
+                    import { getHeaderRow3►, isExcel◄ } from './utils'
+                    3►import { ElMessage } from 'element-plus'◄
+
+                    /**
+                     * 拖拽文本释放时触发
+                     */
+                    3►const handleDrop = e => {
+                        if (loading.value) return // 上传中跳过
+                        const files = e.dataTransfer.files
+                        if (files.length !== 1) {
+                            ElMessage.error('必须要有一个文件')
+                            return
+                        }
+                        const rawFile = files[0]
+                        if (!isExcel(rawFile)) {
+                            ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
+                            return false
+                        }
+                        upload(rawFile) // 触发上传事件
+                    }◄
+
+                    /**
+                     * 拖拽悬停时触发
+                     */
+                    3►const handleDragover = e => {
+                        e.dataTransfer.dropEffect = 'copy' // 在新位置生成源项的副本 https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/dropEffect
+                    }◄
+
+                    const props = defineProps({
+                        // 上传前回调
+                        beforeUpload: Function,
+                        // 成功回调
+                        onSuccess: Function
+                    })
+
+                    /**
+                    * 点击上传触发
+                    */
+                    const loading = ref(false)
+                    const excelUploadInput = ref(null)
+                    const handleUpload = () => {
+                        excelUploadInput.value.click()
+                    }
+                    const handleChange = e => {
+                        const files = e.target.files
+                        const rawFile = files[0] // only use files[0]
+                        if (!rawFile) return
+                        upload(rawFile)
+                    }
+
+                    /**
+                    * 触发上传事件
+                    */
+                    const upload = rawFile => {
+                        excelUploadInput.value.value = null
+                        // 如果没有指定上传前回调的话
+                        if (!props.beforeUpload) {
+                            readerData(rawFile)
+                            return
+                        }
+                        // 如果指定了上传前回调，那么只有返回 true 才会执行后续操作
+                        const before = props.beforeUpload(rawFile)
+                        if (before) {
+                            readerData(rawFile)
+                        }
+                    }
+
+                    /**
+                    * 读取数据（异步）
+                    */
+                    const readerData = rawFile => {
+                        loading.value = true
+                        return new Promise((resolve, reject) => {
+                            // https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader
+                            const reader = new FileReader()
+                            // 该事件在读取操作完成时触发
+                            // https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/onload
+                            reader.onload = e => {
+                                // 1. 获取解析到的数据
+                                const data = e.target.result
+                                // 2. 利用 XLSX 对数据进行解析
+                                const workbook = XLSX.read(data, { type: 'array' })
+                                // 3. 获取第一张表格(工作簿)名称
+                                const firstSheetName = workbook.SheetNames[0]
+                                // 4. 只读取 Sheet1（第一张表格）的数据
+                                const worksheet = workbook.Sheets[firstSheetName]
+                                // 5. 解析数据表头
+                                const header = getHeaderRow(worksheet)
+                                // 6. 解析数据体
+                                const results = XLSX.utils.sheet_to_json(worksheet)
+                                // 7. 传入解析之后的数据
+                                generateData({ header, results })
+                                // 8. loading 处理
+                                loading.value = false
+                                // 9. 异步完成
+                                resolve()
+                            }
+                            // 启动读取指定的 Blob 或 File 内容
+                            reader.readAsArrayBuffer(rawFile)
+                        })
+                    }
+
+                    /**
+                    * 根据导入内容，生成数据
+                    */
+                    const generateData = excelData => {
+                        props.onSuccess && props.onSuccess(excelData)
+                    }
+                    </script>
+
+                    <style lang="scss" scoped>
+                    .upload-excel {
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 100px;
+                        .excel-upload-input {
+                            display: none;
+                            z-index: -9999;
+                        }
+                        .btn-upload,
+                        .drop {
+                            border: 1px dashed #bbb;
+                            width: 350px;
+                            height: 160px;
+                            text-align: center;
+                            line-height: 160px;
+                        }
+                        .drop {
+                            line-height: 60px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            color: #bbb;
+                            i {
+                                font-size: 60px;
+                                display: block;
+                            }
+                        }
+                    }
+                    </style>↥
+                src/api/user-manage.js ▾
+                    ↧/**
+                     * 批量导入
+                     */
+                    export const userBatchImport = data => {
+                        return request({
+                            url: '/user-manage/batch/import',
+                            method: 'POST',
+                            data
+                        })
+                    }↥
+                src/views/import/utils.js ▾
+                    ↧/**
+                     * 导入数据对应表
+                     */
+                    export const USER_RELATIONS = {
+                        姓名: 'username',
+                        联系方式: 'mobile',
+                        角色: 'role',
+                        开通时间: 'openTime'
+                    }
+                    
+                    /**
+                     * 解析 excel 导入的时间格式
+                     */
+                    export const formatDate = numb => {
+                        const time = new Date((numb - 1) * 24 * 3600000 + 1)
+                        time.setYear(time.getFullYear() - 70)
+                        const year = time.getFullYear() + ''
+                        const month = time.getMonth() + 1 + ''
+                        const date = time.getDate() - 1 + ''
+                        return year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date)
+                    }↥
+            【5】用户列表导出为excel
+                src/views/user-manage/index.vue ▾
+                    ↧<template>
+                        <div class="user-manage-container">
+                            <el-card class="header">
+                                <div>
+                                    <el-button type="success" ►@click="onToExcelClick"◄>{{ $t('msg.excel.exportExcel') }}</el-button>
+                                </div>
+                            </el-card>
+                            <export-to-excel v-model="1►exportToExcelVisible◄"></export-to-excel>
+                        </div>
+                    <template>
+                    
+                    <script setup>
+                    import ExportToExcel from './components/Export2Excel.vue'
+
+                    /**
+                     * excel 导出点击事件
+                     */
+                    const 1►exportToExcelVisible◄ = ref(false)
+                    const ►onToExcelClick◄ = () => {
+                        1►exportToExcelVisible◄.value = true
+                    }
+                    </script>↥
+                src/api/user-manage.js ▾
+                    ↧/**
+                     * 获取所有用户列表数据
+                     */
+                    export const ►getUserManageAllList◄ = () => {
+                        return request({
+                            url: '/user-manage/all-list'
+                        })
+                    }↥
+                src/views/user-manage/components/Export2Excel.vue ▾
+                    ↧<template>
+                        <el-dialog :title="$t('msg.excel.title')" :model-value="modelValue" @close="closed" width="30%">
+                            <el-input :placeholder="$t('msg.excel.placeholder')" 1►v-model="excelName"◄></el-input>
+                            <template #footer>
+                                <span class="dialog-footer">
+                                    <el-button @click="closed">{{ $t('msg.excel.close') }}</el-button>
+                                    <el-button type="primary" @click="onConfirm" 2►:loading="loading"◄>{{ $t('msg.excel.confirm') }}</el-button>
+                                </span>
+                            </template>
+                        </el-dialog>
+                    </template>
+
+                    <script setup>
+                    import { defineProps, defineEmits1►, ref◄ } from 'vue'
+                    1►import { useI18n } from 'vue-i18n'
+                    import { watchSwitchLang } from '@/utils/i18n'◄
+                    2►import { getUserManageAllList } from '@/api/user-manage'◄
+                    3►import { USER_RELATIONS } from './Export2ExcelConstants'
+                    import { dateFormat } from '@/utils/date'◄
+
+                    defineProps({
+                        modelValue: {
+                            type: Boolean,
+                            required: true
+                        }
+                    })
+                    const emits = defineEmits(['update:modelValue'])
+
+                    /**
+                    * 导出按钮点击事件
+                    */
+                    2►const loading = ref(false)◄
+                    const onConfirm = async () => {
+                        2►loading.value = true
+                        const allUser = (await getUserManageAllList()).list◄
+                        // 导入工具包
+                        3►const excel = await import('@/utils/Export2Excel')
+                        const data = formatJson(USER_RELATIONS, allUser)
+                        excel.export_json_to_excel({                            
+                            header: Object.keys(USER_RELATIONS), // excel 表头                            
+                            data, // excel 数据（二维数组结构）                            
+                            filename: excelName.value || exportDefaultName, // 文件名称                            
+                            autoWidth: true, // 是否自动列宽                            
+                            bookType: 'xlsx' // 文件类型
+                        })◄
+                        closed()
+                    }
+                    // 该方法负责将数组转化成二维数组
+                    3►const formatJson = (headers, rows) => {
+                        // 首先遍历数组[{ username: '张三'},{},{}]  => [[’张三'],[],[]]
+                        return rows.map(item => {
+                            return Object.keys(headers).map(key => {                                
+                                if (headers[key] === 'openTime') {return dateFormat(item[headers[key]])} // 时间特殊处理
+                                // 角色特殊处理
+                                if (headers[key] === 'role') {
+                                    const roles = item[headers[key]]
+                                    return JSON.stringify(roles.map(role => role.title))
+                                }
+                                return item[headers[key]]
+                            })
+                        })
+                    }◄
+
+                    /**
+                    * 关闭
+                    */
+                    const closed = () => {
+                        2►loading.value = false◄
+                        emits('update:modelValue', false)
+                    }
+
+                    1►const i18n = useI18n()
+                    let exportDefaultName = i18n.t('msg.excel.defaultName')
+                    const excelName = ref('')
+                    excelName.value = exportDefaultName
+                    watchSwitchLang(() => {
+                        exportDefaultName = i18n.t('msg.excel.defaultName')
+                        excelName.value = exportDefaultName
+                    })◄
+                    </script>↥
+                src/uitils/Export2Excel.js ▾
+                    ↧/* eslint-disable */
+                    import { saveAs } from 'file-saver'
+                    import XLSX from 'xlsx'
+
+                    function datenum(v, date1904) {
+                        if (date1904) v += 1462
+                        var epoch = Date.parse(v)
+                        return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000)
+                    }
+
+                    function sheet_from_array_of_arrays(data, opts) {
+                        var ws = {}
+                        var range = {
+                            s: { c: 10000000, r: 10000000 },
+                            e: { c: 0, r: 0 }
+                        }
+                        for (var R = 0; R != data.length; ++R) {
+                            for (var C = 0; C != data[R].length; ++C) {
+                                if (range.s.r > R) range.s.r = R
+                                if (range.s.c > C) range.s.c = C
+                                if (range.e.r < R) range.e.r = R
+                                if (range.e.c < C) range.e.c = C
+                                var cell = {
+                                    v: data[R][C]
+                                }
+                                if (cell.v == null) continue
+                                var cell_ref = XLSX.utils.encode_cell({ c: C, r: R })
+
+                                if (typeof cell.v === 'number') cell.t = 'n'
+                                else if (typeof cell.v === 'boolean') cell.t = 'b'
+                                else if (cell.v instanceof Date) {
+                                    cell.t = 'n'
+                                    cell.z = XLSX.SSF._table[14]
+                                    cell.v = datenum(cell.v)
+                                } else cell.t = 's'
+
+                                ws[cell_ref] = cell
+                            }
+                        }
+                        if (range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range)
+                        return ws
+                    }
+
+                    function Workbook() {
+                        if (!(this instanceof Workbook)) return new Workbook()
+                        this.SheetNames = []
+                        this.Sheets = {}
+                    }
+
+                    function s2ab(s) {
+                        var buf = new ArrayBuffer(s.length)
+                        var view = new Uint8Array(buf)
+                        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
+                        return buf
+                    }
+
+                    export const export_json_to_excel = ({ multiHeader = [], header, data, filename, merges = [], autoWidth = true, bookType = 'xlsx' } = {}) => {    
+                        filename = filename || 'excel-list' // 1. 设置文件名称    
+                        data = [...data] // 2. 把数据解析为数组，并把表头添加到数组的头部
+                        data.unshift(header)    
+                        for (let i = multiHeader.length - 1; i > -1; i--) {data.unshift(multiHeader[i])} // 3. 解析多表头，把多表头的数据添加到数组头部（二维数组）    
+                        var ws_name = 'SheetJS' // 4. 设置 Excel 表工作簿（第一张表格）名称    
+                        var wb = new Workbook() // 5. 生成工作簿对象    
+                        var ws = sheet_from_array_of_arrays(data) // 6. 将 data 数组（json格式）转化为 Excel 数据格式
+                        // 7. 合并单元格相关（['A1:A2', 'B1:D1', 'E1:E2']）
+                        if (merges.length > 0) {
+                            if (!ws['!merges']) ws['!merges'] = []
+                            merges.forEach(item => {ws['!merges'].push(XLSX.utils.decode_range(item))})
+                        }
+                        // 8. 单元格宽度相关
+                        if (autoWidth) {
+                            /*设置 worksheet 每列的最大宽度*/
+                            const colWidth = data.map(row =>
+                                row.map(val => {
+                                    /*先判断是否为null/undefined*/
+                                    if (val == null) { return {wch: 10}
+                                    } else if (val.toString().charCodeAt(0) > 255) {
+                                        /*再判断是否为中文*/
+                                        return {wch: val.toString().length * 2}
+                                    } else {
+                                        return {wch: val.toString().length}
+                                    }
+                                })
+                            )
+                            /*以第一行为初始值*/
+                            let result = colWidth[0]
+                            for (let i = 1; i < colWidth.length; i++) {
+                                for (let j = 0; j < colWidth[i].length; j++) {
+                                    if (result[j]['wch'] < colWidth[i][j]['wch']) {result[j]['wch'] = colWidth[i][j]['wch']}
+                                }
+                            }
+                            ws['!cols'] = result
+                        }
+
+                        // 9. 添加工作表（解析后的 excel 数据）到工作簿
+                        wb.SheetNames.push(ws_name)
+                        wb.Sheets[ws_name] = ws
+                        // 10. 写入数据
+                        var wbout = XLSX.write(wb, {bookType: bookType, bookSST: false, type: 'binary'})
+                        // 11. 下载数据
+                        saveAs(new Blob([s2ab(wbout)], {type: 'application/octet-stream'}), `${filename}.${bookType}`)
+                    }↥
+                npm i file-saver@2.0.5 --save // 文件下载工具
+                src/views/user-manage/components/Export2ExcelConstants.js ▾
+                    ↧/**
+                     * 导入数据对应表
+                     */
+                    export const USER_RELATIONS = {
+                        姓名: 'username',
+                        联系方式: 'mobile',
+                        角色: 'role',
+                        开通时间: 'openTime'
+                    }↥
+                src/utils/date.js ▾
+                    ↧import dayjs from 'dayjs'
+                    export const dateFormat = (val, format = 'YYYY-MM-DD') => {
+                        if (isNaN(val)) return val
+                        val = parseInt(val)
+                        return dayjs(val).format(format)
+                    }↥                
+        【4】用户详情的表格展示
+            src/api/user-manage.js ▾ 获取用户详情接口
+                ↧/**
+                 * 获取用户详情
+                 */
+                export const userDetail = (id) => {
+                    return request({
+                        url: `/user-manage/detail/${id}`
+                    })
+                }↥
+            src/views/user-manage/index.vue ▾
+                ↧<el-button type="primary" size="mini" ►@click="onShowClick(row._id)"◄>{{ $t('msg.excel.show') }}</el-button>
+                
+                /**
+                 * 查看按钮点击事件
+                 */
+                const ►onShowClick◄ = id => {
+                    router.push(`/user/info/${id}`)
+                }↥
+            src/views/user-info/index.vue ▾
+                ↧<template>
+                    <div class="user-info-container">
+                        <el-card class="print-box">
+                            <el-button type="primary">{{ $t('msg.userInfo.print') }}</el-button>
+                        </el-card>
+                        <el-card>
+                            <div class="user-info-box">
+                                <!-- 标题 -->
+                                <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
+
+                                <div class="header">
+                                    <!-- 头部渲染表格 -->
+                                    <el-descriptions :column="2" border>
+                                        <el-descriptions-item :label="$t('msg.userInfo.name')">{{ 3►detailData◄.username }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.sex')">{{ 3►detailData◄.gender }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.nation')">{{ 3►detailData◄.nationality }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.mobile')">{{ 3►detailData◄.mobile }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.province')">{{ 3►detailData◄.province }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.date')">{{ $filters.dateFilter(3►detailData◄.openTime) }}</el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.remark')" :span="2">
+                                            <el-tag class="remark" size="small" v-for="(item, index) in 3►detailData◄.remark" :key="index">{{ item }}</el-tag>
+                                        </el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.address')" :span="2">{{ 3►detailData◄.address }}</el-descriptions-item>
+                                    </el-descriptions>
+                                    <!-- 头像渲染 -->
+                                    <el-image class="avatar" :src="3►detailData◄.avatar" :preview-src-list="[3►detailData◄.avatar]"></el-image>
+                                </div>
+                                <div class="body">
+                                    <!-- 内容渲染表格 -->
+                                    <el-descriptions direction="vertical" :column="1" border>
+                                        <el-descriptions-item :label="$t('msg.userInfo.experience')">
+                                            <ul>
+                                                <li v-for="(item, index) in 3►detailData◄.experience" :key="index">
+                                                    <span>
+                                                        {{ $filters.dateFilter(item.startTime, 'YYYY/MM') }}
+                                                        ----
+                                                        {{ $filters.dateFilter(item.endTime, 'YYYY/MM') }}</span
+                                                    >
+                                                    <span>{{ item.title }}</span>
+                                                    <span>{{ item.desc }}</span>
+                                                </li>
+                                            </ul>
+                                        </el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.major')">
+                                            {{ 3►detailData◄.major }}
+                                        </el-descriptions-item>
+                                        <el-descriptions-item :label="$t('msg.userInfo.glory')">
+                                            {{ 3►detailData◄.glory }}
+                                        </el-descriptions-item>
+                                    </el-descriptions>
+                                </div>
+                                <!-- 尾部签名 -->
+                                <div class="foot">{{ $t('msg.userInfo.foot') }}</div>
+                            </div>
+                        </el-card>
+                    </div>
+                </template>
+
+                <script setup>
+                import { userDetail } from '@/api/user-manage'
+                import { watchSwitchLang } from '@/utils/i18n'
+                import { ❶►defineProps◄, ref } from 'vue'
+
+                ❶►const props = defineProps({
+                    id: {
+                        type: String,
+                        required: true
+                    }
+                })◄
+
+                // 数据相关
+                const ❸►detailData◄ = ref({})
+                const getUserDetail = async () => {
+                    ❸►detailData◄.value = await userDetail(props.id)
+                }
+                ❷►getUserDetail()◄
+                // 语言切换
+                watchSwitchLang(getUserDetail)
+                </script>
+
+                <style lang="scss" scoped>
+                .print-box {
+                    margin-bottom: 20px;
+                    text-align: right;
+                }
+                .user-info-box {
+                    width: 1024px;
+                    margin: 0 auto;
+                    .title {
+                        text-align: center;
+                        margin-bottom: 18px;
+                    }
+                    .header {
+                        display: flex;
+                        ::v-deep .el-descriptions {
+                            flex-grow: 1;
+                        }
+                        .avatar {
+                            width: 187px;
+                            box-sizing: border-box;
+                            padding: 30px 20px;
+                            border: 1px solid #ebeef5;
+                            border-left: none;
+                        }
+                        .remark {
+                            margin-right: 12px;
+                        }
+                    }
+                    .body {
+                        ul {
+                            list-style: none;
+                            li {
+                                span {
+                                    margin-right: 62px;
+                                }
+                            }
+                        }
+                    }
+                    .foot {
+                        margin-top: 42px;
+                        text-align: right;
+                    }
+                }
+                </style>↥
+            src/router/index.js ▾ 传参支持
+                ↧{
+                    path: '/user/info/:id',
+                    name: 'userInfo',
+                    component: () => import('@/views/user-info/index'),
+                    ►props: true◄,
+                    meta: {
+                        title: 'userInfo'
+                    }
+                }↥
+            【5】局部打印
+                npm i vue3-print-nb@0.1.4 --save
+                src/views/user-info/index.vue ▾
+                    ↧<el-button type="primary" ►v-print="printObj"◄ ►:loading="printLoading"◄>{{ $t('msg.userInfo.print') }}</el-button>
+
+                    <div ►id="userInfoBox"◄ class="user-info-box">
+                    
+                    // 打印相关
+                    const printLoading = ref(false)
+                    const printObj = {
+                        id: 'userInfoBox', // 打印区域
+                        popTitle: 'imooc-vue-element-admin', // 打印标题                        
+                        beforeOpenCallback(vue) {printLoading.value = true}, // 打印前                        
+                        openCallback(vue) {printLoading.value = false} // 执行打印
+                    }↥
+                src/directives/index.js ▾
+                    ↧import print from 'vue3-print-nb'
+
+                    export default app => {
+                        app.use(print)
+                    }↥
+                src/main.js ▾
+                    ↧import installDirective from '@/directives'
+                    
+                    installDirective(app)↥
+        【4】用户详情表格打印
+        【4】用户删除
+        【4】用户角色分配（需要在完成角色列表之后处理）
+    【3】角色列表
+    【3】权限列表
+【2】权限受控解决方案之分级分控权限管理
+    【3】角色列表展示        
+        src/views/role-list/index.vue ▾
+            ↧<template>
+                <div class="">
+                    <el-card>
+                        <el-table :data="allRoles" border style="width: 100%">
+                            <el-table-column :label="$t('msg.role.index')" type="index" width="120"> </el-table-column>
+                            <el-table-column :label="$t('msg.role.name')" prop="title"> </el-table-column>
+                            <el-table-column :label="$t('msg.role.desc')" prop="describe"> </el-table-column>
+                            <el-table-column :label="$t('msg.role.action')" prop="action" width="260">
+                                <el-button type="primary" size="mini">
+                                    {{ $t('msg.role.assignPermissions') }}
+                                </el-button>
+                            </el-table-column>
+                        </el-table>
+                    </el-card>
+                </div>
+            </template>
+
+            <script setup>
+            import { roleList } from '@/api/role'
+            import { watchSwitchLang } from '@/utils/i18n'
+            import { ref } from 'vue'
+
+            const allRoles = ref([])
+            const getRoleList = async () => {
+                allRoles.value = await roleList()
+            }
+            getRoleList()
+            watchSwitchLang(getRoleList)
+            </script>↥
+        src/api/role.js ▾
+            ↧import request from '@/utils/request'
+
+            /**
+             * 获取所有角色
+             */
+            export const roleList = () => {
+                return request({
+                    url: '/role/list'
+                })
+            }↥
+        【4】为用户分配角色
+            src/views/user-manage/index.vue ▾
+                ↧<el-button type="info" size="mini" 1►@click="onShowRoleClick(row)"◄>{{ $t('msg.excel.showRole') }}</el-button>
+                
+                <div class="user-manage-container">
+                    ►<roles-dialog v-model="2►roleDialogVisible◄" 3►:userId="selectUserId"◄ 5►@updateRole="2►getListData◄"◄></roles-dialog>◄
+                </div>
+
+                import ►RolesDialog◄ from './components/roles.vue'
+                import { watch } from 'vue'
+
+                /**
+                * 查看角色的点击事件
+                */
+                const 2►roleDialogVisible◄ = ref(false)
+                const 3►selectUserId◄ = ref('')
+                const 1►onShowRoleClick◄ = row => {
+                    2►roleDialogVisible◄.value = true
+                    3►selectUserId◄.value = row._id
+                }
+                // 保证每次打开重新获取用户角色数据
+                watch(roleDialogVisible, val => {
+                    if (!val) 3►selectUserId◄.value = ''
+                })↥
+            src/views/user-manage/components/roles.vue ▾
+                ↧<template>
+                    <el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed">
+                        <el-checkbox-group v-model="3►userRoleTitleList◄">
+                            <el-checkbox v-for="item in 2►allRoleList◄" :key="item.id" :label="item.title"></el-checkbox>
+                        </el-checkbox-group>
+                        <template #footer>
+                            <span class="dialog-footer">
+                                <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
+                                <el-button type="primary" @click="4►onConfirm◄">{{ $t('msg.universal.confirm') }}</el-button>
+                            </span>
+                        </template>
+                    </el-dialog>
+                </template>
+
+                <script setup>
+                import { defineProps, defineEmits, ref, watch } from 'vue'
+                import { roleList } from '@/api/role'
+                import { watchSwitchLang } from '@/utils/i18n'
+                import { userRoles, updateRole } from '@/api/user-manage'
+                import { useI18n } from 'vue-i18n'
+                import { ElMessage } from 'element-plus'
+
+                const props = defineProps({
+                    modelValue: {
+                        type: Boolean,
+                        required: true
+                    },
+                    3►userId◄: {
+                        type: String,
+                        required: true
+                    }
+                })
+                const emits = defineEmits(['update:modelValue', 5►'updateRole'◄])
+
+                /**
+                 * 确定按钮点击事件
+                 */
+                4►const i18n = useI18n()
+                const onConfirm = async () => {
+                    const roles = userRoleTitleList.value.map(title => {
+                        return allRoleList.value.find(role => role.title === title) // 处理数据结构
+                    })
+                    await updateRole(props.userId, roles) // 更新用户角色
+                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
+                    closed()
+                    
+                    5►emits('updateRole')◄ // 更新成功通知父类
+                }◄
+                /**
+                 * 关闭
+                 */
+                const closed = () => {
+                    emits('update:modelValue', false)
+                }
+
+                // 所有角色
+                const 2►allRoleList◄ = ref([])
+                // 获取所有角色数据的方法
+                const ❶►getListData◄ = async () => {
+                    2►allRoleList◄.value = await roleList()
+                }
+                ❶►getListData◄()
+                watchSwitchLang(getListData)
+
+                // 当前用户角色
+                3►const userRoleTitleList = ref([])                
+                const getUserRoles = async () => {
+                    const res = await userRoles(props.userId)
+                    userRoleTitleList.value = res.role.map(item => item.title)
+                }
+                watch(() => props.userId, val => {
+                    if (val) getUserRoles() // 此值依赖用户点击事件
+                })◄
+                </script>
+
+                <style lang="scss" scoped></style>↥
+            src/api/user-manage.js ▾
+                ↧/*
+                 * 获取指定用户角色
+                 */
+                export const userRoles = (id) => {
+                    return request({
+                        url: `/user-manage/role/${id}`
+                    })
+                }
+                
+                /**
+                 * 分用户分配角色
+                 */
+                export const updateRole = (id, roles) => {
+                    return request({
+                        url: `/user-manage/update-role/${id}`,
+                        method: 'POST',
+                        data: {
+                            roles
+                        }
+                    })
+                }↥
+        【4】为角色指定权限
+            src/views/role-list/index.vue ▾
+                ↧<el-table-column :label="$t('msg.role.action')" prop="action" width="260" 1►#default="{ row }"◄>
+                    <el-button type="primary" size="mini" ❶►@click="onDistributePermissionClick(row)"◄>{{ $t('msg.role.assignPermissions') }}</el-button>
+                </el-table-column>
+                
+                <template>
+                    <div class="">
+                    ►<distribute-permission v-model="2►distributePermissionVisible◄" :roleId="3►selectRoleId◄"></distribute-permission>◄
+                    </div>
+                </template>
+                
+                <script setup>
+                import ►DistributePermission◄ from './components/DistributePermission.vue'
+
+                /**
+                * 分配权限
+                */
+                const ❷►distributePermissionVisible◄ = ref(false)
+                const ❸►selectRoleId◄ = ref('')
+                const ❶►onDistributePermissionClick◄ = row => {
+                    ❷►distributePermissionVisible◄.value = true
+                    ❸►selectRoleId.value = row.id◄
+                }
+                </script>↥
+            src/views/role-list/components/DistributePermission.vue ▾
+                ↧<template>
+                    <el-dialog :title="$t('msg.excel.roleDialogTitle')" :model-value="modelValue" @close="closed">
+                        <el-tree
+                            ref="5►treeRef◄"
+                            :data="2►allPermission◄"
+                            show-checkbox
+                            check-strictly
+                            node-key="id"
+                            default-expand-all
+                            :props="defaultProps"
+                            >
+                        </el-tree>
+                        <template #footer>
+                            <span class="dialog-footer">
+                                <el-button @click="closed">{{ $t('msg.universal.cancel') }}</el-button>
+                                <el-button type="primary" ❻►@click="onConfirm"◄>{{ $t('msg.universal.confirm') }}</el-button>
+                            </span>
+                        </template>
+                    </el-dialog>
+                </template>
+
+                <script setup>
+                import { defineProps, defineEmits, ref, 4►watch◄ } from 'vue'
+                import { permissionList } from '@/api/permission'
+                import { watchSwitchLang } from '@/utils/i18n'
+                4►import { rolePermission, 6►distributePermission◄ } from '@/api/role'◄                
+                6►import { useI18n } from 'vue-i18n'
+                import { ElMessage } from 'element-plus'◄
+
+                const props = defineProps({
+                    modelValue: {
+                        type: Boolean,
+                        required: true
+                    },
+                    ❸►roleId: {
+                        type: String,
+                        required: true
+                    }◄
+                })
+                const emits = defineEmits(['update:modelValue'])
+
+                // 所有权限
+                const 2►allPermission◄ = ref([])
+                const 1►getPermissionList◄ = async () => {
+                    ❷►allPermission◄.value = await permissionList()
+                }
+                ❶►getPermissionList◄()
+                watchSwitchLang(1►getPermissionList◄)
+
+                // 属性结构配置
+                const defaultProps = {
+                    children: 'children',
+                    label: 'permissionName'
+                }
+
+                // 获取当前用户角色的权限                
+                ❹►const 5►treeRef◄ = ref(null) // 树组件引用
+                const getRolePermission = async () => {
+                    const checkedKeys = await rolePermission(props.roleId)
+                    ❺►treeRef◄.value.setCheckedKeys(checkedKeys)
+                }
+                watch(() => props.roleId, val => {if (val) getRolePermission()})◄
+
+                /**
+                 * 确定按钮点击事件
+                 */
+                6►const i18n = useI18n()
+                const onConfirm = async () => {
+                    await distributePermission({
+                        roleId: props.roleId,
+                        permissions: treeRef.value.getCheckedKeys()
+                    })
+                    ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
+                    closed()
+                }◄
+                /**
+                * 关闭
+                */
+                const closed = () => {
+                    emits('update:modelValue', false)
+                }
+                </script>↥
+            src/api/permission.js ▾
+                ↧import request from '@/utils/request'
+
+                /**
+                * 获取所有权限
+                */
+                export const permissionList = () => {
+                    return request({
+                        url: '/permission/list'
+                    })
+                }↥
+            src/api/role.js ▾
+                ↧/**
+                 * 获取指定角色的权限
+                 */
+                export const rolePermission = roleId => {
+                    return request({
+                        url: `/role/permission/${roleId}`
+                    })
+                }
+
+                /**
+                 * 为角色修改权限
+                 */
+                export const distributePermission = (data) => {
+                    return request({
+                        url: '/role/distribute-permission',
+                        method: 'POST',
+                        data
+                    })
+                }↥
+    【3】基于 RBAC 的权限控制体系原理与实现分析
+
+【2】项目部署之通用方案
+    src/router/index.js ▾ 导出公私列表
+        ↧export const privateRoutes = [...]
+        export const publicRoutes = [...]
+
+        const router = createRouter({
+            history: createWebHashHistory(),
+            routes: publicRoutes
+        })↥
+    src/store/index.js ▾
+        ↧↥
+    src/store/modules/permission.js ▾
+        ↧// 专门处理权限路由的模块
+        import { publicRoutes, privateRoutes } from '@/router'
+        export default {
+            namespaced: true,
+            state: {
+                // 路由表：初始拥有静态路由权限
+                routes: publicRoutes
+            },
+            mutations: {
+                /**
+                * 增加路由
+                */
+                setRoutes(state, newRoutes) {
+                // 永远在静态路由的基础上增加新路由
+                state.routes = [...publicRoutes, ...newRoutes]
+                }
+            },
+            actions: {
+                /**
+                 * 根据权限筛选路由
+                 */
+                filterRoutes(context, menus) {
+                    const routes = []
+                    // 路由权限匹配
+                    menus.forEach(key => {
+                        // 权限名 与 路由的 name 匹配
+                        routes.push(...privateRoutes.filter(item => item.name === key))
+                    })
+                    // 最后添加 不匹配路由进入 404
+                    routes.push({
+                        path: '/:catchAll(.*)',
+                        redirect: '/404'
+                    })
+                    context.commit('setRoutes', routes)
+                    return routes
+                }
+            }
+        }↥
+    src/router/modules/
+        UserManage.js ▾ 写入5个页面权限路由
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'userManage',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/manage',
+                        component: () => import('@/views/user-manage/index'),
+                        meta: {
+                            title: 'userManage',
+                            icon: 'personnel-manage'
+                        }
+                    },
+                    {
+                        path: '/user/info/:id',
+                        name: 'userInfo',
+                        component: () => import('@/views/user-info/index'),
+                        props: true,
+                        meta: {
+                            title: 'userInfo'
+                        }
+                    },
+                    {
+                        path: '/user/import',
+                        name: 'import',
+                        component: () => import('@/views/import/index'),
+                        meta: {
+                            title: 'excelImport'
+                        }
+                    }
+                ]
+            }↥
+        RoleList.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'roleList',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/role',
+                        component: () => import('@/views/role-list/index'),
+                        meta: {
+                            title: 'roleList',
+                            icon: 'role'
+                        }
+                    }
+                ]
+            }↥
+        PermissionList.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/user',
+                component: layout,
+                redirect: '/user/manage',
+                name: 'roleList',
+                meta: {
+                    title: 'user',
+                    icon: 'personnel'
+                },
+                children: [
+                    {
+                        path: '/user/permission',
+                        component: () => import('@/views/permission-list/index'),
+                        meta: {
+                            title: 'permissionList',
+                            icon: 'permission'
+                        }
+                    }
+                ]
+            }↥
+        Article.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/article',
+                component: layout,
+                redirect: '/article/ranking',
+                name: 'articleRanking',
+                meta: { title: 'article', icon: 'article' },
+                children: [
+                    {
+                        path: '/article/ranking',
+                        component: () => import('@/views/article-ranking/index'),
+                        meta: {
+                            title: 'articleRanking',
+                            icon: 'article-ranking'
+                        }
+                    },
+                    {
+                        path: '/article/:id',
+                        component: () => import('@/views/article-detail/index'),
+                        meta: {
+                            title: 'articleDetail'
+                        }
+                    }
+                ]
+            }↥
+        ArticleCreate.js ▾
+            ↧import layout from '@/layout'
+
+            export default {
+                path: '/article',
+                component: layout,
+                redirect: '/article/ranking',
+                name: 'articleCreate',
+                meta: { title: 'article', icon: 'article' },
+                children: [
+                    {
+                        path: '/article/create',
+                        component: () => import('@/views/article-create/index'),
+                        meta: {
+                            title: 'articleCreate',
+                            icon: 'article-create'
+                        }
+                    },
+                    {
+                        path: '/article/editor/:id',
+                        component: () => import('@/views/article-create/index'),
+                        meta: {
+                            title: 'articleEditor'
+                        }
+                    }
+                ]
+            }↥
+    src/router/index.js ▾
+        ↧import ArticleCreaterRouter from './modules/ArticleCreate'
+        import ArticleRouter from './modules/Article'
+        import PermissionListRouter from './modules/PermissionList'
+        import RoleListRouter from './modules/RoleList'
+        import UserManageRouter from './modules/UserManage'
+
+        export const asyncRoutes = [
+            RoleListRouter,
+            UserManageRouter,
+            PermissionListRouter,
+            ArticleCreaterRouter,
+            ArticleRouter
+        ]↥
 
 
 

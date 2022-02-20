@@ -1,22 +1,47 @@
 
 ===+
-【2】Android打包
-    【4】生成Android证书
-        E:\android-key：keytool -genkey -alias rj_alias -keyalg RSA -keysize 2048 -validity 36500 -keystore rj.keystore
+【1】IOS打包
+    【5】生成描述文件
 
-    【4】构建项目到平台
+    【5】构建项目到平台
+        cordova build ios
 
-    【4】打包android平台
+
+【1】Android打包
+    【5】生成Android证书
+        3►demo/◄ > shift + 右键 > 在此处打开Powershell窗口        
+        demo> keytool -genkey -alias 1►rj_alias◄ -keyalg RSA -keysize 2048 -validity 36500 -keystore rj.keystore
+            交互详情 ▾
+            ↧输入密钥库口令: 2►123456◄ // 默认密码 000000
+            再次输入新口令: 2►123456◄
+            您的名字与姓氏是什么?
+            [Unknown]:  ewan
+            您的组织单位名称是什么?
+            [Unknown]:  a
+            您的组织名称是什么?
+            [Unknown]:  a
+            您所在的城市或区域名称是什么?
+            [Unknown]:  a
+            您所在的省/市/自治区名称是什么?
+            [Unknown]:  a
+            该单位的双字母国家/地区代码是什么?
+            [Unknown]:  a
+            CN=ewan, OU=a, O=a, L=a, ST=a, C=a是否正确?
+            [否]:  y↥
+    【5】构建项目到平台
+        cordova build android
+
+    【5】打包android平台
         Android Studio 打开构建好的codova android平台
             菜单Build > Generate Signed Bundle/APK...
             选取 API > [Next]
-                Key store path: E:\android-key\rj.keystore
-                Key store password: 000000 // 生成Android证书时 默认密码 000000
-                Key alias: rj_alias
-                Key password: 000000
+                Key store path: 3►demo\rj.keystore◄
+                Key store password: 2►123456◄ 
+                Key alias: 1►rj_alias◄
+                Key password: 2►123456◄
                 [Next]
-                    debug // APK文件会打包到：platforms/android/app/release/
-                    release // APK文件会打包到：platforms/android/app/release/
+                    debug   // 打包到：platforms/android/app/release/
+                    release // 打包到：platforms/android/app/release/
                     [Finish]
                         等待...  
 
