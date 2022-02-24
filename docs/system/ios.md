@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2021.11.21 18:57</span>
+            <span>M 2022.02.22 14:50</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,14 @@ pageClass: theme-item
 <h1>IOS</h1><strong>IOS</strong>
 </div>
 <div class="static-content">
+
+
+nextTick(() => {
+    document.removeEventListener('touchmove', window.touchmoveListener, { passive: false })
+})
+onUnmounted(() => {
+    document.addEventListener('touchmove', window.touchmoveListener, { passive: false })
+})
 
 
 

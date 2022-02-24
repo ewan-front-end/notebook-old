@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.01.30 14:57</span>
+            <span>M 2022.02.24 11:42</span>
         </div>
     </div>
     <div class="content"></div>
@@ -40,7 +40,7 @@ notebook/docs/
 
 <span class="h2 bg3 cf"> 部署基础功能 </span>
 notebook/docs/.deploy/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"></span><div class="detail-content">    <span>const PATH = require('path')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_UTILS = {
         "fs": "../.utils/fs"
     }
@@ -54,13 +54,13 @@ notebook/docs/.deploy/
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment"></span><div class="detail-content">    <span>const {utils, dir} = require('./config')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
     })</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">deploy</span> 
@@ -287,7 +287,7 @@ notebook/docs/.doctree/markdown/vuepress.md
                 ]
             &#125; &#125;
         ]
-    ❖ 项目Project
+    <div>工具</div>
 
 <span class="h6 bg3 cf"> config.js    </span>
     资源调度 <span class="comment">// 应对重构导至的工具、插件等变更</span>

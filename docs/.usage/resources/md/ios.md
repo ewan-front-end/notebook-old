@@ -1,4 +1,12 @@
 
+nextTick(() => {
+    document.removeEventListener('touchmove', window.touchmoveListener, { passive: false })
+})
+onUnmounted(() => {
+    document.addEventListener('touchmove', window.touchmoveListener, { passive: false })
+})
+
+
 ===+
 [##] cordova项目IOS端运行
 依赖：百度云/Mac/cordova-ios-shell.zip

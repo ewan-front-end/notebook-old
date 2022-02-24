@@ -21,7 +21,7 @@ notebook> npm run docs:dev
 
 [##] 部署基础功能
 notebook/docs/.deploy/
-notebook/docs/.deploy/config.js ▾
+notebook/docs/.deploy/config.js ▾ 配置 目录定位、资源调度、工具整理、结构配置
     ↧const PATH = require('path')
     const MAP_UTILS = {
         "fs": "../.utils/fs"
@@ -36,14 +36,14 @@ notebook/docs/.deploy/config.js ▾
     module.exports.dir = key => {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }↥
-notebook/docs/.deploy/index.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.deploy/index.js ▾{background-color:#6d6;color:#fff}  创建 .vuepress 目录
     ↧const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
     mkdirSync(dir('.vuepress'), res => {
         console.log('创建目录：docs/.vuepress', res.message)
     })↥
-notebook/package.json ▾
+notebook/package.json ▾           添加 deploy 脚本命令
     ↧"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }↥
