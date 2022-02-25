@@ -10,12 +10,15 @@
 [##] 入门使用
 notebook/
 notebook> npm init -y
-notebook> npm install vuepress --save-dev
+notebook> npm install vuepress@1.8.2 --save-dev
 notebook/docs/
 notebook/docs/README.md ▾ 
     ↧Hello VuePress↥
 notebook/package.json ▾
-    ↧{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"}}↥
+    ↧"scripts": {
+        "docs:dev": "vuepress dev docs", 
+        "docs:build": "vuepress build docs"
+    }↥
 notebook> npm run docs:dev
     http://localhost:8080
 
@@ -23,26 +26,48 @@ notebook> npm run docs:dev
 notebook/docs/.deploy/
 notebook/docs/.deploy/config.js ▾ 配置 目录定位、资源调度、工具整理、结构配置
     ↧const PATH = require('path')
-    const MAP_UTILS = {
-        "fs": "../.utils/fs"
-    }
     const MAP_DIR = {
         ".vuepress": "../.vuepress"
     }
 
-    module.exports.utils = key => {
-        return require(PATH.resolve(__dirname, MAP_UTILS[key]))
-    }
     module.exports.dir = key => {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }↥
 notebook/docs/.deploy/index.js ▾{background-color:#6d6;color:#fff}  创建 .vuepress 目录
-    ↧const {utils, dir} = require('./config')
-    const { mkdirSync } = utils('fs')
+    ↧const {utils, dir} = require('./config.js')
+    const { mkdirSync } = require('./fs.js')
 
     mkdirSync(dir('.vuepress'), res => {
         console.log('创建目录：docs/.vuepress', res.message)
     })↥
+notebook/docs/.deploy/fs.js ▾
+    ↧const fs = require('fs')
+    const path= require("path")
+
+    // 递归创建目录 同步方法
+    function checkDirSync(dirname) {
+        if (fs.existsSync(dirname)) {
+            // console.log('目录已存在：' + dirname)
+            return {message: "目录已存在", state: 1}
+        } else {
+            if (checkDirSync(path.dirname(dirname))) {
+                try {
+                    fs.mkdirSync(dirname)                
+                    return {message: "目录已创建", state: 2}
+                } catch (err) {
+                    console.error(err)
+                }            
+                
+            }
+        }
+    }
+
+    module.exports = {   
+        mkdirSync(absPath, next){
+            let res = checkDirSync(absPath)
+            next && next(res)
+        }
+    }↥   
 notebook/package.json ▾           添加 deploy 脚本命令
     ↧"scripts": {
         "deploy": "node docs/.deploy/index.js"        
@@ -51,29 +76,28 @@ notebook> npm run [deploy{color:#0c0}]
 
 [##] 建立文档体系
 notebook/docs/.data/
-
-- 数据源
-notebook/docs/.data/index.js ▾
-    ↧{
+notebook/docs/.data/index.js ▾ 数据源
+    ↧module.exports = {
         vue: {
-            title: 'Vue', src: 'vue/index', 
-            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
-            children: {}, 
+            title: 'Vue', src: 'vue/index',
+            links: [{ name: 'vue-element-admin', href: 'vue/vue-element-admin/index' }],
+            children: {},
             peripheral: {
-                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
+                mvvm: { title: 'MVVM模式', src: 'vue/mvvm' }
             }
-        }    
+        }
     }↥
-
-- 数据预应用 
-notebook/package.json ▾
-    ↧"scripts": {
-        "data:create": "node docs/.data/update.js", // 创建DATA到MD
-        "data:watch": "node docs/.data/watch.js",  // 监听数据变化创建DATA到MD
+notebook/docs/.data/md/ ▾ 资源库
+    ↧vuepress.md↥
+    
+notebook/package.json ▾ // 设置scripts
+    ↧"scripts": { 
+        "data:create": "node docs/.data/data-create.js", // 创建DATA到MD
+        "data:watch": "node docs/.data/data-watch.js",   // 监听数据变化创建DATA到MD
+        "res:create": "node docs/.data/res-create.js",    // 创建MD到DOC
+        "res:watch": "node docs/.data/res-watch.js"        // 监听MD变化创建MD到DOC
     }↥
-notebook/docs/.data/watch.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook/docs/.data/update.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
     ↧const ARG_ARR = process.argv.slice(2)  // 命令参数
 
     function handleNodeFile(node) {
@@ -118,17 +142,9 @@ notebook/docs/.data/update.js ▾{background-color:#6d6;color:#fff}
     } else {
         handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
     }↥
-notebook/docs/.data/RES_DATA.json[(cc)]      // 监听资源变动时 可用资源名直接查找相应数据
-notebook/docs/.data/RES_LINK.json[(cc)]      // 采集链接    外链
-
-- 生产文档
-应用数据 ▾
-    ↧notebook/package.json
-    "scripts": {
-        "md:create": "node docs/.data/md-create.js" // 创建MD到DOC
-        "md:watch": "node docs/.data/md-watch.js" // 监听MD变化创建MD到DOC   
-    }↥
-notebook/docs/.data/md-create.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
+notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
     ↧{
         vue: {
             title: 'Vue', src: 'vue_index', 
@@ -139,35 +155,29 @@ notebook/docs/.data/md-create.js ▾{background-color:#6d6;color:#fff}
             }
         }    
     }↥
-notebook> npm run mc:create 4// 解析MD到DOC
-notebook> npm run mc:watch 4// 监控MD变化
-notebook/docs/.data/RES_DATA.json ▾{color:#ccc;background-color:transparent}   // create时tree数据映射到资源名(资源扁平唯一)
-    ↧vuepress_index: {
-        path: '', // 链接、文件结构
+notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
+    ↧{}↥
+
+notebook/docs/.data/PATH_DATA.json ▾
+    ↧↥
+notebook/docs/.data/RES_PATH.json ▾{color:#ccc;background-color:transparent}   // data:create时tree数据映射到资源名(资源扁平唯一)
+    ↧↥
+
+
+notebook/docs/.data/RES_INFO.json ▾
+    ↧{
+        links:[],
+        editTime: ''
     }↥
+notebook/docs/.doctree/data/KEY_RES.json       // 索引关键词  搜索 下拉
+notebook/docs/.doctree/data/TIT_RES.json       // 索引标题    搜索 下拉
+notebook/docs/.doctree/data/RES_SCENE.json     // 暴露的场景  主题 
+notebook/docs/.doctree/data/RES_USAGE.json     // 暴露的攻略  主题
+notebook/docs/.doctree/data/RES_SOLUTION.json  // 暴露的方案  主题
+notebook/docs/.doctree/data/RES_STANDARD.json  // 暴露的标准  主题
+notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
 
-- 资源库
-notebook/docs/.data/md/
-notebook/docs/.data/md/vuepress.md
-notebook/package.json ▾ // 设置scripts
-    ↧"scripts": { "watch:res": "node docs/.doctree/watch-res.js" }↥
-notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook> npm run [watch:res{color:#0c0}]                    4// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)
-notebook/docs/.doctree/data/RES_TIME.json[{color:#3ac}]      // 更新编辑时间
 
-- 聚合
-notebook/package.json ▾
-    ↧"scripts": { "aggregate": "node docs/.doctree/aggregate.js" }↥
-notebook/docs/.doctree/aggregate.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
-notebook/docs/.doctree/data/KEY_RES.json[(cc)]       // 索引关键词  搜索 下拉
-notebook/docs/.doctree/data/TIT_RES.json[(cc)]       // 索引标题    搜索 下拉
-notebook/docs/.doctree/data/RES_SCENE.json[(cc)]     // 暴露的场景  主题 
-notebook/docs/.doctree/data/RES_USAGE.json[(cc)]     // 暴露的攻略  主题
-notebook/docs/.doctree/data/RES_SOLUTION.json[(cc)]  // 暴露的方案  主题
-notebook/docs/.doctree/data/RES_STANDARD.json[(cc)]  // 暴露的标准  主题
-notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
 
 
 

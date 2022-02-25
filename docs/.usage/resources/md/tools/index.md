@@ -45,6 +45,7 @@ Google帐号 > 安全性 > 登录Google > 两步验证 > 开始
 - [自助建站国内](https://www.strikingly.com/)
 - [plantuml](https://plantuml.com/zh/)
 - [特殊字符转Unicode编码](http://tool.chinaz.com/tools/unicode.aspx)
+- [在线apk/md5/url查毒-腾讯手机管家官方网站](https://m.qq.com/security_lab/scans_online.jsp)
 ==================== 1
 <strong>■ 常用工具</strong>
 - [模拟短信验证](https://www.yinsiduanxin.com/)
