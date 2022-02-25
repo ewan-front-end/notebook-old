@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.24 11:42</span>
+            <span>M 2022.02.25 10:17</span>
         </div>
     </div>
     <div class="content"></div>
@@ -33,14 +33,14 @@ notebook/
 <span class="block-command">notebook</span> npm init -y
 <span class="block-command">notebook</span> npm install vuepress --save-dev
 notebook/docs/
-<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"&#125; &#125;</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>{"scripts": {"docs:dev": "vuepress dev docs", "docs:build": "vuepress build docs"&#125; &#125;</span></div></div>
 <span class="block-command">notebook</span> npm run docs:dev
     http://localhost:8080
 
 <span class="h2 bg3 cf"> 部署基础功能 </span>
 notebook/docs/.deploy/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_UTILS = {
         "fs": "../.utils/fs"
     }
@@ -54,22 +54,22 @@ notebook/docs/.deploy/
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config')
     const { mkdirSync } = utils('fs')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
     })</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">deploy</span> 
 
 <span class="h2 bg3 cf"> 建立文档体系 </span>
-notebook/docs/.doctree/
+notebook/docs/.data/
 
 ● <strong>数据源</strong>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.doctree/data-tree.js</span><span class="comment"></span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"></span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue/index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
@@ -81,12 +81,12 @@ notebook/docs/.doctree/
     }</span></div></div>
 
 ● <strong>数据预应用 </strong>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
-        "watch:data": "node docs/.doctree/watch.js",
-        "data": "node docs/.doctree/data.js"
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
+        "data:create": "node docs/.data/update.js", <span class="comment">// 创建DATA到MD</span>
+        "data:watch": "node docs/.data/watch.js",  <span class="comment">// 监听数据变化创建DATA到MD</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-data.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/data.js</span><span class="comment"></span><div class="detail-content">    <span>const ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/update.js</span><span class="comment"></span><div class="detail-content">    <span>const ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
 
     function handleNodeFile(node) {
         PATH_DATA[node.path] = node
@@ -130,16 +130,16 @@ notebook/docs/.doctree/
     } else {
         handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
     }</span></div></div>
-<span class="cc">notebook/docs/.doctree/data/RES_DATA.json</span>      <span class="comment">// 监听资源变动时 可用资源名直接查找相应数据</span>
-<span class="cc">notebook/docs/.doctree/data/RES_LINK.json</span>      <span class="comment">// 采集链接    外链</span>
+<span class="cc">notebook/docs/.data/RES_DATA.json</span>      <span class="comment">// 监听资源变动时 可用资源名直接查找相应数据</span>
+<span class="cc">notebook/docs/.data/RES_LINK.json</span>      <span class="comment">// 采集链接    外链</span>
 
 ● <strong>生产文档</strong>
-<div class="block-detail"><span class="detail-desc">应用数据</span><span class="comment"></span><div class="detail-content">    <span>notebook/package.json
+<div class="block-detail"><span class="detail-desc">应用数据</span><span class="comment"></span><div class="detail-content">    <span>notebook/package.json
     "scripts": {
-        "create": "node docs/.doctree/create.js"
-        "watch:tree": "node docs/.doctree/watch-tree.js"      
+        "md:create": "node docs/.data/md-create.js" <span class="comment">// 创建MD到DOC</span>
+        "md:watch": "node docs/.data/md-watch.js" <span class="comment">// 监听MD变化创建MD到DOC</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/create.js</span><span class="comment"></span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/md-create.js</span><span class="comment"></span><div class="detail-content">    <span>{
         vue: {
             title: 'Vue', src: 'vue_index', 
             links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
@@ -149,23 +149,23 @@ notebook/docs/.doctree/
             }
         }    
     }</span></div></div>
-<span class="block-command">notebook</span> npm run <span style="color:#0c0">create</span>                       <span class="comment color4">// 依据体系树创建初级文档</span>
-<span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:tree</span>                   <span class="comment color4">// 监控tree树变化</span>
-<div class="block-detail"><span class="detail-desc" style="color:#ccc;background-color:transparent">notebook/docs/.doctree/data/RES_DATA.json</span><span class="comment">   <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span></span><div class="detail-content">    <span>vuepress_index: {
+<span class="block-command">notebook</span> npm run mc:create <span class="comment color4">// 解析MD到DOC</span>
+<span class="block-command">notebook</span> npm run mc:watch <span class="comment color4">// 监控MD变化</span>
+<div class="block-detail"><span class="detail-desc" style="color:#ccc;background-color:transparent">notebook/docs/.data/RES_DATA.json</span><span class="comment">   <span class="comment">// create时tree数据映射到资源名(资源扁平唯一)</span></span><div class="detail-content">    <span>vuepress_index: {
         path: '', <span class="comment">// 链接、文件结构</span>
     }</span></div></div>
 
 ● <strong>资源库</strong>
-notebook/docs/.doctree/markdown/
-notebook/docs/.doctree/markdown/vuepress.md
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { "watch:res": "node docs/.doctree/watch-res.js" }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
+notebook/docs/.data/md/
+notebook/docs/.data/md/vuepress.md
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { "watch:res": "node docs/.doctree/watch-res.js" }</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/watch-res.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">watch:res</span>                    <span class="comment color4">// 监控资源变化 依据RES_DATA检索对应的Path更新对应的资源(由扁平到结构)</span>
 <span style="color:#3ac">notebook/docs/.doctree/data/RES_TIME.json</span>      <span class="comment">// 更新编辑时间</span>
 
 ● <strong>聚合</strong>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": { "aggregate": "node docs/.doctree/aggregate.js" }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/aggregate.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": { "aggregate": "node docs/.doctree/aggregate.js" }</span></div></div>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.doctree/aggregate.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
 <span class="cc">notebook/docs/.doctree/data/KEY_RES.json</span>       <span class="comment">// 索引关键词  搜索 下拉</span>
 <span class="cc">notebook/docs/.doctree/data/TIT_RES.json</span>       <span class="comment">// 索引标题    搜索 下拉</span>
 <span class="cc">notebook/docs/.doctree/data/RES_SCENE.json</span>     <span class="comment">// 暴露的场景  主题</span>
@@ -228,7 +228,7 @@ notebook/docs/.doctree/markdown/vuepress.md
     链接
         引入：[优先标题:vuepress#id]
         埋码：[ANCHOR#id:入库标题] 
-<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
+<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
                 path:'', 
                 links: {
                     usage: '入库标题'

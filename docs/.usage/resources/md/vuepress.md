@@ -50,10 +50,10 @@ notebook/package.json ▾           添加 deploy 脚本命令
 notebook> npm run [deploy{color:#0c0}] 
 
 [##] 建立文档体系
-notebook/docs/.doctree/
+notebook/docs/.data/
 
 - 数据源
-notebook/docs/.doctree/data-tree.js ▾
+notebook/docs/.data/index.js ▾
     ↧{
         vue: {
             title: 'Vue', src: 'vue/index', 
@@ -68,12 +68,12 @@ notebook/docs/.doctree/data-tree.js ▾
 - 数据预应用 
 notebook/package.json ▾
     ↧"scripts": {
-        "watch:data": "node docs/.doctree/watch.js",
-        "data": "node docs/.doctree/data.js"
+        "data:create": "node docs/.data/update.js", // 创建DATA到MD
+        "data:watch": "node docs/.data/watch.js",  // 监听数据变化创建DATA到MD
     }↥
-notebook/docs/.doctree/watch-data.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.data/watch.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
-notebook/docs/.doctree/data.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.data/update.js ▾{background-color:#6d6;color:#fff}
     ↧const ARG_ARR = process.argv.slice(2)  // 命令参数
 
     function handleNodeFile(node) {
@@ -118,17 +118,17 @@ notebook/docs/.doctree/data.js ▾{background-color:#6d6;color:#fff}
     } else {
         handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
     }↥
-notebook/docs/.doctree/data/RES_DATA.json[(cc)]      // 监听资源变动时 可用资源名直接查找相应数据
-notebook/docs/.doctree/data/RES_LINK.json[(cc)]      // 采集链接    外链
+notebook/docs/.data/RES_DATA.json[(cc)]      // 监听资源变动时 可用资源名直接查找相应数据
+notebook/docs/.data/RES_LINK.json[(cc)]      // 采集链接    外链
 
 - 生产文档
 应用数据 ▾
     ↧notebook/package.json
     "scripts": {
-        "create": "node docs/.doctree/create.js"
-        "watch:tree": "node docs/.doctree/watch-tree.js"      
+        "md:create": "node docs/.data/md-create.js" // 创建MD到DOC
+        "md:watch": "node docs/.data/md-watch.js" // 监听MD变化创建MD到DOC   
     }↥
-notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.data/md-create.js ▾{background-color:#6d6;color:#fff}
     ↧{
         vue: {
             title: 'Vue', src: 'vue_index', 
@@ -139,16 +139,16 @@ notebook/docs/.doctree/create.js ▾{background-color:#6d6;color:#fff}
             }
         }    
     }↥
-notebook> npm run [create{color:#0c0}]                       4// 依据体系树创建初级文档
-notebook> npm run [watch:tree{color:#0c0}]                   4// 监控tree树变化
-notebook/docs/.doctree/data/RES_DATA.json ▾{color:#ccc;background-color:transparent}   // create时tree数据映射到资源名(资源扁平唯一)
+notebook> npm run mc:create 4// 解析MD到DOC
+notebook> npm run mc:watch 4// 监控MD变化
+notebook/docs/.data/RES_DATA.json ▾{color:#ccc;background-color:transparent}   // create时tree数据映射到资源名(资源扁平唯一)
     ↧vuepress_index: {
         path: '', // 链接、文件结构
     }↥
 
 - 资源库
-notebook/docs/.doctree/markdown/
-notebook/docs/.doctree/markdown/vuepress.md
+notebook/docs/.data/md/
+notebook/docs/.data/md/vuepress.md
 notebook/package.json ▾ // 设置scripts
     ↧"scripts": { "watch:res": "node docs/.doctree/watch-res.js" }↥
 notebook/docs/.doctree/watch-res.js ▾{background-color:#6d6;color:#fff}
