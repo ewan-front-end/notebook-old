@@ -6,100 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .business-center {
-            display: flex;
-            flex-direction: column;
-            height: 90vh;
-            border: #fc0 1px solid;
-        }
-        .custom-header {
-            background: #3366ee url('~@/assets/img/header-bg.png') center bottom/100% auto no-repeat;    
-            color: #fff;
-            position: relative;
-            z-index: 1;
-            border-radius: 0 0 20px 20px;
-            flex: 1 1 auto;
-        }
-        .content {
-            padding: 5px 5px h(30);
-            text-align: left;
-            flex: 1;
-            border: #00f 1px solid;
-            overflow: hidden;
-        }
-        .drag-wrapper2 {
-            border: #f00 1px solid;
-            height: 100%;
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+       
     </style>
 </head>
 <body>
     <div class="business-center">
-        <div class="custom-header">
-
-        </div>
-        <div class="content">
-            
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                    <p>11</p>
-                
-        </div>
+        
     </div>
 </body>
 </html>
+<script>
+
+const DATA = {
+    tools: {title:'工具&资源', src: 'tools/index', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
+        git: {linkName: 'Git', src:'git'},
+        npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
+        markdown: {linkName: 'Markdown', src:'markdown'},        
+        qiankun: {linkName: '乾坤微服务', src:'qiankun'},
+        charts: {linkName: 'ECharts图表库', src:'echarts'},
+        vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], src:'vscode'},
+        chromeTools:{src:'chrome-tools'},
+        uml:{src:'plantuml', links:[{name:'PlantUML语言', href:'/programmingLanguage/plantuml'}]},
+        regularExpression:{linkName:'正则表达式', src:'regular-expression'},
+        eslint: {linkName: 'ESLint', src:'eslint'},
+        htmlBundler: {title:'html-bundler', src:'html-bundler'},
+        postman: {title:'PostMan', src:'tools/postman'}
+    }},     
+    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
+        preset:{title:'预处理', src:'css-preset'},
+        variable:{title:'CSS变量', src:'css-variable'}
+    }},   
+    system:{title:'系统&平台&工具', src:'system', children:{
+        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', src:'ios'},
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
+    }} 
+}
+
+const PATHS = []
+const PATH_DATA = {}
+const RES_PATH = {}
+
+function handleNodeFile(node) {
+    PATH_DATA[node.path] = node
+    node.src && (RES_PATH[node.src] = node.path)
+    PATHS.push(node.path)
+}
+function handleNodeDir(node, children) {
+    node.path += '/'                       // 目录特有标识
+    PATH_DATA[node.path] = node            // 路径映身数据
+    PATH_DATA[node.path + 'README'] = node // 路径映身数据 主页
+    node.src && (RES_PATH[node.src] = node.path)
+    PATHS.push(node.path)                // c
+    PATHS.push(node.path + 'README')
+    for (key in children) { handleData(key, children[key], node) }
+}
+function handleData(key, node, parent) {    
+    if (key === 'ROOT') {
+        handleNodeDir(node, node.children)
+    } else {        
+        Object.assign(node, {
+            parent, 
+            key, 
+            title: node.title || node.linkName || key, 
+            linkName: node.linkName || node.title || key, 
+            path: parent.path + key                       // 用于数据源查找数据
+        })
+        node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
+    }
+}
+
+handleData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
+
+console.log(PATHS);
+console.log(PATH_DATA);
+console.log(RES_PATH);
+</script>
