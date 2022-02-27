@@ -16,8 +16,7 @@
 </body>
 </html>
 <script>
-
-const DATA = {
+const aa = {title: 'Home', src: 'index', path: '', children: {
     tools: {title:'工具&资源', src: 'tools/index', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
         git: {linkName: 'Git', src:'git'},
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
@@ -44,44 +43,20 @@ const DATA = {
         android:{title:'Android',linkName:'Android', src:'android'},
         google:{title:'Google',linkName:'Google', src:'google'}
     }} 
-}
+}}
 
-const PATHS = []
-const PATH_DATA = {}
-const RES_PATH = {}
-
-function handleNodeFile(node) {
-    PATH_DATA[node.path] = node
-    node.src && (RES_PATH[node.src] = node.path)
-    PATHS.push(node.path)
-}
-function handleNodeDir(node, children) {
-    node.path += '/'                       // 目录特有标识
-    PATH_DATA[node.path] = node            // 路径映身数据
-    PATH_DATA[node.path + 'README'] = node // 路径映身数据 主页
-    node.src && (RES_PATH[node.src] = node.path)
-    PATHS.push(node.path)                // c
-    PATHS.push(node.path + 'README')
-    for (key in children) { handleData(key, children[key], node) }
-}
-function handleData(key, node, parent) {    
-    if (key === 'ROOT') {
-        handleNodeDir(node, node.children)
-    } else {        
-        Object.assign(node, {
-            parent, 
-            key, 
-            title: node.title || node.linkName || key, 
-            linkName: node.linkName || node.title || key, 
-            path: parent.path + key                       // 用于数据源查找数据
-        })
-        node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
+</script>
+<script>
+const DATA = aa
+const getDataByPath = path => {
+    path = path.substring(1)
+    const arr = path.split('/')    
+    let res = DATA, prop
+    while (prop = arr.shift()) {
+        prop && (res = res.children[prop])
     }
+    return res
 }
 
-handleData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
-
-console.log(PATHS);
-console.log(PATH_DATA);
-console.log(RES_PATH);
+console.log(getDataByPath('/'));
 </script>
