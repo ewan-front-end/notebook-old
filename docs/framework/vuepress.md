@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.27 00:18</span>
+            <span>M 2022.02.27 00:35</span>
         </div>
     </div>
     <div class="content"></div>
@@ -229,6 +229,7 @@ notebook/docs/.data/
         item ? createItem(item) : console.warn(path + '创建失败！')    
     })</span></div></div>
     notebook/docs/.data/components/createFile.js 
+        components/createFile
 
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
 notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
