@@ -42,7 +42,7 @@ notebook/docs/.deploy/index.js ▾{background-color:#6d6;color:#fff}  创建 .vu
     })↥
 notebook/docs/.deploy/fs.js ▾
     ↧const fs = require('fs')
-    const path= require("path")
+    const Path= require("path")
 
     // 递归创建目录 同步方法
     function checkDirSync(dirname) {
@@ -50,7 +50,7 @@ notebook/docs/.deploy/fs.js ▾
             // console.log('目录已存在：' + dirname)
             return {message: "目录已存在", state: 1}
         } else {
-            if (checkDirSync(path.dirname(dirname))) {
+            if (checkDirSync(Path.dirname(dirname))) {
                 try {
                     fs.mkdirSync(dirname)                
                     return {message: "目录已创建", state: 2}
@@ -62,10 +62,74 @@ notebook/docs/.deploy/fs.js ▾
         }
     }
 
-    module.exports = {   
+    module.exports = {    
+        writeFileSync: (absPath, content, next) => {
+            typeof content !== "string" && (content = JSON.stringify(content, null, 4))
+            try {
+                fs.writeFileSync(absPath, content)
+                next && next()
+            } catch (err) {
+                console.error(err)
+            }        
+        },
+        writeFile: (absPath, content, success) => { 
+            typeof content !== "string" && (content = JSON.stringify(content, null, 4))
+            fs.writeFile(absPath, content, { encoding: 'utf8' }, err => { 
+                if(err){ 
+                    console.log(err) 
+                } else {
+                    success && success()
+                    !success && console.log('written: ' + absPath)
+                } 
+            })
+        },
+        readFile: (path, ifNoCreateOne) => {
+            if (ifNoCreateOne) {
+                checkDirSync(Path.dirname(path))
+                if (!fs.existsSync(path)) module.exports.writeFileSync(path, `新建文件：${path}`)
+            }
+            return fs.readFileSync(path, 'utf8')
+        },
+        editWritCommonFile: (path, editHandler) => {
+            const fileObj = require(path)
+            const next = editHandler(fileObj)
+            next && module.exports.writeFile(path, `module.exports = ${JSON.stringify(fileObj, null, 4)}`)
+        },
         mkdirSync(absPath, next){
             let res = checkDirSync(absPath)
             next && next(res)
+        },
+        saveFile(filePath, fileData) {
+            return new Promise((resolve, reject) => {
+                /*fs.createWriteStream(path,[options])
+                options <String> | <Object>
+                {
+                    flags: 'w',
+                    defaultEncoding: 'utf8',
+                    fd: null,
+                    mode: 0o666,
+                    autoClose: true
+                }
+                */
+                const wstream = fs.createWriteStream(filePath)
+                wstream.on('open', () => {
+                    const blockSize = 128
+                    const nbBlocks = Math.ceil(fileData.length / (blockSize))
+                    for (let i = 0; i < nbBlocks; i += 1) {
+                        const currentBlock = fileData.slice(blockSize * i, Math.min(blockSize * (i + 1), fileData.length),)
+                        wstream.write(currentBlock)
+                    }
+                    wstream.end()
+                })
+                wstream.on('error', (err) => { reject(err) })
+                wstream.on('finish', () => { resolve(true) })
+            })
+        },
+        copyFileSync(from, to){
+            fs.copyFileSync(from, to)
+        },
+        existsSync(path) {
+            return fs.existsSync(path)
         }
     }↥   
 notebook/package.json ▾           添加 deploy 脚本命令
@@ -88,7 +152,7 @@ notebook/docs/.data/index.js ▾ 数据源
         }
     }↥
 notebook/docs/.data/md/ ▾ 资源库
-    ↧vuepress.md↥
+    ↧vue.md↥
     
 notebook/package.json ▾ // 设置scripts
     ↧"scripts": { 
@@ -98,63 +162,68 @@ notebook/package.json ▾ // 设置scripts
         "res:watch": "node docs/.data/res-watch.js"        // 监听MD变化创建MD到DOC
     }↥
 notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
-    ↧const ARG_ARR = process.argv.slice(2)  // 命令参数
+    ↧const Path = require('path')
+    const { mkdirSync } = require('../.deploy/fs')
+    const createFile = require('./components/createFile')
+    const ARG_ARR = process.argv.slice(2)  // 命令参数
+    const DATA = require('./index')
 
-    function handleNodeFile(node) {
-        PATH_DATA[node.path] = node
-        CREATOR.push(node.path)
+    const PATHS = []
+    const PATH_DATA = {}
+    const RES_PATH = {}
+
+    // 数据处理
+    function handleDataChildren(node) {
+        if (node.children) node.path += '/'
+        PATH_DATA[node.path] = node            // 路径映身数据
+        node.src && (RES_PATH[node.src] = node.path)
+        PATHS.push(node.path)
+        if (node.children) {
+            for (key in node.children) { handleData(key, node.children[key], node) }
+        }    
     }
-    function handleNodeDir(node, children) {
-        node.path += '/'                       // 目录特有标识
-        PATH_DATA[node.path] = node            // 路径映身数据 
-        PATH_DATA[node.path + 'README'] = node // 路径映身数据 主页
-        CREATOR.push(node.path)                // c
-        CREATOR.push(node.path + 'README')
-        for (key in children) { handleTreeToData(key, children[key], node) }
+    function handleData(key, node, parent) {
+        Object.assign(node, {
+            parent, 
+            key, 
+            title: node.title || node.linkName || key, 
+            linkName: node.linkName || node.title || key, 
+            path: parent ? parent.path + key : ''                      // 用于数据源查找数据
+        })    
+        handleDataChildren(node)
     }
-    function handleTreeToData(key, node, parent) {    
-        if (key === 'ROOT') {
-            handleNodeDir(node, node.children)
-            SRC_PATH[node.src] = node.path
-        } else {        
-            Object.assign(node, {
-                parent, 
-                key, 
-                title: node.title || node.linkName || key, 
-                linkName: node.linkName || node.title || key, 
-                path: parent.path + key                       // 用于数据源查找数据
-            })
-            node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
-            node.src && (SRC_PATH[node.src] = node.path)
+    handleData('', DATA, null)
+
+    // MD生成
+    const getDataByPath = path => {
+        path = path.substring(1)
+        const arr = path.split('/')    
+        let res = DATA, prop
+        while (prop = arr.shift()) {
+            prop && (res = res.children[prop])
+        }
+        return res
+    }
+    const createItem = item => {
+        const ABSOLUTE_PATH = Path.resolve(__dirname, '../' + item.path)
+        if (item.path.match(/\/$/m)) {
+            mkdirSync(ABSOLUTE_PATH)
+            createFile(Path.resolve(ABSOLUTE_PATH, 'README'), item)
+        } else {
+            createFile(ABSOLUTE_PATH, item)
         }
     }
-    if (ARG_ARR.length > 0) {
-        for (let i = 0; i < ARG_ARR.length; i++) {
-            let path = ARG_ARR[i] 
-            let item = PATH_DATA[path]
-            if (path === "/" || path === "/README") {
-                createHomeFile()
-            } else {
-                item ? handleCreator(item, path) : console.warn('参数' + path + '无效')
-            }
-            
-        }
-    } else {
-        handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
-    }↥
+    PATHS.forEach(path => {
+        let item = getDataByPath(path)    
+        item ? createItem(item) : console.warn(path + '创建失败！')    
+    })↥
+    notebook/docs/.data/components/createFile.js 
+        components/createFile
+
 notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
-    ↧{
-        vue: {
-            title: 'Vue', src: 'vue_index', 
-            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
-            children: {}, 
-            peripheral: {
-                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
-            }
-        }    
-    }↥
+    ↧↥
 notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 

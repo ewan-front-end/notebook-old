@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.25 17:36</span>
+            <span>M 2022.02.27 00:18</span>
         </div>
     </div>
     <div class="content"></div>
@@ -33,8 +33,8 @@ notebook/
 <span class="block-command">notebook</span> npm init -y
 <span class="block-command">notebook</span> npm install vuepress@1.8.2 --save-dev
 notebook/docs/
-<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
         "docs:dev": "vuepress dev docs", 
         "docs:build": "vuepress build docs"
     }</span></div></div>
@@ -43,7 +43,7 @@ notebook/docs/
 
 <span class="h2 bg3 cf"> 部署基础功能 </span>
 notebook/docs/.deploy/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_DIR = {
         ".vuepress": "../.vuepress"
     }
@@ -51,14 +51,14 @@ notebook/docs/.deploy/
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config.js')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config.js')
     const { mkdirSync } = require('./fs.js')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
     })</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/fs.js</span><span class="comment"></span><div class="detail-content">    <span>const fs = require('fs')
-    const path= require("path")
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/fs.js</span><span class="comment"></span><div class="detail-content">    <span>const fs = require('fs')
+    const Path= require("path")
 
     <span class="comment">// 递归创建目录 同步方法</span>
     function checkDirSync(dirname) {
@@ -66,7 +66,7 @@ notebook/docs/.deploy/
             <span class="comment">// console.log('目录已存在：' + dirname)</span>
             return {message: "目录已存在", state: 1}
         } else {
-            if (checkDirSync(path.dirname(dirname))) {
+            if (checkDirSync(Path.dirname(dirname))) {
                 try {
                     fs.mkdirSync(dirname)                
                     return {message: "目录已创建", state: 2}
@@ -78,20 +78,84 @@ notebook/docs/.deploy/
         }
     }
 
-    module.exports = {   
+    module.exports = {    
+        writeFileSync: (absPath, content, next) =&gt; {
+            typeof content !== "string" && (content = JSON.stringify(content, null, 4))
+            try {
+                fs.writeFileSync(absPath, content)
+                next && next()
+            } catch (err) {
+                console.error(err)
+            }        
+        },
+        writeFile: (absPath, content, success) =&gt; { 
+            typeof content !== "string" && (content = JSON.stringify(content, null, 4))
+            fs.writeFile(absPath, content, { encoding: 'utf8' }, err =&gt; { 
+                if(err){ 
+                    console.log(err) 
+                } else {
+                    success && success()
+                    !success && console.log('written: ' + absPath)
+                } 
+            })
+        },
+        readFile: (path, ifNoCreateOne) =&gt; {
+            if (ifNoCreateOne) {
+                checkDirSync(Path.dirname(path))
+                if (!fs.existsSync(path)) module.exports.writeFileSync(path, `新建文件：${path}`)
+            }
+            return fs.readFileSync(path, 'utf8')
+        },
+        editWritCommonFile: (path, editHandler) =&gt; {
+            const fileObj = require(path)
+            const next = editHandler(fileObj)
+            next && module.exports.writeFile(path, `module.exports = ${JSON.stringify(fileObj, null, 4)}`)
+        },
         mkdirSync(absPath, next){
             let res = checkDirSync(absPath)
             next && next(res)
+        },
+        saveFile(filePath, fileData) {
+            return new Promise((resolve, reject) =&gt; {
+                <span class="comment">/*fs.createWriteStream(path,[options])
+                options &lt;String&gt; | &lt;Object&gt;
+                {
+                    flags: 'w',
+                    defaultEncoding: 'utf8',
+                    fd: null,
+                    mode: 0o666,
+                    autoClose: true
+                }
+                */</span>
+                const wstream = fs.createWriteStream(filePath)
+                wstream.on('open', () =&gt; {
+                    const blockSize = 128
+                    const nbBlocks = Math.ceil(fileData.length / (blockSize))
+                    for (let i = 0; i &lt; nbBlocks; i += 1) {
+                        const currentBlock = fileData.slice(blockSize * i, Math.min(blockSize * (i + 1), fileData.length),)
+                        wstream.write(currentBlock)
+                    }
+                    wstream.end()
+                })
+                wstream.on('error', (err) =&gt; { reject(err) })
+                wstream.on('finish', () =&gt; { resolve(true) })
+            })
+        },
+        copyFileSync(from, to){
+            fs.copyFileSync(from, to)
+        },
+        existsSync(path) {
+            return fs.existsSync(path)
         }
     }</span></div></div>   
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">deploy</span> 
 
 <span class="h2 bg3 cf"> 建立文档体系 </span>
 notebook/docs/.data/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"> 数据源</span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"> 数据源</span><div class="detail-content">    <span>module.exports = {
         vue: {
             title: 'Vue', src: 'vue/index',
             links: [{ name: 'vue-element-admin', href: 'vue/vue-element-admin/index' }],
@@ -101,70 +165,75 @@ notebook/docs/.data/
             }
         }
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/md/</span><span class="comment"> 资源库</span><div class="detail-content">    <span>vuepress.md</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/md/</span><span class="comment"> 资源库</span><div class="detail-content">    <span>vue.md</span></div></div>
     
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { 
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { 
         "data:create": "node docs/.data/data-create.js", <span class="comment">// 创建DATA到MD</span>
         "data:watch": "node docs/.data/data-watch.js",   <span class="comment">// 监听数据变化创建DATA到MD</span>
         "res:create": "node docs/.data/res-create.js",    <span class="comment">// 创建MD到DOC</span>
         "res:watch": "node docs/.data/res-watch.js"        <span class="comment">// 监听MD变化创建MD到DOC</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"></span><div class="detail-content">    <span>const ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"></span><div class="detail-content">    <span>const Path = require('path')
+    const { mkdirSync } = require('../.deploy/fs')
+    const createFile = require('./components/createFile')
+    const ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
+    const DATA = require('./index')
 
-    function handleNodeFile(node) {
-        PATH_DATA[node.path] = node
-        CREATOR.push(node.path)
-    }
-    function handleNodeDir(node, children) {
-        node.path += '/'                       <span class="comment">// 目录特有标识</span>
+    const PATHS = []
+    const PATH_DATA = {}
+    const RES_PATH = {}
+
+    <span class="comment">// 数据处理</span>
+    function handleDataChildren(node) {
+        if (node.children) node.path += '/'
         PATH_DATA[node.path] = node            <span class="comment">// 路径映身数据</span>
-        PATH_DATA[node.path + 'README'] = node <span class="comment">// 路径映身数据 主页</span>
-        CREATOR.push(node.path)                <span class="comment">// c</span>
-        CREATOR.push(node.path + 'README')
-        for (key in children) { handleTreeToData(key, children[key], node) }
-    }
-    function handleTreeToData(key, node, parent) {    
-        if (key === 'ROOT') {
-            handleNodeDir(node, node.children)
-            SRC_PATH[node.src] = node.path
-        } else {        
-            Object.assign(node, {
-                parent, 
-                key, 
-                title: node.title || node.linkName || key, 
-                linkName: node.linkName || node.title || key, 
-                path: parent.path + key                       <span class="comment">// 用于数据源查找数据</span>
-            })
-            node.children ? handleNodeDir(node, node.children) : handleNodeFile(node)
-            node.src && (SRC_PATH[node.src] = node.path)
-        }
-    }
-    if (ARG_ARR.length &gt; 0) {
-        for (let i = 0; i &lt; ARG_ARR.length; i++) {
-            let path = ARG_ARR[i] 
-            let item = PATH_DATA[path]
-            if (path === "/" || path === "/README") {
-                createHomeFile()
-            } else {
-                item ? handleCreator(item, path) : console.warn('参数' + path + '无效')
-            }
-            
-        }
-    } else {
-        handleTreeToData('ROOT', {title: 'Home', src: 'index', path: '', children: DATA}, null)
-    }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-create.js</span><span class="comment"></span><div class="detail-content">    <span>{
-        vue: {
-            title: 'Vue', src: 'vue_index', 
-            links: [name: 'vue-element-admin',href: 'vue/vue-element-admin/index'], 
-            children: {}, 
-            peripheral: {
-                mvvm: {title: 'MVVM模式', src: 'vue/mvvm'}
-            }
+        node.src && (RES_PATH[node.src] = node.path)
+        PATHS.push(node.path)
+        if (node.children) {
+            for (key in node.children) { handleData(key, node.children[key], node) }
         }    
-    }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
+    }
+    function handleData(key, node, parent) {
+        Object.assign(node, {
+            parent, 
+            key, 
+            title: node.title || node.linkName || key, 
+            linkName: node.linkName || node.title || key, 
+            path: parent ? parent.path + key : ''                      <span class="comment">// 用于数据源查找数据</span>
+        })    
+        handleDataChildren(node)
+    }
+    handleData('', DATA, null)
+
+    <span class="comment">// MD生成</span>
+    const getDataByPath = path =&gt; {
+        path = path.substring(1)
+        const arr = path.split('/')    
+        let res = DATA, prop
+        while (prop = arr.shift()) {
+            prop && (res = res.children[prop])
+        }
+        return res
+    }
+    const createItem = item =&gt; {
+        const ABSOLUTE_PATH = Path.resolve(__dirname, '../' + item.path)
+        if (item.path.match(/\/$/m)) {
+            mkdirSync(ABSOLUTE_PATH)
+            createFile(Path.resolve(ABSOLUTE_PATH, 'README'), item)
+        } else {
+            createFile(ABSOLUTE_PATH, item)
+        }
+    }
+    PATHS.forEach(path =&gt; {
+        let item = getDataByPath(path)    
+        item ? createItem(item) : console.warn(path + '创建失败！')    
+    })</span></div></div>
+    notebook/docs/.data/components/createFile.js 
+
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
+notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
+    ↧↥
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
 
 notebook/docs/.data/PATH_DATA.json ▾
     ↧↥
@@ -172,7 +241,7 @@ notebook/docs/.data/RES_PATH.json ▾{color:#ccc;background-color:transparent}  
     ↧↥
 
 
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/RES_INFO.json</span><span class="comment"></span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/RES_INFO.json</span><span class="comment"></span><div class="detail-content">    <span>{
         links:[],
         editTime: ''
     }</span></div></div>
@@ -240,7 +309,7 @@ notebook/docs/.doctree/data/RES_LINK.json      <span class="comment">// 采集�
     链接
         引入：[优先标题:vuepress#id]
         埋码：[ANCHOR#id:入库标题] 
-<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
+<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
                 path:'', 
                 links: {
                     usage: '入库标题'
