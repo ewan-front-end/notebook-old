@@ -7,7 +7,14 @@ let TAG_MAP_BLOCK = {}, blockCount = 0
 const REG_STYLE_STR = `(\\{[\\w\\s-;:'"#]+\\})?` // color: #f00; font-size: 14px
 const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      // bd sz-16 c-0
 
+const regItems = []
 function parseCustomBlock(block, path) {
+    let regItemCount = 0
+    while (/(【\/.+\/】)/.exec(block) !== null) { 
+        const name = `REGEXP_ITEM_${regItemCount}`
+        block = block.replace(RegExp.$1, name) 
+        regItems.push({name, content: RegExp.$1})
+    }
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
 
     // ❖ 项目Project
