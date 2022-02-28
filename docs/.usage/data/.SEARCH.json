@@ -221,7 +221,7 @@
     },
     "/framework/vuepress": {
         "key": "vuepress",
-        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片■局部加粗■ 入门使用 ■ 部署基础功能 ■ 建立文档体系 ■title h2 14■title h3 16■title h4 18■title h5 20■title h6 22■ title invert ■<a href=\"http://icomoon.io/app\" target=\"_blank\">icomoon</a>■<a href=\"https://jsrun.net/new\" target=\"_blank\">jsrun</a>■<a href=\"https://github.com/\" target=\"_blank\">github</a>"
+        "keywords": "vuepress(vuepress)■部署到一个非根路径■插入图片"
     },
     "/framework/docsify": {
         "key": "docsify",
@@ -446,5 +446,9 @@
     "/computer/": {
         "key": "computer",
         "keywords": "计算机(computer)"
+    },
+    "/biaozhun/README": {
+        "keywords": " 从动检测 ■ 主动规范 ■ 多规范之默认规范 ■提交时自动检测■提交时自动修复■flex■ 自定义格式 ■ 场景 ■ 攻略 ■ 方案 ■ 规范 ■ plantuml ",
+        "key": "未知"
     }
 }

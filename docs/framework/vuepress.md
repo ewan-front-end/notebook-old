@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.27 06:34</span>
+            <span>M 2022.02.28 18:43</span>
         </div>
     </div>
     <div class="content"></div>
@@ -26,6 +26,34 @@ pageClass: theme-item
 }
 
 
+<pre class="code-block">
+<span class="title1" style="margin-top:15px;"><i></i>实现一个VuePress插件</span>
+<div class="block-detail"><span class="detail-desc">docs/.vuepress/config.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
+        plugins: [
+            require('./vuepress-plugin-super-block'), <span class="comment">// path.resolve(__dirname, './vuepress-plugin-super-block/index.js')</span>
+        ]
+    }</span></div></div>
+docs/.vuepress/vuepress-plugin-super-block/
+<span class="block-command">vuepress-plugin-super-block</span> npm init -y
+<div class="block-detail"><span class="detail-desc">docs/.vuepress/vuepress-plugin-super-block/index.js</span><span class="comment"></span><div class="detail-content">    <span><span class="comment">/** 
+     * @param {*} options 插件的配置选项
+     * @param {*} ctx 编译期上下文
+     * @returns 
+     */</span>
+    module.exports = (options, ctx) =&gt; {
+        return {
+            name: 'vuepress-plugin-super-block',
+            async ready() {
+                console.log('Hello World superblock!');
+            }
+        }
+    }</span></div></div>
+
+
+
+</pre>
+
+
 
 <pre class="code-block">
 <span class="h2 bg3 cf"> 入门使用 </span>
@@ -33,8 +61,8 @@ notebook/
 <span class="block-command">notebook</span> npm init -y
 <span class="block-command">notebook</span> npm install vuepress@1.8.2 --save-dev
 notebook/docs/
-<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
         "docs:dev": "vuepress dev docs", 
         "docs:build": "vuepress build docs"
     }</span></div></div>
@@ -43,7 +71,7 @@ notebook/docs/
 
 <span class="h2 bg3 cf"> 部署基础功能 </span>
 notebook/docs/.deploy/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_DIR = {
         ".vuepress": "../.vuepress"
     }
@@ -51,13 +79,13 @@ notebook/docs/.deploy/
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config.js')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config.js')
     const { mkdirSync } = require('./fs.js')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
     })</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/fs.js</span><span class="comment"></span><div class="detail-content">    <span>const fs = require('fs')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/fs.js</span><span class="comment"></span><div class="detail-content">    <span>const fs = require('fs')
     const Path= require("path")
 
     <span class="comment">// 递归创建目录 同步方法</span>
@@ -148,14 +176,14 @@ notebook/docs/.deploy/
             return fs.existsSync(path)
         }
     }</span></div></div>   
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">deploy</span> 
 
 <span class="h2 bg3 cf"> 建立文档体系 </span>
 notebook/docs/.data/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"> 数据源</span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"> 数据源</span><div class="detail-content">    <span>module.exports = {
         vue: {
             title: 'Vue', src: 'vue/index',
             links: [{ name: 'vue-element-admin', href: 'vue/vue-element-admin/index' }],
@@ -165,15 +193,15 @@ notebook/docs/.data/
             }
         }
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/md/</span><span class="comment"> 资源库</span><div class="detail-content">    <span>vue.md</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/md/</span><span class="comment"> 资源库</span><div class="detail-content">    <span>vue.md</span></div></div>
     
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { 
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { 
         "data:create": "node docs/.data/data-create.js", <span class="comment">// 创建DATA到MD</span>
         "data:watch": "node docs/.data/data-watch.js",   <span class="comment">// 监听数据变化创建DATA到MD</span>
         "res:create": "node docs/.data/res-create.js",    <span class="comment">// 创建MD到DOC</span>
         "res:watch": "node docs/.data/res-watch.js"        <span class="comment">// 监听MD变化创建MD到DOC</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"></span><div class="detail-content">    <span>const Path = require('path')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"></span><div class="detail-content">    <span>const Path = require('path')
     const { mkdirSync } = require('../.deploy/fs')
     const createFile = require('./components/createFile')
     const ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
@@ -228,7 +256,7 @@ notebook/docs/.data/
         let item = getDataByPath(path)    
         item ? createItem(item) : console.warn(path + '创建失败！')    
     })</span></div></div>
-<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/createFile.js</span><span class="comment"></span><div class="detail-content">        <span>const PATH = require('path')
+<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/createFile.js</span><span class="comment"></span><div class="detail-content">        <span>const PATH = require('path')
         <span class="comment">//const {fetch} = require('../config')</span>
         const { writeFile, readFile } = require('../../.deploy/fs')
         <span class="comment">// const SRC_UPDATETIME = fetch("DATA|src:updateTime")</span>
@@ -291,7 +319,7 @@ notebook/docs/.data/
         &lt;/div&gt;`                 
             writeFile(fullPath + '.md', content)
         }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/parseCode.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
+<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/parseCode.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
         * 弹性盒子
         * 目标：&lt;div class="box-flex"&gt;&lt;div class="box-flex-item flex-8"&gt;col 01&lt;/div&gt;&lt;div class="box-flex-item classname" style="flex-basis:100px"&gt;col 02&lt;/div&gt;&lt;/div&gt;
         * 格式：
@@ -359,423 +387,127 @@ notebook/docs/.data/
                 
                 return code        
             }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/parseCustomBlock.js</span><span class="comment"></span><div class="detail-content">        <span>
-        <span class="comment">//const Search = fetch('PARSE|search')</span>
-        <span class="comment">//const Aggregate = fetch('PARSE|aggregate')</span>
-        const { regexpPresetParse, PRESET_CSS } = require('./regexp-preset')
+<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/parseCustomBlock.js</span><span class="comment"></span><div class="detail-content">        <span>const &#123; fetch &#125; = require('&#46;&#46;&#47;&#46;&#46;&#47;config')
+        const Search = fetch('PARSE|search')
+        const Aggregate = fetch('PARSE|aggregate')
+        const &#123; regexpPresetParse, PRESET_CSS &#125; = fetch('UTILS|regexp-preset')
 
-        let TAG_MAP_BLOCK = {}, blockCount = 0
-        const REG_STYLE_STR = `(\\{[\\w\\s-;:'"#]+\\})?` <span class="comment">// color: #f00; font-size: 14px</span>
-        const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      <span class="comment">// bd sz-16 c-0</span>
 
-        function parseCustomBlock(block, path) {
-            block = block.replace(/\&lt;/g, "&lt;").replace(/\&gt;/g, "&gt;")
+        let TAG_MAP_BLOCK = &#123;&#125;, block_count = 0
+        const REG_STYLE_STR = `(&#92;&#92;&#123;[&#92;&#92;w&#92;&#92;s-;&#58;'"#]&#43;&#92;&#92;&#125;)&#63;` &#47;&#47; color&#58; #f00; font-size&#58; 14px
+        const REG_CLASS_STR = `(&#92;&#92;([&#92;&#92;w&#92;&#92;s-]&#43;&#92;&#92;))&#63;`      &#47;&#47; bd sz-16 c-0
 
-            <span class="comment">// <div>工具</div></span>
-            if (/(❖\s项目Project)/.exec(block)) {
-                block = block.replace(RegExp.$1, `&lt;div&gt;工具&lt;/div&gt;`)
-            }
+        function parseCustomBlock(block, path) &#123;    
+            
+
+            block = block&#46;replace(&#47;&#92;&#60;&#47;g, "&lt;")&#46;replace(&#47;&#92;&#62;&#47;g, "&gt;")
+
+            3&#47;&#47; ❖ 项目Project
+            if (&#47;(❖&#92;s项目Project)&#47;&#46;exec(block)) &#123;
+                block = block&#46;replace(RegExp&#46;$1, `&#60;div&#62;工具&#60;&#47;div&#62;`)
+            &#125;
 
             
-            <span class="comment">// 聚合之采集</span>
-            <span class="comment">//block = Aggregate.pick(block, 'vuepress')</span>
+            2&#47;&#47; 聚合之采集
+            block = Aggregate&#46;pick(block, 'vuepress')
             
-            <span class="comment">////////////////////////////////// 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符</span>
-            <span class="comment">/**
+            &#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47; 不会再有嵌套的格式优先解析，避免匹配到多余的其它格式的字符
+            &#47;**
             * 行注释
             * 多匹配一个前置空格 替换时空格移到标签 防止被全等注释二次替换
-            * 如：// 注释 <span class="comment">// 注释  解析成：</span>
-            * 错误：&lt;span class="comment"&gt;&lt;span class="comment"&gt; <span class="comment">// 注释&lt;/span&gt;&lt;/span&gt; // 注释</span>
-            * 正确： &lt;span class="comment"&gt;// 注释&lt;/span&gt;&lt;/span&gt; &lt;span class="comment"&gt;// 注释&lt;/span&gt;&lt;/span&gt;
-            */</span>
-            const matchComment = block.match(/\s\d?\/\/[^\n\r]+/g) || [];
-            matchComment.forEach(e =&gt; {
-                let colorClass = '', _e = e.trim(), firstWord = _e.substr(0,1)
-                if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
-                block = block.replace(e, ` &lt;span class="comment${colorClass}"&gt;${_e}&lt;/span&gt;`)
-            }) 
-            <span class="comment">// <span class="comment">/* 注释 */</span></span>
-            const matchComment2 = block.match(/\d?\/\*[\s\S]*?\*\//g) || [];
-            matchComment2.forEach(e =&gt; {
-                let firstWord = e.substr(0,1), colorClass = '', _e = e
-                if (!isNaN(firstWord)) {_e = _e.replace(firstWord, ''); colorClass = ' color' + firstWord}
-                block = block.replace(e, `&lt;span class="comment${colorClass}"&gt;${_e}&lt;/span&gt;`)
-            })
-            <span class="comment">// <span class="comment">&#60;&#33;&#45;&#45;HTML注释&#45;&#45;&#62;</span></span>
-            const matchHtmlComment = block.match(/<span class="comment">&#60;&#33;&#45;&#45;\s*[\s\S]*?\s*&#45;&#45;&#62;</span>/g) || [];
-            matchHtmlComment.forEach(e =&gt; {
-                let content = e.replace(/<span class="comment">&#60;&#33;&#45;&#45;\s*/, '&lt;span class="comment"&gt;&#60;&#33;&#45;&#45;').replace(/\s*&#45;&#45;&#62;</span>/, '&#45;&#45;&#62;&lt;/span&gt;')
-                block = block.replace(e, content)
-            })
+            * 如：&#47;&#47; 注释 &#47;&#47; 注释  解析成：
+            * 错误：&#60;span class="comment"&#62;&#60;span class="comment"&#62; &#47;&#47; 注释&#60;&#47;span&#62;&#60;&#47;span&#62; &#47;&#47; 注释
+            * 正确： &#60;span class="comment"&#62;&#47;&#47; 注释&#60;&#47;span&#62;&#60;&#47;span&#62; &#60;span class="comment"&#62;&#47;&#47; 注释&#60;&#47;span&#62;&#60;&#47;span&#62;
+            *&#47;
+            const matchComment = block&#46;match(&#47;&#92;s&#92;d&#63;&#92;&#47;&#92;&#47;[^&#92;n&#92;r]&#43;&#47;g) || [];
+            matchComment&#46;forEach(e =&#62; &#123;
+                let colorClass = '', _e = e&#46;trim(), firstWord = _e&#46;substr(0,1)
+                if (!isNaN(firstWord)) &#123;_e = _e&#46;replace(firstWord, ''); colorClass = ' color' &#43; firstWord&#125;
+                block = block&#46;replace(e, ` &#60;span class="commentSUPER_BLOCK_0A#123;colorClass&#125;"&#62;SUPER_BLOCK_0A#123;_e&#125;&#60;&#47;span&#62;`)
+            &#125;) 
+            &#47;&#47; &#47;* 注释 *&#47;
+            const matchComment2 = block&#46;match(&#47;&#92;d&#63;&#92;&#47;&#92;*[&#92;s&#92;S]*&#63;&#92;*&#92;&#47;&#47;g) || [];
+            matchComment2&#46;forEach(e =&#62; &#123;
+                let firstWord = e&#46;substr(0,1), colorClass = '', _e = e
+                if (!isNaN(firstWord)) &#123;_e = _e&#46;replace(firstWord, ''); colorClass = ' color' &#43; firstWord&#125;
+                block = block&#46;replace(e, `&#60;span class="commentSUPER_BLOCK_0A#123;colorClass&#125;"&#62;SUPER_BLOCK_0A#123;_e&#125;&#60;&#47;span&#62;`)
+            &#125;)
+            &#47;&#47; &#60;!-- HTML注释 --&#62;
+            const matchHtmlComment = block&#46;match(&#47;&lt;!--&#92;s*[&#92;s&#92;S]*&#63;&#92;s*--&gt;&#47;g) || [];
+            matchHtmlComment&#46;forEach(e =&#62; &#123;
+                let content = e&#46;replace(&#47;&lt;!--&#92;s*&#47;, '&#60;span class="comment"&#62;&#60;&#33;&#45;&#45;')&#46;replace(&#47;&#92;s*--&gt;&#47;, '&#45;&#45;&#62;&#60;&#47;span&#62;')
+                block = block&#46;replace(e, content)
+            &#125;)
 
-            <span class="comment">// Markdown格式 <a href="#" target="_blank">链接</a>、- 点列表、<strong>局部加粗</strong></span>
-            while (/(\[([^\]\r\n]+)\]\(([^\)\r\n]+)\))/.exec(block) !== null) { 
-                block = block.replace(RegExp.$1, `&lt;a href="${RegExp.$3}" target="_blank"&gt;${RegExp.$2}&lt;/a&gt;`) 
-            }
-            while (/^\s*(-\s([^\n\r]+))/m.exec(block) !== null) {
-                block = block.replace(RegExp.$1, `● &lt;strong&gt;${RegExp.$2}&lt;/strong&gt;`);
-                <span class="comment">//Search.add(path, RegExp.$2)</span>
-            }
-            while (/(\*\*([0-9a-zA-Z\u4e00-\u9fa5_-]+)\*\*)/.exec(block) !== null) {
-                block = block.replace(RegExp.$1, `&lt;strong&gt;${RegExp.$2}&lt;/strong&gt;`)
-                <span class="comment">//Search.add(path, RegExp.$2)</span>
-            } 
+            &#47;&#47; Markdown格式 [链接](#)、- 点列表、**局部加粗**   
+            while (&#47;(&#92;[([^&#92;]&#92;r&#92;n]&#43;)&#92;]&#92;(([^&#92;)&#92;r&#92;n]&#43;)&#92;))&#47;&#46;exec(block) !== null) &#123; 
+                block = block&#46;replace(RegExp&#46;$1, `&#60;a href="SUPER_BLOCK_0A#123;RegExp&#46;$3&#125;" target="_blank"&#62;SUPER_BLOCK_0A#123;RegExp&#46;$2&#125;&#60;&#47;a&#62;`) 
+            &#125;
+            while (&#47;^&#92;s*(-&#92;s([^&#92;n&#92;r]&#43;))&#47;m&#46;exec(block) !== null) &#123;
+                block = block&#46;replace(RegExp&#46;$1, `● &#60;strong&#62;SUPER_BLOCK_0A#123;RegExp&#46;$2&#125;&#60;&#47;strong&#62;`);
+                Search&#46;add(path, RegExp&#46;$2)
+            &#125;
+            while (&#47;(&#92;*&#92;*([0-9a-zA-Z&#92;u4e00-&#92;u9fa5_-]&#43;)&#92;*&#92;*)&#47;&#46;exec(block) !== null) &#123;
+                block = block&#46;replace(RegExp&#46;$1, `&#60;strong&#62;SUPER_BLOCK_0A#123;RegExp&#46;$2&#125;&#60;&#47;strong&#62;`)
+                Search&#46;add(path, RegExp&#46;$2)
+            &#125; 
 
-            <span class="comment">// 模板符&#123; &#123;&#125; &#125;用图片表示</span>
-            <span class="comment">// block = block.replace(/\{\{/g, `&lt;img :src="$withBase('/images/db-brace-left.png')"&gt;`)</span>
-            <span class="comment">// block = block.replace(/\}\}/g, `&lt;img :src="$withBase('/images/db-brace-right.png')"&gt;`)</span>
-            block = block.replace(/\{\{/g, `&#123; &#123;`)  
-            block = block.replace(/\}\}/g, `&#125; &#125;`)
+            &#47;&#47; 模板符&#123;&#123;&#125;&#125;用图片表示
+            &#47;&#47; block = block&#46;replace(&#47;&#92;&#123;&#92;&#123;&#47;g, `&#60;img &#58;src="$withBase('&#47;images&#47;db-brace-left&#46;png')"&#62;`)  
+            &#47;&#47; block = block&#46;replace(&#47;&#92;&#125;&#92;&#125;&#47;g, `&#60;img &#58;src="$withBase('&#47;images&#47;db-brace-right&#46;png')"&#62;`)
+            block = block&#46;replace(&#47;&#92;&#123;&#92;&#123;&#47;g, `&#123; &#123;`)  
+            block = block&#46;replace(&#47;&#92;&#125;&#92;&#125;&#47;g, `&#125; &#125;`)
 
-            <span class="comment">// 命令行示意</span>
-            while (/^\x20*(([\w-\/]+)\&gt;)\s[^\r\n]+/m.exec(block) !== null) {
-                block = block.replace(RegExp.$1, `&lt;span class="block-command"&gt;${RegExp.$2}&lt;/span&gt;`)
-            }
+            &#47;&#47; 命令行示意
+            while (&#47;^&#92;x20*(([&#92;w-&#92;&#47;]&#43;)&#92;&gt;)&#92;s[^&#92;r&#92;n]&#43;&#47;m&#46;exec(block) !== null) &#123;
+                block = block&#46;replace(RegExp&#46;$1, `&#60;span class="block-command"&#62;SUPER_BLOCK_0A#123;RegExp&#46;$2&#125;&#60;&#47;span&#62;`)
+            &#125;
 
-            <span class="comment">/**
+            &#47;**
             * 点缀集
-            * <i class="i1">text</i> <i class="i2">text</i> ❶❷❸❹❺❻❼❽❾<i class="order10">text</i>
-            */</span>
-            const orderMap = {"❶": 1, "❷": 2, "❸": 3, "❹": 4,"❺": 5,"❻": 6,"❼": 7,"❽": 8,"❾": 9,"❿": 10}
-            while (/((\d)?([❶❷❸❹❺❻❼❽❾❿])?<i class="i0">([^</i>]+)◄)/.exec(block) !== null) {
-                let className = 'i' + (RegExp.$2 || 0)
-                if (RegExp.$3) className = 'order' + orderMap[RegExp.$3]
-                block = block.replace(RegExp.$1, `&lt;i class="${className}"&gt;${RegExp.$4}&lt;/i&gt;`)
-            }
+            * 1►text◄ 2►text◄ ❶❷❸❹❺❻❼❽❾❿►text◄
+            *&#47;
+            const orderMap = &#123;"❶"&#58; 1, "❷"&#58; 2, "❸"&#58; 3, "❹"&#58; 4,"❺"&#58; 5,"❻"&#58; 6,"❼"&#58; 7,"❽"&#58; 8,"❾"&#58; 9,"❿"&#58; 10&#125;
+            while (&#47;((&#92;d)&#63;([❶❷❸❹❺❻❼❽❾❿])&#63;►([^◄]&#43;)◄)&#47;&#46;exec(block) !== null) &#123;
+                let className = 'i' &#43; (RegExp&#46;$2 || 0)
+                if (RegExp&#46;$3) className = 'order' &#43; orderMap[RegExp&#46;$3]
+                block = block&#46;replace(RegExp&#46;$1, `&#60;i class="SUPER_BLOCK_0A#123;className&#125;"&#62;SUPER_BLOCK_0A#123;RegExp&#46;$4&#125;&#60;&#47;i&#62;`)
+            &#125;
             
-            <span class="comment">/**
+            &#47;**
             * Detail
             * 突出简介隐藏详情
-            * .vuepress/theme/layouts/Layout.vue
-                mounted () {    
-                    const $details = document.querySelectorAll('.block-detail')
-                    $details.forEach(dom =&gt; {
-                        dom.addEventListener('click', e =&gt; {
-                            let tar = e.currentTarget
-                            tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
-                        })
-                    })
-                }
-            */</span>
+            * &#46;vuepress&#47;theme&#47;layouts&#47;Layout&#46;vue
+                mounted () &#123;    
+                    const $details = document&#46;querySelectorAll('&#46;block-detail')
+                    $details&#46;forEach(dom =&#62; &#123;
+                        dom&#46;addEventListener('click', e =&#62; &#123;
+                            let tar = e&#46;currentTarget
+                            tar&#46;className = tar&#46;className === 'block-detail' &#63; 'block-detail active' &#58; 'block-detail'
+                        &#125;)
+                    &#125;)
+                &#125;
+            *&#47;
             const REG_DETAIL_STR = regexpPresetParse([        
-                {DETAIL_FORMAT: [{DETAIL_INDENT: `\\x20*`}, {TITLE: `.+`}, `\\s▾`, {STYLE: REG_STYLE_STR}, {COMMENT:`[^\\n]*`}, `[\\r\\n]`, {CONTENT_INDENT: `\\x20*`}, `↧`, {CONTENT: `[^</span></div></div>]+`}, `↥`]}
+                &#123;DETAIL_FORMAT&#58; [&#123;DETAIL_INDENT&#58; `&#92;&#92;x20*`&#125;, &#123;TITLE&#58; `&#46;&#43;`&#125;, `&#92;&#92;s▾`, &#123;STYLE&#58; REG_STYLE_STR&#125;, &#123;COMMENT&#58;`[^&#92;&#92;n]*`&#125;, `[&#92;&#92;r&#92;&#92;n]`, &#123;CONTENT_INDENT&#58; `&#92;&#92;x20*`&#125;, `&#8615;`, &#123;CONTENT&#58; `[^&#8613;]&#43;`&#125;, `&#8613;`]&#125;
             ])
-            const REG_DETAIL = new RegExp(REG_DETAIL_STR.value) 
-            <span class="comment">// const REG_DETAIL = /(?&lt;DETAIL_FORMAT&gt;((?&lt;DETAIL_INDENT&gt;\x20*)(?&lt;TITLE&gt;.+)\s▾(?&lt;STYLE&gt;(\{[\w\s-;:'"#]+\})?)(?&lt;COMMENT&gt;\s*(.+)?)<a href="?&lt;CONTENT_INDENT&gt;\x20*" target="_blank">\r\n</a>↧(?&lt;CONTENT&gt;[^↥]+)↥))/</span>
+            const REG_DETAIL = new RegExp(REG_DETAIL_STR&#46;value) 
+            &#47;&#47; const REG_DETAIL = &#47;(&#63;&#60;DETAIL_FORMAT&#62;((&#63;&#60;DETAIL_INDENT&#62;&#92;x20*)(&#63;&#60;TITLE&#62;&#46;&#43;)&#92;s▾(&#63;&#60;STYLE&#62;(&#92;&#123;[&#92;w&#92;s-;&#58;'"#]&#43;&#92;&#125;)&#63;)(&#63;&#60;COMMENT&#62;&#92;s*(&#46;&#43;)&#63;)[&#92;r&#92;n](&#63;&#60;CONTENT_INDENT&#62;&#92;x20*)&#8615;(&#63;&#60;CONTENT&#62;[^&#8613;]&#43;)&#8613;))&#47;
             let detailMatch
-            while ((detailMatch = REG_DETAIL.exec(block)) !== null) {
-                let {DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, COMMENT, CONTENT_INDENT, CONTENT} =  detailMatch.groups, descStyle = 'class="detail-desc"'
-                if (STYLE) descStyle += ` style="${STYLE.replace('{', '').replace('}', '')}"`
-                block = block.replace(DETAIL_FORMAT, `&lt;div class="block-detail"&gt;${DETAIL_INDENT}&lt;span ${descStyle}&gt;${TITLE}&lt;/span&gt;&lt;span class="comment"&gt;${COMMENT}&lt;/span&gt;&lt;div class="detail-content"&gt;${CONTENT_INDENT}&lt;span&gt;${CONTENT}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`)
-            }
+            while ((detailMatch = REG_DETAIL&#46;exec(block)) !== null) &#123;
+                let &#123;DETAIL_FORMAT, DETAIL_INDENT, TITLE, STYLE, COMMENT, CONTENT_INDENT, CONTENT&#125; =  detailMatch&#46;groups, descStyle = 'class="detail-desc"'
+                if (STYLE) descStyle &#43;= ` style="SUPER_BLOCK_0A#123;STYLE&#46;replace('&#123;', '')&#46;replace('&#125;', '')&#125;"`
+                block = block&#46;replace(DETAIL_FORMAT, `&#60;div class="block-detail"&#62;SUPER_BLOCK_0A#123;DETAIL_INDENT&#125;&#60;span SUPER_BLOCK_0A#123;descStyle&#125;&#62;SUPER_BLOCK_0A#123;TITLE&#125;&#60;&#47;span&#62;&#60;span class="comment"&#62;SUPER_BLOCK_0A#123;COMMENT&#125;&#60;&#47;span&#62;&#60;div class="detail-content"&#62;SUPER_BLOCK_0A#123;CONTENT_INDENT&#125;&#60;span&#62;SUPER_BLOCK_0A#123;CONTENT&#125;&#60;&#47;span&#62;&#60;&#47;div&#62;&#60;&#47;div&#62;`)
+            &#125;
 
-            <span class="comment">/**
-            * 标题表示一
-            * <span class="title1" style="margin-top:15px;"><i></i> 52PX</span>
-            * <span class="title2" style="margin-top:12px;"><i></i> 40PX</span>
-            * <span class="title3" style="margin-top:9px;"><i></i> 30PX</span>
-            * <span class="title4" style="margin-top:6px;"><i></i> 22PX</span>
-            * <span class="title5" style="margin-top:3px;"><i></i> 16PX</span>
-            * <span class="title6" style="margin-top:0px;"><i></i> 12PX</span>
-            * <span class="title1 reverse1" style="margin-top:15px;color:#fff;background-color:#333"><i></i>颜色#等级#背景</span>
-            */</span>
-            while (/\s*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/.exec(block) !== null) {
-                let classStr = `title${RegExp.$4}`
-                let styleStr = `margin-top:${(6 - RegExp.$4) * 3}px;`
-                if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
-                if (RegExp.$3) classStr += ` reverse${RegExp.$4}`
-                if (RegExp.$5) {
-                    classStr += ` reverse1`
-                    styleStr += `background-color:${RegExp.$5}`
-                }
-                block = block.replace(RegExp.$1, `&lt;span class="${classStr}" style="${styleStr}"&gt;&lt;i&gt;&lt;/i&gt;${RegExp.$6}&lt;/span&gt;`)
-            }
-            <span class="comment">/**
-            * 标题表示二
-            * <span class="h2">TITLE H2 14</span>
-            * <span class="h3">TITLE H3 16</span>
-            * <span class="h4">TITLE H4 18</span>
-            * <span class="h5">TITLE H5 20</span>
-            * <span class="h6">TITLE H6 22  </span>
-            * <span class="h4 bg3 cf bd" style="color:#fff"> TITLE INVERT </span>
-            * 应用环境：独占一行
-            */</span>    
-            const REG_TIT_STR = regexpPresetParse([
-                `\\x20*`,                   <span class="comment">// 0任意空格</span>
-                {FORMAT: [
-                    {INVERT: `\\[?`},       <span class="comment">// 反相开始 [</span>
-                    {LEVEL: `#{2,6}`},      <span class="comment">// 标题字号 #-######</span>
-                    `\\]?`,                 <span class="comment">// 反相结束 ]</span>
-                    {STYLE: REG_STYLE_STR}, <span class="comment">// 区配样式 {color: #fff}</span>
-                    {CLASS: REG_CLASS_STR}, <span class="comment">// 匹配类名 (bd)</span>
-                    `\\s`,                  <span class="comment">// 一个空格</span>
-                    {TEXT: `[^\\n\\r\\{]+`} <span class="comment">// 标题文本</span>
-                ]}
-            ])
-            const REG_TIT = new RegExp(REG_TIT_STR.value) 
-            let titMatch
-            while ((titMatch = REG_TIT.exec(block)) !== null) {   
-                let {FORMAT, INVERT, LEVEL, STYLE, CLASS, TEXT} =  titMatch.groups    
-                let classStr = `h${LEVEL.length}`
-                if (INVERT) {
-                    classStr += ' bg3 cf'
-                    if (TEXT[0] !== ' ') TEXT = ' ' + TEXT
-                    if (TEXT[TEXT.length-1] !== ' ') TEXT = TEXT + ' '
-                }
-                CLASS && (classStr += ' ' + CLASS.replace('(', '').replace(')', ''))
-                let str = `class="${classStr}"`, content = TEXT
-                STYLE && (str += ` style="${STYLE.replace('{', '').replace('}', '')}"`)
-                block = block.replace(FORMAT, `&lt;span ${str}&gt;${TEXT}&lt;/span&gt;`)
-                <span class="comment">//Search.add(path, TEXT)</span>
-            }
-            
-            
-            
-
-            <span class="comment">// 图片 <img :src="$withBase('/images/左移位运算符.jpg')"></span>
-            const matchImage = block.match(&#47;&#92;<img :src="(&#46;&#43;&#63;)&#92;">&#47;g) &#124;&#124; [];
-            matchImage.forEach(e =&gt; {
-                const m = e.match(/\<img :src="(.+)?\">/)
-                block = block.replace(e, `&lt;img :src="${m[1]}"&gt;`)
-            })    
-
-            <span class="comment">// 表单元素[FORM_START][FORM_END]</span>
-            <span class="comment">// [FORM_START|vtop]</span>
-            const matchForm = block.match(/\s*\[FORM_START\][\s\S]+?\[FORM_END\]\s*[\r\n]+/g) || [];
-            matchForm.forEach(e =&gt; {
-                let content = e.replace(/\s*\[FORM_START\]\s*[\r\n]+/, '').replace(/\s*\[FORM_END\]/, '') 
-                <span class="comment">// ↴classname ↤ ↦</span>
-                while (/(↴([\w\s-;:'"#]+[\w'";])?([\s\S]*)↤([\s\S]+)↦)/.exec(content) !== null) {
-                    const $ALL = RegExp.$1, $STYLE = RegExp.$2, $CONTENT = RegExp.$4
-                    content = content.replace($ALL, `&lt;span class="inline" style="${$STYLE}"&gt;${$CONTENT}&lt;/span&gt;`)
-                }    
-                
-                <span class="comment">// INPUT:▭{}()value▭</span>
-                while (/(▭(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)▭)/.exec(content) !== null) {
-                    const $ALL = RegExp.$1, $STYLE = RegExp.$5, $CLASS = RegExp.$3 || RegExp.$7 || '', $VALUE = RegExp.$8, styleStr = $STYLE ? ` style="${$STYLE}"` : ''
-                    content = content.replace($ALL, `&lt;span class="input ${$CLASS}"${styleStr}&gt;${$VALUE}&lt;/span&gt;`)
-                }
-                <span class="comment">// [BTN|正常置灰] [BTN&gt;主题激活] [BTNbg3 cf|自定义类]</span>
-                while (/(\[BTN([\w\s-]*)([\&gt;\|]|&gt;)(.+?)\])/.exec(content) !== null) { 
-                    const $ALL = RegExp.$1, $CLASS = RegExp.$2, $TYPE = RegExp.$3, $VAL = RegExp.$4
-                    let classStr = 'button'
-                    $CLASS && (classStr = 'button ' + $CLASS)
-                    $TYPE === '&gt;' && (classStr = 'button active')
-                    content = content.replace($ALL, `&lt;span class="${classStr}"&gt;${$VAL}&lt;/span&gt;`)
-                }
-                
-                <span class="comment">// 选项卡：▥⇤Params  Authorization  [Headers]  Body  Pre-request Script  Tests  Settings▥</span>
-                while (/((\x20*)▥(⇤?)(.+?)▥)/.exec(content) !== null) {
-                    const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4 
-                    let html = ''         
-                    $CONTENT.split(/\x20{2,}/).forEach(item =&gt; { html += item.indexOf('[') &gt; -1 ? item.replace('[', '&lt;strong&gt;').replace(']', '&lt;/strong&gt;') : `&lt;i&gt;${item}&lt;/i&gt;` })
-                    html = $SET_FLUSH ? `&lt;span class="tab"&gt;${html}&lt;/span&gt;` : `${$INDENT}&lt;span class="tab"&gt;${html}&lt;/span&gt;`
-                    content = content.replace($FORMAT, html) 
-                }  
-                <span class="comment">// 单选框：◉⇤none  form-data  [x-www-form-urlencoded]  raw  binary  GraphQL◉</span>
-                while (/((\x20*)◉(⇤?)(.+?)◉)/.exec(content) !== null) {
-                    const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4 
-                    let html = ''         
-                    $CONTENT.split(/\x20{2,}/).forEach(item =&gt; { html += item.indexOf('[') &gt; -1 ? item.replace('[', '&lt;strong&gt;').replace(']', '&lt;/strong&gt;') : `&lt;i&gt;${item}&lt;/i&gt;` })
-                    html = $SET_FLUSH ? `&lt;span class="radio"&gt;${html}&lt;/span&gt;` : `${$INDENT}&lt;span class="radio"&gt;${html}&lt;/span&gt;`
-                    content = content.replace($FORMAT, html) 
-                } 
-                <span class="comment">// 单选框：▣⇤none  [form-data]  x-www-form-urlencoded  raw  [binary]  GraphQL▣</span>
-                while (/((\x20*)▣(⇤?)(.+?)▣)/.exec(content) !== null) {
-                    const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4 
-                    let html = ''         
-                    $CONTENT.split(/\x20{2,}/).forEach(item =&gt; { html += item.indexOf('[') &gt; -1 ? item.replace('[', '&lt;strong&gt;').replace(']', '&lt;/strong&gt;') : `&lt;i&gt;${item}&lt;/i&gt;` })
-                    html = $SET_FLUSH ? `&lt;span class="checkbox"&gt;${html}&lt;/span&gt;` : `${$INDENT}&lt;span class="checkbox"&gt;${html}&lt;/span&gt;`
-                    content = content.replace($FORMAT, html) 
-                } 
-                
-                <span class="comment">// ▼collection-name{color:#f11}(bd)▼</span>
-                <span class="comment">// ▼{}()选项一{}()  选项二▼</span>
-                let drapdownMatch
-                while ((drapdownMatch = /▼(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)▼/.exec(content)) !== null) {
-                    const $ALL = drapdownMatch[0], $WRAPPER_STYLE = drapdownMatch[4], $WRAPPER_CLASS = drapdownMatch[2] || drapdownMatch[6], $CONTENT = drapdownMatch[7] 
-                    let optionsStr = ''
-                    $CONTENT.split('  ').forEach(option =&gt; {
-                        const m = option.match(/([\w\s\u4e00-\u9fa5-]+)(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?/), $OPTION_TEXT = m[1], $OPTION_CLASS = m[3] || m[7] || '', $OPTION_STYLE = m[5] || ''
-                        let str = ''
-                        $OPTION_CLASS && (str += ` class="${$OPTION_CLASS}"`)
-                        $OPTION_STYLE && (str += ` style="${$OPTION_STYLE}"`)
-                        optionsStr += `&lt;i${str}&gt;${$OPTION_TEXT}&lt;/i&gt;`
-                    })
-                    content = content.replace($ALL, `&lt;span class="drop-down"&gt;${optionsStr}&lt;/span&gt;`)
-                }
-                
-                <span class="comment">// ▤{color:#ccc}(bd)目录名称一{}()[子类名称{}(),子类名称{}()]  目录名称二▤</span>
-                <span class="comment">// ▤菜单名称▤</span>
-                let listMatch
-                while ((listMatch = /▤(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(.+?)▤/.exec(content)) !== null) {        
-                    const $ALL = listMatch[0], $WRAPPER_STYLE = listMatch[4], $WRAPPER_CLASS = listMatch[2] || listMatch[6], $CONTENT = listMatch[7] 
-                    let styleStr = '', className = 'list', html = ''
-
-                    $WRAPPER_STYLE && (styleStr = ` style="${$WRAPPER_STYLE}"`)
-                    $WRAPPER_CLASS && (className += ' ' + $WRAPPER_CLASS)
-                    $CONTENT.split(/\s{2,}/).forEach(item =&gt; {                
-                        const m = item.match(/([\w\s\u4e00-\u9fa5-]+)(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?(\[(.+?)\])?/), $ITEM_TEXT = m[1], $ITEM_CLASS = m[3] || m[7] || '', $ITEM_STYLE = m[5] || '', $ITEM_SUB = m[9]
-                        let itemClassName = 'item-title', itemStyleStr = ''
-                        $ITEM_CLASS && (itemClassName += ' ' + $ITEM_CLASS)
-                        $ITEM_STYLE && (itemStyleStr = ` style="${$ITEM_STYLE}"`)
-                        let itemStr = `&lt;span class="${itemClassName}"${itemStyleStr}&gt;${$ITEM_TEXT}&lt;/span&gt;`
-                        if ($ITEM_SUB) {  
-                            let childrenStr = ''                  
-                            $ITEM_SUB.split(',').forEach((e, i) =&gt; {
-                                const m2 = e.match(/([\w\u4e00-\u9fa5-]+)(\(([\w\s-]+)\))?(\{([\w\s-;:'"#]+)\})?(\(([\w\s-]+)\))?/), $SUB_TEXT = m2[1], $SUB_CLASS = m2[3] || m2[7] || '', $SUB_STYLE = m2[5] || ''
-                                let str = '' 
-                                $SUB_STYLE && (str += ` style="${$STYLE}"`)
-                                $SUB_CLASS && (str += ` class="${$SUB_CLASS}"`)
-                                childrenStr += `&lt;i${str}&gt;${$SUB_TEXT}&lt;/i&gt;`                        
-                            })
-                            itemStr += `&lt;span class="sub-box"&gt;${childrenStr}&lt;/span&gt;`
-                        }
-                        html += `&lt;span class="list-item"&gt;${itemStr}&lt;/span&gt;`
-                    })
-                    content = content.replace($ALL, `&lt;span class="${className}"${styleStr}&gt;&lt;div class="list-wrapper"&gt;${html}&lt;/div&gt;&lt;/span&gt;`)
-                }
-                <span class="comment">/** 
-                * 表格
-                * ▦⇤VARIABLE(变量){color:26f}  INITIAL VALUE(初始值)  CURRENT VALUE(当前值)
-                *     API{color:26f}  https://api.com:4432  https://api.com:4432
-                * ▦
-                */</span>
-                while (/((\x20*)▦(⇤?)([\s\S]+?)[\r\n]+\x20*▦)/.exec(content) !== null) {
-                    const $FORMAT = RegExp.$1, $INDENT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CONTENT = RegExp.$4            
-                    let tableHtml = ''
-                    const lines = $CONTENT.split(/\x20*[\r\n]+\x20*/)
-                    const header = lines.splice(0, 1)[0].split(/\s{2,}/)
-                    const colArr = [], colsNum = header.length
-                    header.forEach(tit =&gt; { 
-                        let hasStyle = tit.match(/\{([\w\s-;:'"#]+)\}/), styleStr = ''
-                        if (hasStyle) {
-                            styleStr = ` style="${hasStyle[1]}"`
-                            tit = tit.replace(/\{([\w\s-;:'"#]+)\}/, '')
-                        }
-                        colArr.push(`&lt;strong&gt;${tit}&lt;/strong&gt;`) 
-                    })
-                    lines.forEach(line =&gt; {
-                        const valArr = line.split(/\s{2,}/)
-                        for (let i = 0; i &lt; colsNum; i++){
-                            let val = valArr[i] || '', hasStyle = val.match(/\{([\w\s-;:'"#]+)\}/), styleStr = ''                    
-                            if (hasStyle) {
-                                styleStr = ` style="${hasStyle[1]}"`
-                                val = val.replace(/\{([\w\s-;:'"#]+)\}/, '')
-                            }                  
-                            colArr[i] += `&lt;i${styleStr}&gt;${val}&lt;/i&gt;`
-                        }
-                    })
-                    colArr.forEach(col =&gt; {
-                        tableHtml += `&lt;span class="col"&gt;${col}&lt;/span&gt;`
-                    })            
-                    content = content.replace($FORMAT, `&lt;span class="table"&gt;${tableHtml}&lt;/span&gt;`) 
-                }
-
-                block = block.replace(e, `&lt;div class="form-elements"&gt;${content}&lt;/div&gt;`)
-            })
-
-            <span style="color:#f00" class="bd"><span class="comment">// 行样式</span></span>
-            const REG_LINE_STYLE_STR = regexpPresetParse([
-                `^\\x20*`,           <span class="comment">// 行缩进</span>
-                {CONTENT_FORMAT: [
-                    {CONTENT: `.+`}, <span class="comment">// 格式内容</span>
-                    {STYLE_FORMAT: [`\\[`, PRESET_CSS, `\\]`]}
-                ]}
-            ])
-            const REG_LINE_STYLE = new RegExp(REG_LINE_STYLE_STR.value, 'gm') 
-            let lineStyleMatch
-            while ((lineStyleMatch = REG_LINE_STYLE.exec(block)) !== null) {   
-                let {CONTENT_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = lineStyleMatch.groups, cssStr = ''
-                if (CSS_1) {
-                    let text = CSS_1.substr(1, CSS_1.length - 2)
-                    cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
-                }
-                if (CSS_2) {
-                    let text = CSS_2.substr(1, CSS_2.length - 2)
-                    cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
-                }       
-                block = block.replace(CONTENT_FORMAT, `&lt;span${cssStr}&gt;${CONTENT}&lt;/span&gt;`)
-            }    
-
-            <span class="comment">// <span style="color:#f00" class="bd">盒样式</span> 适合单行行内点缀</span>
-            const REG_BOX_STYLE_STR = regexpPresetParse([{BOX_FORMAT: [`\\[`, {CONTENT: `[^\\{\\}\\[\\]\\(\\)]+`}, PRESET_CSS, `\\]` ]}])
-            const REG_BOX_STYLE = new RegExp(REG_BOX_STYLE_STR.value, 'gm') 
-            let boxStyleMatch
-            while ((boxStyleMatch = REG_BOX_STYLE.exec(block)) !== null) {   
-                let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch.groups, cssStr = ''
-                if (CSS_1) {
-                    let text = CSS_1.substr(1, CSS_1.length - 2)
-                    cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
-                }
-                if (CSS_2) {
-                    let text = CSS_2.substr(1, CSS_2.length - 2)
-                    cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
-                }
-                block = block.replace(BOX_FORMAT, `&lt;span${cssStr}&gt;${CONTENT}&lt;/span&gt;`)
-            }
-            <span class="comment">// <span style="color:#f00" class="bd">盒样式</span> 适合多行大段格式化</span>
-            const REG_BOX_STYLE_STR2 = regexpPresetParse([{BOX_FORMAT: [`【`, {CONTENT: `[^】]+`}, `】`, PRESET_CSS]}])
-            const REG_BOX_STYLE2 = new RegExp(REG_BOX_STYLE_STR2.value, 'gm') 
-            let boxStyleMatch2
-            while ((boxStyleMatch2 = REG_BOX_STYLE2.exec(block)) !== null) {   
-                let {BOX_FORMAT, CONTENT, CSS, CSS_1, CSS_2} = boxStyleMatch2.groups, cssStr = ''
-                if (CSS_1) {
-                    let text = CSS_1.substr(1, CSS_1.length - 2)
-                    cssStr += CSS_1.includes('{') ? ` style="${text}"` : ` class="${text}"`
-                }
-                if (CSS_2) {
-                    let text = CSS_2.substr(1, CSS_2.length - 2)
-                    cssStr += CSS_2.includes('{') ? ` style="${text}"` : ` class="${text}"`
-                }
-                block = block.replace(BOX_FORMAT, `&lt;span${cssStr}&gt;${CONTENT}&lt;/span&gt;`)
-            }
-
-            <span class="comment">/**
-            * 盒子：<div>{}()content</div>
-            * 一个纯粹的块级元素包装
-            */</span>
-            while (/(\x20*)(<div>(⇤?)(\([\w\s-]+\))?(\{[\w\s-;:'"#]+\})?(\([\w\s-]+\))?(\x20*[\r\n]+)?([\s\S]+?)</div>)/.exec(block) !== null) {
-                const $INDENT = RegExp.$1, $FORMAT = RegExp.$2, $SET_FLUSH = RegExp.$3, $CLASS = RegExp.$4 || RegExp.$6, $STYLE = RegExp.$5, $CONTENT = RegExp.$8
-                let str = ''        
-                $CLASS && (str += ` class=${$CLASS.replace('(','"').replace(')','"')}`)
-                $STYLE && (str += ` style=${$STYLE.replace('{','"').replace('}','"')}`)
-                block = block.replace($FORMAT, `&lt;div${str}&gt;${$CONTENT}&lt;/div&gt;`)
-            }
-
-            block = block.replace('===+', '\n&lt;pre class="code-block"&gt;').replace('</pre>', '</pre>')
-
-            blockCount++
-            const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount + 'A'
-            TAG_MAP_BLOCK[CUSTOM_BLOCK_NAME] = block
-
-            return CUSTOM_BLOCK_NAME
-        }
-
-        module.exports = {
-            start(code, path){
-                const matchCustomBlock = code.match(/===\+[\s\S]+?===\-/g) || []
-                matchCustomBlock.forEach((block) => {
-                    code = code.replace(block, parseCustomBlock(block, path))
-                })
-                return code
-            },
-            end(code){
-                for (let key in TAG_MAP_BLOCK) {
-                    code = code.replace(key, TAG_MAP_BLOCK[key])
-                } 
-                //Search.save()       
-                return code
-            }
-        }↥
-    notebook/docs/.data/components/regexp-preset.js ▾
-        ↧function htmlEscape(content) {
-            return content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        </span></div></div>
+<div class="block-detail">    <span class="detail-desc">notebook/docs/.data/components/regexp-preset.js</span><span class="comment"></span><div class="detail-content">        <span>function htmlEscape(content) {
+            return content.replace(/&/g, '&amp;').replace(/&lt;/g, '&lt;').replace(/&gt;/g, '&gt;')
         }
 
         function arrayToRegStr(arr, parentKey) {
             let value = ``, html = ``
-            arr.forEach(item => { 
+            arr.forEach(item =&gt; { 
                 let res = objToRegStr(item)
                 value += res.value 
                 html += res.html
@@ -790,8 +522,8 @@ notebook/docs/.data/
             if (Object.prototype.toString.call(e) === '[object Object]') {
                 let value = `(?`, html, count = 0
                 for (let i in e) {
-                    if (count > 0) throw '自定义正则字符串格式，不能包含一个以上命名: ' + i
-                    value += `<${i}>`
+                    if (count &gt; 0) throw '自定义正则字符串格式，不能包含一个以上命名: ' + i
+                    value += `&lt;${i}&gt;`
                     html = `【i data-add="${i}"】(?`
                     if (typeof e[i] === 'string') {
                         value += e[i]
@@ -807,7 +539,7 @@ notebook/docs/.data/
                 }
                 value += `)`
                 html += `)【/i】`
-                //console.log(value);
+                <span class="comment">//console.log(value);</span>
                 return {
                     value,
                     html
@@ -818,16 +550,16 @@ notebook/docs/.data/
         }
 
         module.exports = {
-            regexpPresetParse: arr => {
+            regexpPresetParse: arr =&gt; {
                 let value = ``, html = ``
-                arr.forEach(item => { 
+                arr.forEach(item =&gt; { 
                     let res = objToRegStr(item)
                     value += res.value 
                     html += res.html
                 })
                 return {
                     value,
-                    html: `<span class="regexp">${htmlEscape(html).replace(/【/g, '<').replace(/】/g, '>')}</span>`
+                    html: `&lt;span class="regexp"&gt;${htmlEscape(html).replace(/【/g, '&lt;').replace(/】/g, '&gt;')}&lt;/span&gt;`
                 }       
             },
             PRESET_CSS: {
@@ -836,40 +568,37 @@ notebook/docs/.data/
                     {CSS_2: `(\\{[\\w\\s-;:'"#]+\\})?(\\([\\w\\s-]+\\))?`}
                 ]
             }
-        }↥
+        }</span></div></div>
 
-notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
 notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
     ↧↥
-notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-watch.js</span><span class="comment"></span><div class="detail-content">    <span>{}</span></div></div>
 
 notebook/docs/.data/PATH_DATA.json ▾
     ↧↥
-notebook/docs/.data/RES_PATH.json ▾{color:#ccc;background-color:transparent}   // data:create时tree数据映射到资源名(资源扁平唯一)
+notebook/docs/.data/RES_PATH.json ▾{color:#ccc;background-color:transparent}   <span class="comment">// data:create时tree数据映射到资源名(资源扁平唯一)</span>
     ↧↥
 
 
-notebook/docs/.data/RES_INFO.json ▾
-    ↧{
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/RES_INFO.json</span><span class="comment"></span><div class="detail-content">    <span>{
         links:[],
         editTime: ''
-    }↥
-notebook/docs/.doctree/data/KEY_RES.json       // 索引关键词  搜索 下拉
-notebook/docs/.doctree/data/TIT_RES.json       // 索引标题    搜索 下拉
-notebook/docs/.doctree/data/RES_SCENE.json     // 暴露的场景  主题 
-notebook/docs/.doctree/data/RES_USAGE.json     // 暴露的攻略  主题
-notebook/docs/.doctree/data/RES_SOLUTION.json  // 暴露的方案  主题
-notebook/docs/.doctree/data/RES_STANDARD.json  // 暴露的标准  主题
-notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
+    }</span></div></div>
+notebook/docs/.doctree/data/KEY_RES.json       <span class="comment">// 索引关键词  搜索 下拉</span>
+notebook/docs/.doctree/data/TIT_RES.json       <span class="comment">// 索引标题    搜索 下拉</span>
+notebook/docs/.doctree/data/RES_SCENE.json     <span class="comment">// 暴露的场景  主题</span>
+notebook/docs/.doctree/data/RES_USAGE.json     <span class="comment">// 暴露的攻略  主题</span>
+notebook/docs/.doctree/data/RES_SOLUTION.json  <span class="comment">// 暴露的方案  主题</span>
+notebook/docs/.doctree/data/RES_STANDARD.json  <span class="comment">// 暴露的标准  主题</span>
+notebook/docs/.doctree/data/RES_LINK.json      <span class="comment">// 采集链接    外链</span>
 
 
 
 
 
 
-[######] 开发规范
+<span class="h6 bg3 cf"> 开发规范 </span>
     &#45; Markdown点列表
     &#42;*行内加粗*&#42;
 
@@ -881,8 +610,8 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
     &#9658;全局点缀&#9668;
     1&#9658;预设颜色1-9&#9668;
     
-    // 单行注释给你
-    /* 多行注释 */
+    <span class="comment">// 单行注释给你</span>
+    <span class="comment">/* 多行注释 */</span>
 
     &#91;img:$withBase('/images/插入图片.jpg')&#93; 
 
@@ -892,8 +621,8 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
     Description Of Detail &#9662;{color:#3ac}
     &#8615;Detail Content&#8613;
 
-    &#9632;⇤&#123;&#125;&#40;bd&#41;盒子：包装一个块级元素&#9632;  // ⇤为是否顶格
-    ■⇤{}(bd)CONTENT■
+    &#9632;⇤&#123;&#125;&#40;bd&#41;盒子：包装一个块级元素&#9632;  <span class="comment">// ⇤为是否顶格</span>
+    <div>{}(bd)CONTENT</div>
     ↴background-color:#eef7f4; vertical-align:top; padding:10px↤包装一个行级元素↦
 
     表单:
@@ -911,7 +640,7 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
         ↦ ↔ → ⇥ Step
         ⚠Alert⊗
     ﹄
-[######] 内容规范
+<span class="h6 bg3 cf"> 内容规范 </span>
     搜索
         埋码：1.[KEY#id:KEY1KEY2KEY3] 2.# 标题 
         数据：
@@ -920,13 +649,12 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
     链接
         引入：[优先标题:vuepress#id]
         埋码：[ANCHOR#id:入库标题] 
-        数据： ▾
-            ↧vuepress:{
+<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
                 path:'', 
                 links: {
                     usage: '入库标题'
                 }
-            }↥
+            }</span></div></div>
     场景Scene
         ◒ Identity:场景名称
         
@@ -935,21 +663,17 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
             {Identity:{
                 title:'场景名称',
                 res: 'reskey'
-            }}
+            &#125; &#125;
         ]
     攻略Usage
         
-        ★ Identity:攻略名称
-        1 第一点
-        2 第二点
-        3 第三点
-        ☆
+        <a class="usage" href="/aggregation/usage#filename_Identity">攻略名称</a>
         数据：[
             {Identity:{
                 title:'攻略名称',
                 res: 'reskey',
                 steps: ['第一点','第二点','第三点']
-            }}
+            &#125; &#125;
         ]
     方案Solution
         ✿ Identity:方案名称❀
@@ -970,7 +694,7 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
                 }
             ]}
         ]
-        展示：<a href="path#id">&#91;方案名称:solution#filename-id&#93;</a>
+        展示：&lt;a href="path#id"&gt;&#91;方案名称:solution#filename-id&#93;&lt;/a&gt;
     标准Standard
         ◐ Identity:标准名称
         ◑
@@ -982,28 +706,28 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
                     {"标准一": "标准一文案"}
                     {"标准二": "标准二文案"}
                 ]
-            }}
+            &#125; &#125;
         ]
-    ❖ 项目Project
+    <div>工具</div>
 
-[######] config.js    
-    资源调度 // 应对重构导至的工具、插件等变更
-[######] 文档体系
+<span class="h6 bg3 cf"> config.js    </span>
+    资源调度 <span class="comment">// 应对重构导至的工具、插件等变更</span>
+<span class="h6 bg3 cf"> 文档体系 </span>
     结构：树形        
     作用：生成成体系的文档系统，可扩展、重构、穿插、链接、特种图形图表、层次表达、主次表达等
     目标：响应变动，包括增删改，搜索
     实现：响应增删改：watch-tree.js
          搜索：依赖资源收集的数据：SEARCH_KEY.js、SEARCH_TITLE.js等
-[######] MD文件的命名规范
-- 扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引
+<span class="h6 bg3 cf"> MD文件的命名规范 </span>
+● <strong>扁平化文件管理，保持文件名唯一，防止资源树重构造成的路径改变，文件名可用于资源、链接索引</strong>
 
-[######] 链接方案
+<span class="h6 bg3 cf"> 链接方案 </span>
 依赖md文件的命名规范
-- 目标
+● <strong>目标</strong>
     1. 格式 &#91;链接名&#93;&#40;url&#41; 面临链接地址变更的问题
     2. 链接数可自动提取
     3. 可扩展
-- 场景
+● <strong>场景</strong>
     【内容】里需要外链的【数据块】做【标识】
     解析内容时提取【标识】入库【】
     在需要插入链接的地方插入【链接】引用【标识】从【】
@@ -1016,7 +740,7 @@ notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
 
 create-resource.js
 vuepress: {
-    path: '/framework/vuepress' // 资源树路径    
+    path: '/framework/vuepress' <span class="comment">// 资源树路径</span>
 }
 create-links.js
 目标 [######] 链接方案
@@ -1029,22 +753,22 @@ create-links.js
 
 
 
-[######] 配置与调度
+<span class="h6 bg3 cf"> 配置与调度 </span>
 docs/.usage/config.js
 {
     "DATA": {
-        "main": "data/.MAIN.js",                       // 主数据
-        "src:path": "data/.SRC_PATH.json",             // 用于：编辑资源文件时查找主数据路径
-        "src:updateTime": "data/.SRC_UPDATETIME.json", // 用于：编辑资源文件时记录更新时间
-        "path:data": "data/.PATH_DATA.json",           // 用于：编辑资源文件时记录更新时间     
-        "creator": "data/.CREATOR.json",               // 用于：创建目录与文件的依据
-        "stamp:link": "data/.STAMP_LINK.json",         // 解析内容时收集的链接表
-        "scene": "data/.SCENE.json",                   // 场景
-        "usage": "data/.USAGE.json",                   // 攻略
-        "solution": "data/.SOLUTION.json",             // 方案
-        "standard": "data/.STANDARD.json",             // 标准
-        "path:keywords": "data/.PATH_KEYWORDS.json",   // 数据结构关键词
-        "path:search": "data/.SEARCH.json",            // 可用于搜索(数据结构和内容摘要)
+        "main": "data/.MAIN.js",                       <span class="comment">// 主数据</span>
+        "src:path": "data/.SRC_PATH.json",             <span class="comment">// 用于：编辑资源文件时查找主数据路径</span>
+        "src:updateTime": "data/.SRC_UPDATETIME.json", <span class="comment">// 用于：编辑资源文件时记录更新时间</span>
+        "path:data": "data/.PATH_DATA.json",           <span class="comment">// 用于：编辑资源文件时记录更新时间</span>
+        "creator": "data/.CREATOR.json",               <span class="comment">// 用于：创建目录与文件的依据</span>
+        "stamp:link": "data/.STAMP_LINK.json",         <span class="comment">// 解析内容时收集的链接表</span>
+        "scene": "data/.SCENE.json",                   <span class="comment">// 场景</span>
+        "usage": "data/.USAGE.json",                   <span class="comment">// 攻略</span>
+        "solution": "data/.SOLUTION.json",             <span class="comment">// 方案</span>
+        "standard": "data/.STANDARD.json",             <span class="comment">// 标准</span>
+        "path:keywords": "data/.PATH_KEYWORDS.json",   <span class="comment">// 数据结构关键词</span>
+        "path:search": "data/.SEARCH.json",            <span class="comment">// 可用于搜索(数据结构和内容摘要)</span>
     },
     "UTILS": {
         "fs": "scripts/utils/fs",
@@ -1084,16 +808,16 @@ docs/.usage/config.js
     config: {},
     dependencies: [],
     aliasCommand: {},
-    fetch = identifier => { const [type, key] = identifier.split('|'); return fetchFileByType[type](key) },
-    fetchPath = identifier => { const [type, key] = identifier.split('|'); return fetchPathByType[type](key) },
-    read = identifier => { const [type, key] = identifier.split('|'); return readFileByType[type](key) }
+    fetch = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchFileByType<a href="key" target="_blank">type</a> },
+    fetchPath = identifier =&gt; { const [type, key] = identifier.split('|'); return fetchPathByType<a href="key" target="_blank">type</a> },
+    read = identifier =&gt; { const [type, key] = identifier.split('|'); return readFileByType<a href="key" target="_blank">type</a> }
 }
 用法：
     const {fetch} = require('../config')
     fetch('UTILS|fs')
     fetch("DATA|creator")
     fetch('CORE|create-file')
-===-
+</pre>
 
 
 [官网](https://vuepress.vuejs.org/zh/guide/)

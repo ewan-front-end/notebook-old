@@ -3,11 +3,14 @@ const Search = fetch('PARSE|search')
 const Aggregate = fetch('PARSE|aggregate')
 const { regexpPresetParse, PRESET_CSS } = fetch('UTILS|regexp-preset')
 
-let TAG_MAP_BLOCK = {}, blockCount = 0
+
+let TAG_MAP_BLOCK = {}, block_count = 0
 const REG_STYLE_STR = `(\\{[\\w\\s-;:'"#]+\\})?` // color: #f00; font-size: 14px
 const REG_CLASS_STR = `(\\([\\w\\s-]+\\))?`      // bd sz-16 c-0
 
-function parseCustomBlock(block, path) {
+function parseCustomBlock(block, path) {    
+    
+
     block = block.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")
 
     // ❖ 项目Project
@@ -60,12 +63,6 @@ function parseCustomBlock(block, path) {
         Search.add(path, RegExp.$2)
     } 
 
-    // 模板符{{}}用图片表示
-    // block = block.replace(/\{\{/g, `<img :src="$withBase('/images/db-brace-left.png')">`)  
-    // block = block.replace(/\}\}/g, `<img :src="$withBase('/images/db-brace-right.png')">`)
-    block = block.replace(/\{\{/g, `&#123; &#123;`)  
-    block = block.replace(/\}\}/g, `&#125; &#125;`)
-
     // 命令行示意
     while (/^\x20*(([\w-\/]+)\&gt;)\s[^\r\n]+/m.exec(block) !== null) {
         block = block.replace(RegExp.$1, `<span class="block-command">${RegExp.$2}</span>`)
@@ -116,9 +113,9 @@ function parseCustomBlock(block, path) {
      * 【4】 22PX
      * 【5】 16PX
      * 【6】 12PX
-     * 【fff#1#333】颜色#等级#背景
+     * 【fff#1#f00】颜色#等级#背景
      */
-    while (/\s*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/.exec(block) !== null) {
+    while (/^\x20*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/m.exec(block) !== null) {
         let classStr = `title${RegExp.$4}`
         let styleStr = `margin-top:${(6 - RegExp.$4) * 3}px;`
         if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
@@ -140,7 +137,7 @@ function parseCustomBlock(block, path) {
      * 应用环境：独占一行
      */    
     const REG_TIT_STR = regexpPresetParse([
-        `\\x20*`,                   // 0任意空格
+        `^\\x20*`,                   // 0任意空格
         {FORMAT: [
             {INVERT: `\\[?`},       // 反相开始 [
             {LEVEL: `#{2,6}`},      // 标题字号 #-###### 
@@ -151,7 +148,7 @@ function parseCustomBlock(block, path) {
             {TEXT: `[^\\n\\r\\{]+`} // 标题文本
         ]}
     ])
-    const REG_TIT = new RegExp(REG_TIT_STR.value) 
+    const REG_TIT = new RegExp(REG_TIT_STR.value, 'm') 
     let titMatch
     while ((titMatch = REG_TIT.exec(block)) !== null) {   
         let {FORMAT, INVERT, LEVEL, STYLE, CLASS, TEXT} =  titMatch.groups    
@@ -384,8 +381,8 @@ function parseCustomBlock(block, path) {
 
     block = block.replace('===+', '\n<pre class="code-block">').replace('===-', '</pre>')
 
-    blockCount++
-    const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + blockCount + 'A'
+    block_count++
+    const CUSTOM_BLOCK_NAME = 'CUSTOM_BLOCK_' + block_count + 'A'
     TAG_MAP_BLOCK[CUSTOM_BLOCK_NAME] = block
 
     return CUSTOM_BLOCK_NAME
@@ -402,7 +399,7 @@ module.exports = {
     end(code){
         for (let key in TAG_MAP_BLOCK) {
             code = code.replace(key, TAG_MAP_BLOCK[key])
-        } 
+        }
         Search.save()       
         return code
     }

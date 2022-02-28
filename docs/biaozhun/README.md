@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.20 20:54</span>
+            <span>M 2022.02.28 19:38</span>
         </div>
     </div>
     <div class="content"><div class="custom-block children"><ul></ul></div></div>
@@ -1555,7 +1555,7 @@ pageClass: theme-item
 <div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/MenuItem.vue</span><span class="comment"> 处理 el-menu-item 样式</span><div class="detail-content">                <span>&lt;template&gt;
                     &lt;i v-if="icon.includes('el-icon')" class="sub-el-icon" :class="icon"&gt;&lt;/i&gt;
                     &lt;svg-icon v-else :icon="icon"&gt;&lt;/svg-icon&gt;
-                    &lt;span&gt;&#123; &#123; title &#125; &#125;&lt;/span&gt;
+                    &lt;span&gt;{TEMPLATE{ title }TEMPLATE}&lt;/span&gt;
                 &lt;/template&gt;
 
                 &lt;script setup&gt;
@@ -1801,9 +1801,9 @@ pageClass: theme-item
                     &lt;el-breadcrumb class="breadcrumb" separator="/"&gt;
                         &lt;el-breadcrumb-item v-for="(item, index) in breadcrumbData" :key="item.path"&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
-                            &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;&#123; &#123; item.meta.title &#125; &#125;&lt;/span&gt;
+                            &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;{TEMPLATE{ item.meta.title }TEMPLATE}&lt;/span&gt;
                             <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
-                            &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;&#123; &#123; item.meta.title &#125; &#125;&lt;/a&gt;
+                            &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;{TEMPLATE{ item.meta.title }TEMPLATE}&lt;/a&gt;
                         &lt;/el-breadcrumb-item&gt;
                     &lt;/el-breadcrumb&gt;
                 &lt;/template&gt;
@@ -1902,7 +1902,7 @@ pageClass: theme-item
 
                 const app = createApp(App)
                 <i class="i0">app.use(i18n)</i>▨</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;&#123; &#123; $t('msg.test') &#125; &#125;&lt;/h1&gt;</span></div></div>
+<div class="block-detail">            <span class="detail-desc">src/layout/components/Sidebar/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;h1 class="logo-title" v-if="$store.getters.sidebarOpened"&gt;{TEMPLATE{ $t('msg.test') }TEMPLATE}&lt;/h1&gt;</span></div></div>
         封装 langSelect 组件用于修改 locale
 <div class="block-detail">            <span class="detail-desc">src/store/modules/app.js</span><span class="comment"></span><div class="detail-content">                <span>▧<i class="i0">import { LANG } from '@/constant'</i>
                 <i class="i0">import { getItem, setItem } from '@/utils/storage'</i>
@@ -2421,9 +2421,9 @@ pageClass: theme-item
                     &lt;/script&gt;</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/components/Breadcrumb/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;template&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;不可点击项&#45;&#45;&#62;</span>
-                        &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;&#123; &#123; generateTitle(item.meta.title) &#125; &#125;&lt;/span&gt;
+                        &lt;span v-if="index === breadcrumbData.length - 1" class="no-redirect"&gt;{TEMPLATE{ generateTitle(item.meta.title) }TEMPLATE}&lt;/span&gt;
                         <span class="comment">&#60;&#33;&#45;&#45;可点击项&#45;&#45;&#62;</span>
-                        &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;&#123; &#123; generateTitle(item.meta.title) &#125; &#125;&lt;/a&gt;
+                        &lt;a v-else class="redirect" @click.prevent="onLinkClick(item)"&gt;{TEMPLATE{ generateTitle(item.meta.title) }TEMPLATE}&lt;/a&gt;
                     &lt;/template&gt;
 
                     &lt;script setup&gt;
@@ -2450,7 +2450,7 @@ pageClass: theme-item
                 &lt;template #dropdown&gt;
                     &lt;el-dropdown-menu&gt;
                         &lt;el-dropdown-item command="color"&gt;
-                            &#123; &#123; $t('msg.theme.themeColorChange') &#125; &#125;
+                            {TEMPLATE{ $t('msg.theme.themeColorChange') }TEMPLATE}
                         &lt;/el-dropdown-item&gt;
                     &lt;/el-dropdown-menu&gt;
                 &lt;/template&gt;
@@ -2471,13 +2471,13 @@ pageClass: theme-item
 <div class="block-detail">    <span class="detail-desc">src/components/ThemePicker/components/SelectColor.vue</span><span class="comment"> 颜色选择组件</span><div class="detail-content">        <span>&lt;template&gt;
             &lt;el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%"&gt;
                 &lt;div class="center"&gt;
-                    &lt;p class="title"&gt;&#123; &#123; $t('msg.theme.themeColorChange') &#125; &#125;&lt;/p&gt;
+                    &lt;p class="title"&gt;{TEMPLATE{ $t('msg.theme.themeColorChange') }TEMPLATE}&lt;/p&gt;
                     &lt;el-color-picker v-model="mColor" :predefine="predefineColors"&gt;&lt;/el-color-picker&gt;
                 &lt;/div&gt;
                 &lt;template #footer&gt;
                     &lt;span class="dialog-footer"&gt;
-                        &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.universal.cancel') &#125; &#125;&lt;/el-button&gt;
-                        &lt;el-button type="primary" @click="comfirm"&gt;&#123; &#123; $t('msg.universal.confirm') &#125; &#125;&lt;/el-button&gt;
+                        &lt;el-button @click="closed"&gt;{TEMPLATE{ $t('msg.universal.cancel') }TEMPLATE}&lt;/el-button&gt;
+                        &lt;el-button type="primary" @click="comfirm"&gt;{TEMPLATE{ $t('msg.universal.confirm') }TEMPLATE}&lt;/el-button&gt;
                     &lt;/span&gt;
                 &lt;/template&gt;
             &lt;/el-dialog&gt;
@@ -3134,7 +3134,7 @@ pageClass: theme-item
                     :key="tag.fullPath"
                     :to="{ path: tag.fullPath }"
                 &gt;
-                    &#123; &#123; tag.title &#125; &#125;
+                    {TEMPLATE{ tag.title }TEMPLATE}
                     &lt;i v-show="!isActive(tag)" class="el-icon-close" @click.prevent.stop="onCloseClick(index)" /&gt;
                 &lt;/router-link&gt;
             &lt;/div&gt;
@@ -3330,10 +3330,10 @@ pageClass: theme-item
     contextMenu展示处理
 <div class="block-detail">        <span class="detail-desc">src/components/TagsView/ContextMenu.vue</span><span class="comment"></span><div class="detail-content">            <span>&lt;template&gt;
                 &lt;ul class="context-menu-container"&gt;
-                    &lt;li @click="onRefreshClick"&gt;&#123; &#123; $t('msg.tagsView.refresh') &#125; &#125;&lt;/li&gt;
-                    &lt;li @click="onCloseClick"&gt;&#123; &#123; $t('msg.tagsView.close') &#125; &#125;&lt;/li&gt;
-                    &lt;li @click="onCloseRightClick"&gt;&#123; &#123; $t('msg.tagsView.closeRight') &#125; &#125;&lt;/li&gt;
-                    &lt;li @click="onCloseOtherClick"&gt;&#123; &#123; $t('msg.tagsView.closeOther') &#125; &#125;&lt;/li&gt;
+                    &lt;li @click="onRefreshClick"&gt;{TEMPLATE{ $t('msg.tagsView.refresh') }TEMPLATE}&lt;/li&gt;
+                    &lt;li @click="onCloseClick"&gt;{TEMPLATE{ $t('msg.tagsView.close') }TEMPLATE}&lt;/li&gt;
+                    &lt;li @click="onCloseRightClick"&gt;{TEMPLATE{ $t('msg.tagsView.closeRight') }TEMPLATE}&lt;/li&gt;
+                    &lt;li @click="onCloseOtherClick"&gt;{TEMPLATE{ $t('msg.tagsView.closeOther') }TEMPLATE}&lt;/li&gt;
                 &lt;/ul&gt;
             &lt;/template&gt;
 
@@ -3687,7 +3687,7 @@ pageClass: theme-item
             &lt;el-card class="user-container"&gt;
                 &lt;template #header&gt;
                     &lt;div class="header"&gt;
-                        &lt;span&gt;&#123; &#123; $t('msg.profile.introduce') &#125; &#125;&lt;/span&gt;
+                        &lt;span&gt;{TEMPLATE{ $t('msg.profile.introduce') }TEMPLATE}&lt;/span&gt;
                     &lt;/div&gt;
                 &lt;/template&gt;
 
@@ -3696,17 +3696,17 @@ pageClass: theme-item
                     &lt;div class="box-center"&gt;
                         <i class="i0">&lt;pan-thumb :image="$store.getters.userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false"&gt;
                             &lt;div&gt;Hello&lt;/div&gt;
-                            &#123; &#123; $store.getters.userInfo.title &#125; &#125;
+                            {TEMPLATE{ $store.getters.userInfo.title }TEMPLATE}
                         &lt;/pan-thumb&gt;</i>
                     &lt;/div&gt;
 
                     <span class="comment">&#60;&#33;&#45;&#45;姓名 && 角色&#45;&#45;&#62;</span>
                     &lt;div class="box-center"&gt;
                         &lt;div class="user-name text-center"&gt;
-                            &#123; &#123; $store.getters.userInfo.username &#125; &#125;
+                            {TEMPLATE{ $store.getters.userInfo.username }TEMPLATE}
                         &lt;/div&gt;
                         &lt;div class="user-role text-center text-muted"&gt;
-                            &#123; &#123; $store.getters.userInfo.title &#125; &#125;
+                            {TEMPLATE{ $store.getters.userInfo.title }TEMPLATE}
                         &lt;/div&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
@@ -3716,11 +3716,11 @@ pageClass: theme-item
                     &lt;div class="project-bio-section"&gt;
                         &lt;div class="project-bio-section-header"&gt;
                             &lt;svg-icon icon="introduce" /&gt;
-                            &lt;span&gt;&#123; &#123; $t('msg.profile.projectIntroduction') &#125; &#125;&lt;/span&gt;
+                            &lt;span&gt;{TEMPLATE{ $t('msg.profile.projectIntroduction') }TEMPLATE}&lt;/span&gt;
                         &lt;/div&gt;
                         &lt;div class="project-bio-section-body"&gt;
                             &lt;div class="text-muted"&gt;
-                                &#123; &#123; $t('msg.profile.muted') &#125; &#125;
+                                {TEMPLATE{ $t('msg.profile.muted') }TEMPLATE}
                             &lt;/div&gt;
                         &lt;/div&gt;
                     &lt;/div&gt;
@@ -3728,11 +3728,11 @@ pageClass: theme-item
                     <span class="comment">&#60;&#33;&#45;&#45;功能区域&#45;&#45;&#62;</span>
                     &lt;div class="project-bio-section"&gt;
                         &lt;div class="project-bio-section-header"&gt;
-                            &lt;svg-icon icon="reward" /&gt;&lt;span&gt;&#123; &#123; $t('msg.profile.projectFunction') &#125; &#125;&lt;/span&gt;
+                            &lt;svg-icon icon="reward" /&gt;&lt;span&gt;{TEMPLATE{ $t('msg.profile.projectFunction') }TEMPLATE}&lt;/span&gt;
                         &lt;/div&gt;
                         &lt;div class="project-bio-section-body"&gt;
                             &lt;div class="progress-item" v-for="item in features" :key="item.id"&gt;
-                                &lt;div&gt;&#123; &#123; item.title &#125; &#125;&lt;/div&gt;
+                                &lt;div&gt;{TEMPLATE{ item.title }TEMPLATE}&lt;/div&gt;
                                 &lt;el-progress :percentage="item.percentage" status="success" /&gt;
                             &lt;/div&gt;
                         &lt;/div&gt;
@@ -4003,7 +4003,7 @@ pageClass: theme-item
                         placement="top"
                         &gt;
                         &lt;el-card&gt;
-                            &lt;h4&gt;&#123; &#123; item.content &#125; &#125;&lt;/h4&gt;
+                            &lt;h4&gt;{TEMPLATE{ item.content }TEMPLATE}&lt;/h4&gt;
                         &lt;/el-card&gt;
                     &lt;/el-timeline-item&gt;
                 &lt;/el-timeline&gt;
@@ -4028,15 +4028,15 @@ pageClass: theme-item
                 &lt;div class="author-container"&gt;
                     &lt;div class="header"&gt;
                         &lt;pan-thumb image="https://img4.sycdn.imooc.com/61110c2b0001152907400741-140-140.jpg" height="60px" width="60px" :hoverable="false"&gt;
-                            &#123; &#123; $t('msg.profile.name') &#125; &#125;
+                            {TEMPLATE{ $t('msg.profile.name') }TEMPLATE}
                         &lt;/pan-thumb&gt;
                         &lt;div class="header-desc"&gt;
-                            &lt;h3&gt;&#123; &#123; $t('msg.profile.name') &#125; &#125;&lt;/h3&gt;
-                            &lt;span&gt;&#123; &#123; $t('msg.profile.job') &#125; &#125;&lt;/span&gt;
+                            &lt;h3&gt;{TEMPLATE{ $t('msg.profile.name') }TEMPLATE}&lt;/h3&gt;
+                            &lt;span&gt;{TEMPLATE{ $t('msg.profile.job') }TEMPLATE}&lt;/span&gt;
                         &lt;/div&gt;
                     &lt;/div&gt;
                     &lt;div class="info"&gt;
-                        &#123; &#123; $t('msg.profile.Introduction') &#125; &#125;
+                        {TEMPLATE{ $t('msg.profile.Introduction') }TEMPLATE}
                     &lt;/div&gt;
                 &lt;/div&gt;
             &lt;/template&gt;
@@ -4087,9 +4087,9 @@ pageClass: theme-item
                     &lt;div class="user-manage-container"&gt;
                         &lt;el-card class="header"&gt;
                             &lt;div&gt;
-                                &lt;el-button type="primary"&gt; &#123; &#123; $t('msg.excel.importExcel') &#125; &#125;&lt;/el-button&gt;
+                                &lt;el-button type="primary"&gt; {TEMPLATE{ $t('msg.excel.importExcel') }TEMPLATE}&lt;/el-button&gt;
                                 &lt;el-button type="success"&gt;
-                                    &#123; &#123; $t('msg.excel.exportExcel') &#125; &#125;
+                                    {TEMPLATE{ $t('msg.excel.exportExcel') }TEMPLATE}
                                 &lt;/el-button&gt;
                             &lt;/div&gt;
                         &lt;/el-card&gt;
@@ -4106,19 +4106,19 @@ pageClass: theme-item
                                 &lt;el-table-column :label="$t('msg.excel.role')"&gt;
                                     &lt;template #default="{ row }"&gt;
                                         &lt;div v-if="row.role && row.role.length &gt; 0"&gt;
-                                            &lt;el-tag v-for="item in row.role" :key="item.id" size="mini"&gt;&#123; &#123; item.title &#125; &#125;&lt;/el-tag&gt;
+                                            &lt;el-tag v-for="item in row.role" :key="item.id" size="mini"&gt;{TEMPLATE{ item.title }TEMPLATE}&lt;/el-tag&gt;
                                         &lt;/div&gt;
                                         &lt;div v-else&gt;
-                                            &lt;el-tag size="mini"&gt;&#123; &#123; $t('msg.excel.defaultRole') &#125; &#125;&lt;/el-tag&gt;
+                                            &lt;el-tag size="mini"&gt;{TEMPLATE{ $t('msg.excel.defaultRole') }TEMPLATE}&lt;/el-tag&gt;
                                         &lt;/div&gt;
                                     &lt;/template&gt;
                                 &lt;/el-table-column&gt;
                                 &lt;el-table-column prop="openTime" :label="$t('msg.excel.openTime')"&gt; &lt;/el-table-column&gt;
                                 &lt;el-table-column :label="$t('msg.excel.action')" fixed="right" width="260"&gt;
                                     &lt;template #default&gt;
-                                        &lt;el-button type="primary" size="mini"&gt;&#123; &#123; $t('msg.excel.show') &#125; &#125;&lt;/el-button&gt;
-                                        &lt;el-button type="info" size="mini"&gt;&#123; &#123; $t('msg.excel.showRole') &#125; &#125;&lt;/el-button&gt;
-                                        &lt;el-button type="danger" size="mini"&gt;&#123; &#123; $t('msg.excel.remove') &#125; &#125;&lt;/el-button&gt;
+                                        &lt;el-button type="primary" size="mini"&gt;{TEMPLATE{ $t('msg.excel.show') }TEMPLATE}&lt;/el-button&gt;
+                                        &lt;el-button type="info" size="mini"&gt;{TEMPLATE{ $t('msg.excel.showRole') }TEMPLATE}&lt;/el-button&gt;
+                                        &lt;el-button type="danger" size="mini"&gt;{TEMPLATE{ $t('msg.excel.remove') }TEMPLATE}&lt;/el-button&gt;
                                     &lt;/template&gt;
                                 &lt;/el-table-column&gt;
                             &lt;/el-table&gt;
@@ -4208,11 +4208,11 @@ pageClass: theme-item
                     installFilter(app)</span></div></div>
 <div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-table-column :label="$t('msg.excel.openTime')"&gt;
                         &lt;template #default="{ row }"&gt;
-                            &#123; &#123; $filters.dateFilter(row.openTime) &#125; &#125;
+                            {TEMPLATE{ $filters.dateFilter(row.openTime) }TEMPLATE}
                         &lt;/template&gt;
                     &lt;/el-table-column&gt;</span></div></div>
             <span class="title5" style="margin-top:3px;"><i></i>excel导入用户</span>
-<div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">@click="onImportExcelClick"</i>&gt;&#123; &#123; $t('msg.excel.importExcel') &#125; &#125;&lt;/el-button&gt;
+<div class="block-detail">                <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">@click="onImportExcelClick"</i>&gt;{TEMPLATE{ $t('msg.excel.importExcel') }TEMPLATE}&lt;/el-button&gt;
 
                     import { useRouter } from 'vue-router'
                     const router = useRouter()
@@ -4298,7 +4298,7 @@ pageClass: theme-item
                         &lt;div class="upload-excel"&gt;
                             &lt;div class="btn-upload"&gt;
                                 &lt;el-button :loading="loading" type="primary" @click="handleUpload"&gt;
-                                    &#123; &#123; $t('msg.uploadExcel.upload') &#125; &#125;
+                                    {TEMPLATE{ $t('msg.uploadExcel.upload') }TEMPLATE}
                                 &lt;/el-button&gt;
                             &lt;/div&gt;
 
@@ -4306,7 +4306,7 @@ pageClass: theme-item
                             <span class="comment">&#60;&#33;&#45;&#45;https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API&#45;&#45;&#62;</span>
                             &lt;div class="drop" @drop.stop.prevent="handleDrop" @dragover.stop.prevent="handleDragover" @dragenter.stop.prevent="handleDragover"&gt;
                                 &lt;i class="el-icon-upload" /&gt;
-                                &lt;span&gt;&#123; &#123; $t('msg.uploadExcel.drop') &#125; &#125;&lt;/span&gt;
+                                &lt;span&gt;{TEMPLATE{ $t('msg.uploadExcel.drop') }TEMPLATE}&lt;/span&gt;
                             &lt;/div&gt;
                         &lt;/div&gt;
                     &lt;/template&gt;
@@ -4490,7 +4490,7 @@ pageClass: theme-item
                         &lt;div class="user-manage-container"&gt;
                             &lt;el-card class="header"&gt;
                                 &lt;div&gt;
-                                    &lt;el-button type="success" <i class="i0">@click="onToExcelClick"</i>&gt;&#123; &#123; $t('msg.excel.exportExcel') &#125; &#125;&lt;/el-button&gt;
+                                    &lt;el-button type="success" <i class="i0">@click="onToExcelClick"</i>&gt;{TEMPLATE{ $t('msg.excel.exportExcel') }TEMPLATE}&lt;/el-button&gt;
                                 &lt;/div&gt;
                             &lt;/el-card&gt;
                             &lt;export-to-excel v-model="<i class="i1">exportToExcelVisible</i>"&gt;&lt;/export-to-excel&gt;
@@ -4521,8 +4521,8 @@ pageClass: theme-item
                             &lt;el-input :placeholder="$t('msg.excel.placeholder')" <i class="i1">v-model="excelName"</i>&gt;&lt;/el-input&gt;
                             &lt;template #footer&gt;
                                 &lt;span class="dialog-footer"&gt;
-                                    &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.excel.close') &#125; &#125;&lt;/el-button&gt;
-                                    &lt;el-button type="primary" @click="onConfirm" <i class="i2">:loading="loading"</i>&gt;&#123; &#123; $t('msg.excel.confirm') &#125; &#125;&lt;/el-button&gt;
+                                    &lt;el-button @click="closed"&gt;{TEMPLATE{ $t('msg.excel.close') }TEMPLATE}&lt;/el-button&gt;
+                                    &lt;el-button type="primary" @click="onConfirm" <i class="i2">:loading="loading"</i>&gt;{TEMPLATE{ $t('msg.excel.confirm') }TEMPLATE}&lt;/el-button&gt;
                                 &lt;/span&gt;
                             &lt;/template&gt;
                         &lt;/el-dialog&gt;
@@ -4723,7 +4723,7 @@ pageClass: theme-item
                         url: `/user-manage/detail/${id}`
                     })
                 }</span></div></div>
-<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="primary" size="mini" <i class="i0">@click="onShowClick(row._id)"</i>&gt;&#123; &#123; $t('msg.excel.show') &#125; &#125;&lt;/el-button&gt;
+<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="primary" size="mini" <i class="i0">@click="onShowClick(row._id)"</i>&gt;{TEMPLATE{ $t('msg.excel.show') }TEMPLATE}&lt;/el-button&gt;
                 
                 <span class="comment">/**
                  * 查看按钮点击事件
@@ -4734,26 +4734,26 @@ pageClass: theme-item
 <div class="block-detail">            <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;template&gt;
                     &lt;div class="user-info-container"&gt;
                         &lt;el-card class="print-box"&gt;
-                            &lt;el-button type="primary"&gt;&#123; &#123; $t('msg.userInfo.print') &#125; &#125;&lt;/el-button&gt;
+                            &lt;el-button type="primary"&gt;{TEMPLATE{ $t('msg.userInfo.print') }TEMPLATE}&lt;/el-button&gt;
                         &lt;/el-card&gt;
                         &lt;el-card&gt;
                             &lt;div class="user-info-box"&gt;
                                 <span class="comment">&#60;&#33;&#45;&#45;标题&#45;&#45;&#62;</span>
-                                &lt;h2 class="title"&gt;&#123; &#123; $t('msg.userInfo.title') &#125; &#125;&lt;/h2&gt;
+                                &lt;h2 class="title"&gt;{TEMPLATE{ $t('msg.userInfo.title') }TEMPLATE}&lt;/h2&gt;
 
                                 &lt;div class="header"&gt;
                                     <span class="comment">&#60;&#33;&#45;&#45;头部渲染表格&#45;&#45;&#62;</span>
                                     &lt;el-descriptions :column="2" border&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.name')"&gt;&#123; &#123; <i class="i3">detailData</i>.username &#125; &#125;&lt;/el-descriptions-item&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.sex')"&gt;&#123; &#123; <i class="i3">detailData</i>.gender &#125; &#125;&lt;/el-descriptions-item&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.nation')"&gt;&#123; &#123; <i class="i3">detailData</i>.nationality &#125; &#125;&lt;/el-descriptions-item&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.mobile')"&gt;&#123; &#123; <i class="i3">detailData</i>.mobile &#125; &#125;&lt;/el-descriptions-item&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.province')"&gt;&#123; &#123; <i class="i3">detailData</i>.province &#125; &#125;&lt;/el-descriptions-item&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.date')"&gt;&#123; &#123; $filters.dateFilter(<i class="i3">detailData</i>.openTime) &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.name')"&gt;{TEMPLATE{ <i class="i3">detailData</i>.username }TEMPLATE}&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.sex')"&gt;{TEMPLATE{ <i class="i3">detailData</i>.gender }TEMPLATE}&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.nation')"&gt;{TEMPLATE{ <i class="i3">detailData</i>.nationality }TEMPLATE}&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.mobile')"&gt;{TEMPLATE{ <i class="i3">detailData</i>.mobile }TEMPLATE}&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.province')"&gt;{TEMPLATE{ <i class="i3">detailData</i>.province }TEMPLATE}&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.date')"&gt;{TEMPLATE{ $filters.dateFilter(<i class="i3">detailData</i>.openTime) }TEMPLATE}&lt;/el-descriptions-item&gt;
                                         &lt;el-descriptions-item :label="$t('msg.userInfo.remark')" :span="2"&gt;
-                                            &lt;el-tag class="remark" size="small" v-for="(item, index) in <i class="i3">detailData</i>.remark" :key="index"&gt;&#123; &#123; item &#125; &#125;&lt;/el-tag&gt;
+                                            &lt;el-tag class="remark" size="small" v-for="(item, index) in <i class="i3">detailData</i>.remark" :key="index"&gt;{TEMPLATE{ item }TEMPLATE}&lt;/el-tag&gt;
                                         &lt;/el-descriptions-item&gt;
-                                        &lt;el-descriptions-item :label="$t('msg.userInfo.address')" :span="2"&gt;&#123; &#123; <i class="i3">detailData</i>.address &#125; &#125;&lt;/el-descriptions-item&gt;
+                                        &lt;el-descriptions-item :label="$t('msg.userInfo.address')" :span="2"&gt;{TEMPLATE{ <i class="i3">detailData</i>.address }TEMPLATE}&lt;/el-descriptions-item&gt;
                                     &lt;/el-descriptions&gt;
                                     <span class="comment">&#60;&#33;&#45;&#45;头像渲染&#45;&#45;&#62;</span>
                                     &lt;el-image class="avatar" :src="<i class="i3">detailData</i>.avatar" :preview-src-list="[<i class="i3">detailData</i>.avatar]"&gt;&lt;/el-image&gt;
@@ -4765,25 +4765,25 @@ pageClass: theme-item
                                             &lt;ul&gt;
                                                 &lt;li v-for="(item, index) in <i class="i3">detailData</i>.experience" :key="index"&gt;
                                                     &lt;span&gt;
-                                                        &#123; &#123; $filters.dateFilter(item.startTime, 'YYYY/MM') &#125; &#125;
+                                                        {TEMPLATE{ $filters.dateFilter(item.startTime, 'YYYY/MM') }TEMPLATE}
                                                         ----
-                                                        &#123; &#123; $filters.dateFilter(item.endTime, 'YYYY/MM') &#125; &#125;&lt;/span
+                                                        {TEMPLATE{ $filters.dateFilter(item.endTime, 'YYYY/MM') }TEMPLATE}&lt;/span
                                                     &gt;
-                                                    &lt;span&gt;&#123; &#123; item.title &#125; &#125;&lt;/span&gt;
-                                                    &lt;span&gt;&#123; &#123; item.desc &#125; &#125;&lt;/span&gt;
+                                                    &lt;span&gt;{TEMPLATE{ item.title }TEMPLATE}&lt;/span&gt;
+                                                    &lt;span&gt;{TEMPLATE{ item.desc }TEMPLATE}&lt;/span&gt;
                                                 &lt;/li&gt;
                                             &lt;/ul&gt;
                                         &lt;/el-descriptions-item&gt;
                                         &lt;el-descriptions-item :label="$t('msg.userInfo.major')"&gt;
-                                            &#123; &#123; <i class="i3">detailData</i>.major &#125; &#125;
+                                            {TEMPLATE{ <i class="i3">detailData</i>.major }TEMPLATE}
                                         &lt;/el-descriptions-item&gt;
                                         &lt;el-descriptions-item :label="$t('msg.userInfo.glory')"&gt;
-                                            &#123; &#123; <i class="i3">detailData</i>.glory &#125; &#125;
+                                            {TEMPLATE{ <i class="i3">detailData</i>.glory }TEMPLATE}
                                         &lt;/el-descriptions-item&gt;
                                     &lt;/el-descriptions&gt;
                                 &lt;/div&gt;
                                 <span class="comment">&#60;&#33;&#45;&#45;尾部签名&#45;&#45;&#62;</span>
-                                &lt;div class="foot"&gt;&#123; &#123; $t('msg.userInfo.foot') &#125; &#125;&lt;/div&gt;
+                                &lt;div class="foot"&gt;{TEMPLATE{ $t('msg.userInfo.foot') }TEMPLATE}&lt;/div&gt;
                             &lt;/div&gt;
                         &lt;/el-card&gt;
                     &lt;/div&gt;
@@ -4866,7 +4866,7 @@ pageClass: theme-item
                 }</span></div></div>
             <span class="title5" style="margin-top:3px;"><i></i>局部打印</span>
                 npm i vue3-print-nb@0.1.4 --save
-<div class="block-detail">                <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">v-print="printObj"</i> <i class="i0">:loading="printLoading"</i>&gt;&#123; &#123; $t('msg.userInfo.print') &#125; &#125;&lt;/el-button&gt;
+<div class="block-detail">                <span class="detail-desc">src/views/user-info/index.vue</span><span class="comment"></span><div class="detail-content">                    <span>&lt;el-button type="primary" <i class="i0">v-print="printObj"</i> <i class="i0">:loading="printLoading"</i>&gt;{TEMPLATE{ $t('msg.userInfo.print') }TEMPLATE}&lt;/el-button&gt;
 
                     &lt;div <i class="i0">id="userInfoBox"</i> class="user-info-box"&gt;
                     
@@ -4902,7 +4902,7 @@ pageClass: theme-item
                             &lt;el-table-column :label="$t('msg.role.desc')" prop="describe"&gt; &lt;/el-table-column&gt;
                             &lt;el-table-column :label="$t('msg.role.action')" prop="action" width="260"&gt;
                                 &lt;el-button type="primary" size="mini"&gt;
-                                    &#123; &#123; $t('msg.role.assignPermissions') &#125; &#125;
+                                    {TEMPLATE{ $t('msg.role.assignPermissions') }TEMPLATE}
                                 &lt;/el-button&gt;
                             &lt;/el-table-column&gt;
                         &lt;/el-table&gt;
@@ -4933,7 +4933,7 @@ pageClass: theme-item
                 })
             }</span></div></div>
         <span class="title4" style="margin-top:6px;"><i></i>为用户分配角色</span>
-<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="info" size="mini" <i class="i1">@click="onShowRoleClick(row)"</i>&gt;&#123; &#123; $t('msg.excel.showRole') &#125; &#125;&lt;/el-button&gt;
+<div class="block-detail">            <span class="detail-desc">src/views/user-manage/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-button type="info" size="mini" <i class="i1">@click="onShowRoleClick(row)"</i>&gt;{TEMPLATE{ $t('msg.excel.showRole') }TEMPLATE}&lt;/el-button&gt;
                 
                 &lt;div class="user-manage-container"&gt;
                     <i class="i0">&lt;roles-dialog v-model="<i class="i2">roleDialogVisible</i>" <i class="i3">:userId="selectUserId"</i> <i class="i5">@updateRole="<i class="i2">getListData</i>"</i>&gt;&lt;/roles-dialog&gt;</i>
@@ -4962,8 +4962,8 @@ pageClass: theme-item
                         &lt;/el-checkbox-group&gt;
                         &lt;template #footer&gt;
                             &lt;span class="dialog-footer"&gt;
-                                &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.universal.cancel') &#125; &#125;&lt;/el-button&gt;
-                                &lt;el-button type="primary" @click="<i class="i4">onConfirm</i>"&gt;&#123; &#123; $t('msg.universal.confirm') &#125; &#125;&lt;/el-button&gt;
+                                &lt;el-button @click="closed"&gt;{TEMPLATE{ $t('msg.universal.cancel') }TEMPLATE}&lt;/el-button&gt;
+                                &lt;el-button type="primary" @click="<i class="i4">onConfirm</i>"&gt;{TEMPLATE{ $t('msg.universal.confirm') }TEMPLATE}&lt;/el-button&gt;
                             &lt;/span&gt;
                         &lt;/template&gt;
                     &lt;/el-dialog&gt;
@@ -5054,7 +5054,7 @@ pageClass: theme-item
                 }</span></div></div>
         <span class="title4" style="margin-top:6px;"><i></i>为角色指定权限</span>
 <div class="block-detail">            <span class="detail-desc">src/views/role-list/index.vue</span><span class="comment"></span><div class="detail-content">                <span>&lt;el-table-column :label="$t('msg.role.action')" prop="action" width="260" <i class="i1">#default="{ row }"</i>&gt;
-                    &lt;el-button type="primary" size="mini" <i class="order1">@click="onDistributePermissionClick(row)"</i>&gt;&#123; &#123; $t('msg.role.assignPermissions') &#125; &#125;&lt;/el-button&gt;
+                    &lt;el-button type="primary" size="mini" <i class="order1">@click="onDistributePermissionClick(row)"</i>&gt;{TEMPLATE{ $t('msg.role.assignPermissions') }TEMPLATE}&lt;/el-button&gt;
                 &lt;/el-table-column&gt;
                 
                 &lt;template&gt;
@@ -5090,8 +5090,8 @@ pageClass: theme-item
                         &lt;/el-tree&gt;
                         &lt;template #footer&gt;
                             &lt;span class="dialog-footer"&gt;
-                                &lt;el-button @click="closed"&gt;&#123; &#123; $t('msg.universal.cancel') &#125; &#125;&lt;/el-button&gt;
-                                &lt;el-button type="primary" <i class="order6">@click="onConfirm"</i>&gt;&#123; &#123; $t('msg.universal.confirm') &#125; &#125;&lt;/el-button&gt;
+                                &lt;el-button @click="closed"&gt;{TEMPLATE{ $t('msg.universal.cancel') }TEMPLATE}&lt;/el-button&gt;
+                                &lt;el-button type="primary" <i class="order6">@click="onConfirm"</i>&gt;{TEMPLATE{ $t('msg.universal.confirm') }TEMPLATE}&lt;/el-button&gt;
                             &lt;/span&gt;
                         &lt;/template&gt;
                     &lt;/el-dialog&gt;
@@ -5798,8 +5798,8 @@ read('RES|markdown.scene')
     &#91;FORM_START&#93;
 
         [{color:#f33}e4fc5eb9-316a-48e5-a970-dc116e7ab897]
-        &#123; &#123;[{color:#26f}API]&#125; &#125;
-        &#123; &#123;[{color:#26f}RES]&#125; &#125;
+        {TEMPLATE{[{color:#26f}API]}TEMPLATE}
+        {TEMPLATE{[{color:#26f}RES]}TEMPLATE}
 
         按钮： 
         [BTNbg6 cf|+ New Collection]
@@ -5821,8 +5821,8 @@ read('RES|markdown.scene')
         ▭{color:#ffaa22}collection-name▭
         ▭{color:#20b477}(bd)登录▭
         ▭{color:#8922ff}environment-name▭
-        ▭&#123; &#123;[{color:#26f}API]&#125; &#125;/api/login/▭
-        ▭&#123; &#123;[{color:#26f}RES]&#125; &#125;/api/cdn/UploadFile/▭
+        ▭{TEMPLATE{[{color:#26f}API]}TEMPLATE}/api/login/▭
+        ▭{TEMPLATE{[{color:#26f}RES]}TEMPLATE}/api/cdn/UploadFile/▭
 
         选项卡：
         ▥⇤Params  Authorization  Headers  [Body]  Pre-request Script  Tests  Settings▥

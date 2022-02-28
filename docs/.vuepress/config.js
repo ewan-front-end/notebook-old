@@ -33,5 +33,8 @@ module.exports = {
             }
         }
     },
-    "debug": true
+    "debug": true,
+    plugins: [
+        require('./vuepress-plugin-super-block'), // path.resolve(__dirname, './super-block/index.js')
+    ],
 }
