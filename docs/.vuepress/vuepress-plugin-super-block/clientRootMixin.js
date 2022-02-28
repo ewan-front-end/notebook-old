@@ -16,8 +16,15 @@ export default {
             const arr = el.innerHTML.match(/\{TEMPLATE\{/g)
             if (arr) {
                 console.log(arr);
-                el.innerHTML = el.innerHTML.replace(/\{TEMPLATE\{/g, '{{')
+                el.innerHTML = el.innerHTML.replace(/\{TEMPLATE\{/g, '{{').replace(/\}TEMPLATE\}/g, '}}')
             }
+        })
+        const $details = document.querySelectorAll('.detail-desc')
+        $details.forEach(dom => {
+            dom.addEventListener('click', e => {
+                let tar = e.currentTarget.parentNode
+                tar.className = tar.className === 'block-detail' ? 'block-detail active' : 'block-detail'
+            })
         })
     },
     // 生产环境的构建结束后被调用

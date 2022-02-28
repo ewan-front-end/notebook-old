@@ -11,52 +11,35 @@
 </head>
 <body>
     <div class="business-center">
-        
+var array1={a:"11",b:"22",c:{b1:"b1val",d:{c1:"c1的值"}}};<br>
+ 
+var array2={a:"12",b:"22",c:{b1:"b1val",d:{c1:"c1的第二个值"}},a4:"a4val"};
     </div>
 </body>
 </html>
 <script>
-const aa = {title: 'Home', src: 'index', path: '', children: {
-    tools: {title:'工具&资源', src: 'tools/index', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
-        git: {linkName: 'Git', src:'git'},
-        npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
-        markdown: {linkName: 'Markdown', src:'markdown'},        
-        qiankun: {linkName: '乾坤微服务', src:'qiankun'},
-        charts: {linkName: 'ECharts图表库', src:'echarts'},
-        vscode:{linkName:'VSCode', scene:[{title:'简化特定通用代码', href:'/tools/vscode', id:'自定义用户片段'}], src:'vscode'},
-        chromeTools:{src:'chrome-tools'},
-        uml:{src:'plantuml', links:[{name:'PlantUML语言', href:'/programmingLanguage/plantuml'}]},
-        regularExpression:{linkName:'正则表达式', src:'regular-expression'},
-        eslint: {linkName: 'ESLint', src:'eslint'},
-        htmlBundler: {title:'html-bundler', src:'html-bundler'},
-        postman: {title:'PostMan', src:'tools/postman'}
-    }},     
-    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
-        preset:{title:'预处理', src:'css-preset'},
-        variable:{title:'CSS变量', src:'css-variable'}
-    }},   
-    system:{title:'系统&平台&工具', src:'system', children:{
-        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
-        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
-        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
-        ios:{title:'IOS',linkName:'IOS', src:'ios'},
-        android:{title:'Android',linkName:'Android', src:'android'},
-        google:{title:'Google',linkName:'Google', src:'google'}
-    }} 
-}}
-
-</script>
-<script>
-const DATA = aa
-const getDataByPath = path => {
-    path = path.substring(1)
-    const arr = path.split('/')    
-    let res = DATA, prop
-    while (prop = arr.shift()) {
-        prop && (res = res.children[prop])
+function funDifference(object, other) {
+    let diff = {};
+    let vChildren;
+    for (var key in object) {
+        if (typeof object[key] === "object" && typeof other[key] === "object" && object[key] && other[key]) {
+            vChildren = funDifference(object[key], other[key]);
+            if (Object.keys(vChildren).length > 0) {
+                diff[key] = vChildren;
+            }
+ 
+ 
+        } else if (object[key] !== other[key]) {
+            diff[key] = object[key];
+ 
+        }
     }
-    return res
+    return diff;
 }
+var array1={a:"11",b:"22",c:{b1:"b1val",d:{c1:"c1的值"}}};
+ 
+var array2={a:"12",b:"22",c:{b1:"b1val",d:{c1:"c1的第二个值"}},a4:"a4val"};
+var arr = funDifference(array1,array2)
+console.log(arr)
 
-console.log(getDataByPath('/'));
 </script>
