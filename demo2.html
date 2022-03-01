@@ -11,35 +11,92 @@
 </head>
 <body>
     <div class="business-center">
-var array1={a:"11",b:"22",c:{b1:"b1val",d:{c1:"c1的值"}}};<br>
- 
-var array2={a:"12",b:"22",c:{b1:"b1val",d:{c1:"c1的第二个值"}},a4:"a4val"};
+        {a:1,b:2,c:{d:4,e:{a:1,f:6}}}<br>
+        {a:1,b:22,c:{d:4,e:{a:1,f:7}, g:7}}
     </div>
 </body>
 </html>
 <script>
-function funDifference(object, other) {
-    let diff = {};
-    let vChildren;
-    for (var key in object) {
-        if (typeof object[key] === "object" && typeof other[key] === "object" && object[key] && other[key]) {
-            vChildren = funDifference(object[key], other[key]);
-            if (Object.keys(vChildren).length > 0) {
-                diff[key] = vChildren;
-            }
+// function funDifference(object, other) {
+//     let diff = {};
+//     let vChildren;
+//     for (var key in object) {
+//         if (typeof object[key] === "object" && typeof other[key] === "object" && object[key] && other[key]) {
+//             vChildren = funDifference(object[key], other[key]);
+//             if (Object.keys(vChildren).length > 0) {
+//                 diff[key] = vChildren;
+//             }
  
  
-        } else if (object[key] !== other[key]) {
-            diff[key] = object[key];
+//         } else if (object[key] !== other[key]) {
+//             diff[key] = object[key];
  
+//         }
+//     }
+//     return diff;
+// }
+function compareData(o, n) {
+    //debugger
+    const diff = {}
+    for (var i in n) {
+        let v1 = o[i], v2 = n[i]
+        if (i === 'path') continue
+        if (i === 'children') {
+            const childrenDiff = compareData(v1, v2)
+            Object.assign(diff, childrenDiff)
+            diff.concat(childrenDiff)
+        } else if (v1 !== v2) {
+            diff[o.path] = true
+            continue
         }
     }
-    return diff;
+    return diff
 }
-var array1={a:"11",b:"22",c:{b1:"b1val",d:{c1:"c1的值"}}};
- 
-var array2={a:"12",b:"22",c:{b1:"b1val",d:{c1:"c1的第二个值"}},a4:"a4val"};
-var arr = funDifference(array1,array2)
+
+var o = {title: 'Home', src: 'index', path: '', children: {      
+    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
+        preset:{title:'预处理', src:'css-preset'},
+        variable:{title:'CSS变量', src:'css-variable'}
+    }},   
+    system:{title:'系统&平台&工具', src:'system', children:{
+        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', src:'ios'},
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
+    }} 
+}}
+
+// 生成路径
+function handleDataChildren(node) {
+    if (node.children) {
+        node.path += '/'
+        for (key in node.children) { handleData(key, node.children[key], node) }
+    }    
+}
+function handleData(key, node, parent) {
+    node.path = parent ? parent.path + key : ''
+    handleDataChildren(node)
+}
+handleData('', o, null)
+
+
+var n = {title: 'Home2', src: 'index2', path: '', children: {      
+    css:{title:'CSS2', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
+        preset:{title:'预处理', src:'css-preset'},
+        variable:{title:'CSS变量', src:'css-variable'}
+    }},   
+    system:{title:'系统&平台&工具', src:'system', children:{
+        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', src:'ios'},
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
+    }} 
+}}
+var arr = compareData(o, n)
 console.log(arr)
 
 </script>
