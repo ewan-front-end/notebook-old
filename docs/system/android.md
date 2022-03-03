@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.02.18 19:25</span>
+            <span>M 2022.03.03 14:30</span>
         </div>
     </div>
     <div class="content"></div>
@@ -17,6 +17,43 @@ pageClass: theme-item
 <h1>Android</h1><strong>Android</strong>
 </div>
 <div class="static-content">
+
+手把手完成商业级社交App开发，进阶Android高级工程
+https://coding.imooc.com/class/390.html?utm_term=android%20gradle%E9%85%8D%E7%BD%AE&utm_campaign=SEM&utm_medium=64&_channel_track_key=bnxm5kUk&utm_source=szjineng2&utm_content=20220218&bd_vid=9152022734962051126
+
+
+完全卸载Android Studio
+安装Android Studio
+    安装部署JDK开发环境 // Android Studio安装后自带jre(Android Studio/jre)
+        如果想要使用自己安装的jre
+        下载jdk：http://www.oracle.com/technetwork/java/javase/downloads/index.html  Downloads/Java Platform (JDK) 10
+
+        配置3个环境变量(系统变量)：
+            JAVA_HOME：C:\Program Files\Java\jdk-17.0.2
+            Path：;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;
+            CLASS_PATH：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
+
+        验证：java –version、javac –version
+
+    配置Gradle
+
+    gradle-wrapper.properties文件，将distributionUr由原先使用的网络资源
+
+distributionUrl=https\://services.gradle.org/distributions/gradle-5.6.4-all.zip
+
+换成使用本地的
+
+distributionUrl=file:///C:/Users/new/.gradle/wrapper/dists/gradle-4.1-all.zip
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -45,7 +82,7 @@ pageClass: theme-item
             您所在的省/市/自治区名称是什么?
             [Unknown]:  a
             该单位的双字母国家/地区代码是什么?
-            [Unknown]:  a
+            [Unknown]:  ch
             CN=ewan, OU=a, O=a, L=a, ST=a, C=a是否正确?
             [否]:  y</span></div></div>
     <span class="title5" style="margin-top:3px;"><i></i>构建项目到平台</span>

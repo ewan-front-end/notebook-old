@@ -32,9 +32,15 @@ function compareData(o, n, parent1, parent2) {
         } else if (v1 !== v2) {
             diff[i] = v2
             if (v1 === undefined) {
-                diffPath[parent1.path] = true
-                let parentPath = parent1.path, path = v2.children ? i + '/' : i
-                diffPath[parentPath + path] = true
+                if (i === 'children') {
+                    diffPath[o.path] = true
+                    console.log(v2)
+                } else {
+                    console.log(parent1);
+                    diffPath[parent1.path] = true
+                    let parentPath = parent1.path, path = v2.children ? i + '/' : i
+                    diffPath[parentPath + path] = true
+                }                
             } else {
                 diffPath[o.path] = true
             }
@@ -58,6 +64,23 @@ var o = {title: 'Home', src: 'index', path: '', children: {
         google:{title:'Google',linkName:'Google', src:'google'}
     }} 
 }}
+var n = {title: 'Home', src: 'index', path: '', children: {      
+    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
+        preset:{title:'预处理', src:'css-preset', children:{
+            abs: {title:'ABS',linkName:'abs', src:'mac-01'}
+        }},
+        variable:{title:'CSS变量', src:'css-variable'}
+    }},   
+    system:{title:'系统&平台&工具', src:'system', children:{
+        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', src:'ios'},
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
+    }} 
+}}
+
 
 // 生成路径
 function handleDataChildren(node) {
@@ -73,23 +96,9 @@ function handleData(key, node, parent) {
 handleData('', o, null)
 
 
-var n = {title: 'Home', src: 'index', path: '', children: {      
-    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
-        preset:{title:'预处理', src:'css-preset'},
-        variable:{title:'CSS变量', src:'css-variable'}
-    }},   
-    system:{title:'系统&平台&工具', src:'system', children:{
-        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
-        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
-        windows:{title:'Windows2',linkName:'Windows', src:'system-windows'},
-        ios:{title:'IOS',linkName:'IOS', src:'ios'},
-        android:{title:'Android',linkName:'Android', src:'android'},
-        google:{title:'Google',linkName:'Google', src:'google'},
-        aa:{}
-    }} 
-}}
+
 var arr = compareData(o, n)
-console.log(arr)
+//console.log(arr)
 console.log(Object.keys(diffPath))
 
 </script>
