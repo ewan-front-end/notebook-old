@@ -11,57 +11,10 @@
 </head>
 <body>
     <div class="business-center">
-        {a:1,b:2,c:{d:4,e:{a:1,f:6}}}<br>
-        {a:1,b:22,c:{d:4,e:{a:1,f:7}, g:7}}
     </div>
 </body>
 </html>
 <script>
-const diffPath = {}
-const addChild = (node, path) => {
-    if (node.children) {
-        diffPath[path + '/'] = true
-        addChildren(path + '/', node.children)
-    } else {
-        diffPath[path] = true
-    }
-}
-const addChildren = (parentPath, children) => {
-    for (var key in children) {
-        addChild(children[key], parentPath + key) 
-    } 
-}
-const compareData = (o, n, parent1, parent2) => {
-    let diff = {};
-    let vChildren;
-    for (var i in n) {
-        if (i === 'path') continue
-        let v1 = o[i], v2 = n[i]
-        if (typeof v1 === "object" && typeof v2 === "object" && v1 && v2) {
-            vChildren = compareData(v1, v2, o, n);
-            if (Object.keys(vChildren).length > 0) {
-                diff[i] = vChildren;
-            }
-        } else if (v1 !== v2) {
-            diff[i] = v2
-            if (v1 === undefined) {
-                if (i === 'children') {
-                    diffPath[o.path] = true
-                    addChildren(o.path + '/', v2)                                                          
-                } else {
-                    console.log(parent1);
-                    diffPath[parent1.path] = true
-                    let parentPath = parent1.path, path = v2.children ? i + '/' : i
-                    diffPath[parentPath + path] = true
-                }                
-            } else {
-                diffPath[o.path] = true
-            }
-        }
-    }
-    return diff;
-}
-
 
 var o = {title: 'Home', src: 'index', path: '', children: {      
     css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
@@ -88,7 +41,7 @@ var n = {title: 'Home', src: 'index', path: '', children: {
         variable:{title:'CSS变量2', src:'css-variable'}
     }},   
     system:{title:'系统&平台&工具', src:'system', children:{
-        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        mac:{title:'MacBook2',linkName:'MacBook', src:'system-mac'},
         linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
         windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
         ios:{title:'IOS',linkName:'IOS', src:'ios'},
@@ -98,23 +51,36 @@ var n = {title: 'Home', src: 'index', path: '', children: {
 }}
 
 
-// 生成路径
-function handleDataChildren(node) {
+const diffPath = []
+const addChild = (node, path) => {
     if (node.children) {
-        node.path += '/'
-        for (key in node.children) { handleData(key, node.children[key], node) }
-    }    
+        diffPath.push(path + '/')
+        addChildren(node.children, path + '/')
+    } else {
+        diffPath.push(path)
+    }
 }
-function handleData(key, node, parent) {
-    node.path = parent ? parent.path + key : ''
-    handleDataChildren(node)
+const addChildren = (children, parentPath) => {for (var key in children) {addChild(children[key], parentPath + key)}}
+function handleDataChildren(oChildren, nChildren, parentPath) {for (key in nChildren) { compareDiff(oChildren[key], nChildren[key], key, parentPath) }}
+function compareDiff(oNode, nNode, key, parentPath) {
+    let path = parentPath + key    
+    if (nNode.children) {
+        path += '/'
+        if (oNode.children) {
+            handleDataChildren(oNode.children, nNode.children, path)
+        } else {
+            diffPath.push(path)
+            addChildren(nNode.children, path)
+        }        
+    }
+    for (var key in nNode) {
+        if (key === 'children' || key === 'path') continue
+        if (nNode[key] !== oNode[key]) diffPath.push(path)
+    }
 }
-handleData('', o, null)
+compareDiff(o, n, '', '')
+console.log(diffPath)
 
 
-
-var arr = compareData(o, n)
-//console.log(arr)
-console.log(Object.keys(diffPath))
 
 </script>

@@ -191,61 +191,48 @@ notebook/package.json ▾ // 设置scripts
         "res:watch": "node docs/.data/res-watch.js"        // 监听MD变化创建MD到DOC
     }↥
 notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
-    ↧const Path = require('path')
-    const { mkdirSync } = require('../.deploy/fs')
-    const createFile = require('./components/createFile')
-    const ARG_ARR = process.argv.slice(2)  // 命令参数
-    const DATA = require('./index')
+    ↧const Path = require('path'), ARG_ARR = process.argv.slice(2)  // 命令参数
+    const { mkdirSync } = require('../.deploy/fs'), createFile = require('./components/createFile')
+    let data = require('./index')
 
-    const PATHS = []
-    const PATH_DATA = {}
-    const RES_PATH = {}
-
-    // 数据处理
-    function handleDataChildren(node) {
-        if (node.children) node.path += '/'
-        PATH_DATA[node.path] = node            // 路径映身数据
-        node.src && (RES_PATH[node.src] = node.path)
-        PATHS.push(node.path)
-        if (node.children) {
-            for (key in node.children) { handleData(key, node.children[key], node) }
-        }    
-    }
-    function handleData(key, node, parent) {
-        Object.assign(node, {
-            parent, 
-            key, 
-            title: node.title || node.linkName || key, 
-            linkName: node.linkName || node.title || key, 
-            path: parent ? parent.path + key : ''                      // 用于数据源查找数据
-        })    
-        handleDataChildren(node)
-    }
-    handleData('', DATA, null)
-
-    // MD生成
+    // 依据路径获取数据
     const getDataByPath = path => {
-        path = path.substring(1)
-        const arr = path.split('/')    
-        let res = DATA, prop
-        while (prop = arr.shift()) {
-            prop && (res = res.children[prop])
-        }
+        let arr = path.substring(1).split('/'), res = data, prop
+        while (prop = arr.shift()) {prop && (res = res.children[prop])}
         return res
     }
-    const createItem = item => {
-        const ABSOLUTE_PATH = Path.resolve(__dirname, '../' + item.path)
-        if (item.path.match(/\/$/m)) {
-            mkdirSync(ABSOLUTE_PATH)
-            createFile(Path.resolve(ABSOLUTE_PATH, 'README'), item)
+    // 生成文件与结构  
+    const createItem = (item, path) => {    
+        const absolutePath = Path.resolve(__dirname, '../' + path)
+        if (item.children) {
+            mkdirSync(absolutePath)
+            createFile(Path.resolve(absolutePath, 'README'), item)
         } else {
-            createFile(ABSOLUTE_PATH, item)
+            createFile(absolutePath, item)
         }
     }
-    PATHS.forEach(path => {
-        let item = getDataByPath(path)    
-        item ? createItem(item) : console.warn(path + '创建失败！')    
-    })↥
+    if (ARG_ARR.length > 0) {
+        delete require.cache[require.resolve('./index')]
+        setTimeout(() => {
+            data = require('./index')
+            ARG_ARR.forEach(path => {            
+                let item = getDataByPath(path)
+                createItem(item, path)
+            })
+        })    
+    } else {
+        function handleDataChildren(node) {
+            if (node.children) node.path += '/'
+            createItem(node, node.path)
+            if (node.children) for (key in node.children) {handleData(key, node.children[key], node)}
+        }
+        function handleData(key, node, parent) {
+            Object.assign(node, {parent, key, title: node.title || node.linkName || key, linkName: node.linkName || node.title || key, path: parent ? parent.path + key : ''})    
+            handleDataChildren(node)
+        }
+        handleData('', data, null)
+    }↥
+
     notebook/docs/.data/components/createFile.js ▾
         ↧const PATH = require('path')
         //const {fetch} = require('../config')

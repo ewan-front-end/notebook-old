@@ -1,74 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>www.jb51.net js侧边栏</title>
-<style type="text/css">
-*{margin: 0;padding: 0;}
-.snap-windows-wrapper{ width: 0; height: 0; position: fixed; z-index: 1; background: #f9f9f9; border-color: #eee; border-style: solid;}
-.hidd-container{ width: 100%; height: 100%; overflow: auto; }
-.content-container{ border:#f00 0px solid; display: inline-block; padding: 10px;}
-
-/* 按钮 */
-.snap-windows-wrapper .snap-windows-switch{ position: absolute; display: flex;}
-.snap-windows-wrapper .snap-windows-switch button{ display: block; border:#eee 1px solid; background-color: #f9f9f9;}
-/* 布局方式 */
-.layout-float.snap-left{box-shadow: 2px 1px 5px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-left .snap-windows-switch button{box-shadow: 2px 1px 2px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-right{box-shadow: -2px 1px 5px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-right .snap-windows-switch button{box-shadow: -2px 1px 2px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-top{box-shadow: 1px 2px 5px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-top .snap-windows-switch button{box-shadow: 1px 2px 2px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-bottom{box-shadow: 1px -2px 5px rgba(100,100,100,.1);border-color: #fff;}
-.layout-float.snap-bottom .snap-windows-switch button{box-shadow: 1px -2px 2px rgba(100,100,100,.1);border-color: #fff;}
-/* 包装 */
-.snap-left{border-width: 0 1px 0 0; left: 0; top: 0;}
-.snap-right{border-width: 0 0 0 1px; right: 0; top: 0;}
-.snap-top{border-width: 0 0 1px 0; top: 0; left: 0;}
-.snap-bottom{border-width: 1px 0 0 0; bottom: 0; left: 0;}
-/* 按钮 */
-.snap-right .snap-windows-switch, .snap-left .snap-windows-switch{width: 10px; height: 100%; top: 0; align-items: center;}
-.snap-right .snap-windows-switch{right: 100%;}
-.snap-left  .snap-windows-switch{left: 100%;}
-.snap-left .snap-windows-switch button{ border-left: 0 }
-.snap-right .snap-windows-switch button, .snap-left .snap-windows-switch button{ width: 10px; height: 100px; }
-.snap-right .snap-windows-switch button{ border-right: 0 }
-
-.snap-top .snap-windows-switch, .snap-bottom .snap-windows-switch{width: 100%; height: 10px; left: 0; justify-content: center;}
-.snap-top .snap-windows-switch{top: 100%;}
-.snap-bottom .snap-windows-switch{ bottom: 100%;}
-.snap-top .snap-windows-switch button, .snap-bottom .snap-windows-switch button{ width: 100px; height: 10px; }
-.snap-top .snap-windows-switch button{ border-top: 0 }
-.snap-bottom .snap-windows-switch button{ border-bottom: 0 }
-
-
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+    </style>
 </head>
 <body>
-    <div id="app" style="border:#f00 1px solid; width: 1200px; height: 600px"></div>
+    <div class="business-center">
+        {a:1,b:2,c:{d:4,e:{a:1,f:6}}}<br>
+        {a:1,b:22,c:{d:4,e:{a:1,f:7}, g:7}}
+    </div>
 </body>
 </html>
-<script src="test.js"></script>
-<script type="module">
-import SnapWindows from './docs/.usage/scripts/snap-windows/SnapWindows.js'
+<script>
+const diffPath = {}
+const addChild = (node, path) => {
+    if (node.children) {
+        diffPath[path + '/'] = true
+        addChildren(path + '/', node.children)
+    } else {
+        diffPath[path] = true
+    }
+}
+const addChildren = (parentPath, children) => {
+    for (var key in children) {
+        addChild(children[key], parentPath + key) 
+    } 
+}
+const compareData = (o, n, parent1, parent2) => {
+    let diff = {};
+    let vChildren;
+    for (var i in n) {
+        if (i === 'path') continue
+        let v1 = o[i], v2 = n[i]
+        if (typeof v1 === "object" && typeof v2 === "object" && v1 && v2) {
+            vChildren = compareData(v1, v2, o, n);
+            if (Object.keys(vChildren).length > 0) {
+                diff[i] = vChildren;
+            }
+        } else if (v1 !== v2) {
+            diff[i] = v2
+            if (v1 === undefined) {
+                if (i === 'children') {
+                    diffPath[o.path] = true
+                    addChildren(o.path + '/', v2)                                                          
+                } else {
+                    console.log(parent1);
+                    diffPath[parent1.path] = true
+                    let parentPath = parent1.path, path = v2.children ? i + '/' : i
+                    diffPath[parentPath + path] = true
+                }                
+            } else {
+                diffPath[o.path] = true
+            }
+        }
+    }
+    return diff;
+}
 
-const sideWin = new SnapWindows({
-    container: '#app',
-    snapTo: 'right',
-}) 
-setTimeout(()=>{
-    sideWin.setCode(InternalLinks['url'].content, true)
-}, 1000)
-setTimeout(()=>{
-    sideWin.setHTML(InternalLinks['encode'].content)
-}, 5000)
-setTimeout(()=>{
-    sideWin.setHTML(InternalLinks['parseSearch'].content, true)
-}, 10000)
+
+var o = {title: 'Home', src: 'index', path: '', children: {      
+    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
+        preset:{title:'预处理', src:'css-preset'},
+        variable:{title:'CSS变量', src:'css-variable'}
+    }},   
+    system:{title:'系统&平台&工具', src:'system', children:{
+        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', src:'ios'},
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
+    }} 
+}}
+var n = {title: 'Home', src: 'index', path: '', children: {      
+    css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
+        preset:{title:'预处理', src:'css-preset', children:{
+            abs: {title:'ABS',linkName:'abs', src:'mac-01', children:{
+                a:{itle:'aa'},
+                b:{itle:'bb'}
+            }}
+        }},
+        variable:{title:'CSS变量2', src:'css-variable'}
+    }},   
+    system:{title:'系统&平台&工具', src:'system', children:{
+        mac:{title:'MacBook',linkName:'MacBook', src:'system-mac'},
+        linux:{title:'Linux',linkName:'Linux', src:'system-linux'},
+        windows:{title:'Windows',linkName:'Windows', src:'system-windows'},
+        ios:{title:'IOS',linkName:'IOS', src:'ios'},
+        android:{title:'Android',linkName:'Android', src:'android'},
+        google:{title:'Google',linkName:'Google', src:'google'}
+    }} 
+}}
+
+
+// 生成路径
+function handleDataChildren(node) {
+    if (node.children) {
+        node.path += '/'
+        for (key in node.children) { handleData(key, node.children[key], node) }
+    }    
+}
+function handleData(key, node, parent) {
+    node.path = parent ? parent.path + key : ''
+    handleDataChildren(node)
+}
+handleData('', o, null)
 
 
 
+var arr = compareData(o, n)
+//console.log(arr)
+console.log(Object.keys(diffPath))
 
-
-
-    </script>
+</script>
