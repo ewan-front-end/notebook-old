@@ -552,23 +552,56 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
         }↥
 
 notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
-    ↧const exec = require('child_process').exec
-    const Path = require('path')
-    const chokidar = require('chokidar')
+    ↧const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
 
-    const dataPath = Path.resolve(__dirname, 'index.js')
     let dataFile = require('./index')
-    const compareData = (dataFile2) => {
-        console.log(dataFile)
-        console.log(dataFile2)
-        dataFile = dataFile2
+
+    // 对比差异
+    const diffPath = []
+    const addChild = (node, path) => {
+        if (node.children) {
+            diffPath.push(path + '/')
+            addChildren(node.children, path + '/')
+        } else {
+            diffPath.push(path)
+        }
     }
-    chokidar.watch(dataPath)
+    const addChildren = (children, parentPath) => {for (var key in children) {addChild(children[key], parentPath + key)}}
+    function handleDataChildren(oChildren, nChildren, parentPath) {for (key in nChildren) { compareDiff(oChildren[key], nChildren[key], key, parentPath) }}
+    function compareDiff(oNode, nNode, key, parentPath) {
+        let path = parentPath + key    
+        if (nNode.children) {
+            path += '/'
+            if (oNode.children) {
+                handleDataChildren(oNode.children, nNode.children, path)
+            } else {
+                diffPath.push(path)
+                addChildren(nNode.children, path)
+            }        
+        }
+        for (var key in nNode) {
+            if (key === 'children' || key === 'path') continue
+            if (nNode[key] !== oNode[key]) diffPath.push(path)
+        }
+    }
+
+    chokidar.watch(Path.resolve(__dirname, 'index.js'))
         .on('error', error => log(`data监听错误: ${error}`)) 
         .on('change', path => {
             delete require.cache[require.resolve('./index')]
-            const dataFile2 = require('./index')
-            compareData(dataFile2)
+            setTimeout(() => {
+                const dataFile2 = require('./index')
+                compareDiff(dataFile, dataFile2, '', '')
+                if (diffPath.length) {
+                    exec(`node ${Path.resolve(__dirname, 'data-create.js')} ${diffPath.join(' ')}`, function(error, stdout, stderr) {
+                        error && console.log(error)
+                        stdout && console.log(stdout)
+                        stderr && console.log(stderr)
+                    })
+                }            
+                diffPath.length = 0
+                dataFile = dataFile2
+            })
         })↥
 notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
     ↧↥
