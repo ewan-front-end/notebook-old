@@ -232,8 +232,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
         }
         handleData('', data, null)
     }↥
-
-    notebook/docs/.data/components/createFile.js ▾
+    ./components/createFile.js ▾
         ↧const PATH = require('path')
         //const {fetch} = require('../config')
         const { writeFile, readFile } = require('../../.deploy/fs')
@@ -297,7 +296,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
         </div>`                 
             writeFile(fullPath + '.md', content)
         }↥
-    notebook/docs/.data/components/parseCode.js ▾
+    ./components/parseCode.js ▾
         ↧/**
         * 弹性盒子
         * 目标：<div class="box-flex"><div class="box-flex-item flex-8">col 01</div><div class="box-flex-item classname" style="flex-basis:100px">col 02</div></div>
@@ -366,7 +365,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
                 
                 return code        
             }↥
-    notebook/docs/.data/components/parseCustomBlock.js ▾
+    ./components/parseCustomBlock.js ▾
         ↧✪const { fetch } = require('../../config')
         const Search = fetch('PARSE|search')
         const Aggregate = fetch('PARSE|aggregate')
@@ -481,7 +480,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
             }
 
         ✪↥
-    notebook/docs/.data/components/regexp-preset.js ▾
+    ./components/regexp-preset.js ▾
         ↧function htmlEscape(content) {
             return content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         }
@@ -550,7 +549,6 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
                 ]
             }
         }↥
-
 notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
     ↧const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
 
@@ -580,7 +578,7 @@ notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
             }        
         }
         for (var key in nNode) {
-            if (key === 'children' || key === 'path') continue
+            if (key === 'children' || key === 'path' || key === 'scene' || key === 'usage' || key === 'links') continue
             if (nNode[key] !== oNode[key]) diffPath.push(path)
         }
     }
@@ -604,10 +602,11 @@ notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
             })
         })↥
 notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
-    ↧↥
+    ↧{}↥
 notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
     ↧{}↥
 
+[##] 聚合与维持
 notebook/docs/.data/PATH_DATA.json ▾
     ↧↥
 notebook/docs/.data/RES_PATH.json ▾{color:#ccc;background-color:transparent}   // data:create时tree数据映射到资源名(资源扁平唯一)
