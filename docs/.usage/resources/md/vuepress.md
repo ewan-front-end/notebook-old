@@ -190,7 +190,7 @@ notebook/package.json ▾ // 设置scripts
         "res:create": "node docs/.data/res-create.js",    // 创建MD到DOC
         "res:watch": "node docs/.data/res-watch.js"        // 监听MD变化创建MD到DOC
     }↥
-notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
+notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./components/
     ↧const Path = require('path'), ARG_ARR = process.argv.slice(2)  // 命令参数
     const { mkdirSync } = require('../.deploy/fs'), createFile = require('./components/createFile')
     let data = require('./index')
@@ -201,7 +201,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
         while (prop = arr.shift()) {prop && (res = res.children[prop])}
         return res
     }
-    // 生成文件与结构  
+    // 生成文件与结构
     const createItem = (item, path) => {    
         const absolutePath = Path.resolve(__dirname, '../' + path)
         if (item.children) {
@@ -231,12 +231,10 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
             handleDataChildren(node)
         }
         handleData('', data, null)
-    }↥
-    ./components/createFile.js ▾
-        ↧const PATH = require('path')
-        //const {fetch} = require('../config')
+    }↥    
+    createFile.js ▾
+        ↧const Path = require('path')
         const { writeFile, readFile } = require('../../.deploy/fs')
-        // const SRC_UPDATETIME = fetch("DATA|src:updateTime")
         const parseCode = require('./parseCode')
 
         module.exports = (fullPath, target) => {
@@ -269,7 +267,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
             }
             // 资源静态内容
             if (target.src) {
-                let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'), true)
+                let file = readFile(Path.resolve(__dirname, '../md/'+target.src+'.md'), true)
                 
                 file = parseCode(file, target.path) // 解析代码
                 
@@ -296,7 +294,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
         </div>`                 
             writeFile(fullPath + '.md', content)
         }↥
-    ./components/parseCode.js ▾
+    parseCode.js ▾
         ↧/**
         * 弹性盒子
         * 目标：<div class="box-flex"><div class="box-flex-item flex-8">col 01</div><div class="box-flex-item classname" style="flex-basis:100px">col 02</div></div>
@@ -365,7 +363,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
                 
                 return code        
             }↥
-    ./components/parseCustomBlock.js ▾
+    parseCustomBlock.js ▾
         ↧✪const { fetch } = require('../../config')
         const Search = fetch('PARSE|search')
         const Aggregate = fetch('PARSE|aggregate')
@@ -480,7 +478,7 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff}
             }
 
         ✪↥
-    ./components/regexp-preset.js ▾
+    regexp-preset.js ▾
         ↧function htmlEscape(content) {
             return content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         }
@@ -602,29 +600,92 @@ notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
             })
         })↥
 notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
+    ↧const Path = require('path'), ARG_ARR = process.argv.slice(2)  // 命令参数
+    const createFile = require('./components/createFile')
+    const createHome = require('./components/createHome')
+
+    // 依资源名(一维命名)查找数据
+    let data = require('./index')
+    function queryDataByResName(resName) {
+        function handleDataChildren(node) {
+            if (node.children) node.path += '/'
+            if (node.src === resName) throw node        
+            if (node.children) for (key in node.children) {handleData(key, node.children[key], node)}
+        }
+        function handleData(key, node, parent) {
+            Object.assign(node, {parent, key, title: node.title || node.linkName || key, linkName: node.linkName || node.title || key, path: parent ? parent.path + key : ''})    
+            handleDataChildren(node)
+        }
+        try{
+            handleData('', data, null)
+        } catch (node) {
+            return node
+        }
+    }
+
+
+    if (ARG_ARR.length > 0) {
+        const name = ARG_ARR[0]
+        const node = queryDataByResName(name)    
+        if (node) {
+            let path = node.path
+            if (path.match(/\/$/m)) path += 'README'
+            if (path === '/README') {
+                console.log(11111);
+                createHome(Path.resolve(__dirname, '..' + path), node)
+            } else {
+                console.log(22222);
+                createFile(Path.resolve(__dirname, '..' + path), node)
+            }
+        } else {
+            console.log(`数据结构里不存在资源：${name}.md`)
+        }    
+    }↥
+    ./components/createHome.js ▾
+        ↧const Path = require('path')
+        const { writeFile, readFile } = require('../../.deploy/fs')
+
+        module.exports = (path, node) => { 
+            let {src, children} = node
+            let content = readFile(Path.resolve(__dirname, '../md/'+src+'.md'))
+            let childStr = ''
+            for (i in children) {
+                let {title} = children[i]
+                childStr += `- [︳${title}](/${i})\n`
+            }
+            content = `---\nsidebar: false\n---\n\n<div class="root-children block-main">\n\n${childStr}\n</div>\n\n## 文档地图\n` + content
+            writeFile(path + '.md', content)
+        }↥
 notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
-    ↧{}↥
+    ↧const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
+
+    chokidar.watch(Path.resolve(__dirname, './md'))
+        .on('error', error => log(`资源监听错误: ${error}`)) 
+        .on('change', path => {
+            /md\\([\w-]+)\.md/.exec(path)
+            if (RegExp.$1) { 
+                exec(`node ${Path.resolve(__dirname, 'res-create.js')} ${RegExp.$1}`, function(error, stdout, stderr) {
+                    error && console.log(error)
+                    stdout && console.log(stdout)
+                    stderr && console.log(stderr)
+                })
+            }        
+        })↥
 
 [##] 聚合与维持
-notebook/docs/.data/PATH_DATA.json ▾
-    ↧↥
-notebook/docs/.data/RES_PATH.json ▾{color:#ccc;background-color:transparent}   // data:create时tree数据映射到资源名(资源扁平唯一)
-    ↧↥
-
-
 notebook/docs/.data/RES_INFO.json ▾
     ↧{
         links:[],
         editTime: ''
     }↥
-notebook/docs/.doctree/data/KEY_RES.json       // 索引关键词  搜索 下拉
-notebook/docs/.doctree/data/TIT_RES.json       // 索引标题    搜索 下拉
-notebook/docs/.doctree/data/RES_SCENE.json     // 暴露的场景  主题 
-notebook/docs/.doctree/data/RES_USAGE.json     // 暴露的攻略  主题
-notebook/docs/.doctree/data/RES_SOLUTION.json  // 暴露的方案  主题
-notebook/docs/.doctree/data/RES_STANDARD.json  // 暴露的标准  主题
-notebook/docs/.doctree/data/RES_LINK.json      // 采集链接    外链
+notebook/docs/.data/
+    KEY_RES.json       // 索引关键词  搜索 下拉
+    TIT_RES.json       // 索引标题    搜索 下拉
+    RES_SCENE.json     // 暴露的场景  主题 
+    RES_USAGE.json     // 暴露的攻略  主题
+    RES_SOLUTION.json  // 暴露的方案  主题
+    RES_STANDARD.json  // 暴露的标准  主题
+    RES_LINK.json      // 采集链接    外链
 
 
 
