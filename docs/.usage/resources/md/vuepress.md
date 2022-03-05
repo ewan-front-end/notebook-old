@@ -631,10 +631,8 @@ notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
             let path = node.path
             if (path.match(/\/$/m)) path += 'README'
             if (path === '/README') {
-                console.log(11111);
                 createHome(Path.resolve(__dirname, '..' + path), node)
             } else {
-                console.log(22222);
                 createFile(Path.resolve(__dirname, '..' + path), node)
             }
         } else {
@@ -661,8 +659,8 @@ notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
 
     chokidar.watch(Path.resolve(__dirname, './md'))
         .on('error', error => log(`资源监听错误: ${error}`)) 
-        .on('change', path => {
-            /md\\([\w-]+)\.md/.exec(path)
+        .on('change', path => {            
+            /md[\\\/]([\w-]+)\.md/.exec(path)
             if (RegExp.$1) { 
                 exec(`node ${Path.resolve(__dirname, 'res-create.js')} ${RegExp.$1}`, function(error, stdout, stderr) {
                     error && console.log(error)
