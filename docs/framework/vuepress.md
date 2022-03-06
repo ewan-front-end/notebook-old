@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.03.05 01:11</span>
+            <span>M 2022.03.06 09:38</span>
         </div>
     </div>
     <div class="content"></div>
@@ -202,7 +202,9 @@ notebook/docs/.data/
         "res:watch": "node docs/.data/res-watch.js"        <span class="comment">// 监听MD变化创建MD到DOC</span>
     }</span></div></div>
 <div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"> ./components/</span><div class="detail-content">    <span>const Path = require('path'), ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
-    const { mkdirSync } = require('../.deploy/fs'), createFile = require('./components/createFile')
+    const { mkdirSync } = require('../.deploy/fs')
+    const createFile = require('./components/createFile')
+    const createHome = require('./components/createHome')
     let data = require('./index')
 
     <span class="comment">// 依据路径获取数据</span>
@@ -212,11 +214,16 @@ notebook/docs/.data/
         return res
     }
     <span class="comment">// 生成文件与结构</span>
-    const createItem = (item, path) =&gt; {    
-        const absolutePath = Path.resolve(__dirname, '../' + path)
+    const createItem = (item, path) =&gt; { 
+        const absolutePath = Path.resolve(__dirname, '..' + path)
         if (item.children) {
             mkdirSync(absolutePath)
-            createFile(Path.resolve(absolutePath, 'README'), item)
+            let readmePath = Path.resolve(absolutePath, 'README')
+            if (path === '/') {
+                createHome(readmePath, item)
+            } else {
+                createFile(readmePath, item)
+            }
         } else {
             createFile(absolutePath, item)
         }
@@ -242,8 +249,10 @@ notebook/docs/.data/
         }
         handleData('', data, null)
     }</span></div></div>    
-<div class="block-detail">    <span class="detail-desc">createFile.js</span><span class="comment"></span><div class="detail-content">        <span>const Path = require('path')
+<div class="block-detail">    <span class="detail-desc">createFile.js</span><span class="comment"></span><div class="detail-content">        <span>const PATH = require('path')
+        <span class="comment">//const {fetch} = require('../config')</span>
         const { writeFile, readFile } = require('../../.deploy/fs')
+        <span class="comment">// const SRC_UPDATETIME = fetch("DATA|src:updateTime")</span>
         const parseCode = require('./parseCode')
 
         module.exports = (fullPath, target) =&gt; {
@@ -276,20 +285,16 @@ notebook/docs/.data/
             }
             <span class="comment">// 资源静态内容</span>
             if (target.src) {
-                let file = readFile(Path.resolve(__dirname, '../md/'+target.src+'.md'), true)
-                
+                let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'), true)        
                 file = parseCode(file, target.path) <span class="comment">// 解析代码</span>
-                
                 <span class="comment">//SRC_UPDATETIME[target.src] && (modifyData = 'M ' + SRC_UPDATETIME[target.src])</span>
-
                 staticContent += `${file}\n`
             }
-            
+            let recordContent = target.prarent ? `&lt;a class="back" href="${target.prarent.path}"&gt;上一级&lt;/a&gt;&lt;a class="back" href="javascript:history.back();"&gt;返回&lt;/a&gt;` : `&lt;a class="back" href="javascript:history.back();"&gt;返回&lt;/a&gt;`
             content = `---\npageClass: theme-item\n---\n&lt;div class="extend-header"&gt;
             &lt;div class="info"&gt;
                 &lt;div class="record"&gt;
-                    &lt;a class="back" href="./"&gt;上一级&lt;/a&gt;
-                    &lt;a class="back" href="./"&gt;返回&lt;/a&gt;
+                    ${recordContent}
                 &lt;/div&gt;        
                 &lt;div class="mini"&gt;
                     &lt;span&gt;${modifyData}&lt;/span&gt;
@@ -652,7 +657,7 @@ notebook/docs/.data/
             let childStr = ''
             for (i in children) {
                 let {title} = children[i]
-                childStr += `- <a href="/${i}" target="_blank">︳${title}</a>\n`
+                childStr += `- &#91;︳${title}&#93;(/${i})\n`
             }
             content = `---\nsidebar: false\n---\n\n&lt;div class="root-children block-main"&gt;\n\n${childStr}\n&lt;/div&gt;\n\n## 文档地图\n` + content
             writeFile(path + '.md', content)

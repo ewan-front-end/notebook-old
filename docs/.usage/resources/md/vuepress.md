@@ -192,7 +192,9 @@ notebook/package.json ▾ // 设置scripts
     }↥
 notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./components/
     ↧const Path = require('path'), ARG_ARR = process.argv.slice(2)  // 命令参数
-    const { mkdirSync } = require('../.deploy/fs'), createFile = require('./components/createFile')
+    const { mkdirSync } = require('../.deploy/fs')
+    const createFile = require('./components/createFile')
+    const createHome = require('./components/createHome')
     let data = require('./index')
 
     // 依据路径获取数据
@@ -202,11 +204,16 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./compo
         return res
     }
     // 生成文件与结构
-    const createItem = (item, path) => {    
-        const absolutePath = Path.resolve(__dirname, '../' + path)
+    const createItem = (item, path) => { 
+        const absolutePath = Path.resolve(__dirname, '..' + path)
         if (item.children) {
             mkdirSync(absolutePath)
-            createFile(Path.resolve(absolutePath, 'README'), item)
+            let readmePath = Path.resolve(absolutePath, 'README')
+            if (path === '/') {
+                createHome(readmePath, item)
+            } else {
+                createFile(readmePath, item)
+            }
         } else {
             createFile(absolutePath, item)
         }
@@ -233,8 +240,10 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./compo
         handleData('', data, null)
     }↥    
     createFile.js ▾
-        ↧const Path = require('path')
+        ↧const PATH = require('path')
+        //const {fetch} = require('../config')
         const { writeFile, readFile } = require('../../.deploy/fs')
+        // const SRC_UPDATETIME = fetch("DATA|src:updateTime")
         const parseCode = require('./parseCode')
 
         module.exports = (fullPath, target) => {
@@ -267,20 +276,16 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./compo
             }
             // 资源静态内容
             if (target.src) {
-                let file = readFile(Path.resolve(__dirname, '../md/'+target.src+'.md'), true)
-                
-                file = parseCode(file, target.path) // 解析代码
-                
+                let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'), true)        
+                file = parseCode(file, target.path) // 解析代码        
                 //SRC_UPDATETIME[target.src] && (modifyData = 'M ' + SRC_UPDATETIME[target.src]) 
-
                 staticContent += `${file}\n`
             }
-            
+            let recordContent = target.prarent ? `<a class="back" href="${target.prarent.path}">上一级</a><a class="back" href="javascript:history.back();">返回</a>` : `<a class="back" href="javascript:history.back();">返回</a>`
             content = `---\npageClass: theme-item\n---\n<div class="extend-header">
             <div class="info">
                 <div class="record">
-                    <a class="back" href="./">上一级</a>
-                    <a class="back" href="./">返回</a>
+                    ${recordContent}
                 </div>        
                 <div class="mini">
                     <span>${modifyData}</span>
@@ -649,7 +654,7 @@ notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
             let childStr = ''
             for (i in children) {
                 let {title} = children[i]
-                childStr += `- [︳${title}](/${i})\n`
+                childStr += `- &#91;︳${title}&#93;(/${i})\n`
             }
             content = `---\nsidebar: false\n---\n\n<div class="root-children block-main">\n\n${childStr}\n</div>\n\n## 文档地图\n` + content
             writeFile(path + '.md', content)
