@@ -71,7 +71,7 @@ notebook/docs/.deploy/index.js ▾{background-color:#6d6;color:#fff}  创建 .vu
     })↥
 notebook/docs/.deploy/fs.js ▾
     ↧const fs = require('fs')
-    const Path= require("path")
+    const path= require("path")
 
     // 递归创建目录 同步方法
     function checkDirSync(dirname) {
@@ -79,14 +79,13 @@ notebook/docs/.deploy/fs.js ▾
             // console.log('目录已存在：' + dirname)
             return {message: "目录已存在", state: 1}
         } else {
-            if (checkDirSync(Path.dirname(dirname))) {
+            if (checkDirSync(path.dirname(dirname))) {
                 try {
                     fs.mkdirSync(dirname)                
                     return {message: "目录已创建", state: 2}
                 } catch (err) {
                     console.error(err)
-                }            
-                
+                }
             }
         }
     }
@@ -113,11 +112,13 @@ notebook/docs/.deploy/fs.js ▾
             })
         },
         readFile: (path, ifNoCreateOne) => {
-            if (ifNoCreateOne) {
-                checkDirSync(Path.dirname(path))
-                if (!fs.existsSync(path)) module.exports.writeFileSync(path, `新建文件：${path}`)
+            if (fs.existsSync(path)) {
+                return fs.readFileSync(path, 'utf8')
+            } else if (ifNoCreateOne) {
+                module.exports.writeFileSync(path, ``)
+                return fs.readFileSync(path, 'utf8')
             }
-            return fs.readFileSync(path, 'utf8')
+            return null
         },
         editWritCommonFile: (path, editHandler) => {
             const fileObj = require(path)
@@ -185,6 +186,7 @@ notebook/docs/.data/md/ ▾ 资源库
     
 notebook/package.json ▾ // 设置scripts
     ↧"scripts": { 
+        "docs:dev": "concurrently \"npm run data:watch\" \"npm run res:watch\" \"vuepress dev docs\"", // npm install concurrently -g
         "data:create": "node docs/.data/data-create.js", // 创建DATA到MD
         "data:watch": "node docs/.data/data-watch.js",   // 监听数据变化创建DATA到MD
         "res:create": "node docs/.data/res-create.js",    // 创建MD到DOC
@@ -199,8 +201,17 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./compo
 
     // 依据路径获取数据
     const getDataByPath = path => {
+        console.log('---',path);
         let arr = path.substring(1).split('/'), res = data, prop
-        while (prop = arr.shift()) {prop && (res = res.children[prop])}
+        res.path = '/'
+        while (prop = arr.shift()) {
+            const parentPath = res.path
+            if (prop) {
+                res = res.children[prop]
+                res.path = parentPath + prop
+            }
+        }
+        res.path = path
         return res
     }
     // 生成文件与结构
@@ -241,64 +252,65 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./compo
     }↥    
     createFile.js ▾
         ↧const PATH = require('path')
-        //const {fetch} = require('../config')
-        const { writeFile, readFile } = require('../../.deploy/fs')
-        // const SRC_UPDATETIME = fetch("DATA|src:updateTime")
-        const parseCode = require('./parseCode')
+const { writeFile, readFile } = require('../../.deploy/fs')
+const parseCode = require('./parseCode')
 
-        module.exports = (fullPath, target) => {
-            let content
-            let childrenContent = '' // 主题子类 
-            let linksContent = ''    // 主题链接
-            let contentHeader = ''   // 主题标题、说明、详情
-            let staticContent = ''   // 资源静态内容
-            let date = new Date()
-            let modifyData = 'N ' + date.toJSON().slice(0, 10).replace(/-/g, '.') + ' ' + date.toString().match(/(\d{2}\:\d{2})\:\d{2}/)[1] // 创建或更新时间
-
-            // 主题子类
-            //if(target.children) childrenContent = `<div class="custom-block children"><ul>${target.children.map(({path, title}) => `<li><a href="${path}">${title}</a></li>`).join('')}</ul></div>`   
-            if(target.children) {
-                let liItems = ''
-                for (i in target.children) {
-                    const {path, title} = target.children[i]
-                    liItems += `<li><a href="${path}">${title}</a></li>`
-                }
-                childrenContent = `<div class="custom-block children"><ul>${liItems}</ul></div>`
-            }
-            // 主题链接
-            if(target.links) linksContent = `<div class="custom-block links">\n<ul class="desc">\n${target.links.map(({name, href}) => `<li><a href="${href}">${name}</a></li>\n`).join('')}</ul>\n</div>`    
-            // 主题标题、说明、详情    
-            if (target.title || target.desc || target.detail) {
-                const titleStr = target.title ? `<h1>${target.title}</h1><strong>${target.title}</strong>\n` : ''
-                const descStr = target.desc ? `<summary class="desc">${target.desc}</summary>\n` : ''
-                const detailStr = target.detail ? `<detail>${target.detail}</detail>\n` : ''
-                contentHeader += `<div class="content-header">\n${titleStr}${descStr}${detailStr}</div>`
-            }
-            // 资源静态内容
-            if (target.src) {
-                let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'), true)        
-                file = parseCode(file, target.path) // 解析代码        
-                //SRC_UPDATETIME[target.src] && (modifyData = 'M ' + SRC_UPDATETIME[target.src]) 
-                staticContent += `${file}\n`
-            }
-            let recordContent = target.prarent ? `<a class="back" href="${target.prarent.path}">上一级</a><a class="back" href="javascript:history.back();">返回</a>` : `<a class="back" href="javascript:history.back();">返回</a>`
-            content = `---\npageClass: theme-item\n---\n<div class="extend-header">
-            <div class="info">
-                <div class="record">
-                    ${recordContent}
-                </div>        
-                <div class="mini">
-                    <span>${modifyData}</span>
-                </div>
-            </div>
-            <div class="content">${childrenContent}${linksContent}</div>
+module.exports = (fullPath, target) => {
+    let childrenContent = '' // 主题子类
+    let linksContent = ''    // 主题链接
+    let contentHeader = ''   // 主题标题、说明、详情
+    let staticContent = ''   // 资源静态内容
+    let date = new Date()
+    let modifyData = 'N ' + date.toJSON().slice(0, 10).replace(/-/g, '.') + ' ' + date.toString().match(/(\d{2}\:\d{2})\:\d{2}/)[1] // 创建或更新时间
+    // 主题子类
+    if(target.children) {
+        let liItems = ''
+        for (i in target.children) {
+            const {title} = target.children[i]
+            console.log();
+            liItems += `<li><a href="${target.path + i}">${title}</a></li>`
+        }
+        childrenContent = `<div class="custom-block children"><ul>${liItems}</ul></div>`
+    }
+    // 主题链接
+    if(target.links) linksContent = `<div class="custom-block links">\n<ul class="desc">\n${target.links.map(({name, href}) => `<li><a href="${href}">${name}</a></li>\n`).join('')}</ul>\n</div>`    
+    // 主题标题、说明、详情
+    if (target.title || target.desc || target.detail) {
+        const titleStr = target.title ? `<h1>${target.title}</h1><strong>${target.title}</strong>\n` : ''
+        const descStr = target.desc ? `<summary class="desc">${target.desc}</summary>\n` : ''
+        const detailStr = target.detail ? `<detail>${target.detail}</detail>\n` : ''
+        contentHeader += `<div class="content-header">\n${titleStr}${descStr}${detailStr}</div>`
+    }
+    // 资源静态内容
+    if (target.src) {
+        let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'))  
+        if (file) {
+            file = parseCode(file, target.path)
+            staticContent += `${file}\n`
+        }   
+    }
+    let recordContent = target.prarent ? `<a class="back" href="${target.prarent.path}">上一级</a><a class="back" href="javascript:history.back();">返回</a>` : `<a class="back" href="javascript:history.back();">返回</a>`
+                 
+    writeFile(fullPath + '.md', 
+`---
+pageClass: theme-item
+---
+<div class="extend-header">
+    <div class="info">
+        <div class="record">
+            ${recordContent}
+        </div>        
+        <div class="mini">
+            <span>${modifyData}</span>
         </div>
-        ${contentHeader}
-        <div class="static-content">
-        \n${staticContent}
-        </div>`                 
-            writeFile(fullPath + '.md', content)
-        }↥
+    </div>
+    <div class="content">${childrenContent}${linksContent}</div>
+</div>
+${contentHeader}
+<div class="static-content">
+    ${staticContent}
+</div>`)
+}↥
     parseCode.js ▾
         ↧/**
         * 弹性盒子
@@ -573,7 +585,7 @@ notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
         let path = parentPath + key    
         if (nNode.children) {
             path += '/'
-            if (oNode.children) {
+            if (oNode && oNode.children) {
                 handleDataChildren(oNode.children, nNode.children, path)
             } else {
                 diffPath.push(path)
@@ -581,8 +593,12 @@ notebook/docs/.data/data-watch.js ▾{background-color:#6d6;color:#fff}
             }        
         }
         for (var key in nNode) {
-            if (key === 'children' || key === 'path' || key === 'scene' || key === 'usage' || key === 'links') continue
-            if (nNode[key] !== oNode[key]) diffPath.push(path)
+            if (key === 'children' || key === 'path' || key === 'scene' || key === 'usage' || key === 'links' || key === 'peripheral') continue
+            if (oNode) {
+                nNode[key] !== oNode[key] && diffPath.push(path)
+            } else {
+                diffPath.push(path)
+            }
         }
     }
 
@@ -653,8 +669,8 @@ notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
             let content = readFile(Path.resolve(__dirname, '../md/'+src+'.md'))
             let childStr = ''
             for (i in children) {
-                let {title} = children[i]
-                childStr += `- &#91;︳${title}&#93;(/${i})\n`
+                let child = children[i], title = child.title || child.linkName || i
+                childStr += `- [︳${title}](/${i})\n`
             }
             content = `---\nsidebar: false\n---\n\n<div class="root-children block-main">\n\n${childStr}\n</div>\n\n## 文档地图\n` + content
             writeFile(path + '.md', content)
@@ -665,7 +681,7 @@ notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
     chokidar.watch(Path.resolve(__dirname, './md'))
         .on('error', error => log(`资源监听错误: ${error}`)) 
         .on('change', path => {            
-            /md[\\\/]([\w-]+)\.md/.exec(path)
+            /md&#91;\\\/&#93;([\w-]+)\.md/.exec(path)
             if (RegExp.$1) { 
                 exec(`node ${Path.resolve(__dirname, 'res-create.js')} ${RegExp.$1}`, function(error, stdout, stderr) {
                     error && console.log(error)

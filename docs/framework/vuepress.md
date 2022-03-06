@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.03.06 09:38</span>
+            <span>M 2022.03.06 19:32</span>
         </div>
     </div>
     <div class="content"></div>
@@ -28,14 +28,14 @@ pageClass: theme-item
 
 <pre class="code-block">
 <span class="title1" style="margin-top:15px;"><i></i>实现一个VuePress插件</span>
-<div class="block-detail"><span class="detail-desc">docs/.vuepress/config.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">docs/.vuepress/config.js</span><span class="comment"></span><div class="detail-content">    <span>module.exports = {
         plugins: [
             require('./vuepress-plugin-super-block'), <span class="comment">// path.resolve(__dirname, './vuepress-plugin-super-block/index.js')</span>
         ]
     }</span></div></div>
 docs/.vuepress/vuepress-plugin-super-block/
 <span class="block-command">vuepress-plugin-super-block</span> npm init -y
-<div class="block-detail"><span class="detail-desc">docs/.vuepress/vuepress-plugin-super-block/index.js</span><span class="comment"></span><div class="detail-content">    <span><span class="comment">/** 
+<div class="block-detail"><span class="detail-desc">docs/.vuepress/vuepress-plugin-super-block/index.js</span><span class="comment"></span><div class="detail-content">    <span><span class="comment">/** 
      * @param {*} options 插件的配置选项
      * @param {*} ctx 编译期上下文
      * @returns 
@@ -61,8 +61,8 @@ notebook/
 <span class="block-command">notebook</span> npm init -y
 <span class="block-command">notebook</span> npm install vuepress@1.8.2 --save-dev
 notebook/docs/
-<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/docs/README.md</span><span class="comment"> </span><div class="detail-content">    <span>Hello VuePress</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"></span><div class="detail-content">    <span>"scripts": {
         "docs:dev": "vuepress dev docs", 
         "docs:build": "vuepress build docs"
     }</span></div></div>
@@ -71,7 +71,7 @@ notebook/docs/
 
 <span class="h2 bg3 cf"> 部署基础功能 </span>
 notebook/docs/.deploy/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/config.js</span><span class="comment"> 配置 目录定位、资源调度、工具整理、结构配置</span><div class="detail-content">    <span>const PATH = require('path')
     const MAP_DIR = {
         ".vuepress": "../.vuepress"
     }
@@ -79,14 +79,14 @@ notebook/docs/.deploy/
     module.exports.dir = key =&gt; {
         return PATH.resolve(__dirname, MAP_DIR[key])
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config.js')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.deploy/index.js</span><span class="comment">  创建 .vuepress 目录</span><div class="detail-content">    <span>const {utils, dir} = require('./config.js')
     const { mkdirSync } = require('./fs.js')
 
     mkdirSync(dir('.vuepress'), res =&gt; {
         console.log('创建目录：docs/.vuepress', res.message)
     })</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/fs.js</span><span class="comment"></span><div class="detail-content">    <span>const fs = require('fs')
-    const Path= require("path")
+<div class="block-detail"><span class="detail-desc">notebook/docs/.deploy/fs.js</span><span class="comment"></span><div class="detail-content">    <span>const fs = require('fs')
+    const path= require("path")
 
     <span class="comment">// 递归创建目录 同步方法</span>
     function checkDirSync(dirname) {
@@ -94,14 +94,13 @@ notebook/docs/.deploy/
             <span class="comment">// console.log('目录已存在：' + dirname)</span>
             return {message: "目录已存在", state: 1}
         } else {
-            if (checkDirSync(Path.dirname(dirname))) {
+            if (checkDirSync(path.dirname(dirname))) {
                 try {
                     fs.mkdirSync(dirname)                
                     return {message: "目录已创建", state: 2}
                 } catch (err) {
                     console.error(err)
-                }            
-                
+                }
             }
         }
     }
@@ -128,11 +127,13 @@ notebook/docs/.deploy/
             })
         },
         readFile: (path, ifNoCreateOne) =&gt; {
-            if (ifNoCreateOne) {
-                checkDirSync(Path.dirname(path))
-                if (!fs.existsSync(path)) module.exports.writeFileSync(path, `新建文件：${path}`)
+            if (fs.existsSync(path)) {
+                return fs.readFileSync(path, 'utf8')
+            } else if (ifNoCreateOne) {
+                module.exports.writeFileSync(path, ``)
+                return fs.readFileSync(path, 'utf8')
             }
-            return fs.readFileSync(path, 'utf8')
+            return null
         },
         editWritCommonFile: (path, editHandler) =&gt; {
             const fileObj = require(path)
@@ -176,14 +177,14 @@ notebook/docs/.deploy/
             return fs.existsSync(path)
         }
     }</span></div></div>   
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment">           添加 deploy 脚本命令</span><div class="detail-content">    <span>"scripts": {
         "deploy": "node docs/.deploy/index.js"        
     }</span></div></div>
 <span class="block-command">notebook</span> npm run <span style="color:#0c0">deploy</span> 
 
 <span class="h2 bg3 cf"> 建立文档体系 </span>
 notebook/docs/.data/
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"> 数据源</span><div class="detail-content">    <span>module.exports = {
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/index.js</span><span class="comment"> 数据源</span><div class="detail-content">    <span>module.exports = {
         vue: {
             title: 'Vue', src: 'vue/index',
             links: [{ name: 'vue-element-admin', href: 'vue/vue-element-admin/index' }],
@@ -193,15 +194,16 @@ notebook/docs/.data/
             }
         }
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/md/</span><span class="comment"> 资源库</span><div class="detail-content">    <span>vue.md</span></div></div>
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/md/</span><span class="comment"> 资源库</span><div class="detail-content">    <span>vue.md</span></div></div>
     
-<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { 
+<div class="block-detail"><span class="detail-desc">notebook/package.json</span><span class="comment"> <span class="comment">// 设置scripts</span></span><div class="detail-content">    <span>"scripts": { 
+        "docs:dev": "concurrently \"npm run data:watch\" \"npm run res:watch\" \"vuepress dev docs\"", <span class="comment">// npm install concurrently -g</span>
         "data:create": "node docs/.data/data-create.js", <span class="comment">// 创建DATA到MD</span>
         "data:watch": "node docs/.data/data-watch.js",   <span class="comment">// 监听数据变化创建DATA到MD</span>
         "res:create": "node docs/.data/res-create.js",    <span class="comment">// 创建MD到DOC</span>
         "res:watch": "node docs/.data/res-watch.js"        <span class="comment">// 监听MD变化创建MD到DOC</span>
     }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"> ./components/</span><div class="detail-content">    <span>const Path = require('path'), ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-create.js</span><span class="comment"> ./components/</span><div class="detail-content">    <span>const Path = require('path'), ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
     const { mkdirSync } = require('../.deploy/fs')
     const createFile = require('./components/createFile')
     const createHome = require('./components/createHome')
@@ -209,8 +211,17 @@ notebook/docs/.data/
 
     <span class="comment">// 依据路径获取数据</span>
     const getDataByPath = path =&gt; {
+        console.log('---',path);
         let arr = path.substring(1).split('/'), res = data, prop
-        while (prop = arr.shift()) {prop && (res = res.children[prop])}
+        res.path = '/'
+        while (prop = arr.shift()) {
+            const parentPath = res.path
+            if (prop) {
+                res = res.children[prop]
+                res.path = parentPath + prop
+            }
+        }
+        res.path = path
         return res
     }
     <span class="comment">// 生成文件与结构</span>
@@ -249,66 +260,67 @@ notebook/docs/.data/
         }
         handleData('', data, null)
     }</span></div></div>    
-<div class="block-detail">    <span class="detail-desc">createFile.js</span><span class="comment"></span><div class="detail-content">        <span>const PATH = require('path')
-        <span class="comment">//const {fetch} = require('../config')</span>
-        const { writeFile, readFile } = require('../../.deploy/fs')
-        <span class="comment">// const SRC_UPDATETIME = fetch("DATA|src:updateTime")</span>
-        const parseCode = require('./parseCode')
+<div class="block-detail">    <span class="detail-desc">createFile.js</span><span class="comment"></span><div class="detail-content">        <span>const PATH = require('path')
+const { writeFile, readFile } = require('../../.deploy/fs')
+const parseCode = require('./parseCode')
 
-        module.exports = (fullPath, target) =&gt; {
-            let content
-            let childrenContent = '' <span class="comment">// 主题子类</span>
-            let linksContent = ''    <span class="comment">// 主题链接</span>
-            let contentHeader = ''   <span class="comment">// 主题标题、说明、详情</span>
-            let staticContent = ''   <span class="comment">// 资源静态内容</span>
-            let date = new Date()
-            let modifyData = 'N ' + date.toJSON().slice(0, 10).replace(/-/g, '.') + ' ' + date.toString().match(/(\d{2}\:\d{2})\:\d{2}/)[1] <span class="comment">// 创建或更新时间</span>
-
-            <span class="comment">// 主题子类</span>
-            <span class="comment">//if(target.children) childrenContent = `&lt;div class="custom-block children"&gt;&lt;ul&gt;${target.children.map(({path, title}) =&gt; `&lt;li&gt;&lt;a href="${path}"&gt;${title}&lt;/a&gt;&lt;/li&gt;`).join('')}&lt;/ul&gt;&lt;/div&gt;`</span>
-            if(target.children) {
-                let liItems = ''
-                for (i in target.children) {
-                    const {path, title} = target.children[i]
-                    liItems += `&lt;li&gt;&lt;a href="${path}"&gt;${title}&lt;/a&gt;&lt;/li&gt;`
-                }
-                childrenContent = `&lt;div class="custom-block children"&gt;&lt;ul&gt;${liItems}&lt;/ul&gt;&lt;/div&gt;`
-            }
-            <span class="comment">// 主题链接</span>
-            if(target.links) linksContent = `&lt;div class="custom-block links"&gt;\n&lt;ul class="desc"&gt;\n${target.links.map(({name, href}) =&gt; `&lt;li&gt;&lt;a href="${href}"&gt;${name}&lt;/a&gt;&lt;/li&gt;\n`).join('')}&lt;/ul&gt;\n&lt;/div&gt;`    
-            <span class="comment">// 主题标题、说明、详情</span>
-            if (target.title || target.desc || target.detail) {
-                const titleStr = target.title ? `&lt;h1&gt;${target.title}&lt;/h1&gt;&lt;strong&gt;${target.title}&lt;/strong&gt;\n` : ''
-                const descStr = target.desc ? `&lt;summary class="desc"&gt;${target.desc}&lt;/summary&gt;\n` : ''
-                const detailStr = target.detail ? `&lt;detail&gt;${target.detail}&lt;/detail&gt;\n` : ''
-                contentHeader += `&lt;div class="content-header"&gt;\n${titleStr}${descStr}${detailStr}&lt;/div&gt;`
-            }
-            <span class="comment">// 资源静态内容</span>
-            if (target.src) {
-                let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'), true)        
-                file = parseCode(file, target.path) <span class="comment">// 解析代码</span>
-                <span class="comment">//SRC_UPDATETIME[target.src] && (modifyData = 'M ' + SRC_UPDATETIME[target.src])</span>
-                staticContent += `${file}\n`
-            }
-            let recordContent = target.prarent ? `&lt;a class="back" href="${target.prarent.path}"&gt;上一级&lt;/a&gt;&lt;a class="back" href="javascript:history.back();"&gt;返回&lt;/a&gt;` : `&lt;a class="back" href="javascript:history.back();"&gt;返回&lt;/a&gt;`
-            content = `---\npageClass: theme-item\n---\n&lt;div class="extend-header"&gt;
-            &lt;div class="info"&gt;
-                &lt;div class="record"&gt;
-                    ${recordContent}
-                &lt;/div&gt;        
-                &lt;div class="mini"&gt;
-                    &lt;span&gt;${modifyData}&lt;/span&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="content"&gt;${childrenContent}${linksContent}&lt;/div&gt;
+module.exports = (fullPath, target) =&gt; {
+    let childrenContent = '' <span class="comment">// 主题子类</span>
+    let linksContent = ''    <span class="comment">// 主题链接</span>
+    let contentHeader = ''   <span class="comment">// 主题标题、说明、详情</span>
+    let staticContent = ''   <span class="comment">// 资源静态内容</span>
+    let date = new Date()
+    let modifyData = 'N ' + date.toJSON().slice(0, 10).replace(/-/g, '.') + ' ' + date.toString().match(/(\d{2}\:\d{2})\:\d{2}/)[1] <span class="comment">// 创建或更新时间</span>
+    <span class="comment">// 主题子类</span>
+    if(target.children) {
+        let liItems = ''
+        for (i in target.children) {
+            const {title} = target.children[i]
+            console.log();
+            liItems += `&lt;li&gt;&lt;a href="${target.path + i}"&gt;${title}&lt;/a&gt;&lt;/li&gt;`
+        }
+        childrenContent = `&lt;div class="custom-block children"&gt;&lt;ul&gt;${liItems}&lt;/ul&gt;&lt;/div&gt;`
+    }
+    <span class="comment">// 主题链接</span>
+    if(target.links) linksContent = `&lt;div class="custom-block links"&gt;\n&lt;ul class="desc"&gt;\n${target.links.map(({name, href}) =&gt; `&lt;li&gt;&lt;a href="${href}"&gt;${name}&lt;/a&gt;&lt;/li&gt;\n`).join('')}&lt;/ul&gt;\n&lt;/div&gt;`    
+    <span class="comment">// 主题标题、说明、详情</span>
+    if (target.title || target.desc || target.detail) {
+        const titleStr = target.title ? `&lt;h1&gt;${target.title}&lt;/h1&gt;&lt;strong&gt;${target.title}&lt;/strong&gt;\n` : ''
+        const descStr = target.desc ? `&lt;summary class="desc"&gt;${target.desc}&lt;/summary&gt;\n` : ''
+        const detailStr = target.detail ? `&lt;detail&gt;${target.detail}&lt;/detail&gt;\n` : ''
+        contentHeader += `&lt;div class="content-header"&gt;\n${titleStr}${descStr}${detailStr}&lt;/div&gt;`
+    }
+    <span class="comment">// 资源静态内容</span>
+    if (target.src) {
+        let file = readFile(PATH.resolve(__dirname, '../md/'+target.src+'.md'))  
+        if (file) {
+            file = parseCode(file, target.path)
+            staticContent += `${file}\n`
+        }   
+    }
+    let recordContent = target.prarent ? `&lt;a class="back" href="${target.prarent.path}"&gt;上一级&lt;/a&gt;&lt;a class="back" href="javascript:history.back();"&gt;返回&lt;/a&gt;` : `&lt;a class="back" href="javascript:history.back();"&gt;返回&lt;/a&gt;`
+                 
+    writeFile(fullPath + '.md', 
+`---
+pageClass: theme-item
+---
+&lt;div class="extend-header"&gt;
+    &lt;div class="info"&gt;
+        &lt;div class="record"&gt;
+            ${recordContent}
+        &lt;/div&gt;        
+        &lt;div class="mini"&gt;
+            &lt;span&gt;${modifyData}&lt;/span&gt;
         &lt;/div&gt;
-        ${contentHeader}
-        &lt;div class="static-content"&gt;
-        \n${staticContent}
-        &lt;/div&gt;`                 
-            writeFile(fullPath + '.md', content)
-        }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">parseCode.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
+    &lt;/div&gt;
+    &lt;div class="content"&gt;${childrenContent}${linksContent}&lt;/div&gt;
+&lt;/div&gt;
+${contentHeader}
+&lt;div class="static-content"&gt;
+    ${staticContent}
+&lt;/div&gt;`)
+}</span></div></div>
+<div class="block-detail">    <span class="detail-desc">parseCode.js</span><span class="comment"></span><div class="detail-content">        <span><span class="comment">/**
         * 弹性盒子
         * 目标：&lt;div class="box-flex"&gt;&lt;div class="box-flex-item flex-8"&gt;col 01&lt;/div&gt;&lt;div class="box-flex-item classname" style="flex-basis:100px"&gt;col 02&lt;/div&gt;&lt;/div&gt;
         * 格式：
@@ -376,7 +388,7 @@ notebook/docs/.data/
                 
                 return code        
             }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">parseCustomBlock.js</span><span class="comment"></span><div class="detail-content">        <span>const &#123; fetch &#125; = require('&#46;&#46;&#47;&#46;&#46;&#47;config')
+<div class="block-detail">    <span class="detail-desc">parseCustomBlock.js</span><span class="comment"></span><div class="detail-content">        <span>const &#123; fetch &#125; = require('&#46;&#46;&#47;&#46;&#46;&#47;config')
         const Search = fetch('PARSE|search')
         const Aggregate = fetch('PARSE|aggregate')
         const &#123; regexpPresetParse, PRESET_CSS &#125; = fetch('UTILS|regexp-preset')
@@ -490,7 +502,7 @@ notebook/docs/.data/
             &#125;
 
         </span></div></div>
-<div class="block-detail">    <span class="detail-desc">regexp-preset.js</span><span class="comment"></span><div class="detail-content">        <span>function htmlEscape(content) {
+<div class="block-detail">    <span class="detail-desc">regexp-preset.js</span><span class="comment"></span><div class="detail-content">        <span>function htmlEscape(content) {
             return content.replace(/&/g, '&amp;').replace(/&lt;/g, '&lt;').replace(/&gt;/g, '&gt;')
         }
 
@@ -558,7 +570,7 @@ notebook/docs/.data/
                 ]
             }
         }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-watch.js</span><span class="comment"></span><div class="detail-content">    <span>const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/data-watch.js</span><span class="comment"></span><div class="detail-content">    <span>const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
 
     let dataFile = require('./index')
 
@@ -578,7 +590,7 @@ notebook/docs/.data/
         let path = parentPath + key    
         if (nNode.children) {
             path += '/'
-            if (oNode.children) {
+            if (oNode && oNode.children) {
                 handleDataChildren(oNode.children, nNode.children, path)
             } else {
                 diffPath.push(path)
@@ -586,8 +598,12 @@ notebook/docs/.data/
             }        
         }
         for (var key in nNode) {
-            if (key === 'children' || key === 'path' || key === 'scene' || key === 'usage' || key === 'links') continue
-            if (nNode[key] !== oNode[key]) diffPath.push(path)
+            if (key === 'children' || key === 'path' || key === 'scene' || key === 'usage' || key === 'links' || key === 'peripheral') continue
+            if (oNode) {
+                nNode[key] !== oNode[key] && diffPath.push(path)
+            } else {
+                diffPath.push(path)
+            }
         }
     }
 
@@ -609,7 +625,7 @@ notebook/docs/.data/
                 dataFile = dataFile2
             })
         })</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-create.js</span><span class="comment"></span><div class="detail-content">    <span>const Path = require('path'), ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-create.js</span><span class="comment"></span><div class="detail-content">    <span>const Path = require('path'), ARG_ARR = process.argv.slice(2)  <span class="comment">// 命令参数</span>
     const createFile = require('./components/createFile')
     const createHome = require('./components/createHome')
 
@@ -648,7 +664,7 @@ notebook/docs/.data/
             console.log(`数据结构里不存在资源：${name}.md`)
         }    
     }</span></div></div>
-<div class="block-detail">    <span class="detail-desc">./components/createHome.js</span><span class="comment"></span><div class="detail-content">        <span>const Path = require('path')
+<div class="block-detail">    <span class="detail-desc">./components/createHome.js</span><span class="comment"></span><div class="detail-content">        <span>const Path = require('path')
         const { writeFile, readFile } = require('../../.deploy/fs')
 
         module.exports = (path, node) =&gt; { 
@@ -656,18 +672,18 @@ notebook/docs/.data/
             let content = readFile(Path.resolve(__dirname, '../md/'+src+'.md'))
             let childStr = ''
             for (i in children) {
-                let {title} = children[i]
-                childStr += `- &#91;︳${title}&#93;(/${i})\n`
+                let child = children[i], title = child.title || child.linkName || i
+                childStr += `- <a href="/${i}" target="_blank">︳${title}</a>\n`
             }
             content = `---\nsidebar: false\n---\n\n&lt;div class="root-children block-main"&gt;\n\n${childStr}\n&lt;/div&gt;\n\n## 文档地图\n` + content
             writeFile(path + '.md', content)
         }</span></div></div>
-<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-watch.js</span><span class="comment"></span><div class="detail-content">    <span>const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
+<div class="block-detail"><span class="detail-desc" style="background-color:#6d6;color:#fff">notebook/docs/.data/res-watch.js</span><span class="comment"></span><div class="detail-content">    <span>const exec = require('child_process').exec, Path = require('path'), chokidar = require('chokidar')
 
     chokidar.watch(Path.resolve(__dirname, './md'))
         .on('error', error =&gt; log(`资源监听错误: ${error}`)) 
         .on('change', path =&gt; {            
-            /md<a href="[\w-]+" target="_blank">\\\/</a>\.md/.exec(path)
+            /md&#91;\\\/&#93;([\w-]+)\.md/.exec(path)
             if (RegExp.$1) { 
                 exec(`node ${Path.resolve(__dirname, 'res-create.js')} ${RegExp.$1}`, function(error, stdout, stderr) {
                     error && console.log(error)
@@ -678,7 +694,7 @@ notebook/docs/.data/
         })</span></div></div>
 
 <span class="h2 bg3 cf"> 聚合与维持 </span>
-<div class="block-detail"><span class="detail-desc">notebook/docs/.data/RES_INFO.json</span><span class="comment"></span><div class="detail-content">    <span>{
+<div class="block-detail"><span class="detail-desc">notebook/docs/.data/RES_INFO.json</span><span class="comment"></span><div class="detail-content">    <span>{
         links:[],
         editTime: ''
     }</span></div></div>
@@ -747,7 +763,7 @@ notebook/docs/.data/
     链接
         引入：[优先标题:vuepress#id]
         埋码：[ANCHOR#id:入库标题] 
-<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
+<div class="block-detail">        <span class="detail-desc">数据：</span><span class="comment"></span><div class="detail-content">            <span>vuepress:{
                 path:'', 
                 links: {
                     usage: '入库标题'
