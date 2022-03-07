@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.03.06 19:32</span>
+            <span>M 2022.03.07 20:41</span>
         </div>
     </div>
     <div class="content"></div>
@@ -214,6 +214,7 @@ notebook/docs/.data/
         console.log('---',path);
         let arr = path.substring(1).split('/'), res = data, prop
         res.path = '/'
+        console.log(arr);
         while (prop = arr.shift()) {
             const parentPath = res.path
             if (prop) {
@@ -575,13 +576,13 @@ ${contentHeader}
     let dataFile = require('./index')
 
     <span class="comment">// 对比差异</span>
-    const diffPath = []
+    const diffPath = {}
     const addChild = (node, path) =&gt; {
         if (node.children) {
-            diffPath.push(path + '/')
+            diffPath[path + '/'] = true
             addChildren(node.children, path + '/')
         } else {
-            diffPath.push(path)
+            diffPath[path] = true
         }
     }
     const addChildren = (children, parentPath) =&gt; {for (var key in children) {addChild(children[key], parentPath + key)}TEMPLATE}
@@ -593,16 +594,17 @@ ${contentHeader}
             if (oNode && oNode.children) {
                 handleDataChildren(oNode.children, nNode.children, path)
             } else {
-                diffPath.push(path)
+                diffPath[path] = true
                 addChildren(nNode.children, path)
             }        
         }
         for (var key in nNode) {
-            if (key === 'children' || key === 'path' || key === 'scene' || key === 'usage' || key === 'links' || key === 'peripheral') continue
-            if (oNode) {
-                nNode[key] !== oNode[key] && diffPath.push(path)
-            } else {
-                diffPath.push(path)
+            if (key === 'title' || key === 'desc') {
+                if (oNode) {
+                    nNode[key] !== oNode[key] && (diffPath[path] = true)
+                } else {
+                    diffPath[path] = true
+                }
             }
         }
     }
@@ -614,8 +616,9 @@ ${contentHeader}
             setTimeout(() =&gt; {
                 const dataFile2 = require('./index')
                 compareDiff(dataFile, dataFile2, '', '')
-                if (diffPath.length) {
-                    exec(`node ${Path.resolve(__dirname, 'data-create.js')} ${diffPath.join(' ')}`, function(error, stdout, stderr) {
+                const arr = Object.keys(diffPath)
+                if (arr.length) {
+                    exec(`node ${Path.resolve(__dirname, 'data-create.js')} ${arr.join(' ')}`, function(error, stdout, stderr) {
                         error && console.log(error)
                         stdout && console.log(stdout)
                         stderr && console.log(stderr)
@@ -692,6 +695,29 @@ ${contentHeader}
                 })
             }        
         })</span></div></div>
+
+<span class="h2 bg3 cf"> 为体系定义一个新主题 </span>
+<div class="block-detail">    <span class="detail-desc">主题结构规范</span><span class="comment"></span><div class="detail-content">    <span>├── global-components           该目录下的组件都会被自动注册为全局组件
+    │   └── xxx.vue
+    ├── components                  普通Vue组件
+    │   └── xxx.vue
+    ├── layouts                     布局组件
+    │   ├── Layout.vue              所有的页面会将此组件作为默认布局
+    │   ├── 404.vue                 匹配不到的路由
+    │   ├── AnotherLayout.vue       如有其它布局的需求: 1.创建此文件  2.在有此需求的.md文件顶部标识为 ---回车layout: AnotherLayout回车
+    │   └── GlobalLayout.vue        如想设置全局的UI如&lt;header&gt; #使用全局布局组件
+    ├── styles                      全局的样式和调色板
+    │   ├── index.styl
+    │   └── palette.styl
+    ├── templates                   修改默认的模板文件
+    │   ├── dev.html
+    │   └── ssr.html
+    ├── index.js                    主题文件的入口文件 如缺失 需要将package.json中的"main"字段设置为layouts/Layout.vue
+    ├── enhanceApp.js               主题水平的客户端增强文件
+    └── package.json</span></div></div>
+    <span class="block-command">notebook/docs</span> vuepress eject   <span class="comment">// 克隆默认主题代码</span>
+    
+
 
 <span class="h2 bg3 cf"> 聚合与维持 </span>
 <div class="block-detail"><span class="detail-desc">notebook/docs/.data/RES_INFO.json</span><span class="comment"></span><div class="detail-content">    <span>{

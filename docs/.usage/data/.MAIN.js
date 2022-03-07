@@ -35,8 +35,8 @@
  */
  
  module.exports = {
-    vue:{title:'Vue', src:'vue/index', links:[{name:'vue-element-admin',href:'vue/vue-element-admin/index'}], children:{}, peripheral:{
-        mvvm:{title:'MVVM模式', src:'vue/mvvm'}
+    vue:{title:'Vue', src:'vue-index', links:[{name:'vue-element-admin',href:'vue/vue-element-admin/index'}], children:{}, peripheral:{
+        mvvm:{title:'MVVM模式', src:'mvvm'}
     }},
     docs:{title:'文档', src:'docs', links:[{name:'vuepress',href:'/framework/vuepress'}, {name:'docsify',href:'/framework/docsify'}]},
     timeline:{title:'时间线', src:'timeline'},
@@ -44,7 +44,7 @@
         mysql:{title:'MySQL', src:'data-mysql'},
         mongodb:{title:'MongoDB', src:'data-mongodb'}
     }},
-    tools: {title:'工具&资源', src: 'tools/index', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
+    tools: {title:'工具&资源', src: 'tools.md', links:[{name:'文档', href:'/docs/'},{name:'Webpack', href:'/webpack'}], children: {            
         git: {linkName: 'Git', src:'git'},
         npm: {linkName: 'NPM', src:'npm', scene:[{title:'NPM内网源搭建', href:'/tools/npm', id:'NPM内网源搭建'},{title:'NPM版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:'源于node版本改变的匹配'}]},
         markdown: {linkName: 'Markdown', src:'markdown'},        
@@ -56,7 +56,7 @@
         regularExpression:{linkName:'正则表达式', src:'regular-expression'},
         eslint: {linkName: 'ESLint', src:'eslint'},
         htmlBundler: {title:'html-bundler', src:'html-bundler'},
-        postman: {title:'PostMan', src:'tools/postman'}
+        postman: {title:'PostMan', src:'postman'}
     }},     
     css:{title:'CSS', src:'css', desc:'层叠样式表(Cascading Style Sheets)', children:{
         preset:{title:'预处理', src:'css-preset'},
@@ -93,10 +93,10 @@
     algorithm:{linkName:'算法', src:'algorithm'},
     ecma: {linkName: 'ECMAScript规范', src:"ecmascript", links:[{name:'ES6', href:'/programmingLanguage/javascript/es6'}]},
     socket: {linkName:'Socket', src:'socket'},
-    node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], src:'node/index', children:{
-        plugin:{title:'插件', src:'node/plugin'},
+    node: {linkName: 'Node', scene:[{title:'Node版本管理',href:'/node',id:'版本管理'}], usage:[{title:'rvm',href:'/node',id:'版本管理',desc:['nvm list 显示已安装的列表','nvm list available 显示可安装的所有版本','nvm install 12.18.2 安装特定版本','nvm use 12.18.2 使用指定版本']}], src:'node', children:{
+        plugin:{title:'插件', src:'node-plugin'},
         framework:{title:'框架', src:'node-framework'},
-        package:{title:'描述文件package.json', src:'node/package'}
+        package:{title:'描述文件package.json', src:'package'}
     }},
     html5: {title:'HTML5', src:'html5'},
     javascript:{title: 'Javascript', src:'javascript', children:{
@@ -117,8 +117,8 @@
         vuepress:{linkName:'Vuepress', scene:[{title:'部署到一个非根路径',href:'/framework/vuepress', id:'部署到一个非根路径'},{title:'插入图片', href:'/framework/vuepress', id:'公共资源库'}], usage:{title:'Vuepress', href:'/framework/vuepress', id:'使用指南', desc:['创建 docs 目录','复制 .usage 到 docs/','基础部署 node docs/.usage/deploy.js','地图创建 node docs/.usage/create.js','npm run docs:dev']}, src:'vuepress'},
         docsify:{linkName:'Docsify', usage:{desc:['$ sudo npm i docsify-cli -g', 'demo> docsify init ./docs', 'demo> docsify serve docs']}}
     }, src:'framework'},
-    biaozhun: {title:'规范', src:'standard/index', children: {}},
-    frontend: {title:'前端体系', src:'frontend/index', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
+    biaozhun: {title:'规范', src:'standard', children: {}},
+    frontend: {title:'前端体系', src:'frontend', desc:'前后端的分离是系统级的分离，前端要有一整套完整的技术体系以更好地支持产品在终端形态上的快速演进，同时实现技术资源的横向复用。技术体系的线下层重点关注开发效率，基础设施层重点关注稳定性，保障层重点关注质量与可用性，业务层重点关注服务的全面性和可复用性。', children: {
         layerBusiness: { title: '业务层', desc: '重点关注服务的全面性和可复用性', children: {
             systemAuthentication: {title: '鉴权系统', desc: '集中处理登陆、支付等需要风险控制较高的公共业务', links:[{name:'账号体系', href:'/solution'},{name:'登陆', href:'./systemBusiness/libraryPublic/function/login'},{name:'支付', href:'../systemBusiness/libraryPublic/function/payment'}], src:'0001'},
             systemConfiguration: {title: '配置系统', desc: '集中管理各种配置项，比如功能开关，链接地址，AB测试控制等等。使用配置系统的好处是不用改代码并发布即可实现实时控制。集中配置项也更便于展示他们之间的关系。', linkName: ''},
@@ -151,11 +151,11 @@
                 pv: {title:'访问量统计'},
                 behavior: {title:'用户行为统计'}
             }},
-            systemTest: {title:'测试系统', src:'frontend/test', desc:'自动化测试是是一个锥形体系', children: {
+            systemTest: {title:'测试系统', src:'frontend-test', desc:'自动化测试是是一个锥形体系', children: {
                 static:{title: '静态检查', links:[{name:'Eslint', href:'tools/eslint'},{name:'JSCS'}]},
                 unit:{title: '单元测试', src:'unit', desc:'单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作', links:[{name:'Karma'},{name:'Jasmine'},{name:'Mocha'}, {name:'性能测试，安全测试和功能测试'}]},
                 e2e:{title: '端到端测试', desc:'从头到尾验证整个软件及其与外部接口的集成,以模拟完整的生产场景', links:[{name:'Protractor'},{name:'Nightwatch'},{name:'Selenium'}]},
-                ci:{title: '持续集成(Continuous integration 简称CI)', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入', src:'frontend/ci'},
+                ci:{title: '持续集成(Continuous integration 简称CI)', desc:'一种软件开发实践,基于将代码频繁集成到共享代码仓中,然后通过自动构建验证每个签入', src:'frontend-ci'},
             }}
         }},
         layerInfrastructure: {title: '基础设施层', desc: '重点关注系统稳定性', children: {
@@ -181,9 +181,9 @@
     }, links:[{name:'规范', href:'/standard'}, {name:'qiankun',href:'/tools/qiankun'}]},
     projects:{title:'项目', src:'projects'},
     other: {linkName:'其它', src:'other'},
-    computer: {title:'计算机', src:'computer/index', children:{
-        dataStructure: {title:'数据结构', src:'computer/data-structure'},
-        computerNetworks: {title:'计算机网络', src:'computer/networks'},
-        algorithm: {title:'算法', src:'computer/algorithm'}
+    computer: {title:'计算机', src:'computer', children:{
+        dataStructure: {title:'数据结构', src:'data-structure'},
+        computerNetworks: {title:'计算机网络', src:'networks'},
+        algorithm: {title:'算法', src:'algorithm'}
     }}
 }

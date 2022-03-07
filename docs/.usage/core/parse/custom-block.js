@@ -115,7 +115,7 @@ function parseCustomBlock(block, path) {
      * 【6】 12PX
      * 【fff#1#f00】颜色#等级#背景
      */
-    while (/^\x20*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/m.exec(block) !== null) {
+    while (/\x20*(【(\w{3,6}#)?(-)?(\d)(#\w{3,6})?】(.+))/.exec(block) !== null) {
         let classStr = `title${RegExp.$4}`
         let styleStr = `margin-top:${(6 - RegExp.$4) * 3}px;`
         if (RegExp.$2) styleStr += `color:#${RegExp.$2.replace('#', '')};`
