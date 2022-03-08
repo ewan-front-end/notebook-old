@@ -2,10 +2,10 @@
 // 可以控制根组件的生命周期
 export default {
     created () {
-        console.log('created');
+        console.log('created2');
     },
     mounted () {
-        console.log('mounted')
+        console.log('mounted2')
         
     },
     updated() {

@@ -1,10 +1,5 @@
 
 
-{
-    namespace: 'VUEPRESS',
-    links: []
-}
-
 ===+
 【1】实现一个VuePress插件
 docs/.vuepress/config.js ▾
@@ -715,7 +710,174 @@ notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
     ├── enhanceApp.js               主题水平的客户端增强文件
     └── package.json↥
     notebook/docs> vuepress eject   // 克隆默认主题代码
-    
+    notebook/docs/.vuepress/theme/styles/
+        index.styl ▾
+            ↧{$contentClass}:not(.custom)
+            //@extend $wrapper 注释掉这一行
+            
+            // 最底部
+            @require './code-r'
+            @require './custom-blocks-r'
+            @require './wrapper-r'
+            @require './index-r'
+            @require './main/index'↥
+        code-r.styl ▾
+            ↧{$contentClass}
+                pre, pre[class*="language-"]
+                    line-height 1.15
+                    padding 0.2rem 1.5rem 0.4rem 1.5rem
+                    background-color transparent
+                    border-radius 0px
+            div[class*="language-"]
+                border-radius 0px
+            div[class~="language-"]
+                background-color transparent
+            div[class~="language-"] pre[class~="language-text"] code
+                color #333↥
+        custom-blocks-r.styl ▾
+            ↧.custom-block
+                &.tip, &.warning, &.danger
+                    padding .1rem 1.5rem
+                    margin 1rem 0
+                &.tip
+                    .custom-block-title
+                        display none
+                    p
+                        line-height: 1.2
+                        padding 5px 0
+                &.warning
+                    .custom-block-title
+                        display none
+                    p
+                        line-height: 1.2
+                        padding 5px 0
+                &.danger
+                    .custom-block-title
+                        display none
+                    p
+                        line-height: 1.2
+                        padding 5px 0
+                &.details
+                    margin 0.2em 0
+                    padding 0.3em 1em↥
+        wrapper-r.styl ▾
+            ↧$wrapper
+                max-width none
+                padding 1rem 2.5rem 2rem 2.5rem↥
+        index-r.styl ▾
+            ↧html, body
+                font-size 12px
+
+            .sidebar
+                background-color #fafafa
+            blockquote
+                margin 0.5rem 0
+                padding 0 0 0 1rem
+            ul, ol
+                margin: 0.3rem 0
+            p, ul, ol
+                line-height 1.2↥
+        main/
+            index.styl ▾ 自定义的所有样式
+                ↧.theme-item .theme-default-content { min-height: 450px; }
+                .theme-default-content { padding: 10px 20px; position: relative; }
+                .static-content { padding-left: 50px; }    
+                .plantuml-demo {
+                    .start { color: #0c0; font-size: 18px; }
+                    .end { color: #f00; font-size: 18px; }
+                }
+                .code-block {
+                    line-height: 1.24; font-family: 'consolas', 'monospace', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                }
+                .test { border: #f00 1px solid; }
+                .inline { display: inline-block; }
+                .vtop { vertical-align: top; }
+                .vmid { vertical-align: middle; }
+                .vbom { vertical-align: bottom; }
+
+                @require './common'
+                @require './col'
+                @require './format-block'
+                @require './title'
+                @require './content-header'
+                @require './form-elements'
+                @require './extend-header'
+                @require './home'
+                @require './formatter'↥
+            common.styl ▾
+                ↧q↥
+            col.styl ▾
+                ↧q↥
+            format-block.styl ▾
+                ↧q↥
+            title.styl ▾
+                ↧q↥
+            content-header.styl ▾
+                ↧q↥
+            form-elements.styl ▾
+                ↧q↥
+            extend-header.styl ▾
+                ↧q↥
+            home.styl ▾
+                ↧q↥
+            formatter.styl ▾
+                ↧q↥
+    用插件协助代码解析
+        .vuepress/config.js ▾
+            ↧module.exports = {
+                plugins: [
+                    require('./vuepress-plugin-super-block'), // path.resolve(__dirname, './vuepress-plugin-super-block/index.js')
+                ]
+            }↥
+        .vuepress/vuepress-plugin-super-block/index.js ▾
+            ↧const path = require('path')
+            /**
+             * @param {*} options 插件的配置选项
+             * @param {*} ctx 编译期上下文
+             * @returns
+             */
+            module.exports = (options, ctx) => {
+                return {
+                    name: 'vuepress-plugin-super-block',
+                    async ready() {
+                        console.log('********Hello World superblock!');
+                    },
+                    clientRootMixin: path.resolve(__dirname, 'clientRootMixin.js')
+                }
+            }↥
+        .vuepress/vuepress-plugin-super-block/clientRootMixin.js ▾
+            ↧// 可以控制根组件的生命周期
+            export default {
+                created () {
+                    console.log('created');
+                },
+                mounted () {
+                    console.log('mounted')
+                },
+                updated() {
+                    console.log('updated')
+                    document.querySelectorAll('pre').forEach(el => {
+                        //el.innerHTML = el.innerHTML.replace(/\{TEMPLATE\{/g, '{{').replace(/\}TEMPLATE\}/g, '}}')
+                        //console.log(document.querySelector('body').innerHTML.match(/\{TEMPLATE\{/));
+                        const arr = el.innerHTML.match(/\{TEMPLATE\{/g)
+                        if (arr) {
+                            console.log(arr);
+                            el.innerHTML = el.innerHTML.replace(/\{TEMPLATE\{/g, '{{').replace(/\}TEMPLATE\}/g, '}}')
+                        }
+                    })
+                    const $details = document.querySelectorAll('.detail-desc')
+                    $details.forEach(dom => {
+                        dom.addEventListener('click', e => {
+                            let tar = e.currentTarget.parentNode
+                            tar.className = tar.className === 'fold-detail' ? 'fold-detail active' : 'fold-detail'
+                        })
+                    })
+                },
+                // 生产环境的构建结束后被调用
+                async generated (pagePaths) {
+                    console.log('generated')
+                }
+            }↥
 
 
 [##] 聚合与维持

@@ -8,7 +8,7 @@ pageClass: theme-item
             <a class="back" href="./">返回</a>
         </div>        
         <div class="mini">
-            <span>M 2022.03.07 20:41</span>
+            <span>M 2022.03.08 19:38</span>
         </div>
     </div>
     <div class="content"></div>
@@ -19,11 +19,6 @@ pageClass: theme-item
 <div class="static-content">
 
 
-
-{
-    namespace: 'VUEPRESS',
-    links: []
-}
 
 
 <pre class="code-block">
@@ -716,7 +711,156 @@ ${contentHeader}
     ├── enhanceApp.js               主题水平的客户端增强文件
     └── package.json</span></div></div>
     <span class="block-command">notebook/docs</span> vuepress eject   <span class="comment">// 克隆默认主题代码</span>
-    
+    notebook/docs/.vuepress/theme/styles/
+<div class="block-detail">        <span class="detail-desc">index.styl</span><span class="comment"></span><div class="detail-content">            <span>{$contentClass}:not(.custom)
+            <span class="comment">//@extend $wrapper 注释掉这一行</span>
+            
+            <span class="comment">// 最底部</span>
+            @require './code-r'
+            @require './custom-blocks-r'
+            @require './wrapper-r'
+            @require './index-r'
+            @require './main/index'</span></div></div>
+<div class="block-detail">        <span class="detail-desc">code-r.styl</span><span class="comment"></span><div class="detail-content">            <span>{$contentClass}
+                pre, pre[class*="language-"]
+                    line-height 1.15
+                    padding 0.2rem 1.5rem 0.4rem 1.5rem
+                    background-color transparent
+                    border-radius 0px
+            div[class*="language-"]
+                border-radius 0px
+            div[class~="language-"]
+                background-color transparent
+            div[class~="language-"] pre[class~="language-text"] code
+                color #333</span></div></div>
+<div class="block-detail">        <span class="detail-desc">custom-blocks-r.styl</span><span class="comment"></span><div class="detail-content">            <span>.custom-block
+                &.tip, &.warning, &.danger
+                    padding .1rem 1.5rem
+                    margin 1rem 0
+                &.tip
+                    .custom-block-title
+                        display none
+                    p
+                        line-height: 1.2
+                        padding 5px 0
+                &.warning
+                    .custom-block-title
+                        display none
+                    p
+                        line-height: 1.2
+                        padding 5px 0
+                &.danger
+                    .custom-block-title
+                        display none
+                    p
+                        line-height: 1.2
+                        padding 5px 0
+                &.details
+                    margin 0.2em 0
+                    padding 0.3em 1em</span></div></div>
+<div class="block-detail">        <span class="detail-desc">wrapper-r.styl</span><span class="comment"></span><div class="detail-content">            <span>$wrapper
+                max-width none
+                padding 1rem 2.5rem 2rem 2.5rem</span></div></div>
+<div class="block-detail">        <span class="detail-desc">index-r.styl</span><span class="comment"></span><div class="detail-content">            <span>html, body
+                font-size 12px
+
+            .sidebar
+                background-color #fafafa
+            blockquote
+                margin 0.5rem 0
+                padding 0 0 0 1rem
+            ul, ol
+                margin: 0.3rem 0
+            p, ul, ol
+                line-height 1.2</span></div></div>
+        main/
+<div class="block-detail">            <span class="detail-desc">index.styl</span><span class="comment"> 自定义的所有样式</span><div class="detail-content">                <span>.theme-item .theme-default-content { min-height: 450px; }
+                .theme-default-content { padding: 10px 20px; position: relative; }
+                .static-content { padding-left: 50px; }    
+                .plantuml-demo {
+                    .start { color: #0c0; font-size: 18px; }
+                    .end { color: #f00; font-size: 18px; }
+                }
+                .code-block {
+                    line-height: 1.24; font-family: 'consolas', 'monospace', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                }
+                .test { border: #f00 1px solid; }
+                .inline { display: inline-block; }
+                .vtop { vertical-align: top; }
+                .vmid { vertical-align: middle; }
+                .vbom { vertical-align: bottom; }
+
+                @require './common'
+                @require './col'
+                @require './format-block'
+                @require './title'
+                @require './content-header'
+                @require './form-elements'
+                @require './extend-header'
+                @require './home'
+                @require './formatter'</span></div></div>
+<div class="block-detail">            <span class="detail-desc">common.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">col.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">format-block.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">title.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">content-header.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">form-elements.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">extend-header.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">home.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+<div class="block-detail">            <span class="detail-desc">formatter.styl</span><span class="comment"></span><div class="detail-content">                <span>q</span></div></div>
+    用插件协助代码解析
+<div class="block-detail">        <span class="detail-desc">.vuepress/config.js</span><span class="comment"></span><div class="detail-content">            <span>module.exports = {
+                plugins: [
+                    require('./vuepress-plugin-super-block'), <span class="comment">// path.resolve(__dirname, './vuepress-plugin-super-block/index.js')</span>
+                ]
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">.vuepress/vuepress-plugin-super-block/index.js</span><span class="comment"></span><div class="detail-content">            <span>const path = require('path')
+            <span class="comment">/**
+             * @param {*} options 插件的配置选项
+             * @param {*} ctx 编译期上下文
+             * @returns
+             */</span>
+            module.exports = (options, ctx) =&gt; {
+                return {
+                    name: 'vuepress-plugin-super-block',
+                    async ready() {
+                        console.log('********Hello World superblock!');
+                    },
+                    clientRootMixin: path.resolve(__dirname, 'clientRootMixin.js')
+                }
+            }</span></div></div>
+<div class="block-detail">        <span class="detail-desc">.vuepress/vuepress-plugin-super-block/clientRootMixin.js</span><span class="comment"></span><div class="detail-content">            <span>// 可以控制根组件的生命周期
+            export default {
+                created () {
+                    console.log('created');
+                },
+                mounted () {
+                    console.log('mounted')
+                },
+                updated() {
+                    console.log('updated')
+                    document.querySelectorAll('pre').forEach(el =&gt; {
+                        <span class="comment">//el.innerHTML = el.innerHTML.replace(/\{TEMPLATE\{/g, '{TEMPLATE{').replace(/\}TEMPLATE\}/g, '}TEMPLATE}')</span>
+                        <span class="comment">//console.log(document.querySelector('body').innerHTML.match(/\{TEMPLATE\{/));</span>
+                        const arr = el.innerHTML.match(/\{TEMPLATE\{/g)
+                        if (arr) {
+                            console.log(arr);
+                            el.innerHTML = el.innerHTML.replace(/\{TEMPLATE\{/g, '{TEMPLATE{').replace(/\}TEMPLATE\}/g, '}TEMPLATE}')
+                        }
+                    })
+                    const $details = document.querySelectorAll('.detail-desc')
+                    $details.forEach(dom =&gt; {
+                        dom.addEventListener('click', e =&gt; {
+                            let tar = e.currentTarget.parentNode
+                            tar.className = tar.className === 'fold-detail' ? 'fold-detail active' : 'fold-detail'
+                        })
+                    })
+                },
+                <span class="comment">// 生产环境的构建结束后被调用</span>
+                async generated (pagePaths) {
+                    console.log('generated')
+                }
+            }</span></div></div>
 
 
 <span class="h2 bg3 cf"> 聚合与维持 </span>
