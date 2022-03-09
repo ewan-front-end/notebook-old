@@ -288,24 +288,24 @@ notebook/docs/.data/data-create.js ▾{background-color:#6d6;color:#fff} ./compo
             let recordContent = target.prarent ? `<a class="back" href="${target.prarent.path}">上一级</a><a class="back" href="javascript:history.back();">返回</a>` : `<a class="back" href="javascript:history.back();">返回</a>`
 
             writeFile(fullPath + '.md',
-        `---
-        pageClass: theme-item
-        ---
-        <div class="extend-header">
-            <div class="info">
-                <div class="record">
-                    ${recordContent}
-                </div>
-                <div class="mini">
-                    <span>${modifyData}</span>
-                </div>
-            </div>
-            <div class="content">${childrenContent}${linksContent}</div>
+`---
+pageClass: theme-item
+---
+<div class="extend-header">
+    <div class="info">
+        <div class="record">
+            ${recordContent}
         </div>
-        ${contentHeader}
-        <div class="static-content">
-            ${staticContent}
-        </div>`)
+        <div class="mini">
+            <span>${modifyData}</span>
+        </div>
+    </div>
+    <div class="content">${childrenContent}${linksContent}</div>
+</div>
+${contentHeader}
+<div class="static-content">
+\n${staticContent}
+</div>`)
         }↥
     parseCode.js ▾
         ↧/**
@@ -983,7 +983,7 @@ notebook/docs/.data/res-create.js ▾{background-color:#6d6;color:#fff}
                 let child = children[i], title = child.title || child.linkName || i
                 childStr += `- [︳${title}](/${i})\n`
             }
-            content = `---\nsidebar: false\n---\n\n<div class="root-children block-main">\n\n${childStr}\n</div>\n\n## 文档地图\n` + content
+            content = `---\nsidebar: false\n---\n\n<div class="root-children brick-wall">\n\n${childStr}\n</div>\n\n## 文档地图\n` + content
             writeFile(path + '.md', content)
         }↥
 notebook/docs/.data/res-watch.js ▾{background-color:#6d6;color:#fff}
